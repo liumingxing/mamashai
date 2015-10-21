@@ -8,7 +8,7 @@ gem 'paperclip'
 gem 'weibo'
 gem 'rmmseg-cpp'
 #gem 'thinking-sphinx'
-gem 'rmagick'
+gem 'rmagick', '2.13.2'
 gem 'state_machine', '1.2.0'
 gem 'will_paginate', '~> 3.0.5'
 gem "rails_autolink"
