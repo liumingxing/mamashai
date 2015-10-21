@@ -18,7 +18,7 @@ gem "jquery-rails", ">= 0.2.6"
 gem 'ftools'
 gem 'yajl-ruby', :require => "yajl"
 gem 'rpush', '1.0.0'
-gem 'rest-client'
+gem 'rest-client', '1.6.7'
 gem 'hanzi_to_pinyin'
 gem 'memcached'
 gem 'memcache-client'
