@@ -1,0 +1,20 @@
+<div class="sharp">
+	<div class="content2">
+		<h1>设置</h1>
+		<div class="navigate_tab" id="n">
+			<%= render :partial=>'nav' %>
+			<div class="class2">
+				<%= render :partial=>'success_pmt' if params[:success] %>
+				<%= form_tag({:action=>:update_profile},{:id=>"user_settingform_id"}) do %>
+				<%= render :partial=>"form_user"%>
+				<div style="margin: 20px; text-align: center;">
+					<%= submit_tag "保存", :class=>"button2"%>
+				</div>
+				<% end %>
+			</div>
+		</div>
+	</div>
+	<div><img src="/images/sharp_bottom.jpg" />
+	</div>
+</div>
+<div class="clear"></div>

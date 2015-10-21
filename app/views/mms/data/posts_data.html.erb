@@ -1,0 +1,87 @@
+<div id="middle">
+    <div id="css_mainbody">
+        <h1 class="title">微博统计</h1>	
+		<div class="settings_content">
+			<% form_tag({:action=>"cc_report_posts_count"},{:target=>'_blank' }) do %>
+		    <fieldset>
+		        <legend>
+		            微博量统计
+		        </legend>
+		        <%= render :partial=>"posts_count"%>
+		        <input type="submit" value="查询"/>
+		    </fieldset>
+			<% end %>
+		</div>
+		<div class="settings_content">
+			<% form_tag({:action=>"cc_report_user_posts_chart"},{:target=>'_blank' }) do %>
+		    <fieldset>
+		        <legend>
+		            微博走势图
+		        </legend>
+		        <%= render :partial=>"user_posts_chart"%>
+		        <input type="submit" value="查询"/>
+		    </fieldset>
+			<% end %>
+		</div>
+		<div class="settings_content">
+			<% form_tag({:action=>"cc_report_tags_count"},{:target=>'_blank' }) do %>
+		    <fieldset>
+		        <legend>
+		            话题量统计
+		        </legend>
+		        <%= render :partial=>"tags_count"%>
+		        <input type="submit" value="查询"/>
+		    </fieldset>
+			<% end %>
+		</div>
+		
+		<table cellspace=0 border=1 cellpadding=10 style="margin: 10px 0px;">
+				<tr>
+					<td>用户微博数</td>
+					<td>今日</td>
+					<td>7日前</td>
+					<td>30日前</td>
+				</tr>
+				<tr>
+					<td>100+</td>
+					<td><%= Post.find(:all, :group=>"user_id having count(id) >= 100", :select=>"count(0)").size %></td>
+					<td><%= Post.find(:all, :group=>"user_id having count(id) >= 100", :select=>"count(0)", :conditions=>"created_at < '#{Time.new.ago(7.days).to_s(:db)}'").size %></td>
+					<td><%= Post.find(:all, :group=>"user_id having count(id) >= 100", :select=>"count(0)", :conditions=>"created_at < '#{Time.new.ago(30.days).to_s(:db)}'").size %></td>
+				</tr>
+				<tr>
+					<td>20~99</td>
+					<td><%= Post.find(:all, :group=>"user_id having count(id) >= 20 and count(id) <= 99", :select=>"count(0)").size %></td>
+					<td><%= Post.find(:all, :group=>"user_id having count(id) >= 20 and count(id) <= 99", :select=>"count(0)", :conditions=>"created_at < '#{Time.new.ago(7.days).to_s(:db)}'").size %></td>
+					<td><%= Post.find(:all, :group=>"user_id having count(id) >= 20 and count(id) <= 99", :select=>"count(0)", :conditions=>"created_at < '#{Time.new.ago(30.days).to_s(:db)}'").size %></td>
+				</tr>
+				<tr>
+					<td>10~19</td>
+					<td><%= Post.find(:all, :group=>"user_id having count(id) >= 10 and count(id) <= 19", :select=>"count(0)").size %></td>
+					<td><%= Post.find(:all, :group=>"user_id having count(id) >= 10 and count(id) <= 19", :select=>"count(0)", :conditions=>"created_at < '#{Time.new.ago(7.days).to_s(:db)}'").size %></td>
+					<td><%= Post.find(:all, :group=>"user_id having count(id) >= 10 and count(id) <= 19", :select=>"count(0)", :conditions=>"created_at < '#{Time.new.ago(30.days).to_s(:db)}'").size %></td>
+				</tr>
+				<tr>
+					<td>5~9</td>
+					<td><%= Post.find(:all, :group=>"user_id having count(id) >= 5 and count(id) <= 9", :select=>"count(0)").size %></td>
+					<td><%= Post.find(:all, :group=>"user_id having count(id) >= 5 and count(id) <= 9", :select=>"count(0)", :conditions=>"created_at < '#{Time.new.ago(7.days).to_s(:db)}'").size %></td>
+					<td><%= Post.find(:all, :group=>"user_id having count(id) >= 5 and count(id) <= 9", :select=>"count(0)", :conditions=>"created_at < '#{Time.new.ago(30.days).to_s(:db)}'").size %></td>
+				</tr>
+			</table>
+    </div>
+    <div class="clear"></div>
+</div>
+
+<style type="text/css">
+	fieldset {
+		border:1px solid #D1D1D1;
+		color:#333333;
+		line-height:220%;
+		margin:20px;
+		padding:10px;
+	}
+	legend {
+		background:none repeat scroll 0 0 #FFFFFF;
+		color:#666666;
+		font-weight:800;
+	}
+</style>

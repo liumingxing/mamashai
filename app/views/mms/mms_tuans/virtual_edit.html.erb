@@ -1,0 +1,30 @@
+<div id="middle">
+    <div id="css_mainbody">
+        <h1 class="title">妈妈晒团购-虚拟产品管理-产品修改<span style="float: right; margin-right: 10px;"><%= link_to '返回列表', "/mms/mms_tuans/virtual_index/#{@product.tuan_id}" %>
+            </span></h1>
+        <% form_for :virtual_product, @product,:url=>{:action => "virtual_update",:id=>@product.id}  do |f| %>
+        <%=render :partial=>"form_virtual_product",:locals=>{:f=>f} %>
+		<% if @product.tp == 0 %>
+        <fieldset>
+            <legend>
+                券号、密码
+            </legend>
+            <div class="line_item">
+                <span class="title">券号</span>
+                <span class="content"><%= f.text_field :code,:size=>70 %></span>
+            </div>
+            <div class="line_item">
+                <span class="title">密码</span>
+                <span class="content"><%= f.text_field :password,:size=>70 %></span>
+            </div>
+        </fieldset>
+		<% end %>
+        <div class="submit">
+            <span class="left"><input type="submit" name="submit" value="提交"></span><span class="right"><%= link_to '返回', "/mms/mms_tuans/virtual_index/#{@product.tuan_id}" %>
+            </span>
+        </div>
+        <% end %>
+    </div>
+    <div class="clear">
+    </div>
+</div>

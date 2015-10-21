@@ -1,0 +1,15 @@
+<% comment_div do %>
+	<% form_remote_tag :url => {:action => :create_picture_comment, :id =>params[:id]}, :loading => "$('#post_expand_#{params[:id]}').hide()",:complete=>"$('#pictures_comments').prepend(request.responseText);" do %>
+		        	<div class="login_input">
+				    <span class="left"><%= text_area :comment, :content,{:id=>"comment_content_#{params[:id]}"} %>
+				    </span>
+				    <span class="right">
+				        <button class="button_submit_s" type="submit" onmouseover="this.className='button_submit_s button_submit_s_hover';" onmouseout="this.className='button_submit_s';">
+				           评论
+				        </button>
+				    </span>
+				    <div class="clear">
+				    </div>
+				</div>
+				<% end %>
+<% end %>

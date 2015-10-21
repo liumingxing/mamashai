@@ -1,0 +1,7 @@
+<h1>修改豆豆换</h1>
+
+<%= form_tag({:action => 'update', :id => @ddh}, {:multipart=>true, :onsubmit=>"return check_form();"}) do %>
+  <%= render :partial => 'form' %>
+  <%= submit_tag '保存' %> ｜ <%= link_to '返回', :action => 'list' %>
+<% end %>
+

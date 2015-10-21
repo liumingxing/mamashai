@@ -1,0 +1,31 @@
+<div class="layer" id="layer_choose">
+    <div class="layer_title">
+        <span class="title">是否提交?</span>
+        <span class="more"><a href="javascript:void(0);" onclick="hide_box();"><img src="/images/layer/del_06.gif"/></a></span>
+    </div>
+    <div class="layer_content">
+        <div class="choose">
+            您没有选择<a href="javascript:void(0);">[话题]</a>，没有积分哦，是否提交？
+        </div>
+        <div class="choose01">
+            <input class="default_checkbox" id="pmt_ignore_check" name="pmt_ignore_check" value="1" onclick="select_pmt_ignore_tag()" type="checkbox">&nbsp;不再提示我
+        </div>
+        <ul class="layer_botton">
+            <li>
+                <button class="button_submit_s" type="button" onclick="hide_box();" onmouseover="this.className='button_submit_s button_submit_s_hover';" onmouseout="this.className='button_submit_s';">
+                   选择话题
+                </button>
+            </li>
+            <li>
+                <button class="button_submit_s" type="button" onclick="$('#home_post_form').submit();" onmouseover="this.className='button_submit_s button_submit_s_hover';" onmouseout="this.className='button_submit_s';">
+                    提交
+                </button>
+            </li>
+            <div class="clear">
+            </div>
+        </ul>
+    </div>
+</div>
+<script>
+    reset_box(432, 152);
+</script>

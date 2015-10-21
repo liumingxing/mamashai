@@ -1,0 +1,12 @@
+<div id="middle">
+    <div id="css_mainbody">
+    	
+	<h1 class="title">修改标签类别</h1>
+
+	<%= form_tag :action=>"update_type", :id=>params[:id] do%>
+		<%= render :partial=>"type_form"%>
+		<%= submit_tag "保存"%>
+	<% end %>
+
+	</div>
+</div>

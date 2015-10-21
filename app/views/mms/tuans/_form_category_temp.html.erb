@@ -1,0 +1,26 @@
+<tr>
+    <td><%= f.label :name,"分类名称：" %></td>
+    <td>
+    	<%= @tuan_category.name%>
+		<%= f.error_message_on  :name %>
+	</td>
+</tr>
+<tr>
+        <td>
+            <%= f.label :tuan_category_id,"对应妈妈晒导航分类：" %>
+        </td>
+        <td>
+            <%= f.select :tuan_category_id, TuanCategory.all.collect{|tc| [tc.name,tc.id]} %>
+            <%= f.error_message_on :tuan_category_id %>
+        </td>
+    </tr>
+<tr>
+    <td colspan="2">&nbsp;
+	</td>
+</tr>
+<tr>
+    <td colspan="2">
+    	<input type="submit" name="submit" value="提交">
+		<%= link_to '返回', '/mms/tuans'%>
+	</td>
+</tr>

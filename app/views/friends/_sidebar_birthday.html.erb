@@ -1,0 +1,24 @@
+<div id="sidebar">
+	<% if @user.first_kid %>
+	<div class="panel">
+    	<div class="panel_title">
+            <span class="title">与<%=@user.first_kid.name%>同生日的</span> 
+		</div>
+		<div class="panel_content">
+			<% for user in @kid_sames %>
+			    <%=render :partial=>'sidebar/side_user',:locals=>{:user_item=>user, :tp=>"birthday"} %>
+			<% end %>
+		</div>
+	</div>
+	<% end %>
+	<div class="panel">
+    	<div class="panel_title">
+            <span class="title">与我同生日的</span> 
+		</div>
+		<div class="panel_content">
+			<% for user in @me_sames %>
+			    <%=render :partial=>'sidebar/side_user',:locals=>{:user_item=>user, :tp=>"birthday"} %>
+			<% end %>
+		</div>
+	</div>
+</div>

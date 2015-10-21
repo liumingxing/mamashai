@@ -1,0 +1,103 @@
+<div id="middle">
+    <div id="css_mainbody">
+        <h1 class="title">妈妈晒团购-信息管理
+			<span style="float: right; margin-right: 10px;">
+				<% if params[:action]=="index"%>
+					<%= link_to '已结束团购信息', '/mms/tuans/old' %>
+				<% else %>
+					<%= link_to '返回列表', '/mms/tuans/index' %>		
+				<% end %>
+				<%= link_to '添加新的团购信息', '/mms/tuans/new' %>
+        	</span>
+		</h1>
+        <div style="text-align:center;" class="green">
+            <%= flash[:notice] %>
+        </div>
+        <div id="page_count">
+            <span style="float:right;">共有<b class="blue"><%=h @tuans.size %></b>条记录</span>
+        </div>
+        <% form_tag "/mms/tuans/search", {:method => "get"} do %>
+	        <div>
+	            搜索：<%= text_field "search", "title" %><%= submit_tag "查询" %>
+	        </div>
+        <% end %>
+        <div class="clear">
+        </div>
+        <table class="grid">
+            <tr>
+                <th width="5%">
+                    序号
+                </th>
+                <th width="20%">
+                    团购主题
+                </th>
+                <th width="20%">
+                    团购网站
+                </th>
+                <th width="20%">
+                    开始时间
+                </th>
+                <th width="10%">
+                    结束时间
+                </th>
+                <th width="10%">
+                    团购人数
+                </th>
+				<th width="10%">
+                    热购指数
+                </th>
+				<th width="5%">
+                    当前团购
+                </th>
+                <th width="10%">
+                    操作
+                </th>
+            </tr>
+            <% if @tuans.blank? %>
+	            <tr>
+	                <td colspan=9>
+	                    <b>暂无记录</b>
+	                </td>
+	            </tr>
+            <% else %>
+	            <% @tuans.each_with_index do |tuan,index| %>
+		            <tr>
+		                <td>
+		                    <%=(index+1).to_s %>
+		                </td>
+		                <td>
+		                    <%=link_to tuan.title,"/tuan/show/#{tuan.id}",:target=>"_blank"%>
+		                </td>
+		                <td>
+		                    <%=link_to tuan.tuan_website.name,tuan.tuan_website.url,:target=>"_blank" %>
+		                </td>
+		                <td>
+		                    <%= (tuan.begin_time.blank?)? '暂无信息' : tuan.begin_time.strftime("%Y年%m月%d日<br/>%H时%M分%S秒") %>
+		                </td>
+		                <td>
+		                    <%= (tuan.end_time.blank?)? '暂无信息' : tuan.end_time.strftime("%Y年%m月%d日<br/>%H时%M分%S秒") %>
+		                </td>
+		                <td>
+		                    <%= tuan.person_amount.blank? ? '暂无数据' : tuan.person_amount %>
+		                </td>
+						<td>
+		                    <%= tuan.buyers_count.blank? ? '暂无数据' : tuan.buyers_count %>
+		                </td>
+						<td>
+		                    <%= tuan.current_key ? '是' : '否' %>
+		                </td>
+		                <td>
+		                    <%= link_to '修改', "/mms/tuans/mms_tuan_edit/#{h tuan.id}" %>
+		                    <%= link_to '删除', "/mms/tuans/mms_tuan_destroy/#{h tuan.id}", :confirm => '确认删除吗？', :method => :delete %>
+		                </td>
+		            </tr>
+	            <% end %>
+            <%end %>
+        </table>
+        <div class="book_page">
+            <%=will_paginate @tuans %>
+        </div>
+    </div>
+    <div class="clear">
+    </div>
+</div>

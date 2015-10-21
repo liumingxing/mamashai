@@ -1,0 +1,51 @@
+<h1>豆豆换</h1>
+
+<%= form_tag(:action => 'make_taobao_url') do %>
+  长网址：<%= text_field_tag :iid, params[:iid], {:style=>"width:500px"} %> <%= submit_tag '转换' %><br/>
+  短网址：<%= text_field_tag :url, @short_url, {:style=>"width:500px"} %><br/>
+<% end %>
+
+<div style="float: right; line-height: 200%; margin-right: 20px;">
+<%= link_to '添加', :action => 'new' %>
+</div>
+
+<table class="list" border="1" style="width:98%">
+  <tr class="head">
+    <th>logo</th>
+    <th>模式</th>
+    <th>置换晒豆数</th>
+    <th>原价</th>
+    <th width="100px">名字</th>
+    <th width="400px">内容</th>
+    <th>数量</th>
+    <th>开始时间</th>
+    <th>结束时间</th>
+    <th>要求条件</th>
+    <th colspan=4>操作</th>
+  </tr>
+  
+<% for ddh in @ddhs %>
+  <tr>
+    <td><img src="<%=h ddh.logo.thumb50 %>" /></td>
+    <td><%=h ddh.score<=5 ? '试用' : '兑换' %></td>
+    <td><%=h ddh.score %></td>
+    <td><%=h ddh.price %></td>
+    <td><%=h ddh.title %></td>
+    <td><%=h ddh.content %></td>
+    <td><%=h ddh.count %> / <%=h ddh.remain %></td>
+    <td><%=h ddh.begin_at %></td>
+    <td><%=h ddh.end_at %></td>
+    <td><%= ddh.require_level %>/<%= ddh.require_posts_count %>/<%= ddh.require_comments_count %></td>
+    <td><%= link_to '下载申请名单', :action => 'download_csv', :id => ddh %></td>
+    <td><%= link_to ddh.hide ? '显示' : '隐藏', :action => 'hide', :id => ddh, :page=>params[:page] %></td>
+    <td><%= link_to '修改', :action => 'edit', :id => ddh %></td>
+  </tr>
+<% end %>
+</table>
+
+
+<%= will_paginate @ddhs %>
+
+<br />
+
+

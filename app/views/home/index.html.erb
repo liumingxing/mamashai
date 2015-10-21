@@ -1,0 +1,18 @@
+<DIV id='c'>
+	<%= render :partial=>"/share/shai", :locals=>{:back=>'/home'} %>
+	<%= render :partial=>"nav" %>
+	<div id="chanel_content">		
+		<div class="clear"></div>	
+		<% for post in @posts %>
+			<%= render :partial=>"/share/post", :locals=>{:post=>post} %>
+		<% end %>
+		<%= will_paginate @posts %>
+	</div>
+</DIV>
+
+<% if params[:c] %>
+<script>
+	$("#post_content").focus();
+	setTimeout('$("#post_content").focus();', 2000)
+</script>
+<% end %>

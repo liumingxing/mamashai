@@ -1,0 +1,13 @@
+<div id="middle">
+    <div id="css_mainbody">
+        <h1 class="title">修改视频
+		</h1>
+        <table class="grid">
+    	<%= form_tag({:action=>"update_resource", :id=>params[:id]}, :multipart => true) do %>
+        	<%= render :partial=>"resource_form"%>
+		<% end %>
+		</table>
+    </div>
+    <div class="clear">
+    </div>
+</div>

@@ -1,0 +1,55 @@
+
+<table class="ft" border="1">
+<!--[form:product]-->
+
+<tr>
+	<td>商品名称</td>
+	<td><%= text_field 'product', 'name', :style=>"width: 500px"  %></td>
+</tr>
+
+<tr>
+	<td>Logo</td>
+	<td>
+		<%= text_field 'product', 'pic_url', :style=>"width: 500px"  %>
+	</td>
+</tr>
+
+<tr>
+	<td>价格</td>
+	<td><%= text_field 'product', 'price'  %></td>
+</tr>
+
+<tr>
+	<td>网址</td>
+	<td><%= text_field 'product', 'url'  %></td>
+</tr>
+
+<tr>
+  <td>分类</td>
+  <td>
+    <% ids = @product.tao_age_ids %>
+    <% for age in TaoAge.all(:conditions=>"tp=1") %>
+      <%= check_box_tag 'product[tao_age_ids][]', age.id, ids.include?(age.id) %><%= age.desc %>
+    <% end %>
+  </td>
+</tr>
+
+
+<!--[eoform:product]-->
+
+</table>
+
+<script>
+	function select_all() {
+	    jQuery("table input[type=checkbox]").each(function(){
+	      jQuery(this).attr("checked", true);
+	    })
+	    return false;
+	}
+	function unselect_all() {
+	    jQuery("table input[type=checkbox]").each(function(){
+	      jQuery(this).attr("checked", false);
+	    })
+	    return false;
+	}
+</script>

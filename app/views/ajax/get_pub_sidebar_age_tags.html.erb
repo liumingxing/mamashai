@@ -1,0 +1,10 @@
+<% if @tags.present? %>
+<ul id="pub_age_tags" class="heat_sun">
+    <% for tag in @tags %>
+    <li<%=' class="current"' if tag.id.to_s == params[:tag_id] %>>
+        ·
+        <a href="/pub/posts?tag_id=<%=tag.id%>&age_id=<%=@age.id%>"><%=tag.name %></a>
+    </li>
+    <% end %>
+</ul>
+<% end %>

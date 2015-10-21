@@ -1,0 +1,25 @@
+<div class="layer" id="layer_custom">
+    <div class="layer_title">
+        <span class="title">定制妈妈晒主页</span>
+        <span class="more"><a href="javascript:void(0);" onclick="hide_box();"><img src="/images/layer/del_06.gif"></a></span>
+    </div>
+    <div class="layer_content">
+		<% form_tag :action=>:update_link_categories,:controller=>:about do %>
+        <ul class="custom_list">
+        	<% LinkCategory.find(:all,:conditions=>['id > 3']).each do |link_category| %>
+            <li>
+                <%=check_box :link_category_ids, link_category.id,  {:class => "default_checkbox" ,:checked => (@user.link_category_ids && @user.link_category_ids.split(',').include?(link_category.id.to_s))} %>&nbsp;我的<%=link_category.name%>
+            </li>
+            <% end %>
+        </ul>
+        <div class="button01">
+            <button class="button_submit_s" type="submit" onmouseover="this.className='button_submit_s button_submit_s_hover';" onmouseout="this.className='button_submit_s';">
+                确定
+            </button>
+        </div>
+		<% end %>
+    </div>
+</div>
+<script>
+    reset_box(432, 162);
+</script>

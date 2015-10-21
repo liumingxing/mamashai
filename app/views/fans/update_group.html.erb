@@ -1,0 +1,8 @@
+
+<script>
+    hide_box();
+	<% if @group %>
+	$('#group_<%=@fans.id %>').get(0).innerHTML = '(<a href="/users/<%=@user.id%>/fans/group_by_group?group=<%=@group.id%>"><%=@group.name%></a>)';
+	$('#button_group__<%=@fans.id%>').get(0).innerHTML = '修改分组';
+	<% end %>
+</script>

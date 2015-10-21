@@ -1,0 +1,56 @@
+<table class="grid">
+    <tr>
+        <td width="25%">
+            备选话题
+        </td>
+        <td>
+        	<%=text_field :baby_plan,:tags %>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            选中话题
+        </td>
+        <td>
+        	<%=text_field :baby_plan,:tag %>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            选中用户
+        </td>
+        <td>
+            <%=text_field :baby_plan,:user_name %>
+        </td>
+    </tr>
+	<tr>
+        <td>
+            征集开始时间
+        </td>
+        <td>
+        	 <%=date_select :baby_plan,:begin_at,:use_month_numbers => true %>
+			 
+        </td>
+    </tr>
+	<tr>
+        <td>
+            征集结束时间
+        </td>
+        <td>
+        	<%=date_select :baby_plan,:end_at,:use_month_numbers => true %>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            播出时间
+        </td>
+        <td>
+        	<%=datetime_select :baby_plan,:start_at,:use_month_numbers => true %>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2">
+            <input type="submit" name="submit" value="提交">
+        </td>
+    </tr>
+</table>

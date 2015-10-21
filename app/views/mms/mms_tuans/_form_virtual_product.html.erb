@@ -1,0 +1,117 @@
+<fieldset>
+    <legend>
+        商品信息
+    </legend>
+    <div class="line_item">
+        <span class="title">商品名称<span class="red">*</span></span>
+        <span class="content"><%= f.text_field :name,:required=>"reuqired"%><%= f.error_message_on :name %></span>
+    </div>
+    <div class="line_item">
+        <span class="title">商品描述</span>
+        <span class="content"><%= f.text_field :info,:size=>70%><%= f.error_message_on :info %></span>
+    </div>
+    <div class="line_item">
+        <span class="title">消费地点<span class="red">*</span></span>
+        <span class="content"><%= f.text_field :address,:size=>70,:required=>"reuqired" %><%= f.error_message_on :address %></span>
+    </div>
+</fieldset>
+<fieldset>
+    <legend>
+        商家信息
+    </legend>
+    <div class="line_item">
+        <span class="title">商家名称<span class="red">*</span></span>
+        <span class="content"><%= f.text_field :shop,:required=>"reuqired" %><%= f.error_message_on :shop %></span>
+    </div>
+    <div class="line_item">
+        <span class="title">商家简介</span>
+        <span class="content"><%= f.text_field :shop_info,:size=>70 %><%= f.error_message_on :shop_info %></span>
+    </div>
+    <div class="line_item">
+        <span class="title">商家电话<span class="red">*</span></span>
+        <span class="content"><%= f.text_field :shop_phone,:size=>70,:required=>"reuqired" %><%= f.error_message_on :shop_phone %></span>
+    </div>
+</fieldset>
+<fieldset>
+    <legend>
+        参数设置
+    </legend>
+    <div class="line_item">
+        <span class="title red">共用人数<span class="red">***</span></span>
+        <span class="content">
+        	<% if @product.tp == 0%>
+        	<%= f.text_field :person_amount,:required=>"required" %>
+			<% else %>
+			<%= f.text_field :person_amount,:required=>"required",:readonly=>true%>
+			<% end %>
+			(输入<b class="red">1</b>表示<span class="red">一张优惠券只能供1人使用</span>,输入<b class="red">0</b>则表示<span class="red">所有人共用一张优惠券</span>)<%= f.error_message_on :person_amount %></span>
+    </div>
+    <div class="line_item">
+        <span class="title">启用时间标准<span class="red">*</span></span>
+        <span class="content"><%=radio_button_tag "begin_type",true,true %>用户购买即时生效<%=radio_button_tag "begin_type",false %>人工指定启用时间</span>
+    </div>
+    <div class="line_item" id="line_item_begin_time">
+        <span class="title">指定启用时间</span>
+        <span class="content"><%= f.text_field :begin_time %><%= f.error_message_on :begin_time %>
+        </span>
+    </div>
+    <div class="line_item">
+        <span class="title">过期时间标准<span class="red">*</span></span>
+        <span class="content"><%=radio_button_tag "end_type",true,true %>启用时间+有效期<%=radio_button_tag "end_type",false %>人工指定过期时间</span>
+    </div>
+    <div class="line_item" id="line_item_limit_time">
+        <span class="title">有效期</span>
+        <span class="content"><%= f.text_field :limit_time,:size=>15%>天<%= f.error_message_on :limit_time %></span>
+    </div>
+    <div class="line_item" id="line_item_end_time">
+        <span class="title">过期时间</span>
+        <span class="content"><%= f.text_field :end_time %><%= f.error_message_on :end_time %>
+        </span>
+    </div>
+</fieldset>
+<%=f.hidden_field :tuan_id%>
+<style type="text/css">
+    fieldset {
+        border: 1px solid #D1D1D1;
+        color: #333333;
+        line-height: 220%;
+        margin: 20px;
+        padding: 10px;
+    }
+    
+    legend {
+        background: none repeat scroll 0 0 #FFFFFF;
+        color: #666666;
+        font-weight: 800;
+    }
+    
+    fieldset div.line_item {
+        height: 30px;
+        display: block;
+        width: 100%;
+    }
+    
+    .line_item .title {
+        margin-left: 30px;
+        font-weight: bolder;
+        width: 150px;
+        float: left;
+    }
+    
+    .line_item .content {
+        float: left;
+    }
+    
+    div.submit {
+        margin: 20px;
+        text-align: center;
+    }
+    
+    div.submit span {
+        margin: 0 20px;
+    }
+    
+    #line_item_end_time,#line_item_begin_time {
+        display: none;
+    }
+</style>

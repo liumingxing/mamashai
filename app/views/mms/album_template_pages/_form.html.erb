@@ -1,0 +1,32 @@
+<%= error_messages_for 'album_template_page' %>
+
+<table class="ft" border="1">
+<!--[form:album_template_page]-->
+<tr>
+	<td>主题</td>
+	<td><%= select 'album_template_page', 'album_template_id', AlbumTemplate.find(:all, :order=>"id").collect{|album| [album.name, album.id]}  %></td>
+</tr>
+
+<tr>
+	<td>手机图片</td>
+	<td><%= upload_column_field 'album_template_page', 'logo_phone'  %></td>
+</tr>
+
+<tr>
+	<td>打印图片</td>
+	<td><%= upload_column_field 'album_template_page', 'logo_print'  %></td>
+</tr>
+
+<tr>
+	<td>Json</td>
+	<td><%= text_area 'album_template_page', 'json'  %></td>
+</tr>
+
+<tr>
+	<td>状态</td>
+	<td><%= text_field 'album_template_page', 'status'  %></td>
+</tr>
+
+<!--[eoform:album_template_page]-->
+
+</table>

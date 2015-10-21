@@ -1,0 +1,72 @@
+<div id="middle">
+    <div id="css_mainbody">
+        <h1 class="title">专栏作家报名列表<%= "--#{flash[:notice]}" unless flash[:notice].blank? %><span style="float: right; margin-right: 10px;"></span></h1>
+        <br/>
+        <% form_tag :action => :find do %>
+        <table>
+            <tbody>
+                <tr>
+                    <td width="10%" align="right">搜索：</td>
+                    <td width="20%"><%= text_field :search, :title -%></td>
+                    <td width="10%"><%= button_to "搜索", :action => :find %></td>
+                    <td></td>
+                </tr>
+            </tbody>
+        </table>
+        <% end %>
+        <table style="border:none;margin:0 15px;">
+          <tr><td><span id="show_all" style="color:#FF6699;cursor:pointer" onclick="$('.show_plan_describe').show();$('#hide_all').show();$('#show_all').hide()"><strong>[+]</strong>全部展开</span> <span id="hide_all" style="display:none;color:#FF6699;cursor:pointer" onclick="$('.show_plan_describe').hide();$('#show_all').show();$('#hide_all').hide()"><strong>[--]</strong>全部收起</span></td></tr>
+        </table>
+        <table class="grid">
+            <tbody>
+                <tr>
+                    <th>序号</th>
+                    <th>用户名</th>
+                    <th>真实姓名</th>
+                    <th>性别</th>
+                    <th>专栏作者</th>
+                    <th>证件类型</th>
+                    <th>证件号码</th>
+                    <th>移动电话</th>
+                    <th>Email</th>
+                    <th>专栏计划</th>
+                    <th>代表作品</th>
+                    <th>申请日期</th>
+                    <th colspan="2">操作</th>
+                </tr>
+                <% @column_author_applys.each_with_index do | author_apply, index | %>
+                <% author = ColumnAuthor.find_by_user_id(author_apply.user_id)%>
+                <tr>
+                    <td><%= index + 1%></td>
+                    <td><%= User.find_by_id(author_apply.user_id).name%></td>
+                    <td><%= author_apply.real_name%></td>
+                    <td><%= author_apply.show_gender%></td>
+                    <td><%= author ? "<font style='color:#FF0000'>是</font>" : "否"%></td>
+                    <td><%= author_apply.identity_type%></td>
+                    <td><%= author_apply.identity_id%></td>
+                    <td><%= author_apply.mobile%></td>
+                    <td><%= author_apply.email%></td>
+                    <td style="text-align:left"><%= truncate(author_apply.plan_describe,10)%><a href="javascript:void(0);" style="float:right;margin-right:5px;color:#FF6699;" onclick="$('#show_plan_describe_<%= author_apply.id%>').toggle();">更多</a></td>
+                    <td><a href="<%= author_apply.logo %>" target="_blank">查看专栏作品</a></td>
+                    <td><%= date_time(author_apply.created_at)%></td>
+
+                    <td>
+                      <%=
+                        if author
+                           '已授权'
+                        else
+                          link_to '授权', {:action => :create_column_author, :user_id => author_apply.user_id}, {:style => "color:#329BCB;", :title=>"设置为专栏作者"}
+                        end
+                      %>
+                    </td>
+                    <td><%= link_to '删除', {:action => :destroy, :id => author_apply}, {:confirm => "您确定删除吗？", :method => :delete, :style => "color:#329BCB;"} %></td>
+                </tr>
+                <tr class="show_plan_describe" id="show_plan_describe_<%= author_apply.id%>" style="display:none"><td colspan="16" style="text-align:left"><a href="javascript:void(0)" style="margin:0 5px;color:#FF6699;" onclick="$('#show_plan_describe_<%= author_apply.id%>').hide();">收起</a>专栏计划：<%= author_apply.plan_describe%></td></tr>
+                <% end %>
+            </tbody>
+        </table>
+        <div class="book_page">
+            <%=will_paginate @column_author_applys %>
+        </div>
+    </div>
+</div>

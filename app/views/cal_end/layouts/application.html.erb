@@ -1,0 +1,24 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+       "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+  <title>后台管理</title>
+  <%= stylesheet_link_tag 'scaffold' %>
+  <script src="/javascripts/jquery-1.4.2.min.js" type="text/javascript"></script>
+</head>
+<body>
+<div style="text-align: right; margin: 20px;">
+	<%= link_to "孕期知识管理", :controller=>"weeks", :action=>"list" %> ｜
+	<%= link_to "0-3岁宝宝成长监测", :controller=>"fayus", :action=>"list" %> ｜
+	<%= link_to "3-6岁宝宝成长监测", :controller=>"chengzhangs", :action=>"list" %> ｜
+	<%= link_to "Tip管理", :controller=>"tips", :action=>"list" %> ｜
+	<%= link_to "下载数据库", {:controller=>"tips", :action=>"download"}, {:onclick=>"if (prompt('娜娜老公姓什么?') != '申') {alert('混蛋，给我滚一边去'); return false;}"} %>
+</div>
+<p style="color: green; text-align: center;"><%= flash[:notice] %></p>
+
+<%= yield  %>
+
+</body>
+</html>

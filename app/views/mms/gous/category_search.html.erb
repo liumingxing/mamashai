@@ -1,0 +1,71 @@
+<div id="middle">
+    <div id="css_mainbody">
+        <h1 class="title">导购平台-商品分类查询<span style="float: right; margin-right: 10px;"><%= link_to '返回商品分类首页', '/mms/gous/category_index' %> | <%= link_to '添加分类', '/mms/gous/category_new' %>
+            </span></h1>
+        <% form_tag "/mms/gous/category_search", {:method => "get"} do %>
+        <div>
+            搜索：<%= text_field_tag "keyword",@keyword %><%= submit_tag "查询" %>
+        </div>
+        <% end %>
+        <table class="grid">
+            <tr>
+                <th width="5%">
+                    序号
+                </th>
+                <th width="10%">
+                    名称
+                </th>
+                <th width="10%">
+                    上级分类
+                </th>
+                <th width="5%">
+                    商品数目
+                </th>
+                <th width="10%">
+                匹配分类
+                <th width="5%">
+                    是否发布
+                </th>
+                <th width="10%">
+                    操作
+                </th>
+            </tr>
+            <% @categories.each_with_index do |category,index| %>
+            <tr>
+                <td>
+                    <%=(index+1).to_s %>
+                </td>
+                <td>
+                    <%=category.name %>
+                </td>
+                <td>
+                    <%=category.parent.blank? ? '无' : category.parent.name %>
+                </td>
+                <td>
+                    <%=category.gous_count||0 %>
+                </td>
+                <td>
+                    <%= category.brand_item %>
+                </td>
+                <td>
+                    <% if category.state == "publish" %>
+                    <img src="/images/icons/icons_01.png" alt="/images/icons/icons_01.png"><% else %>
+                    <img src="/images/icons/icon_25.gif" alt="/images/icons/icon_25.gif"><% end %>
+                </td>
+                <td>
+                    <%= link_to '修改', "/mms/gous/category_edit/#{h category.id}", {:style => "color:#329BCB;", :target => "_blank"} %>
+                    <%= link_to '删除', "/mms/gous/category_destroy/#{h category.id}", {:confirm => '确认删除吗？', :method => :delete, :style => "color:#329BCB;"} %>
+                    <% if category.state == "publish" %>
+                    <%= link_to '取消发布', {:action => 'category_unpublish', :id => category.id}, {:style => "color:#329BCB;"} %>
+                    <% else %>
+                    <%= link_to '发布', {:action => 'category_publish', :id => category.id}, {:style => "color:#329BCB;"} %>
+                    <% end %>
+                </td>
+            </tr>
+            <% end %>
+        </table>
+		<%= will_paginate @categories %>
+    </div>
+    <div class="clear">
+    </div>
+</div>

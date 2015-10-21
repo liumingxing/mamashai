@@ -1,0 +1,27 @@
+<%= error_messages_for 'apple_good' %>
+
+<table class="ft" border="1">
+<!--[form:bse_apply]-->
+<tr>
+	<td>标题</td>
+	<td><%= text_field 'apple_good', 'title'  %></td>
+</tr>
+
+<tr>
+	<td>作者</td>
+	<td><%= text_field 'apple_good', 'name'  %></td>
+</tr>
+
+<tr>
+	<td>评论时间</td>
+	<td><%= date_select 'apple_good', 'occur', :use_month_numbers => true  %></td>
+</tr>
+
+<tr>
+	<td>内容</td>
+	<td><%= text_area 'apple_good', 'content'  %></td>
+</tr>
+
+<!--[eoform:bse_apply]-->
+
+</table>

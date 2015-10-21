@@ -1,0 +1,9 @@
+<h1>批量导入</h1>
+
+<%= form_tag :action => 'batch_update_kd'  do %>
+  <p>请粘贴订单号和快递单号</p>
+  <%= text_area_tag :text, '', :rows=>20, :cols=>100 %>
+  <div></div>
+  <%= submit_tag '保存' %> ｜ <%= link_to '返回', :action => 'list' %>
+<% end %>
+

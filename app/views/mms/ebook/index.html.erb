@@ -1,0 +1,29 @@
+<div id="middle">
+    <div id="css_mainbody">
+        <h1 class="title">
+        	电子书列表<%= "--#{flash[:notice]}" unless flash[:notice].blank? %>
+			<span style="float: right; margin-right: 10px;">
+				<%= link_to '新增电子书', :action => :new %>
+			</span>
+        </h1>
+        <br/>
+        <% form_tag({:action => :find}, {:update => "div_search_result", :remote=>true}) do %>
+        <table>
+            <tbody>
+                <tr>
+                    <td width="10%" align="right">电子书搜索：</td>
+                    <td width="20%"><%= text_field :search, :title -%></td>
+                    <td width="10%"><%= button_to "搜索", :action => :find %></td>
+                    <td></td>
+                </tr>
+            </tbody>
+        </table>
+        <% end %>
+        <div id="div_search_result">
+        	<%= render :partial => "search_result" %>
+        </div>
+		<div class="book_page">
+		    <%=will_paginate @ebooks %>
+		</div>
+    </div>
+</div>

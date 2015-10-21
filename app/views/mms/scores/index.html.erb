@@ -1,0 +1,65 @@
+<div id="middle">
+    <div id="css_mainbody">
+        <h1 class="title">用户积分管理<span style="float: right; margin-right: 10px;"><%= link_to '查看用户积分', :action => :show %>
+            </span></h1>
+        <div style="text-align:center;" class="green">
+            <%= flash[:notice] %>
+        </div>
+        <div class="clear">
+        </div>
+		<% form_tag :action => "create_score_event" do %>
+        <table class="grid_order" border="1">
+        	<tr>
+                <th>
+                	增加用户积分：
+                </th>
+                <th>
+                	
+                </th>
+            </tr>
+            <tr>
+            	<td class="td01">
+            		Email：
+            	</td>
+            	<td>
+            		<%= text_field_tag :user_email, {}, {:size => 40, :required => 'required'} %>
+            	</td>
+            </tr>
+			<tr>
+            	<td class="td01">
+            		用户名：
+            	</td>
+            	<td>
+            		<%= text_field_tag :user_name, {}, {:size => 40, :required => 'required'} %>
+            	</td>
+            </tr>
+			<tr>
+            	<td class="td01">
+            		积分规则：
+            	</td>
+            	<td>
+            		<%= select :score_profile, :score, ::ScoreProfile.all.map{|score_profile| ["#{score_profile.description} --- 加#{score_profile.score}分", score_profile.id]},{}, {:required => 'required'} %>
+            	</td>
+            </tr>
+			<tr>
+            	<td class="td01">
+            		
+            	</td>
+            	<td>
+            		
+            	</td>
+            </tr>
+			<tr>
+            	<td class="td01">
+            		
+            	</td>
+            	<td>
+            		<%= submit_tag "保存", :confirm => '确定要增加积分吗？'%>
+            	</td>
+            </tr>
+        </table>
+		<% end %>
+    </div>
+    <div class="clear">
+    </div>
+</div>

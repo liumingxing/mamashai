@@ -1,0 +1,47 @@
+
+<table class="ft" border="1">
+<!--[form:tao_topic]-->
+
+<tr>
+	<td>Logo</td>
+	<td><%= upload_column_field 'tao_topic', 'logo'  %>
+		<%= error_message_on 'tao_topic', 'logo' %>
+	</td>
+</tr>
+
+<tr>
+	<td>详细描述</td>
+	<td>
+		<%= text_area 'tao_topic', 'desc', :rows=>10  %>
+		<%= error_message_on 'tao_topic', 'desc' %>
+	</td>
+</tr>
+
+<tr>
+	<td>关联话题</td>
+	<td><%= text_field 'tao_topic', 'title'  %> 
+		<%= error_message_on 'tao_topic', 'title' %>
+	</td>
+</tr>
+
+<tr>
+	<td>关联类目</td>
+	<td><%= text_field 'tao_topic', 'tao_ids'  %> 
+	</td>
+</tr>
+
+<tr>
+	<td>状态</td>
+	<td>
+		<%= select "tao_topic", 'status', [['上线', 'online'], ['下线', 'offline']] %>
+	</td>
+</tr>
+
+<tr>
+	<td>创建日期</td>
+	<td><%= date_select 'tao_topic', 'created_at', :use_month_numbers=>true  %></td>
+</tr>
+
+<!--[eoform:tao_topic]-->
+
+</table>

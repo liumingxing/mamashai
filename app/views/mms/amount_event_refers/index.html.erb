@@ -1,0 +1,57 @@
+<div id="middle">
+    <div id="css_mainbody">
+        <h1 class="title">活动点击率及来源统计管理<%= "--#{flash[:notice]}" unless flash[:notice].blank? %></h1>
+		<% form_tag :action => :find do %>
+		<%= submit_tag ' 统 计 '%>
+		<% end %>
+        <table class="grid">
+            <tbody>
+                <tr>
+                    <th width="20%">
+                        活动名称
+                    </th>
+                    <th width="20%">
+                        Url
+                    </th>
+                    <th width="10%">
+                        开始时间
+                    </th>
+                    <th width="10%">
+                        结束时间
+                    </th>
+                    <th width="10%">
+                        点击总次数
+                    </th>
+					<th width="10%">
+                        查看详细
+                    </th>
+                </tr>
+                <% for event in @events %>
+                <tr>
+                    <td>
+                        <%= h event.event_name %>
+                    </td>
+                    <td>
+                        <%= h event.url %>
+                    </td>
+					<td>
+                    	<%= h event.begin_time.strftime("%y-%m-%d %H:%M:%S") %>
+                    </td>
+					<td>
+                    	<%= h event.end_time.strftime("%y-%m-%d %H:%M:%S") %>
+                    </td>
+                    <td>
+                        <%= h event.amount %>
+                    </td>
+					<td>
+                        <%= link_to '查看', :action => :show, :id => event %>
+                    </td>
+                </tr>
+                <% end %>
+            </tbody>
+        </table>
+        <div class="book_page">
+            <%=will_paginate @events %>
+        </div>
+    </div>
+</div>

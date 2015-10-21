@@ -1,0 +1,39 @@
+<div style="width:500px" id="update_votepost_<%= vote.id%>">
+<div class="comments" id="vpostdetail_<%= vote.id %>" >
+
+    <div class="comments_bg2">
+        <p class="vote_operate">
+			<span>发起人:<a href="/user/<%=vote.user.encrypt_user_id%>"><%= vote.user.name %></a></span>
+        </p>
+		<div class="vote_detail">
+			<p class="vote_title"><%= vote.title%></p>
+			<p class="vote_mode"><%= vote.mode_str%></p>
+			<% if vote.desc && vote.desc.size > 0%>
+				<p class="vote_desc"><%= vote.desc%></p>
+			<% end %>
+			  <% form_remote_tag :update=>"update_votepost_#{vote.id}", :url=>{:controller=>"ajax", :action=>"make_a_vote", :go_back=>"topic", :vote_id=>vote.id}, :success=>"$('#vpostdetail_#{vote.id}').show('slow');", :html=>{:onsubmit=>"var l = $('#vpostdetail_#{vote.id} input[name=\"option[]\"]:checked').length; if (l == 0) { alert('请选择至少一项'); return false;} if (l > #{vote.tp}) {alert('您选择的项过多');return false;}",} do%>
+				<table class="vote_option" width="100%">
+				<% vote.options.split("&*").each_with_index{ |option, index|%>
+					<tr>
+						<td width="200px"><%= option %></td>
+						<td width="150px" class="vote_out">
+							<div class="vote_option<%= index % 5%>" style="width:<%=vote.percent(option)%>%"></div>
+						</td>
+						<td>
+							<%= vote.count(option)%> (<%= vote.percent(option) %>%)
+						</td>
+						<td><%= check_box_tag "option[]", option %></td></tr>
+				<% } %>
+				<tr><td colspan=4 align="center">
+					<% if vote.voted?(@user.id)%>
+						<%= submit_tag "已投票", :class=>"button_disable", :disabled=>"disabled"%>
+					<% else %>
+						<%= submit_tag "投票", :id=>"submit_button", :class=>"button_submit_s", :onmouseover=>"this.className='button_submit_s button_submit_s_hover';", :onmouseout=>"this.className='button_submit_s';"%>
+					<% end %>
+				</td></tr>
+				</table>
+			  <% end %>
+		</div>
+    </div>
+  </div>
+</div>

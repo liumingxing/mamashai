@@ -1,0 +1,67 @@
+<div id="middle">
+    <div id="css_mainbody">
+        <h1 class="title">资讯栏目列表<%= "--#{flash[:notice]}" unless flash[:notice].blank? %><span style="float: right; margin-right: 10px;"><%= link_to '新建资讯栏目', :action => :category_new %></span></h1>
+        <table class="grid">
+            <tbody>
+                <tr>
+                    <th>
+                        栏目名称
+                    </th>
+                    <th>
+                        栏目描述
+                    </th>
+                    <th>
+                        查看
+                    </th>
+                    <th>
+                        编辑
+                    </th>
+                    <th>
+                        删除
+                    </th>
+                </tr>
+                <% for article_category in @article_categories %>
+                <tr>
+                    <td width="15%" style="text-align: left;">
+                        <%=h article_category.name %>
+                    </td>
+                    <td width="60%">
+                        <%=h article_category.description %>
+                    </td>
+                    <td width="8%">
+                        <%= link_to '查看', {:action => :category_show, :id => article_category}, :style => "color:#006699;" %>
+                    </td>
+                    <td width="8%">
+                        <%= link_to '编辑', {:action => :category_edit, :id => article_category}, :style => "color:#006699;" %>
+                    </td>
+                    <td>
+                        <%= link_to '删除', {:action => :category_destroy, :id => article_category}, :style => "color:#006699;" %>
+                    </td>
+                </tr>
+					<% for article_category in article_category.children%>
+					<tr>
+	                    <td width="15%" style="text-align: left;">
+	                        &nbsp;&nbsp;+ <%=h article_category.name %>
+	                    </td>
+	                    <td width="60%">
+	                        <%=h article_category.description %>
+	                    </td>
+	                    <td width="8%">
+	                        <%= link_to '查看', {:action => :category_show, :id => article_category}, :style => "color:#006699;" %>
+	                    </td>
+	                    <td width="8%">
+	                        <%= link_to '编辑', {:action => :category_edit, :id => article_category}, :style => "color:#006699;" %>
+	                    </td>
+	                    <td>
+	                        <%= link_to '删除', {:action => :category_destroy, :id => article_category}, :style => "color:#006699;" %>
+	                    </td>
+	                </tr>
+					<% end %>
+                <% end %>
+            </tbody>
+        </table>
+        <div class="book_page">
+			<%=will_paginate @article_categories %>
+		</div>
+    </div>
+</div>

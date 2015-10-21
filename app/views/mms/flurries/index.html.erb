@@ -1,0 +1,43 @@
+<div style="margin: 10px; font-size: 15px;">
+	<%= link_to_if params[:tp] == "2", "苹果", :tp=>"1" %> |
+    <%= link_to_if params[:tp] != "2", "安卓", :tp=>"2" %>
+</div>
+
+<div style="float: right; line-height: 200%; margin-right: 20px;">
+<%= link_to '添加', :action => 'new', :tp=>params[:tp] || 1 %>
+</div>
+
+<table class="list" border="1" style="width:98%">
+  <tr class="head">
+    <th>日期</th>
+    <th>总激活下载用户</th>
+    <th>当天新增用户</th>
+    <th>当天活跃用户</th>
+    <th>当天运行数</th>
+    <th>当天人均运行数</th>
+    <th>当天人均在线时长</th>
+    <th>次日留存率</th>
+    <th>操作</th>
+  </tr>
+  
+<% for tongji in @tongjis %>
+  <tr>
+  	<td><%=h tongji.day %></td>
+    <td align='right'><%=h tongji.a1 %></td>
+    <td align='right'><%=h tongji.a2 %></td>
+    <td align='right'><%=h tongji.a3 %></td>
+    <td align='right'><%=h tongji.a4 %></td>
+    <td align='right'><%=h tongji.a5 %></td>
+    <td align='right'><%=h tongji.a6 %></td>
+    <td align='right'><%=h tongji.a7 %></td>
+    <td><%= link_to '修改', :action=>"edit", :id=>tongji %></td>
+  </tr>
+<% end %>
+</table>
+
+
+<%= will_paginate @tongjis %>
+
+<br />
+
+

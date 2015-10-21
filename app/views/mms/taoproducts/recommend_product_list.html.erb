@@ -1,0 +1,141 @@
+<div align="right"><button onclick="flush_cache()">发布</button></div>
+<div>
+  <select name="category" onchange="window.location='/mms/taobaoproducts/recommend_product_list?category_id=' + this.value;">
+    <% @categories.each do |c| %>
+      <option <%= "selected" if params[:category_id].to_i == c.id %> value="<%= c.id %>"><%= c.name %></option>
+    <% end %>
+  </select>
+</div>
+<table cellpadding="0" cellspacing="0" border="1" width="100%">
+  <tr>
+    <td>商品名称</td>
+    <td></td>
+    <td></td>
+    <td>居中</td>
+    <td></td>
+  </tr>
+  <% @products.each do |p| %>
+    <tr>
+      <td><%= p.name %></td>
+      <td><img src="<%= p.pic_url %>_310x310.jpg"/></td>
+      <td>
+        <button onclick="cancle_recommend_index('<%= p.id %>')">取消推荐</button>
+      </td>
+      <td>
+        <%= "居中大图"  if @re_hash[p.id] and @re_hash[p.id].first.queue == 1 %>
+      </td>
+      <td>
+        <% if @re_hash[p.id] and @re_hash[p.id].first.queue == 1 %>
+          <button onclick="cancle_middle('<%= p.id %>')">取消居中</button>
+        <% else %>
+          <button onclick="set_middle('<%= p.id %>')">设为居中</button>
+        <% end %>
+      </td>
+    </tr>
+  <% end %>
+</table>
+<br/>
+<br/>
+<br/>
+<br/>
+<div id="categories" width="900">
+  <% ids = @recommend_categories.map(&:category_id) %>
+  <% @leafs.each do |l| %>
+    <span style="white-space: nowrap;"><input name="category_id" value="<%= l.id %>" type="checkbox" <%= "checked" if ids.include?(l.id) %> /><%= l.name %> </span>&nbsp;
+    <% end %>
+</div>
+<div style="clear: both"><button onclick="recommend_category()">推荐类目</button></div>
+<script type="text/javascript">
+  function flush_cache() {
+    if(confirm("确定要发布吗？")) {
+      jQuery.ajax({
+        url: "/mms/taobaoproducts/flush_cache",
+        type: "post",
+        success: function(res) {
+          alert(res);
+          //window.location = window.location.href;
+        },
+        error: function() {
+          alert("服务器错误，请联系管理员");
+        }
+      })
+    }
+  }
+
+  function cancle_recommend_index(id) {
+    if(confirm("确定要取消推荐该商品吗？")) {
+      jQuery.ajax({
+        url: "/mms/taobaoproducts/cancle_recommend_index",
+        type: "post",
+        data: {"id" : id},
+        success: function(res) {
+          alert(res);
+          window.location = window.location.href;
+        },
+        error: function() {
+          alert("服务器错误，请联系管理员");
+        }
+      })
+    }
+  }
+
+  function recommend_category() {
+    if(confirm("确定要推荐这些类目吗？")) {
+      var ids = "";
+      var current;
+      jQuery("#categories input").each(function(){
+        current = jQuery(this);
+        if(current.attr("checked") != undefined) {
+          ids += current.val() + ","
+        }
+      })
+      if(ids == ""){ alert("请选择要推荐的类目"); return;}
+      jQuery.ajax({
+        url: "/mms/taobaoproducts/recommend_category",
+        type: "post",
+        data: {"ids" : ids, "category_id" : "<%= params[:category_id] %>"},
+        success: function(res) {
+          alert(res);
+          window.location = window.location.href;
+        },
+        error: function() {
+          alert("服务器错误，请联系管理员");
+        }
+      })
+    }
+  }
+
+  function set_middle(id, category_id) {
+    if(confirm("确定要设置该商品居中大图显示吗？")) {
+      jQuery.ajax({
+        url: "/mms/taobaoproducts/set_middle",
+        type: "post",
+        data: {"id" : id, "category_id" : "<%= params[:category_id] %>"},
+        success: function(res) {
+          alert(res);
+          window.location = window.location.href;
+        },
+        error: function() {
+          alert("服务器错误，请联系管理员");
+        }
+      })
+    }
+  }
+
+  function cancle_middle(id, category_id) {
+    if(confirm("确定要取消该商品居中大图显示吗？")) {
+      jQuery.ajax({
+        url: "/mms/taobaoproducts/cancle_middle",
+        type: "post",
+        data: {"id" : id, "category_id" : "<%= params[:category_id] %>"},
+        success: function(res) {
+          alert(res);
+          window.location = window.location.href;
+        },
+        error: function() {
+          alert("服务器错误，请联系管理员");
+        }
+      })
+    }
+  }
+</script>

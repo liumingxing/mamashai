@@ -1,0 +1,30 @@
+    <div id="middle">
+        <div id="css_mainbody">
+            <h1 class="title">修改管理员</h1>
+            <table class="grid">
+            	<%= form_tag :action=>"update", :id=>@user do %>
+                    <tr>
+                        <td>用户名</td>
+                        <td><%= text_field "user", "username" %></td>
+                    </tr>
+                    <tr>
+                        <td>密码</td>
+                        <td>
+                        	<%= password_field "user", :password, :size=>20, :value=>''%>
+						</td>
+                    </tr>
+					<tr>
+                        <td>真实姓名</td>
+                        <td>
+                        	<%= text_field "user", :name, :size=>20%>
+						</td>
+                    </tr>
+                    
+                    <tr>
+                        <td colspan="2"><input type="submit" name="submit" value="提交"></td>
+                    </tr>
+				<% end %>
+            </table>
+        </div>
+        <div class="clear"></div>
+    </div>

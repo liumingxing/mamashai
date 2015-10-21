@@ -1,0 +1,98 @@
+<div id="simple_search" class="css_search">
+    <% form_tag({:action=>'find'},{:method => :get}) do %>
+    <div class="css_search_title">
+        <span class="title"></span>
+        <span class="info">这里输入朋友的姓名或昵称，如：小新妈妈</span>
+    </div>
+    <div class="search_input">
+        <span class="input"><%= text_field :search_user, :name, :class=>'default_input' %></span>
+        <span class="button"><input src="/images/settings/button_find.gif" type="image"></span>
+    </div>
+    <div class="high_search">
+        <a href="javascript:void(0)" onclick="$('#simple_search').hide();$('#complex_search').show();">高级搜索</a>
+    </div>
+    <div class="invite_info">
+        想找更多的朋友来妈妈晒分享吗？马上<a style="color:red" href="/friends/invite"> 邀请好友来晒获15个积分 </a>
+    </div>
+    <% end %>
+</div>
+<div id="complex_search" style="display:none;" class="css_search">
+    <% form_tag({:action=>'find'},{:method => :get}) do %>
+    <div class="css_search_title">
+        <span class="title"></span>
+        <span class="info">这里输入朋友的姓名或昵称，如：小新妈妈</span>
+    </div>
+    <div class="search_input">
+        <span class="input"><%= text_field :search_user, :name, :class=>'default_input' %></span>
+		<span class="button"><input src="/images/settings/high_search.gif" type="image"></span>
+    </div>
+    <div class="high_search">
+        <a href="javascript:void(0)" onclick="$('#complex_search').hide();$('#simple_search').show();">收起高级搜索</a>
+    </div>
+    <div class="high_search_form" style="">
+        <table class="grid">
+            <tbody>
+                <tr height="35">
+                    <td class="t01" width="100">
+                        出生年代： 
+                    </td>
+                    <td class="t02">
+                         <%=select :search_user, :birthyear, APP_CONFIG['time_birthyears'].split('|').collect {|p| [ "#{p}后", p.to_i ] }, {:prompt=>'年代'} %>
+                 </td>
+                </tr>
+                <tr height="35">
+                    <td class="t01" width="100">
+                        孩子年龄段： 
+                    </td>
+                    <td class="t02">
+                        <%=select :search_user, :kid_age, Age.find(:all).collect {|p| [ p.name, p.id ] }, {:prompt=>'宝贝年龄'} %> 
+                    </td>
+                </tr>
+                <tr height="35">
+                    <td class="t01" width="100">
+                        所在地区： 
+                    </td>
+                    <td class="t02">
+                        <%=select :search_user, :province_id, Province.find(:all).collect {|p| [ p.name, p.id ] }, {:prompt=>'省/直辖市'} %>
+                <span id="cities_span"></span>
+                <!--
+				<%= observe_field("search_user_province_id",:url => { :action => 'get_cities',:controller=>'ajax',:model=>'search_user' },:before=>'show_loadding("cities_span")',:update => 'cities_span',:with => "'model=search_user&city_id=#{@search_user.city_id}&id='+value") %>
+                <script>show_loadding("cities_span");
+                    new Ajax.Updater("cities_span", "/ajax/get_cities", {
+                        asynchronous: true,
+                        evalScripts: true,
+                        parameters: "model=search_user&city_id=<%=@search_user.city_id%>&id=" + $("search_user_province_id").value
+                    });
+                </script>
+				-->
+				<script>
+                	jQuery("#search_user_province_id").change(function(){
+						show_loadding("cities_span");
+						jQuery("#cities_span").load("/ajax/get_cities?model=search_user&city_id=<%=@search_user.city_id%>&id=" + jQuery("#search_user_province_id").val())
+					})
+					
+                	show_loadding("cities_span");
+                    jQuery("#cities_span").load("/ajax/get_cities?" + "model=search_user&city_id=<%=@search_user.city_id%>&id=" + jQuery("#search_user_province_id").val())
+                </script>
+                    </td>
+                </tr>
+                <tr height="35">
+                    <td class="t01" width="100">
+                        所在行业： 
+                    </td>
+                    <td class="t02">
+                            <%=select :search_user, :industry_id, Industry.find(:all).collect {|p| [ p.name, p.id ] }, {:prompt=>'所在行业'} %>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <% end %>
+</div>
+
+<% if @search_user.province_id.present? or @search_user.industry_id.present? or @search_user.kid_age.present? or @search_user.birthyear.present?  %>
+<script>
+	$('#simple_search').hide();
+	$('#complex_search').show();
+</script>
+<% end %>

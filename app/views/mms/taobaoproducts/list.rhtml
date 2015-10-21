@@ -1,0 +1,237 @@
+<h1>
+  商品列表——<%= @category.name %>
+
+  <span style="margin-left: 30px;"><a href="/mms/taobaoproducts/recommend_product_list">查看产品推荐</a></span>
+
+  <span style="float:right">
+    <% form_tag({:action=>"search"},{:method=>"get"}) do %>
+      <%= text_field_tag :name, params[:name]%>
+      <%= submit_tag "查找"%>
+      &nbsp;&nbsp;
+    <% end %>
+  </span>
+
+  <span style="float: right; margin-right: 10px;">
+    <%= link_to '添加淘宝大库商品', :action => 'new_from_api', :id=>params[:id], :key=>@category.name %>
+  </span>
+</h1>
+
+<table class="list" border="1" width="100%" id="product_list">
+  <tr class="head">
+    <th><a onclick="select_all()" href="javascript:void(0)">全选</a></th>
+    <th>ID</th>
+    <th width="150px">商品名称</th>
+    <th>logo</th>
+    <th>价格</th>
+    <th>评论数</th>
+    <th>下线</th>
+    <th colspan=7>操作</th>
+  </tr>
+
+  <% for product in @products %>
+    <tr>
+      <td width="30px"><input id="p_<%= product.id %>" name="p" value="<%= product.id %>" type="checkbox"/></td>
+      <td width="30px"><a href="/tao/show/<%= product.id %>" target="_blank"><%= product.id %></a></td>
+      <td><a href="<%=h product.url %>" target="_blank"><%=h product.name %></a></td>
+      <td><img src='<%=product.pic_url%>_310x310.jpg' style="width:200px;"/></td>
+      <td><%=h product.price %></td>
+      <td><%=h product.comments.size %></td>
+
+      <td><%= '下线' if product.cancel%></td>
+
+      <td>
+      	<%= link_to '抓评论', :action => 'get_comments', :id => product, :page => params[:page] %>
+      	<br/>
+      	<%= link_to '修改', :action => 'edit', :id => product, :category_id=>params[:id], :tt=>params[:age] %>
+      	<br/>
+      	<%= link_to '删除', { :action => 'destroy', :id => product, :page => params[:page] }, :confirm => '确认删除吗?', :method => :post %>
+      </td>
+      <td>
+        <% unless product.age.blank? %>
+          <% ages = product.age.split(",") %>
+          <% ages.delete("") %>
+          <% ages.each do |a| %>
+            <%= @ages_hash[a.to_i].first.name + "  " if @ages_hash[a.to_i] %>
+          <% end %>
+        <% end %>
+        <select style="display:none" id="product_<%= product.id %>" name="age" onchange="change_age('<%= product.id %>', '<%= product.name %>')">
+          <option value="">请选择</option>
+          <% @ages.each do |a| %>
+            <option value="<%= a.id %>"><%= a.name %></option>
+          <% end %>
+        </select>
+        <button id="button_<%= product %>" onclick="jQuery(this).hide();jQuery('#product_<%= product.id %>').show();">设置年龄段</button>
+      <button id="button_<%= product %>" onclick="delete_age('<%= product.id %>')">清空年龄段</button>
+      <br/>
+        <% if product.is_top == 0 %>
+          <button id="button_<%= product %>" onclick="set_top('<%= product.id %>')">置顶</button>
+        <% else %>
+          <button id="button_<%= product %>" onclick="cancle_top('<%= product.id %>')">取消置顶</button>
+        <% end %>
+      <br/>
+        <% if !@recommends.include?(product.id) %>
+          <button onclick="recommend_index('<%= product.id %>')">首页推荐</button>
+        <% else %>
+          <button onclick="cancle_recommend_index('<%= product.id %>')">取消推荐</button>
+        <% end %>
+      </td>
+    </tr>
+  <% end %>
+</table>
+<div>
+  <select style="display:none" id="product_ages" name="age" onchange="change_ages();">
+    <option value="">请选择</option>
+    <% @ages.each do |a| %>
+      <option value="<%= a.id %>"><%= a.name %></option>
+    <% end %>
+  </select>
+  <button onclick="jQuery(this).hide();jQuery('#product_ages').show();">批量设置年龄段</button>
+</div>
+
+<%= will_paginate @products %>
+
+<script type="text/javascript">
+  function select_all() {
+    jQuery("#product_list input[type=checkbox]").each(function(){
+      jQuery(this).attr("checked", true);
+    })
+    return false;
+  }
+
+  function delete_age(id) {
+    if(confirm("确定要清空年龄段吗？")) {
+      jQuery.ajax({
+        url: "/mms/taobaoproducts/delete_age",
+        type: "post",
+        data: {"id" : id},
+        success: function(res) {
+          alert(res);
+          window.location = window.location.href;
+        },
+        error: function() {
+          alert("服务器错误，请联系管理员");
+        }
+      })
+    }
+  }
+
+  function recommend_index(id) {
+    if(confirm("确定要推荐该商品吗？")) {
+      jQuery.ajax({
+        url: "/mms/taobaoproducts/recommend_index",
+        type: "post",
+        data: {"id" : id},
+        success: function(res) {
+          alert(res);
+          window.location = window.location.href;
+        },
+        error: function() {
+          alert("服务器错误，请联系管理员");
+        }
+      })
+    }
+  }
+
+  function cancle_recommend_index(id) {
+    if(confirm("确定要取消推荐该商品吗？")) {
+      jQuery.ajax({
+        url: "/mms/taobaoproducts/cancle_recommend_index",
+        type: "post",
+        data: {"id" : id},
+        success: function(res) {
+          alert(res);
+          window.location = window.location.href;
+        },
+        error: function() {
+          alert("服务器错误，请联系管理员");
+        }
+      })
+    }
+  }
+
+  function set_top(id) {
+    if(confirm("确定要置顶该商品吗？")) {
+      jQuery.ajax({
+        url: "/mms/taobaoproducts/set_top",
+        type: "post",
+        data: {"id" : id},
+        success: function(res) {
+          alert(res);
+          window.location = window.location.href;
+        },
+        error: function() {
+          alert("服务器错误，请联系管理员");
+        }
+      })
+    }
+  }
+
+  function cancle_top(id) {
+    if(confirm("确定要取消置顶该商品吗？")) {
+      jQuery.ajax({
+        url: "/mms/taobaoproducts/cancle_top",
+        type: "post",
+        data: {"id" : id},
+        success: function(res) {
+          alert(res);
+          window.location = window.location.href;
+        },
+        error: function() {
+          alert("服务器错误，请联系管理员");
+        }
+      })
+    }
+  }
+
+  function change_age(id, name) {
+    var age = jQuery("#product_" + id).val();
+    if(age == "" || age == undefined) {
+      alert("请选择年龄段");
+      return false;
+    }
+    if(confirm("确定要给产品 " + name + " 设置年龄段吗？")) {
+      jQuery.ajax({
+        url: "/mms/taobaoproducts/set_age",
+        type: "post",
+        data: {"id" : id, "age" : age},
+        success: function(res) {
+          alert(res);
+          window.location = window.location.href;
+
+        },
+        error: function() {
+          alert("服务器错误，请联系管理员");
+        }
+      })
+    }
+  }
+
+  function change_ages() {
+    var age = jQuery("#product_ages").val();
+    if(age == "" || age == undefined) {
+      alert("请选择年龄段");
+      return false;
+    }
+    var ids = "";
+    jQuery("#product_list input[type=checkbox]").each(function(){
+      if(jQuery(this).attr("checked") != undefined) {
+        ids += jQuery(this).val() + ",";
+      }
+    })
+    if(confirm("确定要给选中的产品批量设置年龄段吗？")) {
+      jQuery.ajax({
+        url: "/mms/taobaoproducts/set_ages",
+        type: "post",
+        data: {"id": ids, "age" : age},
+        success: function(res) {
+          alert(res);
+          window.location = window.location.href;
+
+        },
+        error: function() {
+          alert("服务器错误，请联系管理员");
+        }
+      })
+    }
+  }
+</script>

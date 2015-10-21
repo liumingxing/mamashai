@@ -1,0 +1,15 @@
+<div class="event_share" >
+    <div class="infor_money"> 
+            年龄：<% if @event.age_ids.present? %>
+			       <% Age.find(:all,:conditions=>['id in (?)',@event.age_ids.split(',')]).each do |age|  %>
+				      <%=age.name%>
+				   <% end %>
+				<% else %>
+				不限年龄
+			    <% end %> 
+            类型：<%=@event.event_tag.name if @event.event_tag%> 
+    </div>
+    <div class="infor_article">
+		<%=simple_format(h(@event.content)) %>
+    </div>
+</div>

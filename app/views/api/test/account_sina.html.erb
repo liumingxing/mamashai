@@ -1,0 +1,27 @@
+<h1>sina 绑定新浪微博</h1><%= link_to "返回到列表", "/api/test" %>
+<pre>
+  [路径]: account/sina
+  [HTTP请求方式]: GET
+  [URL]: http://your.api.domain/account/sina.json
+  [是否需要登录]： true
+
+参数
+
+    * source 申请应用时分配的AppKey，调用接口时候代表应用的唯一身份。
+
+示例
+
+  curl -u "username:password"
+  "http://your.api.domain/account/sina.json"
+
+注意
+
+  * 访问该链接后，会跳转到Sina登陆页面(WAP页面)，获取到用户的Token,和TokenSecret,用户相关个人信息
+  * 失败则返回 error
+</pre>
+<hr/>
+<%= form_tag "/api/account/sina.json" ,{:method=>:get} do %>
+  <%= render :partial => '/api/test/login' %>
+  source: <%= text_field_tag "source" %><br/>
+  <%= submit_tag "提交"%>
+<% end -%>

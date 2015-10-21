@@ -1,0 +1,120 @@
+<!--[form:menu]-->
+<table height=200px>
+  <% if @category && @category.id %>
+    <tr>
+      <td>
+        ID:
+      </td>
+      <td>
+        <%=@category.id %>
+      </td>
+    </tr>
+  <% end %>
+  <tr>
+    <td>
+      <label for="category_text">
+        名&nbsp;&nbsp;&nbsp;称：
+      </label>
+    </td>
+    <td>
+      <%= text_field 'category', 'name' %>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <label for="category_edit_right">
+        父节点：
+      </label>
+    </td>
+    <td>
+      <%#=select("category", "parent_id", Mms::TaobaoCategory.find(:all).delete_if{|c| c.parent && c.parent.parent}.collect {|p| [ "#{'--' if p.parent}#{p.name}", p.id ] }, { :include_blank => true }) %>
+      <%=select("category", "parent_id", Mms::TaobaoCategory.find(:all).collect {|p| [ "#{'--' if p.parent}#{p.name}", p.id ] }, { :include_blank => true }) %>
+    </td>
+  </tr>
+
+  <tr>
+    <td>
+      年龄段
+    </td>
+    <td>
+      <%= check_box_tag "all_age", 1, false, :onclick=>"select_all('age')" %>全部
+      <% for age in Age.find(:all) %>
+        <%= check_box_tag "age[]", age.id, @category.age.to_s.split(',').include?(age.id.to_s) %><%= age.name %>
+      <% end %>
+    </td>
+  </tr>
+  <tr>
+    <%
+    if @category.is_parent.blank?
+      @others = Mms::TaobaoCategory.find_all_by_parent_id @category.parent_id
+    end
+  %>
+  </tr>
+  <% if !@category.name.blank? and @category.is_parent.blank? and @others %>
+    <table border="1" width="100%">
+      <tr><td colspan="2">以下为类目合并功能</td></tr>
+      <tr><td colspan="2">当前类目：<%= @category.name %></td></tr>
+      <tr>
+        <td colspan="2">合并到: <select id="other_c" name="other_category">
+            <% @others.each do |c| %>
+              <% if c.id != @category.id %>
+                <option value="<%= c.id %>"><%= c.name %></option>
+              <% end %>
+            <% end %>
+          </select>
+        </td>
+      </tr>
+      <tr>
+        <td colspan="2"><button onclick="return merge_category();">合并</button></td>
+      </tr>
+    </table>
+  <% end %>
+</table>
+<br/>
+<br/>
+<br/>
+<script type="text/javascript">
+  function merge_category() {
+    var other_category = jQuery("#other_c").val();
+    var other_name = jQuery("#other_c option[value=" + other_category + "]").html();
+    if(confirm("确定要合并当前类目到" + other_name + " 吗？")) {
+      jQuery.ajax({
+        url: "/mms/categories/merge_category",
+        type: "post",
+        data: { "current_id" : "<%= @category.id %>", "other_category" : other_category},
+        success: function(res) {
+          alert(res);
+        },
+        error: function(){
+          alert("内部错误，请联系管理员！");
+        }
+      })
+    }
+    return false;
+  }
+
+  function show_right_tree(id){
+    window.open("/right/show_rights/", null, "toolbar=no,menubar=no,directories=no,status=no,left=200,top=80,width=500,height=400,scrollbars=1,resizable=no");
+  }
+    
+  function after_select_right(id, name){
+    $("#list_right_name").val(name);
+    $("#menu_list_right").val(id);
+  }
+    
+  function select_all(key){
+    var array = document.getElementsByName(key + "[]");
+    for(var i=0; i<array.length; i++){
+      var element = array[i];
+      if (document.getElementById("all_" + key).checked){
+        element.checked = true;
+      }
+      else{
+        element.checked = false;
+      }
+			
+    }
+  }
+
+</script>
+<!--[eoform:menu]-->

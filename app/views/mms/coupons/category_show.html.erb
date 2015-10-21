@@ -1,0 +1,102 @@
+<div id="middle">
+    <div id="css_mainbody">
+        <h1 class="title">优惠券类型<span style="float: right; margin-right: 10px;"><%= link_to "返回", :action => "categories" %>
+            </span></h1>
+        <table class="grid_order" border="1">
+            <tbody>
+                <tr>
+                    <td class="td01" width="20%">
+                        名称：
+                    </td>
+                    <td>
+                        <%= h @category.name %>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="td01" width="20%">
+                        图片：
+                    </td>
+                    <td>
+                        <%= image_tag @category.logo %>
+                        <%= image_tag @category.logo.thumb110 %>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="td01" width="20%">
+                        面额：
+                    </td>
+                    <td>
+                        <%= h @category.money %>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="td01" width="20%">
+                        兑换积分：
+                    </td>
+                    <td>
+                        <%= h @category.score %>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="td01" width="20%">
+                        用途：
+                    </td>
+                    <td>
+                        <%= h @category.use %>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="td01" width="20%">
+                        积分记录显示文字：
+                    </td>
+                    <td>
+                        <%= @category.log %>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="td01" width="20%">
+                        默认使用期限：
+                    </td>
+                    <td>
+                        1年
+                    </td>
+                </tr>
+                <tr>
+                    <td class="td01" width="20%">
+                        记录数：
+                    </td>
+                    <td>
+                        <%= h @category.coupons_count %>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="td01" width="20%">
+                        创建时间：
+                    </td>
+                    <td>
+                        <%= h @category.created_at.strftime("%Y年%m月%d日 %H:%M:%S") %>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="td01" width="20%">
+                        修改时间：
+                    </td>
+                    <td>
+                        <%= h @category.updated_at.strftime("%Y年%m月%d日 %H:%M:%S") %>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="td01" width="20%">
+                    </td>
+                    <td>
+                        <%= link_to "修改","/mms/coupons/category_edit/#{@category.id}" %>
+                        <%= link_to "返回",'/mms/coupons/categories' %>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="clear">
+    </div>
+</div>
+</div>

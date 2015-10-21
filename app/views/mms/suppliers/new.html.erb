@@ -1,0 +1,10 @@
+<div id="middle">
+    <div id="css_mainbody">
+        <h1 class="title">新建供应商信息<span style="float: right; margin-right: 10px;"><%= link_to '返回', "/mms/suppliers/index" %></span></h1>
+        <% form_for(@supplier,:url=>{:action=>:create},:method=>:put) do |f| %>
+        <%= render :partial => 'form', :locals => {:f => f}%>
+		<% end %>
+    </div>
+    <div class="clear">
+    </div>
+</div>

@@ -1,0 +1,30 @@
+<div class="event_share">
+    <div class="events_pic">
+        <div>
+            <div class="all_pic">
+                共<%=@event.event_pictures_count %>张照片 
+				<% if @event.user_id == @user.id %>
+				<a href="javascript:void(0)" onclick="$('#event_pictures_upload_<%=@event.id%>').toggle()">批量上传照片&gt;</a>
+				<% end %>
+            </div>
+        </div>
+        <div id="event_pictures_upload_<%=@event.id%>" style="display:none;">
+            <iframe width="550" height="300" scrolling="no" marginwidth="0" marginheight="0" frameborder="0" src="/ajax_event/event_pictures_upload/<%=@event.id%>">
+            </iframe>
+        </div>
+        <div>
+        	<% for event_picture in @event.event_pictures %>
+            <div class="picture_cell">
+                <div class="pic">
+                    <%=logo_tag(event_picture,{:version=>'thumb120',:url=>event_picture.logo.url,:blank=>true}) %>
+                </div>
+				<% if @event.user_id == @user.id %>
+                <!--div class="name">
+                    <a href="#">删除<img src="/images/layer/del_06.gif"></a>
+                </div-->
+				<% end %>
+            </div>
+			<% end %> 
+        </div>
+    </div>
+</div>

@@ -1,0 +1,5 @@
+username: <%= text_field_tag "username" %><br/>
+password: <%= password_field_tag "password" %><br/>
+<%= hidden_field_tag "basic_http", "1" %>
+注意：username和password是基于HTTP Basic Authentication相关认证的头部字段，并不是提交表单中的字段<br/>
+<br/>

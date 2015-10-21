@@ -1,0 +1,15 @@
+<div id="middle">
+        <div id="css_mainbody">
+            <h1 class="title">活动管理-编辑活动信息
+				<span style="float: right; margin-right: 10px;">
+			        <%= link_to '返回列表', mms_events_path %>
+			    </span>
+			</h1>
+			<table style="width: 1000px; padding-left: 50px;">
+				<% form_for(@event) do |f| %>
+	            	<%= render :partial => 'form', :locals=>{:f=>f}%>
+				<% end %>
+			</table>
+        </div>
+        <div class="clear"></div>
+    </div>

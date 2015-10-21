@@ -1,0 +1,31 @@
+<div class="sharp">
+	<div class="content">
+		<h1>设置</h1>
+		<div class="navigate_tab" id="n">
+			<%= render :partial=>'nav' %>
+			<div class="class2">
+				<%= render :partial=>'success_pmt' if params[:success] %>
+				<% if params[:cropper].blank? %>
+				<%= form_tag({:action=>'update_logo'},{:multipart=>true }) do %>
+				<%= render :partial=>'form_logo' %>
+				<div style="margin: 20px; text-align: center;">
+					<%= submit_tag "保存", :class=>"button2"%>
+				</div>
+				<% end %>
+				<% else %>
+				<%= form_tag({:action=>:update_logo_cropper}) do %>
+				<%= render :partial=>'form_logo_cropper' %>
+				<div id="submit_area" class="ifnull">
+					<button class="button_submit" type="submit" onmouseover="this.className='button_submit button_submit_hover';" onmouseout="this.className='button_submit';">
+						保存
+					</button>
+				</div>
+				<% end %>
+				<% end %>
+			</div>
+		</div>
+	</div>
+	<div><img src="/images/sharp_bottom.jpg" /></div>
+</div>
+
+<div class="clear"></div>

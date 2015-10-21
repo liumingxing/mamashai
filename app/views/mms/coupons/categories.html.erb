@@ -1,0 +1,122 @@
+<div id="middle">
+    <div id="css_mainbody">
+        <h1 class="title">优惠券类型管理<span style="float: right; margin-right: 10px;"><%= link_to "新建类型", :action => :category_new %>
+            </span></h1>
+        <div class="menu_bar">
+            <span class="info"><b>当前数据：</b> 共有<b class="blue"><%=h @categories.count %></b>条数据</span>
+        </div>
+        <table class="grid">
+            <thead>
+                <tr>
+                    <th width="10%">
+                        序号
+                    </th>
+                    <th width="10%">
+                        名称
+                    </th>
+                    <th width="5%">
+                        面额
+                    </th>
+                    <th width="5%">
+                        兑换积分
+                    </th>
+                    <th width="10%">
+                        记录数
+                    </th>
+					<th width="10%">
+                        数据库id
+                    </th>
+					<th width="15%">
+                        状态
+                    </th>
+					<th width="5%">
+                        排序
+                    </th>
+                    <th width="15%">
+                        创建时间
+                    </th>
+                    <th>
+                        操作
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <% if @categories.blank? %>
+                <tr>
+                    <td colspan=10>
+                        <b>暂无相关记录。</b>
+                    </td>
+                </tr>
+                <% else %>
+                <% @categories.each_with_index do |category,index| %>
+                <tr>
+                    <td>
+                        <%= index+1 %>
+                    </td>
+                    <td>
+                        <%= h category.name %>
+                    </td>
+                    <td>
+                        <%= h category.money %>
+                    </td>
+                    <td>
+                        <%= h category.score %>
+                    </td>
+                    <td>
+                        <%= h category.coupons_count %>
+                    </td>
+					<td>
+                        <%= h category.id %>
+                    </td>
+					<td>
+                        <%= h category.open? ? '已开启' : '未开启' %>
+                    </td>
+					<td>
+                        <%= h category.position %>
+                    </td>
+                    <td>
+                        <%= h category.created_at.strftime("%Y年%m月%d日") %>
+                    </td>
+                    <td>
+                        <%= link_to "查看", :action => :category_show, :id => category.id %>
+						<%= link_to "修改", :action => :category_edit, :id => category.id %>
+						<%= link_to "删除", :action => :category_destroy, :id => category.id %>
+                    </td>
+                </tr>
+                <% end %>
+                <% end %>
+            </tbody>
+        </table>
+    </div>
+    <div class="clear">
+    </div>
+</div>
+</div>
+<style type="text/css">
+    div.menu_bar {
+        line-height: 30px;
+        padding-left: 50px;
+    }
+    
+    .menu_bar .menu {
+        float: left;
+        width: 70%;
+    }
+    
+    div.menu_bar a:hover {
+        color: #FF9900;
+        text-decoration: none;
+    }
+    
+    div.menu_bar a.current {
+        color: #FF9900;
+    }
+    
+    span.info {
+        width: 30%;
+        float: right;
+        line-height: 14px;
+        text-align: right;
+        margin-top: 5px;
+    }
+</style>

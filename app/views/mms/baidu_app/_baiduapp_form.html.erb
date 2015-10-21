@@ -1,0 +1,88 @@
+<div style="text-align:center;" class="green">
+    <%= flash[:notice] %>
+</div>
+<%= javascript_include_tag :ckeditor %>
+<table border="1" class="grid_mce" cellpadding="2" style="line-height:20px;">
+    <tr>
+        <td class="td01" width="140" align="right" style="padding-right:10px;">
+            应用名称：
+        </td>
+        <td>
+            <%= f.text_field :app_name %>
+        </td>
+    </tr>
+    <tr>
+        <td class="td01" width="140" align="right" style="padding-right:10px;">
+            应用URL：
+        </td>
+        <td>
+            http://<%= f.text_field :app_url %>
+        </td>
+    </tr>
+    <tr>
+        <td class="td01" width="140" align="right" style="padding-right:10px;">
+            应用简介：
+        </td>
+        <td>
+          <%= f.text_area :app_desc, :style => "width:400px; height:70px;" %>
+        </td>
+    </tr>
+
+    <tr>
+        <td class="td01" width="140" align="right" style="padding-right:10px;">
+            <%= f.label :image_url,"电子书简介图：" %>
+        </td>
+        <td>
+			<%=upload_column_field :baiduapp, :image_url %>
+            <%= f.error_message_on  :image_url %>
+        </td>
+    </tr>
+	<tr>
+		<td class="td01" width="140" align="right" style="padding-right:10px;">
+			所属电子书：
+		</td>
+		<td>
+			<%= f.select "ebook_topic_id", @ebooks.collect{|book|[book.ebook_title, book.id]}, { :include_blank => true }%>
+		</td>
+	</tr>
+    <tr>
+	<%= f.hidden_field :id %>
+        <td></td>
+        <td>
+            <%= f.submit '保存' %> | <%= link_to "返回", :action => :index %>
+        </td>
+    </tr>
+</table>
+<script>
+	$("#baiduapp_submit").click(function(){
+		if ($("#baiduapp_app_name").val().trim()  == "")
+		{
+			alert("应用名称不能为空");
+			$("#baiduapp_app_name").focus();
+			return false;
+		}
+		else if ($("#baiduapp_app_url").val().trim()  == "")
+		{
+			alert("URL不能为空");
+			$("#baiduapp_app_url").focus();
+			return false;
+		}
+		else if ($("#baiduapp_app_desc").val().trim()  == "")
+		{
+			alert("简介不能为空");
+			$("#baiduapp_app_desc").focus();
+			return false;
+		}
+	   // else if ($("#baiduapp_ebook_topic_id").val().trim()  == "")
+	   // {
+	   // 	alert("所属电子书不能为空");
+	   // 	$("#baiduapp_ebook_topic_id").focus();
+	   // 	return false;
+	   // }
+		else
+		{
+			return true;
+		}
+	});
+</script>
+<%= tiny_mce_js %>

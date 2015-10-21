@@ -1,0 +1,104 @@
+<div id="middle">
+    <div id="css_mainbody">
+        <h1 class="title">导购平台-商品品牌<span style="float: right; margin-right: 10px;"><%= link_to '添加商品品牌', '/mms/gous/brand_new' %>
+            </span></h1>
+        <div style="text-align:center;" class="green">
+            <%= flash[:notice] %>
+        </div>
+        <div id="page_count">
+            <span style="float:right;">共有<b class="blue"><%=h @brands.total_entries %></b>条记录</span>
+        </div>
+        <% form_tag "/mms/gous/brand_search", {:method => "get"} do %>
+        <div>
+            搜索：<%= text_field_tag "keyword",@keyword %><%= submit_tag "查询" %>
+        </div>
+        <% end %>
+        <div class="clear">
+        </div>
+        <table class="grid">
+            <tr>
+                <th width="5%">
+                    序号
+                </th>
+                <th width="20%">
+                    名称
+                </th>
+                <th width="10%">
+                    名称开头字母
+                </th>
+                <th width="10%">
+                    发源地
+                </th>
+                <th width="10%">
+                    商品总数
+                </th>
+                <th width="12%">
+                    创建时间
+                </th>
+                <th width="12%">
+                    修改时间
+                </th>
+				<th width="5%">
+                    是否发布
+                </th>
+                <th>
+                    操作
+                </th>
+            </tr>
+            <% if @brands.blank? %>
+            <tr>
+                <td colspan=9>
+                    <b>暂无记录</b>
+                </td>
+            </tr>
+            <% else %>
+            <% @brands.each_with_index do |brand,index| %>
+            <tr>
+                <td>
+                    <%=(index+1).to_s %>
+                </td>
+                <td>
+                    <%= link_to brand.name, "/gou/brand/#{brand.id}", {:target => "_blank", :style => "color:#329BCB;"} %>
+                </td>
+                <td>
+                    <%= brand.e_name %>
+                </td>
+                <td>
+                    <%=brand.cradle %>
+                </td>
+                <td>
+                    <%=brand.gous_count %>
+                </td>
+                <td>
+                    <%=brand.created_at.strftime("%Y-%m-%d %H:%M:%S") %>
+                </td>
+                <td>
+                    <%=brand.updated_at.strftime("%Y-%m-%d %H:%M:%S") %>
+                </td>
+                <td>
+                    <% if brand.state == "publish" %>
+                    <img src="/images/icons/icons_01.png" alt="/images/icons/icons_01.png"><% else %>
+                    <img src="/images/icons/icon_25.gif" alt="/images/icons/icon_25.gif"><% end %>
+                </td>
+                <td>
+                    <%= mms_recommand('brand', brand.id) %>
+					<%= link_to '修改', "/mms/gous/brand_edit/#{h brand.id}", {:style => "color:#329BCB;"} %>
+                    <%= link_to '删除', "/mms/gous/brand_destroy/#{h brand.id}", {:confirm => '确认删除吗？', :method => :delete, :style => "color:#329BCB;"} %>
+                    <%= link_to '品牌资讯|故事管理', "/mms/gous/articles?brand_id=#{h brand.id}", {:style => "color:#329BCB;"} %>
+                    <% if brand.state == "publish" %>
+                    <%= link_to '取消发布', {:action => 'brand_unpublish', :id => brand.id}, {:style => "color:#329BCB;"} %>
+                    <% else %>
+                    <%= link_to '发布', {:action => 'brand_publish', :id => brand.id}, {:style => "color:#329BCB;"} %>
+                    <% end %>
+                </td>
+            </tr>
+            <% end %>
+            <%end %>
+        </table>
+        <div class="book_page">
+            <%=will_paginate @brands %>
+        </div>
+    </div>
+    <div class="clear">
+    </div>
+</div>

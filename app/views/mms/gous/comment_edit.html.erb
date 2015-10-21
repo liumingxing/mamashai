@@ -1,0 +1,86 @@
+<div id="middle">
+    <div id="css_mainbody">
+        <h1 class="title">修改商品评论<span style="float: right; margin-right: 10px;"><%= link_to '返回', :action => :comments, :id => @comment.id %></span></h1>
+		<div style="text-align:center;" class="green">
+            <%= flash[:notice] %>
+        </div>
+		<% form_for :comment, @comment, :url => {:action => :update_comment, :id => @comment.id} do |f| %>
+		<table class="grid_order" border="1">
+			<tr>
+				<td class="td01">
+					用户名称：
+				</td>
+				<td>
+					<% unless @comment.try(:user).blank? %>
+					<%= link_user(@comment.try(:user)) %>
+					<% else %>
+					<%= h @comment.user_name %>(来自<%= h @comment.site_name %>)
+					<% end %>
+				</td>
+			</tr>
+			<tr>
+				<td class="td01">
+					商品名称：
+				</td>
+				<td>
+					<%= link_to @comment.try(:gou).try(:name), "/gou/show/#{@comment.try(:gou_id)}", {:target => "_blank", :style => "color:#329BCB;"} %>
+				</td>
+			</tr>
+			<tr>
+				<td class="td01">
+					评分情况：
+				</td>
+				<td>
+					<% if @comment.value_1.present? %>
+					<% ::GouCategory.grade_labels(@comment.try(:gou)).each do |label| %>
+					<%= label[1]+":"+@comment.try("value_#{label[0]}").to_s+";" %>
+					<% end %>
+					<% else %>
+					暂无
+					<% end %>
+				</td>
+			</tr>
+			<tr>
+				<td class="td01">
+					平均分值：
+				</td>
+				<td>
+					<%= @comment.try(:rate) || '暂无' %>
+				</td>
+			</tr>
+			<tr>
+				<td class="td01">
+					评论时间：
+				</td>
+				<td>
+					<%= @comment.created_at.strftime("%Y-%m-%d %H:%M:%S") %>
+				</td>
+			</tr>
+			<tr>
+				<td class="td01">
+					评论：
+				</td>
+				<td>
+					<%= @comment.content %>
+				</td>
+			</tr>
+			<tr>
+				<td class="td01">
+					评论类型：
+				</td>
+				<td>
+					<%= f.radio_button(:tp, 10, options = {}) %>精华
+				</td>
+			</tr>
+			<tr>
+				<td class="td01">
+					
+				</td>
+				<td>
+					<%= f.submit '保存' %>
+				</td>
+			</tr>
+		</table>
+		<% end %>
+    </div>
+</div>

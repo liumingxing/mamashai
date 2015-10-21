@@ -1,0 +1,7 @@
+<% favorite_tags = Tag.user_favorite_tags(@user) %>
+<% for tag in favorite_tags %>
+<li class="list" onmouseover="this.className='list_current'" onmouseout="this.className='list'">
+    <span class="concern">· <a href="/home/tag/<%=tag.name%>"><%=tag.name %></a><span class="orange">(<%=tag.posts_count %>)</span></span>
+    <span class="del_button"><%= link_to_remote('&nbsp;&nbsp;', :update => "sidebar_tags", :url => {:action =>:delete_sidebar_favorite_tag,:controller=>:ajax,:id=>tag.id}) %></span>
+</li>
+<% end %>

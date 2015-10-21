@@ -1,0 +1,1478 @@
+body {
+    margin: 0px;
+}
+
+div {
+    background-repeat: no-repeat;
+}
+
+.raw_image {
+    width: 100%;
+    height: 100%;
+}
+
+.preload {
+    display: none;
+}
+div.main_container {
+}
+
+.form_sketch {
+    border-color: transparent;
+    background-color: transparent;
+}
+
+.u0_original {
+    background-image: url('../读懂B超单-妈妈晒_files/u0_original.png');
+}
+
+.u0_container {
+    position:absolute;
+    left:10px;
+    top:46px;
+    width:541px;
+    height:634px;
+}
+
+#u0_img {
+    position:absolute;
+    left:-3px;
+    top:-3px;
+    width:547px;
+    height:640px;
+}
+
+.u1 {
+    position:absolute;
+    left:2px;
+    top:309px;
+    width:537px;
+    height:16px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u0 {
+    position:absolute;
+    left:10px;
+    top:46px;
+    width:541px;
+    height:634px
+}
+
+.u2_original {
+    background-image: url('../读懂B超单-妈妈晒_files/u2_original.png');
+}
+
+.u2_container {
+    position:absolute;
+    left:10px;
+    top:10px;
+    width:542px;
+    height:36px;
+}
+
+#u2_img {
+    position:absolute;
+    left:0px;
+    top:0px;
+    width:542px;
+    height:36px;
+}
+
+.u3 {
+    position:absolute;
+    left:2px;
+    top:10px;
+    width:538px;
+    height:16px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u2 {
+    position:absolute;
+    left:10px;
+    top:10px;
+    width:542px;
+    height:36px
+}
+
+.u4 {
+    position:absolute;
+    left:241px;
+    top:22px;
+    width:80px;
+    height:13px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u5_original {
+    background-image: url('../读懂B超单-妈妈晒_files/u5_original.png');
+}
+
+.u5_container {
+    position:absolute;
+    left:10px;
+    top:56px;
+    width:540px;
+    height:34px;
+}
+
+#u5_img {
+    position:absolute;
+    left:-3px;
+    top:-3px;
+    width:546px;
+    height:40px;
+}
+
+.u6 {
+    position:absolute;
+    left:2px;
+    top:9px;
+    width:536px;
+    height:16px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u5 {
+    position:absolute;
+    left:10px;
+    top:56px;
+    width:540px;
+    height:34px
+}
+
+.u8_original {
+    background-image: url('../读懂B超单-妈妈晒_files/u8_original.png');
+}
+
+.u8_container {
+    position:absolute;
+    left:0px;
+    top:0px;
+    width:128px;
+    height:38px;
+}
+
+#u8_img {
+    position:absolute;
+    left:0px;
+    top:0px;
+    width:128px;
+    height:38px;
+}
+
+.u9 {
+    position:absolute;
+    left:2px;
+    top:11px;
+    width:124px;
+    height:16px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u8 {
+    position:absolute;
+    left:0px;
+    top:0px;
+    width:128px;
+    height:38px
+}
+
+.u10_text {
+    position:absolute;
+    left:92px;
+    top:65px;
+    width:90px;
+    height:14px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u10 {
+    position:absolute;
+    left:92px;
+    top:65px;
+    width:90px;
+    height:14px
+}
+
+.u11_text {
+    position:absolute;
+    left:223px;
+    top:65px;
+    width:97px;
+    height:14px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u11 {
+    position:absolute;
+    left:223px;
+    top:65px;
+    width:97px;
+    height:14px
+}
+
+.u13 {
+    position:absolute;
+    left:31px;
+    top:0px;
+    width:480px;
+    height:39px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u14 {
+    position:absolute;
+    left:31px;
+    top:60px;
+    width:100px;
+    height:13px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u15 {
+    position:absolute;
+    left:121px;
+    top:55px;
+    width:75px;
+    height:22px;
+    ;
+    ;
+    ;
+    font-family:'Arial';
+    font-size: 13px;
+    color:#000000;
+    font-style:normal;
+    font-weight:normal;
+    text-decoration:none;
+    
+}
+
+.u16 {
+    position:absolute;
+    left:201px;
+    top:55px;
+    width:75px;
+    height:22px;
+    ;
+    ;
+    ;
+    font-family:'Arial';
+    font-size: 13px;
+    color:#000000;
+    font-style:normal;
+    font-weight:normal;
+    text-decoration:none;
+    
+}
+
+.u17 {
+    position:absolute;
+    left:280px;
+    top:55px;
+    width:75px;
+    height:22px;
+    ;
+    ;
+    ;
+    font-family:'Arial';
+    font-size: 13px;
+    color:#000000;
+    font-style:normal;
+    font-weight:normal;
+    text-decoration:none;
+    
+}
+
+.u18_original {
+    background-image: url('../读懂B超单-妈妈晒_files/u18_original.png');
+}
+
+.u18_container {
+    position:absolute;
+    left:121px;
+    top:191px;
+    width:160px;
+    height:35px;
+}
+
+#u18_img {
+    position:absolute;
+    left:-3px;
+    top:-3px;
+    width:166px;
+    height:41px;
+}
+
+.u19 {
+    position:absolute;
+    left:2px;
+    top:10px;
+    width:156px;
+    height:16px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u18 {
+    position:absolute;
+    left:121px;
+    top:191px;
+    width:160px;
+    height:35px
+}
+
+.u20_hover {
+    background-image: url('../resources/images/transparent.gif');
+}
+
+.u20_original {
+    background-image: url('../resources/images/transparent.gif');
+}
+
+.u20_container {
+    position:absolute;
+    left:396px;
+    top:57px;
+    width:113px;
+    height:20px;
+}
+
+#u20_img {
+    position:absolute;
+    left:-3px;
+    top:-3px;
+    width:119px;
+    height:26px;
+}
+
+.u21 {
+    position:absolute;
+    left:2px;
+    top:4px;
+    width:109px;
+    height:13px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u20 {
+    position:absolute;
+    left:396px;
+    top:57px;
+    width:113px;
+    height:20px
+}
+
+.u22_line {
+    background-image: url('../读懂B超单-妈妈晒_files/u22_line.png');
+}
+
+.u22_line {
+    position:absolute;
+    left:32px;
+    top:243px;
+    width:470px;
+    height:3px;
+}
+
+.u22 {
+    position:absolute;
+    left:32px;
+    top:243px;
+    width:470px;
+    height:3px
+}
+
+.u24 {
+    position:absolute;
+    left:0px;
+    top:0px;
+    width:470px;
+    height:16px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u25 {
+    position:absolute;
+    left:0px;
+    top:3px;
+    width:170px;
+    height:13px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u26 {
+    position:absolute;
+    left:70px;
+    top:93px;
+    width:53px;
+    height:13px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u27 {
+    position:absolute;
+    left:70px;
+    top:157px;
+    width:53px;
+    height:13px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u28 {
+    position:absolute;
+    left:121px;
+    top:88px;
+    width:206px;
+    height:22px;
+    ;
+    ;
+    text-align: left;;
+    font-family:'Arial';
+    font-size: 13px;
+    color:#000000;
+    font-style:normal;
+    font-weight:normal;
+    text-decoration:none;
+    
+}
+
+.u29 {
+    position:absolute;
+    left:121px;
+    top:121px;
+    width:206px;
+    height:22px;
+    ;
+    ;
+    text-align: left;;
+    font-family:'Arial';
+    font-size: 13px;
+    color:#000000;
+    font-style:normal;
+    font-weight:normal;
+    text-decoration:none;
+    
+}
+
+.u30 {
+    position:absolute;
+    left:121px;
+    top:153px;
+    width:206px;
+    height:22px;
+    ;
+    ;
+    text-align: left;;
+    font-family:'Arial';
+    font-size: 13px;
+    color:#000000;
+    font-style:normal;
+    font-weight:normal;
+    text-decoration:none;
+    
+}
+
+.u31 {
+    position:absolute;
+    left:322px;
+    top:93px;
+    width:33px;
+    height:13px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u32 {
+    position:absolute;
+    left:322px;
+    top:126px;
+    width:33px;
+    height:13px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u33 {
+    position:absolute;
+    left:322px;
+    top:157px;
+    width:33px;
+    height:13px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u34 {
+    position:absolute;
+    left:83px;
+    top:126px;
+    width:53px;
+    height:13px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u36_original {
+    background-image: url('../读懂B超单-妈妈晒_files/u36_original.png');
+}
+
+.u36_container {
+    position:absolute;
+    left:0px;
+    top:0px;
+    width:153px;
+    height:27px;
+}
+
+#u36_img {
+    position:absolute;
+    left:0px;
+    top:0px;
+    width:153px;
+    height:27px;
+}
+
+.u37 {
+    position:absolute;
+    left:2px;
+    top:6px;
+    width:149px;
+    height:16px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u36 {
+    position:absolute;
+    left:0px;
+    top:0px;
+    width:153px;
+    height:27px
+}
+
+.u38 {
+    position:absolute;
+    left:31px;
+    top:5px;
+    width:103px;
+    height:14px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u39_line {
+    background-image: url('../读懂B超单-妈妈晒_files/u39_line.png');
+}
+
+.u39_line {
+    position:absolute;
+    left:31px;
+    top:207px;
+    width:470px;
+    height:3px;
+}
+
+.u39 {
+    position:absolute;
+    left:31px;
+    top:207px;
+    width:470px;
+    height:3px
+}
+
+#u40 {
+    position:absolute;
+    left:31px;
+    top:59px;
+    width:475px;
+    height:104px
+}
+
+.u40_table {
+    background-image: url('../读懂B超单-妈妈晒_files/u40_table.png');
+}
+
+.u40_table {
+    position:absolute;
+    left:-3px;
+    top:-3px;
+    width:479px;
+    height:108px;
+}
+
+.u41_original {
+    background-image: url('../读懂B超单-妈妈晒_files/u41_original.png');
+}
+
+.u41_container {
+    position:absolute;
+    left:0px;
+    top:0px;
+    width:100px;
+    height:19px;
+}
+
+.u42 {
+    position:absolute;
+    left:2px;
+    top:2px;
+    width:96px;
+    height:13px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u41 {
+    position:absolute;
+    left:0px;
+    top:0px;
+    width:100px;
+    height:19px
+}
+
+.u43_original {
+    background-image: url('../读懂B超单-妈妈晒_files/u43_original.png');
+}
+
+.u43_container {
+    position:absolute;
+    left:100px;
+    top:0px;
+    width:190px;
+    height:19px;
+}
+
+.u44 {
+    position:absolute;
+    left:2px;
+    top:2px;
+    width:186px;
+    height:15px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u43 {
+    position:absolute;
+    left:100px;
+    top:0px;
+    width:190px;
+    height:19px
+}
+
+.u45_original {
+    background-image: url('../读懂B超单-妈妈晒_files/u45_original.png');
+}
+
+.u45_container {
+    position:absolute;
+    left:290px;
+    top:0px;
+    width:180px;
+    height:19px;
+}
+
+.u46 {
+    position:absolute;
+    left:2px;
+    top:2px;
+    width:176px;
+    height:13px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u45 {
+    position:absolute;
+    left:290px;
+    top:0px;
+    width:180px;
+    height:19px
+}
+
+.u47_original {
+    background-image: url('../读懂B超单-妈妈晒_files/u47_original.png');
+}
+
+.u47_container {
+    position:absolute;
+    left:0px;
+    top:19px;
+    width:100px;
+    height:20px;
+}
+
+.u48 {
+    position:absolute;
+    left:2px;
+    top:2px;
+    width:96px;
+    height:13px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u47 {
+    position:absolute;
+    left:0px;
+    top:19px;
+    width:100px;
+    height:20px
+}
+
+.u49_original {
+    background-image: url('../读懂B超单-妈妈晒_files/u49_original.png');
+}
+
+.u49_container {
+    position:absolute;
+    left:100px;
+    top:19px;
+    width:190px;
+    height:20px;
+}
+
+.u50 {
+    position:absolute;
+    left:2px;
+    top:2px;
+    width:186px;
+    height:16px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u49 {
+    position:absolute;
+    left:100px;
+    top:19px;
+    width:190px;
+    height:20px
+}
+
+.u51_original {
+    background-image: url('../读懂B超单-妈妈晒_files/u51_original.png');
+}
+
+.u51_container {
+    position:absolute;
+    left:290px;
+    top:19px;
+    width:180px;
+    height:20px;
+}
+
+.u52 {
+    position:absolute;
+    left:2px;
+    top:2px;
+    width:176px;
+    height:15px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u51 {
+    position:absolute;
+    left:290px;
+    top:19px;
+    width:180px;
+    height:20px
+}
+
+.u53_original {
+    background-image: url('../读懂B超单-妈妈晒_files/u47_original.png');
+}
+
+.u53_container {
+    position:absolute;
+    left:0px;
+    top:39px;
+    width:100px;
+    height:20px;
+}
+
+.u54 {
+    position:absolute;
+    left:2px;
+    top:2px;
+    width:96px;
+    height:13px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u53 {
+    position:absolute;
+    left:0px;
+    top:39px;
+    width:100px;
+    height:20px
+}
+
+.u55_original {
+    background-image: url('../读懂B超单-妈妈晒_files/u49_original.png');
+}
+
+.u55_container {
+    position:absolute;
+    left:100px;
+    top:39px;
+    width:190px;
+    height:20px;
+}
+
+.u56 {
+    position:absolute;
+    left:2px;
+    top:2px;
+    width:186px;
+    height:16px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u55 {
+    position:absolute;
+    left:100px;
+    top:39px;
+    width:190px;
+    height:20px
+}
+
+.u57_original {
+    background-image: url('../读懂B超单-妈妈晒_files/u51_original.png');
+}
+
+.u57_container {
+    position:absolute;
+    left:290px;
+    top:39px;
+    width:180px;
+    height:20px;
+}
+
+.u58 {
+    position:absolute;
+    left:2px;
+    top:2px;
+    width:176px;
+    height:15px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u57 {
+    position:absolute;
+    left:290px;
+    top:39px;
+    width:180px;
+    height:20px
+}
+
+.u59_original {
+    background-image: url('../读懂B超单-妈妈晒_files/u47_original.png');
+}
+
+.u59_container {
+    position:absolute;
+    left:0px;
+    top:59px;
+    width:100px;
+    height:20px;
+}
+
+.u60 {
+    position:absolute;
+    left:2px;
+    top:2px;
+    width:96px;
+    height:13px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u59 {
+    position:absolute;
+    left:0px;
+    top:59px;
+    width:100px;
+    height:20px
+}
+
+.u61_original {
+    background-image: url('../读懂B超单-妈妈晒_files/u49_original.png');
+}
+
+.u61_container {
+    position:absolute;
+    left:100px;
+    top:59px;
+    width:190px;
+    height:20px;
+}
+
+.u62 {
+    position:absolute;
+    left:2px;
+    top:2px;
+    width:186px;
+    height:16px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u61 {
+    position:absolute;
+    left:100px;
+    top:59px;
+    width:190px;
+    height:20px
+}
+
+.u63_original {
+    background-image: url('../读懂B超单-妈妈晒_files/u51_original.png');
+}
+
+.u63_container {
+    position:absolute;
+    left:290px;
+    top:59px;
+    width:180px;
+    height:20px;
+}
+
+.u64 {
+    position:absolute;
+    left:2px;
+    top:2px;
+    width:176px;
+    height:15px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u63 {
+    position:absolute;
+    left:290px;
+    top:59px;
+    width:180px;
+    height:20px
+}
+
+.u65_original {
+    background-image: url('../读懂B超单-妈妈晒_files/u47_original.png');
+}
+
+.u65_container {
+    position:absolute;
+    left:0px;
+    top:79px;
+    width:100px;
+    height:20px;
+}
+
+.u66 {
+    position:absolute;
+    left:2px;
+    top:2px;
+    width:96px;
+    height:13px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u65 {
+    position:absolute;
+    left:0px;
+    top:79px;
+    width:100px;
+    height:20px
+}
+
+.u67_original {
+    background-image: url('../读懂B超单-妈妈晒_files/u49_original.png');
+}
+
+.u67_container {
+    position:absolute;
+    left:100px;
+    top:79px;
+    width:190px;
+    height:20px;
+}
+
+.u68 {
+    position:absolute;
+    left:2px;
+    top:2px;
+    width:186px;
+    height:16px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u67 {
+    position:absolute;
+    left:100px;
+    top:79px;
+    width:190px;
+    height:20px
+}
+
+.u69_original {
+    background-image: url('../读懂B超单-妈妈晒_files/u51_original.png');
+}
+
+.u69_container {
+    position:absolute;
+    left:290px;
+    top:79px;
+    width:180px;
+    height:20px;
+}
+
+.u70 {
+    position:absolute;
+    left:2px;
+    top:2px;
+    width:176px;
+    height:15px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u69 {
+    position:absolute;
+    left:290px;
+    top:79px;
+    width:180px;
+    height:20px
+}
+
+.u71 {
+    position:absolute;
+    left:31px;
+    top:33px;
+    width:330px;
+    height:16px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u72 {
+    position:absolute;
+    left:31px;
+    top:167px;
+    width:470px;
+    height:26px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u73_original {
+    background-image: url('../读懂B超单-妈妈晒_files/u36_original.png');
+}
+
+.u73_container {
+    position:absolute;
+    left:0px;
+    top:0px;
+    width:153px;
+    height:27px;
+}
+
+#u73_img {
+    position:absolute;
+    left:0px;
+    top:0px;
+    width:153px;
+    height:27px;
+}
+
+.u74 {
+    position:absolute;
+    left:2px;
+    top:6px;
+    width:149px;
+    height:16px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u73 {
+    position:absolute;
+    left:0px;
+    top:0px;
+    width:153px;
+    height:27px
+}
+
+.u75 {
+    position:absolute;
+    left:31px;
+    top:5px;
+    width:103px;
+    height:14px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u76 {
+    position:absolute;
+    left:30px;
+    top:37px;
+    width:410px;
+    height:12px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u77_line {
+    background-image: url('../读懂B超单-妈妈晒_files/u77_line.png');
+}
+
+.u77_line {
+    position:absolute;
+    left:30px;
+    top:84px;
+    width:470px;
+    height:3px;
+}
+
+.u77 {
+    position:absolute;
+    left:30px;
+    top:84px;
+    width:470px;
+    height:3px
+}
+
+.u79_original {
+    background-image: url('../读懂B超单-妈妈晒_files/u79_original.png');
+}
+
+.u79_container {
+    position:absolute;
+    left:0px;
+    top:0px;
+    width:128px;
+    height:27px;
+}
+
+#u79_img {
+    position:absolute;
+    left:0px;
+    top:0px;
+    width:128px;
+    height:27px;
+}
+
+.u80 {
+    position:absolute;
+    left:2px;
+    top:6px;
+    width:124px;
+    height:16px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u79 {
+    position:absolute;
+    left:0px;
+    top:0px;
+    width:128px;
+    height:27px
+}
+
+.u81 {
+    position:absolute;
+    left:33px;
+    top:5px;
+    width:470px;
+    height:92px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u82_hover {
+    background-image: url('../resources/images/transparent.gif');
+}
+
+.u82_original {
+    background-image: url('../resources/images/transparent.gif');
+}
+
+.u82_container {
+    position:absolute;
+    left:333px;
+    top:28px;
+    width:165px;
+    height:20px;
+}
+
+#u82_img {
+    position:absolute;
+    left:-3px;
+    top:-3px;
+    width:171px;
+    height:26px;
+}
+
+.u83 {
+    position:absolute;
+    left:2px;
+    top:4px;
+    width:161px;
+    height:13px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u82 {
+    position:absolute;
+    left:333px;
+    top:28px;
+    width:165px;
+    height:20px
+}
+
+.u84_hover {
+    background-image: url('../resources/images/transparent.gif');
+}
+
+.u84_original {
+    background-image: url('../resources/images/transparent.gif');
+}
+
+.u84_container {
+    position:absolute;
+    left:369px;
+    top:53px;
+    width:137px;
+    height:20px;
+}
+
+#u84_img {
+    position:absolute;
+    left:-3px;
+    top:-3px;
+    width:143px;
+    height:26px;
+}
+
+.u85 {
+    position:absolute;
+    left:2px;
+    top:4px;
+    width:133px;
+    height:13px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u84 {
+    position:absolute;
+    left:369px;
+    top:53px;
+    width:137px;
+    height:20px
+}
+

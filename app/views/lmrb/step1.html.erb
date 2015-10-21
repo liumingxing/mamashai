@@ -1,0 +1,87 @@
+<style>
+	#uploadForm{
+	    position: relative;
+	}
+	#fileWrapper, #fileWrapper input {
+		display: block;
+		position: absolute;
+		left: 0;
+		top: 0;
+		width: 69px;
+		height: 31px;
+		overflow: hidden;
+	}
+	#fileWrapper input {
+		opacity: 0;
+		margin-left: -5px;
+		cursor: pointer;
+		filter: alpha(opacity=0);
+	}
+</style>
+
+<div class="nav_rm">
+	<a href="/lmrb">辣妈日报首页</a>>><a href="">制作</a>
+</div>
+<div class="sharp color1 mt5">
+	<div class="content">
+		<div class="cjy_left"><img src="/images/lmrb_zz_sczp.jpg" /><img src="/images/lmrb_zz_dtzk.jpg" /><img src="/images/lmrb_zz_dtjl.jpg" /><img src="/images/lmrb_zz_xgmb.jpg" /><img src="/images/lmrb_zz_yl.jpg" />
+			<div id="lmrb_zz" class="mt20">
+				<div class="fl ml200">
+					<img id="pre_show" src="/images/lmrb_photo_bg.jpg" style="margin: 20px; width: 235px;"/>
+					
+					<iframe id="uploadFrame" name="uploadFrame" style="display: none;" src="about:blank"></iframe>
+					<%= form_tag({:action=>"upload"}, {:id=>"uploadForm", :target=>"uploadFrame", :multipart => true}) do %>
+					<a href="#"><img src="/images/lmrb_ll.jpg" style="vertical-align: middle;"/></a>
+					仅支持jpg、gif、png、bmp格式，且文件小于4兆
+					<span id="fileWrapper">
+						<input type="file" size="1" onchange="$('#uploadHint').show();isUploading=true; $('#uploadForm').submit();" name="myfile" style="opacity:0;filter:alpha(opacity=0);" hideFocus="true" />
+					</span>
+					<div class="clear"></div>
+					<span id="uploadHint" style="display: none;">正在上传...</span>
+					<% end %>
+				</div>
+			</div>
+		</div>
+
+		<!--cjy_left-->
+		<div class="cjy_right">
+			<div id="lmrb_right">
+				<a href="/lmrb/step2" onclick="if (isUploading){alert('照片正在上传，请稍候...');return false;}if (!isUploaded) {alert('请上传照片'); return false;}"><img src="/images/lmrb_qrxyb.jpg" /></a>
+			</div>
+		</div>
+		<!--cjy_right-->
+	</div>
+	<div></div>
+</div>
+
+<script>
+	var isUploaded = false;
+	var isUploading = false;
+	function upload_callback(back_code, pic_path) {
+		$('#uploadHint').hide();
+		switch (back_code) {
+			case 'A0001':
+				//上传成功
+				isUploaded = true;
+				$("#pre_show").show();
+				$("#pre_show").attr("src", pic_path);
+				isUploading = false;
+				break;
+			case 'A0002':
+				//类型不对
+				alert('文件类型不正确');
+				break;
+			case 'A0003':
+				//文件过大
+				alert('上传的图片不能大于4兆');
+				break;
+			case 'A0004':
+				//失败
+				alert('上传失败，可能是文件过大造成的');
+				break;
+		}
+
+		//$('#fileWrapper').html(uploadHtml);
+		//$('#uploadFrame').attr('src', 'about:blank');
+	};
+</script>

@@ -1,0 +1,7 @@
+<h1>修改</h1>
+
+<%= form_tag :action => 'update', :id => @fayu do %>
+  <%= render :partial => 'form' %>
+  <%= submit_tag '保存' %> | <%= link_to '返回', :action => 'list', :page=>params[:page] %>
+<% end %>
+

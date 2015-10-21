@@ -1,0 +1,179 @@
+
+<div class="sharp color1 mt10">
+	<div class="content">
+		<div class="cjy_left">
+			<% @ddhs.each_with_index{|ddh, index| %>
+			<div class="ddh <%= 'mt20' if index > 0 %>">
+				<div class="ddh_img">
+					<% if ddh.adv && ddh.adv.split('|').length == 2 %>
+					<a href="<%= ddh.adv.split('|')[0] %>" target="_blank"><img src="<%= ddh.logo.thumb260 %>"/></a>
+					<% else %>
+						<img src="<%= ddh.logo.thumb260 %>"/>
+					<% end %>
+
+					<% if ddh.remain > 0 %>
+					<div class="ddh_active">
+						<img src="/images/ddh_ad1.png" />
+						<div class="ddh_active_tip" style="position:absolute; top: 20px; font-size: 12px; color: yellow; width: 83px; text-align: center;">
+							<%= ddh.begin_at.month %>月<%= ddh.begin_at.day%>日开换
+						</div>
+						<div class="ddh_active_tip" style="position:absolute; top: 40px; font-size: 15px; color: white; width: 83px; text-align: center;">
+							限<%= ddh.count %>份
+						</div>
+					</div>
+					<% end %>
+				</div>
+				<div class="ddh_dis">
+					<h3><%= ddh.title %></h3>
+					<div>
+						<% if ddh.adv && ddh.adv.split('|').length == 2 %>
+							<p><a href="<%= ddh.adv.split('|')[0] %>" target="_blank"><%= ddh.adv.split('|')[1] %></a></p>
+						<% end %>
+						<p>价值:￥<%= ddh.price %></p>
+					</div>
+					<p class="desc">
+						<%= ddh.content %>
+					</p>
+					<dl>
+						<dd>
+							<b>晒豆: <font><%= ddh.score %></font></b> 粒
+						</dd>
+						<dt>
+							<% if ddh.end_at > Date.today %>
+							剩余<%= ddh.remain %>份
+							<% end %>
+						</dt>
+					</dl>
+					<div class="ddh_mf mt10">
+						<% if ddh.remain == 0 || ddh.end_at < Date.today %>
+							<a href="javascript:void(0)"><img src="/images/ddh_yjs.png"/></a>
+						<% elsif ddh.begin_at.to_s > Time.new.to_s(:db)%>
+							<a href="javascript:void(0)" onclick="alert('对不起，还未开始。');"><img src="/images/ddh_wks.png"/></a>
+						<% else %>
+                                                  <% if @user %>
+                                                    <% if @user.score.to_i < ddh.score.to_i %>
+							<a href="javascript:void(0)" onclick="alert('您的晒豆不足');"><img src="/images/ddh_wyh.png"/></a>
+                                                      <% else %>
+							<a href="javascript:void(0)" onclick="show_url_box('/ddh/get/<%= ddh.id %>', '我要换')"><img src="/images/ddh_wyh.png"/></a>
+                                                      <% end %>
+                                                     <% else %>
+							<a href="/account/login?origin_url=/ddh"><img src="/images/ddh_wyh.png"/></a>
+                                                  <% end %>
+						<% end %>
+					</div>
+				</div>
+			</div>
+			<% } %>
+			
+			<%= will_paginate @ddhs %>
+		</div>
+
+		<div class="cjy_right">
+			<% if @user %>
+			<div class="ddh_djs">
+				您当前有晒豆
+				<div class="clear"></div>
+				<div style="font-size: 20px; font-weight: bold; color: orange; padding-top: 10px;">
+					<a href="javascript:void(0)" onclick="show_url_box('/ddh/history', '晒豆最近变动')"><%= @user.score %></a> <span style='font-size:13px; color: #777;'>粒</span>
+				</div>
+			</div>
+			<% end %>
+			<dl class="mt20">
+				<dd>
+					热点话题拿晒豆
+				</dd>
+			</dl>
+			<div class="ddh_ht">
+				<a href="/hot_topic"><img src="<%= @age_tag.logo.thumb90 %>" /></a>
+				<h5><a href="/hot_topic"><%= @age_tag.summary %></a></h5>
+				<%= @age_tag.description %>
+			</div>
+<!--
+			<dl class="mt20">
+				<dd>
+					热点活动拿晒豆
+				</dd>
+			</dl>
+			<div class="ddh_ht">
+				[专题活动专题活动专题活动]
+				[题活动专题活动专题活动题活][动专题活动专题活动]
+			</div>
+-->
+			<dl class="mt20">
+				<dd>
+					豆豆换早知道
+				</dd>
+			</dl>
+			<div class="ddh_zzd">
+				<script type="text/javascript">document.write('<iframe width="150" height="175" frameborder="0" scrolling="no" src="http://widget.weibo.com/relationship/bulkfollow.php?language=zh_cn&uids=1648941651&wide=1&color=FFFFFF,FFFFFF,0082CB,666666&showtitle=0&showinfo=0&sense=0&verified=1&count=1&refer='+encodeURIComponent(location.href)+'&dpc=1"></iframe>')</script>
+			</div>
+			<dl class="mt20">
+				<dd>
+					晒豆 Q&A 
+				</dd>
+
+			</dl>
+			<div class="ddh_sd">
+				<li>
+					<b>什么是晒豆？</b>
+				</li>
+				<li>
+					晒豆是妈妈晒的虚拟货币。
+				</li>
+				<li>
+					<b>晒豆能用来做什么？</b>
+				</li>
+				<li>
+					用来兑换各种礼物。
+				</li>
+				<li>
+					<b> 如何才能获得晒豆？</b>
+				</li>
+				<li>
+					1、参与<a href="/hot_topic">“本周热点话题”</a>：每话题1个豆，要求：不少于15个字，内容与话题相关。
+				</li>
+				<li>
+					2、【限<a href='/bbrl/mobile'>宝宝日历</a>手机端】分享我的商品：1个商品1个豆，每天上限3个豆。
+				</li>
+				<li>
+					3、【限<a href='/bbrl/mobile'>宝宝日历</a>手机端】制作照片书：下单并支付，1次5个豆，无上限。
+				</li>
+				<li>
+					4、记录宝宝成长：1次1个豆，每天上限1个豆。同步到新浪或腾讯微博多赠1个豆。
+				</li>
+				<li>
+					5、评论其他记录：5次1个豆，每天上限1个豆。
+				</li>
+				<li>
+					6、【限<a href='/bbrl/mobile'>宝宝日历</a>手机端】邀请其他妈爸：1次1个豆，每天上限1个豆。
+				</li>
+				<li>
+					<b>兑换的礼物什么时候能收到？</b>
+				</li>
+				<li>
+					当月兑换，月底统一递出，次月月初可收到。<br/>
+					海外用户如兑换请提供国内收货地址。
+				</li>
+				<li>
+					<b>晒豆有时限吗？</b>
+				</li>
+				<li>
+					晒豆有使用时限的哦： 每年7月1日前使用完毕，过期将予以清零。<br/>
+清零方式：每年7月1日，个人晒豆总数将清掉70%，留存30%。（请理解哦，晒豆清零政策是为了鼓励每个用户在一年中尽量花费晒豆，不至造成大量囤积，从而保障社区虚拟货币的良性发展）。
+				</li>
+				<li>
+					<b>妈妈晒老用户的积分能折算成晒豆吗？</b>
+				</li>
+				<li>
+					可以折算，按30积分=1晒豆的方式予以折算。
+				</li>
+				<li>
+					为保障普通用户权益，妈妈晒内部员工及兼职人员不能用晒豆兑换奖品。
+				</li>
+			</div>
+		</div>
+		<!--cjy_right-->
+	</div>
+	<div><img src="/images/sharp_bottom.jpg" />
+	</div>
+</div>

@@ -1,0 +1,122 @@
+		var table_header = Ti.UI.createView({
+			height: __l(20)
+		});
+
+		var tableview = Titanium.UI.createTableView({
+			top: 0, 
+			style : Titanium.UI.iPhone.TableViewStyle.GROUPED,
+			backgroundColor: '#F4F6F1',
+			rowBackgroundColor : 'white',
+			separatorColor : "#CACACA",
+			headerView: table_header,
+			bottom : Ti.App.is_android ? __l(54) : 0
+		});
+		
+		var header1 = Ti.UI.createView({
+			height: Ti.App.is_android ? __l(20) : __l(1)
+		});
+		var header2 = Ti.UI.createView({
+			height: Ti.App.is_android ? __l(20) : __l(1)
+		});
+		var header3 = Ti.UI.createView({
+			height: Ti.App.is_android ? __l(20) : __l(1)
+		});
+
+		var section1 = Ti.UI.createTableViewSection({headerView: header1});
+		var section2 = Ti.UI.createTableViewSection({headerView: header2});
+		var section3 = Ti.UI.createTableViewSection({headerView: header3});
+			
+		function make_common_row(logo, title, desc, url){
+			var row = Ti.UI.createTableViewRow({height: __l(48), 
+												backgroundColor: 'white',
+												selectedBackgroundColor : '#E8E8E8',
+												hasChild : Ti.App.is_android ? false : true
+			});
+			
+			var logo_image = Ti.UI.createImageView({
+				width: __l(30),
+				height: __l(30),
+				left: __l(20),
+				top: __l(10),
+				bottom: __l(10),
+				touchEnabled: false,
+				image: logo
+			});
+			
+			var title_label = Ti.UI.createLabel({
+				text: title,
+				font: {fontSize: __l(15)},
+				color: "black",
+				left: __l(70),
+				top: __l(8),
+				touchEnabled: false,
+				height: __l(18)
+			});
+			
+			var desc_label = Ti.UI.createLabel({
+				text: desc,
+				font: {fontSize: __l(10)},
+				color: "gray",
+				left: __l(70),
+				top: __l(28),
+				touchEnabled: false,
+				height: __l(18)
+			});
+			
+			row.add(logo_image);
+			row.add(title_label);
+			row.add(desc_label);
+
+			if (Ti.App.is_android){
+				row.add(Ti.UI.createImageView({
+					right: __l(10),
+					top: __l(15),
+					bottom: __l(15),
+					width: __l(18),
+					height: __l(18),
+					touchEnabled: false,
+					image: "/images/table_right.png"
+				}));
+			}
+			
+			row.addEventListener("click", function(e){
+				if (url.indexOf("http") >= 0){
+					cache_http_call(url, title, function(e){
+						eval(e.responseText);
+					});
+				}
+				else{
+					show_window(url, {
+						title: title
+					});
+				}
+			});
+			return row;
+		}
+
+		var row = make_common_row("/images/find/aus.png", "澳洲直采直邮", "澳洲超市直采，正品特卖", Ti.App.mamashai + "/bbrl_code/gou.txt")
+		row.add(Ti.UI.createLabel({
+				top: __l(7),
+				height: __l(15),
+				left: __l(168),
+				color: "red",
+				font: {fontSize: __l(12)},
+				text: "new!"
+		}))
+		section1.add(row);
+		
+		section2.add(make_common_row("/images/find/ddh.png", "免费派礼", "每周上架新礼物，统统免费", Ti.App.mamashai + "/bbrl_code/ddh.txt"));
+		section2.add(make_common_row("/images/find/xxb.png", "星星榜", "聚焦达人妈妈宝宝", "xxb"));
+		
+		if (Ti.App.id != "com.mamashai.babycalendar"){
+			section3.add(make_common_row("/images/find/baodian.png", "育儿宝典", "学习怎样做一个好妈妈", Ti.App.mamashai + "/bbrl_code/recent_articles2.txt"));
+		}
+		
+		section3.add(make_common_row("/images/find/video.png", "视频课堂", "大量视频资料供您学习", Ti.App.mamashai + "/bbrl_code/video.txt"));
+		section3.add(make_common_row("/images/find/topic.png", "父母话题", "辣妈们关注的话题", 'topic'));
+		section3.add(make_common_row("/images/find/city.png", "亲子城市", "了解适合带宝宝去的地方", Ti.App.mamashai + "/bbrl_code/qinzi.txt"));
+		section3.add(make_common_row("/images/find/wdy.png", "微电影", "上传一些照片，制作属于您的微电影", "album"));
+
+		tableview.data = [section2, section3];
+
+		(Ti.App.find_win||win).add(tableview);

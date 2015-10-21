@@ -1,0 +1,30 @@
+<div id="middle">
+        <div id="css_mainbody">
+            <h1 class="title">返豆</h1>
+            <table class="grid">
+            	<%= form_tag :action=>"update_make_score", :id=>@user.id do %>
+                    <tr>
+                        <td>用户名</td>
+                        <td><%= @user.name %></td>
+                    </tr>
+                    <tr>
+                        <td>返豆理由</td>
+                        <td>
+                        	<%= text_field_tag "reason", "返豆" %>
+						</td>
+                    </tr>
+                    <tr>
+                        <td>返豆数量</td>
+                        <td>
+                        	<%= text_field_tag "count", params[:count] %>
+						</td>
+                    </tr>
+                    
+                    <tr>
+                        <td colspan="2"><input type="submit" name="submit" value="提交"></td>
+                    </tr>
+				<% end %>
+            </table>
+        </div>
+        <div class="clear"></div>
+</div>

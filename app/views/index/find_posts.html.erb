@@ -1,0 +1,58 @@
+<div class="sharp mt5">
+	<div class="content">
+		<div class="cjy_left">
+			<% if @user %>
+			<div class='search_result'>
+				参与话题
+			</div>
+			<%= render :partial=>"/share/shai", :locals=>{:back=>"/home"}%>
+			<script>
+					$(function(){
+						$("#post_content").val("#<%=h params[:id] %>#")
+						$("#post_content").focus();
+						$("#post_content").get(0).setSelectionRange(100, 100)
+					})
+			</script>
+			<% end %>
+			
+			<% if @posts.size > 0 %>
+			<div class='search_result'>
+				搜到“<span class='red'><%=h params[:id] %></span>”相关话题<%= @posts.total_entries %>条
+			</div>
+			
+			<DIV id="chanel_content">
+				<% for post in @posts %>
+					<%= render :partial=>"/share/post", :locals=>{:post=>post} %>
+				<% end %>
+				<%= will_paginate @posts %>
+			</DIV>
+			<% else %>
+				<div class='search_result'>
+					没有搜到“<span class='red'><%=h params[:id] %></span>”相关话题
+				</div>
+			<% end %>
+		</div>
+		<div class="cjy_right">
+			<div class="right_list">
+				<h2>相关宝典</h2>
+				<ul>
+					<% for article in @articles %>
+						<li><a href="/articles/article/<%= article.id %>?tag=<%=h params[:id]%>" target="_blank"><%= article.title %></a></li>
+					<% end %>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<!--cjy_right-->
+	<div><img src="/images/sharp_bottom.jpg" />
+	</div>
+</div>
+
+
+<script src="/javascripts/FancyZoom.js" language="JavaScript" type="text/javascript"></script>
+<script src="/javascripts/FancyZoomHTML.js" language="JavaScript" type="text/javascript"></script>
+<script>
+	$(document).ready(function() {
+		setupZoom();
+	});	
+</script>

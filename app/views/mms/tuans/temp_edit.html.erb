@@ -1,0 +1,15 @@
+<div id="middle">
+        <div id="css_mainbody">
+            <h1 class="title">团购导航-信息管理-编辑团购信息
+				<span style="float: right; margin-right: 10px;">
+			        <%= link_to '返回列表', '/mms/tuans/index' %>
+			    </span>
+			</h1>
+			<table style="width: 1000px; padding-left: 50px;">
+				<% form_for @tuan, :url => { :action => "temp_update",:id=>@tuan.id }, :html=>{:multipart=>true} do |f| %>
+	            	<%= render :partial => 'form_temp', :locals=>{:f=>f}%>
+				<% end %>
+			</table>
+        </div>
+        <div class="clear"></div>
+    </div>

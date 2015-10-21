@@ -1,0 +1,88 @@
+一共<%=@eproducts.count %>条记录
+<table>
+    <tr>
+        <th>
+            序号
+        </th>
+        <th>
+            商品名称
+        </th>
+		<th>
+            发布用户
+        </th>
+		<th>
+            商品分类
+        </th>
+        <th>
+            商品品牌
+        </th>
+        <th>
+            商品价格
+        </th>
+        <th>
+            商品评价
+        </th>
+        <th>
+            使用心得
+        </th>
+        <th>
+            创建时间
+        </th>
+        <th>
+            评价数
+        </th>
+		<th>
+            回复数
+        </th>
+		<th>
+            转晒数
+        </th>
+		<th>
+            收藏数
+        </th>
+    </tr>
+    <% @eproducts.each_with_index do |eproduct,index| %>
+	<% post = eproduct.post%>
+    <tr>
+        <td>
+            <%=(index+1).to_s %>
+        </td>
+        <td>
+            <%=h eproduct.name %>
+        </td>
+		<td>
+            <%=h eproduct.user.name %>
+        </td>
+		<td>
+            <%=h eproduct.eproduct_tag.name %>
+        </td>
+        <td>
+            <%=h eproduct.brand %>
+        </td>
+        <td>
+            <%=h eproduct.price %>
+        </td>
+        <td>
+            <%=h post.rate %>
+        </td>
+        <td>
+            <%=h post.content %>
+        </td>
+        <td>
+            <%=eproduct.created_at.strftime("%Y-%m-%d %H:%M:%S") %>
+        </td>
+        <td>
+        	<%=h post.rates_count %>
+        </td>
+		<td>
+        	<%=h post.comments_count %>
+        </td>
+		<td>
+        	<%=h post.forward_posts_count %>
+        </td>
+		<td>
+        	<%=h post.favorite_posts_count %>
+        </td>
+    </tr>
+    <% end %>
+</table>

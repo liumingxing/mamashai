@@ -1,0 +1,14 @@
+INSERT INTO `spot_tags` VALUES ('1', '亲子中心', '0');
+INSERT INTO `spot_tags` VALUES ('2', '幼儿园', '0');
+INSERT INTO `spot_tags` VALUES ('3', '小学', '0');
+INSERT INTO `spot_tags` VALUES ('4', '中学', '0');
+INSERT INTO `spot_tags` VALUES ('5', '大学', '0');
+INSERT INTO `spot_tags` VALUES ('6', '公园', '0');
+INSERT INTO `spot_tags` VALUES ('7', '游乐园', '0');
+INSERT INTO `spot_tags` VALUES ('8', '博物馆', '0');
+INSERT INTO `spot_tags` VALUES ('9', '影剧院', '0');
+INSERT INTO `spot_tags` VALUES ('10', '运动场', '0');
+INSERT INTO `spot_tags` VALUES ('11', '餐厅', '0');
+INSERT INTO `spot_tags` VALUES ('12', '面包房', '0');
+INSERT INTO `spot_tags` VALUES ('13', '商场', '0');
+INSERT INTO `spot_tags` VALUES ('14', '其他', '0');

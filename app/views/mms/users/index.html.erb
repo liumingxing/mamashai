@@ -1,0 +1,31 @@
+    <div id="middle">
+        <div id="css_mainbody">
+            <h1 class="title">管理员管理</h1>
+            <table class="grid">
+                <thead>
+                    <tr>
+                        <th>登录名</th>
+						<th>真实姓名</th>
+                        <th width="25%">创建时间</th>
+                        <th width="25%">管理</th>
+                    </tr>
+                </thead>
+                <tbody>
+                	<% for user in @mms_users %>
+                    <tr>
+                        <td><%= link_to user.username, :action=>"show", :id=>user %></td>
+						<td><%= link_to (user.name.blank?)? '暂无信息' : user.name, :action=>"show", :id=>user %></td>
+                        <td><%= user.created_at.strftime("%Y-%m-%d %H:%M") %></td>
+                        <td>
+                        	<%= link_to "权限", {:controller=>"menu", :action=>"right", :id=>user}, :class=>"delete"%>
+							<%= link_to "修改", {:action=>"edit", :id=>user}, :class => "delete" %>
+							<%= link_to "删除", {:action=>"delete", :id=>user}, :confirm => "确认要删除吗？", :class => "delete" %>
+						</td>
+                    </tr>
+					<% end %>
+                </tbody>
+            </table>
+			<%= will_paginate @mms_users %>
+        </div>
+        <div class="clear"></div>
+    </div>

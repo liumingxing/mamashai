@@ -1,0 +1,58 @@
+<div id="middle">
+    <div id="css_mainbody">
+        <h1 class="title">广告管理
+		<span style="float: right; margin-right: 10px;">
+			<%= link_to '新添广告', :action=>:new, :tp=>params[:tp] %> |
+			<%= link_to '新添淘客广告', :action=>:new_taoke, :tp=>params[:tp] %>
+        </span>
+		</h1>
+        <%= link_to "未登录首页", :action=>"index", :tp=>1 %> |
+		<%= link_to "登录首页", :action=>"index", :tp=>2 %> |
+		<%= link_to "导购首页", :action=>"index", :tp=>3 %> |
+		<%= link_to "手机版辣妈日报", :action=>"index", :tp=>4 %>
+		<table class="grid">
+            <thead>
+                <tr>
+                    <th>
+                        序号
+                    </th>
+                    <th>
+                        图片
+                    </th>
+                    <th style="width:60px">
+                        链接
+                    </th>
+                    <th>
+                        价格
+                    </th>
+                    <th>
+                        描述
+                    </th>
+					<th colspan=2>
+						操作
+					</th>
+                </tr>
+            </thead>
+            <% for adv in @advs %>
+			<tr>
+				<td <%= "style='color:red'" if adv.hide%>><%= adv.id %></td>
+				<td>
+					<% if params[:tp].to_i == 4 %>
+						<img src="<%= adv.logo.thumb100 %>" border=0 width="160px" style="max-width:160px"　/>
+					<% else %>
+						<img src="<%= adv.logo %>" border=0 width="200px" style="max-width:200px"　/>
+					<% end %>
+				</td>
+				<td  style="width:60px"><a href="<%= adv.link %>" target="_blank"><%= adv.link %></a></td>
+				<td><%= adv.price %></td>
+				<td><%= adv.desc %></td>
+				<td><%= link_to "修改", :action=>"edit", :id=>adv, :tp=>params[:tp] %></td>
+				<td><%= link_to "删除", :action=>"delete", :id=>adv, :tp=>params[:tp] %></td>
+			</tr>
+			<% end %>
+        </table>
+        <%= will_paginate @advs %>
+    </div>
+    <div class="clear">
+    </div>
+</div>

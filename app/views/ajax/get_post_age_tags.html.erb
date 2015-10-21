@@ -1,0 +1,29 @@
+<div class="choose"> 选话题： </div>
+<span onmouseover="show_custom_tags()" onmouseout="hide_custom_tags()"><a href="javascript:void(0);" onclick="insert_sys_tag('0','自定义',this);" id="custom_tags" onclick="select_custom_tags()" class="sys_tag">[自定义]</a>
+    <div id="custom_tags_layer" class="layer_index" style="display: none;">
+        <div class="layer_indextop">
+        </div>
+        <div class="layer_content01">
+            <a href="javascript:void(0);" style="color:#0082CB;" onclick="insert_sys_tag('','自定义话题',$('#custom_tags'));">[自定义]</a>
+            <% for tag in Tag.find(:all,:conditions=>['category_id is null'],:limit=>8,:order=>'posts_count desc') %>
+            <a href="javascript:void(0);" onclick="insert_sys_tag('<%=tag.id %>','<%=tag.name %>',$('#custom_tags'));">[<%=tag.name %>]</a>
+            <% end %>
+        </div>
+        <div class="layer_indexbottom">
+            <div class="clear">
+            </div>
+        </div>
+    </div>
+</span>
+
+<% if @age %>
+	<% for tag in @age.topic.to_s.split(',')%>
+		<a href="javascript:void(0);" onclick="insert_sys_tag('-1','<%= tag %>', this);">[<%= tag %>]</a>
+	<% end %>
+<% else %>
+	<% for tag in Tag.find(:all,:conditions=>['category_id is not null'],:limit=>10,:order=>'posts_count desc') %>
+	<a href="javascript:void(0);" onclick="insert_sys_tag('<%=tag.id %>','<%=tag.name %>',this);">[<%=tag.name %>]</a>
+	<% end %>
+<% end %>
+<div class="clear">
+</div>

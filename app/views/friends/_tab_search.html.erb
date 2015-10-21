@@ -1,0 +1,178 @@
+<div class="css_zpy_tab">
+    <ul class="tab_list">
+        <li class="img">
+            <img src="/images/settings/pic_search.gif">
+        </li>
+        <li>
+            <a id="tabs_1_t" href="javascript:void(0)" onclick="show_tab('tabs_','','current',5,1);" class="current">孩子年龄段</a>
+        </li>
+        <li>
+            <a class="" id="tabs_2_t" href="javascript:void(0)" onclick="show_tab('tabs_','','current',5,2);">所在地区</a>
+        </li>
+        <li>
+            <a class="" id="tabs_3_t" href="javascript:void(0)" onclick="show_tab('tabs_','','current',5,3);">所在行业</a>
+        </li>
+        <li>
+            <a class="" id="tabs_4_t" href="javascript:void(0)" onclick="show_tab('tabs_','','current',5,4);">出生年代</a>
+        </li>
+        <li>
+            <a class="" id="tabs_5_t" href="javascript:void(0)" onclick="show_tab('tabs_','','current',5,5);">机构</a>
+        </li>
+    </ul>
+	<% form_tag({:action=>'find'},{:method => :get}) do %>
+    <table class="grid" style="display: block;" id="tabs_1">
+        <tbody>
+            <tr height="35">
+                <td class="t01" width="90">
+                    关键字： 
+                </td>
+                <td class="t02">
+                    <%= text_field :search_user, :name, :class=>'default_input' %>
+                </td>
+            </tr>
+            <tr height="35">
+                <td class="t01" width="90">
+                   孩子年龄段： 
+                </td>
+                <td class="t02">
+                	  <%=select :search_user, :kid_age, Age.find(:all).collect {|p| [ p.name, p.id ] }, {:prompt=>'宝贝年龄'} %> 
+                </td>
+            </tr>
+            <tr height="35">
+                <td class="t01" width="90">
+                </td>
+                <td class="t02">
+                    <button class="button_submit_s" type="submit" onmouseover="this.className='button_submit_s button_submit_s_hover';" onmouseout="this.className='button_submit_s';">
+                        搜索 
+                    </button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+	<% end %>
+	<% form_tag({:action=>'find'},{:method => :get}) do %>
+    <table id="tabs_2" class="grid" style="display: none;">
+        <tbody>
+            <tr height="35">
+                <td class="t01" width="90">
+                    关键字： 
+                </td>
+                <td class="t02">
+                    <%= text_field :search_user, :name, :class=>'default_input' %>
+                </td>
+            </tr>
+            <tr height="35">
+                <td class="t01" width="90">
+                    地区： 
+                </td>
+                <td class="t02">
+                   <%=select :search_user, :province_id, Province.find(:all).collect {|p| [ p.name, p.id ] }, {:prompt=>'省/直辖市'} %> 
+                </td>
+            </tr>
+            <tr height="35">
+                <td class="t01" width="90">
+                </td>
+                <td class="t02">
+                    <button class="button_submit_s" type="submit" onmouseover="this.className='button_submit_s button_submit_s_hover';" onmouseout="this.className='button_submit_s';">
+                        搜索 
+                    </button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+	<% end %>
+	<% form_tag({:action=>'find'},{:method => :get}) do %>
+    <table id="tabs_3" class="grid" style="display: none;">
+        <tbody>
+            <tr height="35">
+                <td class="t01" width="90">
+                    关键字： 
+                </td>
+                <td class="t02">
+                    <%= text_field :search_user, :name, :class=>'default_input' %>
+                </td>
+            </tr>
+            <tr height="35">
+                <td class="t01" width="90">
+                    所在行业： 
+                </td>
+                <td class="t02">
+                       <%=select :search_user, :industry_id, Industry.find(:all).collect {|p| [ p.name, p.id ] }, {:prompt=>'所在行业'} %>
+                </td>
+            </tr>
+            <tr height="35">
+                <td class="t01" width="90">
+                </td>
+                <td class="t02">
+                    <button class="button_submit_s" type="submit" onmouseover="this.className='button_submit_s button_submit_s_hover';" onmouseout="this.className='button_submit_s';">
+                        搜索 
+                    </button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+	<% end %>
+	<% form_tag({:action=>'find'},{:method => :get}) do %>
+    <table id="tabs_4" class="grid" style="display: none;">
+        <tbody>
+            <tr height="35">
+                <td class="t01" width="90">
+                    关键字： 
+                </td>
+                <td class="t02">
+                    <%= text_field :search_user, :name, :class=>'default_input' %>
+                </td>
+            </tr>
+            <tr height="35">
+                <td class="t01" width="90">
+                    出生年代： 
+                </td>
+                <td class="t02">
+                     <%=select :search_user, :birthyear, APP_CONFIG['time_birthyears'].split('|').collect {|p| [ "#{p}后", p.to_i ] }, {:prompt=>'年代'} %>
+                </td>
+            </tr>
+            <tr height="35">
+                <td class="t01" width="90">
+                </td>
+                <td class="t02">
+                    <button class="button_submit_s" type="submit" onmouseover="this.className='button_submit_s button_submit_s_hover';" onmouseout="this.className='button_submit_s';">
+                        搜索 
+                    </button>
+                </td>
+            </tr>
+        </tbody>
+    </table> 
+	<% end %>
+	<% form_tag({:action=>'find'},{:method => :get}) do %>
+	<%=hidden_field_tag :is_org ,'1'%>
+    <table id="tabs_5" class="grid" style="display: none;">
+        <tbody>
+            <tr height="35">
+                <td class="t01" width="90">
+                    关键字： 
+                </td>
+                <td class="t02">
+                     <%= text_field :search_user, :name, :class=>'default_input' %>
+                </td>
+            </tr>
+			<tr height="35">
+                <td class="t01" width="90">
+                    地区： 
+                </td>
+                <td class="t02">
+                   <%=select :search_user, :province_id, Province.find(:all).collect {|p| [ p.name, p.id ] }, {:prompt=>'省/直辖市'} %> 
+                </td>
+            </tr>
+            <tr height="35">
+                <td class="t01" width="90">
+                </td>
+                <td class="t02">
+                    <button class="button_submit_s" type="submit" onmouseover="this.className='button_submit_s button_submit_s_hover';" onmouseout="this.className='button_submit_s';">
+                        搜索 
+                    </button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+	<% end %>
+</div>

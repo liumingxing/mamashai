@@ -1,0 +1,113 @@
+<div><a href="<%= url_for :controller => :tao %>">商品广场</a> >> 我用过活动</div>
+<div class="sharp mt20">
+  <div class="content" style="margin-bottom:20px;">
+    <div class="wt_index_left">
+      <h2>本周我用过活动！</h2>
+      <div class="woyongguo">
+      	<div class="left">
+      		<img src="http://www.mamashai.com<%= @woyongguo.logo.thumb90 %>">
+      	</div>
+      	<div class="right">
+      		<div class="title"><%= @woyongguo.name %></div>
+      		<div class="desc"><%= @woyongguo.desc %></div>
+      	</div>
+      </div>
+      <div class="clear"></div>
+      <div class="select_woyongguo_notice">从以下商品中选择我用过的吧！</div>
+      <DIV>
+        <ul id="used_products">
+        <% for product in @woyongguo.products[0, 6] %>
+        	<li class="product" onmouseover="jQuery('#used_<%= product.id %>').show();" onmouseout="jQuery('#used_<%= product.id %>').hide();" class="mainlevel2">
+				<a href="/tao/show/<%= product.product.id %>" title="<%= product.product.name %>"> <img class="product_img" src="<%= product.product.pic_url %>_310x310.jpg" style="width:226px" /> </a>
+                  <ul id="used_<%= product.id %>">
+					<li>
+						<% if @user %>
+							<a href="javascript:void(0)" onclick="$('#a_<%= product.taobao_product_id%>').load('/ajax/clap/<%= product.taobao_product_id%>?tp=taobao')" style="background: url('/images/wt_xh.png'); width: 56px; display:block; line-height: 24px; text-align: center; color: white; padding-left: 10px; font-size: 12px;" id='a_<%= product.taobao_product_id %>'>(<%= product.product.like_count.to_i%>)</a>
+						<% else %>
+							<a href="/account/signup?origin_url=/tao/the_used" style="background: url('/images/wt_xh.png'); width: 56px; color: white; padding-left: 10px; font-size: 12px;" ></a>
+						<% end %>
+					</li>
+					<li>
+						&nbsp;
+					</li>
+					<li>
+						<% if @user %>
+							<a href="javascript:void(0)" onclick="show_url_box('/tao/share/<%= product.taobao_product_id %>', '我用过')"><img src="/images/wt_yg.png"></a>
+						<% else %>
+							<a href="/account/signup?origin_url=/tao/the_used"><img src="/images/wt_yg.png"></a>
+						<% end %>
+					</li>
+				</ul>
+			</li>
+        <% end %>
+        </ul>
+        
+      </DIV>
+    </div>
+    <div class="cjy_right">
+      <span class="title">“我用过”拿晒豆？</span>
+      <div class="wt_index_sp" style="line-height:25px;">
+        <p>
+          1、有效参与：评论不少于5个字，内容紧扣所评商品记为1次有效参与，1次有效参与获得1个晒豆
+        </p>
+        <p>
+          2、每人每个活动上限3个晒豆
+        </p>
+        <p>
+          3、有效参与当月的各次“我用过活动”，均可获得晒豆
+        </p>
+      </div>
+      <div class="clear"></div>
+      <span class="title">往期“我用过”活动</span>
+      <ul>
+      	<% for woyongguo in @pre_woyongguos %>
+      	<li><%= link_to " · " + woyongguo.name, :action=>"the_used", :id=>woyongguo %></li>
+      	<% end %>
+      </ul>
+    </div>
+  </div>
+
+  <div class="content">
+    <div class="wt_index_left">
+      <h2>这些妈爸用过：</h2>
+      <DIV id="chanel_content">
+        <% for post in @posts %>
+          <%= render :partial=>"/share/post", :locals=>{:post=>post} %>
+        <% end %>
+        <%= will_paginate @posts %>
+      </DIV>
+    </div>
+    <div class="cjy_right">
+      <span class="title">热门商品</span>
+      <div class="wt_index_sp">
+        <ul>
+          <% for product in @hot_products %>
+            <li>
+              <a href="/tao/show/<%= product.id %>"><img src="<%= product.pic_url%>_60x60.jpg" /></a>
+              <div class="clear"></div>
+              <a href="/tao/show/<%= product.id %>"><%= truncate product.name, :length=>16 %></a>
+            </li>
+          <% end %>
+        </ul>
+      </div>
+
+      <% if @my_products %>
+        <div class="wt_index_sp">
+          <span class="title">我用过的商品</span>
+          <ul>
+            <% for product in @my_products %>
+              <li>
+                <a href="/tao/show/<%= product.id %>"><img src="<%= product.pic_url%>_60x60.jpg" /></a>
+                <div class="clear"></div>
+                <a href="/tao/show/<%= product.id %>"><%= truncate product.name, :length=>10 %></a>
+              </li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
+    </div>
+  </div>
+  <div>
+    <img src="/images/sharp_bottom.jpg" />
+  </div>
+</div>

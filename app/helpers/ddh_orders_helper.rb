@@ -1,0 +1,2 @@
+module DdhOrdersHelper
+end

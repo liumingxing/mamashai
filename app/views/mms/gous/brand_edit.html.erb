@@ -1,0 +1,11 @@
+<div id="middle">
+    <div id="css_mainbody">
+        <h1 class="title">导购平台-商品品牌-创建信息<span style="float: right; margin-right: 10px;"><%= link_to '返回列表', '/mms/gous/brand_index' %>
+            </span></h1>
+        <% form_for @brand,:url => { :action => "brand_update", :id => @brand }, :html=>{:multipart=>true} do |f| %>
+        <%= render :partial => 'brand_form', :locals=>{:f=>f} %>
+        <% end %>
+    </div>
+    <div class="clear">
+    </div>
+</div>

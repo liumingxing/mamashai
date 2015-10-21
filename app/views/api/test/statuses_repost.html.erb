@@ -1,0 +1,30 @@
+<h1>repost 发一条微博消息(转晒)</h1><%= link_to "返回到列表", "/api/test" %>
+<pre>
+  [路径]：statuses/repost
+  [HTTP请求方式]: POST
+  [URL]: http://your.api.domain/statuses/repost.json
+  [是否需要登录]: true
+
+参数:
+
+    * source: 申请应用时分配的AppKey，调用接口时候代表应用的唯一身份。 (必选)
+    * :id: 要转发的微博ID (必选)
+    * status: 添加的转发文本。必须做URLEncode,信息内容不超过140个汉字。如不填则默认为“转发微博”。(必选)
+
+示例
+
+  curl -u "username:password" -d "id=111904&status=test repost"
+  "http://your.api.domain/statuses/repost.json?source=appkey"
+
+注意
+
+    * 请求必须用POST方式提交
+</pre>
+<hr/>
+<%= form_tag "/api/statuses/repost.json" ,{:method=>:post} do %>
+  <%= render :partial => '/api/test/login' %>
+  source: <%= text_field_tag "source" %><br/>
+  id: <%= text_field_tag "id" %><br/>
+  status: <%= text_field_tag "status" %><br/>
+  <%= submit_tag "提交"%>
+<% end -%>

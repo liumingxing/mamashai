@@ -1,0 +1,73 @@
+<div id="middle">
+    <div id="css_mainbody" style="width:800px;">
+        <h1 class="title">精彩话题管理</h1>
+		<div class="settings" style="text-align:center;color:#008000;">
+	    	<%= flash[:notice] %>
+	  	</div>
+		
+		<% form_tag({:action=>:update_great_tags}) do %>
+		    <fieldset>
+		        <legend>
+		            今日话题
+		        </legend>
+		        <label for="username">
+		            话题:
+		        </label>
+		        <%=text_field :name_value, :name %>
+		        <br/>
+		        <label for="username">
+		            标题:
+		        </label>
+		         <%=text_field :name_value, :value %>
+		        <input type="submit" value="提交"/>
+		    </fieldset>
+		<% end %>
+			
+		<% form_tag({:action=>:update_day_hot_tags}) do %>
+		    <fieldset>
+		        <legend>
+		            热门话题榜
+		        </legend>
+				<% for i in 0..7 %>
+		        <label for="username">
+		            话题<%=i+1%>:
+		        </label>
+		        <%=text_field :tag_names,i,:value=>@hot_tags[i] %>
+		        <br/>
+				<% end %>
+		        <input type="submit" value="提交"/>
+		    </fieldset>
+		<% end %>
+			
+		<% form_tag({:action=>:update_broadcast_tag}) do %>
+		    <fieldset>
+		        <legend>
+		            推荐群组
+		        </legend>
+				<% for i in 0..2 %>
+		        <label for="username">
+		            群组<%=i+1%>:
+		        </label>
+				<%=text_field :broadcast_tag,i,:value=>@broadcast_tags[i] %>
+		        <br/>
+				<% end %>
+		        <input type="submit" value="提交" />
+		    </fieldset>
+		<% end %>
+		
+    </div>
+    <div class="clear"></div>
+</div>
+
+<style type="text/css">
+	fieldset{
+		border:1px solid #D1D1D1;
+		color:#333333;
+		line-height:220%;
+		margin:20px;
+		padding:10px;
+	}
+	
+</style>
+    
+ 

@@ -1,0 +1,96 @@
+<div style="text-align:center;" class="green">
+    <%= flash[:notice] %>
+</div>
+<%= javascript_include_tag :ckeditor %>
+<table border="1" class="grid_mce" cellpadding="2">
+    <tr>
+        <td class="td01">
+            资讯栏目名称：
+        </td>
+        <td>
+            <%= f.select "article_category_id", @categories %>
+        </td>
+    </tr>
+    <tr>
+        <td class="td01">
+            标题：
+        </td>
+        <td>
+            <%= f.text_field :title, :size => 70 %>
+        </td>
+    </tr>
+    <tr>
+        <td class="td01">
+            作者：
+        </td>
+        <td>
+            <%= f.text_field :author %>
+        </td>
+    </tr>
+    <tr>
+        <td class="td01">
+            来源：
+        </td>
+        <td>
+            <%= f.text_field :origin_url %>
+        </td>
+    </tr>
+    <tr>
+        <td class="td01">
+            推广：
+        </td>
+        <td>
+            文字：<%= f.text_field :tuiguang_text %>
+            链接：<%= f.text_field :tuiguang_url %>
+        </td>
+    </tr>
+
+    <tr>
+        <td class="td01">
+            <%= f.label :logo,"缩略图：" %>
+        </td>
+        <td>
+            <%=upload_column_field :article, :logo %>
+            <%= f.error_message_on  :logo %>
+        </td>
+    </tr>
+    <tr>
+        <td class="td01" valign="top">
+            资讯内容：
+        </td>
+        <td>
+            <%#= ckeditor_textarea :article_content, :content, :toolbar=>'Full', :width=>'90%', :height => '500px' %>
+        	<%= text_area :article_content, :content,{:id=>'post_content',:class=>'required',:style=>"height:500px;widht:90%"} %>
+		</td>
+    </tr>
+	<tr>
+		<td class="td01" valign="top">标签：</td>
+		<td>
+			<% ArticleTagType.find(:all).each do |t| %>
+				<p style="padding:2px;"><span><%= t.name %>：</span>
+				 	<% t.article_tags.each do |tag |%>
+				 		<%= check_box_tag "tags[]", tag.name, @article.tags.to_s.include?(tag.name)%><%= tag.name%>
+					<% end %>
+				</p>
+			<% end %>
+		</td>
+	</tr>
+    <tr>
+        <td class="td01">
+        	<% if @type == "article" %>
+        	<%= hidden_field_tag :title,{}, {:value => @title} %>
+            <%= f.hidden_field :gou_brand_article_id, :value => @brand.try(:id) %>
+			<% end %>
+			<% if @type == "story" %>
+        	<%= hidden_field_tag :title,{}, {:value => @title} %>
+            <%= f.hidden_field :gou_brand_story_id, :value => @brand.try(:id) %>
+			<% end %>
+        </td>
+        <td>
+            <%= f.submit '保存' %>
+        </td>
+    </tr>
+</table>
+
+<%= tiny_mce_js %>
+

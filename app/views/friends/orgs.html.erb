@@ -1,0 +1,23 @@
+<div class="settings_content">
+    <div class="settings_title">
+        用户搜索 
+    </div> 
+    <ul class="shine_list">
+        <% for user in @users %>
+        <li class="list">
+            <%=render :partial=>'/home/list_user',:locals => {:user_item => user} %>
+            <ul class="shine_local">
+                <li id="fans_user_<%=user.id%>">
+                    <% if @user && @user.has_follow?(user.id) %>
+                    <img src="/images/icons/follow_success.gif"/><% else %>
+                    <%= link_to_remote(APP_CONFIG['add_follow'],{:update => "fans_user_#{user.id}", :url => {:action =>:create_follow_user,:controller=>:ajax,:id=>user.id}},{:class=>'button_link'} ) %>
+                    <% end %>
+                </li>
+            </ul>
+            <div class="clear">
+            </div>
+        </li>
+        <% end %>
+    </ul>
+    <%=will_paginate @users %>
+</div>

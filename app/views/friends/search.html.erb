@@ -1,0 +1,64 @@
+<div class="right_float">
+    <a class="button_link" href="/friends/invite">我要邀请</a>
+</div>
+<div class="clear"></div>
+
+<%= render :partial=>"recommand" %>
+<div class="mms_panel_content">
+    <div class="post_navigate_tab" id='n'>
+        <ul class="class1">
+            <li <%=raw 'class="current"' if params[:tp]=='age' %>>
+                <a href="<%=url_for(:tp=>'age', :anchor=>'n')%>">孩子同龄</a>
+            </li>
+            <li <%=raw 'class="current"' if params[:tp]=='birthday' %>>
+                <a href="<%=url_for(:tp=>'birthday', :anchor=>'n') %>">孩子同生日</a>
+            </li>
+            <li <%=raw 'class="current"' if params[:tp]=='city' %>>
+                <a href="<%=url_for(:tp=>'city', :anchor=>'n') %>">同地区</a>
+            </li>
+            <li <%=raw 'class="current"' if params[:tp]=='job' %>>
+                <a href="<%=url_for(:tp=>'job', :anchor=>'n') %>">同行业</a>
+            </li>
+			<li <%=raw 'class="current"' if params[:tp]=='angel' %>>
+                <a href="<%=url_for(:tp=>'angel', :anchor=>'n') %>">天使妈爸</a>
+            </li>
+            <li <%=raw 'class="current"' if params[:tp]=='super' %>>
+                <a href="<%=url_for(:tp=>'super', :anchor=>'n') %>">超级晒主</a>
+            </li>
+            
+        </ul>
+    </div>
+    <div class="friends">
+        <% for user in @hot_users %>
+        <div class="friend">
+            <div class="user_pic">
+                <%=logo_tag(user,{:version=>'thumb48',:url=>user_url(user)}) %>
+            </div>
+            <div class="shine_content">
+                <div class="follow_user">
+                    <%=link_user(user) %>
+                </div>
+                <div class="user_local<%=' user_local02' if user.gender=='w'%>">
+                    <%="#{user.province.name}, " if user.province %><%=user.city.name if user.city %>
+                    粉丝<span class="font"><%=user.fans_users_count %></span>人
+                </div>
+                <div class="content">
+                    <% if user.first_kid %>
+                    <%=APP_CONFIG["kid_#{user.first_kid.gender}"] %><%= user.first_kid.age %>
+                    <% else %>
+                    没有孩子<% end %>
+                </div>
+            </div>
+            <div class="shine_local" id="add_follow_user_<%=user.id %>">
+                <% if @user && @user.has_follow?(user.id) %>
+                <img src="/images/icons/follow_success.gif"/><% else %>
+                <%= link_to_remote(APP_CONFIG['add_follow'], {:update => "add_follow_user_#{user.id}", :url => {:action =>:create_follow_user,:controller=>:ajax,:id=>user.id}},{:class=>'button_link'}) %>
+                <% end %>
+            </div>
+            <div class='clear'>
+            </div>
+        </div>
+        <% end %>
+        <%= will_paginate @hot_users %>
+    </div>
+</div>

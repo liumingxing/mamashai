@@ -1,0 +1,115 @@
+function android_upgrade(){
+	var view = Ti.UI.createView({
+		top:0,
+		width:300,
+		height:80,
+		backgroundColor: 'transparent'
+	});
+
+	var ind = Titanium.UI.createProgressBar({
+		min: 0,
+		max: 1,
+		top: 26,
+		bottom: 26,
+		left: __l(10),
+		right: __l(10),
+		message: "正在下载新版本",
+		value:0,
+		color:'#888'
+	});
+
+	view.add(ind)
+
+	android_dialog = Ti.UI.createAlertDialog({
+	   title: "提示",
+	   androidView:view
+	});
+
+	android_dialog.addEventListener("android:back", function(e){
+		return false;
+	});
+
+	var xhr = Ti.Network.createHTTPClient()
+	xhr.ondatastream = function(e) {
+		ind.value = e.progress;
+		ind.message = "正在下载：" + parseInt(ind.value*100) + "%"
+		Ti.API.log(e.progress)
+	}
+	xhr.onload = function(){
+		android_dialog.hide();
+
+		var file = Ti.Filesystem.getFile('file:///mnt/sdcard/download/mamashai.apk');
+		file.write(xhr.responseData);
+
+		var intent = Ti.Android.createIntent({
+	      action: Ti.Android.ACTION_VIEW,
+	      data: file.nativePath,
+	      type: "application/vnd.android.package-archive",
+	      packageName: "com.android.packageinstaller",
+	      flag: "0x10000000"
+	    });
+	    Ti.Android.currentActivity.startActivity( intent );
+	}
+
+	var name = 'babycalendar';
+	if (Ti.App.id == "com.mamashai.yunfree")
+		name = "yun"
+	if (Ti.App.id == "com.mamashai.yufree")
+		name = "yu"
+
+	xhr.open("GET", "http://www.mamashai.com/downloads/" + name + ".apk")
+	xhr.send()
+			 
+	android_dialog.show();
+}
+
+function update_dailog(title, text, url){
+	if (Ti.App.version < title){	
+			var alert_dialog = Titanium.UI.createAlertDialog({
+				title : "有新版本可供下载",
+				message : text,
+				buttonNames : ['取消', '下载'],
+				cancel : 0
+			});
+			alert_dialog.addEventListener("click", function(e) {
+				if (e.index == 1){
+					if (Ti.App.is_android){
+						android_upgrade()
+					}
+					else{
+						Ti.Platform.openURL(url)
+					}
+					
+					logEvent('update_from_alert1');
+				}
+			})
+			alert_dialog.show()
+	}
+	else{
+		show_alert("提示", "已经是最新版本");
+	}
+}
+
+
+if (Ti.App.is_android){		//安卓
+	if (Ti.App.id == "com.mamashai.babycalendar"){
+		update_dailog("3.4.5", "1：完善记录多个宝宝的功能\n2：细节改进", "market://details?id=com.mamashai.babycalendar")
+	}
+	else if (Ti.App.id == "com.mamashai.yunfree"){
+		update_dailog("3.5.5", "1：完善记录多个宝宝的功能\n2：细节改进", "market://details?id=com.mamashai.yunfree")
+	}
+	else if (Ti.App.id == "com.mamashai.yufree"){
+		update_dailog("4.9.5", "1：完善记录多个宝宝的功能\n2：细节改进", "market://details?id=com.mamashai.yufree")
+	}
+}
+else{			//苹果
+	if (Ti.App.id == "com.mamashai.babycalendar"){
+		update_dailog("3.4.5", "1：完善记录多个宝宝的功能\n2：细节改进", "http://itunes.apple.com/cn/app/bao-bao-ri-li/id499828643?ls=1&mt=8")
+	}
+	else if (Ti.App.id == "com.mamashai.yunfree"){
+		update_dailog("3.5.5", "1：完善记录多个宝宝的功能\n2：细节改进", "https://itunes.apple.com/cn/app/yun-qi-quan-cheng-jian-ce/id479480717?l=zh&ls=1&mt=8")
+	}
+	else if (Ti.App.id == "com.mamashai.yufree"){
+		update_dailog("4.9.5", "1：完善记录多个宝宝的功能\n2：细节改进", "https://itunes.apple.com/us/app/0-3sui-bao-bao-cheng-zhang/id485234591?l=zh&ls=1&mt=8")
+	}
+}

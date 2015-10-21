@@ -1,0 +1,31 @@
+<%= render :partial=>"/friends/friend_nav" %>
+
+    <div class="mms_messages_new">
+        <%=render :partial=>'users_nav' if @is_me %>
+        <ul class="shine_list">
+        	<% user_ids = [] %>
+            <% for follow in @follows %>
+			<% user_ids << follow.id %>
+            <li class="list">
+                <%=render :partial=>'list_user',:locals => {:user => follow} %>
+                <% if @is_me %>
+                <%=render :partial=>'list_user_tools',:locals => {:user => follow} %>
+                <% else %>
+                <%=render :partial=>'list_space_user_tools',:locals => {:user => follow} %>
+                <% end %>
+                <div class="clear">
+                </div>
+            </li>
+            <% end %>
+        </ul>
+        <% if @follows.blank? %>
+	        <div class="ifnull">
+	            没有关注的人
+	        </div>
+        <% end %>
+        <div class="clear">
+        </div>
+    </div>
+    <%=will_paginate @follows %>
+    <div class="clear">
+    </div>

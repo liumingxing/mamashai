@@ -1,0 +1,2 @@
+module Mms::AwardUsersHelper
+end

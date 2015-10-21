@@ -1,0 +1,61 @@
+<table cellpadding="1" cellspacing="1" border="1" width="100%">
+  <tr>
+    <th>名称</th>
+    <th>链接</th>
+    <th>顺序</th>
+    <th>操作</th>
+  </tr>
+  <% @links.each do |link| %>
+    <tr>
+      <td><%= link.name %></td>
+      <td><%= link.link_url %></td>
+      <td><input id="link_<%= link.id %>" name="sort" value="<%= link.sort.to_i %>" onchange="change_sort('<%= link.id %>')"/></td>
+      <td><button onclick="delete_link('<%= link.id %>')">删除</button></td>
+    </tr>
+  <% end %>
+</table>
+<br/>
+<br/>
+<br/>
+<form action="/mms/posts/create_link" method="post">
+  名称：<input name="name" value=""/><br/>
+  链接地址：<input name="link_url" value=""/><br/>
+  <input type="submit" name="submit" value="创建"/>
+</form>
+<script type="text/javascript">
+  function delete_link(id) {
+    if(confirm("确定要删除该友情链接吗？")) {
+      jQuery.ajax({
+        url: "/mms/posts/delete_link",
+        type:"post",
+        data: {"id" : id},
+        success:function(res) {
+          alert(res);
+          window.location = window.location.href;
+        },
+        error: function(){
+          alert("服务器错误，请联系管理员");
+        }
+      })
+    }
+  }
+
+  function change_sort(id) {
+    var sort = jQuery("#link_" + id).val();
+    if(sort.match(/^\d+$/) == null) {
+      alert("序列有问题，请重新输入序列");
+    } else {
+      jQuery.ajax({
+        url: "/mms/posts/change_sort",
+        type:"post",
+        data: {"id" : id, "sort" : sort},
+        success:function(res) {
+          alert(res);
+        },
+        error: function(){
+          alert("服务器错误，请联系管理员");
+        }
+      })
+    }
+  }
+</script>

@@ -1,0 +1,86 @@
+<div class="sharp mt5">
+	<div class="content">
+		<div class="cjy_left">
+			<h3>资源下载</h3>
+			<div id="TabbedPanels1" class="TabbedPanels">
+				
+				<div class="navigate_tab" id="n">
+					<ul class="class1">
+						<li <%=raw  'class="current"' if !params[:id] %>>
+								<a href="/mms_tools">全部</a>
+						</li>
+						<% for category in @categories %>
+							<li <%=raw 'class="current"' if params[:id].to_i == category.id%>>
+								<a href="/mms_tools/index/<%= category.id %>"><%= category.name %></a>
+							</li>
+						<% end %>
+					</ul>
+					<div class="class2">
+						<ul>
+							<ul class="s_tab" style="margin: 6px 0px;">
+								<li>
+										排序：
+								</li>
+								<li class="s_tab_left<%= "_in" if params[:order].blank?%>">
+									<a href="<%= url_for :action=>"index", :id=>params[:id], :age=>params[:age]%>">最新</a>
+								</li>
+								<li class="s_tab_right<%= "_in" if params[:order] == "users_count" %>">
+									<a href="<%= url_for :action=>"index", :id=>params[:id], :age=>params[:age], :order=>"users_count"%>">最热</a>
+								</li>
+							</ul>
+						</ul>
+						<div class="clear"></div>
+					</div>
+				</div>
+				
+				
+				<div class="zyxq">
+					<% for tool in @tools %>
+						<div class="zyxq_li">
+								<div class="zyxq_img">
+									<a href="/mms_tools/show/<%= tool.id %>"><%=raw logo_tag2 tool, {:version=>"thumb99"}%></a>
+								</div>
+								<div class="zyxq_img_right">
+									<dl>
+										<dd>
+											<a href="/mms_tools/show/<%= tool.id %>"><%= tool.name %></a>
+										</dd>
+										<dt>
+											下载次数：<%= tool.users_count %>   &nbsp; &nbsp; 发布时间：<%= tool.created_at.strftime("%Y年%m月%d日")%>
+										</dt>
+									</dl>
+									<P>
+										<%= truncate tool.content, :length=>140 %>
+									</P>
+								</div>
+						</div>
+					<% end %>
+					<%= will_paginate @tools %>
+				</div>
+			</div>
+
+		</div>
+		<!--cjy_left-->
+		<div class="cjy_right">
+			<div class="bdxq_li">
+				<div style="padding-left: 30px;">
+				<span>年龄段：</span>
+				<ul>
+					<ul>
+						<% for age in Age.find(:all) %>
+						<li>
+							<a href="<%= url_for :id=>params[:id], :age=>age.id%>"><%= age.name %></a>
+						</li>
+						<% end %>
+					</ul>
+				</ul>
+				</div>
+			</div>
+
+			<%= render :partial=>"/share/taobao_adv_right" %>
+		</div>
+		<!--cjy_right-->
+	</div>
+	<div><img src="/images/sharp_bottom.jpg" />
+	</div>
+</div>

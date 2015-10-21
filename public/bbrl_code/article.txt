@@ -1,0 +1,194 @@
+function ArticleWindow(attr){
+	Ti.include("public.js");
+	
+	var win = Titanium.UI.createWindow(attr);
+
+	pre(win);
+
+	var title = win.title;
+	win.title = ""
+
+	if (!Ti.App.is_android)
+		win.hideTabBar();
+	
+	var scroll_view = Titanium.UI.createScrollView({
+		contentWidth : 'auto',
+		contentHeight : 'auto',
+		top : 0,
+		showVerticalScrollIndicator : true,
+		showHorizontalScrollIndicator : true
+	});
+	
+	win.add(scroll_view);
+	
+	var post = Ti.UI.createView({
+		height : Ti.UI.SIZE,
+		layout : 'vertical',
+		left : 0,
+		top : 0,
+		right : 0,
+		bottom: __l(70)
+	});
+	scroll_view.add(post);
+	
+	var web_wrapper = Ti.UI.createView({
+		top: 0,
+		bottom: 2,
+		left: 0,
+		right: 0,
+		height: Ti.UI.SIZE,
+		touchEnabled: false
+	});
+	
+	var webview = Ti.UI.createWebView({
+		willHandleTouches : false,
+		top : 0,
+		bottom: 0,
+		left: 0,
+		right: 0,
+		height: Ti.UI.SIZE,
+		url : "/article.html"
+	});
+	web_wrapper.add(webview);
+	post.add(web_wrapper);
+	
+	var right_button = Titanium.UI.createButton({systemButton:Titanium.UI.iPhone.SystemButton.ACTION});
+	right_button.addEventListener("click", function(e){
+		var tiwechat = require('com.mamashai.tiwechat');
+
+		var optionsDialogOpts = {
+			options: [win.fav ? '取消收藏' : '收藏', '分享给微信好友', '发到微信朋友圈', '取消'],
+			cancel: 3
+		};
+		if (tiwechat.isWeixinInstalled() == "no"){
+			optionsDialogOpts = {
+				options: [win.fav ? '取消收藏' : '收藏', '取消'],
+				cancel: 1
+			};	
+		}
+
+		var dialog = Titanium.UI.createOptionDialog(optionsDialogOpts);
+		dialog.addEventListener('click',function(e)
+		{
+			if (optionsDialogOpts.options[e.index] == "取消")
+				return;
+				
+			if (e.index == 0){
+				if (!check_login()){
+					to_login();
+					return;
+				}
+				
+				var url = Ti.App.mamashai + "/api/statuses/favourite/" + win.id + "?tp=article&" + account_str();
+				
+				http_call(url, function(e){
+					if (e.responseText == "ok"){
+						show_notice("收藏成功")
+					}
+					else if (e.responseText == "cancel"){
+						show_notice("取消收藏成功")
+						
+						require('/lib/mamashai_db').db.delete_one_json("favourites1_post", user_id())
+					}
+				});
+			}
+			else if (e.index == 1){												//发给微信好友
+				tiwechat.exampleProp = Ti.App.wechat_key;
+				tiwechat.shareSession("分享一篇育儿宝典", title, "http://www.mamashai.com/mobile/article/" + win.id, "http://www.mamashai.com" + win.json.logo_url);
+				logEvent('weixin_session');
+			}
+			else if (e.index == 2){											//分享微信朋友圈
+				tiwechat.exampleProp = Ti.App.wechat_key;
+				tiwechat.shareTimeline(title, "分享一篇育儿宝典", "http://www.mamashai.com/mobile/article/" + win.id, "http://www.mamashai.com" + win.json.logo_url);
+				
+				logEvent('weixin_timeline');
+				if (!Ti.App.is_android)
+					show_notice("成功分享到微信朋友圈")
+				var url = Ti.App.mamashai + "/api/statuses/make_weixin_score?" + account_str();
+				var xhr = Ti.Network.createHTTPClient()
+				xhr.timeout = Ti.App.timeout
+				xhr.open("POST", url)
+				xhr.send()
+			}
+		});
+		dialog.show();
+	});
+	if (!Ti.App.is_android)
+		win.setRightNavButton(right_button)
+	
+	
+	function set_webview_content(json) {
+		Ti.App.fireEvent('setWebContent', {
+			content : "<h1>" + title + "</h1><p class='refer'>" + referDay(json.created_at) + "</p>" + json.article_content.content,
+			id: json.id,
+			platform: Ti.App.osname,
+			width: Ti.App.platform_width,
+			factor: Ti.App.logicalDensityFactor
+		});
+		
+		hide_loading();
+	}
+	
+	var xhr = Ti.Network.createHTTPClient()
+	xhr.timeout = Ti.App.timeout
+	xhr.onerror = function(){
+				hide_loading();
+				show_timeout_dlg(xhr, Ti.App.mamashai + "/api/articles/show/" + win.id);
+	}
+	xhr.onload = function() {
+			var json = JSON.parse(this.responseText);
+			if(this.responseText.length > 0) {
+				require('lib/mamashai_db').db.insert_json("article", win.id, this.responseText)
+			}
+	
+			win.json = json
+			set_webview_content(json);
+	}
+	
+	var json_row = require('/lib/mamashai_db').db.select_with_check("article", win.id)
+	if (json_row.blank){
+		webview.addEventListener("load", function(e){
+			xhr.open('GET', Ti.App.mamashai + "/api/articles/show/" + win.id);
+			xhr.send();
+			Titanium.App.fireEvent('show_indicator');	
+		})
+	}
+	else{
+		webview.addEventListener("load", function(e){
+			var json = JSON.parse(json_row.json)
+			win.json = json
+			set_webview_content(json);
+		})
+	}
+	
+	logEvent('article');
+	
+	function set_height(e){
+		if (Ti.App.is_android)
+			return;
+			
+		if (win.id != e.id)
+			return;
+		
+		if (Ti.App.is_android){
+			webview.height = __l(e.height) + __l(10);
+			web_wrapper.height = __l(e.height) + __l(10);
+		}
+		else{
+			webview.height = e.height + __l(10);
+			web_wrapper.height = e.height + __l(10);
+		}
+	}
+	Ti.App.addEventListener("set_height", set_height)
+	win.addEventListener("close", function(e){
+		Ti.App.removeEventListener("set_height", set_height)
+	})
+	
+	add_default_action_bar2(win, win.title, "操作", function(){
+		right_button.fireEvent("click")
+	});
+	
+	return win;
+}
+
+module.exports = ArticleWindow;

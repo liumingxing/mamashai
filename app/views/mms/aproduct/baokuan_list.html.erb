@@ -1,0 +1,58 @@
+<div id="middle">
+    <div id="css_mainbody">
+        <h1 class="title">爆款管理
+		<span style="float: right; margin-right: 10px;">
+			<%= link_to '新添爆款', :action=>:new_baokuan %>
+        </span>
+		</h1>
+        <table class="grid">
+            <thead>
+                <tr>
+                    <th>
+                        编码
+                    </th>
+                    <th>
+                        ID
+                    </th>
+                    <th>
+                        名称
+                    </th>
+                    <th>
+                        价格
+                    </th>
+                    <th>
+                        主图
+                    </th>
+                    <th>
+                        开始时间
+                    </th>
+                    <th>
+                        结束时间
+                    </th>
+                    <th colspan=2>
+						操作
+					</th>
+                </tr>
+            </thead>
+            <% for baokuan in @baokuans %>
+                <tr>
+                    <td><%= baokuan.product.code %></td>
+                    <td><%= baokuan.product.id %></td>
+                    <td><%= baokuan.product.name %></td>
+                    <td><%= baokuan.product.price %></td>
+                    <td>
+                    <% if baokuan.product.logo %>
+                    <img src="<%= baokuan.product.logo.thumb200 %>" border=0 width="200px"/>
+                    <% end %>
+                    </td>
+                    <td><%= baokuan.begin_at.to_s(:db)%></td>
+                    <td><%= baokuan.stop_at.to_s(:db)%></td>
+                    <td>
+                        <%= link_to "修改", :action=>"edit_baokuan", :id=>baokuan %>
+                        <%= link_to "删除", :action=>"delete_baokuan", :id=>baokuan %>
+                    </td>
+                </tr>
+            <% end %>
+        </table>
+    </div>
+</div>

@@ -1,0 +1,63 @@
+<div id="middle">
+    <div id="css_mainbody">
+        <h1 class="title">图书列表<%= "--#{flash[:notice]}" unless flash[:notice].blank? %><span style="float: right; margin-right: 10px;"><%= link_to '新增图书', :action => :new %></span></h1>
+        <br/>
+        <% form_tag :action => :find do %>
+        <table>
+            <tbody>
+                <tr>
+                    <td width="10%" align="right">图书搜索：</td>
+                    <td width="20%"><%= text_field :search, :title -%></td>
+                    <td width="10%"><%= button_to "搜索", :action => :find %></td>
+                    <td></td>
+                </tr>
+            </tbody>
+        </table>
+        <% end %>
+        <table class="grid">
+            <tbody>
+                <tr>
+                    <th>图书名称</th>
+                    <th>作者</th>
+                    <th>译者</th>
+                    <th>出 版 社</th>
+                    <th>装订</th>
+                    <th>封面</th>
+                    <th>是否发布</th>
+                    <th>操作</th>
+                    <th>编辑</th>
+                    <th>删除</th>
+                </tr>
+                <% @books.each do |book| %>
+                <tr>
+                    <td><a href="/pub/article/<%#=article.id%>" target="_blank"><%=h book.book_name %></a></td>
+                    <td><%= h book.book_author %></td>
+                    <td><%= book.book_translator if book.translator_id%></td>
+                    <td><%= book.publishing_house %></td>
+                    <td><%= book.packaging %></td>
+
+                    <td><%=logo_tag(book,{:version=>'thumb99'}) if book.logo %></td>
+
+                    <td>
+                        <% if book.state == "已发布" %>
+                        <img src="/images/icons/icons_01.png" alt="/images/icons/icons_01.png"><% else %>
+                        <img src="/images/icons/icon_25.gif" alt="/images/icons/icon_25.gif"><% end %>
+                    </td>
+                    <td>
+                        <% if book.state == "已发布" %>
+                        <%= link_to '取消发布', {:action => 'unpublish', :id => book}, {:style => "color:#329BCB;"} %>
+                        <% else %>
+                        <%= link_to '发布', {:action => 'publish', :id => book}, {:style => "color:#329BCB;"} %>
+                        <% end %>
+                    </td>
+                    <td><%= link_to '编辑', {:action => :edit, :id => book}, {:style => "color:#329BCB;"} %></td>
+                    <td><%= link_to '删除', {:action => :destroy, :id => book}, {:confirm => "您确定删除吗？", :method => :delete, :style => "color:#329BCB;"} %></td>
+                </tr>
+                <% end %>
+            </tbody>
+        </table>
+        <div class="book_page">
+            <%=will_paginate @books %>
+        </div>
+    </div>
+</div>

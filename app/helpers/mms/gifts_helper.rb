@@ -1,0 +1,2 @@
+module Mms::GiftsHelper
+end

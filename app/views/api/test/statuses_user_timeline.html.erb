@@ -1,0 +1,33 @@
+<h1>user_timeline 获取当前登录用户发布的微博消息列表(默认10条)</h1><%= link_to "返回到列表", "/api/test" %>
+<pre>
+  [路径]:statuses/user_timeline
+  [HTTP请求方式]: GET
+  [URL]: http://your.api.domain/statuses/user_timeline.json
+  [是否需要登录]： true
+参数
+    * source 申请应用时分配的AppKey，调用接口时候代表应用的唯一身份。
+    * :id 根据用户ID返回指定用户的最新微博消息列表, 如果:id未指定, 则返回当前登录用户最近发表的微博消息列表。
+    * count 指定每页返回的记录条数。默认值10
+    * page 页码,默认是1。
+    * post_tp 微博类型，空为全部，original原创，groups群组, picture图片，video视频，blog博客. 返回指定类型的微博信息内容。
+    * post_age_id 年龄段, 1:没有孩子, 2:孕期, 3:0-1岁, 4:1-2岁, 5:2-3岁, 6:3-5岁, 7:5-7岁, 8:7-9岁, 9:9-12岁, 10:12-15岁, 11:15-18岁, 12:18岁以上
+示例
+  curl -u "username:password"
+  "http://your.api.domain/statuses/user_timeline.json?source=appkey&count=20"
+注意
+  :id为指定的用户ID，使用url为：
+  http://your.api.domain/statuses/user_timeline/:id.json
+  如果不指定id，则返回当前登录用户最近发表的微博消息列表,url为:
+  http://your.api.domain/statuses/user_timeline.json
+</pre>
+<hr/>
+<%= form_tag "/api/statuses/user_timeline.json" ,{:method=>:get} do %>
+  <%= render :partial => '/api/test/login' %>
+  source: <%= text_field_tag "source" %><br/>
+  id: <%= text_field_tag "id" %><br/>
+  count: <%= text_field_tag "count" %><br/>
+  page: <%= text_field_tag "page" %><br/>
+  post_tp: <%= text_field_tag "post_tp" %><br/>
+  post_age_id: <%= text_field_tag "post_age_id" %><br/>
+  <%= submit_tag "提交"%>
+<% end -%>

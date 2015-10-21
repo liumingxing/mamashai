@@ -1,0 +1,37 @@
+<div id="middle">
+    <div id="css_mainbody">
+        <h1 class="title">晒豆查看</h1>
+        <%= form_tag({:action=>'list_score'},:method=>"get") do %>
+        用户名：<%= text_field_tag :keyword %>
+        ID号<%= text_field_tag :id %>
+        <%= submit_tag "搜索" %>
+        <% end %>
+        <table class="grid">
+            <tbody>
+                <tr>
+                    <th>昵称</th>
+                    <th>手机型号</th>
+                    <th>晒豆数</th>
+                    <th>记录数</th>
+                    <th>粉丝数</th>
+                    <th>最后活跃时间</th>
+                    <th>注册时间</th>
+                    <th>操作</th>
+                </tr>
+                <% @users.each do |user| %>
+                <tr>
+                    <td><%=link_user(user) %></td>
+                    <td><%= user.remark %></td>
+                    <td><%= user.score %></td>
+                    <td><%= user.posts_count %></td>
+                    <td><%= user.fans_users_count %></td>
+                    <td><%= user.last_login_at.to_s(:db) if user.last_login_at%></td>
+                    <td><%= user.created_at.to_s(:db) %></td>
+                    <td><%= link_to "明细", :action=>"score_detail", :id=>user %></td>
+                </tr>
+                <% end %>
+            </tbody>
+        </table>
+        <%= will_paginate @users %>
+    </div>
+</div>

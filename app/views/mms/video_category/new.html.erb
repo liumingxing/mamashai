@@ -1,0 +1,16 @@
+<div id="middle">
+    <div id="css_mainbody">
+        <h1 class="title">视频资源类目管理
+		<span style="float: right; margin-right: 10px;">
+			<%= link_to '返回', :action=>"index" %>
+        </span>
+		</h1>
+        <table class="grid">
+    	<%= form_tag({:action=>"create"}, :multipart => true) do %>
+			<%= render :partial=>"form"%>
+		<% end %>
+		</table>
+    </div>
+    <div class="clear">
+    </div>
+</div>

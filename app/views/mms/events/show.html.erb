@@ -1,0 +1,23 @@
+<p>
+  <b>Url:</b>
+  <%=h @event.url %>
+</p>
+
+<p>
+  <b>Name:</b>
+  <%=h @event.name %>
+</p>
+
+<p>
+  <b>Image url:</b>
+  <%=h @event.image_url %>
+</p>
+
+<p>
+  <b>State:</b>
+  <%=h @event.state %>
+</p>
+
+
+<%= link_to 'Edit', edit_mms_event_path(@event) %> |
+<%= link_to 'Back', mms_events_path %>

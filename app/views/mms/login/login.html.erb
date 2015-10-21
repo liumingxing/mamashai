@@ -1,0 +1,61 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+	<title>妈妈晒后台管理系统</title>
+	<link type="image/x-icon" href="http://www.mamashai.com/favicon.ico?1010" rel="shortcut icon">
+	<%= stylesheet_link_tag 'all', 'admin' %>
+</head>
+<body>
+<div id="wapper">
+    <div id="head">
+    	<div class="top_menu">
+    		<% if session[:mms_user] %>			
+    		登录为<a href="/mms/login/main"><%= session[:mms_user] %></a><a href="/mms/login/my">我的账号</a><a href="/mms/login/logout">退出</a>
+			<% end %>			
+    	</div>
+        <div class="logo">妈妈晒后台管理系统</div>
+    </div>
+    <div id="middle">
+    	
+<div class="login_content">
+	<table class="login">
+		<form action="chklogin" method="post">
+		<tbody>
+			<tr>
+				<td class="t01"><label for="username">登录名：</label></td>
+				<td class="t02"><input type="text" id="username" name="username" tabindex="1" class="post_name"></td>
+			</tr>
+			<tr>
+				<td class="t01"><label for="password">密码：</label></td>
+				<td class="t02"><input type="password" id="password" name="password" tabindex="2" class="post_name"></td>
+			</tr>
+			<tr height="20">
+				<td></td>
+				<td></td>
+			</tr>
+			<tr>
+				<td class="t01"><a href="/account/lost_password">忘记密码</a></td>
+				<td class="t03">
+					<button class="button_submit_s" type="submit" onmouseover="this.className='button_submit_s button_submit_s_hover';" onmouseout="this.className='button_submit_s';">
+                        登录>> 
+                   </button>
+				</td>
+			</tr>
+		</tbody>
+		</form>
+	</table>
+</div>
+<div class="clear"></div>
+
+</div>
+    <div id="foot">
+        <div class="foot_list"> <a title="妈妈晒活动" href="/activity">妈妈晒活动</a>|<a title="妈妈晒是做什么的？有什么愿景？又有怎样的团队？看看这里：）" href="/about/aboutus">关于妈妈晒</a>|<a title="想加入妈妈晒吗？来看看妈妈晒的标准和喜好吧：）" href="/about/joinus">加入妈妈晒</a>|<a title="用户沟通？商业合作？公关事务？无论什么原因想联系妈妈晒，随时欢迎：）" href="/about/contact">联系妈妈晒</a>| <a title="如何使用妈妈晒？来看看用户帮助吧：）" href="/html/help/help.html">用户帮助</a>|<a target="_blank" title="用户和妈妈晒之间的默契，为了更好地搭建这个平台呦：）" href="/html/agreement.html">用户协议</a>|<a title="妈妈爸爸的贴心导航，融汇了各类需要的工具和网址，方便、易用：）" href="/about/index">妈妈晒导航</a> </div>
+        <div id="foot1"> <span class="infor">Copyright &copy; 北京晒晒乐网络科技有限公司 版权所有 2009-2010,  All Rights Reserved　<a target="_blank" href="http://www.miibeian.gov.cn/">京ICP备10009132号</a><img src="/images/icons/biaoshi.gif"></span> </div>
+    </div>
+</div>
+</body>
+<script>
+	document.username.focus();
+</script>
+</html>

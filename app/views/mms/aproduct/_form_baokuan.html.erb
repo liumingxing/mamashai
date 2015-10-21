@@ -1,0 +1,46 @@
+    <tr>
+        <td class="td01">
+            商品编码
+        </td>
+        <td>
+            <%= select "baokuan", "a_product_id", AProduct.all.map{|c| [c.code, c.id]} %>
+        </td>
+    </tr>
+    <tr>
+        <td class="td01">
+            爆款价格
+        </td>
+        <td>
+            <%= text_field "baokuan", "price", :style=>"width:200px" %>
+        </td>
+    </tr>
+    <tr>
+        <td class="td01">
+            爆款限量
+        </td>
+        <td>
+            <%= text_field "baokuan", "count", :style=>"width:200px" %>
+        </td>
+    </tr>
+    <tr>
+        <td class="td01">
+            开始时间
+        </td>
+        <td>
+            <%= datetime_select "baokuan", "begin_at", {:use_month_numbers=>true} %>
+        </td>
+    </tr>
+    <tr>
+        <td class="td01">
+            结束时间
+        </td>
+        <td>
+            <%= datetime_select "baokuan", "stop_at", {:use_month_numbers=>true} %>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2" style="padding: 10px; text-align: center">
+            <input type="submit" name="submit" value="提交">
+        </td>
+    </tr>
+    </script>

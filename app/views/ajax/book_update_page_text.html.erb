@@ -1,0 +1,3 @@
+
+<%=ifnull_str(@book_page,{:method=>"content#{params[:content]}",:pmt=>'no_book_page_text',:format=>true}) %>
+<script>cancel_page_text(<%=params[:content]%>);</script>

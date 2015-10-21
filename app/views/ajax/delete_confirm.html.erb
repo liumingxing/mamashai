@@ -1,0 +1,22 @@
+
+    <div class="layer_content">
+        <div class="whether">
+            你确定要删除吗?
+        </div>
+        <ul class="layer_botton">
+            <li >
+            	  <%= link_to_remote('确定', {:update => @update_id, :url => {:action =>@ajax_action,:controller=>:ajax,:id=>params[:id]} } , {:class => "button_link"}) %>
+            
+            </li>
+            <li>
+                <button class="button_submit_s" type="button" onclick="hide_box();" onmouseover="this.className='button_submit_s button_submit_s_hover';" onmouseout="this.className='button_submit_s';">
+                    取消 
+                </button>
+            </li>
+            <div class="clear">
+            </div>
+        </ul>
+    </div>
+<script>
+    reset_box(332, 122);
+</script>

@@ -1,0 +1,107 @@
+<div id="middle">
+    <div id="css_mainbody">
+        <h1 class="title">供应商管理<span style="float: right; margin-right: 10px;">
+			<% if params[:action] == "index" %>
+			<%= link_to '新建', new_mms_supplier_path %>
+			<% else %>
+			<%= link_to '新建', new_mms_supplier_path %> | 
+			<%= link_to '返回', mms_suppliers_path %> 
+			<% end %>
+		</span></h1>
+        <div style="text-align:center;" class="green">
+            <%= flash[:notice] %>
+        </div>
+        <div id="page_count">
+            <span style="float:right;">共有<b class="blue"><%= @suppliers.size %></b>条记录</span>
+        </div>
+        <% form_tag "/mms/suppliers/search", {:method => "get"} do %>
+        <table style="width:800px;">
+            <tr>
+                <td align="right" width="200px">
+                    搜索：
+                </td>
+                <td>
+                    <%= text_field_tag "keyword", {},{:value => @keyword, :size => 40} %><%= submit_tag "查询" %>
+                </td>
+            </tr>
+        </table>
+        <% end %>
+        <div class="clear">
+        </div>
+        <table class="grid">
+            <tr>
+                <th>
+                    编号
+                </th>
+                <th>
+                    名称
+                </th>
+                <th>
+                   	密码
+                </th>
+                <th>
+                    地址
+                </th>
+                <th>
+                    电话
+                </th>
+                <th>
+                    手机
+                </th>
+                <th>
+                    Email
+                </th>
+				<th>
+                    联系人
+                </th>
+                <th>
+                    操作
+                </th>
+            </tr>
+            <% if @suppliers.blank? %>
+            <tr>
+                <td colspan=9>
+                    <b>暂无记录</b>
+                </td>
+            </tr>
+            <% else %>
+            <% @suppliers.each do |supplier| %>
+            <tr>
+                <td>
+                    <%=h supplier.code %>
+                </td>
+                <td>
+                    <%=h supplier.name %>
+                </td>
+                <td>
+                    <%=h supplier.password %>
+                </td>
+                <td>
+                    <%=h supplier.address %>
+                </td>
+                <td>
+                    <%=h supplier.phone %>
+                </td>
+                <td>
+                    <%=h supplier.mobile %>
+                </td>
+                <td>
+                   　<%=h supplier.email %>
+                </td>
+                <td>
+                    <%=h supplier.contacter %>
+                </td>
+				<td>
+					<%= link_to '查看', :action => :show, :id => supplier.id %>
+				 	<%= link_to '编辑', :action => :edit, :id => supplier.id %>
+					<%= link_to '删除', {:action => :destroy, :id => supplier.id }, :confirm => '您确定删除吗?', :method => :delete %>
+				</td>
+            </tr>
+            <% end %>
+            <%end %>
+        </table>
+		<%= will_paginate @suppliers %>
+    </div>
+    <div class="clear">
+    </div>
+</div>

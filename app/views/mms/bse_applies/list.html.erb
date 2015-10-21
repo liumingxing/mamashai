@@ -1,0 +1,31 @@
+<h1>婴儿提篮申请名单</h1>
+
+<table class="list" border="1">
+  <tr class="head">
+    <th>序号</th>
+    <th>申领人姓名</th>
+    <th>站内昵称</th>
+    <th>记录数</th>
+    <th>手机</th>
+    <th>宝宝生日</th>
+    <th>居住地址</th>
+    <th>申领时间</th>
+  </tr>
+  
+<% for bse_apply in @bse_applies %>
+  <tr>
+    <td><%= (bse_apply.id-1)/2%></td>
+    <td><%= URI.decode(bse_apply.name)%></td>
+    <td><%= link_user bse_apply.user%></td>
+    <td><%= bse_apply.user.posts_count %></td>
+    <td><%=h bse_apply.mobile %></td>
+    <td><%=h bse_apply.age %></td>
+    <td><%=h URI.decode(bse_apply.address) %></td>
+    <td><%=h bse_apply.created_at.to_s(:db) %></td>
+  </tr>
+<% end %>
+</table>
+
+
+<%= will_paginate @bse_applies %>
+

@@ -1,0 +1,301 @@
+function About(attr){
+	Ti.include("public.js");
+
+	var win = Ti.UI.createWindow(attr);
+	if (!Ti.App.is_android) {
+		win.hideTabBar();
+	}
+	pre(win)
+
+	var right = Ti.UI.createButton({
+		title: '用户使用协议'
+	})
+	right.addEventListener("click", function(e){
+		var w = Ti.UI.createWindow({title: "用户使用协议", backButtonTitle: !Ti.App.is_android && Ti.App.osversion < "7.0" ? '返回' : ''})
+		var web = Ti.UI.createWebView({url: "http://www.mamashai.com/html/agreement.html",
+			top: 0,
+			right: 0,
+			left: 0,
+			bottom:0})
+		w.add(web)
+		add_default_action_bar(w, w.title, true)
+		pre(w)
+		Ti.App.currentTabGroup.activeTab.open(w, {
+			animated : true
+		});
+	})
+	
+	if (!Ti.App.is_android){
+		win.setRightNavButton(right)
+	}
+
+	var logo = Ti.UI.createImageView({
+		image : './images/gybbrl' + Ti.App.pic_sufix + ".png",
+		width : __l(93),
+		height : __l(92),
+		hires : true,
+		top : __l(20),
+		//left : __l(111)
+	});
+	
+	var tip1 = Ti.UI.createLabel({
+		text : '宝宝日历',
+		color : '#EA609E',
+		font : {
+			fontSize : __l(30),
+			fontWeight : 'bold'
+		},
+		height : __l(40),
+		top : __l(120),
+		left : 0,
+		right : 0,
+		textAlign : 'center'
+	});
+	
+	var tip2 = Ti.UI.createLabel({
+		text : 'V ' + Titanium.App.version,
+		color : '#999999',
+		font : {
+			fontSize : __l(20),
+			fontWeight : 'bold'
+		},
+		height : __l(40),
+		top : __l(156),
+		left : 0,
+		right : 0,
+		textAlign : 'center'
+	});
+	tip2.addEventListener("longpress", function(e){
+		if (check_login()){
+			http_call("http://www.mamashai.com/api/admin/identify?" + account_str(), function(e){
+				if (e.responseText == "yes"){
+					show_alert("提示", "认证成功！")
+					Ti.App.Properties.setString("is_mms_admin", "true");
+				}
+				else{
+					show_alert("提示", e.responseText)
+				}
+			})
+		}
+	})
+	
+	win.add(logo)
+	win.add(tip1);
+	win.add(tip2);
+
+	var tableview = Titanium.UI.createTableView({
+		style:Titanium.UI.iPhone.TableViewStyle.GROUPED,
+		separatorColor : "#ccc",
+		backgroundColor : 'transparent',
+		rowBackgroundColor : 'white',
+		//data : data,
+		top : Ti.App.is_android ? __l(220) : __l(180),
+		scrollable: false,
+		bottom: __l(0)
+	});
+	
+	group_tableview(tableview)
+	
+	function add_a_row(text, callback) {
+			var row = Ti.UI.createTableViewRow({
+				height : Ti.UI.SIZE,
+				//height: __l(20),
+				hasChild : false,
+				selectedBackgroundColor: "#E8E8E8",
+				callback: callback
+			});
+			
+			var label = Ti.UI.createLabel({
+				top : Ti.App.is_android ? __l(11) : __l(9),
+				bottom : Ti.App.is_android ? __l(11) : __l(9),
+				left : __l(20),
+				height : __l(18),
+				width: Ti.UI.SIZE,
+				font : {
+					fontSize : __l(15)
+				},
+				color: "#333",
+				text : text,
+				touchEnabled : false
+			});
+			row.label = label;
+			row.add(label)
+			
+			row.addEventListener("click", function(e){
+				e.source.callback(e)
+			})
+			return row;
+	}
+	
+	tableview.appendRow(add_a_row("给个评价", function(e){
+			if (Ti.App.is_android){
+				Ti.Platform.openURL("market://details?id=" + Ti.App.id);
+			}
+			else{
+				if (Ti.App.id == "com.mamashai.babycalendar")
+					Ti.Platform.openURL("itms-apps://itunes.apple.com/app/id499828643");
+				else if (Ti.App.id == "com.mamashai.yunfree")
+					Ti.Platform.openURL("itms-apps://itunes.apple.com/app/id479480717")
+				else if (Ti.App.id == "com.mamashai.yufree")
+					Ti.Platform.openURL("itms-apps://itunes.apple.com/app/id485234591");
+
+				logEvent('make_app_store_comment');
+			}
+	}))
+	tableview.appendRow(add_a_row("检查更新", function(e){
+		http_call(Ti.App.mamashai + "/api/statuses/version_check", function(e){
+			var code = e.responseText;
+			//alert(code)
+			eval(code)
+		}) 
+	}))
+	tableview.appendRow(add_a_row("清空缓存", function(e){
+			show_loading("正在清空");
+			Ti.App.db.execute("delete from jsons where json_type <> 'user_profile' and json_type <> 'show_tip_1' and json_type <> 'set_invite'");
+
+			Ti.App.db.execute("delete from album_books");
+			Ti.API.log("~~~~~~~~~~~clear json~~~~~~~~~")
+			setTimeout(function(){
+				var f = Ti.Filesystem.getFile(Ti.Filesystem.applicationCacheDirectory);
+				var list = f.getDirectoryListing();
+				if (list){
+					for (i=0,length =list.length;i<length;i++){
+						Ti.API.log("delete ~~~~~~~~~~~ " + list[i])
+						var file = Ti.Filesystem.getFile(Ti.Filesystem.applicationCacheDirectory, list[i]);
+						if (file.isFile())
+							file.deleteFile();
+						else if (file.isDirectory())
+							Ti.Filesystem.getFile(Ti.Filesystem.applicationCacheDirectory, list[i]).deleteDirectory(true);
+					}
+				}
+
+				hide_loading();	
+				show_alert("提示", "成功清除了缓存");
+			}, 300);
+	}))
+	tableview.appendRow(add_a_row("意见反馈 (或加QQ：1170979903)", function(e){
+			if (!check_login()){
+				to_login();
+				return;
+			}
+			
+			show_window("write_post", {
+				title : "意见反馈",
+				text : "#宝宝日历意见反馈#" + Titanium.Platform.osname + "(" + Ti.Platform.version + ") " +  " V" + Titanium.App.version + " @妈妈晒，",
+			})	
+	}))
+	
+	var footer = Ti.UI.createView({
+		height: __l(80),
+		left: 0,
+		backgroundColor: "white",
+		right: 0,
+		bottom: 0
+	})
+	
+	var login_button = Ti.UI.createButton({
+		left: __l(40),
+		top: Ti.App.is_ipad ? __l(30) : __l(16),
+		right: __l(40),
+		height: Ti.App.is_android ? __l(40) : __l(32),
+		title: check_login() ? "退出登录" : "登录",
+		borderRadius: __l(6),
+		font: {fontSize: __l(15)}
+	})
+	if (!Ti.App.is_android && parseInt(Ti.Platform.version[0]) < 7){
+		pre_btn(login_button)
+	}
+	else{
+		login_button.color = 'white'
+		login_button.backgroundColor = "#FF3333"
+		login_button.backgroundSelectedColor = "#EE3333"
+	}
+	
+	login_button.addEventListener("click", function(e){
+			if (check_login()){
+				var alertDialog = Titanium.UI.createAlertDialog({
+					title : '提示',
+					message : '确定退出当前帐户么？',
+					buttonNames : ['取消', '确定'],
+					cancel : 0
+				});
+				alertDialog.addEventListener('click', function(evt) {
+					switch (evt.index) {
+						case 1:
+							Ti.App.Properties.setString("userid", "");
+							Ti.App.Properties.setString("email", "");
+							Ti.App.Properties.setString("name", "");
+							Ti.App.Properties.setString("password", "");
+							Ti.App.Properties.setString("token", "");
+							Ti.App.Properties.setString("tencent_token", "");
+							Ti.App.Properties.setString("taobao_token", "");
+							Ti.App.Properties.setString("qzone_token", "");
+							Ti.App.Properties.setString("current_kid_id", "");		//当前记录的是哪个宝宝，清除掉
+		
+							Ti.App.fireEvent("logged_out");
+							
+							Ti.App.fireEvent("begin_android_ua");
+		
+							show_notice("成功退出登录")
+							
+							login_button.title = "登录",
+							
+							get_mentions();
+							logEvent('logout');
+							break;
+					}
+				});
+				alertDialog.show();
+			}
+			else{			//未登录，要登录
+				to_login(win);
+				return
+			}
+	})
+	
+	Titanium.App.addEventListener('logged_in', function(e)
+	{
+		login_button.title = "退出登录"
+	});
+	footer.add(login_button)
+	
+	if (Ti.App.is_android){
+		win.add(footer)
+	}
+	else{
+		tableview.data[0].footerView = footer;
+	}
+	
+	win.add(tableview);
+	
+	
+	if (Ti.App.is_android){
+		if (Ti.App.is_bbrl){
+			add_default_action_bar2(win, win.title, "应用介绍", function(){
+				var Help = require("help")
+						var win1 = new Help({
+							backgroundColor : "#B4D3D7"
+						});
+						
+						pre(win1)
+						Ti.App.currentTabGroup.activeTab.open(win1, {
+							animated : true
+						});
+			});
+		}
+		else{
+			add_default_action_bar(win, win.title, true)
+		}
+	}
+	
+	logEvent('about');
+	
+	Ti.App.currentTabGroup.activeTab.open(win, {
+		animated : true
+	});
+}
+
+About({title : "关于",
+		backButtonTitle : !Ti.App.is_android && Ti.App.osversion < "7.0" ? '返回' : '',
+		backgroundColor : 'white'
+})

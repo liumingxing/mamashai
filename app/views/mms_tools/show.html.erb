@@ -1,0 +1,66 @@
+<div class="nav_rm">
+	<a href="/mms_tools">资源下载</a>>>资源详情
+</div>
+<div class="sharp color1 mt5">
+	<div class="content">
+		<div class="cjy_left">
+			<div class="zy_xq">
+				<div class="zy_xq_tit" style="color:#999; width:670px; float:left; margin:40px 0 0 18px">
+					
+				<% if @user %>	
+					<%= link_to image_tag("/images/zyxq_down.jpg"),"/mms_tools/download/#{@tool.id}",:title=>"#{@tool.name+'下载'}" %>
+                <% else %>
+                	<%= link_to image_tag("/images/zyxq_down.jpg"),"/account/signup?origin_url=/mms_tools/show/#{@tool.id}",:title=>"#{@tool.name+'下载'}",:confirm=>"只有注册用户才可以下载，快快注册妈妈晒吧" %>
+                <% end %>
+					
+					<b><%= @tool.name %></b><font>
+					(<%=number_to_human_size(@tool.pdf.size, :precision=>2) %>)/<%=@tool.users_count %>次下载	
+				</div>
+				<div id="bdxq_text">
+					<div class="zyxq_text mt20">
+						<b>资源介绍：</b>
+						<%=@tool.content %>
+						<p>
+							<%=image_tag @tool.logo.url, :title=>@tool.name,:alt=>@tool.name %>
+						</p>
+					</div>
+				</div>				
+			</div>
+		</div>
+		<!--cjy_left-->
+		<div class="cjy_right">
+			<div class="bdxq_li1">
+				<span>相关资源下载</span>
+				<ul>
+					<% for tool in @other_tools_1 %>
+					<li>
+						<a href="/mms_tools/show/<%= tool.id %>"><%=raw logo_tag2 tool, {:version=>"thumb99"} %></a>
+						<a href="/mms_tools/show/<%= tool.id %>"><%= tool.name %></a>
+						<br />
+						已下载<font><%= tool.users_count %></font>次
+					</li>
+					<% end %>
+				</ul>
+			</div>
+
+			<div class="bdxq_li1">
+				<span>同龄爸妈下载</span>
+				<ul>
+					<% for tool in @other_tools_2 %>
+					<li>
+						<a href="/mms_tools/show/<%= tool.id %>"><%=raw logo_tag2 tool, {:version=>"thumb99"} %></a>
+						<a href="/mms_tools/show/<%= tool.id %>"><%= tool.name %></a>
+						<br />
+						已下载<font><%= tool.users_count %></font>次
+					</li>
+					<% end %>
+				</ul>
+			</div>
+
+		</div>
+		<!--cjy_right-->
+	</div>
+	<div><img src="/images/sharp_bottom.jpg" />
+	</div>
+	<!--box1-->
+</div>

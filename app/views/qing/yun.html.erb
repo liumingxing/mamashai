@@ -1,0 +1,37 @@
+<div class="week_desc">孕<%= params[:id] %>周</div>
+
+<div class="yun_image">
+	<img src="/images/qing/yun/<%= params[:id].to_i %>.jpg"/>
+</div>
+
+<div class="yun_tip">
+	<div class="content indent"><%= @week.field4 %></div>
+	<hr/>
+</div>
+
+<div class="yun_tip">
+	<div class="title"><span>胎儿发育</span></div>
+	<div class="content indent"><%= @week.field1.gsub("\n", "<br/>").html_safe %></div>
+	<hr/>
+</div>
+
+<div class="yun_tip">
+	<div class="title"><span>身体变化</span></div>
+	<div class="content indent"><%= @week.field2.gsub("\n", "<br/>").html_safe %></div>
+	<hr/>
+</div>
+
+<div class="yun_tip">
+	<div class="title"><span>孕期营养</span></div>
+	<div class="content indent"><%= @week.field3.gsub("\n", "<br/>").html_safe %></div>
+	<hr/>
+</div>
+
+<div class="page">
+	<% if params[:id].to_i > 1 %>
+    	<a href="/qing/yun/<%= params[:id].to_i - 1 %>" hidefocus="true">上一周</a>
+    <% end %>
+    <% if params[:id].to_i < 40 %>
+    	<a href="/qing/yun/<%= params[:id].to_i + 1 %>"  hidefocus="true">下一周</a>
+    <% end %>
+</div>

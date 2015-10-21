@@ -1,0 +1,79 @@
+<div class="layer" id="layer_fill">
+    <div class="layer_title">
+        <span class="title">没有现成背景，填写吧！</span>
+        <span class="more"><a href="javascript:void(0);" onclick="hide_box();"><img src="/images/layer/del_06.gif"></a></span>
+    </div>
+    <div class="layer_content">
+        <% form_remote_tag :url => {:action => :create_post_event}, :loading => "", :update => "lbContent" do %>
+        <table class="grid">
+            <tbody>
+                <tr height="35">
+                    <td class="t01" width="100">
+                        类型<span class="gray">(必填)</span>：
+                    </td>
+                    <td class="t02">
+                        <%=select :event, :tag_id, Tag.find(:all,:conditions=>['category_id = 4']).collect {|p| [ p.name, p.id ] }, {:prompt=>'请选择'} %>
+                    </td>
+                </tr>
+                <tr height="35">
+                    <td class="t01" width="100">
+                        标题<span class="gray">(必填)</span>：
+                    </td>
+                    <td class="t02">
+                        <%=text_field :event,:title %>(限30个字)
+                    </td>
+                </tr>
+                <tr height="35">
+                    <td class="t01" width="100">
+                        时间<span class="gray">(必填)</span>：
+                    </td>
+                    <td class="t02">
+                         <%=datetime_select :event,:start_at, :use_month_numbers => true, :prompt=>{:year=>APP_CONFIG['time_label_y'],:month=>APP_CONFIG['time_label_m'],:day=>APP_CONFIG['time_label_d']} %>
+                     </td>
+                </tr>
+                <tr height="35">
+                    <td class="t01" width="100">
+                        地点<span class="gray">(必填)</span>： 
+                    </td>
+                    <td class="t03">
+                        <%=select :event, :province_id, Province.find(:all).collect {|p| [ p.name, p.id ] }, {:prompt=>'省/直辖市'} %>
+                        <span id="cities_span"></span>
+                        <%= observe_field("event_province_id",:url => { :action => 'get_cities',:controller=>'ajax' },:before=>'show_loadding("cities_span")',:update => 'cities_span',:with => "'model=event&city_id=@event.city_id&id='+value") %>
+                        <script>show_loadding("cities_span");
+                            $("#cities_span").load("/ajax/get_cities?" + "model=event&city_id=<%=@event.city_id%>&id=" + $("#event_province_id").val())
+					
+                        </script>
+                        <%=text_field :event,:location,:style=>"width:80px;" %>
+                        <div>
+                            <%=error_message_on :event,:province_id %>
+                        </div>
+                        <div>
+                            <%=error_message_on :event,:city_id %>
+                        </div>
+                        <div>
+                            <%=error_message_on :event,:location %>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <ul class="layer_botton">
+            <li>
+                <button class="button_submit_s" type="submit" onmouseover="this.className='button_submit_s button_submit_s_hover';" onmouseout="this.className='button_submit_s';">
+                    确定 
+                </button>
+            </li>
+            <li>
+                <button class="button_submit_s" type="button" onclick="hide_box();" onmouseover="this.className='button_submit_s button_submit_s_hover';" onmouseout="this.className='button_submit_s';">
+                    取消 
+                </button>
+            </li>
+            <div class="clear">
+            </div>
+        </ul>
+        <% end %>
+    </div>
+</div>
+<script>
+    reset_box(472, 232);
+</script>

@@ -1,0 +1,31 @@
+
+<table class="list" border="1" style="width:98%">
+  <tr class="head">
+    <th>日期</th>
+    <th>总激活下载用户</th>
+    <th>当天新增用户</th>
+    <th>当天活跃用户</th>
+    <th>当天运行数</th>
+    <th>当天人均运行数</th>
+    <th>当天人均在线时长</th>
+  </tr>
+  
+<% for tongji in @tongjis %>
+  <tr>
+  	<td><%=h tongji.day %></td>
+    <td align='right'><%=h tongji.a1 %></td>
+    <td align='right'><%=h tongji.a2 %></td>
+    <td align='right'><%=h tongji.a3 %></td>
+    <td align='right'><%=h tongji.a4 %></td>
+    <td align='right'><%=h tongji.a5 %></td>
+    <td align='right'><%=h tongji.a6 %></td>
+  </tr>
+<% end %>
+</table>
+
+
+<%= will_paginate @tongjis %>
+
+<br />
+
+

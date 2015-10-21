@@ -1,0 +1,30 @@
+<h1>create 关注一个用户。关注成功则返回关注人的资料，目前的最多关注2000人。</h1><%= link_to "返回到列表", "/api/test" %>
+<pre>
+  [路径]: friendships/create
+  [HTTP请求方式]: POST
+  [URL]: http://your.api.domain/friendships/create.json
+  [是否需要登录]： true
+
+参数
+
+    * source 申请应用时分配的AppKey，调用接口时候代表应用的唯一身份。
+    * :id 要关注的用户ID
+
+示例
+
+  curl -u "username:password" -d "id=7701"
+  "http://your.api.domain/friendships/create.json?source=appkey"
+
+注意
+
+    * 如果目的用户不存在，则返回error
+    * 如果关注人数超过最高限制2000，则返回overload
+    * 操作成功则返回ok
+</pre>
+<hr/>
+<%= form_tag "/api/friendships/create.json" ,{:method=>:post} do %>
+  <%= render :partial => '/api/test/login' %>
+  source: <%= text_field_tag "source" %><br/>
+  id: <%= text_field_tag "id" %><br/>
+  <%= submit_tag "提交"%>
+<% end -%>

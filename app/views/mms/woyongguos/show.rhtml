@@ -1,0 +1,8 @@
+<% for column in Woyongguo.content_columns %>
+<p>
+  <b><%= column.human_name %>:</b> <%=h @woyongguo.send(column.name) %>
+</p>
+<% end %>
+
+<%= link_to 'Edit', :action => 'edit', :id => @woyongguo %> |
+<%= link_to 'Back', :action => 'list' %>

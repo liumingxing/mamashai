@@ -1,0 +1,23 @@
+<div id="middle">
+    <div id="css_mainbody">
+        <h1 class="title">优惠券生成
+			<span style="float: right; margin-right: 10px;">
+				<%= link_to "返回", :action => "index"%>
+			</span>
+		</h1>
+		<% form_for :coupon, :url => {:action => "create"} do |f|%>
+        <table class="grid_order" border="1">
+            <tbody>
+            	<%=render :partial=>'form', :locals => {:f => f}%>
+				<tr>
+            		<td class="td01" width="20%"></td>
+					<td><%= f.submit "生成" %></td>
+            	</tr>
+            </tbody>
+        </table>
+		<% end %>
+    </div>
+    <div class="clear">
+    </div>
+  </div>
+</div>

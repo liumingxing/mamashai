@@ -1,0 +1,117 @@
+  <div id="middle">
+        <div id="css_mainbody">
+            <h1 class="title">活动中奖用户管理——(<span class="orange"><%=@event.name%></span>)当前中奖名单
+				<span style="float: right; margin-right: 10px;">
+			        <a href="javascript:;" title="历史活动" onclick="$('#old_event').slideToggle();">历史活动</a>
+			    </span>
+			</h1>
+			<div class="menu_bar">
+				<span class="menu_form">
+					<form action="/mms/award_users/search">
+					  用户名：
+					  <input type="text" name="search_name" id="search_name" />
+					  <input type="hidden" name="event_id" value="<%=@event.id%>" />
+					  <input type="submit" value="搜索" name="commit" />
+					</form>
+				</span>
+				<span style="float:right;">
+					共有
+					<b class="blue">
+						<%=h @award_users.size%>
+					</b>
+					条记录
+				</span>
+			</div>
+			<div class="event_bar">
+				<div class="single_event">
+					<span class="info">当前进行的活动：</span>
+					<ul class="event">
+						<% @current_events.each do |event|%>
+							<li<%=" class='current'" if event.id == @event.id%>><%=link_to event.name, mms_award_users_path(:id=>event.id), :title=>event.name%></li>
+						<% end %>
+					</ul>
+				</div>
+				<div class="single_event<%=' none' if @old.blank?%>" id="old_event">
+					<span class="info">历史活动：</span>
+					<ul class="event">
+						<% @old_events.each do |event|%>
+							<li<%=" class='current'" if event.id == @event.id%>><%=link_to event.name, mms_award_users_path(:id=>event.id,:old=>'old'), :title=>event.name%></li>
+						<% end %>
+					</ul>
+				</div>
+			</div>
+			<div style="text-align:center;" class="green"><%= flash[:notice]%></div>
+			<div class="clear"></div>
+            <table class="grid">
+            	<tr>
+	        		<th width="5%">序号</th>
+				    <th width="20%">用户名</th>
+				    <th width="20%">活动名称</th>
+					<th width="20%">获奖类型（默认为奖项一）</th>
+				    <th width="20%">获奖时间</th>
+					<th width="10%">操作</th>
+				</tr>
+               <% if @award_users.size == 0 %>
+					<tr>
+						<td colspan=6>
+							<b>暂无记录</b>
+						</td>
+					</tr>
+				<% else %>
+					<% @award_users.each_with_index do |award_user,index| %>
+					  <tr>
+					  	<td><%=(index+1).to_s%></td>
+					    <td><%=h award_user.user.name %></td>
+					    <td>
+					    	<%=@event.name%>
+						</td>
+						<td>
+					    	<%=h award_user.award_type_name %>
+						</td>
+					    <td><%=h (award_user.award_date.blank?)? '暂无信息' : award_user.award_date.strftime("%Y年%m月%d日") %></td>
+					    <td>
+					    	<%= link_to '取消获奖资格', award_user, :confirm => "确定取消#{award_user.user.name}的获奖资格？", :method => :delete %>
+						</td>
+					  </tr>
+					<% end %>
+				<%end%>
+            </table>
+        </div>
+        <div class="clear"></div>
+    </div>
+	
+<style type="text/css">
+	div.menu_bar{
+		line-height:30px;
+		padding-left:50px;
+		height:36px;
+	}
+	.menu_bar .menu_form{
+		float:left;
+		width:300px;
+	}
+	.event_bar{
+		display:block;
+	}
+	.event_bar .single_event{
+		width:800px;
+		height:30px;
+	}
+	.event_bar .single_event .event li{
+		float:left;
+		padding: 0 10px;
+	}
+	div.event_bar a:hover{
+		color:#FF9900;
+		text-decoration: none;
+	}	
+	li.current a{
+		color:#FF9900;
+		font-weight:bold;
+	}
+	span.info{
+		width:100px;
+		float:left;
+		text-align:right;
+	}
+</style>

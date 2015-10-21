@@ -1,0 +1,36 @@
+<h1>signup 注册接口</h1><%= link_to "返回到列表", "/api/test" %>
+<pre>
+
+
+  [路径]: account/signup
+  [HTTP请求方式]: POST
+  [URL]: http://your.api.domain/account/signup.json
+  [是否需要登录]： false
+
+参数
+
+    * source 申请应用时分配的AppKey，调用接口时候代表应用的唯一身份。
+    * email 登录邮箱
+    * name 用户昵称
+    * password 密码
+    * password_confirmation 密码确认
+
+示例
+
+  curl -u "username:password" -d ""email=zlxx@163.com&name=abc&password=123456&password_confirmation=123456"
+  "http://your.api.domain/account/signup.json?source=appkey"
+
+注意
+
+  * 注册成功，返回用户信息
+  * 失败则返回 error 数组 示例[['name', "该昵称已经存在，请更换其他昵称"],['email', "该邮箱已经注册，请更换邮箱注册"]]
+</pre>
+<hr/>
+<%= form_tag "/api/account/signup.json" ,{:method=>:post} do %>
+  source: <%= text_field_tag "source" %><br/>
+  email: <%= text_field_tag "email" %><br/>
+  name: <%= text_field_tag "name" %><br/>
+  password: <%= password_field_tag "password" %><br/>
+  password_confirmation: <%= password_field_tag "password_confirmation" %><br/>
+  <%= submit_tag "提交"%>
+<% end -%>

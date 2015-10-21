@@ -1,0 +1,52 @@
+<div id="middle">
+    <div id="css_mainbody">
+        <h1 class="title">邮件订阅管理</h1>
+        <div style="text-align:center;" class="green">
+            <%= flash[:notice] %>
+        </div>
+        <div id="page_count">
+            <span style="float:right;">共有<b class="blue"><%=h @tuan_subscriptions.size %>
+                </b>条记录</span>
+        </div>
+        <div class="clear">
+        </div>
+        <table class="grid">
+            <tr>
+                <th width="5%">
+                    序号
+                </th>
+                <th width="15%">
+                    活动名称
+                </th>
+                <th width="15%">
+                    Url
+                </th>
+                <th width="20%">
+                    图片路径(gif|jpg|png|jpeg)
+                </th>
+                <th width="8%">
+                    数据库id
+                </th>
+                <th width="10%">
+                    开始时间
+                </th>
+                <th width="10%">
+                    结束时间
+                </th>
+                <th width="10%">
+                    操作
+                </th>
+            </tr>
+            <% if @tuan_subscriptions.size == 0 %>
+            <tr>
+                <td colspan=8>
+                    <b>暂无记录</b>
+                </td>
+            </tr>
+            <% else %>
+            <%end %>
+        </table>
+    </div>
+    <div class="clear">
+    </div>
+</div>

@@ -1,0 +1,7 @@
+<script>
+	$('#comment_reply_area_<%=params[:comment_id]%>').hide();
+</script>
+<div id="comment_reply_pmt_<%=params[:comment_id]%>" class="success">发布成功</div>
+<script>
+    fade_action_pmt('comment_reply_pmt_<%=params[:comment_id]%>',2);
+</script>

@@ -1,0 +1,33 @@
+<h1><%= @topic.title %></h1>
+
+<div style="margin: 10px;">
+  <%= link_to '添加本地库商品', :action => 'new_from_local', :id=>params[:id], :key=>@topic.title %> |
+  <%= link_to '添加淘宝大库商品', :action => 'new_from_api', :id=>params[:id], :key=>@topic.title %>
+</div>
+
+<%= form_tag :action=>"delete_products", :id=>params[:id] do %>
+<table class="list" border="1">
+  <tr class="head">
+    <th></th>
+    <th>序号</th>
+    <th width="250px">商品名称</th>
+    <th>logo</th>
+    <th>价格</th>
+    <th>创建日期</th>
+    <th colspan=3>操作</th>
+  </tr>
+
+  <% @topic.tao_products.each_with_index{|product, index| %>
+  	<tr>
+      <td><%= check_box_tag "ids[]", product.id %></td>
+  	  <td><%= index + 1 %></td>
+      <td><a href="<%=h product.url_mobile %>" target="_blank"><%=h product.name %></a></td>
+      <td><img src='<%=product.pic_url%>_310x310.jpg' style="width:200px;"/></td>
+      <td><%=h product.price %></td>
+      <td><%=h product.created_at.to_s(:db) %></td>
+      <td><%= link_to '删除', { :action => 'destroy_product', :id => @topic.id, :product_id =>product.id }, :confirm => '确认删除吗?', :method => :post %></td>
+  	</tr>
+  <% } %>
+</table>
+<%= submit_tag "删除" %>
+<% end %>

@@ -1,0 +1,33 @@
+
+<div class="user_article_gift<%=' user_gift_line' if params[:controller]=='space'%>">
+    <div class="user_pic">
+    	 <% if gift_get.is_no_name and params[:action]=='gifts' %>
+		  <%=logo_tag(User.new,{:version=>'thumb48'}) %>
+		 <% else %>
+        <%=logo_tag(gift_user,{:version=>'thumb48',:url=>user_url(gift_user)}) %>
+		<% end %>
+    </div>
+    <!--user_pic-->
+    <div class="user_article">
+        <div class="orgtxt">
+        	<% if gift_get.is_no_name and params[:action]=='gifts' %>
+			 <span class="gray">神秘人</span>
+			 <% else %>
+			 <% if gift_get.send_user_id == @space_user.id %>
+            <a href="<%=user_url(gift_user)%>"><%=gift_user.name %></a>赠送给我并说
+			<% else %>
+			我赠送给 <a href="<%=user_url(gift_user)%>"><%=gift_user.name %></a><%if gift_get.is_private %> (悄悄的)<%end%>并说
+			<% end %>
+			<% end %>
+			：<% if gift_get.is_no_name and params[:action]=='gifts_sent' %><span class="gray">(匿名赠送)</span><% end %>
+            <%=gift_get.content %>
+            <div style="margin: 5px 0px;">
+                <%=logo_tag(gift_get.gift) %>
+            </div>
+        </div>
+        <div class="clear">
+        </div>
+    </div>
+    <div class="clear">
+    </div>
+</div>

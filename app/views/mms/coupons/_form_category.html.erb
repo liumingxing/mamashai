@@ -1,0 +1,96 @@
+<tr>
+    <td class="td01" width="20%">
+        名称：
+    </td>
+    <td>
+        <%= f.text_field :name %>
+        <%= f.error_message_on :name %>
+    </td>
+</tr>
+<tr>
+    <td class="td01" width="20%">
+        状态：
+    </td>
+    <td>
+        <%= f.select :open,CouponCategory.state_types %>
+        <%= f.error_message_on :name %>
+    </td>
+</tr>
+<tr>
+    <td class="td01" width="20%">
+        类别：
+    </td>
+    <td>
+        <%= f.select :tp,CouponCategory.category_types %>
+        <%= f.error_message_on :tp %>
+    </td>
+</tr>
+<tr>
+    <td class="td01" width="20%">
+        图片：
+    </td>
+    <td>
+        <%= upload_column_field :coupon_category, :logo %>
+        <%= f.error_message_on  :logo %>
+    </td>
+</tr>
+<tr>
+    <td class="td01" width="20%">
+        面额：
+    </td>
+    <td>
+        <%= f.text_field :money %>
+        <%= f.error_message_on  :money %>
+    </td>
+</tr>
+<tr>
+    <td class="td01" width="20%">
+        兑换积分：
+    </td>
+    <td>
+        <%= f.text_field :score %>
+        <%= f.error_message_on  :score %>
+    </td>
+</tr>
+<tr>
+    <td class="td01" width="20%">
+        用途：
+    </td>
+    <td>
+        <%= f.text_field :use %>
+        <%= f.error_message_on  :use %>
+    </td>
+</tr>
+<tr>
+    <td class="td01" width="20%">
+        积分记录来源(初始化)：
+    </td>
+    <td>
+        <%= f.text_field :log %>
+        <%= f.error_message_on  :log %>
+    </td>
+</tr>
+<tr>
+    <td class="td01" width="20%">
+        排序(值越大越靠后)：
+    </td>
+    <td>
+        <%= f.text_field :position %>
+        <%= f.error_message_on  :position %>
+    </td>
+</tr>
+<tr>
+    <td class="td01" width="20%">
+        默认有效期：
+    </td>
+    <td>
+        1年
+        <%= f.error_message_on  :limit_time %>
+    </td>
+</tr>
+<tr>
+    <td cols=2>
+        <%=f.submit '保存'%>
+		<%= link_to '返回',"/mms/coupons/categories"%>
+    </td>
+</tr>

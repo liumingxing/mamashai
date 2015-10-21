@@ -1,0 +1,66 @@
+<div id="middle">
+    <div id="css_mainbody">
+        <h1 class="title">团购留言管理</h1>
+        <div id="page_count">
+            <span style="float:right;">共有<b class="blue"><%=h @messages.size %></b>条记录</span>
+        </div>
+        <% form_tag "/mms/tuans/message_search", {:method => "get"} do %>
+	        <div>
+	            搜索：<%= text_field_tag "keyword", {}, {:value => @keyword} %><%= submit_tag "查询" %>
+	        </div>
+        <% end %>
+        <div class="clear">
+        </div>
+        <table class="grid">
+            <tr>
+                <th width="20%">
+                    序号
+                </th>
+                <th width="20%">
+                    留言内容
+                </th>
+				<th width="20%">
+                    留言用户名
+                </th>
+				<th width="20%">
+                    留言时间
+                </th>
+				<th width="20%">
+                    操作
+                </th>
+            </tr>
+            <% if @messages.blank? %>
+	            <tr>
+	                <td colspan=9>
+	                    <b>暂无记录</b>
+	                </td>
+	            </tr>
+            <% else %>
+	            <% @messages.each_with_index do |message,index| %>
+		            <tr>
+		                <td>
+		                    <%=(index+1).to_s %>
+		                </td>
+		                <td>
+		                    <%= h message.content %>
+		                </td>
+		                <td>
+		                    <%= link_user(message.user) if message.user %>
+		                </td>
+						<td>
+		                    <%= message.created_at.strftime("%Y年%m月%d日 %H时%M分%S秒") %>
+		                </td>
+						<td>
+		                    <%= link_to "删除", {:action => "message_delete", :id => message.id}, :confirm => "您确定要删除吗？" %>
+		                </td>
+		            </tr>
+	            <% end %>
+            <%end %>
+        </table>
+        <div class="book_page">
+            <%=will_paginate @messages %>
+        </div>
+    </div>
+    <div class="clear">
+    </div>
+</div>

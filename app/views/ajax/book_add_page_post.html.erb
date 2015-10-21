@@ -1,0 +1,11 @@
+
+<% if @post %>
+<%=link_to_remote('<img src="/images/icons/del_06.gif"/>', :update => "book_page_post_#{@post.id}", :url => {:action =>:book_delete_page_post,:controller=>:ajax,:id=>@user_book.id,:post=>@post.id})%>
+
+<script>$('#book_select_posts_count').get(0).innerHTML = '<%=@user_book.user_book_pages_count+1%>';</script>
+<% else %>
+<a href="javascript:void(0)" onclick="alert('对不起！目前个性纪念册最多只能制作66页！');"><img src="/images/index_nav/icons_02.gif"/></a>
+<script>
+	alert('对不起！目前个性纪念册最多只能制作66页！');
+</script>
+<% end %>

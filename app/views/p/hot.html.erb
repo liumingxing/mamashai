@@ -1,0 +1,54 @@
+<div class="sharp">
+		<% for post in @posts %>
+			<div class="user_content" id="post_wapper_204388361">
+				<div class="article_content">
+					<div class="user_pic">
+						<img class="img_border" src="http://img.mamashai.com<%= post.user.logo.thumb48.url %>">
+					</div>
+					<div class="user_article">
+						<div class="article_info">
+							<div class="orgtxt">
+						        <%= post.user.name %>
+						        <div class="post_tp">
+							        <% if post.created_at.hour == 0 && post.created_at.min == 0 && post.created_at.sec == 0 %>
+						                补记<%= post.created_at.strftime("%Y年%m月%d日")%>
+						            <% else %>
+						                <%=refer_time(post.created_at) %> 
+						            <% end %>
+							        <% if %w(bbyulu biaoqing caiyi fayu shanguang shijian tupian wenzi wenda wotao yingyang zaojiao column jiance taotaole).include?(post.from) %>
+						        		<img src="/images/weibo/<%= post.from %>.png"/>
+						        	<% end %>
+					        	</div>	
+						        <div class="clear"></div>
+						        <div class="kid_desc"><%= kid_age(post.user, post.created_at) %></div>
+						        <%= post_content2(post.content) %>
+						    </div>
+						</div>
+
+
+						<div class="post_picture">
+							<% if post.post_logos && post.post_logos.length > 1 %>
+							    <% for post_logo in post.post_logos %>
+							    <img style="width: 100px; height: 100px;" src="http://img.mamashai.com<%= post_logo.logo.thumb200 %>" border="0" alt="" />
+							    <% end %>
+						    <% elsif post.logo %>
+							  <img src="http://www.mamashai.com<%= post.logo.thumb400 %>" border="0" alt="" class="imgbig" />
+							<% end %>
+						</div>
+						
+						<div class="clear"></div>
+					</div>
+					<div class="clear"></div>
+				</div>
+				<div class="user_tools">
+				    <span class="comments">
+						评论：<%= post.comments_count %>
+				 	</span>
+				</div>
+			</div>
+		<% end %>
+		<div class="pages">
+			<%= link_to_if (params[:page]||1).to_i > 1, "上一页", {:action=>"hot", :page=>(params[:page]||1).to_i - 1}, {:class=>"pre"}%>
+			<%= link_to_if @posts.size == 40, "下一页", {:action=>"hot", :page=>(params[:page]||1).to_i + 1}, {:class=>"next"}%>
+		</div>
+</div>

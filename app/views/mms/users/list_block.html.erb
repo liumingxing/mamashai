@@ -1,0 +1,35 @@
+<div id="middle">
+    <div id="css_mainbody">
+        <h1 class="title">黑名单管理</h1>
+        <br/>
+        <%= link_to_if params[:tp]!="private", "私有黑名单", :tp=>"private" %> |
+        <%= link_to_if params[:tp] != "star", "星星榜黑名单", :tp=>"star" %> |
+        <%= link_to_if params[:tp] != "write", "记录黑名单", :tp=>"write" %>
+       <table class="grid">
+            <tbody>
+                <tr>
+                    <th>昵称</th>
+                    <th>记录数</th>
+                    <th>粉丝数</th>
+                    <th>最后活跃时间</th>
+                    <th>注册时间</th>
+                    <th>入黑榜时间</th>
+                    <th>操作</th>
+                </tr>
+                <% @blocks.each do |block| %>
+                <% next if !block.user %>
+                <tr>
+                    <td><%=link_user(block.user) %></td>
+                    <td><%= block.user.posts_count %></td>
+                    <td><%= block.user.fans_users_count %></td>
+                    <td><%= block.user.last_login_at.to_s(:db) if block.user.last_login_at%></td>
+                    <td><%= block.user.created_at.to_s(:db) %></td>
+                    <td><%= block.created_at.to_s(:db) %></td>
+                    <td><%= link_to "移除", :action=>"remove_block", :id=>block.id, :tp=>params[:tp]%></td>
+                </tr>
+                <% end %>
+            </tbody>
+        </table>
+        <%= will_paginate @blocks %>
+    </div>
+</div>

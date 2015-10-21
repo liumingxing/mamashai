@@ -1,0 +1,67 @@
+<h3><% if @search_user %><%=@search_user.name %><% else %>全站<% end %>的微博趋势图</h3>
+<table width="95%" align="center">
+    <tr>
+        <td>
+            <div class="summary">
+                <br/>
+                <br/>
+                <center>
+                    <% mx_count = @posts_counts.max
+                    add_count = mx_count/10.to_i
+                    add_count = 10 if add_count < 10
+                    top_count = mx_count + add_count %>
+                    <img src="http://chart.apis.google.com/chart?cht=bvs&chs=400x250&chxt=x,y&chxr=1,0,<%=top_count%>&chds=0,<%=top_count%>&chm=<%=@posts_count_datas.join('|')%>&chd=t:<%=@posts_counts.join(',')%>&chl=<%=@posts_count_labels.join('|')%>" />
+                    <br/>
+                    （n个月前的微博量）
+                </center>
+            </div>
+        </td>
+        <td>
+            <div class="summary">
+                <br/>
+                <br/>
+                <center>
+                    <% mx_count = @comments_counts.max
+                    add_count = mx_count/10.to_i
+                    add_count = 10 if add_count < 10
+                    top_count = mx_count + add_count %>
+                    <img src="http://chart.apis.google.com/chart?cht=bvs&chs=400x250&chxt=x,y&chxr=1,0,<%=top_count%>&chds=0,<%=top_count%>&chm=<%=@comments_count_datas.join('|')%>&chd=t:<%=@comments_counts.join(',')%>&chl=<%=@posts_count_labels.join('|')%>" />
+                    <br/>
+                    （n个月前的评论量）
+                </center>
+            </div>
+        </td>
+    </tr>
+	 <tr>
+        <td>
+            <div class="summary">
+                <br/>
+                <br/>
+                <center>
+                    <% mx_count = @forwards_counts.max
+                    add_count = mx_count/10.to_i
+                    add_count = 10 if add_count < 10
+                    top_count = mx_count + add_count %>
+                    <img src="http://chart.apis.google.com/chart?cht=bvs&chs=400x250&chxt=x,y&chxr=1,0,<%=top_count%>&chds=0,<%=top_count%>&chm=<%=@forwards_count_datas.join('|')%>&chd=t:<%=@forwards_counts.join(',')%>&chl=<%=@posts_count_labels.join('|')%>" />
+                    <br/>
+                    （n个月前的转晒量）
+                </center>
+            </div>
+        </td>
+        <td>
+            <div class="summary">
+                <br/>
+                <br/>
+                <center>
+                    <% mx_count = @favorites_counts.max
+                    add_count = mx_count/10.to_i
+                    add_count = 10 if add_count < 10
+                    top_count = mx_count + add_count %>
+                    <img src="http://chart.apis.google.com/chart?cht=bvs&chs=400x250&chxt=x,y&chxr=1,0,<%=top_count%>&chds=0,<%=top_count%>&chm=<%=@favorites_count_datas.join('|')%>&chd=t:<%=@favorites_counts.join(',')%>&chl=<%=@posts_count_labels.join('|')%>" />
+                    <br/>
+                    （n个月前的收藏量）
+                </center>
+            </div>
+        </td>
+    </tr>
+</table>

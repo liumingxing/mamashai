@@ -1,0 +1,72 @@
+<style>
+.dialogue_content {overflow:hidden;width:528px;margin:0px auto;padding-top:20px;}
+
+.dialogue_content .dialogue {overflow:hidden;margin-bottom:5px;}
+.dialogue_content .dialogue .dialogue_pic {text-align:center;float:left;overflow:hidden;width:67px;height:70px; background:url(/images/home/user50-50.gif) 4px 0px no-repeat;} 
+.dialogue_content .dialogue .dialogue_pic img {padding-top:5px;}
+.dialogue_content .dialogue .dialogue_article {width:458px;float:right;overflow:hidden; background:url(/images/messages_06.gif) repeat-y;}
+.dialogue_content .dialogue .dialogue_article_01 { background:url(/images/messages_03.gif) left top no-repeat; position:relative;width:458px;}
+.dialogue_content .dialogue .dialogue_article_02 { background:url(/images/messages_08.gif) left bottom no-repeat;height:5px;overflow:hidden;}
+
+.dialogue_content .message_article {width:420px;margin-left:20px;_height:25px;min-height:25px;padding-top:10px;line-height:180%;}
+.dialogue_content .message_article01 {padding-top:0px;text-align:right;}
+
+.dialogue_content .dialogue_right {overflow:hidden;margin-top:20px;margin-bottom:5px;}
+.dialogue_content .dialogue_right .dialogue_pic_right {text-align:center;float:right;overflow:hidden;width:67px;height:70px; background:url(/images/home/user50-50.gif) 4px 0px no-repeat;} 
+.dialogue_content .dialogue_right .dialogue_pic_right img {padding-top:5px;}
+.dialogue_content .dialogue_article_right {width:458px;float:left;overflow:hidden; background:url(/images/messages_14.gif) repeat-y;position:relative;}
+.dialogue_content .dialogue_article_right_01 { background:url(/images/messages_11.gif) left top no-repeat;}
+.dialogue_content .dialogue_article_right_01 .message_article {width:400px;}
+.dialogue_content .dialogue_article_right_02 { background:url(/images/messages_01.gif) left bottom no-repeat;height:5px;overflow:hidden;}
+
+.dialogue_content .dialogue .dialogue_article_01  .message_del {position:absolute; z-index:1000px;right:3px;top:3px;}
+.dialogue_content .dialogue_article_right_01  .message_del {position:absolute; z-index:1000px;right:13px;top:3px;}
+
+</style>
+    <div class="mms_messages_new">
+        <%= render :partial=>"nav_notice" %>
+        
+        <div class="messages_label">
+            <span class="title" style="margin-top:7px;"><a href="/home/messages">&lt;&lt; 返回所有私信</a></span>
+           <span class="more"><a href="javascript:void(0);" class="button3" onclick="show_url_box('/ajax/new_message', '发私信', 460, 320);">发私信</a></span>
+      </div>
+        <div class="dialogue_content">
+            <% for message_post in @message_posts %>
+            <% class_postfix = ''
+               class_postfix = '_right' if message_post.user_id == @user.id 
+            %>
+            <div class="dialogue<%=class_postfix%>">
+                <div class="dialogue_pic<%=class_postfix%>">
+                    <%=logo_tag(message_post.user,{:version=>'thumb48',:url=>user_url(message_post.user)}) %>
+                </div> 
+                <div class="dialogue_article<%=class_postfix%>"> 
+                    <div class="dialogue_article<%=class_postfix%>_01"> 
+                        <div class="message_article"> 
+                            <a href="<%=user_url(message_post.user)%>"><%=message_post.user.name%></a><%if @message_topic.is_sys%>&nbsp;<img src="/images/index/logins_06.gif"/> ：[系统消息]&nbsp;<%else%> ：<%end%><%=message_post.content%> (<%=refer_time message_post.created_at%>)
+						 </div>
+						 <div class="message_del">
+						 	<% unless @message_topic.is_sys %>
+							<%=link_to image_tag('/images/del_06.gif'), {:action=>'delete_message_post',:id=>message_post.id},:confirm => "你确定要删除吗?", :method => :delete %>
+						    <% end %>
+						 </div>
+						<% if class_postfix == '' %>
+						<div class="message_article message_article01">
+							<% unless @message_topic.is_sys %>
+                            <a href="javascript:void(0);" onclick="MMS.tools.sendletter('/ajax/new_message/<%=message_post.user.id%>');">回复</a>
+							<% end %>
+                        </div>
+						<% end %>
+                    </div>
+                    <div class="dialogue_article<%=class_postfix%>_02">
+                        <div class="clear">
+                        </div>
+                    </div>
+                </div>
+				<div class="clear"></div>
+            </div>
+            <% end %>
+        </div>
+    </div>
+    <%=will_paginate @message_posts %>
+    <div class="clear">
+    </div>

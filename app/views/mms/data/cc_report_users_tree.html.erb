@@ -1,0 +1,14 @@
+<h3><%=@search_user.name %>的邀请链</h3>
+<% @total_count = 0 %>
+<div class="summary">
+    <ul class="tree">
+        <li>
+            <%=link_user(@search_user) %><span>&nbsp;(粉丝<%=@search_user.fans_users_count %>，微博<%=@search_user.posts_count %>，<%=date_en @search_user.created_at %>，头像  <%=true_or_false(!@search_user.logo.blank?) %> 资料  <%=true_or_false(UserProfile.is_finish_profile(@search_user,@search_user.user_profile)) %>)</span>
+        	<%= render :partial=>'cc_report_users_tree_node',:locals=>{:user_item=>@search_user} %>
+        </li>
+    </ul>
+	
+	<div style="margin:10px;">共邀请成功<%=@total_count%>个用户</div>
+</div>
+
+

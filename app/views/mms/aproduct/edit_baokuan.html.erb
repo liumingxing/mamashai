@@ -1,0 +1,18 @@
+<div id="middle">
+    <div id="css_mainbody">
+        <h1 class="title">爆款管理
+		<span style="float: right; margin-right: 10px;">
+			<%= link_to '返回', :action=>"baokuan_list" %>
+        </span>
+		</h1>
+        
+    	<%= form_tag :action=>"update_baokuan", :id=>params[:id], :page=>params[:page] do %>
+		  <table class="ft" border=1 cellpadding=2>
+        	<%= render :partial=>"form_baokuan"%>
+		  </table>
+        <% end %>
+		
+    </div>
+    <div class="clear">
+    </div>
+</div>

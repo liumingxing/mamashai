@@ -1,0 +1,67 @@
+<div id="middle">
+    <div id="css_mainbody">
+        <h1 class="title">团购邀请排序
+			<span style="float: right; margin-right: 10px;">
+				<%= link_to '返回列表', '/mms/mms_tuans/index' %>		
+        	</span>
+		</h1>
+        <div style="text-align:center;" class="green">
+            <%= flash[:notice] %>
+        </div>
+        <div id="page_count">
+            <span style="float:right;">共有<b class="blue"><%= @orders.size %></b>条记录</span>
+        </div>
+        <div class="clear">
+        </div>
+        <table class="grid">
+            <tr>
+            	<th width="3%">
+                    序号
+                </th>
+                <th width="5%">
+                    姓名
+                </th>
+                <th width="8%">
+                    城市
+                </th>
+				<th width="20%">
+                    详细地址
+                </th>
+                <th width="10%">
+                   手机号
+                </th>
+				<th width="10%">
+                   用户名/用户邮箱
+                </th>
+            </tr>
+			<% @orders.each_with_index do |order,index| %>
+				<tr>
+					<td>
+						<%= index+1 %>
+					</td>
+					<td>
+						<%= order.receiver_name %>
+					</td>
+					<td>
+						<%= Province.find(order.info[:receiver_province_id]).name %>
+						<%= City.find(order.info[:city_id]).name %>
+					</td>
+					<td>
+						<%= order.sent_address %>
+					</td>
+					<td>
+						<%= order.receiver_mobile %>
+					</td>
+					<td>
+						<%= order.user.name %><br/>
+						<%= order.user.email %>
+					</td>
+				</tr>
+			<% end %>
+        </table>
+        <div class="book_page">
+        </div>
+    </div>
+    <div class="clear">
+    </div>
+</div>

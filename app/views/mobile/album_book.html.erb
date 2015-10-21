@@ -1,0 +1,203 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+       "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta id="viewport" name="viewport" content="width=device-width; initial-scale=<%= params[:scale] || 0.5%>; minimum-scale=0.25; maximum-scale=1.0; target-densitydpi=high-dpi">
+  <%= javascript_include_tag "jquery-1.7.1.min.js", "slider.min", 'soundmanager2-jsmin'%>
+  <%= stylesheet_link_tag 'slider.min'%>
+  
+  <title><%= @book.name %></title>
+</head>
+<style>
+  * {margin: 0; padding: 0; font-size: 20px;}
+  div.clear {clear: both;}
+  div#post {margin: 0px auto; width: 600px;}
+  div#user {border-bottom: 1px solid #ccc; padding: 8px; height: 80px;}
+  div#logo {float:left; margin-right: 8px;}
+  div#logo img {width: 80px; height: 80px;}
+  div#user_name {margin: 4px;}
+  p#user_name_1, p#user_name_2 {line-height: 40px;font-size: 22px;}
+  p#user_name_1 {font-size: 30px;}
+  .WB_arrow span{
+    position: relative;
+    top: 8px;
+    margin-left: 40px;
+    color: #eee;
+  }
+  
+  div#comments div.comment {margin: 2px; border-top: 1px solid #ccc; padding: 4px 0px; font-size: 20px;}
+  div#comments div.comment div.comment_logo {float: left; margin-right: 6px;}
+  div#comments div.comment div.comment_logo img {width: 36px;}
+  div#comments div.comment div.top span {float: right;}
+  div#comments div.comment div.content {line-height: 22px;}
+
+    div.clear {clear: both;}
+    div#download p.desc {text-align: left; line-height: 30px; margin: 8px;}
+    div#head {background-color: #999; padding: 6px; color: #FFF;}
+    div#head div#logo {text-align: center; float: left; width: 25%; margin: 0px;}
+    div#head div#logo img {width: 80px; height: 80px;}
+    div#head div#logo p {font-size: 15px; color: #E02882; line-height: 20px; font-weight: bold; margin: 0px;}
+    div#head div#slogan {float:left; width: 50%;}
+    div#head div#slogan p {font-size: 14px; margin: 0px; line-height: 1.4;}
+    div#head div#slogan p.p1 {font-size: 24px; font-weight: bold;}
+    div#head div#slogan p.p2 {font-size: 14px;}
+    div#head div#slogan p.p3 img {float: left; margin-top: 2px; width: 80px;}
+    div#head div#slogan p.p3 span{margin-left: 8px; font-size: 12px;}
+    div#head div#downloads {float: left; width: 24%; text-align: center;}
+    div#head div#downloads a img {width: 90px; margin-top: 15px;}
+  a#mask {position: relative; top: -300px; left: 250px; z-index:100}
+</style>
+<body>
+
+  <div id="post">
+<% if !params[:scale] %>    
+  <div id="user">
+    <div id="logo">
+      <img src="http://mamashai-videos.oss-cn-qingdao.aliyuncs.com<%= @book.user.logo.thumb140.url %>"/>
+    </div>
+    <div id="user_name">
+      <p id="user_name_1"><%= @book.user.name %></p>
+      <p id="user_name_2">
+        <%=refer_time(@book.created_at) %> 
+        
+        <%= kid_age(@book.user, @book.created_at) %></p>
+    </div>
+  </div>
+<% end %>
+  
+  <div id="slider"></div>
+
+   <a id="mask"><img src="/images/video_mask.png" /></a>
+
+  <% if !params[:scale] %>
+  <div id="comments">
+    <% if @post %>
+    <% for comment in @post.comments.reverse %>
+    <div class="comment">
+      <div class="comment_logo">
+        <img src="http://mamashai-videos.oss-cn-qingdao.aliyuncs.com<%= comment.user.logo.thumb48 %>" %>
+      </div>
+      <div class="top">
+        <%= comment.user.name %>
+        <span><%=refer_time(comment.created_at) %> </span>
+      </div>
+      <div class="content">
+        <%= face_content(comment.content) %>
+      </div>
+    </div>
+    <div class="clear"></div>
+    <% end %>
+    <% end %>
+  </div>
+  <div id="download">
+    <p class="desc">
+        ====关于宝宝日历==== <br/>
+        宝宝日历是时下最受欢迎的明星育儿应用：最真实的记录+最真诚的分享=最棒的育儿社区！
+    </p>
+  </div>
+  <div id="head">
+      <div id='logo'>
+        <a href="http://www.mamashai.com/bbrl/download" target="_blank"><img src='/images/advs/mobile/logo.png'/></a>
+      </div>
+      <div id="slogan">
+        <p class="p1">
+          宝宝日历
+        </p>
+        <p class="p2">孕期到12岁全程监测记录</p>
+        <p class="p3"><img src="/images/advs/mobile/xing.png"/> <span>明星育儿应用</span></p>
+      </div>
+      <div id="downloads">
+        <a href="http://www.mamashai.com/bbrl/download" target="_blank"><img src="/images/advs/mobile/hd_r2_c4.png" /></a>
+      </div>
+      <div class="clear"></div>
+  </div>
+  <% end %>
+</div>
+
+<script type="text/javascript">
+  $(function(){
+    stop = true
+    slider = new Slider("#slider").setDuration(4000);
+    slider.setSize(600, 600);
+    slider.stop();
+
+    var transitions = ['squares', 'circles', 'circle', 'diamond', 'verticalSunblind', 'verticalOpen', 'clock', 'horizontalOpen', 'horizontalSunblind', 'transition-opacity', 'transition-simple1', 'transition-zoomin', 'transition-cardflip', 'transition-rotatezoomin', 'transition-rotatezoomout', 'transition-topfade', 'transition-oblique', 'transition-flip', 'transition-left', 'transition-zoomout']
+    var timer = setInterval(function(){
+      if (stop){
+        slider.stop()
+        return;
+      }
+      if (slider.current == <%= @json['pages'].size %>){
+        slider.stop();
+        clearInterval(timer);
+        mySound.stop();
+        return;
+      }
+      var transition = transitions[Math.floor(Math.random()*transitions.length)];
+      if(SliderTransitionFunctions[transition])
+        slider.setTransitionFunction(SliderTransitionFunctions[transition])
+      else slider.setTransition(transition);
+    }, 3000);
+
+  slider.setPhotos([
+     <% 0.upto(@json['pages'].size-1) do |i|%>
+      { "src" : "http://mamashai-videos.oss-cn-qingdao.aliyuncs.com/upload/album_book/<%= @book.created_at.to_date.to_s %>/<%= @book.id %>/<%= i %>.jpg"},
+    <% end %>
+      { "src" : "/images/album_book/finished.jpg"}
+  ]);
+  slider.stop();
+
+  var mySound = null;
+  $('#mask').click(function(){
+    //soundManager.defaultOptions.loops = 2
+    soundManager.setup({
+      // where to find flash audio SWFs, as needed
+      url: '/swfs/soundmanager/',
+      // optional: prefer HTML5 over Flash for MP3/MP4
+      // preferFlash: false,
+      
+      onready: function() {
+        mySound = soundManager.createSound({
+        url: '/mp3/<%= @book.template_id %>.mp3',
+        onfinish: function(){
+          if (stop)
+            return;
+          
+          setTimeout(function(){
+            mySound.play();
+          }, 1000)
+        }
+      });
+
+      // ...and play it
+      slider.start();
+      stop = false;
+      mySound.play();
+      }
+    });
+    $('#mask').hide('slow');
+  })
+
+  $(window).unload(function() {
+    mySound.stop()
+  });
+
+  });
+</script>
+
+</div>
+<div style="display:none">
+  <script type="text/javascript">
+var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3Fb62084ced4b6982bc50286972cbf6fce' type='text/javascript'%3E%3C/script%3E"));
+</script>
+
+</div>
+
+
+</body>
+</html>
+
+

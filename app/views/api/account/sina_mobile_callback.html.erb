@@ -1,0 +1,8 @@
+<script>
+function get_token_and_secret()
+{
+	return "<%= @oauth.access_token.token %>,<%= @oauth.access_token.secret %>,<%= @user.email%>,<%= @user.name%>";
+	//return '{"token": "<%= @access_token.token %>", "secret": "<%= @access_token.secret %>", "user": <%= @user.name %>}'
+}
+
+</script>

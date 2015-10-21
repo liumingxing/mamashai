@@ -1,0 +1,67 @@
+
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>宝宝日历-妈妈晒-最受用户喜爱的育儿记录工具及社区</title>
+		<meta name="keywords" content="妈妈晒,宝宝日历,孕期日历,孕期记录,宝宝记录,0-3岁发育,育儿社区,父母必备" />
+		<meta name="description" content="宝宝日历是一款记录宝宝成长发育历程的软件，现在记录，为孩子将来留一份宝贵的回忆" />
+		<link href="/javascripts/tinyslider2/style.css" rel="stylesheet" type="text/css" />
+
+		<link href="/stylesheets/p.css" media="screen" rel="stylesheet" type="text/css" />
+		<link rel="shortcut icon" href="http://www.mamashai.com/favicon.ico?1010" type="image/x-icon" />
+
+    
+    
+    <!-- <meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="renderer" content="webkit"> -->
+		<!--
+		<script>
+		    var is_iPd = navigator.userAgent.match(/(iPad|iPod|iPhone)/i) != null;
+		    var is_mobi = navigator.userAgent.toLowerCase().match(/(ipod|iphone|android|coolpad|mmp|smartphone|midp|wap|xoom|symbian|j2me|blackberry|win ce)/i) != null;
+		    if(is_mobi && window.location.search.indexOf("m=true")<0){
+		        window.location.href="/m";
+		    }
+		</script>
+	-->
+	</head>
+	<body class="welcome">
+    <div class="wrapper">
+    	<div class="navbar-wrapper">
+		  <div class="container clearfix">
+		    <a href="/" class="navbar-logo pull-left"></a>
+		    <ul class="navbar-menu pull-right">
+		        <li class="no-border"><a class="<%= 'on'if controller.action_name == 'index' %>"  href="/p/index">手机应用</a></li>
+		        <li><a class="<%= 'on'if controller.action_name == 'hot' %>" href="/p/hot">今日热点</a></li>
+		        <li><a class="<%= 'on'if %w(gift show_gift).include?(controller.action_name) %>" href="/p/gift">免费礼物</a></li>
+		        <li><a class="<%= 'on'if controller.action_name == 'comments' %>" href="/p/comments">用户评价</a></li>
+		    </ul>
+		  </div>
+		</div>
+    	<%= yield %>
+    	<div class="foot">
+		    <ul class="left">
+		        <li><a><img src="/images/p/b7.png"/></a></li>
+		        <li><a><img src="/images/p/b8.png"/></a></li>
+		        <li><a><img src="/images/p/b9.png"/></a></li>
+		    </ul>
+		    <div class="middle">
+		      <img src="/images/p/c1.png"/>
+		    </div>
+
+		    <ul class="right">
+		      <li><a href="/p/about">关于我们</a></li>
+		      <li><a href="/p/contact">联系我们</a></li>
+		      <li><a href="/p/dou">晒豆Q&A</a></li>
+		    </ul>
+		    
+		    <div class="clearfix"></div>
+		</div>
+	    <div class="copyright">
+	      <p>mamashai.com 2010-2015 © All Rights Reserved.</p>
+	      <p>京ICP备 10009132</p>
+	    </div>
+  </div>
+  </body>
+  
+</html>

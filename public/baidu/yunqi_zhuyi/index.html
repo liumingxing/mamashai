@@ -1,0 +1,570 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+	<title>孕期注意事项 - 妈妈晒 - 妈妈爸爸们的网络社区</title>
+	<style type="text/css">
+	* {
+		padding:0px;
+		margin:0px;
+	}
+	a {
+		text-decoration:none;
+	}
+	a img {
+		border:0px;
+	}
+	td img {
+		display: block;
+	}
+	p {
+		text-indent:8mm;
+		text-align:left;
+	}
+	.STYLE1 {
+		color: #666666;
+		font-size: 14px;
+		line-height: 22px;
+	}
+	.STYLE2 {
+		font-size: 16px;
+		font-weight: bold;
+		color: #DA5295;
+	}
+	.STYLE3 {
+		font-size: 12px;
+		color: #999999;
+	}
+	.STYLE4 {
+		font-size: 14px;
+		font-weight: bold;
+		color: #FFFFFF;
+	}
+	.STYLE6 {
+		font-size: 16px; 
+		font-weight: bold; 
+		color: #DA5295; 
+		font-family: "微软雅黑";
+	}
+	.STYLE8 {
+		color: #666666;
+		font-size: 16px;
+		line-height: 22px;
+	}
+	.pic_top {
+		width:538px; 
+		height:9px; 
+		background:url(images/a_r9_c1.gif); 
+		overflow:hidden;
+	}
+	.pic_main {
+		width:508px; 
+		padding-left:28px; 
+		margin-top:10px; 
+		float:left; 
+		background:url(images/a_r4_c1.gif); 
+		overflow:hidden;
+		text-align:left;
+	}
+	.pic_bottom {
+		width:538px; 
+		height:9px; 
+		background:url(images/a_r12_c1.gif); 
+		overflow:hidden;
+	}
+	</style>
+</head>
+
+<body bgcolor="#ffffff" onload="healthtime()">
+	<div align="center">
+		<div style="width:538px; height:51px; background:url(images/top2.gif) repeat-x; overflow:hidden;">
+			<div style="width:16px; height: 51px; display:inline; float:left;">
+				
+			</div>
+			<div style="width:97px; display:inline; float:left; vertical-align:top;">
+				<a href="http://www.mamashai.com" target="_blank" style="width:97px; height:38px; ">
+		    		<img src="images/top1.png" width="97" height="38" border="0" alt="" />
+		    	</a>
+			</div>
+			<div style="display:inline; padding-left:130px; padding-top:10px; float:left;">
+				<span style="color: white; font-weight: bold; font-size: 15px;">孕期注意事项</span>
+			</div>
+		</div>
+		<div style="width:538px; height:5px; background:url(images/a_r13_c1.gif); overflow:hidden;">
+			&nbsp;
+		</div>
+		<div style="width:538px; background:url(images/a_r10_c1.gif)">
+			<div class="pic_top">
+				&nbsp;
+			</div>
+			<div class="STYLE1 pic_main">
+				<div style="float:left; padding-top:5px;">
+					末次月经时间
+					<input type="text" id="txt_year" value="" style="width:35px;" />&nbsp;年
+					<input type="text" id="txt_month" value="" style="width:20px;" />&nbsp;月&nbsp;
+					<input type="text" id="txt_day" value="" style="width:20px;" />&nbsp;日，月经周期
+					<input type="text" id="txt_yueweek" value="28" style="width:20px;"/>&nbsp;天
+				</div>
+				<div style="width:75px;height:30px; float:right; padding-right:33px;">
+					<a href="javascript:check_result()">
+		    			<img onclick="check_result()" src="images/d_r2_c3.gif" width="75" border="0" alt="" style="padding:0px; margin:0px;" />
+		    		</a>
+				</div>
+			</div>
+			
+			<div class="pic_bottom">
+				&nbsp;
+			</div>
+		</div>
+		<div style="width:538px; background:url(images/a_r10_c1.gif);">
+			<div class="pic_top">&nbsp;</div>
+			<div style="pic_main STYLE8" style="line-height:25px;">
+				<p>准妈妈，您的预产期是：<span id="span_year" class="STYLE2"></span>&nbsp;年&nbsp;<span id="span_month" class="STYLE2"></span>&nbsp;月&nbsp;<span id="span_day" class="STYLE2"></span>&nbsp;日</p>
+				<p>现在是第&nbsp;<span id="span_week" class="STYLE2"></span>&nbsp;周的第&nbsp;<span id="span_week_day" class="STYLE2"></span>&nbsp;天，距离宝宝出生还有&nbsp;<span id="span_day_num" class="STYLE2"></span>&nbsp;天							
+				<a href="javascript:void(0)" onclick="pre_week()">上一周</a>
+				<a href="javascript:void(0)" onclick="next_week()">下一周</a>
+			    </p>
+
+			</div>
+			<div class="pic_bottom">&nbsp;</div>
+		</div>
+		<div style="width:538px; background:url(images/a_r10_c1.gif)" id="table_main">
+			<div class="pic_top">&nbsp;</div>
+			<div class="pic_main">
+				<div>
+					<div class="STYLE2" style="float:left; display:inline;">本阶段的健康贴士</div>
+					<div style="float:right; padding-right:30px; overflow:hidden; display:inline;">
+						<a href="http://www.mamashai.com/ebook/yun?from=baidu_yunqi_zhuyi" target='_blank'>
+							<img src="images/a_r2_c2.gif" onclick="javascript:void(0);" width="151" height="37" />
+						</a>
+					</div>
+				</div>
+				<div>
+					<div id="td_main" class='STYLE1' align="left" style="float:left; width:350px; margin-top:10px;">
+
+					</div>
+					<div style="float:right; padding-right:33px; float:right">
+						<img id="img_main" src="#" border="0"></img>
+					</div>
+				</div>
+				
+			</div>
+			<div class="pic_bottom">&nbsp;</div>
+		</div>
+		<div style="width:538px; background:url(images/a_r10_c1.gif); overflow:hidden;">
+			<div class="pic_top">&nbsp;</div>
+			<div class="pic_main" style="padding-left:70px;">
+				<p class="STYLE3">提示：以上内容来自<a href='http://www.mamashai.com/ebook/yun?from=baidu_yunqi_zhuyi' target="_blank">《0～40周孕期全程监测卡》</a>，仅供参考。</p>
+			</div>
+			<div class="pic_bottom">&nbsp;</div>
+		</div>
+	</div>
+	
+	<script type="text/javascript">
+		function healthtime()
+		{
+			date = new Date();
+			// 当前时间
+			var countyear = date.getFullYear();
+			var countmonth = date.getMonth();
+			var countday = date.getDate();
+
+			// 最开始显示的时间
+			document.getElementById("txt_month").value = countmonth+1; // javascript中的月份是 0-11，所以要+1
+			document.getElementById("txt_year").value = countyear;
+			document.getElementById("txt_day").value = countday; 
+			check_result();
+		}
+		function check_result()
+		{
+			var check_ok = true;
+			var hongse=new Date() // 当前时间
+			health_year = document.getElementById("txt_year");
+			health_month = document.getElementById("txt_month");
+			health_day = document.getElementById("txt_day");
+
+			// 如果年月日其中一项没有填写
+			if (health_year.value == "" || health_month.value == "" || health_day.value == "")
+			{
+				alert("请填写完整年月日!");
+				check_ok = false;
+
+			}
+
+			// 如果年份过大或者过小
+			else if (health_year.value>2050 || health_year.value<1990)
+			{
+				alert("请填写正确年份!");
+				health_year.focus();
+				check_ok = false;
+
+			}
+
+			// 如果输入年份大于当前年份
+			else if (health_year.value>hongse.getFullYear())
+			{
+				alert("输入的的年份可能过大，请重新输入!");
+				health_year.focus();
+				check_ok = false;
+
+			}
+			// 如果输入年份小于当前年份-1
+			else if (health_year.value<hongse.getFullYear()-1)
+			{
+				alert("输入的的年份可能过小，请重新输入!");
+				health_year.focus();
+				check_ok = false;
+
+			}
+			// 如果输入的月份大于12，或者月份小于1
+			else if (health_month.value>12 || health_month.value<1)
+			{
+				alert("请填写正确月份!");
+				health_month.focus();
+				check_ok = false;
+
+			}
+			// 如果输入日子大于31，或者输入日子小于1
+			else if (health_day.value>31 || health_day.value<1)
+			{
+				alert("请填写正确日子!");
+				health_day.focus();
+				check_ok = false;
+
+			}
+
+			// 如果年月日组合出来的时间并不是正常年月日
+			else if (!isDate(health_year.value ,health_month.value ,health_day.value))
+			{
+				alert("年月日组合有错,请重新填写!");
+				check_ok = false;
+
+			}
+			else 
+			{
+				// 获得“月经周期”
+				var yue = document.getElementById("txt_yueweek").value;
+				// 预产期日数
+				var true_number=280;
+				var zise=new Date(health_year.value+"/"+health_month.value+"/"+health_day.value);
+				// 如果月经周期小于28天，而且大于19天
+				if (yue<28 && yue>19)
+				{
+				// 预产期日数 = 预产期标准日数 - （28 - 月经周期）
+				true_number=280-(28-yue);
+				// 预产期日数换算成秒数
+				var miaoshu=280*1000*3600*24-(28-yue)*1000*3600*24
+				}
+				// 如果月经周期大于28天，并且小于41天
+				else if (yue>28 &&yue<41)
+				{
+				// 预产日期 = 预产期标准日数 + （月经周期 - 28）
+				true_number=280+(yue-28);
+				// 预产期日数换算成秒数
+				var miaoshu=280*1000*3600*24+(yue-28)*1000*3600*24
+				}
+				// 如果月经周期为28天
+				else if (yue==28)
+				{
+				// 预产期标准日数 = 280天
+				true_number=280;
+				var miaoshu=280*1000*3600*24
+				}
+				// 如果不在这个范围内，给出错误提示
+				else
+				{
+				alert("对不起，您输入的月经周期与实际不符，请重新输入！")  
+				// 将焦点移至月经周期文本框内 
+				document.getElementById("txt_yueweek").focus();
+				}
+
+
+				// 获得当前时间
+				var lse=new Date();
+
+				// 如果当前时间 - 输入的时间 > 换算出的描述
+				if ((lse.getTime()-zise.getTime())>miaoshu)
+				{
+				alert("对不起，您输入的日期可能过早，请重新输入！")
+				health.year.focus();
+
+				}
+
+				// 如果当前时间 - 输入的时间 < 0 
+				else if ((lse.getTime()-zise.getTime())<0)
+				{
+					alert("对不起，您输入的时间还没有到来，请重新输入！")
+					health_year.focus();
+					check_ok = false;
+
+				}
+				else
+				{
+					if(check_ok == true)
+					{
+						var stime = new Date();
+						    stime.setFullYear(health_year.value, health_month.value-1, health_day.value);
+
+						if (document.getElementById("txt_yueweek").value != '')
+						{
+						    var temptime = stime.getTime();
+						    stime.setTime((stime.getTime() + true_number * 24 * 3600 * 1000));
+							yuchan = stime.getFullYear() + "/" + (stime.getMonth() + 1) + "/" + stime.getDate();
+							document.getElementById("span_year").innerHTML = stime.getFullYear();
+							document.getElementById("span_month").innerHTML = stime.getMonth()+1;
+							document.getElementById("span_day").innerHTML = stime.getDate();
+							var nowt = new Date();
+							if(yue == 20) var hong = nowt.getTime() + (1000 * 60 * 60 * 24 ) * 8;
+							if(yue == 21) var hong = nowt.getTime() + (1000 * 60 * 60 * 24 ) * 7;
+							if(yue == 22) var hong = nowt.getTime() + (1000 * 60 * 60 * 24 ) * 6;
+							if(yue == 23) var hong = nowt.getTime() + (1000 * 60 * 60 * 24 ) * 5;
+							if(yue == 24) var hong = nowt.getTime() + (1000 * 60 * 60 * 24 ) * 4;
+							if(yue == 25) var hong = nowt.getTime() + (1000 * 60 * 60 * 24 ) * 3;
+							if(yue == 26) var hong = nowt.getTime() + (1000 * 60 * 60 * 24 ) * 2;
+							if(yue == 27) var hong = nowt.getTime() + (1000 * 60 * 60 * 24 ); 
+							if(yue == 28) var hong = nowt.getTime();                          
+							if(yue == 29) var hong = nowt.getTime() - (1000 * 60 * 60 * 24 ); 
+							if(yue == 30) var hong = nowt.getTime() - (1000 * 60 * 60 * 24 ) * 2;
+							if(yue == 31) var hong = nowt.getTime() - (1000 * 60 * 60 * 24 ) * 3;
+							if(yue == 32) var hong = nowt.getTime() - (1000 * 60 * 60 * 24 ) * 4;
+							if(yue == 33) var hong = nowt.getTime() - (1000 * 60 * 60 * 24 ) * 5;
+							if(yue == 34) var hong = nowt.getTime() - (1000 * 60 * 60 * 24 ) * 6;
+							if(yue == 35) var hong = nowt.getTime() - (1000 * 60 * 60 * 24 ) * 7;
+							if(yue == 36) var hong = nowt.getTime() - (1000 * 60 * 60 * 24 ) * 8;
+							if(yue == 37) var hong = nowt.getTime() - (1000 * 60 * 60 * 24 ) * 9;
+							if(yue == 38) var hong = nowt.getTime() - (1000 * 60 * 60 * 24 ) * 10;
+							if(yue == 39) var hong = nowt.getTime() - (1000 * 60 * 60 * 24 ) * 11;
+							if(yue == 40) var hong = nowt.getTime() - (1000 * 60 * 60 * 24 ) * 12;
+							var chatime = hong - temptime;
+							var chaweek = Math.floor((chatime) / (1000 * 60 * 60 * 24 * 7)) + 1;
+							var chaweek_1 = Math.floor((chatime) / (1000 * 60 * 60 * 24));
+							document.getElementById("span_week").innerHTML = chaweek;
+
+							var online = new Date(yuchan);
+							var now = new Date();
+							var leave = online.getTime() - now.getTime();
+							var day = Math.floor(leave/(1000*60*60*24))+1;
+							document.getElementById("span_day_num").innerHTML = day;
+							var abc = ((280-day) % 7) + 1;
+							if(abc < 0) abc=0;
+							document.getElementById("span_week_day").innerHTML = abc;
+
+							if (chaweek < 0 || document.getElementById("span_week_day").innerHTML == "0") 
+							{
+								alert("对不起，您现在还没有怀孕，请重新选择！");
+							}
+
+
+							get_infomation(chaweek);
+						}
+					}
+				}
+
+			}	
+		}
+		function isDate (year, month, day)
+		{
+			// month argument must be in the range 1 - 12
+			month = month - 1;  // javascript month range : 0- 11
+			var tempDate = new Date(year,month,day);
+			if ( (year2k(tempDate.getFullYear()) == year) && (month == tempDate.getMonth()) && (day == tempDate.getDate()) )
+			{    
+				return true;
+			}
+			else
+			{
+				return false;
+			}
+		}
+		function year2k(d) 
+		{ 
+			return (d < 1000) ? d + 1900 : d;
+		}
+		var g_week = 1;
+		function get_infomation(week)
+		{
+			main = document.getElementById("td_main");
+			image_main = document.getElementById("img_main");
+			week_pan = document.getElementById("span_week");
+
+			//alert(img_main.src)
+			switch (week)
+			{
+				case 0:
+				document.getElementById("table_main").style.display = "none";
+				break
+
+				case 1:
+				case 2:
+				case 3:
+				case 4:
+				document.getElementById("table_main").style.display = "block";
+				main.innerHTML = "<p>孕期感冒了怎么办？</p><p>感冒，重在预防，要从以下几个方面做起：<br/>尽量少到或者不到人群比较集中的公共场所。外出乘坐公共交通尽量戴口罩，回家后首先要洗手。不要与已感染上流感的人共用毛巾、餐具等。在决定怀孕之前或怀孕超过3个月之后接种流感疫苗。多喝水，坚持一定的身体锻炼。注意保暖，穿脱衣服一定要注意。要注意房间的通风换气，保持空气新鲜。每天吃点儿大蒜、大葱和生姜。</p>";
+				image_main.src = "images/yunqi/1-1.jpg";
+				break
+
+				case 5:
+				case 6:
+				document.getElementById("table_main").style.display = "block";
+				main.innerHTML = "<p>如何防孕吐？</p><p>孕妇可以通过喝一些饮料、奶类，吃一些富含蛋白质的肉类、谷类食物以及蔬菜水果来缓解孕吐。以下方法也可以在一定程度上缓解孕吐。<br/>每天起床前先吃点饼干或面包；少食多餐；喝牛奶；饭前少喝水，饭后要大量喝水；食用刺激性小、不油腻的食物；避免食用油炸和辛辣食物；含一块糖果；在医生指导下适当服用维生素B6；喝加入红糖、蜂蜜或柠檬的姜茶；早起吃一个苹果或黄瓜。</p>";
+				image_main.src = "images/yunqi/2-1.jpg";
+				break
+
+				case 7:
+				case 8:
+				document.getElementById("table_main").style.display = "block";
+				main.innerHTML = "<p>如何预防贫血？</p><p>为了预防贫血，整个孕期一定要注意补铁。孕早期，孕妈妈每天至少摄入15〜20毫克铁，孕晚期，每天应摄入20〜30毫克铁，最高摄入量为60毫克。</p><p>富含铁的食物：动物肝脏、瘦肉、鱼、虾、海带、豆类、菠菜、芹菜、油菜、李子、樱桃、红枣、核桃、番茄、香菇、紫菜、葡萄干、红糖、芝麻酱等。动物性食物中的铁比植物性食物中的铁易吸收。</p><p>另外，维生素C有助于铁的吸收，钙会妨碍铁的吸收。</p>";
+				image_main.src = "images/yunqi/2-2.jpg";
+				break
+
+				case 9:
+				case 10:
+				case 11:
+				case 12:
+				document.getElementById("table_main").style.display = "block";
+				main.innerHTML = "<p>警惕孕早期阴道出血!</p><p>在怀孕12周以内发生的阴道流血，称为孕早期阴道流血。在孕早期，大约有50%的准妈妈有阴道出血现象。出血有各种各样的原因，妊娠早期发生阴道出血后，大约有一半能继续成功怀孕，另外约百分之三十会发生自然流产，百分之十是子宫外孕，而极少数可能是葡萄胎、子宫颈病灶等问题。</p><p>孕妈妈在发现阴道出血后，情绪一定要稳定，但是有任何出血症状都应告诉医生，去医院检查，这种情况下要相信医生。</p>";
+				image_main.src = "images/yunqi/3-1.jpg";
+				break
+
+				case 13:
+				case 14:
+				document.getElementById("table_main").style.display = "block";
+				main.innerHTML = "<p>如何科学的过好孕中期性生活？</p><p>怀孕中期胎盘已经形成，妊娠较稳定；早孕反应也过去，性器官分泌物也增多，可以适当地过性生活。但是要节制，还要注意性生活的体位与时间，避免造成对胎儿的影响。</p>";
+				image_main.src = "images/yunqi/4-1.jpg";
+				break
+
+				case 15:
+				case 16:
+				document.getElementById("table_main").style.display = "block";
+				main.innerHTML = "<p>宝宝的胎动！</p><p>宝宝在子宫里的动作千变万化，譬如抽动、扭动、翻滚、拳打脚踢、冒泡泡等，孕妈妈的感受也不一样，初次胎动一般会在16〜20周出现。胎动是孕妈妈了解胎儿健康状况的重要渠道。孕妈妈通过胎动来监测胎宝宝在子宫里的安危状态。依靠妈妈的自我监控，每天掌握胎动变化的情况，可以随时了解宝宝在子宫内是否安然无恙，及早发现问题。</p>";
+				image_main.src = "images/yunqi/4-2.jpg";
+				break
+
+				case 17:
+				case 18:
+				case 19:
+				case 20:
+				document.getElementById("table_main").style.display = "block";
+				main.innerHTML = "<p>孕期乳房如何护理？</p><p>适当的孕期乳房护理能够帮助乳腺发育，疏通乳腺导管，从而促进分娩后的泌乳。同时孕期乳房护理能够改善皮肤弹性，防止乳房松弛下垂。<br/>1.清洗乳房皮肤，并将皮肤皱褶处擦洗干净，清理堵塞在乳头上的硬颗粒状结痂分泌物，用温水清洗，不需要使用香皂。<br/>2.用热毛巾热敷两侧乳房，毛巾的温度不要过高。<br/>3.按摩两侧乳房，按摩力度要温和。在乳房上可涂少量的乳液等滋润护肤品。但千万不能使用丰乳霜或是减肥霜。</p>";
+				image_main.src = "images/yunqi/5-1.jpg";
+				break
+
+				case 21:
+				case 22:
+				document.getElementById("table_main").style.display = "block";
+				main.innerHTML = "<p>什么是妊娠期糖尿病？</p><p>妊娠期糖尿病是某些女性在怀孕期间出现的一类糖尿病。2%〜7%的准妈妈会发生妊娠期糖尿病。以下人群容易患妊娠期糖尿病：有糖尿病家族史、孕期尿糖多次检查为阳性；年龄大于30岁；孕前肥胖，孕妇体重大于90千克；反复出现的真菌性外阴、阴道炎；反复自然流产，有死胎或分娩巨大儿、畸形儿史；本次妊娠胎儿偏大或羊水过多者。</p>";
+				image_main.src = "images/yunqi/6-1.jpg";
+				break
+
+				case 23:
+				case 24:
+				document.getElementById("table_main").style.display = "block";
+				main.innerHTML = "<p>孕期缺铁性贫血？</p><p>在孕期发生贫血，一般表现为皮肤萎黄，口唇、眼睑黏膜苍白，常常会有头晕、眼花等症状，常有劳累和疲倦感，活动量稍大时，有心慌、气短、呼吸困难等情况出现。如果出现缺铁性贫血症状，一定要去医院，医生会开一些补铁剂，每天补铁60〜120毫克或更多，自己不要盲目补铁。平常饮食吃富含铁的健康食品。红肉、禽肉以及其他肉类、贝类是铁的很好来源。</p>";
+				image_main.src = "images/yunqi/6-2.jpg";
+				break
+
+				case 25:
+				case 26:
+				case 27:
+				case 28:
+				document.getElementById("table_main").style.display = "block";
+				main.innerHTML = "<p>待产包如何准备？</p><p>准备待产包的时间可以根据准妈妈自己的情况来定。建议在妊娠 7 个月的时候开始准备最好，这样不但有充裕的时间，准妈妈又有较好的体力去逛母婴商店，又不会因出现突发状况临时入院，而搞得手忙脚乱。</p>";
+				image_main.src = "images/yunqi/7-1.jpg";
+				break
+
+				case 29:
+				case 30:
+				document.getElementById("table_main").style.display = "block";
+				main.innerHTML = "<p>宝宝的胎位如何判定？</p><p>一般来说，孕30周之前，胎儿在子宫内可以自由变换体位，但是孕30周后胎儿自动变换胎位的概率就很小了，这个时候如果胎位不正，就需要在医生的指导下进行干预。<br/>本阶段是胎儿大脑增殖高峰，大脑皮层增殖迅速，多吃含亚油酸的食物，譬如植物油、玉米、花生、芝麻等。孕妈妈应该吃一些营养丰富的海洋食物。它们富含脂肪、胆固醇、蛋白质、维生素A和维生素D，与眼睛、皮肤、牙齿和骨骼的正常发育关系非常密切。</p>";
+				image_main.src = "images/yunqi/8-1.jpg";
+				break
+
+				case 31:
+				case 32:
+				document.getElementById("table_main").style.display = "block";
+				main.innerHTML = "<p>妊高征（妊娠期高血压疾病）！</p><p>妊高征（妊娠高血压综合征）多发生在妊娠的中、晚期，主要症状为血压升高、头昏、头痛、眼花、尿少、下肢或全身水肿等，严重时可引起抽风、昏迷。高血压、蛋白尿、水肿是妊高征的三大症状。</p>";
+				image_main.src = "images/yunqi/8-2.jpg";
+				break
+
+				case 33:
+				case 34:
+				document.getElementById("table_main").style.display = "block";
+				main.innerHTML = "<p>什么样的人群易发妊娠高血压综合征？</p><p>年轻初孕妇及高龄初产妇；家族中有高血压或肾炎、糖尿病病史者；多胎妊娠、羊水过多、葡萄胎患者；营养不良、重度贫血者。此外，寒冷季节、气压升高时发病会增多。</p>";
+				image_main.src = "images/yunqi/9-1.jpg";
+				break
+
+				case 35:
+				case 36:
+				document.getElementById("table_main").style.display = "block";
+				main.innerHTML = "<p>如何区别真假宫缩？</p><p>子宫收缩 (即宫缩)，开始是不规则的，强度较弱，逐渐变得有规律，强度越来越强，持续时间延长，间隔时间缩短，如间隔时间在2〜3分钟，持续50〜60秒。<br/>大约在分娩前一个月，宫缩开始。如果每小时宫缩次数在10次左右就属于比较频繁的，要在医生指导下服用一些抑制宫缩的药物，防止发生早产。如果宫缩不是很频繁，没有腹痛，注意休息就可以了。</p>";
+				image_main.src = "images/yunqi/9-1.jpg";
+				break
+
+				case 37:
+				case 38:
+				case 39:
+				case 40:
+				document.getElementById("table_main").style.display = "block";
+				main.innerHTML = "<p>分娩的征兆有哪些？</p><p>1. 小便次数增加。<br/>2. 子宫规律性收缩，收缩力越来越强，持续时间可长达1分种，间歇期可缩短至l〜2分钟。<br/>3. 出血与子宫黏液栓混合，自阴道排出，称为见红。见红是分娩即将开始比较可靠的征兆。<br/>4. 阴道突然流出清亮的液体，有时含胎脂或胎粪，称为“胎膜破裂”。破水通常发生在规律宫缩开始后，胎儿娩出前。破水的孕妇需立即卧床，即去医院，以防脐带脱垂危及胎儿。通常破水后24小时内会自然临产。</p>";
+				image_main.src = "images/yunqi/10-1.jpg";
+				break
+			}
+		}
+
+		function pre_week()
+		{
+			if (g_week <= 1)
+			{
+				alert("已经倒第一周了，不能在往前了");
+				return;
+			}
+			
+			g_week = g_week - 1;
+			get_infomation(g_week);
+			document.getElementById("span_week").innerHTML = g_week;
+		}
+		
+		function next_week()
+		{
+			if (g_week >= 40)
+			{
+				alert("已经过了40周了，没有检查项目可看了");
+				return;
+			}
+			
+			g_week = g_week + 1;
+			get_infomation(g_week);
+			document.getElementById("span_week").innerHTML = g_week;
+		}
+		
+		function show_div_1()
+		{
+			document.getElementById("div_tab_1").style.display = "block";
+			document.getElementById("div_tab_2").style.display = "none";
+			document.getElementById("td_tab").style.backgroundImage = "url(images/f_r2_c5.gif)";
+			setHeight(0);
+		}
+
+		function show_div_2()
+		{
+			document.getElementById("div_tab_1").style.display = "none";
+			document.getElementById("div_tab_2").style.display = "block";
+			document.getElementById("td_tab").style.backgroundImage = "url(images/f_r2_c4.gif)";
+			setHeight(0);
+		}
+	</script>
+	<script src="http://app.baidu.com/static/appstore/monitor.st"></script>
+	<script>
+	     baidu.app.autoHeight();
+	     baidu.app.setHeight(444);
+	</script>
+	<div style="display:none;">
+		<script type="text/javascript">
+var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3F2f4856497854ce3df66f8b40863365d9' type='text/javascript'%3E%3C/script%3E"));
+</script>
+	</div>
+</body>
+</html>

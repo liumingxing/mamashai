@@ -1,0 +1,1448 @@
+var win = Ti.UI.createWindow({
+	title: "合作直邮频道",
+	backButtonTitle: "",
+	backgroundColor: "white"
+});
+
+function make_number_spin(product_json, min, max, value, step, callback){
+	var view = Ti.UI.createView({
+		top: 0,
+		left: 0,
+		width: Ti.UI.platform_width,
+		bottom: 0,
+		backgroundColor: "transparent",
+		zIndex: 100
+	})
+	view.add(Ti.UI.createView({
+		backgroundColor: "black",
+		opacity: 0.1,
+		left: 0,
+		right: 0,
+		top: 0,
+		bottom: 0
+	}));
+
+	var bottom_container = Ti.UI.createView({
+		backgroundColor: "white",
+		height: __l(250),
+		bottom: 0,
+	})
+	var close = Ti.UI.createImageView({
+		image: "/images/gou/close.png",
+		right: __l(16),
+		top: __l(16),
+		width: __l(30),
+		height: __l(30),
+	})
+	close.addEventListener("click", function(e){
+		win.remove(view);
+	})
+	bottom_container.add(close);
+	bottom_container.add(Ti.UI.createImageView({
+		image: Ti.App.aliyun + product_json.logo_thumb200,
+		left: __l(16),
+		top: __l(16),
+		width: __l(60)
+	}))
+
+	bottom_container.add(Ti.UI.createLabel({
+		text: product_json.name,
+		font: {fontSize: __l(14)},
+		color: "#333",
+		left: __l(92),
+		top: __l(16),
+		right: __l(62),
+		height: __l(56)
+	}))
+
+	bottom_container.add(Ti.UI.createLabel({
+		text: "￥" + parseFloat(product_json.price).toFixed(2),
+		font: {fontSize: __l(17), fontWeight: "bold"},
+		color: Ti.App.bar_color,
+		left: __l(110),
+		top: __l(76),
+		height: Ti.UI.SIZE
+	}))
+
+	bottom_container.add(Ti.UI.createLabel({
+		text: "省" + (parseFloat(product_json.o_price) - parseFloat(product_json.price)).toFixed(2),
+		font: {fontSize: __l(11)},
+		color: "#999",
+		left: __l(194),
+		top: __l(80),
+		height: Ti.UI.SIZE
+	}))
+
+	bottom_container.add(Ti.UI.createView({
+		top: __l(110),
+		left: 0,
+		right: 0,
+		height: __l(1),
+		backgroundColor: "#ccc",
+	}))
+
+	bottom_container.add(Ti.UI.createLabel({
+		text: "选择数量：",
+		font: {fontSize: __l(16)},
+		color: "#333",
+		left: __l(16),
+		top: __l(124),
+		height: __l(35)
+	}))
+
+	bottom_container.add(Ti.UI.createView({
+		bottom: __l(60),
+		left: 0,
+		right: 0,
+		height: __l(1),
+		backgroundColor: "#ccc",
+	}))
+
+	var ok = Ti.UI.createButton({
+		bottom: __l(10),
+		title: "确定",
+		left: __l(20),
+		right: __l(20),
+		height: __l(40),
+		backgroundColor: "#ccc",
+	})
+	ok.addEventListener("click", function(e){
+		callback(txt.value);
+		win.remove(view);
+	})
+	pre_btn(ok);
+	bottom_container.add(ok)
+
+	view.add(bottom_container);
+
+	var wrapper = Ti.UI.createView({
+		top: __l(124),
+		left: __l(110),
+		height: __l(35),
+		width: __l(120),
+		borderWidth: __l(1),
+		borderColor: "#9C9C9C",
+		borderRadius: __l(2),
+		value: value
+	})
+
+	var left = Ti.UI.createView({
+		backgroundColor: "#EFEFEF",
+		width: __l(35),
+		left: 0
+	})
+	left.addEventListener("click", function(e){
+		if (parseInt(txt.value) <= min)
+			return;
+
+		txt.value = parseInt(txt.value) - step; 
+		right.touchEnabled = true;
+
+		if (txt.value == min){
+			left.touchEnabled = false;
+		}
+	})
+	left.addEventListener("touchstart", function(e){
+		left.backgroundColor = "#E0E0E0";
+	});
+	left.addEventListener("touchend", function(e){
+		left.backgroundColor = "#EFEFEF";
+	});
+	left.addEventListener("touchcancel", function(e){
+		left.backgroundColor = "#EFEFEF";
+	});
+	left.add(Ti.UI.createImageView({
+		image: "/images/gou/minus.png",
+		left: __l(4),
+		right: __l(4),
+		top: __l(4),
+		bottom: __l(4),
+		width: __l(27),
+		height: __l(27),
+		touchEnabled: false,
+		backgroundColor: "transparent"
+	}))
+	wrapper.add(left)
+	wrapper.add(Ti.UI.createView({
+		top: 0,
+		bottom: 0,
+		width: __l(1),
+		backgroundColor: "#9C9C9C",
+		left: __l(35)
+	}))
+
+	var txt = Ti.UI.createTextField({
+		height: __l(35),
+		left: __l(35),
+		right: __l(35),
+		bottom: Ti.App.is_android ? __l(-2) : __l(0),
+		borderWidth: 0,
+		textAlign: "center",
+		color: "#252525",
+		font: {fontSize: __l(18)},
+		backgroundColor: "transparent",
+		editable: false,
+		value: value
+	})
+	txt.addEventListener("change", function(e){
+		wrapper.value = txt.value;
+	})
+	wrapper.add(txt);
+
+	var right = Ti.UI.createView({
+		backgroundColor: "#EFEFEF",
+		width: __l(35),
+		right: 0,
+	})
+	right.addEventListener("click", function(e){
+		if (parseInt(txt.value) >= max)
+			return;
+
+		txt.value = parseInt(txt.value) + step; 
+		left.touchEnabled = true;
+
+		if (txt.value == max){
+			right.touchEnabled = false;
+		}
+	})
+
+	right.addEventListener("touchstart", function(e){
+		right.backgroundColor = "#E0E0E0";
+	});
+	right.addEventListener("touchend", function(e){
+		right.backgroundColor = "#EFEFEF";
+	});
+	right.addEventListener("touchcancel", function(e){
+		right.backgroundColor = "#EFEFEF";
+	});
+	right.add(Ti.UI.createImageView({
+		image: "/images/gou/add.png",
+		left: __l(4),
+		right: __l(4),
+		top: __l(4),
+		bottom: __l(4),
+		width: __l(27),
+		height: __l(27),
+		touchEnabled: false,
+		backgroundColor: "transparent"
+	}))
+	wrapper.add(right)
+	wrapper.add(Ti.UI.createView({
+		top: 0,
+		bottom: 0,
+		width: __l(1),
+		backgroundColor: "#9C9C9C",
+		right: __l(35)
+	}))
+
+	bottom_container.add(wrapper);
+
+	win.add(view);
+}
+
+function new_top_line(){
+	return Ti.UI.createView({
+				height: 1,
+				backgroundColor: "#ccc",
+				left: 0,
+				right: 0,
+				top: 0
+	})
+}
+
+function new_bottom_line(){
+	return Ti.UI.createView({
+				height: 1,
+				backgroundColor: "#ccc",
+				left: 0,
+				right: 0,
+				bottom: 0,
+	})
+}
+
+function to_list_win(title, id){
+	cache_http_call(Ti.App.mamashai + "/bbrl_code/gou_list.txt", "gou_list_cache", function(e){
+		var ListWin = eval(e.responseText);
+		var win = new ListWin({
+			title: title,
+			id: id,
+			backButtonTitle: "",
+			backgroundColor: "white"
+		})
+		if (!Ti.App.is_android)
+			win.hideTabBar();
+		Ti.App.currentTabGroup.activeTab.open(win, {
+			animated : true
+		});
+	})
+}
+
+//显示爆款
+function make_baokuan_view(wrapper0, baokuan_jsons, show_only_current){
+	for(var i=0; i<baokuan_jsons.length && i<7; i++){
+		if (baokuan_jsons[i].is_current && show_only_current || !baokuan_jsons[i].is_current && !show_only_current){
+			var title_wrapper = Ti.UI.createView({
+				top: 0,
+				backgroundColor: "#F2F2F4",
+				left: 0,
+				right: 0,
+				height: Ti.UI.SIZE
+			})
+			title_wrapper.add(Ti.UI.createImageView({
+				left: __l(10),
+				top: __l(10),
+				bottom: __l(10),
+				image: "/images/gou/biao.png",
+				width: __l(20),
+				height: __l(20)
+			}))
+
+			if (baokuan_jsons[i].is_current){
+				title_wrapper.add(Ti.UI.createLabel({
+					left: __l(40),
+					top: __l(10),
+					bottom: __l(10),
+					font: {fontSize: __l(16)},
+					color: Ti.App.bar_color,
+					height: __l(20),
+					text: "今日爆款"
+				}))
+
+				title_wrapper.add(Ti.UI.createLabel({
+					left: __l(120),
+					bottom: __l(10),
+					font: {fontSize: __l(13)},
+					color: "#999",
+					height: __l(20),
+					text: "每天10点限量开抢"
+				}))
+			}
+			else{
+				var date = new Date(baokuan_jsons[i].begin_at)
+				var hour = date.getHours() < 10 ? ("0" + date.getHours()) : date.getHours();
+				var minute = date.getMinutes() < 10 ? ("0" + date.getMinutes()) : date.getMinutes();
+				
+				title_wrapper.add(Ti.UI.createLabel({
+					left: __l(40),
+					bottom: __l(10),
+					font: {fontSize: __l(13)},
+					color: "#999",
+					height: __l(20),
+					text: "开始时间：" + date_str(date) + ' ' + hour + ":" + minute
+				}))
+			}
+
+			//显示预告
+			if (baokuan_jsons[i].is_current && baokuan_jsons.length > i+1){
+				var yugao = Ti.UI.createLabel({
+					color: Ti.App.bar_color,
+					text: "看预告",
+					top: 0,
+					bottom: 0,
+					height: __l(40),
+					left: __l(230),
+					width: __l(50),
+					textAlign: "center",
+					font: {fontSize: __l(13)}
+				})
+				yugao.addEventListener("touchstart", function(e){
+					yugao.color = "#FCC"
+				})
+				yugao.addEventListener("touchend", function(e){
+					yugao.color = Ti.App.bar_color;
+				})
+				yugao.addEventListener("touchcancel", function(e){
+					yugao.color = Ti.App.bar_color;
+				})
+				yugao.addEventListener("click", function(e){
+					var win = Ti.UI.createWindow({
+						title: "爆款预告",
+						backButtonTitle: "",
+						backgroundColor: "white"
+					})
+
+					var right = Ti.UI.createButton({
+						title : "关于"
+					})
+					right.addEventListener("click", function(e){
+						var w = Ti.UI.createWindow({
+							title: "关于爆款",
+							backButtonTitle: "",
+							backgroundColor: "white",
+							layout: "vertical"
+						})
+
+						w.add(Ti.UI.createLabel({
+							text: "1、什么是今日爆款：今日爆款是给妈妈晒用户的福利，为让亲们以最优价格感受海外直邮商品的优秀品质，商城在每天10：00推出一款爆款商品，以成本价出售！最大限度回馈用户！",
+							left: __l(20),
+							top: __l(20),
+							height: Ti.UI.SIZE,
+							right: __l(20),
+							color: "#666",
+							font: {fontSize: __l(17)}
+						}))
+
+						w.add(Ti.UI.createLabel({
+							text: "2、今日爆款是限量的：每天的爆款商品数量有限，超出限量系统会提示“抢光了”。",
+							left: __l(20),
+							top: __l(20),
+							height: Ti.UI.SIZE,
+							right: __l(20),
+							color: "#666",
+							font: {fontSize: __l(17)}
+						}))
+
+						w.add(Ti.UI.createLabel({
+							text: "3、爆款抢购攻略：建议先行填好收货地址（务必上传好正确的身份证信息哦）！每天10：00开抢就迅速下单付款，这样才能确保抢到爆款商品！注意，只加入购物车未完成支付的不算抢购成功，超出限量或超过爆款时间，商品自动恢复为正常价格。",
+							left: __l(20),
+							top: __l(20),
+							height: Ti.UI.SIZE,
+							right: __l(20),
+							color: "#666",
+							font: {fontSize: __l(17)}
+						}))
+
+						pre(w);
+						add_default_action_bar(w, w.title, true)
+						
+						Ti.App.currentTabGroup.activeTab.open(w, {
+							animated : true
+						});
+					})
+
+					if (!Ti.App.is_android)
+						win.setRightNavButton(right);
+
+					var wrapper = Ti.UI.createScrollView({
+						showVerticalScrollIndicator : true,
+						top: 0,
+						left: 0,
+						right: 0,
+						bottom: 0,
+						layout: 'vertical'
+					})
+
+					win.addEventListener("open", function(e){
+						make_baokuan_view(wrapper, baokuan_jsons, false);
+						win.add(wrapper)
+					})
+
+					pre(win);
+					add_default_action_bar2(win, win.title, "关于", function(e){
+						right.fireEvent("click")
+					})
+					
+					Ti.App.currentTabGroup.activeTab.open(win, {
+						animated : true
+					});
+				})
+				title_wrapper.add(yugao)
+			}
+			
+			title_wrapper.add(Ti.UI.createView({
+				height: 1,
+				backgroundColor: "#ccc",
+				left: 0,
+				right: 0,
+				bottom: 0
+			}))
+			wrapper0.add(title_wrapper)
+
+			var w = Titanium.UI.createView({
+				top : 0,
+				left : 0,
+				right : 0,
+				height: __l(260)
+			});
+			var logo = Ti.UI.createImageView({
+				//left: __l(10),
+				//right: __l(10),
+				top: __l(10),
+				width: __l(240),
+				height: __l(240),
+				id: baokuan_jsons[i].product.id,
+				image: Ti.App.aliyun + baokuan_jsons[i].product.logo_url
+			})
+			logo.addEventListener("click", function(e){
+				cache_http_call(Ti.App.mamashai + "/bbrl_code/gou_detail.txt", "cache_gou_detail", function(e1){
+					var DetailWin = eval(e1.responseText);
+					var win = new DetailWin({
+						title: "商品详情",
+						id: e.source.id,
+						backButtonTitle: "",
+						backgroundColor: "white"
+					})
+					Ti.App.currentTabGroup.activeTab.open(win, {
+						animated : true
+					});
+				})
+			})
+			w.add(logo)
+			wrapper0.add(w)
+			wrapper0.add(new_top_line())
+			var w1 = Ti.UI.createView({
+				top: 0,
+				height: Ti.UI.SIZE
+			})
+			w1.add(Ti.UI.createImageView({
+				left: __l(10),
+				top: __l(10),
+				height: __l(16),
+				width: __l(25),
+				hires: true,
+				image: "/images/gou/aozhou.png"
+			}))
+			w1.add(Ti.UI.createLabel({
+				left: __l(43),
+				top: __l(8),
+				height: __l(17),
+				text: "澳洲直邮",
+				font: {fontSize: __l(12)},
+				color: "#999"
+			}))
+			wrapper0.add(w1)
+			wrapper0.add(Ti.UI.createLabel({
+				text: baokuan_jsons[i].product.name,
+				left: __l(10),
+				top: __l(10),
+				bottom: __l(10),
+				height: Ti.UI.SIZE,
+				right: __l(10),
+				color: "black",
+				font: {fontSize: __l(15)}
+			}))
+			if (baokuan_jsons[i].is_current){
+				var price_wrapper = Ti.UI.createView({
+					left: 0,
+					right: 0,
+					top: 0,
+					height: Ti.UI.SIZE
+				})
+				price_wrapper.add(Ti.UI.createLabel({
+					color: Ti.App.bar_color,
+					textAlign: "center",
+					left: __l(10),
+					font: {fontSize: __l(11)},
+					top: __l(10),
+					width: __l(40),
+					borderWidth: 1,
+					borderColor: Ti.App.bar_color,
+					borderRadius: __l(4),
+					text: "爆款价"
+				}))
+
+				price_wrapper.add(Ti.UI.createLabel({
+					color: Ti.App.bar_color,
+					textAlign: "center",
+					left: __l(58),
+					font: {fontSize: __l(11)},
+					top: __l(10),
+					width: __l(26),
+					borderWidth: 1,
+					borderColor: Ti.App.bar_color,
+					borderRadius: __l(4),
+					text: parseInt(baokuan_jsons[i].product.price*10/baokuan_jsons[i].product.o_price) + "折"
+				}))
+
+				price_wrapper.add(Ti.UI.createLabel({
+					text: "￥" + parseFloat(baokuan_jsons[i].price).toFixed(2),
+					left: __l(90),
+					top: __l(5),
+					font: {fontSize: __l(18), fontWeight: "bold"},
+					color: Ti.App.bar_color,
+					height: Ti.UI.SIZE,
+					bottom: __l(10)
+				}))
+
+				price_wrapper.add(Ti.UI.createLabel({
+					text: "￥" + parseFloat(baokuan_jsons[i].product.o_price).toFixed(2),
+					left: __l(174),
+					top: __l(10),
+					font: {fontSize: __l(12)},
+					color: "#999",
+					bottom: 0,
+					height: Ti.UI.SIZE
+				}))
+
+				price_wrapper.add(Ti.UI.createView({
+					backgroundColor: "#999",
+					left: __l(174),
+					width: baokuan_jsons[i].product.o_price >= 100 ? __l(50) : __l(40),
+					height: 1,
+					top: Ti.App.is_android ? __l(20) : __l(18),
+				}))
+				
+				
+
+				var buy_btn = Ti.UI.createButton({
+					color: 'white',
+					backgroundColor: "#EA609E",
+					backgroundSelectedColor: "#DA70AE",
+					width: __l(80),
+					height: __l(30),
+					bottom: __l(10),
+					right: __l(10),
+					top: __l(0),
+					borderRadius: __l(4),
+					title: "立即抢购",
+					font: {fontSize: __l(14)},
+					price: baokuan_jsons[i].price,
+					json: baokuan_jsons[i].product
+				})
+				if (baokuan_jsons[i].no_remain){
+					buy_btn.backgroundColor = "#ccc";
+					buy_btn.title = "抢光了"
+					buy_btn.touchEnabled = false
+				}
+				buy_btn.addEventListener("click", function(e){
+					if (!check_login()){
+						to_login();
+						return;
+					}
+
+					make_number_spin(e.source.json, e.source.json.kd, 10, e.source.json.kd, e.source.json.kd == 2 ? 2 : 1, function(count){
+						Ti.App.db.execute('CREATE TABLE IF NOT EXISTS cart (id int, name varchar(200), logo varchar(200), price float, o_price float, count int, yunfee float, kd char(20), category_id int, count_fixed int default 0, created_at char(50), end_at char(50))');
+					
+
+						var record = Ti.App.db.execute('SELECT * FROM cart where id=?', e.source.json.id);
+						if (!record.isValidRow()){
+							var now = new Date();
+							Ti.App.db.execute('INSERT INTO cart (id, name, logo, price, o_price, count, kd, category_id, created_at) VALUES (?,?,?,?,?,?,?,?,?)', e.source.json.id, e.source.json.name, e.source.json.logo_thumb200, e.source.price, e.source.json.o_price, e.count, e.source.json.kd, e.source.json.category_id, now.getTime());
+						}
+						record.close();
+
+						cache_http_call(Ti.App.mamashai + "/bbrl_code/gou_order.txt", "cache_gou_order", function(e1){
+							var json = {details: []};		//传给结算窗体的参数
+
+							json.details.push({
+								product_id : e.source.json.id,
+								price 	: parseFloat(e.source.json.price),
+								o_price : parseFloat(e.source.json.o_price),
+								count 	: count,
+								sum 	: count * e.source.json.price,
+								name 	: e.source.json.name,
+								logo 	: e.source.json.logo_thumb200
+							})
+
+
+							json.price = count * e.source.json.price;
+							json.o_price = count * e.source.json.o_price;
+							
+							var OrderWin = eval(e1.responseText);
+							var win = new OrderWin({
+								title: "订单确认",
+								backButtonTitle: "",
+								backgroundColor: "white",
+								json: json
+							})
+							if (!Ti.App.is_android)
+								win.hideTabBar();
+							Ti.App.currentTabGroup.activeTab.open(win, {
+								animated : true
+							});
+						})
+					})
+				})
+				if (baokuan_jsons[i].is_current)
+					price_wrapper.add(buy_btn)
+			
+				wrapper0.add(price_wrapper)
+			}
+
+			wrapper0.add(new_top_line())
+
+			wrapper0.add(Ti.UI.createView({
+				height: __l(16),
+				backgroundColor: "#F2F2F4",
+				left: 0,
+				right: 0,
+				top: 0,
+				bottom: 0
+			}))
+
+			wrapper0.add(new_top_line())
+
+			if (baokuan_jsons[i].is_current && show_only_current)
+				break;
+		}
+	}	
+}
+
+win.addEventListener("android:back", function(e){
+	if (wrapper.left == 0)
+		win.close();
+	else{
+		close_right();
+	}
+});
+
+function show_right(){
+	if (wrapper_right.children.length == 0){
+		fill_right();
+	}
+	wrapper.animate({right: __l(180), left: __l(-180), duration: 500}, function(){
+		wrapper.left = __l(-180)
+	});
+	wrapper_right.animate({left: Ti.App.platform_width - __l(180), duration: 500})
+}
+
+function close_right(){
+	wrapper.animate({right: 0, left: 0, duration: 500}, function(){
+		wrapper.left = 0;
+	});
+	wrapper_right.animate({left: Ti.App.platform_width, duration: 500})
+}
+
+var my = Titanium.UI.createButton({
+	title: "我的",
+});
+my.addEventListener("click", function(e){
+	if (wrapper.left == 0){
+		show_right();
+	}
+	else{
+		close_right();
+	}
+})
+
+if (!Ti.App.is_android){
+	win.setRightNavButton(my)
+}
+
+var wrapper = Ti.UI.createScrollView({
+	showVerticalScrollIndicator : true,
+	top: 0,
+	left: 0,
+	right: 0,
+	bottom: 0,
+	layout: 'vertical'
+})
+
+var wrapper_right = Ti.UI.createView({
+	top: 0,
+	left: Ti.App.platform_width,
+	width: __l(180),
+	backgroundColor: "#ccc"
+})
+
+function fill_right()
+{
+	var row_cart = Ti.UI.createTableViewRow({
+		height: Ti.UI.SIZE,
+		selectedBackgroundColor: "#eee"
+	})
+	row_cart.addEventListener("click", function(e){
+		close_right();
+		setTimeout(function(){
+			cache_http_call(Ti.App.mamashai + "/bbrl_code/gou_cart.txt", "cache_gou_cart", function(e){
+				var CartWin = eval(e.responseText);
+				var win = new CartWin({
+					title: "购物车",
+					backButtonTitle: "",
+					backgroundColor: "white"
+				})
+				if (!Ti.App.is_android)
+					win.hideTabBar();
+				Ti.App.currentTabGroup.activeTab.open(win, {
+					animated : true
+				});
+			})
+		}, 500)
+	})
+
+	row_cart.add(Ti.UI.createImageView({
+		left: __l(16),
+		top: __l(10),
+		bottom: __l(10),
+		width: __l(34),
+		height: __l(34),
+		image: "/images/gou/i09.png"
+	}))
+
+	row_cart.add(Ti.UI.createLabel({
+		text: "购物车",
+		font: {fontSize: __l(18)},
+		left: __l(60),
+		height: __l(54)
+	}))
+
+	var row_orders = Ti.UI.createTableViewRow({
+		height: Ti.UI.SIZE,
+		selectedBackgroundColor: "#eee"
+	})
+	row_orders.addEventListener("click", function(e){
+		close_right();
+		setTimeout(function(){
+			if (!check_login()){
+				to_login();
+				return;
+			}
+
+			cache_http_call(Ti.App.mamashai + "/bbrl_code/gou_orders.txt", "gou_orders_cache", function(e){
+				var OrdersWin = eval(e.responseText);
+				var win = new OrdersWin({
+					title: "我的订单",
+					backButtonTitle: "",
+					backgroundColor: "white"
+				})
+				if (!Ti.App.is_android)
+					win.hideTabBar();
+				Ti.App.currentTabGroup.activeTab.open(win, {
+					animated : true
+				});
+			})
+		}, 500)
+	})
+	row_orders.add(Ti.UI.createImageView({
+		left: __l(16),
+		top: __l(10),
+		bottom: __l(10),
+		width: __l(34),
+		height: __l(34),
+		image: "/images/gou/i01.png"
+	}))
+
+	row_orders.add(Ti.UI.createLabel({
+		text: "我的订单",
+		font: {fontSize: __l(18)},
+		left: __l(60),
+		height: __l(54)
+	}))
+
+	var row_fav = Ti.UI.createTableViewRow({
+		height: Ti.UI.SIZE,
+		selectedBackgroundColor: "#eee"
+	})
+
+	row_fav.add(Ti.UI.createImageView({
+		left: __l(16),
+		top: __l(10),
+		bottom: __l(10),
+		width: __l(34),
+		height: __l(34),
+		image: "/images/gou/i02.png"
+	}))
+
+	row_fav.add(Ti.UI.createLabel({
+		text: "我的收藏",
+		font: {fontSize: __l(18)},
+		left: __l(60),
+		height: __l(54)
+	}))
+
+	row_fav.addEventListener("click", function(e){
+		close_right();
+		setTimeout(function(){
+			if (!check_login()){
+				to_login();
+				return;
+			}
+
+			cache_http_call(Ti.App.mamashai + "/bbrl_code/gou_list.txt", "gou_list_cache", function(e){
+				var ListWin = eval(e.responseText);
+				var win = new ListWin({
+					title: "我的收藏",
+					backButtonTitle: "",
+					backgroundColor: "white",
+					gou_url: Ti.App.mamashai + "/api/gou/fav?" + account_str()
+				})
+				if (!Ti.App.is_android)
+					win.hideTabBar();
+				Ti.App.currentTabGroup.activeTab.open(win, {
+					animated : true
+				});
+			})
+		}, 500)
+	})
+
+	var row_address = Ti.UI.createTableViewRow({
+		height: Ti.UI.SIZE,
+		selectedBackgroundColor: "#eee"
+	})
+	row_address.add(Ti.UI.createImageView({
+		left: __l(16),
+		top: __l(10),
+		bottom: __l(10),
+		width: __l(34),
+		height: __l(34),
+		image: "/images/gou/i05.png"
+	}))
+
+	row_address.add(Ti.UI.createLabel({
+		text: "地址管理",
+		font: {fontSize: __l(18)},
+		left: __l(60),
+		height: __l(54)
+	}))
+	row_address.addEventListener("click", function(e){
+		close_right();
+		setTimeout(function(){
+			if (!check_login()){
+				to_login();
+				return;
+			}
+
+			cache_http_call(Ti.App.mamashai + "/bbrl_code/gou_address.txt", "gou_address_cache", function(e){
+				var AddressWin = eval(e.responseText);
+				var win = new AddressWin({
+					title: "地址管理",
+					backButtonTitle: "",
+					backgroundColor: "white"
+				})
+				if (!Ti.App.is_android)
+					win.hideTabBar();
+				Ti.App.currentTabGroup.activeTab.open(win, {
+					animated : true
+				});
+			})
+		}, 500)
+	})
+
+	var row_kefu = Ti.UI.createTableViewRow({
+		height: Ti.UI.SIZE,
+		selectedBackgroundColor: "#eee"
+	})
+	row_kefu.add(Ti.UI.createImageView({
+		left: __l(16),
+		top: __l(10),
+		bottom: __l(10),
+		width: __l(34),
+		height: __l(34),
+		image: "/images/gou/i06.png"
+	}))
+
+	row_kefu.add(Ti.UI.createLabel({
+		text: "联系客服",
+		font: {fontSize: __l(18)},
+		left: __l(60),
+		height: __l(54)
+	}))
+
+	row_kefu.addEventListener("click", function(e){
+		close_right();
+		setTimeout(function(){
+			var win_kefu = Ti.UI.createWindow({
+				title: "客服沟通",
+				backgroundColor: "white",
+				backButtonTitle: ""
+			});
+
+			var right = Ti.UI.createButton({
+				title: "FAQ"
+			})
+			right.addEventListener("click", function(e){
+				Ti.App.fireEvent("open_url", {
+					url : Ti.App.mamashai + "/bbrl_code/gou_faq.html",
+					title : "常见问题"
+				});
+			})
+
+			if (!Ti.App.is_android)
+				win_kefu.setRightNavButton(right)
+
+			var web = Ti.UI.createWebView({
+				url: "http://chat32.live800.com/live800/chatClient/chatbox.jsp?companyID=492171&configID=68044&jid=5158089273&enterurl=my",
+				top : 0,
+				bottom: 0,
+				left: 0,
+				right: 0,
+			})
+			win_kefu.add(web);
+
+			pre(win_kefu);
+			add_default_action_bar2(win_kefu, win_kefu.title, "FAQ", function(e){
+				right.fireEvent("click")
+			})
+			Ti.App.currentTabGroup.activeTab.open(win_kefu, {
+				animated : true
+			});
+		}, 500)
+	})
+
+	var my_tableview = Ti.UI.createTableView({
+		left: __l(1),
+		backgroundColor: "#F2F2F4",
+		data: [row_cart, row_orders, row_fav, row_address]
+	})
+	wrapper_right.add(my_tableview)
+
+	if (!Ti.App.is_android){
+		win.addEventListener("swipe", function(e){
+			if (e.direction == 'left'){
+				show_right();
+			}
+
+			if (e.direction == "right"){
+				close_right();
+			}
+		})	
+	}
+	else {
+		my_tableview.addEventListener("swipe", function(e){
+			if (e.direction == 'right'){
+				close_right();
+			}
+		})
+	}
+}
+
+wrapper_right.addEventListener("click", function(e){
+	wrapper.animate({right: 0, left: 0, duration: 500});
+	wrapper_right.animate({left: Ti.App.platform_width, duration: 500})
+})
+
+win.add(wrapper_right)
+
+show_loading();
+
+http_call(Ti.App.mamashai + "/api/gou/introduce", function(e){
+	var json = JSON.parse(e.responseText);
+	if (json.wait && Ti.App.Properties.getString("is_mms_admin", "false") != "true"){
+		var mask = Ti.UI.createView({
+			backgroundColor: "black",
+			left: 0,
+			right: 0,
+			top: 0,
+			bottom: 0,
+			opacity: 0.8,
+			zIndex: 100,
+		})
+		mask.addEventListener("swipe", function(e){
+			e.cancelBubble = true;
+		})
+		var img = Ti.UI.createImageView({
+			top: 0,
+			width: Ti.App.platform_width,
+			left: 0,
+			right: 0,
+			height: Ti.App.platform_width*614/640,
+			zIndex: 200,
+			image: Ti.App.mamashai + "/images/bbrl/kaimu.png"
+		})
+		img.addEventListener("swipe", function(e){
+			e.cancelBubble = true;
+		})
+		win.add(img)
+		win.add(mask)
+	}
+
+	var wrapper0 = Ti.UI.createView({
+		top: 0,
+		left: 0,
+		right: 0,
+		layout: 'vertical',
+		height: Ti.UI.SIZE
+	})
+	make_baokuan_view(wrapper0, json.baokuan, true)
+	wrapper.add(wrapper0)
+
+	//类目小按钮	
+	var banner1 = Ti.UI.createView({
+		layout: 'horizontal',
+		top: __l(10),
+		left: 0,
+		right: 0,
+		bottom: __l(10),
+		height: Ti.UI.SIZE
+	})
+
+	var blank = (Ti.App.platform_width - __l(64)*4)/5;
+	function add_category_button(title, color, image, click_callback){
+		var w1 = Ti.UI.createView({
+			left: blank,
+			top: __l(4),
+			height: __l(86),
+			width: __l(64)
+		})
+		var v1 = Ti.UI.createView({
+			left: __l(2),
+			right: __l(2),
+			width: __l(60),
+			height: __l(60),
+			top: 0,
+			borderRadius: color=="no" ? __l(30) : __l(18),
+			borderWidth: color=="no" ? 0 : 1,
+			borderColor: color=="no" ? "transparent" : color
+		})
+		v1.addEventListener("click", function(e){
+			click_callback(e);
+		})
+		v1.addEventListener("touchstart", function(e){
+			e.source.backgroundColor = "#E5E7DF";
+		});
+		v1.addEventListener("touchend", function(e){
+			e.source.backgroundColor = "transparent";
+			e.source.logo.backgroundColor = "transparent";
+		});
+		v1.addEventListener("touchcancel", function(e){
+			e.source.backgroundColor = "transparent";
+			e.source.logo.backgroundColor = "transparent";
+		});
+
+		var logo = Ti.UI.createImageView({
+			top: __l(6),
+			left: __l(6),
+			width: __l(48),
+			height: __l(48),
+			touchEnabled: false,
+			hires: true,
+			image: image
+		})
+		v1.logo = logo
+		v1.add(logo)
+		var l = Ti.UI.createLabel({
+			text: title,
+			font: {fontSize: __l(15)},
+			color: color=="no" ? "#333" : color,
+			top: __l(66),
+			textAlign: "center",
+			left: 0,
+			right: 0
+		})
+		w1.add(v1);
+		w1.add(l);
+		return w1;
+	}
+	banner1.add(add_category_button("奶粉", "#FC5BB1", "/images/gou/a1.png", function(){
+		to_list_win("奶粉", 1);
+	}))
+	banner1.add(add_category_button("辅食", "#FC5BB1", "/images/gou/a2.png", function(){
+		to_list_win("辅食", 3);
+	}))
+	banner1.add(add_category_button("营养", "#FC5BB1", "/images/gou/a3.png", function(){
+		to_list_win("营养", 5);
+	}))
+	banner1.add(add_category_button("日用", "#FC5BB1", "/images/gou/a4.png", function(){
+		to_list_win("日用", 7);
+	}))
+	var banner2 = Ti.UI.createView({
+		layout: 'horizontal',
+		top: __l(10),
+		left: 0,
+		right: 0,
+		bottom: __l(10),
+		height: Ti.UI.SIZE
+	})
+	banner2.add(add_category_button("孕妈", "no", "/images/gou/indx01.png", function(){
+		to_list_win("孕妈", 0);
+	}))
+	banner2.add(add_category_button("宝宝", "no", "/images/gou/indx02.png", function(){
+		to_list_win("宝宝", 0);
+	}))
+	banner2.add(add_category_button("女人", "no", "/images/gou/indx03.png", function(){
+		to_list_win("女人", 0);
+	}))
+	banner2.add(add_category_button("老人", "no", "/images/gou/indx04.png", function(){
+		to_list_win("老人", 0);
+	}))
+	wrapper.add(banner1)
+	wrapper.add(banner2)
+	wrapper.add(new_top_line())
+	wrapper.add(Ti.UI.createView({
+					height: __l(16),
+					backgroundColor: "#F2F2F4",
+					left: 0,
+					right: 0,
+					top: 0,
+					bottom: 0
+	}))
+
+	//类目展示
+	for(var i=0; i<json.categories.length; i++){
+		var section_wrapper = Ti.UI.createView({
+			top: 0,
+			left: 0,
+			right: 0,
+			height: Ti.UI.SIZE,
+			layout: 'vertical'
+		});
+
+		section_wrapper.add(new_top_line())
+		var header_wrapper = Ti.UI.createView({
+			height: __l(40),
+			backgroundColor: "white",
+			//backgroundColor: "#F9F9F9",
+			title: json.categories[i].name,
+			id: json.categories[i].id
+		})
+		header_wrapper.addEventListener("click", function(e){
+			to_list_win(e.source.title, e.source.id)
+		})
+		header_wrapper.add(Ti.UI.createLabel({
+			text: json.categories[i].name,
+			top: __l(10),
+			left: __l(10),
+			font: {fontSize: __l(17)},
+			height: __l(20),
+			touchEnabled: false,
+			color: Ti.App.bar_color
+		}))
+
+		header_wrapper.add(Ti.UI.createLabel({
+			text: "更多",
+			top: __l(11),
+			right: __l(46),
+			font: {fontSize: __l(14)},
+			height: __l(20),
+			touchEnabled: false,
+			color: "#aaa"
+		}))
+
+		header_wrapper.add(Ti.UI.createImageView({
+			image: "/images/you.png",
+			top: __l(10),
+			bottom: __l(10),
+			height: __l(20),
+			right: __l(20),
+			touchEnabled: false,
+			width: Ti.UI.SIZE
+		}))
+		section_wrapper.add(header_wrapper)
+
+		var content_wrapper = Ti.UI.createView({
+			height: Ti.UI.SIZE,
+			left: 0,
+			top: 0,
+			right: 0,
+			bottom: 0,
+			backgroundColor: "white",
+			layout: 'horizontal'
+		})
+
+		for(var j=0; j<json.categories[i].first_four.length; j++){
+			var width = __l(150);
+			if (Ti.App.platform_width > __l(150*3))
+				width = __l(200);
+			var blank = (Ti.App.platform_width - 2*width - 2)/3
+			var product_json = json.categories[i].first_four[j]
+			var product_wrapper = Ti.UI.createView({
+				left: blank,
+				right: 0,
+				top: __l(6),
+				height: width + __l(60),
+				width: width,
+			})
+
+			var pic_border = Ti.UI.createView({
+				top: 0,
+				left: 0,
+				right: 0,
+				width: width,
+				height: width,
+				borderWidth: 1,
+				borderColor: "#ddd",
+			})
+					
+			var picture = Ti.UI.createImageView({
+				top: __l(6),
+				left: __l(6),
+				right: __l(6),
+				bottom: __l(6),
+				width: width - __l(12),
+				height: width - __l(12),
+				hires: true,
+				image: Ti.App.aliyun + (Ti.App.platform_width > __l(320) ? product_json.logo_thumb400 : product_json.logo_thumb200),
+				id: product_json.id,
+				defaultImage : './images/bj.png',
+				json: product_json
+			})
+			picture.addEventListener("click", function(e){
+				cache_http_call(Ti.App.mamashai + "/bbrl_code/gou_detail.txt", "cache_gou_detail", function(e1){
+					var DetailWin = eval(e1.responseText);
+					var win = new DetailWin({
+						title: "商品详情",
+						id: e.source.json.id,
+						backButtonTitle: "",
+						backgroundColor: "white"
+					})
+					Ti.App.currentTabGroup.activeTab.open(win, {
+						animated : true
+					});
+				})
+			})
+			pic_border.add(picture)
+			product_wrapper.add(pic_border)
+
+			var name = Ti.UI.createLabel({
+				font:{fontSize:__l(13)},
+				text: product_json.name,
+				color:'#2C2C2C',
+				textAlign:'left',
+				top : width + __l(2),
+				height : __l(32),
+				left: 0,
+				right: 0,
+				zIndex: 20
+			});
+			product_wrapper.add(name)
+
+			var price = Ti.UI.createLabel({
+				font:{fontSize:__l(14)},
+				text: "￥" + parseFloat(product_json.price).toFixed(2),
+				color: Ti.App.bar_color,
+				textAlign: 'left',
+				top : width + __l(36),
+				left: 0
+			});
+			product_wrapper.add(price)
+
+			var o_price = Ti.UI.createLabel({
+				font:{fontSize:__l(10)},
+				text: "￥" + parseFloat(product_json.o_price).toFixed(2),
+				color: "#ccc",
+				textAlign: 'center',
+				top : width + __l(40),
+				left: __l(64)
+			});
+			product_wrapper.add(o_price)
+
+			var line = Ti.UI.createView({
+				backgroundColor : "#ccc",
+				top : Ti.App.is_android ? __l(198) : __l(196),
+				left : __l(64),
+				width: product_json.o_price >= 100 ? __l(43) : __l(35),
+				height : 1,
+			});
+			product_wrapper.add(line)
+
+			product_wrapper.add(Ti.UI.createLabel({
+				color: "#999",
+				borderRadius: __l(4),
+				borderWidth: __l(1),
+				borderColor: "#ccc",
+				font: {fontSize: __l(11)},
+				text: parseInt(product_json.price*10/product_json.o_price) + "折",
+				right: 0,
+				textAlign: "center",
+				width: __l(26),
+				top: width + __l(39)
+			}))
+
+			content_wrapper.add(product_wrapper)
+		}
+
+		section_wrapper.add(content_wrapper)
+
+		section_wrapper.add(new_bottom_line());
+		section_wrapper.add(Ti.UI.createView({
+			height: __l(16),
+			top: 0,
+			backgroundColor: "#F2F2F4"
+		}))
+
+		wrapper.add(section_wrapper);
+	}
+
+	var scrollView = Titanium.UI.createScrollableView({
+		showPagingControl : true,
+		pagingControlHeight : 30,
+		backgroundColor: "#B4D3D7",
+		pagingControlColor : "transparent",
+		left: 0,
+		right: 0,
+		top: 0,
+		bottom: __l(16),
+		width: Ti.App.platform_width,
+		height: __l(140)*Ti.App.platform_width/__l(320)
+	});
+
+	var img = Ti.UI.createImageView({
+		left: 0,
+		right: 0,
+		top: 0,
+		bottom: __l(0),
+		width: Ti.App.platform_width,
+		height: __l(140)*Ti.App.platform_width/__l(320),
+		image: Ti.App.mamashai + "/upload/calendaradv/359/logo/hw.jpg"
+	})
+	img.addEventListener("click", function(e){
+		cache_http_call(Ti.App.mamashai + "/bbrl_code/article.txt", "cache_article", function(e1){
+			var ArticleWindow = eval(e1.responseText);
+			var win = new ArticleWindow({
+				id : 15603,
+				t : 'article',
+				backgroundColor : 'white',
+				title : "海淘迷雾多 资深高手教你辨真假",
+				backButtonTitle: ""
+			});
+			Ti.App.currentTabGroup.activeTab.open(win, {
+				animated : true
+			});
+		});
+	})
+	scrollView.addView(img);
+
+	var img = Ti.UI.createImageView({
+		left: 0,
+		right: 0,
+		top: 0,
+		bottom: __l(0),
+		width: Ti.App.platform_width,
+		height: __l(140)*Ti.App.platform_width/__l(320),
+		image: Ti.App.mamashai + "/upload/calendaradv/361/logo/mms.jpg"
+	})
+	img.addEventListener("click", function(e){
+		cache_http_call(Ti.App.mamashai + "/bbrl_code/article.txt", "cache_article", function(e1){
+			var ArticleWindow = eval(e1.responseText);
+			var win = new ArticleWindow({
+				id : 15607,
+				t : 'article',
+				backgroundColor : 'white',
+				title : "妈妈晒：做最笨直邮，只为正品！",
+				backButtonTitle: ""
+			});
+			Ti.App.currentTabGroup.activeTab.open(win, {
+				animated : true
+			});
+		});
+	})
+	scrollView.addView(img);
+	
+	add_android_scroll_ind(scrollView, Ti.App.platform_width);
+	wrapper.add(scrollView)
+
+	//承诺
+	var wrapper_promise = Ti.UI.createView({
+		top: 0,
+		left: 0,
+		right: 0,
+		layout: 'vertical',
+		height: Ti.UI.SIZE
+	})
+	wrapper_promise.add(new_top_line());
+
+	var img = Ti.UI.createImageView({
+		image: "/images/gou/promise.png",
+		left: __l(10),
+		right: __l(10),
+		top: __l(10),
+		width: Ti.App.platform_width - __l(20),
+		height: (Ti.App.platform_width - __l(20))*138/800,
+		//height: Ti.UI.SIZE,
+		bottom: __l(10)
+	})
+	img.addEventListener("click", function(e){
+		Ti.App.fireEvent("open_url", {
+			title: "澳洲直邮FAQ",
+			url: Ti.App.mamashai + "/bbrl_code/gou_faq.html"
+		})
+	})
+	wrapper_promise.add(img)
+	wrapper.add(wrapper_promise)
+
+	win.add(wrapper)
+
+	hide_loading();
+	Ti.App.currentTabGroup.activeTab.open(win, {
+		animated : true
+	});
+})
+
+pre(win);
+if (!Ti.App.is_android)
+	win.hideTabBar();
+
+add_default_action_bar2(win, win.title, "我的", function(e){
+	my.fireEvent("click")
+})
+

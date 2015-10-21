@@ -1,0 +1,51 @@
+<%= error_messages_for 'ddh_order' %>
+
+<table class="ft" border="1">
+<!--[form:ddh_order]-->
+<tr>
+	<td>名字</td>
+	<td><%= text_field 'ddh_order', 'name'  %></td>
+</tr>
+
+<tr>
+	<td>手机</td>
+	<td><%= text_field 'ddh_order', 'mobile'  %></td>
+</tr>
+
+<tr>
+	<td>地址</td>
+	<td><%= text_field 'ddh_order', 'address'  %></td>
+</tr>
+
+<tr>
+	<td>订单状态</td>
+	<td><%= select 'ddh_order', 'status', %w(等待审核 申请未成功 已通过审核 等待发货 已发货).map{|m| [m, m]}  %></td>
+</tr>
+
+<tr>
+	<td>申请备注</td>
+	<td><%= text_field 'ddh_order', 'remark'  %></td>
+</tr>
+
+<tr>
+	<td>申请时间</td>
+	<td><%= datetime_select 'ddh_order', 'created_at', :use_month_numbers=>true  %></td>
+</tr>
+
+<tr>
+	<td>发货时间</td>
+	<td><%= date_select 'ddh_order', 'sent_at', :use_month_numbers=>true  %></td>
+</tr>
+
+<tr>
+	<td>发货备注</td>
+	<td><%= text_field 'ddh_order', 'remark2'  %></td>
+</tr>
+
+<tr>
+	<td>快递单号</td>
+	<td><%= text_field 'ddh_order', 'kd_sn'  %></td>
+</tr>
+<!--[eoform:ddh_order]-->
+
+</table>

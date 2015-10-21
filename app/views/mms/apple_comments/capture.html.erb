@@ -1,0 +1,23 @@
+<h1>截图列表</h1>
+
+<table class="list" border="1">
+  <tr class="head">
+    <th>昵称</th>
+    <th>截图</th>
+    <th>提交时间</th>
+    <th colspan=3>操作</th>
+  </tr>
+  
+<% for capture in @captures %>
+  <% next if !capture.logo %>
+  <tr>
+    <td><%= capture.user.name %></td>
+    <td><img style="width: 160px" src='http://www.mamashai.com<%= capture.logo.url %>' /></td>
+    <td><%=h capture.created_at.to_s(:db) %></td>
+    <td id="<%= "c_#{capture.id}"%>"><%= link_to "给豆", {:action=>"baba_score", :id=>capture.user_id},{:remote=>"true", :updater=>"c_#{capture.id}"} %></td>
+  </tr>
+<% end %>
+</table>
+
+
+<%= will_paginate @captures %>

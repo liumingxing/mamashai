@@ -1,0 +1,28 @@
+    <div id="middle">
+        <div id="css_mainbody">
+            <h1 class="title">内容管理</h1>
+			<div style="color: green;width:100%;text-align:center"><%= flash[:notice] %></div>		
+            <table class="grid">
+                <thead>
+                    <tr>
+                    	<th>类别</th>
+						<th>目标</th>
+						<th>说明</th>
+						<th>修改</th>
+                    </tr>
+                </thead>
+                <tbody>
+					<% for age in @ages %>
+						<tr>
+							<td><%= age.desc %></td>
+							<td><%= age.target %></td>
+							<td><%= age.introduce %></td>
+							<td><%= link_to "修改", :action=>"edit", :id=>age %></td>
+						</tr>
+					<% end %>	
+                </tbody>
+            </table>
+        </div>
+        <div class="clear"></div>
+    </div>
+	

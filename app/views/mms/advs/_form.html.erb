@@ -1,0 +1,48 @@
+
+    <tr>
+        <td>
+            链接
+        </td>
+        <td>
+            <%= text_field "adv", "link", :style=>"width:400px" %>
+            <%= error_message_on :adv, :link %>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            图片
+        </td>
+        <td>
+            <%= upload_column_field :adv, :logo %>
+            <%= error_message_on :adv, :logo %>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            描述
+        </td>
+        <td>
+            <%= text_field "adv", "desc", :style=>"width:400px" %>（选填）
+        </td>
+    </tr>
+    <tr>
+        <td>
+            价格
+        </td>
+        <td>
+            <%= text_field "adv", "price" %>元，（选填）
+        </td>
+    </tr>
+	<tr>
+        <td>
+            下架
+        </td>
+        <td>
+            <%= check_box("adv", "hide") %>下架
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2">
+            <input type="submit" name="submit" value="提交">
+        </td>
+    </tr>

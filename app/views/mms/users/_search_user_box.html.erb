@@ -1,0 +1,5 @@
+<% form_tag({:action=>'list_users'},:method=>"get") do %>
+  用户名：
+  <%= text_field_tag :keyword %>
+  <%= submit_tag "搜索" %>
+<% end %>

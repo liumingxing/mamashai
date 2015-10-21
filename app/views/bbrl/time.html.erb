@@ -1,0 +1,189 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+       "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"> 
+    <meta content="yes" name="apple-mobile-web-app-capable" />
+    <meta name="viewport" content="user-scalable=no,width=320px" />
+    <meta content="black" name="apple-mobile-web-app-status-bar-style" />
+    <meta name="format-detection" content="telephone=no" />
+    <%= javascript_include_tag "zepto.min.js" %>
+    <title><%= @kids.size > 0 ? @kids.last.name : '宝宝'%>时光轴</title>
+</head>
+<style>
+	* {margin: 0px; padding: 0px;}
+    body {
+		background: #F8F7F5;
+        font-size: 14px;
+        background: white;
+	}
+    .clear {clear: both;}
+    a {text-decoration: none; color: #D76085;}
+    a.order {float: right;}
+    div#body {margin: 0px auto; }
+    div#main {width: 90%; margin: 16px; padding: 0px; border: 0px solid #ccc; overflow:hidden;}
+    div.title {font-size: 22px; color: #171717; font-weight: bold; float: left; }
+    div.sub_title {margin: 8px 0px; margin-top: 12px; font-size: 14px; color: #878685; line-height: 14px;}
+    div.sub_title span.c1 {max-width: 130px; overflow: hidden; height: 14px; display:inline-block;}
+    div.sub_title span.c2 {margin-left: 12px; overflow: hidden; height: 14px; display:inline-block;}
+    div.sub_title2 a {margin-right: 12px;}
+    div.post {margin: 24px 0; font-size: 17px; color: #393939; line-height: 140%; }
+    div.post div.logo_square {margin-top: 6px; width: 100%;}
+    div.post div.logo_square img {margin: 3px; width: 30%;}
+    div.post div.logo {margin-top: 6px;}
+    div.post div.logo img {max-width: 100%;}
+    div.post div.refer {color: #838282; font-size: 15px; line-height: 15px; margin: 4px 0px; height: 15px; overflow: hidden;}
+    div.post div.refer img {height: 17px; width: 16px; float: left; margin-right: 6px;}
+    div.post div.refer span.age {margin-left: 10px; font-size: 15px; line-height: 15px;margin: 4px 0px; }
+    div.more {text-align: center;}
+    div.more button {width: 70%; }
+
+    div.end {text-align: center; margin: 20px; font-size: 13px; color: ccc;}
+
+    .btn-default {
+    color: #333;
+    background-color: #ccc;
+    border-color: #ccc;
+    }
+    .btn {
+    display: inline-block;
+    margin-bottom: 0;
+    font-weight: 400;
+    text-align: center;
+    vertical-align: middle;
+    cursor: pointer;
+    background-image: none;
+    border: 1px solid transparent;
+    white-space: nowrap;
+    padding: 6px 12px;
+    font-size: 14px;
+    line-height: 1.42857143;
+    border-radius: 4px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    }
+
+    .btn-default:hover, .btn-default:focus, .btn-default:active, .btn-default.active, .open .dropdown-toggle.btn-default {
+        color: #333;
+        background-color: #aaa;
+        border-color: #adadad;
+        }
+        .btn:hover, .btn:focus {
+        color: #333;
+        text-decoration: none;
+        }
+</style>
+<body>
+<div id="body">
+    <div id="main">
+        <div>
+            <% if @kids.size == 1 %>
+                <div class="title"><%= @kids.last.name %>的时光轴</div>
+            <% elsif params[:kid_id] && params[:kid_id].size > 0 %>
+                <div class="title"><%= UserKid.find_by_id(params[:kid_id]).name %>的时光轴</div>
+            <% else %>
+                <div class="title">宝贝的时光轴</div>
+            <% end %>
+            <div class="clear"></div>
+        </div>
+        <div class="sub_title">
+            <span class="c1">原创：<%= @author.name %></span>
+            <span class="c2">出品：<a href="http://www.mamashai.com/bbrl/mobile">宝宝日历</a></span>
+
+            <% if params[:order] == "asc" %>
+                <a class='order' href="/bbrl/time/<%= params[:id] %>?kid_id=<%= params[:kid_id] %>&order=desc">倒序</a>
+            <% else %>
+                <a class='order' href="/bbrl/time/<%= params[:id] %>?kid_id=<%= params[:kid_id] %>&order=asc">顺序</a>    
+            <% end %>
+        </div>
+        <% if @kids.size > 1 %>
+            <div class="sub_title2">
+                <a href="/bbrl/time/<%= params[:id] %>?order=<%= params[:order] %>">全部</a>
+                <% for kid in @kids %>
+                    <a href="/bbrl/time/<%= params[:id] %>?kid_id=<%= kid.id %>&order=<%= params[:order] %>"><%= kid.name %></a>
+                <% end %>
+            </div>
+        <% end %>
+
+        <div class="posts" id="posts">
+            <%= render :partial=>"time_post", :locals=>{:posts=>@posts, :kids=>@kids}%>
+        </div>
+
+        <% if @posts.size == 20 %>
+        <div class="more" id="more">
+            <button id='btn' class="btn btn-default" onclick="get_more();">更多</button>
+        </div>
+        <% end %>
+    </div>
+</div>
+</body>
+<script>
+var current_page = <%= params[:page] %>;
+function get_more(){
+    $.ajax({
+        type: 'GET', 
+        data: {
+            page: current_page + 1,
+            <%= "self: true," if params[:true] %>
+            a:1,
+            kid_id: "<%= params[:kid_id] %>"
+        },
+        success: function(e){
+            $(e).appendTo($('#posts'))
+            current_page += 1
+            $("#btn").text("更多")
+
+            if (e == "<div class='end'>到底了</div>"){
+                $('#more').hide()
+            }
+        },
+        url: "/bbrl/time_more/<%= @author.id %>?order=<%= params[:order] %>"
+    })
+    $("#btn").text("获取中......")
+}
+
+/*
+$(function(){
+    var mySound = null;
+    $(window).bind("load", function() {
+        soundManager.setup({
+          // where to find flash audio SWFs, as needed
+          url: '/swfs/soundmanager/',
+          // optional: prefer HTML5 over Flash for MP3/MP4
+          // preferFlash: false,
+          
+          onready: function() {
+            mySound = soundManager.createSound({
+            url: '/mp3/time2.mp3',
+            onfinish: function(){
+              if (stop)
+                return;
+              
+              setTimeout(function(){
+                mySound.play();
+              }, 1000)
+            }
+          });
+
+          // ...and play it
+          mySound.play();
+          }
+        });
+    });
+
+
+    $(window).bind("unload",function() {
+        mySound.stop()
+    });  
+})
+*/
+
+</script>
+<div style="display:none">
+    <script type="text/javascript">
+var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3Fb62084ced4b6982bc50286972cbf6fce' type='text/javascript'%3E%3C/script%3E"));
+</script>
+</html>

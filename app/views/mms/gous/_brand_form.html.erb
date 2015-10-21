@@ -1,0 +1,63 @@
+<table class="grid_order"  border="1">
+    <tr>
+        <td class="td01" width="300px">
+            名称：
+        </td>
+        <td>
+            <%= f.text_field :name, :size=>50,:required=>"required" %>
+            <%= f.error_message_on :name %>
+        </td>
+    </tr>
+    <tr>
+        <td class="td01">
+            名称开头字母：
+        </td>
+        <td>
+            <%= f.text_field :e_name, :size=>50 %>
+            <%= f.error_message_on :e_name %>
+        </td>
+    </tr>
+    <tr>
+        <td class="td01">
+            品牌图片：
+        </td>
+        <td>
+            <%= upload_column_field :gou_brand, :logo %>
+            <%= f.error_message_on :logo %>
+        </td>
+    </tr>
+    <tr>
+        <td class="td01">
+            发源地：
+        </td>
+        <td>
+            <%= f.text_field :cradle, :size=>50,:required=>"required" %>
+            <%= f.error_message_on :cradle %>
+        </td>
+    </tr>
+    <tr>
+        <td class="td01">
+            品牌URL地址：
+        </td>
+        <td>
+            <%= f.text_field :link, :size=>50,:required=>"required" %>
+            <%= f.error_message_on :link %>
+        </td>
+    </tr>
+    <tr>
+        <td class="td01">
+            品牌背景图片：
+        </td>
+        <td>
+            <%= upload_column_field :gou_brand, :banner %>
+            <%= f.error_message_on :banner %>
+        </td>
+    </tr>
+    <tr>
+        <td class="td01">
+        </td>
+        <td>
+            <input type="submit" name="submit" value="提交"><%= link_to '返回', '/mms/gous/brand_index', {:style => "color:#329BCB;"} %>
+        </td>
+    </tr>
+</table>

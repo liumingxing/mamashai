@@ -1,0 +1,104 @@
+<div id="middle">
+    <div id="css_mainbody">
+        <h1 class="title">导购平台-商品评论管理</h1>
+        <div style="text-align:center;" class="green">
+            <%= flash[:notice] %>
+        </div>
+        <div id="page_count">
+            <span style="float:right;">共有<b class="blue"><%=h @comments.total_entries %></b>条记录</span>
+        </div>
+        <% form_tag "/mms/gous/comment_search", {:method => "get"} do %>
+        <div>
+            搜索：<%= text_field_tag "keyword",@keyword %><%= submit_tag "查询" %>
+        </div>
+        <% end %>
+        <div class="clear">
+        </div>
+        <table class="grid">
+            <tr>
+                <th width="5%">
+                    序号
+                </th>
+                <th width="10%">
+                    用户名称
+                </th>
+                <th width="20%">
+                	商品名称    
+				</th>
+                <th width="15%">
+                    评价情况
+                </th>
+                <th width="5%">
+                    评价总分
+                </th>
+				<th width="20%">
+                    评论
+                </th>
+                <th width="10%">
+                    评论类型
+                </th>
+                <th width="10%">
+                    评论时间
+                </th>
+                <th>
+                    操作
+                </th>
+            </tr>
+            <% if @comments.blank? %>
+            <tr>
+                <td colspan=9>
+                    <b>暂无记录</b>
+                </td>
+            </tr>
+            <% else %>
+            <% @comments.each_with_index do |comment,index| %>
+            <tr>
+                <td>
+                    <%=(index+1).to_s %>
+                </td>
+                <td>
+                	<% unless comment.try(:user).blank? %>
+                    <%= link_user(comment.try(:user)) %>
+					<% else %>
+					<%= h comment.user_name %>(来自<%= h comment.site_name %>)
+					<% end %>
+                </td>
+                <td>
+                    <%= link_to comment.try(:gou).try(:name), "/gou/show/#{comment.try(:gou_id)}", {:target => "_blank", :style => "color:#329BCB;"} %>
+                </td>
+                <td>
+                	<% if comment.value_1.present? %>
+					<% ::GouCategory.grade_labels(comment.try(:gou)).each do |label| %>
+					<%= label[1]+":"+comment.try("value_#{label[0]}").to_s+";" %>
+					<% end %>
+					<% else %>
+					暂无
+					<% end %>
+                </td>
+                <td>
+                    <%= comment.rate %>
+                </td>
+                <td>
+                    <%= comment.content %>
+                </td>
+                <td>
+                    <%= comment.tp == 10 ? "精华" : "" %>
+                </td>
+                <td>
+                    <%= comment.created_at.strftime("%Y-%m-%d %H:%M:%S") %>
+                </td>
+                <td>
+                    <%= link_to '修改', "/mms/gous/comment_edit/#{h comment.id}", {:style => "color:#329BCB;"} %>
+                    <%= link_to '删除', "/mms/gous/comment_destroy/#{h comment.id}", {:confirm => '确认删除吗？', :method => :delete, :style => "color:#329BCB;"} %>
+                </td>
+            </tr>
+            <% end %>
+            <%end %>
+        </table>
+        <div class="book_page">
+            <%=will_paginate @comments %>
+        </div>
+    </div>
+    <div class="clear">
+    </div>
+</div>

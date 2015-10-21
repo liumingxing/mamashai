@@ -1,0 +1,779 @@
+<style>
+  * {font-size: 13px; margin: 0px; padding: 0px;}
+  .slider li img.corner {position: absolute; top: 0px; right: 0px;}
+  #ebook_topic {margin: 6px 8px}
+  div#book_middle, div#book_head
+  {
+    width: 980px;
+    margin: 0 auto;
+  }
+  div#left {
+    width: 743px;
+    float: left;
+    border: 1px solid #FACCEE;
+    background-color: white;
+  }
+  div#top {
+    width: 980px;
+    margin: 0 auto;
+    border: 1px solid #FACCEE;
+    background-color: white;
+  }
+  div#right {
+    width: 230px;
+    float: right;
+  }
+  div#book_head{
+    height: 65px;
+    margin-top: 10px;
+  }
+
+  div#book_head a{
+    color: #EC84AB;
+    font-size: 14px;
+  }
+  .user {overflow:hidden;background:url(/images/home/user50-50.gif) 3px 8px no-repeat;width:190px;margin:0px auto; line-height:15px;}
+  .user .user_pic{float:left;width:65px;height:68px;text-align:center;}
+  .user .user_pic img {margin-top:13px;}
+  .user ul.user_li {float:left;width:120px;color:#666;margin-top:15px; font-family:Arial,宋体;}
+  .user ul.user_li li {overflow:hidden;color:#000;line-height:22px;font-size:14px;}
+  .user ul.user_li li.name01 {background:url(/images/icons/score.gif) 0px 4px no-repeat;padding-left:20px;font-size:12px;height:22px;line-height:22px;font-size:12px;}
+  .user ul.user_li li.infor {font-size:12px;color:#999;}
+  .user ul.user_li li.infor strong {padding:0px 3px 0px 3px;margin-left:10px;color:#006db2;}
+  .user ul.user_li2 {float: left; width: 120px; margin-top: 8px;}
+  .user ul.user_li2 li {overflow: hidden; line-height: 19px; font-size: 13px;}
+
+  .book_info_summary {margin: 10px;}
+  .book_info_summary .book_info_summary_content {line-height: 150%;}
+  div.hot_topic_message_box { margin-left: 0px;}
+  div.hot_topic_message_box_text_span {margin-right: 0px;}
+
+  div.left_box {border: 1px solid #FACCEE; background-color: white; margin-top: 6px; width: 743px;}
+  div.left_box .pre_topic {margin: 16px;}
+
+  div.book_right_box {border: 1px solid #FACCEE; background-color: white; margin-bottom: 6px;}
+  div.book_right_box div.title {font-size: 20px; padding-left: 20px; line-height: 200%;}
+  div.book_right_box div.title div.right {float: right; font-size: 12px; margin-right: 8px;}
+  div.book_right_box div.title div.right a {font-size: 12px;}
+  div.book_right_box div.book_content {padding: 4px 8px; font-size: 13px; padding-bottom: 6px;}
+  div.book_right_box_red {background-color: #FFF3F5}
+  p.p_r {font-weight: bold; color: #EC84AB; line-height: 170%;}
+  div.panel_content {margin: 0 auto; padding: 0px 20px;}
+
+  .book {width: 100px; height: 134px; font-size: 12px; float: left; margin-right: 4px; margin-bottom: 6px; overflow: hidden; text-align: center;}
+  .book img {width: 66px; margin-bottom: 4px;}
+  /*.book_info_summary .book_info_summary_content {height: 506px;}
+			*/.mmsads {width: 342px; height: 320px; margin-top: -14px; margin-bottom: 0px;}
+
+  #resource {margin: 15px 10px;}
+  #resource .title{ font-size: 14px;}
+  #resource .content {font-size: 13px; margin: 6px 8px;}
+
+  .resource_downloads {height: 86px; overflow: hidden;}
+  .resource_downloads li {list-style: none; float: left; width: 230px; height: 82px; margin-bottom: 4px;}
+  .resource_downloads li img {width: 64px; height: 78px; padding: 2px; border: 1px solid #CCC; float: left; margin-right: 4px; margin-left: 2px;}
+  .resource_downloads li div.resource_name {line-height: 150%; font-size: 14px; height: 20px; overflow: hidden;}
+  .resource_downloads li div.resource_desc {line-height: 140%; font-size: 12px; color: gray; height: 48px; overflow: hidden; text-overflow: ellipsis;}
+  .resource_downloads li div.resource_download_count {line-height: 150%; font-size: 12px;}
+
+  .hot_topic {
+    margin: 4px auto;
+    width: 585px;
+  }
+  .hot_topic .topic_title {
+    font-size: 15px;
+    font-weight: bold;
+  }
+  .hot_topic .topic_content {
+    font-size: 13px;
+    text-indent: 20px;
+    line-height: 160%;
+    margin: 8px 0;
+  }
+  div.book_topics {font-size: 13px; clear: both; line-height: 150%;}
+  div.book_topics a.current {color: orange;}
+  .hot_topic .topic_logo {float: left; margin-right: 10px;}
+
+  #edit_form {padding: 10px; border: 1px dashed gray; margin: 10px 30px; display:none;}
+  #edit_form p {margin: 4px 20px; }
+
+  div.rounded-box {
+    position:relative;
+    background-color: #FFFFDF;
+    margin: 4px 30px;
+  }
+  /*********************
+  全DIV的CSS设置
+  *********************/
+  div.top-left-corner, div.bottom-left-corner, div.top-right-corner, div.bottom-right-corner
+  {position:absolute; width:20px; height:20px; background-color:#FFF; overflow:hidden;}
+  div.top-left-inside, div.bottom-left-inside, div.top-right-inside, div.bottom-right-inside
+  {position:relative; font-size:150px; font-family:arial; color:#FFFFDF; line-height: 40px;}
+  /*********************
+  单独的DIV的CSS设置
+  *********************/
+  div.top-left-corner { top:0px; left:0px; }
+  div.bottom-left-corner {bottom:0px; left:0px;}
+  div.top-right-corner {top:0px; right:0px;}
+  div.bottom-right-corner {bottom: 0px; right:0px;}
+  div.top-left-inside {left:-8px;}
+  div.bottom-left-inside {left:-8px; top:-17px;}
+  div.top-right-inside {left:-25px;}
+  div.bottom-right-inside {left:-25px; top:-17px;}
+  div.box-contents {
+    position: relative; 
+    padding: 16px;
+    text-align:left;
+  }
+
+  div.author_introduce {clear: both; display: none; margin-top: 6px; text-align: left;}
+  div.author_current {display: block;}
+  div.author_introduce .name {line-height: 150%;}
+  div.author_introduce .desc {color: #666; line-height: 150%; margin: 8px 0;}
+  div.author_introduce .desc .logo {float: left; margin-right: 8px; background: url("/images/home/user50-50.gif") no-repeat; width:58px; height: 58px;}
+  div.author_introduce .desc .logo img {margin: 5px 0px 0px 5px;}
+
+  div.jb_introduce {clear: both; display: none; margin-top: 6px; text-align: left;}
+  div.jb_current {display: block;}
+  div.jb_introduce .name {line-height: 150%;}
+  div.jb_introduce .desc {color: #666; line-height: 150%; margin: 8px 0;}
+  div.jb_introduce .desc .logo {float: left; margin-right: 8px; background: url("/images/home/user50-50.gif") no-repeat; width:58px; height: 58px;}
+  div.jb_introduce .desc .logo img {margin: 5px 0px 0px 5px;}
+
+  .column {clear: both; height: 80px;}
+  .column .logo {float: left; margin-right: 4px; background: url("/images/home/user50-50.gif") no-repeat; width:58px; height: 58px;}
+  .column .logo img {width: 48px; height: 48px; margin-top: 5px; margin-left: 5px;}
+  .column .logo .author {text-align: center; margin-top: 5px; height: 16px; overflow: hidden; line-height: 140%;}
+  .column .chapter p {height: 17px; line-height: 160%; overflow: hidden;}
+
+  div.other_books {margin: 4px 0;text-align: center;}
+  div.other_books div a img {width: 190px; height: 161px;}
+
+  div.article {clear: both; padding-bottom: 8px; margin-bottom: 8px; border-bottom: 1px dashed #ccc;}
+  div.article .logo {float: left; margin-right: 6px;}
+  div.article .logo img {width: 74px; height: 74px; padding: 1px; border: 1px solid #ccc;}
+  div.article .c1 {font-size: 14px; height: 15px; overflow: hidden; margin-bottom: 4px;}
+  div.article .c2 {height: 56px; overflow: hidden; line-height: 150%; color: #999999;}
+
+  .mfn {clear: both;}
+  .mfn .logo {float: left; width: 80px; height: 80px; text-align: center;}
+  .mfn .desc {color: #666666; line-height: 140%; font-size: 12px; }
+  .mfn .mfn_log {font-size: 12px; clear: both; line-height: 140%; margin: 8px 0;}
+  .mfn .mfn_log .logo {float: left; margin-right: 8px; width: 32px; height: 30px; }
+  .mfn .mfn_log .logo img {width: 30px; height: 30px; padding: 1px; border: 1px solid #ccc;}
+  .mfn .mfn_log .c2 {height: 14px; overflow: hidden;}
+
+  .author_recommand {clear: both; margin: 8px 0;}
+  .author_recommand .recommand {float: left; width: 320px; height: 116px; border: 1px solid #F0E799; margin: 0px 8px; padding: 10px;}
+  .author_recommand .recommand .name {color: #E66303; font-weight: normal; font-size: 18px; }
+  .author_recommand .recommand .name span {font-size: 13px; }
+
+  .author_recommand .recommand .recommand_content {margin: 10px 0px; height: 54px; overflow: hidden;}
+  .author_recommand .recommand .recommand_content .logo {float: left; margin-right: 8px;}
+  .author_recommand .recommand .recommand_content .logo img { width: 50px; height: 50px; padding: 1px; border: 1px solid #ccc;}
+  .author_recommand .recommand .recommand_content .desc {color: #999; line-height: 140%;}
+  .author_recommand .recommand .join {clear: both; text-align: right;}
+
+  .author_recommand .author_notice {margin: 10px 8px; line-height: 140%; padding-top: 8px; color: #E66303;}
+
+  a.button_bang2 {width: 68px; height: 20px; padding-top: 8px; display: inline-block; background: url("/images/index/bang/button.jpg") no-repeat; text-align: center; color: white; font-size: 12px; line-height: 100%;}
+
+  #chanel_content {width: 685px;}
+  #chanel_content .user_article {width: 604px;}
+  #chanel_content .user_article .article_info {width: 604px; }
+
+  #box_content {margin: 8px;}
+  .Baskinbox_link_left {width: 640px; background: url('');}
+  .hot_topic_message_box {height: 100px;}
+
+  .book_info_share_to {height:30px; background-color:#efefef;padding:0 15px;}
+  .book_info_share_to ul li{float:left;margin:0 2px;padding:5px;}
+  .book_info_share_to span.txt {color:#329BCB;display:block;float:left;height:30px;line-height:30px;}
+
+</style>
+
+<div id='book_middle'>
+  <div id='top' align='left'>
+    <table align='left'>
+      <tr>
+        <td colspan='2' align='center'>
+          <table style="width:100%" align='center'>
+            <tr>
+              <td  style="width:60%; padding-left:20px;" valign='top'>
+                <table style='width:100%'>
+                  <tr>
+                    <td style='padding-top:20px;font-family:微软雅黑; font-size:24px; color:#4c4948;' align='left'> <%= @ebook_topic.ebook_title %> </td>
+                  </tr>
+                  <tr>
+                    <td align='left' style='padding-top:5px; font-family:Arial; color:#999999; font-size:12px;'> <%= @ebook_topic.ebook_url %>&nbsp;&nbsp;&nbsp;<a id='a_copy_url' style='font-size:12px; font-family:宋体; font-size:12px;' href='javascript:void(0);' onclick='copy_url()'>复制网址</a></td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <% if !@ebook_topic.ebook_author || @ebook_topic.ebook_author.to_s == "" %>
+                        <div class="author_introduce">
+                          <div class="name">
+                                                                                                                  作者：<%= @ebook_topic.username %>
+                          </div>
+                          <div class="desc">
+                            <div>
+                              <%= truncate @ebook_topic.userdesc, :length=>140 %>
+                            </div>
+                          </div>
+                        <% end %>
+
+                        <% for name in @ebook_topic.ebook_author.split(',') %>
+                          <% user = User.find_by_name(name) %>
+                          <% next if !user%>
+                          <div class="author_introduce">
+                            <div class="name">
+                                                                                  作者：<%= link_user user %>
+                              <% if user.first_kid %>
+                                <%= APP_CONFIG["kid_#{user.first_kid.gender}"] %><%= user.first_kid.age %>
+                              <% else %>
+                                                                                    没有孩子
+                              <% end %>
+                              <% if @user && @user.has_follow?(user.id) %>
+                                <img style="vertical-align:bottom;" src="/images/icons/follow_success.gif"/>
+                              <% end %>
+                            </div>
+                            <div class="desc">
+                              <div class="logo">
+                                <%= logo_tag user, {:version=>'thumb48', :url=>"/user/#{user.encrypt_user_id}"} %>
+                              </div>
+                              <div>
+                                <%= truncate user.column_author.desc, :length=>110 if user.column_author %>
+                              </div>
+                            </div>
+                          </div> <% end %>
+                        <script>
+                          function switch_author() {
+                            if($(".author_current").length == 0) {
+                              $('.author_introduce:first').addClass("author_current")
+                            } else {
+                              var next = $(".author_current").next(".author_introduce:first");
+                              if(next.length == 1) {
+                                $(".author_current").removeClass("author_current");
+                                next.addClass('author_current')
+                              } else if(next.length == 0) {
+                                $(".author_current").removeClass("author_current");
+                                $('.author_introduce:first').addClass("author_current")
+                              }
+                            }
+                            setTimeout("switch_author();", 8000)
+                          }
+
+                          switch_author();
+                        </script></td>
+                  </tr>
+                  <tr>
+                    <td style='padding-top:5px; line-height:20px; font-family:宋体; font-size:12px; color:#4c4948' align='left'> 读者观点：
+                      <% @ebook_topic.ebook_reader_reply.split(";").each_with_index do |reader,index| %>
+                                                                  “<a href="javascript:void(0)" onmousemove="ddrivetip('<%= reader.split(',')[1] %>: <%= reader.split(',')[4]%>')" onmouseout="hideddrivetip();"><%= reader.split(",")[0] %></a>”
+                      <% end %> </td>
+                  </tr>
+                  <tr>
+                    <td style='padding-top:10px;' align='left'>
+                      <div class="book_info_share_to">
+                        <span class="txt">分享到：</span>
+                        <%= render :partial => "ebook_share_this_to" %>
+                      </div></td>
+                  </tr>
+                  <tr>
+                    <td> <% for name in @ebook_topic.topic_admin.split(',') %>
+                        <% user = User.find_by_name(name) %>
+                        <% next if !user%>
+                        <div class="jb_introduce">
+                          <div class="name">
+                                                                                  特邀嘉宾：<%= link_user user %>
+                            <% if user.first_kid %>
+                              <%= APP_CONFIG["kid_#{user.first_kid.gender}"] %><%= user.first_kid.age %>
+                            <% else %>
+                                                                                    没有孩子
+                            <% end %>
+                            <% if @user && @user.has_follow?(user.id) %>
+                              <img style="vertical-align:bottom;" src="/images/icons/follow_success.gif"/>
+                            <% end %>
+                          </div>
+                          <div class="desc">
+                            <div class="logo">
+                              <%= logo_tag user, {:version=>'thumb48', :url=>"/user/#{user.encrypt_user_id}"} %>
+                            </div>
+                            <div>
+                              <%= truncate user.column_author.desc, :length=>110 if user.column_author %>
+                            </div>
+                          </div>
+                        </div> <% end %>
+                      <script>
+                        function switch_jb() {
+                          if($(".jb_current").length == 0) {
+                            $('.jb_introduce:first').addClass("jb_current")
+                          } else {
+                            var next = $(".jb_current").next(".jb_introduce:first");
+                            if(next.length == 1) {
+                              $(".jb_current").removeClass("jb_current");
+                              next.addClass('jb_current')
+                            } else if(next.length == 0) {
+                              $(".jb_current").removeClass("jb_current");
+                              $('.jb_introduce:first').addClass("jb_current")
+                            }
+                          }
+                          setTimeout("switch_jb();", 8000)
+                        }
+
+                        switch_jb();
+                      </script></td>
+                  </tr>
+                </table></td>
+              <td style="background-image: url('/images/ebook/transparent.gif'); width:342px; height:290px;" align='left'>
+                <div class="mmsads" style='padding-top:30px;' >
+                  <ul class="slider" >
+                    <% unless @ebook_topic.ebook_abstruct_images_1.blank? %>
+                      <li>
+                        <div style="position: relative;">
+                          <% if @ebook_topic.read_url %>
+                            <a href="/ebook/read/<%= @ebook_topic.id %>" target='_blank'> <img src="<%= @ebook_topic.ebook_abstruct_images_1 %>"/> </a>
+                            <img class='corner' src="/images/jb.png"/>
+                          <% else %>
+                            <img src="<%= @ebook_topic.ebook_abstruct_images_1 %>"/>
+                          <% end %>
+                        </div>
+
+                      </li>
+                    <% end %>
+                    <% unless @ebook_topic.ebook_abstruct_images_2.blank? %>
+                      <li>
+                        <div style="position: relative;">
+                          <% if @ebook_topic.read_url %>
+                            <a href="/ebook/read/<%= @ebook_topic.id %>" target='_blank'> <img src="<%= @ebook_topic.ebook_abstruct_images_2 %>"/> </a>
+                            <img class='corner' src="/images/jb.png"/>
+                          <% else %>
+                            <img src="<%= @ebook_topic.ebook_abstruct_images_2 %>"/>
+                          <% end %>
+                        </div>
+                      </li>
+                    <% end %>
+                    <% unless @ebook_topic.ebook_abstruct_images_3.blank? %>
+                      <li>
+                        <div style="position: relative;">
+                          <% if @ebook_topic.read_url %>
+                            <a href="/ebook/read/<%= @ebook_topic.id %>" target='_blank'> <img src="<%= @ebook_topic.ebook_abstruct_images_3 %>"/> </a>
+                            <img class='corner' src="/images/jb.png"/>
+                          <% else %>
+                            <img src="<%= @ebook_topic.ebook_abstruct_images_3 %>"/>
+                          <% end %>
+                        </div>
+
+                      </li>
+                    <% end %>
+                    <% unless @ebook_topic.ebook_abstruct_images_4.blank? %>
+                      <li>
+                        <div style="position: relative;">
+                          <% if @ebook_topic.read_url %>
+                            <a href="/ebook/read/<%= @ebook_topic.id %>" target='_blank'> <img src="<%= @ebook_topic.ebook_abstruct_images_4 %>"/> </a>
+                            <img class='corner' src="/images/jb.png"/>
+                          <% else %>
+                            <img src="<%= @ebook_topic.ebook_abstruct_images_4 %>"/>
+                          <% end %>
+                        </div>
+                      </li>
+                    <% end %>
+                  </ul>
+                  <ul class="num" style='padding-right:15px;' >
+                    <%= "
+<li>
+1
+</li>
+                    " unless @ebook_topic.ebook_abstruct_images_1.blank? %>
+                    <%= "
+<li>
+2
+</li>
+                    " unless @ebook_topic.ebook_abstruct_images_2.blank? %>
+                    <%= "
+<li>
+3
+</li>
+                    " unless @ebook_topic.ebook_abstruct_images_3.blank? %>
+                    <%= "
+<li>
+4
+</li>
+                    " unless @ebook_topic.ebook_abstruct_images_4.blank? %>
+                  </ul>
+                </div> <% if @ebook_topic.read_url.to_s.size > 0 %>
+                  <div style="text-align: center;">
+                    <img style="vertical-align:middle;" src="/images/ebook/network.png"><a href="/ebook/read/<%= @ebook_topic.id %>" target='_blank'>(来尝鲜吧)</a>
+                  </div> <% end %> </td>
+            </tr>
+          </table></td>
+      </tr>
+    </table>
+    <div class="clear">
+      &nbsp;
+    </div>
+  </div>
+  <div class="clear" style='height:6px;'>
+    &nbsp;
+  </div>
+  <div id="left">
+    <div id='resource'>
+      <div class="author_recommand">
+        <% if @ebook_topic.hot_topic_title.to_s.size > 0 %>
+          <div class="recommand">
+            <div class="name">
+                                                  推荐<%= @ebook_topic.hot_topic_type=='action' ? '活动' : '话题'%>
+              <span><%= @ebook_topic.hot_topic_title %></span>
+            </div>
+            <div class="recommand_content">
+              <% if @ebook_topic.hot_topic_logo %>
+                <div class='logo'>
+                  <img src="<%= @ebook_topic.hot_topic_logo.thumb90 %>"/>
+                </div>
+              <% end %>
+              <div class="desc">
+                <%= @ebook_topic.hot_topic_desc %>
+              </div>
+            </div>
+            <div class="join">
+              <a href="?topic=<%= @ebook_topic.hot_topic_title %>#t" class="button_bang2">我要讨论</a>
+            </div>
+          </div>
+        <% end %>
+
+        <% if @ebook_topic.hot_topic_title1.to_s.size > 0 %>
+          <div class="recommand">
+            <div class="name">
+                                                  推荐<%= @ebook_topic.hot_topic_type1=='action' ? '活动' : '话题'%>
+              <span><%= @ebook_topic.hot_topic_title1 %></span>
+            </div>
+            <div class="recommand_content">
+              <% if @ebook_topic.hot_topic_logo1 %>
+                <div class='logo'>
+                  <img src="<%= @ebook_topic.hot_topic_logo1.thumb90 %>"/>
+                </div>
+              <% end %>
+              <div class="desc">
+                <%= @ebook_topic.hot_topic_desc1 %>
+              </div>
+            </div>
+            <div class="join">
+              <a href="?topic=<%= @ebook_topic.hot_topic_title1 %>#t" class="button_bang2">我要参加</a>
+            </div>
+          </div>
+        <% end %>
+        <div class="clear"></div>
+        <% if @ebook_topic.author_notice.to_s.size > 0 %>
+          <div class="author_notice">
+            <span>作者公告：</span><%= @ebook_topic.author_notice%>
+          </div>
+        <% end %>
+
+      </div>
+
+      <div id='t' class='title' style="font-family:微软雅黑; font-size:20px; color:#454545; padding-left:8px;">
+				讨论
+      </div>
+      <div id="ebook_topic">
+        <%= render :partial => "title_show" %>
+      </div>
+      <% if @user %>
+        <% if (@ebook_topic.ebook_author.split(',') + @ebook_topic.topic_admin.split(',')).include?(@user.name) %>
+          <div style="text-align: right; margin: 0px 20px;">
+            <a href="javascript:void(0)" onclick="$('#edit_form').toggle();">[管理]</a>
+          </div>
+          <div id="edit_form">
+            <% form_tag({:action=>"edit_topics", :id=>@ebook_topic.id}, :multipart=>true) do%>
+              <p>
+                                              本站管理员：<%= text_field :ebook_topic, :topic_admin, {:style=>"width: 500px"} %>
+              </p>
+              <hr/>
+              <p>
+                                              推荐话题：<%= text_field :ebook_topic, :hot_topic_title %> <%= check_box("ebook_topic", "hot_topic_type", {}, "action", "topic")%>活动 (必填 10字以内) <a href="javascript:void(0);" onclick="if ($('#ebook_topic_hot_topic_type').get(0).checked) {$('#ebook_topic_pre_hot_topic1').val($('#ebook_topic_hot_topic_title').val() + ' ' + $('#ebook_topic_pre_hot_topic1').val())} else {$('#ebook_topic_pre_hot_topic').val($('#ebook_topic_hot_topic_title').val() + ' ' + $('#ebook_topic_pre_hot_topic').val())} $('#ebook_topic_hot_topic_title').val('');$('#ebook_topic_hot_topic_desc').val(''); ">删除</a>
+              </p>
+              <p>
+                                              图片：<%= upload_column_field :ebook_topic, :hot_topic_logo %>
+              </p>
+              <p style="vertical-align: top;">
+                                              描述：<%= text_area :ebook_topic, :hot_topic_desc, :style=>"width:550px; height: 40px;" %>
+              </p>
+
+              <p>
+                                              推荐话题：<%= text_field :ebook_topic, :hot_topic_title1 %> <%= check_box("ebook_topic", "hot_topic_type1", {}, "action", "topic")%>活动 (必填 10字以内) <a href="javascript:void(0);" onclick="if ($('#ebook_topic_hot_topic_type1').get(0).checked) {$('#ebook_topic_pre_hot_topic1').val($('#ebook_topic_hot_topic_title1').val() + ' ' + $('#ebook_topic_pre_hot_topic1').val())} else {$('#ebook_topic_pre_hot_topic').val($('#ebook_topic_hot_topic_title').val() + ' ' + $('#ebook_topic_pre_hot_topic').val())} $('#ebook_topic_hot_topic_title1').val('');$('#ebook_topic_hot_topic_desc1').val('');">删除</a>
+              </p>
+              <p>
+                                              图片：<%= upload_column_field :ebook_topic, :hot_topic_logo1 %>
+              </p>
+              <p style="vertical-align: top;">
+                                              描述：<%= text_area :ebook_topic, :hot_topic_desc1, :style=>"width:550px; height: 40px;" %>
+              </p>
+              <hr/>
+              <p style="vertical-align: top;">
+                                              公告：<%= text_area :ebook_topic, :author_notice, :style=>"width:550px; height: 40px;" %>
+              </p>
+              <p style="vertical-align: top;">
+                                              话题：<%= text_area :ebook_topic, :topics, :style=>"width:550px; height: 40px;" %>
+              </p>
+
+              <p style="vertical-align: top;">
+                                              往期推荐话题：<%= text_area :ebook_topic, :pre_hot_topic, :style=>"width:500px; height: 40px;" %>
+              </p>
+              <p style="vertical-align: top;">
+                                              往期推荐活动：<%= text_area :ebook_topic, :pre_hot_topic1, :style=>"width:500px; height: 40px;" %>
+              </p>
+              <p style="text-align: center; margin-top: 10px;">
+                <%= submit_tag "提交", :class=>"button"%>
+              </p>
+            <% end %>
+          </div>
+        <% end %>
+        <a name="shai"></a>
+        <% form_tag({:action => 'create_post', :to => @ebook_topic.ebook_action, :topic => params[:topic], :topic_type => params[:topic_type]},{:id => "home_post_form",:multipart => true }) do %>
+          <%= render :partial=>'form_post', :locals=>{:init=>"post"} %>
+        <% end %>
+
+      <% else %>
+        <div style="margin: 10px 26px; text-align: right;font-size: 15px">
+          <img src="/images/index/logins_06.gif" border=0/>
+          <a href="/account/login?origin_url=/ebook/<%= @ebook_topic.ebook_action %>&from=<%= params[:from] || @ebook_topic.ebook_action %>"><b>登陆</b></a> 后可发言
+        </div>
+      <% end %>
+
+      <div id="chanel_content" style="width: auto; margin-left:10px; margin-right:10px; ">
+        <%= render :partial => 'show_weibo' %>
+      </div>
+    </div>
+  </div>
+
+  <div id='right'>
+    <% unless @ebook_topic.ebook_download_ids.blank? %>
+      <div class="book_right_box" style=" padding-bottom:10px;">
+        <div style='padding-left: 20px; padding-top:10px;'>
+          <div style='font-family: 微软雅黑; font-size: 20px; color: #454545; height:22px; padding-top:8px;' valign='bottom'>
+                                          本书资源下载
+
+          </div>
+        </div>
+        <div style="margin: 6px; font-size: 13px;">
+          <div id='ziyuan_download'>
+            <%= render :partial => 'change_ziyuan' %>
+          </div>
+        </div>
+      </div>
+    <% end %>
+    <div class="book_right_box">
+      <div class="title">
+				宝典
+        <div class="right">
+          <a href="<%= @user ? '/articles' : '/pub/articles'%>">更多...</a>
+        </div>
+      </div>
+      <div class="book_content">
+        <% age_id = @ebook_topic.age_id.to_s.split(',')[0] %>
+        <% if age_id %>
+          <% age = Age.find_by_id(age_id)%>
+          <% articles = Article.find(:all, :conditions=>"tags like '%#{age.name}%' and logo is not null and state = '已发布'", :order=>"id desc", :limit=>3) %>
+          <% for article in articles %>
+            <div class='article'>
+              <div class="logo">
+                <img src="<%= article.logo %>"/>
+              </div>
+              <div class="c1">
+                <a href="<%= @user ? '' : 'pub'%>/article/<%= article.id %>" target="_blank"><%= article.title %></a>
+              </div>
+              <div class="c2">
+                <%= truncate strip_tags(article.article_content.content).gsub(" ", '').gsub("　", ''), :length=>50 %>
+              </div>
+              <div class="clear"></div>
+            </div>
+          <% end %>
+        <% end %>
+      </div>
+    </div>
+
+    <% unless (@ebook_topic.ebook_ipad_free.blank? || @ebook_topic.ebook_ipad_pay.blank?) %>
+      <div class="book_right_box">
+        <DIV style='padding-top:10px;padding-left:20px;'>
+          <p style="font-family:微软雅黑; font-size:20px; color:#454545; text-align:left;">
+                                          数字图书
+          </p>
+        </DIV>
+        <div style="margin: 3px; font-size: 16px;" class="book_content panel_content">
+          <table>
+            <% unless @ebook_topic.ebook_ipad_free.blank? %>
+              <% ipad_free = @ebook_topic.ebook_ipad_free.split(",") %>
+              <tr>
+                <td rowspan='4' style='padding:5px;'> <% if @ebook_topic.ebook_ipad_free_logo %> <img src='<%= @ebook_topic.ebook_ipad_free_logo.thumb66 %>' width='66' height='80' /> <% end %> </td>
+                <td style='padding-top:10px;font-size:13px;color:#333333;'> 预览版 * </td>
+              </tr>
+              <tr>
+                <td style="font-size:13px;color:#00CC00;"> 免费下载 </td>
+              </tr>
+              <tr>
+                <td style="font-size:13px;color:#333333;"> <%= ipad_free[0] %> </td>
+              </tr>
+              <tr>
+                <td><a href='http://<%= ipad_free[1] %>'> <img src='/images/ebook/download_ipad.png'/> </a></td>
+              </tr>
+            <% end %>
+            <% unless @ebook_topic.ebook_ipad_pay.blank? %>
+              <% ipad_pay = @ebook_topic.ebook_ipad_pay.split(",") %>
+              <tr>
+                <td rowspan='5' style='padding:5px;'> <% if @ebook_topic.ebook_ipad_pay_logo %> <img src='<%= @ebook_topic.ebook_ipad_pay_logo.thumb66 %>' width='66' height='80' /> <% end %> </td>
+                <td style='padding-top:10px;font-size:13px;color:#333333;'> 完整版 * </td>
+              </tr>
+              <tr>
+                <td style="font-size:13px; font-family:Arial; color:#FF0000;"><strong><%= ipad_pay[0] %></strong></td>
+              </tr>
+              <tr>
+                <td style="font-size:13px;color:#333333;"> <%= ipad_pay[1] %> </td>
+              </tr>
+              <tr>
+                <td style="font-size:13px;color:#FF0000;"> <%= ipad_pay[2] %> </td>
+              </tr>
+              <tr>
+                <td><a href='http://<%= ipad_pay[3] %>'> <img src='/images/ebook/pay_ipad.png' /> </a></td>
+              </tr>
+            <% end %>
+
+          </table>
+        </div>
+      </div>
+    <% end %>
+
+    <% if @ebook_topic.mfn_id%>
+      <div class="book_right_box">
+        <div class="title">
+                                  免费拿
+        </div>
+        <div class="content">
+          <div class="mfn">
+            <div class="logo">
+              <img src='<%= @ebook_topic.mfn.logo.thumb80 %>' />
+            </div>
+            <div class="desc">
+              <%= truncate strip_tags(@ebook_topic.mfn.content).gsub("&nbsp;", "").gsub("\n", "").gsub(" ", ""), :length=>46 %>
+              <div style="float: right; margin-top: 4px;">
+                <a class="button_bang2" href="http://www.mamashai.com/na" target="_blank">我要拿</a>
+              </div>
+            </div>
+            <div class="clear"></div>
+            <% na_logs = NaLog.find(:all, :conditions=>"gou_id = #{@ebook_topic.mfn_id} and status = 'get'", :limit=>3, :order=>"id desc")%>
+            <% for log in na_logs %>
+              <div class="mfn_log">
+                <div class="logo">
+                  <a target="_blank" href="/user/<%= log.user.encrypt_user_id %>"><img src="<%= log.user.logo.thumb30 %>"/></a>
+                </div>
+                <div class="c1">
+                  <a href="/user/<%= log.user.encrypt_user_id %>"><%= log.user.name %></a> <%= log.created_at.strftime("%m-%d")%>
+                </div>
+                <div class="c2">
+                                                            赚得
+                  <% if @ebook_topic.ebook_paper_books.to_s.split(',').size > 1 %>
+                    <a href="<%= @ebook_topic.ebook_paper_books.to_s.split(',')[1]%>" target="_blank"><%= @ebook_topic.ebook_title%></a>
+                  <% else %>
+                    <%= @ebook_topic.ebook_title%>
+                  <% end %>
+                </div>
+              </div>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    <% end %>
+
+    <% unless @ebook_topic.ebook_paper_books.blank? %>
+      <div class="book_right_box">
+        <div class="title">
+                                  纸质图书购买
+        </div>
+        <div class="book_content">
+          <% @ebook_topic.ebook_paper_books.split(";").each do |paper| %>
+            <% info = paper.split(",") %>
+            <a href='<%= info[1] %>' style="padding:10px;" target="_blank"> <img src="/images/ebook/<%= info[0] %>" border="0"> </a>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
+
+    <div class="book_right_box">
+      <div class="title">
+				其他热卖图书
+      </div>
+      <div class="book_content">
+        <% for book in EbookTopic.find(:all, :conditions => "ebook_status = '上线'", :order=>"id desc")%>
+          <% next if book.id == @ebook_topic.id %>
+          <div class="other_books">
+            <div style="position: relative; width: 190px;">
+              <a href="http://<%= book.ebook_url.gsub('http://', '')%>" target="_blank"><img src="<%= book.ebook_abstruct_images_1 %>" /></a>
+              <img src="/images/jb.png" style="position: absolute; top: 0px; right: 0px; width: 80px"/>
+            </div>
+            <a href="<%= book.ebook_url %>">《 <%= book.ebook_title%> 》</a>
+          </div>
+        <% end %>
+      </div>
+    </div>
+
+  </div>
+
+  <% if @ebook_topic.pre_hot_topic.to_s.size > 0 || @ebook_topic.pre_hot_topic1.to_s.size > 0%>
+    <div style="clear: left;"></div>
+    <div class="left_box">
+      <% if @ebook_topic.pre_hot_topic.to_s.size > 0 %>
+        <div class="pre_topic">
+          <span>往期话题：</span>
+          <% for topic in @ebook_topic.pre_hot_topic.to_s.split(' ') %>
+            <a href="?topic=<%= topic %> ">[<%= topic %>]</a>
+          <% end %>
+        </div>
+      <% end %>
+
+      <% if @ebook_topic.pre_hot_topic1.to_s.size > 0 %>
+        <div class="pre_topic">
+          <span>往期话题：</span>
+          <% for topic in @ebook_topic.pre_hot_topic1.to_s.split(' ') %>
+            <a href="?topic=<%= topic %> ">[<%= topic %>]</a>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
+</div>
+
+<script type="text/javascript">
+  function go_to_shai()
+  {
+    $("#post_content").focus();
+    $("#post_content").get(0).setSelectionRange(10000,10000);
+  }
+
+  function book_info_open()
+  {
+    $("#td_book_info").html("简介：<%= @ebook_topic.ebook_abstruct %><span style='float:right; padding-right:10px;'><a href='javascript:book_info_close()' id='a_book_info_close' style='color:#3366CC;'>收起>></a></span>");
+  }
+  function book_info_close()
+  {
+    $("#td_book_info").html("简介：<%= truncate(@ebook_topic.ebook_abstruct, :length=>120) %><span style='float:right; padding-right:10px;'><a href='javascript:book_info_open()' id='a_book_info_open' style='color:#3366CC;'>展开>></a></span>");
+  }
+  //弹出层
+  function PopDiv(inputId, divID) {
+    var positiontop = $("#" + inputId + "").position().top;
+    var positionleft = $("#" + inputId + "").position().left;
+    var elementWidth = $("#" + inputId + "").width();
+    var elementHeight = $("#" + inputId + "").height();
+    $("#" + divID + "").css({ position: "absolute", 'top': positiontop + elementHeight, 'left': positionleft, 'z-index': 2 });
+    $("#" + divID + "").show();
+  }
+  function copy_url()
+  {
+    if (window.clipboardData) {
+      var tempCurLink = location.href;
+      var ok = window.clipboardData.setData("Text", tempCurLink);
+      if (ok) {
+        alert('链接复制成功');
+        return;
+      }
+    }
+    alert('抱歉您的浏览器不支持直接复制链接');
+  }
+</script>
+</html>

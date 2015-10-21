@@ -1,0 +1,26 @@
+<div id="middle">
+    <div id="css_mainbody">
+        <h1 class="title">妈妈晒团购-信息管理-编辑团购信息<span style="float: right; margin-right: 10px;"><%= link_to '返回列表', "/mms/mms_tuans/cities/#{@city.province_id}" %>
+            </span></h1>
+        <table style="width: 1000px; padding-left: 50px;">
+            <% form_for @city, :url => { :action => "city_update",:id=>@city.id } do |f| %>
+            <tr>
+                <td colspan="2">
+                    &nbsp;
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    城市：
+                </td>
+                <td>
+                    <%= @city.province.name+"，"+@city.name %>
+                </td>
+            </tr>
+			<%= render :partial=>"/mms/mms_tuans/form_city"%>
+            <% end %>
+        </table>
+    </div>
+    <div class="clear">
+    </div>
+</div>

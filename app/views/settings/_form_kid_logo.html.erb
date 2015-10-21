@@ -1,0 +1,51 @@
+<table class="grid">
+    <tbody>
+        <tr height="40">
+            <td class="t07" width="70">
+                <h2><%=user_kid.name if user_kid.name %></h2>
+            </td>
+            <td class="t02">
+            </td>
+        </tr>
+        <tr height="40">
+            <td class="t06" width="70">
+                当前头像： 
+            </td>
+            <td class="t02">
+                <div class="logo_pic" style="width:140px;">
+                    <%= logo_tag(user_kid,{:version=>'thumb140'}) %>
+                    <div class="pic_size">
+                        140*140像素
+                    </div>
+                </div>
+                <div class="logo_pic" style="width:90px;">
+                    <%= logo_tag(user_kid,{:version=>'thumb75'}) %>
+                    <div class="pic_size">
+                        75*75
+                    </div>
+                </div>
+                <div class="logo_pic" style="width:30px;">
+                    <%= logo_tag(user_kid,{:version=>'thumb30'}) %>
+                    <div class="pic_size">
+                        30*30
+                    </div>
+                </div>
+				<div class="clear"></div>
+            </td>
+        </tr>
+        <tr height="40">
+            <td class="t01" width="70">
+            </td>
+            <td class="t02">
+               <%= upload_column_field :user_kid, :logo,:class=>'default_input' %>
+            </td>
+        </tr>
+        <tr height="40">
+            <td class="t01" width="70">
+            </td>
+            <td class="t02">
+                支持：jpg、jpeg、png、gif、bmp 格式，大小不超过5M
+            </td>
+        </tr>
+    </tbody>
+</table> 

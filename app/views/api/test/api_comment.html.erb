@@ -1,0 +1,11 @@
+<h1>Comment</h1><%= link_to "返回到列表", "/api/test" %><br/>
+评论信息描叙，会附带上评论的对象（微博/用户)。
+<hr/>
+<h2>字段说明</h2>
+<pre>
+    * id: 评论ID
+    * text: 评论内容
+    * created_at: 评论时间
+    * user: 评论人信息,结构参考user <%= link_to "查看", "/api/test/api_user" %>
+    * status: 评论的微博,结构参考status <%= link_to "查看", "/api/test/api_status" %>
+</pre> 

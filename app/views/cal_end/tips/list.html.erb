@@ -1,0 +1,46 @@
+
+<div style="text-align: center; margin: 10px;">
+</div>
+
+<table class="list" border="1" width="98%">
+  <tr class="head">
+    <th>ID</th>
+    <th>distance</th>
+    <th>周龄</th>
+    <th>类别</th>
+    <th width='300px'>标题</th>
+    <th>选项</th>
+	<th width="300px">功能</th>
+    <th colspan=3>操作</th>
+  </tr>
+  
+<% @tips.each_with_index{|tip, index| %>
+  <% month = CalEnd::Month.find_by_distance(tip.distance) %>
+  <% next if tip.t == "快乐淘"%>
+  <tr <%= "style='background-color:#ddd'" if !month.functions.to_s.index(tip.t) %>>
+  	<td><%= tip.id %></td>
+    <td><%= tip.distance %></td>
+    <td><%=h tip.distance_human %></td>
+    <td><%=h tip.t %></td>
+    <td><%=h tip.title %></td>
+    <td><%= tip.options.to_s.gsub("\n", "<br/>").html_safe %></td>
+	<% if index % 4 == 0%>
+	<td rowspan=3>
+		<%= month.functions %>
+		<br/>
+		<%= link_to "选择", :action=>"select_functions", :id=>tip, :page=>params[:page]%>
+	</td>
+	<% end %>
+    
+    <td><%= link_to '修改', :action => 'edit', :id => tip, :page=>params[:page] %></td>
+<!--    
+<td><% link_to '删除', { :action => 'destroy', :id => tip, :page=>params[:page] }, :confirm => '确认删除吗?', :method => :post %></td>
+-->
+  </tr>
+<% } %>
+</table>
+
+<%= will_paginate @tips %>
+<br />
+
+<%= link_to '新建贴士', :action => 'new' %>

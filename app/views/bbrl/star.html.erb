@@ -1,0 +1,129 @@
+<!doctype html>
+<html>
+<head>
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type"> 
+<title>宝宝日历星星榜</title>
+	<meta http-equiv="mobile-agent" content="format=html5;url=http://www.baobaorili.com/">
+	<meta content="yes" name="apple-mobile-web-app-capable" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <meta content="black" name="apple-mobile-web-app-status-bar-style" />
+    <meta name="format-detection" content="telephone=no" />
+</head>
+<style>
+	body {
+        background: #ffffff;
+    }
+    a {text-decoration: none; color: #3C3C3C;}
+    * {padding: 0;}
+    .clear {clear: both;}
+    p.notice {color: #3E3E3E; font-size: 1em; text-align: right;}
+    div.rank {background-color: #EAEAEA; padding: 0.4em; margin-bottom: 3em;}
+    div.rank div.logo img {height: 3em; float: left; margin-bottom: 1em; margin-top: 0.8em;}
+    div.rank div.logo span.span1 {float: left; font-size: 1.3em; margin-top: 1em; margin-left: 0.6em;}
+    div.rank div.user {position: relative; border: 1px solid #CCCCCC; float: left; margin: 0.1em 1.6%; text-align: center; width:21%;}
+    div.rank div.user img.logo {width: 100%;}
+    div.rank div.user div.name {width:100%; overflow: hidden; height: 1.3em;}
+    div.rank div.user div.name span {text-align: center; font-size: 0.7em; overflow: hidden; display:block; margin-top: 0.3em;}
+</style>
+<body>
+	<p class="notice">星星榜每天08:00更新，入榜奖10个晒豆</p>
+    <div class="rank" id="rank1">
+        <div class="logo">
+            <img src="/images/star/rlzx.png"/>
+            <span class="span1">日历之星</span>
+            <div class="clear"></div>
+        </div>
+        <% for user in @users1%>
+        <div class="user">
+            <a href="http://www.mamashai.com/bbrl/star?user=<%= user.id %>#rank1"><img class="logo" src="http://www.mamashai.com<%= user.logo.thumb140 %>"%></a>
+            <div class="name"><span><a href="http://www.mamashai.com/bbrl/star?user=<%= user.id %>#rank1"><%= user.name %></a></span></div>
+        </div>
+        <% end %>
+        <div class="clear"></div>
+    </div>
+
+    <div class="rank" id="rank6">
+       <div class="logo">
+            <img src="/images/star/mbzx.png"/>
+            <span class="span1">新秀之星</span>
+            <div class="clear"></div>
+        </div>
+        <% for user in @users_rookies%>
+        <div class="user">
+            <a href="http://www.mamashai.com/bbrl/star?user=<%= user.id %>#rank6"><img class="logo" src="http://www.mamashai.com<%= user.logo.thumb140 %>"%></a>
+            <div class="name"><span><a href="http://www.mamashai.com/bbrl/star?user=<%= user.id %>#rank2"><%= user.name %></a></span></div>
+        </div>
+        <% end %>
+        <div class="clear"></div>
+    </div>
+
+    <div class="rank" id="rank2">
+       <div class="logo">
+            <img src="/images/star/tpzx.png"/>
+            <span class="span1">图片之星</span>
+            <div class="clear"></div>
+        </div>
+        <% for user in @users2%>
+        <div class="user">
+            <a href="http://www.mamashai.com/bbrl/star?user=<%= user.id %>#rank2"><img class="logo" src="http://www.mamashai.com<%= user.logo.thumb140 %>"%></a>
+            <div class="name"><span><a href="http://www.mamashai.com/bbrl/star?user=<%= user.id %>#rank2"><%= user.name %></a></span></div>
+        </div>
+        <% end %>
+        <div class="clear"></div>
+    </div>
+
+    <div class="rank" id="rank4">
+        <div class="logo">
+            <img src="/images/star/myzx.png"/>
+            <span class="span1">满月之星</span>
+            <div class="clear"></div>
+        </div>
+        <% for user in @users4%>
+	<% next if !user.first_kid %>
+        <div class="user">
+            <a href="http://www.mamashai.com/bbrl/star?user=<%= user.id %>#rank3"><img class="logo" src="http://www.mamashai.com<%= user.first_kid.logo ? user.first_kid.logo.thumb140 : user.logo.thumb140 %>"%></a>
+            <div class="name"><span><a href="http://www.mamashai.com/bbrl/star?user=<%= user.id %>#rank4"><%= user.name %></a></span></div>
+        </div>
+        <% end %>
+        <div class="clear"></div>
+    </div>
+
+    <div class="rank" id="rank5">
+        <div class="logo">
+            <img src="/images/star/btzx.png"/>
+            <span class="span1">百天之星</span>
+            <div class="clear"></div>
+        </div>
+        <% for user in @users5%>
+        <div class="user">
+            <a href="http://www.mamashai.com/bbrl/star?user=<%= user.id %>#rank3"><img class="logo" src="http://www.mamashai.com<%= user.first_kid.logo ? user.first_kid.logo.thumb140 : user.logo.thumb140 %>"%></a>
+            <div class="name"><span><a href="http://www.mamashai.com/bbrl/star?user=<%= user.id %>#rank5"><%= user.name %></a></span></div>
+        </div>
+        <% end %>
+        <div class="clear"></div>
+    </div>
+
+    <div class="rank" id="rank6">
+        <div class="logo">
+            <img src="/images/star/srzx.png"/>
+            <span class="span1">周岁之星</span>
+            <div class="clear"></div>
+        </div>
+        <% for user in @users6%>
+        <div class="user">
+            <a href="http://www.mamashai.com/bbrl/star?user=<%= user.id %>#rank3"><img class="logo" src="http://www.mamashai.com<%= user.first_kid.logo ? user.first_kid.logo.thumb140 : user.logo.thumb140 %>"%></a>
+            <div class="name"><span><a href="http://www.mamashai.com/bbrl/star?user=<%= user.id %>#rank6"><%= user.name %></a></span></div>
+        </div>
+        <% end %>
+        <div class="clear"></div>
+    </div>
+
+    <p>星星榜来由：有一天，上帝赐宝贝给我们，于是，平凡的我们从此发光发热。星星榜，让星星点点的我们，聚焦，定格，在这里展现，在这里闪烁……</p>
+</body>
+<div style="display:none">
+    <script type="text/javascript">
+var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3Fb62084ced4b6982bc50286972cbf6fce' type='text/javascript'%3E%3C/script%3E"));
+</script>
+</div>
+</html>

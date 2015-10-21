@@ -1,0 +1,111 @@
+<div id="middle">
+    <div id="css_mainbody">
+        <h1 class="title">订单查看
+		</h1>
+        <p>
+            <%= link_to "待发货", :action=>"list", :status=>"待发货" %>
+            <%= link_to "已发货", :action=>"list", :status=>"已发货" %>
+            <%= link_to "已收货", :action=>"list", :status=>"已收货" %>
+            <%= link_to "已评价", :action=>"list", :status=>"已评价" %>
+            <%= link_to "已退款", :action=>"list", :status=>"已退款" %>
+            <%= link_to "待付款", :action=>"list", :status=>"待付款" %>
+        </p>
+        <table class="grid">
+            <thead>
+                <tr>
+                    <th>
+                        订单号
+                    </th>
+                    <th>
+                        用户
+                    </th>
+                    <th>
+                        价格
+                    </th>
+                    <th>
+                        晒豆抵扣
+                    </th>
+                    <th>
+                        实付
+                    </th>
+                    <th>
+                        状态
+                    </th>
+                    <th>
+                        下单时间
+                    </th>
+                    <th>
+                        付款时间
+                    </th>
+                    <th>
+                        详情
+                    </th>
+                    <th>
+                        快递单号
+                    </th>
+                </tr>
+            </thead>
+            <% for order in @orders %>
+                <tr>
+                    <td><%= order.id %></td>
+                    <td><%= order.user.name %></td>
+                    <td><%= order.price %></td>
+                    <td><%= order.score_amount %></td>
+                    <td><%= order.payment %></td>
+                    <td>
+                        <% if order.status == "待付款" %>
+                            <span style="color: green"><%= order.status %></span>
+                        <% else %>
+                            <%= order.status %>
+                        <% end %>
+                    </td>
+                    <td><%= order.created_at.to_s(:db)%></td>
+                    <td><%= order.pay_at.to_s(:db) if order.pay_at%></td>
+                    <td><a href="javascript:void(0)" onclick="$('#r_<%= order.id %>').toggle()">详情</a></d>
+                    <td>
+
+                        <% if order.sn %>
+                            <%= order.sn %>
+                        <% else %>
+                            <% if order.status == "待发货" %>
+                            <a href="javascript:$('#o_<%= order.id %>').toggle()">发货</a>
+                            <div id="o_<%= order.id %>" style="display:none;">
+                                <%= form_tag :action=>"fahuo", :page=>params[:page], :id=>order.id do %>
+                                    <%= text_field_tag "sn", "", {:style=>"width:80px;"}%>
+                                    <%= submit_tag "提交" %>
+                                <% end %>
+                            </div>
+                            <% elsif order.status == "未付款" %>
+
+                            <% end %>
+                        <% end %>
+                    </td>
+                </tr>
+                <tr id="r_<%= order.id%>" style="display:none;">
+                    <td colspan=4>
+                        <% for detail in order.details %>
+                            <div>
+                            <img style="width:50px; height: 50px;" src="<%= detail.product.logo.thumb100.url %>"/>
+                            ￥<%= detail.price %> * <%= detail.count %> <%= detail.product.code %>
+                            </div>
+                        <% end %>
+                    </td>
+                    <td colspan=3 style="max-width: 200px;">
+                        <%= order.receiver %>
+                    </td>
+                    <td colspan=3>
+                        <%= order.id_name %>
+                        <%= order.id_code %>
+                        <% if order.id_logo1 %>
+                            <%= link_to image_tag(order.id_logo1.url, :style=>"width:50px"), :action=>"download", :id=>order.id, :t=>1 %>
+                        <% end %>
+                        <% if order.id_logo2 %>
+                            <%= link_to image_tag(order.id_logo2.url, :style=>"width:50px"), :action=>"download", :id=>order.id, :t=>2 %>
+                        <% end %>
+                    </td>
+                </tr>
+            <% end %>
+        </table>
+        <%= will_paginate @orders %>
+    </div>
+</div>

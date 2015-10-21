@@ -1,0 +1,189 @@
+    <div id="middle">
+        <div id="css_mainbody">
+            <h1 class="title">订单管理<span style="float:right;"><%=link_to "返回列表", "/mms/orders/index"%></span></h1>
+			<div class="menu_bar">
+				<div class="menu">
+					<% if @current_state%>
+						<%=link_to "最近一周更新", mms_orders_path%>&nbsp;&nbsp;
+					<%else%>
+						<%=link_to "最近一周更新", mms_orders_path, :class=>"current"%>&nbsp;&nbsp;
+					<%end%>	
+					<%@states.each do |key,value|%>
+						<%if @current_state == key.to_s%>
+							<%=link_to value, mms_orders_path(:state=>key),:class=>"current"%>&nbsp;&nbsp;
+						<%elsif key.to_s == "line"%>
+							<%=value%>
+						<%else%>
+							<%=link_to value, mms_orders_path(:state=>key)%>&nbsp;&nbsp;
+						<%end%>	
+					<% end %>
+				</div>								
+			</div>	
+			<div class="order_number">
+			     <div class="order_title"><span class="title">订单详情</span><span class="title01">配送信息</span></div>
+				 <% form_for :order, @order, :url=>{:action=>"update"} do |f|%>
+				     <ul class="order_list">
+				        <li>订单号：<%=h (@order.order_sn.blank?)?'暂无信息' : @order.order_sn%></li>
+				        <li> 时间：<%=h @order.created_at.strftime("%Y-%m-%d %H:%M") %></li>
+						<li>状态：<%=h (@order.get_order_state.blank?)?'暂无信息' : @order.get_order_state%></li>
+				        <li>操作：
+							<%= f.select(:state, @order.get_mms_order_events, { :selected => @order.state.to_sym }) %>
+						</li>
+				        <li>备注：<%= f.text_field :note, :size=>25%></li>
+				        <li>配送时间：<%=h (@order.express_at.blank?)?'暂无信息' : @order.express_at.strftime("%Y-%m-%d %H:%M")%></li>
+				        <li>配送单号：<%=h (@order.express_order_id.blank?)?'暂无信息' : @order.express_order_id%></li>
+						<li>配送公司：<%=h (@order.express_company.blank?)?'暂无信息' : @order.express_company%></li>		
+				     </ul>
+				     <ul class="order_list">
+				        <li>收货人姓名：<%=h (@order.info[:receiver_name].blank?)?'暂无信息' : @order.info[:receiver_name]%></li>
+				        <li> 地址：<%=h (@order.info[:receiver_address].blank?)?'暂无信息' : @order.info[:receiver_address]%> </li>
+				        <li>邮政编码：<%=h (@order.info[:receiver_post_code].blank?)?'暂无信息' : @order.info[:receiver_post_code]%> </li>
+				        <li>固定电话：<%=h (@order.info[:receiver_phone].blank?)?'暂无信息' : @order.info[:receiver_phone]%></li>
+				        <li>手机电话：<%=h (@order.info[:receiver_mobile].blank?)?'暂无信息' : @order.info[:receiver_mobile]%></li>
+				        <li>电子邮件：<%=h (@order.info[:receiver_email].blank?)?'暂无信息' : @order.info[:receiver_email]%></li>
+				        <li>订单备注：<%=h (@order.info[:memo].blank?)?'暂无信息' : @order.info[:memo]%></li>
+				     </ul>
+					 	<%=f.submit "保存" %>
+				 <% end %>
+			  </div>
+			  
+			  <h2>订单项</h2>
+			  <table class="grid">
+			  	<tbody>
+			        <tr height="35">
+			            <th width="10%">商品ID号 </th>
+			            <th width="10%">书名</th>
+			            <th width="50%">制作要求</th>
+			            <th width="10%">印制数量</th>
+						<th width="10%">成本价格</th>
+			            <th width="10%">下载</th>
+			        </tr>
+					<% if @order.order_items.size == 0%>
+						<tr height="35">
+			                <td rowspan=6 >该订单下尚无产品订购信息。</td>
+			            </tr>
+					<% else %>
+						<% for item in @order.order_items%>
+							<tr height="35">
+			                    <td><%=h (item.product_code.blank?)?'暂无信息' : item.product_code%></td>
+								<td><%=h (item.memo[:desc].blank?)?'暂无信息' : item.memo[:desc]%></td>
+			                    <td style="text-align:left;">
+			                    	<% if item.product && item.product.requirement%>
+										<%num =0%>
+										<%item.product.requirement.each do |k|%>
+											<%unless k.blank?%>
+												<%= ((num+=1).to_s+"、"+k+"<br/>")%>
+											<%end%>
+										<%end%>
+									<%else%>
+										暂无信息
+									<%end%>
+								</td>  
+			                    <td><%=h (item.amount.blank?)?'暂无信息' : item.amount%>本</td>
+								<td><%=h (item.product.blank?||item.product.cost.blank?)?'暂无信息' : item.product.cost.to_s+"元"%></td>
+			                    <td>
+                                              <% if item %>
+			                    	<%=link_to "下载PDF",("/books/orders/#{item.order.id}_#{item.id}_#{item.item_id}.pdf"), :target=>"_blank"%>
+                                                <% else %>
+			                    	<%=link_to "下载PDF",("/books/orders/#{item.item_id}.pdf"), :target=>"_blank"%>
+                                                <% end %>
+									<%=link_to "重新生成PDF", :action=>"make_pdf", :id=>item.item_id%>
+								</td>
+			                </tr>             
+						<% end %>
+					<% end %>                                        
+			      </tbody>
+			  </table>                    
+			  <h2>操作日志</h2>
+			  <table class="grid">
+			  	<tbody>
+			        <tr height="35">
+			            <th width="10%">序号</th>
+						<th width="10%">操作人</th>
+			            <th width="25%">操作记录</th>
+						<th width="20%">备注</th>
+						<th width="10%">操作时间</th>
+			        </tr>
+					<% if @order.order_logs.size == 0%>
+						<tr height="35">
+			                <td rowspan=5 >暂无相关记录</td>
+			            </tr>
+					<% else %>
+						<%@order.order_logs.each_with_index do |log,index|%>
+							<tr height="35">
+			                    <td width='10%'><%=h index+1%></td>
+								<td width="15%"><%=h (log.user_name.blank?)?'暂无信息' : log.user_name%></td>
+			                    <td><%= (log.log.blank?)?'暂无信息' : log.log%></td>
+								<td><%=h (log.note.blank?)?'暂无信息' : log.note%></td>
+			                    <td width="20%"><%=h (log.created_at.blank?)?'暂无信息' : log.created_at.strftime("%Y-%m-%d %H:%M")%></td>
+			                </tr>             
+						<% end %>
+					<% end %>                                        
+			      </tbody>
+			  </table>                
+        </div>
+        <div class="clear"></div>
+    </div>
+	
+<style type="text/css" >
+	.order_number {
+		border:1px solid #B6B6B6;
+		margin:10px auto;
+		overflow:hidden;
+		width:95%;
+	}
+	.order_number .order_title {
+		background:none repeat scroll 0 0 #E5E5E5;
+		font-size:14px;
+		font-weight:bold;
+		height:35px;
+		line-height:35px;
+		padding-left:10px;
+	}
+	.order_number .order_title span.title {
+		float:left;
+		width:50%;
+	}
+	.order_number .order_title span.title01 {
+		float:left;
+		width:49%;
+	}
+	.order_number ul.order_list {
+		float:left;
+		margin:10px auto;
+		overflow:hidden;
+		width:49%;
+	}
+	.order_number ul.order_list li {
+		height:35px;
+		line-height:35px;
+		overflow:hidden;
+		padding-left:10px;
+	}
+	.order_number ul.order_list li a.button_link {
+		float:left;
+		margin-left:10px;
+	}
+	div.menu_bar{
+		line-height:30px;
+		padding-left:50px;
+	}
+	.menu_bar .menu{
+		float:left;
+		width:70%;
+	}
+	div.menu_bar a:hover{
+		color:#FF9900;
+		text-decoration: none;
+	}	
+	div.menu_bar a.current{
+		color:#FF9900;
+	}
+	span.info{
+		width:30%;
+		float:right;
+		line-height:14px;
+		text-align:right;
+		margin-top:5px;
+	}	
+</style>

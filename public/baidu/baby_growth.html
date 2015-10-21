@@ -1,0 +1,834 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+	<head>
+		<title>宝宝生长发育监测表（0-3岁宝宝） - 妈妈晒 - 妈妈爸爸们的网络社区</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<style type="text/css">
+		* {
+			padding:0px;
+			margin:0px;
+		}
+		a {
+			text-decoration:none;
+		}
+		a img {
+			border:0px;
+		}
+		p {
+		  text-indent:8mm;
+		}
+		td img {
+			display: block;
+		}
+		.STYLE1 {
+			color: #666666;
+			font-size: 14px;
+			line-height: 22px;
+		}
+		.STYLE2 {
+			font-size: 16px;
+			font-weight: bold;
+			color: #DA5295;
+		}
+		.STYLE3 {
+			font-size: 12px;
+			color: #999999;
+		}
+		.STYLE4 {
+			font-size: 14px;
+			font-weight: bold;
+			color: #FFFFFF;
+		}
+		.STYLE5 {
+			font-size: 14px;
+			font-weight: bold;
+			color: #DA5295;
+		}
+		.STYLE6 {
+			font-size: 16px; 
+			font-weight: bold; 
+			color: #FFFFFF; 
+			font-family: "微软雅黑"; 
+		}
+		.STYLE7 {
+		  text-indent:8mm;
+		  	width:270px;
+			margin-top:-5px;
+		}
+		</style>
+	</head>
+
+	<body bgcolor="" onload="healthtime()">
+		<div align="center">
+			<table width="538" border="0" cellpadding="0" cellspacing="0" background="images/top2.gif">
+			  <tr>
+			    <!-- <td width="16"><img name="a_r1_c1" src="images/a_r1_c1.gif" width="3" height="38" border="0" id="a_r1_c1" alt="" /></td> -->
+			    <td width="97">
+			    	<a href="http://www.mamashai.com">
+			    		<img name="top1" src="images/top1.png" width="97" height="38" border="0" id="top1" alt="" />
+			    	</a>
+			    </td>
+			    <td width="355"><div align="center"><span class="STYLE6">宝宝生长发育监测表（0-3岁宝宝）</span></div></td>
+			    <!-- <td width="70">
+					<div align="right"><img name="a_r1_c11" src="images/a_r1_c11.gif" width="2" height="38" border="0" id="a_r1_c11" alt="" /></div>
+				</td> -->
+			  </tr>
+			</table>
+			<table width="538" border="0" cellspacing="0" cellpadding="0">
+			  <tr>
+			    <td background="images/a_r13_c1.gif">&nbsp;</td>
+			  </tr>
+			</table>
+			<table width="538" border="0" cellspacing="0" cellpadding="0" background="images/a_r10_c1.gif">
+			  <tr>
+			  	<td colspan="2">
+			  		<img name="a_r9_c1" src="images/a_r9_c1.gif" width="538" height="9" border="0" id="a_r9_c1" alt="" />
+			  	</td>
+			  </tr>
+			  <tr>
+			    <td width="405" height="44" background="images/a_r4_c1.gif">
+			    	<table width="100%" border="0" cellspacing="0" cellpadding="0">
+				      <tr style="padding-top:5px;" align="left">
+				        <td style="padding-left:20px;">
+				        	宝宝性别&nbsp;
+							<select id="select_sex">
+								<option value="男">男</option>
+								<option value="女">女</option>
+							</select>&nbsp;&nbsp;
+							宝宝生日
+							<input type="text" id="txt_year" value="" style="width:35px;" />&nbsp;年&nbsp;
+							<input type="text" id="txt_month" value="" style="width:20px;" />&nbsp;月&nbsp;
+							<input type="text" id="txt_day" value="" style="width:20px;" />&nbsp;日&nbsp;
+				        </td>
+				      </tr>
+				    </table>
+			    </td>
+			    <td style="width:78px;height:32px; padding-right:10px;" >
+			    	<div align="center" style="padding-top:1px;">
+			    		<a href="javascript:check_result()" style="width:135px;height:37px;">
+			    			<img onclick="check_result()" name="a_r3_c10" src="images/d_r2_c3.gif" width="78" height="32" border="0" id="d_r2_c3" alt="" style="padding:0px; margin:0px;" />
+			    		</a>
+			    	</div>
+			    </td>
+			  </tr>
+			  <tr>
+			  	<td valign="bottom" colspan="2">
+			  		<img name="a_r12_c1" src="images/a_r12_c1.gif" width="538" height="9" border="0" id="a_r12_c1" alt="" />
+			  	</td>
+			  </tr>
+			</table>
+			<table width="538" border="0" cellpadding="0" cellspacing="0" background="images/a_r10_c1.gif">
+			  <tr>
+			    <td >
+			    	<img name="a_r9_c1" src="images/a_r9_c1.gif" width="538" height="9" border="0" id="a_r9_c1" alt="" />
+			    </td>
+			  </tr>
+			  <tr>
+			    <td background="images/a_r10_c1.gif">
+			    	<table width="95%" height="26" border="0" align="center" cellpadding="0" cellspacing="0">
+				      <tr>
+				        <td style="padding-left:5px; width:350px;" align="left">
+				        	宝宝现在&nbsp;&nbsp;<span id="span_year" class="STYLE2"></span>&nbsp;岁&nbsp;<span id="span_month" class="STYLE2"></span>&nbsp;月&nbsp;<span id="span_day" class="STYLE2"></span>&nbsp;天&nbsp;</td>
+				        
+
+
+
+
+						<tr>
+							<td id="td_shipu" colspan="2" align="left" class="STYLE1" style="padding-left:20px;">
+								<span id="span_game" class="STYLE5">0个月宝宝的</span>
+						 发育监测表是：
+							<a href="javascript:void(0)" onclick="change_prev()" style="padding-left:150px;">《上个月</a>&nbsp;&nbsp;&nbsp;
+							<a href="javascript:void(0)" onclick="change_next()" >下个月》</a>
+
+							</td>
+						</tr>
+
+
+
+						<td style="padding-right:5px;">
+
+						</td>
+				      </tr>
+				    </table>
+			    </td>
+			  </tr>
+			  <tr>
+			  	<td style="padding-left:18px;" align="left">
+			  		<table width="95%" border="0" cellspacing="0" cellpadding="0">
+					  <tr>
+					    <td id="td_tab" width="361" height="39" background="images/e_r2_c2.gif">
+					    	<table width="100%" border="0" cellspacing="0" cellpadding="0">
+						      <tr style="padding-top:5px;">
+
+						        <td width="72" align="center"><a href="javascript:void(0);" id="td_tab_1" onclick="show_div_1()" class="STYLE4">味觉</a></td>
+						        <td width="72" align="center"><a href="javascript:void(0);" id="td_tab_2" onclick="show_div_2()" class="STYLE4">嗅觉</a></td>
+						        <td width="72" align="center"><a href="javascript:void(0);" id="td_tab_3" onclick="show_div_3()" class="STYLE4">视力</a></td>
+						        <td width="72" align="center"><a href="javascript:void(0);" id="td_tab_4" onclick="show_div_4()" class="STYLE4">认知</a></td>
+						        <td width="72" align="center"><a href="javascript:void(0);" id="td_tab_5" onclick="show_div_5()" class="STYLE4">运动</a></td>
+						<td>&nbsp;</td>
+						      </tr>
+						    </table>
+					    </td>
+						<td>&nbsp;</td>
+					  </tr>
+					</table>
+			  	</td>
+			  </tr>
+			  <tr>
+			  	<td align="left" style="padding-bottom:10px;padding-left:20px;padding-right:20px; height:110px;">
+			  		<div id="div_tab_1" class="STYLE1"></div>
+					<div id="div_tab_2" style="display:none;" class="STYLE1"></div>
+					<div id="div_tab_3" style="display:none;" class="STYLE1"></div>
+					<div id="div_tab_4" style="display:none;" class="STYLE1"></div>
+					<div id="div_tab_5" style="display:none;" class="STYLE1"></div>
+			  	</td>
+			  </tr>
+			  <tr>
+			    <td valign="bottom">
+			    	<img name="a_r12_c1" src="images/a_r12_c1.gif" width="538" height="9" border="0" id="a_r12_c1" alt="" />
+			    </td>
+			  </tr>
+			</table>
+			<table width="538" border="0" cellpadding="0" cellspacing="0" background="images/a_r10_c1.gif">
+			  <tr>
+			    <td>
+			    	<img name="a_r9_c1" src="images/a_r9_c1.gif" width="538" height="9" border="0" id="a_r9_c1" alt="" />
+			    </td>
+			  </tr>
+			  <tr>
+			    <td background="images/a_r10_c1.gif">
+			    	<table width="95%" height="26" border="0" align="center" cellpadding="0" cellspacing="0">
+			    		<tr>
+					        <td align="left">
+					        	<p class="STYLE3">提示：本工具所提供的结果仅供参考，如有需要请咨询相关专家！</p>
+					        </td>
+					      </tr>
+			    	</table>		      
+			    </td>
+			  </tr>
+			  <tr>
+			    <td valign="bottom">
+			    	<img name="a_r12_c1" src="images/a_r12_c1.gif" width="538" height="9" border="0" id="a_r12_c1" alt="" />
+			    </td>
+			  </tr>
+			</table>
+		</div>
+		<script type="text/javascript">
+		function healthtime()
+		{
+			date = new Date();
+			// 当前时间
+			var countyear = date.getFullYear();
+			var countmonth = date.getMonth();
+			var countday = date.getDate();
+			// 最开始显示的时间
+			document.getElementById("txt_month").value = countmonth+1; // javascript中的月份是 0-11，所以要+1
+			document.getElementById("txt_year").value = countyear;
+			document.getElementById("txt_day").value = countday;  
+			g_month=1;
+			check_result();
+		}
+		function check_result()
+		{
+			var check_ok = true;
+			var hongse=new Date() // 当前时间
+			health_year = document.getElementById("txt_year");
+			health_month = document.getElementById("txt_month");
+			health_day = document.getElementById("txt_day");
+
+			// 如果年月日其中一项没有填写
+			if (health_year.value == "" || health_month.value == "" || health_day.value == "")
+			{
+				alert("请填写完整年月日!");
+				check_ok = false;
+
+			}
+
+			// 如果年份过大或者过小
+			else if (health_year.value>2050 || health_year.value<1990)
+			{
+				alert("请填写正确年份!");
+				health_year.focus();
+				check_ok = false;
+
+			}
+
+			// 如果输入年份大于当前年份
+			else if (health_year.value>hongse.getFullYear())
+			{
+				alert("输入的的年份可能过大，请重新输入!");
+				health_year.focus();
+				check_ok = false;
+
+			}
+			// 如果输入年份小于当前年份-3
+			else if (health_year.value<hongse.getFullYear()-3)
+			{
+				alert("宝宝的年龄超过3岁了哦,请重新输入。");
+				health_year.focus();
+				check_ok = false;
+
+			}
+			// 如果输入的月份大于12，或者月份小于1
+			else if (health_month.value>12 || health_month.value<1)
+			{
+				alert("请填写正确月份!");
+				health_month.focus();
+				check_ok = false;
+
+			}
+			// 如果输入日子大于31，或者输入日子小于1
+			else if (health_day.value>31 || health_day.value<1)
+			{
+				alert("请填写正确日子!");
+				health_day.focus();
+				check_ok = false;
+
+			}
+
+			// 如果年月日组合出来的时间并不是正常年月日
+			else if (!isDate(health_year.value ,health_month.value ,health_day.value))
+			{
+				alert("年月日组合有错,请重新填写!");
+				check_ok = false;
+
+			}
+			else 
+			{
+				var zise=new Date(health_year.value+"/"+health_month.value+"/"+health_day.value);
+				// 获得当前时间
+				var lse=new Date();
+
+				// 如果当前时间 - 输入的时间 < 0 
+				if ((lse.getTime()-zise.getTime())<0)
+				{
+					alert("对不起，您输入的时间还没有到来，请重新输入！")
+					health_year.focus();
+					check_ok = false;
+				}	
+			}
+
+			if(check_ok == true)
+			{
+				var today_time = new Date();
+				//var set_time = today_time.setFullYear(health_year.value, health_month.value-1, health_day.value);
+
+				var d1=new Date(health_year.value, health_month.value-1, health_day.value);
+				var days = Math.round((today_time - d1)/(1000*60*60*24));
+				var set_month = 0;
+				var set_year = 0;
+				var set_day = 0;
+				var months_all = 0;
+				if (((days / 30.41) + "").indexOf('.') < 0)
+				{
+					months_all = days / 30.41;
+				}
+				else
+				{
+					months_all = ((days / 30.41) + "").substring(0,((days / 30.41) + "").indexOf('.'));
+				}
+				// 如果输入日期折算月份大于36		
+				if (months_all > 36)
+				{
+					alert("宝宝的年龄超过3岁了哦,请重新输入。");
+					health_year.focus();
+					check_ok = false;
+
+				}
+				else
+				{
+					if(days > 365 || days == 365)
+					{
+						years = (days / 365)
+						if ((years + "").indexOf('.') < 0)
+						{
+							set_year = years;
+						}
+						else
+						{
+							set_year = (years + "").substring(0,(years + "").indexOf('.'));
+						}
+
+						days = days - set_year * 365;
+
+					}
+					if (days > 30)
+					{
+						months = (days / 30.41);
+						if ((months + "").indexOf('.') < 0)
+						{
+							set_month = months
+						}
+						else
+						{
+							set_month = (months + "").substring(0,(months + "").indexOf('.'));
+						}
+
+						days = days - parseInt(set_month * 30.41)
+					}
+
+					document.getElementById("span_year").innerHTML = set_year;
+					document.getElementById("span_month").innerHTML = set_month;
+					document.getElementById("span_day").innerHTML = days;
+					g_month = parseInt(months_all);
+					growth(months_all);
+				}
+
+			}
+		}
+
+		function isDate (year,month,day)
+		{
+			month = month - 1;  // javascript month range : 0- 11
+			var tempDate = new Date(year,month,day);
+			if ( (year2k(tempDate.getFullYear()) == year) && (month == tempDate.getMonth()) && (day == tempDate.getDate()) )
+			{    
+				return true;
+			}
+			else
+			{
+				return false;
+			}
+		}
+		function year2k(d) 
+		{ 
+			return (d < 1000) ? d + 1900 : d;
+		}
+		function growth(month)
+		{
+			baidu.app.setHeight(383);
+			var ta_sex = "";
+			if(document.getElementById("select_sex").value == "男")
+			{
+				ta_sex = "他";
+			}
+			else
+			{
+				ta_sex = "她";
+			}
+			var tab_1 = document.getElementById("td_tab_1");
+			var tab_2 = document.getElementById("td_tab_2");
+			var tab_3 = document.getElementById("td_tab_3");
+			var tab_4 = document.getElementById("td_tab_4");
+			var tab_5 = document.getElementById("td_tab_5");
+
+			var div_1 = document.getElementById("div_tab_1");
+			var div_2 = document.getElementById("div_tab_2");
+			var div_3 = document.getElementById("div_tab_3");
+			var div_4 = document.getElementById("div_tab_4");
+			var div_5 = document.getElementById("div_tab_5");
+			
+			game_span = document.getElementById("span_game");
+
+			switch (parseInt(month))
+			{
+				case 0:
+				baidu.app.setHeight(383);
+				tab_1.innerHTML = "味觉";
+				tab_2.innerHTML = "嗅觉";
+				tab_3.innerHTML = "视力";
+				tab_4.innerHTML = "认知";
+				tab_5.innerHTML = "运动";
+
+				div_1.innerHTML = "<p>你的宝宝已经有了味觉。事实上，新生儿的味蕾数量似乎比成年人多。" + ta_sex + "对甜和苦这两种味道的感知与生俱来，但对咸味食物的反应大约要在5个月之后才有。</p>";
+				div_2.innerHTML = "<p>你的宝宝生下来就会使用" + ta_sex + "的嗅觉，而且能够找出气味是从哪里来的：留意观察，当" + ta_sex + "闻到难闻的气味（像" + ta_sex + "的脏尿布）时，" + ta_sex + "是怎样把小脑袋扭开的。研究表明，5天大的新生儿会转向浸满了母乳的垫子，利用" + ta_sex + "的嗅觉，你的宝宝可以蹭着找到你的乳房。</p>";
+				div_3.innerHTML = "<p>宝宝第2周大时看东西还很不清楚，因为" + ta_sex + "天生就是个近视眼，只能看清眼前20〜25厘米左右的东西，所以只有你把" + ta_sex + "抱到眼前时，" + ta_sex + "才能看清你的脸。新生儿最喜欢看人的脸。其次则是颜色明亮、能活动、对比鲜明以及黑白图案的物品。</p>";
+				div_4.innerHTML = "<p>宝宝清醒时，引逗宝宝看大人的脸，大人可以微笑着和宝宝对视，并缓慢左右移动锻炼宝宝的视觉跟踪能力，还可以在确定宝宝能看到大人的情况下，在小床周围缓慢走动，并呼唤宝宝，逗引宝宝追视。</p>";
+				div_5.innerHTML = "<p>在这么小的时候，宝宝本能地认识人脸和表情动作，有时甚至能够模仿。你可以试试凑近宝宝的小脸，伸几次舌头或扬几次眉毛，然后看看宝宝会不会模仿你的动作。</p>";
+				game_span.innerHTML = "0个月宝宝的";
+				break
+
+				case 1:
+				baidu.app.setHeight(383);
+				tab_1.innerHTML = "视觉";
+				tab_2.innerHTML = "听觉";
+				tab_3.innerHTML = "运动";
+				tab_4.innerHTML = "认知";
+				tab_5.innerHTML = "社交";
+
+				div_1.innerHTML = "<p>现在，你宝宝的双眼已经能持续地追随物体，并能更自如地盯着移动的东西看了。事实上，可能要再过3个月，宝宝的目光才能很流畅地追踪垂直运动的物体，再过6个月，" + ta_sex + "的视线才能随物体斜线移动。</p>";
+				div_2.innerHTML = "<p>你的宝宝可能也很喜欢风铃的叮当声或钟表的滴答声。给宝宝听的声音的种类越多，效果就越明显。最后你会发现宝宝对某类音乐更有反应，表现出更喜欢。" + ta_sex + "开始形成自己的爱好了。</p>";
+				div_3.innerHTML = "<p>宝宝的颈部肌肉正变得越来越强壮，这使" + ta_sex + "能够短时间地把头撑起来。比如，" + ta_sex + "趴着的时候，可以把头支起来一小会儿，可能还可以把脸从一边转向另一边。" + ta_sex + "在汽车婴儿座上或前背式婴儿兜里也许能把头撑起来了。</p>";
+				div_4.innerHTML = "<p>大人要给宝宝说儿歌，讲故事。要对着宝宝发出说话，以逗引宝宝回应。大人对宝宝的发音，也要有回应，可以通过跟宝宝玩耍，宝宝喜爱的玩具图片逗引宝宝发声。</p>";
+				div_5.innerHTML = "<p>无论在哪种文化中，宝宝第一次笑的时间都差不多，所以做好准备迎接你宝宝那天真无“牙”的灿烂微笑吧，那是只为你绽放的微笑，是对你所有呵护的回报。这种微笑可以把你的心全都融化了，即使是在你刚度过了一个最糟糕的不眠之夜的时候。</p>";
+				game_span.innerHTML = "1个月宝宝的";
+				break
+
+				case 2:
+				baidu.app.setHeight(383);
+				tab_1.innerHTML = "视觉";
+				tab_2.innerHTML = "听觉";
+				tab_3.innerHTML = "运动";
+				tab_4.innerHTML = "认知";
+				tab_5.innerHTML = "社交";
+
+				div_1.innerHTML = "<p>这时候，你的宝宝已经从早期偏好明亮、双色的物体，发展到开始喜欢那些更为复杂的、有更多细节的图案、色彩和形状。为宝宝准备更多不同类别的玩具，让" + ta_sex + "触摸，比如软球和毛绒玩具。</p>";
+				div_2.innerHTML = "<p>你的宝宝的听力变得更加敏锐，" + ta_sex + "能够分辨出" + ta_sex + "所熟悉的人说话的声音了。宝宝还会让你知道，" + ta_sex + "明白周围发生的事情。留意一下，当" + ta_sex + "听到声音后，怎样四处看，寻找声音发出的地方。</p>";
+				div_3.innerHTML = "<p>你的宝宝正在学习“摇滚”，不过，现在可能还只有“滚”的本事。在这个阶段，有些宝宝可能已经会从侧躺翻到仰卧，再从仰卧翻到侧卧，也就是翻半个身。但要完整地翻过身来，恐怕还要等1个月左右才会做，因为宝宝需要更强壮的颈部和手臂肌肉，才能完成这个动作。</p>";
+				div_4.innerHTML = "<p>多与宝宝交流，培养宝宝的视听能力和社交能力，宝宝这时已经可以区分出妈妈的说话声，能够用眼睛搜索声音，父母在这个阶段应该多让宝宝变换位置，感受不同的视觉刺激，训练听力，初步培养追踪声音来源的能力，感受声音远近的能力。</p>";
+				div_5.innerHTML = "<p>在这个年龄，你的宝宝应该会愿意与其" + ta_sex + "宝宝和大人们交朋友。你可能注意到，当宝宝看到有人走进房间时，" + ta_sex + "会露出微笑；当有人伸出双臂想要抱" + ta_sex + "时，" + ta_sex + "也会张开双臂。</p>";
+				game_span.innerHTML = "2个月宝宝的";
+
+				break
+
+				case 3:
+				baidu.app.setHeight(383);
+				tab_1.innerHTML = "语言";
+				tab_2.innerHTML = "触觉";
+				tab_3.innerHTML = "运动";
+				tab_4.innerHTML = "认知";
+				tab_5.innerHTML = "社交";
+
+				div_1.innerHTML = "<p>当你带着宝宝散步时，给" + ta_sex + "描述一下你周围的环境；当你逛超市时，利用穿梭在货架之间的机会，指给" + ta_sex + "看货价上的各种物品，并告诉" + ta_sex + "物品的名字和用途。虽然你的宝宝还不能重复这些词语，但是" + ta_sex + "正在把这些信息通通储存在" + ta_sex + "那飞速发展的记忆里。</p>";
+				div_2.innerHTML = "<p>用各种各样的材料来培养宝宝的触觉——比如毛皮、毛毡、毛巾等。你的宝宝可能会把每样东西都用嘴来尝一尝，所以，你要小心选择，而且不要让" + ta_sex + "一个人玩那些有可能会在" + ta_sex + "嘴里散架的东西。找一些为配合训练宝宝的触觉而设计的触摸式图书，让读书变成可以触摸的体验。</p>";
+				div_3.innerHTML = "<p>你的宝宝现在能够挥舞小胳臂、蹬蹬小腿了。随着宝宝的髋关节和膝关节变得更灵活，" + ta_sex + "的蹬腿动作也更加有力了。托住宝宝，让" + ta_sex + "双脚着地，你能感觉到" + ta_sex + "在用力地向下蹬。</p>";
+				div_4.innerHTML = "<p>抱宝宝看台灯，开关台灯，并对宝宝说“灯”，一关一开的灯光会吸引宝宝，并形成条件反射，听到大人说灯，宝宝就能找到灯目标。日常生活中，可以让宝宝听电话铃声，让宝宝多接触生活中常见的几种声音，经过多次反复训练，宝宝会很快建立条件反射，听到声音便看物体。</p>";
+				div_5.innerHTML = "<p>在这个年龄段，大约有一半的宝宝，开始表现出" + ta_sex + "们能够明显地认出自己的父母了。你的宝宝很有可能仍然会对陌生人微笑，但" + ta_sex + "肯定会更喜欢你和你的爱人，以及" + ta_sex + "中意的少数几个人。</p>";
+				game_span.innerHTML = "3个月宝宝的";
+				
+				break
+
+				case 4:
+				baidu.app.setHeight(383);
+				tab_1.innerHTML = "语言";
+				tab_2.innerHTML = "视力";
+				tab_3.innerHTML = "运动";
+				tab_4.innerHTML = "认知";
+				tab_5.innerHTML = "社交";
+
+				div_1.innerHTML = "<p>研究人员认为，你的宝宝现在能够明白母语中所有的基本发音了。你可以通过重复、或模仿宝宝的表情和声音，来鼓励" + ta_sex + "与人交流。" + ta_sex + "可能会试着模仿你了。你说“ba”，" + ta_sex + "可能也会试着发这个音来回应你。</p>";
+				div_2.innerHTML = "<p>宝宝对色彩之间的差别区分得更清楚了，" + ta_sex + "开始能够辨别相近的颜色了。为宝宝准备一些各种颜色的图书、玩具和衣服，帮助" + ta_sex + "提高色彩辨别能力。</p>";
+				div_3.innerHTML = "<p>现在，你宝宝的身体发育得非常快。" + ta_sex + "平躺着时，你伸出手去拉" + ta_sex + "起来，" + ta_sex + "会抬头挺肩地想起来。如果你让" + ta_sex + "趴着，" + ta_sex + "会伸开胳膊，蹬着小腿，反翘起小身子。这是一种很好的锻炼，可以增强" + ta_sex + "的颈部肌肉，并且能够帮助" + ta_sex + "练习头的控制力，为坐起来做准备。</p>";
+				div_4.innerHTML = "<p>给宝宝多看、多听、多摸玩具的机会，并给" + ta_sex + "做婴儿体操。教宝宝认识" + ta_sex + "自己，照镜子时指着镜子里的宝宝和妈妈告诉宝宝" + ta_sex + "们是谁，促进宝宝自我认识的发展。</p>";
+				div_5.innerHTML = "<p>带宝宝出门的机会要逐渐增多，多让宝宝与陌生人接触，起初宝宝进入一个陌生的环境会不习惯，父母要表现出很高兴、很欣喜的样子，要跟宝宝讲话，讲周围的环境。把宝宝给陌生人抱时，一定要让宝宝有一个心理准备阶段。</p>";
+				game_span.innerHTML = "4个月宝宝的";
+
+				break
+
+				case 5:
+				baidu.app.setHeight(383);
+				tab_1.innerHTML = "语言";
+				tab_2.innerHTML = "视力";
+				tab_3.innerHTML = "听觉";
+				tab_4.innerHTML = "运动";
+				tab_5.innerHTML = "社交";
+
+				div_1.innerHTML = "<p>" + ta_sex + "的交流技能也在迅速地提高，" + ta_sex + "发出的尖叫、咿咿呀呀的声音、唱歌似的的音阶变化等等都是证明。" + ta_sex + "的声音能表达" + ta_sex + "的态度或者对东西的反应：诸如喜悦、渴望，甚至满足（如果" + ta_sex + "的问题被很好地解决了）等等等等。</p>";
+				div_2.innerHTML = "<p>你的宝宝能够更好地看到非常小的物品了，" + ta_sex + "还能用眼睛追踪移动中的物体。在这个阶段，宝宝也许只看到物品的一部分就能认出是什么了，比如当" + ta_sex + "看到自己最喜爱的玩具从沙发下露出一角时，" + ta_sex + "知道那是" + ta_sex + "的玩具了。</p>";
+				div_3.innerHTML = "<p>现在你的宝宝能够辨认出声音是从什么地方来的了，一听到新的声音，" + ta_sex + "就会迅速地把头转过去。如果你想吸引宝宝，最简单的方法之一就是晃动一串钥匙。风铃也是吸引宝宝注意力的好东西。</p>";
+				div_4.innerHTML = "<p>6个月左右的宝宝活动能力增加，会翻身、开始学坐，甚至开始学爬。家长要给孩子提供活动空间，可在地上铺上垫子让孩子自由玩耍，减少抱孩子的时间。</p>";
+				div_5.innerHTML = "<p>你的宝宝可能开始表现出“陌生人焦虑”的迹象，也就是人们常说的认生，这是" + ta_sex + "情感发展的第一个重要里程碑。宝宝可能会变得很粘人，只要碰到新面孔（哪怕是熟悉的人），" + ta_sex + "就会感到焦虑不安，如果有陌生人突然接近" + ta_sex + "，宝宝" + ta_sex + "可能还会哭起来。</p>";
+				game_span.innerHTML = "5个月宝宝的";
+				break
+
+				case 6:
+				baidu.app.setHeight(383);
+				tab_1.innerHTML = "语言";
+				tab_2.innerHTML = "运动";
+				tab_3.innerHTML = "精细动作";
+				tab_4.innerHTML = "认知";
+				tab_5.innerHTML = "社交";
+
+				div_1.innerHTML = "<p>教给你的宝宝一些表达" + ta_sex + "自己的方法，也许能帮助" + ta_sex + "减少受挫感。当然，宝宝会做手语，并不是说" + ta_sex + "们就不会再哭闹，或者大发脾气了，但是，这个阶段的宝宝已经可以学习手语了。</p>";
+				div_2.innerHTML = "<p>翻滚可能是宝宝这个阶段最主要的“交通”手段，但" + ta_sex + "也可能干脆跳过这个阶段，直接进入到坐和爬。不论" + ta_sex + "采取什么方式，只要你的宝宝继续学习新的本领，且对四处活动和探索周围的环境表现出兴趣，你就不必担心了。</p>";
+				div_3.innerHTML = "<p>你宝宝的精细动作能力开始得到发展。" + ta_sex + "已经可以用手抓取一些东西，并轻松地把它从一只手转到另一只手上。精细动作能力指的是拇指、手指、手和手腕的细小、准确的运动。这种能力可以使宝宝用大拇指和其" + ta_sex + "手指抓取东西。</p>";
+				div_4.innerHTML = "<p>告诉宝宝家里的人，如爸爸、妈妈、爷爷、奶奶等，学习认人、听音找物，比如灯在哪儿？理解语言及认识物品。在寻找人和物品的游戏中，逐渐理解语言词汇。培养宝宝的好奇心，乐于探索，与人合作的良好心态。</p>";
+				div_5.innerHTML = "<p>你的宝宝开始想其" + ta_sex + "办法来引起你的关注：" + ta_sex + "不仅仅只用哭来得到你的注意。你还会注意到宝宝在扭动小身体，动不动就弄出点声响，伸出舌头“呸呸”作声，等等。在接下来的3个月里，" + ta_sex + "会以自己独特的方式让你知道：" + ta_sex + "在想什么，要做什么，需要什么。</p>";
+				game_span.innerHTML = "6个月宝宝的";
+				break
+
+				case 7:
+				baidu.app.setHeight(383);
+				tab_1.innerHTML = "运动";
+				tab_2.innerHTML = "认知";
+				tab_3.innerHTML = "适应能力";
+				tab_4.innerHTML = "智能";
+				tab_5.innerHTML = "社交";
+
+				div_1.innerHTML = "<p>独坐时间可以适当延长，要多练习爬行，开始学扶站。父母可以和" + ta_sex + "一起做游戏，多进行户外活动，让宝宝观察世界。此时孩子的运动机能发达了，家里危险的东西一定要收起来，免得碰伤孩子，不要让孩子捅危险的地方。继续尝试让宝宝用水杯喝水。</p>";
+				div_2.innerHTML = "<p>你可以把一个物体藏起来，等着宝宝去找它。这是让你宝宝闲不下来的最简单的方法之一。宝宝已经能够识别不同的音调和口吻了。如果你很严厉地跟宝宝讲话，" + ta_sex + "可能会被你吓哭哦！</p>";
+				div_3.innerHTML = "<p>你的宝宝已经开始试着用" + ta_sex + "的小手自己抓东西吃了，尽管有些宝宝要到10个月时才可能完成这种动作。但一旦" + ta_sex + "到了这个阶段，你就可以开始让宝宝使用学饮杯了。</p>";
+				div_4.innerHTML = "<p>你的宝宝正在开始了解三维空间里的各种事物之间是怎样互相关联的。" + ta_sex + "可能可以给玩具归类了，比如把一些较小的东西堆放在一起。宝宝还会本能地把玩具一个一个地搭起来。等宝宝再大一些时，" + ta_sex + "还会试着把一个玩具塞进另一个玩具里面。</p>";
+				div_5.innerHTML = "<p>你的宝宝可能会学着去判断和模仿情绪，并且还会流露出最早的同情心。比如，要是" + ta_sex + "听到有人哭时，" + ta_sex + "可能也会跟着哭起来。尽管你的宝宝刚开始了解自己的情感，" + ta_sex + "正在通过观察你的言行举止来学习。在今后的几个月（甚至几年）里，你待人接物的方式都是宝宝模仿的对象。</p>";
+				game_span.innerHTML = "7个月宝宝的";
+				break
+
+				case 8:
+				baidu.app.setHeight(383);
+				tab_1.innerHTML = "视觉";
+				tab_2.innerHTML = "运动";
+				tab_3.innerHTML = "认知";
+				tab_4.innerHTML = "智能";
+				tab_5.innerHTML = "社交";
+
+				div_1.innerHTML = "<p>现在，宝宝的视力在视觉清晰度和对深度的感知方面都已接近成人水平了。尽管宝宝现在还是看近处的东西最清楚，不过，" + ta_sex + "的远程视力也好到足以看清房间那头的人和物了。</p>";
+				div_2.innerHTML = "<p>手膝爬行是你宝宝学会的第一个能让自己有效地四处移动的本领。通常，" + ta_sex + "先学会用手带动自己，然后用手和膝盖把自己支撑起来。" + ta_sex + "会尝试如何通过挪动膝盖使自己向前、向后移动。</p>";
+				div_3.innerHTML = "<p>当你说出某个物体的名字时，注意看" + ta_sex + "开始能够指向或看那个物体了，尤其是" + ta_sex + "熟悉的东西，比如眼睛、鼻子或者嘴巴，或者" + ta_sex + "很喜欢的东西，像小狗或橡皮鸭子等。</p>";
+				div_4.innerHTML = "<p>智能和运动发展障碍危险信号：1、宝宝不会翻身、独坐，双手扶物不能站立。2、不会设法拿够不到的玩具、玩具不会倒手。3、不能发出声音吸引大人注意。4、对妈妈没有依恋，听不懂词汇。5、不会伸手要大人抱。</p>";
+				div_5.innerHTML = "<p>有时候，当你的宝宝遇到" + ta_sex + "不能理解的事物时，" + ta_sex + "会感到害怕。哪怕是以前" + ta_sex + "不在乎的事情，像丁当作响的门铃声或炉子上水壶的鸣哨声，现在" + ta_sex + "都可能会感到害怕。出现这种情况时，身为父母的你要做的最重要的事就是安慰宝宝，让" + ta_sex + "不要害怕。告诉宝宝：你就在" + ta_sex + "身边，" + ta_sex + "是安全的。给宝宝一个拥抱，把" + ta_sex + "搂在怀里依偎一下，也许" + ta_sex + "就没事了。</p>";
+				game_span.innerHTML = "8个月宝宝的";
+				break
+
+				case 9:
+				tab_1.innerHTML = "语言";
+				tab_2.innerHTML = "运动";
+				tab_3.innerHTML = "认知";
+				tab_4.innerHTML = "智能";
+				tab_5.innerHTML = "社交";
+
+				div_1.innerHTML = "<P>你宝宝出生以来听到的大量词汇现在已经开始显现出神奇的作用，" + ta_sex + "的“咿咿呀呀”已经变成了隐隐约约的语调，可能听起来更像是真正的词、短语和句子了。你的宝宝认为" + ta_sex + "是在跟你“说”事情，因此，你要装做能听懂" + ta_sex + "的话似地去认真回应" + ta_sex + "。</P>";
+				div_2.innerHTML = "<p>十个月的宝宝会爬和坐了，自己扶东西就能够站起来，还能在扶持下摇摇晃晃地走起来。所以家里的家具的角应用布包起来；孩子伸手碰得到的地方，不要放热的东西；电线不要伸出过长。要消除屋里的一切不安全因素。</p>";
+				div_3.innerHTML = "<p>1岁前的最后3个月是宝宝模仿能力最强的时期，要鼓励宝宝多说话，多让宝宝认识物品，在指认物品的时候辅以语言的解说，让宝宝多积累词汇。</p>";
+				div_4.innerHTML = "<p>到了这周，你的宝宝开始能记住一些更具体的事了，比如，" + ta_sex + "的玩具在家里的什么地方。同时，宝宝也能模仿" + ta_sex + "从前看到过的动作，甚至是一周前所看到的动作。宝宝的这些技能表明" + ta_sex + "已经有记忆能力—— 一种在短期内记住某种经历细节的能力。</p>";
+				div_5.innerHTML = "<p>从现在起到接下来的几个月里，宝宝的分离焦虑感达到了高潮。宝宝表现出对你极度依恋，并且害怕其" + ta_sex + "人是很正常的现象，但是这还是会让宠爱宝宝的爷爷、奶奶或照顾" + ta_sex + "的人感到为难。为帮助宝宝逐渐适应，你可以提醒其" + ta_sex + "人慢慢接近宝宝，并等待宝宝来主动接近" + ta_sex + "们。</p>";
+				game_span.innerHTML = "9个月宝宝的";
+				break
+
+				case 10:
+				tab_1.innerHTML = "语言";
+				tab_2.innerHTML = "运动";
+				tab_3.innerHTML = "认知";
+				tab_4.innerHTML = "精细动作";
+				tab_5.innerHTML = "社交";
+
+				div_1.innerHTML = "<p>现在，你的宝宝正在开始明白很多简单词语的意思，所以，这时候不断和" + ta_sex + "说话比以往任何时候都更重要。你应该用成人的语言把宝宝说的词语再重复说给" + ta_sex + "听，这样你的“小话匣子”会从一开始就接受良好的语言模式。</p>";
+				div_2.innerHTML = "<p>在这个阶段，你的宝宝能有自信地坐着，甚至还能扶着家具走上几步，没准儿" + ta_sex + "还会放开小手，独自站立片刻。如果你扶着宝宝做好走路的姿势，" + ta_sex + "会迈步；站着的时候，可能还会试着从地上捡起玩具。</p>";
+				div_3.innerHTML = "<p>继续发展宝宝的语言，可以给宝宝看画册讲故事，认识周围的人物、实物、图片，带宝宝到外面认识一些外面的事物。教宝宝一些沟通的手势，如欢迎、再见、谢谢等。父母要与宝宝多交流。</p>";
+				div_4.innerHTML = "<p>你宝宝的手指正变得越来越灵巧。" + ta_sex + "已经能够用大拇指和食指像钳子似地把小东西拣起来了。" + ta_sex + "可能已经不需要将手腕倚在坚硬的表面上，就可以捡起一小片吃的东西或其" + ta_sex + "小物品了。</p>";
+				div_5.innerHTML = "<p>你的宝宝现在和其" + ta_sex + "孩子在一起时，也许会坚持一下自己的意愿了，而且" + ta_sex + "开始喜欢和别的宝宝一起玩。" + ta_sex + "会开心地坐在其" + ta_sex + "宝宝的旁边自己玩儿，但这个阶段，" + ta_sex + "还不会和" + ta_sex + "们一起玩。为宝宝找一些经常在一起玩的小伙伴，是鼓励你家小宝贝发展社交技能的好方法。</p>";
+				game_span.innerHTML = "10个月宝宝的";
+				break
+
+				case 11:
+				tab_1.innerHTML = "语言";
+				tab_2.innerHTML = "运动";
+				tab_3.innerHTML = "认知";
+				tab_4.innerHTML = "智能";
+				tab_5.innerHTML = "社交";
+
+				div_1.innerHTML = "<p>在这个年龄，宝宝很可能会模仿词语的发音和音调的变化了。" + ta_sex + "也许能够执行简单的单步指令，比如“请把球给我”或“把小勺拣起来”。你可以把复杂的指令分解成比较容易的单个步骤，借助手势强化指令，来帮助宝宝学习。</p>";
+				div_2.innerHTML = "<p>如果你的宝宝现在还不会走路，" + ta_sex + "可能很快就要迈出独立的第一步了。大多数宝宝初学走路的姿势是：胳膊弯着（为了保持平衡）向身体两侧张开，迈着外八字步，挺着肚子、撅着屁股来保持平衡。</p>";
+				div_3.innerHTML = "<p>大人买一个布娃娃，大人先给宝宝指出布娃娃的五官，对于每一个部位，大人都要强化。譬如指到鼻子，大人要告诉宝宝“鼻子”，然后大人说“鼻子”，让宝宝指认。</p>";
+				div_4.innerHTML = "<p>虽然你的宝宝还不会一页页像模像样地看书，但现在" + ta_sex + "很可能已经喜欢翻着书页、陶醉在精美的图画书里，比如专为婴幼儿编的经典童话绘本，介绍色彩与形状的益智画册。</p>";
+				div_5.innerHTML = "<p>因为现在宝宝已经有了一定的接受能力，所以是时候教" + ta_sex + "帮大人干点儿活了。你要特别注意对宝宝说“请”和“谢谢”，并把整理玩具当成做游戏，让宝宝觉得很好玩。虽然宝宝现在可能还不明白这样做的目的，但是早点开始这方面的教育总有好处。</p>";
+				game_span.innerHTML = "11个月宝宝的";
+				break
+
+				case 12:
+				game_span.innerHTML = "12个月宝宝的";break
+				case 13:
+				game_span.innerHTML = "13个月宝宝的";break
+				case 14:
+				game_span.innerHTML = "14个月宝宝的";break
+				case 15:
+				tab_1.innerHTML = "语言";
+				tab_2.innerHTML = "运动";
+				tab_3.innerHTML = "精细动作";
+				tab_4.innerHTML = "智能";
+				tab_5.innerHTML = "社交";
+
+				div_1.innerHTML = "<p>宝宝已经会用“爸爸”、“妈妈”和其" + ta_sex + "几个你能听懂的词了。因为词汇量不多，" + ta_sex + "会用其" + ta_sex + "办法让你明白" + ta_sex + "想要什么。如果" + ta_sex + "想下来，会指指下面；如果" + ta_sex + "想让你注意" + ta_sex + "，会拉拉你的衣服。" + ta_sex + "也能听懂不少你每天对着" + ta_sex + "说的话了。</p>";
+				div_2.innerHTML = "<p>约有3／4的宝宝在1岁1个月时能自己走，不过多半还不稳当。如果你的宝宝还要依靠家具或其" + ta_sex + "东西支撑，也别担心，再过段时间，" + ta_sex + "就能独立走路了。有些宝宝直到17或18个月大，甚至更大一些才能自己走。</p>";
+				div_3.innerHTML = "<p>运用双手的能力也会更为熟练。大多数13个月大的宝宝都能抓住一块积木，并把它扔到盒子里，一些宝宝现在都会涂鸦了。你的宝宝没准儿能握住勺子，但现在还别指望" + ta_sex + "每次都能稳稳地运用勺子。</p>";
+				div_4.innerHTML = "<p>智能和运动发展障碍危险信号：1、仍然不会扶东西走。2、不会欢迎、再见、不会用摇头表示不同意、想要东西不会用手去指。听不懂话。3、不会玩玩具。</p>";
+				div_5.innerHTML = "<p>每个孩子天生都有一套与世界互动的特别方式，这就是" + ta_sex + "的性情。随着年龄的增长，这些与生俱来的倾向将开始表现出来。" + ta_sex + "开始把自己当作一个独立的个体，而不仅仅是你的延伸物。尊重宝宝的天性，有助于" + ta_sex + "充分发挥自己的潜能。</p>";
+				game_span.innerHTML = "15个月宝宝的";
+				break
+
+				case 16:
+				game_span.innerHTML = "16个月宝宝的";break
+				case 17:
+				game_span.innerHTML = "17个月宝宝的";break
+				case 18:
+				tab_1.innerHTML = "运动";
+				tab_2.innerHTML = "认知";
+				tab_3.innerHTML = "智能";
+				tab_4.innerHTML = "社交";
+				tab_5.innerHTML = "习惯养成";
+
+				div_1.innerHTML = "<p>宝宝走得越来越熟练了，" + ta_sex + "可能会在大人帮助下爬楼梯，喜欢在家具上到处爬。" + ta_sex + "会试着踢球，但并不总能踢到。如果你放音乐，宝宝多半喜欢跟着跳舞；如果能够到的话，" + ta_sex + "会推、转按钮和球形把手。</p>";
+				div_2.innerHTML = "<p>宝宝将开始分辨玩具和其" + ta_sex + "东西间的相似与不同之处，" + ta_sex + "玩的时候，你会发现" + ta_sex + "喜欢按照颜色、形状和类别把它们分堆儿。还有，你的宝宝没准也能自己脱衣服或假装给" + ta_sex + "的玩具娃娃喂饭了！</p>";
+				div_3.innerHTML = "<p>如果从婴儿期开始，你就一直给宝宝读书，那么现在你们一起分享一个故事会是一种非常平静的体验。让宝宝自己选书，哪怕是一本你们已经读了无数遍的书。和宝宝一起边指边说出动物、物体、颜色等的名称。</p>";
+				div_4.innerHTML = "<p>现在是让" + ta_sex + "懂礼貌的好时机。你要向宝宝示范你希望" + ta_sex + "掌握的礼仪，如果你想让" + ta_sex + "做什么事，要说请，等" + ta_sex + "做好之后，要谢谢" + ta_sex + "。最好试着告诉宝宝，说话中表达出尊重的重要性。“请”和“谢谢”不应被鹦鹉学舌般地敷衍了事，这些词应该体现出关心和真情。</p>";
+				div_5.innerHTML = "<p>在巩固良好习惯的同时，要及时纠正宝宝出现的不良习惯，如睡眠时要吮手指，玩弄生殖器等。要培养宝宝的自理能力，可让宝宝自己握勺吃饭、脱鞋袜衣服、放玩具等。学着帮助别人做事，如拿报纸、捡东西等。</p>";
+				game_span.innerHTML = "18个月宝宝的";
+				break
+
+				case 19:
+				game_span.innerHTML = "19个月宝宝的";break
+				case 20:
+				game_span.innerHTML = "20个月宝宝的";break
+				case 21:
+				tab_1.innerHTML = "语言";
+				tab_2.innerHTML = "运动";
+				tab_3.innerHTML = "认知";
+				tab_4.innerHTML = "护理";
+				tab_5.innerHTML = "社交";
+
+				div_1.innerHTML = "<p>虽然你或许对宝宝的话还有一大半听不懂，但" + ta_sex + "却开始理解你说的大部分话了。" + ta_sex + "的词汇量猛增，而且还能把两个词放在一起说，比如“我去”或者“你放”。除了发脾气和四处探索，你可能还会发现宝宝有自己的观点了。</p>";
+				div_2.innerHTML = "<p>此时宝宝多半会跑了，尽管还不熟练。" + ta_sex + "可能还会独自上楼梯，但下来的时候很可能还需要些帮助。" + ta_sex + "说不定也会踢球了。然而，大部分宝宝在20个月大时，还不会跳或把手举过肩去扔球。</p>";
+				div_3.innerHTML = "<p>宝宝将开始明白哪些事情是不符合大人观点的。" + ta_sex + "会对那些明显错误的东西感到好笑，比如把长颈鹿叫做斑马或把哥哥喊成姐姐。" + ta_sex + "还会认识到什么时候某个东西不是它原来的样子了，比如掉了一只眼睛的玩具熊或地毯上的一块新污渍。</p>";
+				div_4.innerHTML = "<p>要多带宝宝到室外去，训练宝宝的跑、跳、抛、扔等动作，既增强了宝宝体质又提高了宝宝的运动能力。也正是由于这些，要预防宝宝外伤，父母要学会一些急救的方法。</p>";
+				div_5.innerHTML = "<p>宝宝能从自由玩耍中获得所有" + ta_sex + "需要的刺激，所以直到" + ta_sex + "至少3岁前，你都可以不用让" + ta_sex + "上什么正规的学习班。创造机会让宝宝到小区或朋友家见识更多的孩子吧。不过，这个月龄的宝宝还不会一起玩。</p>";
+				game_span.innerHTML = "21个月宝宝的";
+				break
+
+				case 22:game_span.innerHTML = "22个月宝宝的";break
+				case 23:game_span.innerHTML = "23个月宝宝的";break
+				case 24:
+				tab_1.innerHTML = "语言";
+				tab_2.innerHTML = "运动";
+				tab_3.innerHTML = "智能";
+				tab_4.innerHTML = "社交";
+				tab_5.innerHTML = "习惯";
+
+				div_1.innerHTML = "<p>宝宝此时多半能哼调子、唱歌、说像“狗狗跑出去”这样包含3个词的句子；" + ta_sex + "明白包含两个步骤的要求，比如“过来，转过去，让我给你的背上擦防晒霜”；宝宝多半也会明白像“高个子”、“矮个子”、“大狗”、“小狗”这样的反义词。</p>";
+				div_2.innerHTML = "<p>宝宝开始显露出对右手或左手的使用偏爱了，这是由" + ta_sex + "的基因决定的，有5%〜10%的人是左撇子。大约有20%的孩子是左右开弓，从来不会完全偏爱用哪只手。尽管我们生活在一个右手主导的社会，但如果很明显你的宝宝爱用左手，也不要太逼" + ta_sex + "去纠正。</p>";
+				div_3.innerHTML = "<p>宝宝能够在头脑中形成图像、组织分类，并按顺序排列东西等等。" + ta_sex + "会花大量的时间去分类，指出一页画上所有的猫或所有的气球。但宝宝还不能把所有“漂亮”或“沉重的”东西都指出来，因为这些是抽象概念。宝宝的记忆力还在发育之中，" + ta_sex + "才刚刚开始理解概念。</p>";
+				div_4.innerHTML = "<p>宝宝开始比以前喜欢和别的孩子一起玩了。" + ta_sex + "可能会模仿一个大一些的哥哥、姐姐如何运球，或者在其" + ta_sex + "孩子玩追逐游戏时跟着跑。无论玩什么游戏，" + ta_sex + "都可能想让你一起参加。</p>";
+				div_5.innerHTML = "<p>培养宝宝的独立性，凡是" + ta_sex + "力所能及、乐意做的事，父母应放手让" + ta_sex + "去做。可以让宝宝学自己吃饭、学习漱口、刷牙、自己穿脱鞋袜、简单衣服等。父母不要嫌麻烦，要给宝宝提供锻炼学习的机会。要对宝宝的表现给予鼓励。</p>";
+				game_span.innerHTML = "24个月宝宝的";
+				break
+
+				case 25:game_span.innerHTML = "25个月宝宝的";break
+				case 26:game_span.innerHTML = "26个月宝宝的";break
+				case 27:game_span.innerHTML = "27个月宝宝的";break
+				case 28:game_span.innerHTML = "28个月宝宝的";break
+				case 29:game_span.innerHTML = "29个月宝宝的";break
+				case 30:
+				tab_1.innerHTML = "体形";
+				tab_2.innerHTML = "语言";
+				tab_3.innerHTML = "运动";
+				tab_4.innerHTML = "护理";
+				tab_5.innerHTML = "社交";
+
+				div_1.innerHTML = "<p>宝宝两周岁后会变得越来越苗条，头长的速度比以前慢得多。四肢和身体躯干开始长长，身体各部分比例也会更像成年人。</p>";
+				div_2.innerHTML = "<p>现在，宝宝可能会用至少50个词了，会组简单的包含两个词的句子，能执行有两个步骤的要求，比如“去拿你的鞋给爸爸，让" + ta_sex + "帮你穿上。”你大概有一半时间能明白宝宝在说些什么。小一点儿的孩子经常混淆代词，因此，宝宝可能会尽量避免使用代词，用“哥哥拿”或“宝宝扔”这样的话来代替。</p>";
+				div_3.innerHTML = "<p>现在宝宝能走得很好了，脚步更加协调连贯。宝宝已经掌握了大人们使用的从脚跟到脚趾的落地动作，" + ta_sex + "在跳跃、举手过肩扔球、自己刷牙、洗手擦手等方面也比以前强多了。</p>";
+				div_4.innerHTML = "<p>相对于2岁前，宝宝能够玩更多刺激的游戏，能够做更多的动作，使得来自生活中的危险不断增多，大人要注意对孩子的保护，防止孩子的意外伤害。</p>";
+				div_5.innerHTML = "<p>这个年龄的宝宝或许能分辨出一个朋友的名字。随着宝宝越来越能意识到" + ta_sex + "人的所思所想，" + ta_sex + "会变得更愿意跟别的孩子一起玩。别指望宝宝的行为自始至终都无可挑剔，只要坚持用正面的方式提醒" + ta_sex + "就好，让" + ta_sex + "明白语言要比武力更能解决问题。</p>";
+				game_span.innerHTML = "30个月宝宝的";
+				break
+
+				case 31:game_span.innerHTML = "31个月宝宝的";break
+				case 32:game_span.innerHTML = "32个月宝宝的";break
+				case 33:game_span.innerHTML = "33个月宝宝的";break
+				case 34:game_span.innerHTML = "34个月宝宝的";break
+				case 35:game_span.innerHTML = "35个月宝宝的";break
+				case 36:
+				tab_1.innerHTML = "语言";
+				tab_2.innerHTML = "运动";
+				tab_3.innerHTML = "游戏";
+				tab_4.innerHTML = "社交";
+				tab_5.innerHTML = "教育";
+
+				div_1.innerHTML = "<p>随着宝宝对" + ta_sex + "人的意识不断提高，" + ta_sex + "会开始根据自己的谈话对象改变" + ta_sex + "说的话。和同龄人或成年人说话时，" + ta_sex + "会开始使用不同的词和声调。你甚至可能注意到宝宝和比" + ta_sex + "小的孩子说话时，用的是更简单的语言。</p>";
+				div_2.innerHTML = "<p>宝宝的很多基本动作现在都已经成为" + ta_sex + "的第二天性了。" + ta_sex + "走路、站立、跑步、跳跃的时候不再需要集中精力了。不过，有些动作，诸如踮着脚尖站或单脚站，可能还需要集中注意力和付出努力后才能做到。</p>";
+				div_3.innerHTML = "<p>三岁的宝宝喜欢猜谜语和编谜语，家长可以编谜语让宝宝猜，然后再让孩子自己编，让家长猜。要通过穿珠子、折纸、剪纸等游戏发展宝宝的精细动作，通过球类、玩沙、玩泥等运动提高动作能力。</p>";
+				div_4.innerHTML = "<p>当孩子长大一些的时候，" + ta_sex + "会对社交更感兴趣。你的宝宝多半开始把" + ta_sex + "的玩伴当作朋友，" + ta_sex + "正在明白小小的善意，诸如分享和给予，都是友谊的内容。随着宝宝的天性开始越来越多地表现出来，你要明白地告诉" + ta_sex + "，不管" + ta_sex + "的性情是安静型的、冒险型的、沉思型的，还是交际型的，你都喜欢。尊重宝宝的处世方式，有助于让" + ta_sex + "感到安全和自信。</p>";
+				div_5.innerHTML = "<p>要多给宝宝看图画书，看图讲故事，让宝宝能够熟悉故事内容，激发宝宝的阅读兴趣，要培养宝宝日常的交往能力，多带宝宝到小朋友多的地方，多接触陌生人。要在日常生活中、游戏中引导孩子观察各种自然现象，培养孩子从小爱科学。</p>";
+				game_span.innerHTML = "36个月宝宝的";
+				break
+			}
+
+		}
+
+		function show_div_1()
+		{
+			baidu.app.setHeight(383);
+			document.getElementById("td_tab").style.backgroundImage = "url(images/e_r2_c2.gif)";
+
+			document.getElementById("div_tab_1").style.display = "block";
+			document.getElementById("div_tab_2").style.display = "none";
+			document.getElementById("div_tab_3").style.display = "none";
+			document.getElementById("div_tab_4").style.display = "none";
+			document.getElementById("div_tab_5").style.display = "none";
+		}
+		function show_div_2()
+		{
+			baidu.app.setHeight(383);
+			document.getElementById("td_tab").style.backgroundImage = "url(images/e_r2_c3.gif)";
+
+			document.getElementById("div_tab_1").style.display = "none";
+			document.getElementById("div_tab_2").style.display = "block";
+			document.getElementById("div_tab_3").style.display = "none";
+			document.getElementById("div_tab_4").style.display = "none";
+			document.getElementById("div_tab_5").style.display = "none";
+		}
+		function show_div_3()
+		{
+			baidu.app.setHeight(383);
+			document.getElementById("td_tab").style.backgroundImage = "url(images/e_r2_c4.gif)";
+
+			document.getElementById("div_tab_1").style.display = "none";
+			document.getElementById("div_tab_2").style.display = "none";
+			document.getElementById("div_tab_3").style.display = "block";
+			document.getElementById("div_tab_4").style.display = "none";
+			document.getElementById("div_tab_5").style.display = "none";
+		}
+		function show_div_4()
+		{
+			baidu.app.setHeight(383);
+			document.getElementById("td_tab").style.backgroundImage = "url(images/e_r2_c5.gif)";
+
+			document.getElementById("div_tab_1").style.display = "none";
+			document.getElementById("div_tab_2").style.display = "none";
+			document.getElementById("div_tab_3").style.display = "none";
+			document.getElementById("div_tab_4").style.display = "block";
+			document.getElementById("div_tab_5").style.display = "none";
+		}
+		function show_div_5()
+		{
+			baidu.app.setHeight(383);
+			document.getElementById("td_tab").style.backgroundImage = "url(images/e_r2_c6.gif)";
+
+			document.getElementById("div_tab_1").style.display = "none";
+			document.getElementById("div_tab_2").style.display = "none";
+			document.getElementById("div_tab_3").style.display = "none";
+			document.getElementById("div_tab_4").style.display = "none";
+			document.getElementById("div_tab_5").style.display = "block";
+		}
+		</script>
+		<script src="http://app.baidu.com/static/appstore/monitor.st"></script>
+		<script>
+		     baidu.app.autoHeight();
+		     baidu.app.setHeight(383);
+		</script>
+	</body>
+</html>
+
+<script type="text/javascript">
+	function change_next()  /*月份加1*/
+	{
+		if (g_month >= 36)
+			{
+			
+			alert("已经过了36个月了，没有项目可看了");
+			return;
+			}	
+		g_month += 1;
+		growth(g_month);
+		// document.getElementById("span_game").innerHTML = g_week;		
+	}
+	function change_prev()  /*月份减1*/
+	{
+		if (g_month <= 1)
+		{
+			alert("已经到第一个月了，不能在往前了！");
+			return;
+		}
+		g_month -= 1;
+		growth(g_month);
+	// 	document.getElementById("span_game").innerHTML = g_week;		
+
+	}
+</script>
+<div style="display:none;">
+<script type="text/javascript">
+var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3F2f4856497854ce3df66f8b40863365d9' type='text/javascript'%3E%3C/script%3E"));
+</script>
+</div>

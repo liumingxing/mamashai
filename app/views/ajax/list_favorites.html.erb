@@ -1,0 +1,27 @@
+<div class="comments01">
+    <div class="comments01_bg_favorites">
+    </div>
+    <div class="comments01_bg2">
+        <% if @post.favorite_posts_count > 0 %>
+        <div class="look">
+            共有<span class="number"><%=@post.favorite_posts_count %></span>个人收藏，<a href="/post/<%=@post.id%>?tp=favorites">看看哪些人收藏了这个微博?</a>
+        </div>
+        <% end %>
+		<% is_favorited = false %>
+        <% for favorite in FavoritePost.find(:all,:conditions=>['post_id=?',@post.id],:include=>[:user],:order=>'favorite_posts.id desc') %>
+         <%=render :partial=>'/home/favorite_content',:locals=>{:favorite=>favorite}%>
+		 <% is_favorited = true if (favorite.user_id == @user.id)%>
+        <% end %>
+		<% if is_favorited %>
+		<div class="is_favorited">您已经收藏了这个微博。</div>
+		<% else %>
+        <% form_remote_tag :url => {:action => :create_favorite_post, :id =>@post.id}, :loading => "",:complete=>'', :update => "post_expand_#{@post.id}" do %>
+        <%=render :partial=>'/home/form_favorite'%>
+		<% end %>
+		<% end %>
+    </div>
+    <div class="comments01_bg3">
+    </div>
+</div>
+<div class="clear">
+</div>

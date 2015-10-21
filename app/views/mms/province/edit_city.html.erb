@@ -1,0 +1,12 @@
+	<div id="middle">
+        <div id="css_mainbody">
+            <h1 class="title">修改<span style="float:right;"><%=link_to "返回", :action=>"list_cities", :id=>@city.province_id %></span></h1>
+			<div class="order_number">
+				<%= form_tag({:action => 'update_city', :id => @city}) do %>
+				  <%= render :partial => 'form_city' %>
+				  <%= submit_tag '保存' %> | <%= link_to '返回', :action => 'list_cities', :id=>@city.province_id %>
+				<% end %>
+			 </div>
+        </div>
+        <div class="clear"></div>
+    </div>

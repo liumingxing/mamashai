@@ -1,0 +1,5 @@
+<div><%=post_video_url(post) if post.video_url %>(放大)</div>
+<div>
+    <embed src="<%=post.video_url.url%>" wmode="transparent" quality="high" width="240" height="200" align="middle" allowScriptAccess="sameDomain" type="application/x-shockwave-flash">
+    </embed>
+</div>

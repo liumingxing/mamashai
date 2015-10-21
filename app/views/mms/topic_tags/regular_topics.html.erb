@@ -1,0 +1,17 @@
+<div id="middle">
+    <div id="css_mainbody">
+    	
+		<h1 class="title"><%= @age.name%>——常规话题
+		<span style="float:right;margin-right: 10px;"><%= link_to "返回", :action=>"index"%></span>
+		</h1>
+		<div style="margin: 20px;">
+		
+		<%= form_tag :action=>"create_regular", :id=>params[:id] do%>
+			<p style="margin: 10px 0;">例如：话题1,话题2,话题3。中间没有空格与回车</p>
+			<%= text_area :age, :topic, :cols=>100%>
+			<br/>
+			<%= submit_tag "保存"%>
+		<% end %>
+		</div>
+	</div>
+</div>

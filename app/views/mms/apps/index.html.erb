@@ -1,0 +1,62 @@
+<div id="middle">
+    <div id="css_mainbody">
+        <h1 class="title">组件管理<span style="float: right; margin-right: 10px;"><%= link_to '新添组件', :action=>:new %>
+            </span></h1>
+        <table class="grid">
+            <tbody>
+                <tr>
+                    <th>
+                        默认顺序
+                    </th>
+                    <th>
+                        组件名称
+                    </th>
+                    <th>
+                        组件类别
+                    </th>
+                    <th>
+                        URL
+                    </th>
+                    <th>
+                        是否为系统组件
+                    </th>
+                    <th>
+                        是否为系统默认 
+                    </th>
+                    <th>
+                        操作
+                    </th>
+                </tr>
+                <% @mms_apps.each do |app| %>
+                <tr>
+                    <td>
+                        <%=h app.default_position %>
+                    </td>
+                    <td>
+                        <%=h app.name %>
+                    </td>
+                    <td>
+                        <%= app.get_type %>
+                    </td>
+                    <td>
+                        <%= link_to app.url,app.url %>
+                    </td>
+					<td>
+                        <%=h app.is_system_components == false ? "否" : "是" %>
+                    </td>
+                    <td>
+                        <%=h app.is_default == false ? "否" : "是" %>
+                    </td>
+                    <td>
+                    	<%= link_to '查看', :action => :show, :id => app %>
+                        <%= link_to '修改', :action => :edit, :id => app %>
+						<%= link_to '删除',"/mms/apps/destroy/#{app.id}",:confirm=>"确定删除吗？"%>
+                    </td>
+                </tr>
+                <% end %>
+            </tbody>
+        </table>
+        <div class="book_page">
+        </div>
+    </div>
+</div>

@@ -1,0 +1,114 @@
+<table style="width: 1000px; padding-left: 50px;">
+    <tbody>
+        <tr>
+            <td class="column_1">
+                Logo：
+            </td>
+            <td class="column_2">
+                <%= f.text_field( :logo) %>
+                <%= f.error_message_on :logo %>
+            </td>
+        </tr>
+        <tr>
+            <td class="column_1">
+                URL：
+            </td>
+            <td class="column_2">
+                <%= f.text_field( :url) %>
+                <%= f.error_message_on :url %>
+            </td>
+        </tr>
+        <tr>
+            <td class="column_1">
+                组件名称：
+            </td>
+            <td class="column_2">
+                <%= f.text_field  :name %>
+                <%= f.error_message_on :name %>
+            </td>
+        </tr>
+        <tr>
+            <td class="column_1">
+                默认顺序：
+            </td>
+            <td class="column_2">
+                <%= f.text_field :default_position %><%= f.error_message_on :default_position %>
+            </td>
+        </tr>
+        <tr>
+            <td class="column_1">
+                功能描述：
+            </td>
+            <td class="column_2">
+                <%= f.text_area  :content %><%= f.error_message_on :content %>
+            </td>
+        </tr>
+        <tr>
+            <td class="column_1">
+                icon：
+            </td>
+            <td class="column_2">
+                <%= f.text_field( :icon) %><%= f.error_message_on :icon %>
+            </td>
+        </tr>
+        <tr>
+            <td class="column_1">
+                子链接名称：
+            </td>
+            <td class="column_2">
+                <%= f.text_field( :sub_link_name) %><%= f.error_message_on :sub_link_name %>
+            </td>
+        </tr>
+        <tr>
+            <td class="column_1">
+                子链接：
+            </td>
+            <td class="column_2">
+                <%= f.text_field( :sub_link) %><%= f.error_message_on :sub_link %>
+            </td>
+        </tr>
+        <tr>
+            <td class="column_1">
+                组件类别：
+            </td>
+            <td class="column_2">
+                <%= f.select :tp, Mms::App.get_types %><%= f.error_message_on :tp %>
+            </td>
+        </tr>
+        <tr>
+            <td class="column_1">
+                是否为系统组件：
+            </td>
+            <td class="column_2">
+                <%= f.check_box :is_system_components %>
+            </td>
+        </tr>
+        <tr>
+            <td class="column_1">
+                是否为系统默认：
+            </td>
+            <td class="column_2">
+                <%= f.check_box :is_default %><%= f.error_message_on :is_default %>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                &nbsp;
+            </td>
+            <td>
+                &nbsp;
+            </td>
+        </tr>
+        <tr>
+            <td cols=2>
+                <%= submit_tag "保存" %>
+                <%= link_to "返回",:action=>:index %>
+            </td>
+        </tr>
+    </tbody>
+</table>
+<style type="text/css">
+    td {
+        height: 30px;
+    }
+</style>

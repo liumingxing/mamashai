@@ -1,0 +1,291 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+	<head>
+		<title>孕期体重 - 妈妈晒 - 妈妈爸爸们的网络社区</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<style type="text/css">
+		* {
+			padding:0px;
+			margin:0px;
+		}
+		a {
+			text-decoration:none;
+		}
+		a img {
+			border:0px;
+		}
+		p {
+		  text-indent:8mm;
+		}
+		td img {
+			display: block;
+		}
+		.STYLE1 {
+			color: #666666;
+			font-size: 14px;
+			line-height: 22px;
+		}
+		.STYLE2 {
+			font-size: 16px;
+			font-weight: bold;
+			color: #DA5295;
+		}
+		.STYLE3 {
+			font-size: 12px;
+			color: #999999;
+		}
+		.STYLE4 {
+			font-size: 14px;
+			font-weight: bold;
+			color: #FFFFFF;
+		}
+		.STYLE6 {
+			font-size: 16px; 
+			font-weight: bold; 
+			color: #DA5295; 
+			font-family: "微软雅黑";
+		}
+		</style>
+	</head>
+
+	<body bgcolor="#ffffff">
+		<div align="center">
+			<table width="538" height="51" border="0" cellpadding="0" cellspacing="0" background="images/top2.gif">
+			  <tr>
+			    <td width="16"></td>
+			    <td width="97">
+			    	<a href="http://www.mamashai.com/index/bang" target="_blank">
+			    		<img name="a_r1_c4" src="images/top1.png" border="0" id="a_r1_c4" alt="" />
+			    	</a>
+			    </td>
+			    <td width="355">
+			    	<div align="center">
+			    		<span style="color: white; font-size: 15px; font-weight:bold;">孕期体重</span>
+			    	</div>
+			    </td>
+			    <td width="140">
+			    	<a style="color: white; text-decoration: underline;font-size: 12px;" href="http://www.mamashai.com/index/bang" target="_blank">孕期资源免费下载</a>
+			    </td>
+			  </tr>
+			</table>
+			<table width="538" border="0" cellpadding="0" cellspacing="0" background="images/a_r10_c1.gif">
+				<tr>
+					<td>
+				    	<img name="a_r9_c1" src="images/a_r9_c1.gif" width="538" height="9" border="0" id="a_r9_c1" alt="" />
+				    </td>
+				</tr>
+				<tr>
+					<td background="images/a_r10_c1.gif">
+				    	<table width="95%" height="26" border="0" align="center" cellpadding="0" cellspacing="0">
+				    		<tr >
+						        <td align="right" valign="middle" style="padding-left:9mm;" width="90px">
+						        	身高：
+						        </td>
+								<td align="left" style="padding-bottom:5px;">
+									<input type="text" id="input_height" />&nbsp;cm
+								</td>
+								<td align="right" valign="middle" rowspan="3" style="padding-right:21px;width:78px;">
+									<a href="javascript:void(0);" onclick="get_tizhong()" style=" padding:0px; margin:0px;">
+										<img src="images/d_r2_c3.gif" />
+									</a>
+								</td>
+						    </tr>
+							<tr>
+								<td align="right" valign="middle" style="padding-left:9mm;">
+									孕前体重：
+								</td>
+								<td align="left" style="padding-bottom:5px;">
+									<input type="text" id="input_yun_weight">&nbsp;Kg
+								</td>
+							</tr>
+							<tr>
+								<td align="right" valign="middle" style="padding-left:9mm;">
+									当前体重：
+								</td>
+								<td align="left" style="padding-bottom:5px;">
+									<input type="text" id="input_now_weight" />&nbsp;Kg
+								</td>
+							</tr>
+				    	</table>		      
+				    </td>
+				</tr>
+				<tr>
+					<td valign="bottom">
+				    	<img name="a_r12_c1" src="images/a_r12_c1.gif" width="538" height="9" border="0" id="a_r12_c1" alt="" />
+				    </td>
+				</tr>
+			</table>
+			<table width="538" border="0" cellpadding="0" cellspacing="0" background="images/a_r10_c1.gif" id="table_main">
+			  <tr>
+			    <td><img name="a_r9_c1" src="images/a_r9_c1.gif" width="538" height="9" border="0" id="a_r9_c1" alt="" /></td>
+			  </tr>
+			  <tr>
+			  	<td style="padding-left:15px; padding-right:15px;">
+			  		<table width="500" border="0" style="border-style:dotted;">
+			  			<tr id="tr_jieshao">
+							<td colspan="2">
+								<p class="STYLE1" id="p_jieshao">
+					        		介绍：“孕期体重”根据孕前体重指数（孕前BMI）得出的孕期增重范围（孕期正常体重范围），结合孕期实际体重（现在体重）得出孕期体重状况（偏瘦/正常/偏胖），给出相应的营养建议。
+					        	</p>
+							</td>
+						</tr>
+						<tr id="tr_fanwei" style=" display:none;">
+							<td colspan="2" align="left">
+								<p class="STYLE6" id="p_zhengchang_weight">
+			  						孕期正常体重范围：<span id="span_yun_tizhong_small"></span>Kg～<span id="span_yun_tizhong_big"></span>Kg
+			  					</p>
+								<span class="STYLE6" id="p_tixing" style="padding-left:30px;"></span>
+							</td>
+						</tr>
+						<tr id="tr_main" style=" display:none;">
+							<td id="td_main" align="left">
+								<p class="STYLE1" id="p_main"></p>
+								<p class="STYLE1" id="p_jianyi" style="display:none;">
+							</td>
+						</tr>
+			  		</table>
+			  	</td>
+			  </tr>
+			  <tr>
+			    <td valign="bottom">
+			    	<img name="a_r12_c1" src="images/a_r12_c1.gif" width="538" height="9" border="0" id="a_r12_c1" alt="" />
+			    </td>
+			  </tr>
+			</table>
+			<table width="538" border="0" cellpadding="0" cellspacing="0" background="images/a_r10_c1.gif">
+			  <tr>
+			    <td>
+			    	<img name="a_r9_c1" src="images/a_r9_c1.gif" width="538" height="9" border="0" id="a_r9_c1" alt="" />
+			    </td>
+			  </tr>
+			  <tr>
+			    <td background="images/a_r10_c1.gif">
+			    	<table width="95%" height="26" border="0" align="center" cellpadding="0" cellspacing="0">
+			    		<tr>
+					        <td align="left">
+					        	<p class="STYLE3">
+					        		<p class="STYLE3">提示：以上内容来自<a href='http://www.mamashai.com/ebook/yun?from=baidu_yunqi_tizhong' target="_blank">《0～40周孕期全程监测卡》</a>，仅供参考。</p>
+					        	</p>
+					        </td>
+					      </tr>
+			    	</table>		      
+			    </td>
+			  </tr>
+			  <tr>
+			    <td valign="bottom">
+			    	<img name="a_r12_c1" src="images/a_r12_c1.gif" width="538" height="9" border="0" id="a_r12_c1" alt="" />
+			    </td>
+			  </tr>
+			</table>
+		</div>
+		<script type="text/javascript">
+			function get_tizhong()
+			{
+				height = document.getElementById("input_height"); //parseFloat(.value);
+				yun_weight = document.getElementById("input_yun_weight"); //parseFloat(.value);
+				now_weight = document.getElementById("input_now_weight"); //parseFloat(.value);
+				
+				fanwei = document.getElementById("tr_fanwei");
+				main = document.getElementById("td_main");
+				jieshao = document.getElementById("tr_jieshao");
+				tixing = document.getElementById("p_tixing");
+				main = document.getElementById("p_main");
+				jianyi = document.getElementById("p_jianyi");
+				
+				yun_tizhong_small_span = document.getElementById("span_yun_tizhong_small");
+				yun_tizhong_big_span = document.getElementById("span_yun_tizhong_big");
+				
+				// 孕前BMI = 体重 / 身高平方
+				yun_BMI = parseFloat(yun_weight.value) / (parseFloat(height.value) * parseFloat(height.value));
+				yun_tizhong_small = 0;
+				yun_tizhong_big = 0;
+				
+				if(isNaN(height.value))
+				{
+					alert("身高输入有误，请您重新输入");
+				}
+				else if (isNaN(yun_weight.value))
+				{
+					alert("孕期体重输入有误，请您重新输入");
+				}
+				else if (isNaN(now_weight.value))
+				{
+					alert("当前体重输入有误，请您重新输入");
+				}
+				else
+				{
+					if (yun_BMI < 18)	// 如果孕前BMI小于18，孕期体重增加12.5-18kg
+					{
+						
+						yun_tizhong_small = parseFloat(yun_weight.value) + 12.5;
+						yun_tizhong_big = parseFloat(yun_weight.value) + 18;
+					}
+					else if (yun_BMI < 24) // 如果孕前BMI位于18到24之间，孕期体重增加11.5-16kg
+					{
+						yun_tizhong_small = parseFloat(yun_weight.value) + 11.5;
+						yun_tizhong_big = parseFloat(yun_weight.value) + 16;
+					}
+					else 	// 如果孕前BMI大于24，孕期体重增加7-11.5kg
+					{
+						yun_tizhong_small = parseFloat(yun_weight.value) + 7;
+						yun_tizhong_big = parseFloat(yun_weight.value) + 11.5;
+					}
+
+					yun_tizhong_small_span.innerHTML = yun_tizhong_small;
+					yun_tizhong_big_span.innerHTML = yun_tizhong_big;
+					
+					if (parseFloat(now_weight.value) < yun_tizhong_small)
+					{
+						tixing.innerHTML = "偏瘦型";
+						main.innerHTML = "孕期体重偏瘦会导致：孕妇体重过轻易生出低体重儿。体重低于2500克的新生儿称为低体重儿。这样的新生儿皮下脂肪少，保温能力差，呼吸机能和代谢机能都比较弱，特别容易感染疾病，死亡率比体重正常的新生儿要高得多,智力发展也会受到一定的影响。胎儿营养不足，出生后体弱多病，增加了养育的困难。";
+						jianyi.innerHTML = "建议您：原本属于偏瘦型的人，需要注意体重可能无法顺利地增长，要特别关注饮食结构的均衡，防止营养不良。";
+					}
+					else if (parseFloat(now_weight.value) > yun_tizhong_big)
+					{
+						tixing.innerHTML = "偏胖型";
+						main.innerHTML = "孕期体重偏胖会导致：对孕妇而言，超重的“准妈妈”患上妊娠并发症几率比正常“准妈妈”高得多，这些并发症包括妊娠高血压疾病、妊娠期糖尿病、血栓形成、产后抑郁症等。对胎儿来说，因为难产，胎儿产伤发病率增高，这些疾病包括颅内出血、锁骨骨折、臂丛神经损伤及麻痹，甚至新生儿窒息死亡等。这样的胎儿，成年后 Ⅱ型糖尿病、高血脂症、心血管疾病的发病率也明显高于正常人群。";
+						jianyi.innerHTML = "建议您：原来是偏胖型的孕妈咪，为了不产生妊娠高血压疾病，必须进行更加严格的体重管理。";
+						
+					}
+					else
+					{
+						tixing.innerHTML = "标准型";
+						main.innerHTML = "孕期体重正常：大多数准妈妈都是健康的。一个孕前身体健康、营养均衡的女性，只需在医生的指导下适当补充孕期所需的食物和营养，保证优质蛋白、维生素、矿物质、微量元素的摄入即可，完全不必刻意地大补特补。但对于生多胞胎的准妈妈应尽量多吃，以满足每个孩子的营养需求。";
+						jianyi.innerHTML = "建议您：对于体型标准的孕妈咪来说，只要平常注意不要让体重急剧增长，并做一点适度的运动，体重一般不都不会有太大问题。";
+					}
+					
+					jieshao.style.display = "none";
+					fanwei.style.display = "block";
+					jianyi.style.display = "block";
+					document.getElementById("tr_main").style.display = "block";
+				}
+				
+				setHeight(0);
+			}
+		</script>
+		<script src="http://app.baidu.com/static/appstore/monitor.st"></script>
+		<script>
+			function setHeight(height)
+			{
+				if (height > 0){
+					baidu.app.setHeight(height)
+				}
+				else{
+					setTimeout("baidu.app.setHeight(document.getElementById('body').clientHeight)", 400)
+					setTimeout("baidu.app.setHeight(document.getElementById('body').clientHeight)", 1500)
+				}	
+			}
+			
+		     baidu.app.autoHeight();
+		     setHeight(267);
+		</script>
+	</body>
+</html>
+<div style="display:none;">
+<script type="text/javascript">
+var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3F2f4856497854ce3df66f8b40863365d9' type='text/javascript'%3E%3C/script%3E"));
+</script>
+</div>

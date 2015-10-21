@@ -1,0 +1,35 @@
+<div class="navigate_tab" id="n">
+		<ul class="class1">
+			<li <%=raw  'class="current"' if controller.action_name == "atme" %>>
+				<a href="<%= url_for :action=>"atme", :anchor=>'n' %>">@我的</a>
+			</li>
+			<li <%=raw  'class="current"' if controller.action_name == "comments" %>>
+				<a href="<%= url_for :action=>"comments", :anchor=>'n' %>">收到的评论</a>
+			</li>
+			<li <%=raw  'class="current"' if controller.action_name == "comments_send" %>>
+				<a href="<%= url_for :action=>"comments_send", :anchor=>'n' %>">发出的评论</a>
+			</li>
+			<li <%=raw  'class="current"' if controller.action_name == "messages" %>>
+				<a href="<%= url_for :action=>"messages", :anchor=>'n' %>">私信</a>
+			</li>
+			<li <%=raw  'class="current"' if params[:action] == "like" %>>
+				<a href="<%= url_for :action=>"like", :anchor=>'n' %>">被喜欢的</a>
+			</li>
+		</ul>
+		<% if params[:action]=='comments' %>
+		<div class="class2">
+		     <ul>
+		     	<li<%=raw ' class="current"' if params[:action]=='comments' %>>
+		     		<a href="/home/comments">全部</a>
+		     	</li>
+		     	<li<%=raw ' class="current"' if params[:action]=='follows_comments' %>>
+		     		<a href="/home/follows_comments">我关注的人</a>
+		     	</li>
+		     	<li<%=raw ' class="current"' if params[:action]=='other_comments' %>>
+		     		<a href="/home/other_comments">陌生人</a>
+		     	</li>
+		     </ul>
+		     <div class="clear"></div>
+		</div>
+		<% end %>
+</div>

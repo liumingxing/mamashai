@@ -1,0 +1,89 @@
+<div id="middle">
+    <div id="css_mainbody">
+        <h1 class="title">妈妈晒团购-虚拟产品管理<span style="float: right; margin-right: 10px;"><%=link_to "追加商品","/mms/mms_tuans/virtual_new/#{@tuan.id}"%>|<%=link_to "批量更改","/mms/mms_tuans/virtual_edit_all/#{@tuan.id}"%>|<%=link_to "购买记录","/mms/mms_tuans/virtual_log_index/#{@tuan.id}"%>|<%= link_to '返回团购列表', '/mms/mms_tuans/index' %>
+            </span></h1>
+        <div style="text-align:center;" class="green">
+            <%= flash[:notice] %>
+        </div>
+        <div id="page_count">
+            <span style="float:right;">共有<b class="blue"><%=h @products.size %></b>条记录</span>
+        </div>
+        <div class="clear">
+        </div>
+        <table class="grid">
+            <tr>
+                <th width="5%">
+                    序号
+                </th>
+                <th width="15%">
+                    优惠券编码
+                </th>
+				<th width="15%">
+                    优惠券密码
+                </th>
+                <th width="5%">
+                    Id
+                </th>
+                <th width="10%">
+                    开始时间
+                </th>
+                <th width="10%">
+                    结束时间
+                </th>
+                <th width="10%">
+                    类别
+                </th>
+                <th width="10%">
+                    操作
+                </th>
+            </tr>
+            <% if @products.blank? %>
+            <tr>
+                <td colspan=8>
+                    <b>暂无记录</b>
+                </td>
+            </tr>
+            <% else %>
+            <% @products.each_with_index do |product,index| %>
+			<% tp = product.tp%>
+            <tr>
+                <td>
+                    <%=(index+1).to_s %>
+                </td>
+				<% if tp == 0%>
+                <td>
+                    <%= product.code %>
+                </td>
+				<td>
+                    <%= product.password||'无信息' %>
+                </td>
+				<% else %>
+					<td colspan=2>
+						系统自动生成<%= ['编码(无密码)','编码和密码'][tp-1]%>
+					</td>
+				<% end %>
+                <td>
+                    <%= product.id %>
+                </td>
+                <td>
+                    <%= (product.begin_time.blank?)? '付款即时生效' : product.begin_time.strftime("%Y年%m月%d日<br/>%H时%M分%S秒") %>
+                </td>
+                <td>
+                    <%= (product.end_time.blank?)? "付款后#{(product.limit_time)}天" : product.end_time.strftime("%Y年%m月%d日<br/>%H时%M分%S秒") %>
+                </td>
+                <td>
+                    <%= product.type_name%>
+                </td>
+                <td>
+                	<%= link_to '查看', "/mms/mms_tuans/virtual_show/#{h product.id}",:target=>"_blank" %>
+                    <%= link_to '修改', "/mms/mms_tuans/virtual_edit/#{h product.id}" %>
+                    <%= link_to '删除', "/mms/mms_tuans/virtual_destroy/#{h product.id}", :confirm => '确认删除吗？', :method => :delete %>
+                </td>
+            </tr>
+            <% end %>
+            <%end %>
+        </table>
+    </div>
+    <div class="clear">
+    </div>
+</div>

@@ -1,0 +1,54 @@
+<%= stylesheet_link_tag '/javascripts/cropper/imgareaselect-default' %>
+<%= javascript_include_tag 'ji' %>
+<input type="hidden" id="logo_size" name="logo_size" /><input type="hidden" id="logo_left" name="logo_left" /><input type="hidden" id="logo_top" name="logo_top" />
+<p style="text-align: center; margin: 10px;">
+  <%= logo_tag(@user,{:id=>'large_logo'}) %>
+</p>
+<table class="grid" style="margin-top:5px;">
+  <tbody>
+    <!--
+    <tr height="40">
+        <td class="t07" width="70">
+        </td>
+        <td class="t02">
+        </td>
+    </tr>
+    -->
+    <tr height="40">
+      <td class="t06" width="70">
+        当前头像：
+      </td>
+      <td class="t02">
+        <div class="logo_pic" style="width:140px;">
+          <div style="width:140px;height:140px;overflow:hidden;">
+            <%= logo_tag(@user,{:id=>'logo140'}) %>
+          </div>
+          <div class="pic_size">
+            140*140像素
+          </div>
+        </div>
+        <div class="logo_pic" style="width:90px;margin-left:50px;*margin-left:0px;">
+          <div class="mid_logo_box" style="overflow:hidden;width: 48px;height: 48px;">
+            <%= logo_tag(@user,{:id=>'logo48'}) %>
+          </div>
+          <div class="pic_size">
+            48*48
+          </div>
+        </div>
+        <div class="logo_pic" style="width:30px;">
+          <div style="width:30px;height:30px;overflow:hidden;">
+            <%= logo_tag(@user,{:id=>'logo30'}) %>
+          </div>
+          <div class="pic_size">
+            30*30
+          </div>
+        </div>
+        <div class="clear">
+        </div>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<script type="text/javascript"> 
+  show_logo_previews();
+</script>

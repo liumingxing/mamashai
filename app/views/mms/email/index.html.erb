@@ -1,0 +1,90 @@
+<div id="middle">
+    <div id="css_mainbody">
+        <h1 class="title">邮件发送<%= "--#{flash[:notice]}" unless flash[:notice].blank? %><span style="float: right; margin-right: 10px;"><a href="/mms/email/new">新建邮件</a></span></h1>
+        <table class="grid">
+            <tbody>
+                <tr>
+                    <th>
+                        邮件标题
+                    </th>
+                    <th>
+                        状态
+                    </th>
+                    <th>
+                        群发数
+                    </th>
+                    <th>
+                        每次发送的邮件地址数量
+                    </th>
+                    <th>
+                        每次发送时间间隔
+                    </th>
+                    <th>
+                        已发送
+                    </th>
+                    <th>
+                        未发送
+                    </th>
+                    <th>
+                        操作
+                    </th>
+                </tr>
+                <% for email in @emails %>
+                <tr height="35">
+                    <td>
+                        <a href="/mms/email/edit/<%= email.id -%>"><%= email.blank? ? '' : email.subject -%></a>
+                    </td>
+                    <td>
+                        <%= email.state -%>
+                    </td>
+                    <td>
+                        <% email_user = Mms::Email.find(email.id)
+                        send_counts = 0
+                        sended_counts = 0
+                        unsended_counts = 0
+                        if File.exist?(email_user.file_path)
+                        File.open(email_user.file_path) do |file|
+                        file.each{|line|
+                        send_counts = send_counts + 1
+                        }
+                        end
+                        end -%>
+                        <%= send_counts.blank? ? 0 : send_counts -%>
+                    </td>
+                    <td>
+                        <%= email.blank? ? '' : email.send_count %>
+                    </td>
+                    <td>
+                        <%= email.blank? ? '' : email.send_interval %>分钟
+                    </td>
+                    <td>
+                        <% if !email.line_numbers.blank?
+                        sended_counts = email.line_numbers - 1
+                        end %>
+                        <%= sended_counts.blank? ? 0 : sended_counts -%>
+                    </td>
+                    <td>
+                        <% if !send_counts.blank? and send_counts != 0
+                        if !email.line_numbers.blank?
+                        unsended_counts = send_counts - email.line_numbers + 1
+                        end
+                        else
+                        sended_counts = 0
+                        end %>
+                        <%= unsended_counts.blank? ? 0 : unsended_counts -%>
+                    </td>
+                    <td>
+						<%= link_to "删除", {:action => :delete, :id => email.id}, {:confirm => "您确定删除吗？"} %>
+						<% unless email.tuan_id.blank? %>
+						<%= link_to "查看团购生成页面", {:action => :tuan_email, :id => email.id}, {:target => "_blank"} %>
+						<% end %>
+                    </td>
+                </tr>
+                <% end %>
+            </tbody>
+        </table>
+        <div class="book_page">
+            <%=will_paginate @emails %>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,15 @@
+<% if @search_name %>
+<ul>
+    <li>
+        <a href="/index/find_posts/<%=@search_name%>" class="item">含<span><%=@search_name%></span>的话题</a>
+    </li>
+    <li>
+        <a href="/index/find_users/<%=@search_name%>" class="item">含<span><%=@search_name%></span>的人</a>
+    </li>
+    <!--
+    <li>
+        <a href="/tao/find/<%=@search_name%>" class="item">含<span><%=@search_name%></span>的商品</a>
+    </li>
+    -->
+</ul>
+<% end %>

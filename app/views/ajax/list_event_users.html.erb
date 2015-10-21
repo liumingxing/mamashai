@@ -1,0 +1,63 @@
+<div class="post_events_apply">
+    <div class="cnrner">
+        <img src="/images/event/corner.gif">
+    </div>
+    <div class="apple_bg_title">
+    	&nbsp;
+		<% if !@event.is_end and @user.org_profile_id.blank? and @post.user_id != @user.id %>
+        <span class="apple_link">
+		<a href="javascript:void(0);" onclick="MMS.tools.signUp('/ajax_event/new_event_user/<%=@event.id%>');">我要报名</a> 
+		</span>
+		<% end %>
+		
+        <div class="clear">
+        </div>
+    </div>
+    <div class="apple_bg_content">
+    	<% if @event_users.blank? %>
+		<div style="margin:10px;">当前还没有人报名</div>
+		<% end %>
+    <% @event_users.each_with_index do |event_user,i| %>
+	<% user = event_user.user %>
+    <div class="post_all_enroll">
+        <span class="number"><%=i+1%></span>
+        <span class="pic"><%=logo_tag(user,{:version=>'thumb30',:url=>user_url(user)}) %></span>
+		   <span class="addr"><%=link_user(user) %>
+            <br/>
+             <%=user.province.name if user.province %>
+			 <%=user.city.name if user.city %>
+        </span>
+        <span class="name"> <%=event_user.join_num %>人参加</span>
+        <span class="remark"> <% if event_user.note.present?%> 
+						    <span class="red">取消原因：<%=event_user.note%></span>
+						 <% else %>
+						     备注： <%=h event_user.remark %>
+						 <% end %></span>
+        <span class="status">
+        	
+			<% if @user %>
+            <% if user.id == @user.id %>
+                                我
+			<% else %>
+			<% follow_user_ids = @user.follow_user_ids %>
+            <% if follow_user_ids.include?(user.id) %>
+            <img src="/images/icons/follow_success.gif"/><% else %>
+            <span class="concern" id="follow_hot_user_<%=user.id%>">
+            	<%= link_to_remote(APP_CONFIG["focus_him_#{user.gender}"], :update => "follow_hot_user_#{user.id}", :url => {:action =>:create_follow_user,:controller=>:ajax,:id=>user.id},:html=>{:class=>"button_link"}) %></span>
+            <% end %>
+            <% end %>
+		<% else %>
+		<span class="concern" ><a href="/account/signup/<%=user.id%>"><%=APP_CONFIG["focus_him_#{user.gender}"]%></a></span>
+		<% end %>
+		
+			</span>
+        <div class="clear">
+        </div>
+    </div>
+    <% end %>
+        <div class="clear">
+        </div>
+    </div>
+    <div class="clear">
+    </div>
+</div>

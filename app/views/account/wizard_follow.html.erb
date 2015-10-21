@@ -1,0 +1,77 @@
+<style>
+	div.picture {float: left; width: 90px; height: 100px;}
+</style>
+<div class="sharp mt5">
+	<div id="dl">
+		<div id="dl_left">
+			<h1>完善资料</h1>
+			<%= form_tag :action=>'wizard_follow_action' do %>
+			<div id="zc_bz"><img src="/images/zc_wszl_out.jpg"/><img src="/images/zc_sctx_out.jpg"/><img src="/images/zc_zgz_in.jpg"/>
+			</div>
+			<dl>
+				<dd>
+					零距离接触专栏作者
+				</dd>
+				<dt>
+					<input type="checkbox" id="cancel_all_box" checked="checked" onclick="cancel_all_follows();"/>取消所有关注
+				</dt>
+			</dl>
+			<div class="fl mt10">
+				<%= render :partial=>'follow_user',:locals=>{:users=>User.find(:all, :conditions=>"id in (#{ColumnAuthor.find(:all, :conditions=>"chapters>1").collect{|c| c.user_id}.join(',')})", :limit=>7, :order=>"rand()"), :is_check=>true}%>
+			</div>
+			<dl>
+				<dd>
+					我们有同龄的孩子
+				</dd>
+				<dt>
+					
+				</dt>
+			</dl>
+			<div class="fl mt10">
+				<%= render :partial=>'follow_user',:locals=>{:users=>User.find_maybe_users(@user,'age',{:limit=>7, :order=>'posts_count desc',:age_id=>@user.age_id}), :is_check=>true}%>
+			</div>
+			<dl>
+				<dd>
+					我们距离很近
+				</dd>
+				<dt>
+					
+				</dt>
+			</dl>
+			<div class="fl mt10">
+				<%= render :partial=>'follow_user',:locals=>{:users=>User.find_maybe_users(@user,'province',{:limit=>7, :order=>'posts_count desc'}), :is_check=>true}%>
+			</div>
+			<div class="clear"></div>
+			<div style="margin: 20px; text-align: center;">
+				<%= submit_tag "确定", :class=>"button2"%>
+			</div>
+			<% end %>
+		</div>
+		<div id="dl_right">
+			<div id="dl_right_zc">
+
+				<p><img src="/images/zc_pra.jpg"/>
+					<br />
+					<a href="">跳过此步</a>
+				</p>
+			</div>
+			<div id="zc_ws" class="mt300">
+				<li>
+					为什么要关注人?
+				</li>
+				系统根据我的情况向我推荐了我可能感兴趣的人，“加关注”以后我会立即获得同类的朋友圈！
+			</div>
+		</div>
+	</div>
+	<div><img src="/images/sharp_bottom.jpg" />
+	</div>
+</div>
+
+<script>
+	function cancel_all_follows() {
+		$('input[type="checkbox"][class="default_checkbox"]').each(function() {
+			//        alert(this.checked)
+			this.checked = $('#cancel_all_box').attr("checked");
+		});
+	}
+</script>

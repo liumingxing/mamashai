@@ -1,0 +1,14 @@
+<div class="user_content" id="post_wapper_<%=post.id%>" style="display:none">
+		            <div class="article_content">
+		                <div class="user_pic">
+		                    <%=logo_tag(post.user,{:version=>'thumb48',:url=>user_url(post.user)}) %>
+		                </div>
+		                <div class="user_article">
+		                    <%=render :partial=>'/home/post_content', :locals => {:post => post} %>
+		                </div>
+		                <div class="clear">
+		                </div>
+		            </div>
+		            <%=render :partial=>'/home/post_tools', :locals => {:post => post} %>
+		        	</div>
+<script>$("#post_wapper_<%=post.id%>").show('slow');</script>					

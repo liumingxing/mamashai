@@ -1,0 +1,228 @@
+function GouComment(attr){
+	var win = Ti.UI.createWindow(attr);
+
+	var wrapper = Ti.UI.createScrollView({
+		contentHeight : 'auto',
+		top : 0,
+		bottom : 0,
+		left : 0,
+		right : 0,
+		layout : 'vertical',
+	
+		showVerticalScrollIndicator : true
+	})
+	wrapper.add(Ti.UI.createLabel({
+		text: "每个商品评价送10个晒豆",
+		left: __l(10),
+		right: __l(10),
+		font: {fontSize: __l(15)},
+		color: "#ccc",
+		textAlign: "center",
+		height: __l(40),
+		top: 0
+	}))
+
+	var inputs = new Array();
+	for(var i=0; i<win.json.details.length; i++){
+		var json = win.json.details[i];
+		inputs[i] = {id: win.json.details[i].a_product_id}
+
+		if (i>0){
+			wrapper.add(Ti.UI.createView({
+				height: __l(12),
+				backgroundColor: "#F2F2F2",
+				top: 0
+			}))
+		}
+		
+		var product_wrapper = Ti.UI.createView({
+			top: __l(10),
+			right: 0,
+			left: 0,
+			bottom: __l(10),
+			height: Ti.UI.SIZE
+		})
+		product_wrapper.add(Ti.UI.createImageView({
+			image : Ti.App.mamashai + json.logo,
+			left: __l(10),
+			top: __l(0),
+			width: __l(60),
+			height: __l(60)
+		}))
+		product_wrapper.add(Ti.UI.createLabel({
+			text: json.name,
+			color: "#333",
+			left: __l(80),
+			top: __l(0),
+			right: __l(10),
+			font: {fontSize: __l(14)}
+		}))
+
+		wrapper.add(product_wrapper);
+
+		wrapper.add(Ti.UI.createView({
+			height: __l(1),
+			backgroundColor: "#E5E5E5",
+			left: __l(10),
+			right: __l(10)
+		}))
+
+		var rate_wrapper = Ti.UI.createView({
+			top: 0,
+			right: 0,
+			left: 0,
+			height: Ti.UI.SIZE
+		})
+		rate_wrapper.add(Ti.UI.createLabel({
+			text: "商品信息",
+			color: "#333",
+			left: __l(10),
+			top: __l(10),
+			font: {fontSize: __l(16)},
+			height: __l(24)
+		}))
+
+		var star_wrapper = Ti.UI.createView({
+			layout: 'horizontal',
+			width: __l(170),
+			top: __l(10),
+			height: __l(24),
+			right: __l(10),
+			rate_star: 0
+		});
+		inputs[i].star = star_wrapper;
+
+		for(var j=1; j<=5; j++){
+			var star = Ti.UI.createImageView({
+				left : 0,
+				right: __l(10),
+				width: __l(24),
+				height: __l(24),
+				image: "/images/star2.png",
+				hires: true,
+				star_wrapper : star_wrapper,
+				index: j
+			})
+			star.addEventListener("click", function(e){
+				var index = e.source.index;
+				for(var k=0; k<5; k++){
+					if (k<index){
+						e.source.star_wrapper.children[k].image = "/images/star1.png"
+					}
+					else
+						e.source.star_wrapper.children[k].image = "/images/star2.png"
+				}
+				e.source.star_wrapper.rate_star = index
+			})
+			star_wrapper.add(star)
+		}
+		rate_wrapper.add(star_wrapper);
+
+		wrapper.add(rate_wrapper);
+
+		var txt = Ti.UI.createTextArea({
+			left: __l(10),
+			right: __l(10),
+			top: __l(10),
+			font: {fontSize: __l(14)},
+			height: __l(60),
+			bottom: __l(10),
+			backgroundColor: "#F6F6F6",
+			borderColor: "#E0E0E0",
+			borderRadius: __l(4),
+			hintText : "点评下吧，您的观点能帮助其他妈妈"
+		})
+		inputs[i].txt = txt;
+		wrapper.add(txt);
+		
+		var logo_wrapper = Ti.UI.createView({
+			layout : "horizontal",
+			left: 0,
+			right: 0,
+			top: 0,
+			bottom: __l(10),
+			height: Ti.UI.SIZE
+		})
+		inputs[i].images = []
+		for(var j=0; j<5; j++){
+			var img = Ti.UI.createImageView({
+				image: "/images/compose_pic_add.png",		
+				hires: true,
+				width: __l(50),
+				height: __l(50),
+				top: __l(0),
+				bottom: __l(0),
+				left: __l(10)
+			})
+			img.addEventListener("click", function(e){
+				select_photo(false, function(image, path){
+					e.source.image = image
+				}, function(){
+									
+				});
+			})
+			logo_wrapper.add(img)
+			inputs[i].images.push(img)
+		}
+		
+		wrapper.add(logo_wrapper);
+	}
+
+	var submit = Ti.UI.createButton({
+		left: __l(20),
+		right: __l(20),
+		font: {fontSize: __l(18)},
+		height: __l(40),
+		title: "提交",
+		top: __l(10),
+		bottom: __l(20)
+	})
+	submit.addEventListener("click", function(e){
+		var opts = {id: win.json.id}
+		for(var i=0;i<inputs.length; i++){
+			if (!inputs[i].txt.value || inputs[i].txt.value.length<5){
+				show_alert("提示", "亲，评论字数最少需要5个字！");
+				return
+			}
+			if (inputs[i].star.rate_star < 1){
+				show_alert("提示", "亲，请为商品选择一个星级吧！");
+				return	
+			}
+
+			var pid = inputs[i].id
+			opts["comment_pid_" + pid] = inputs[i].id
+			opts["comment_txt_" + pid] = inputs[i].txt.value
+			opts["comment_star_" + pid] = inputs[i].star.rate_star
+			for(var j=0; j<5; j++){
+				opts["comment_logo_" + pid + "_" + j] = inputs[i].images[j].image
+			}
+		}
+		
+		var xhr = Ti.Network.createHTTPClient();
+		xhr.timeout = Ti.App.timeout;
+		
+		xhr.onerror = function(e) {
+			hide_loading();
+			show_alert("对不起", "提交评价失败")
+		};
+		xhr.onload = function(){
+			hide_loading();
+			var json = JSON.parse(this.responseText)
+			if (json.code == 0){
+				win.close();
+			}
+			show_alert("提示", json.desc)
+		}
+		xhr.open("POST", Ti.App.mamashai + "/api/gou/make_comment?" + account_str())
+		xhr.send(opts)
+		show_loading("正在提交");
+	})
+	pre_btn(submit)
+	wrapper.add(submit)
+
+	win.add(wrapper)
+	pre(win);
+	return win;
+}
+
+module.exports = GouComment;

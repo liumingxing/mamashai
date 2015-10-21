@@ -1,0 +1,23 @@
+<% for article in @articles %>
+	<a class="article" href="/qing/article/<%= article.id %>?page=<%= params[:page] %>">
+		<div class="logo">
+			<img src="http://www.mamashai.com<%= article.logo.url%>"/>
+		</div>
+		<div class="content">
+			<div class="title"><%= article.title %></div>
+			<div class="detail">
+				<span>浏览次数：<%= article.view_count%></span>
+				<span class="right">发布时间：<%= article.created_at.to_date.to_s%></span>
+			</div>
+		</div>
+		<div class="clear line"></div>
+	</a>
+<% end %>
+<div class="page">
+	<% if params[:page].to_i > 1 %>
+    	<a href="/qing/articles?page=<%= params[:page].to_i - 1 %>" hidefocus="true">上一页</a>
+    <% end %>
+    <% if params[:page].to_i < 100 %>
+    	<a href="/qing/articles?page=<%= params[:page].to_i + 1 %>"  hidefocus="true">下一页</a>
+    <% end %>
+</div>

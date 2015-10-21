@@ -1,0 +1,46 @@
+<div id="middle">
+    <div id="css_mainbody">
+        <h1 class="title">团购网站管理-抓取信息设置
+			<span style="float: right; margin-right: 10px;">
+		        <%= link_to '返回列表', '/mms/tuans/website_index' %>
+		    </span>
+		</h1>
+		
+		<% form_for @tuan_website,:url => { :action => "set_catch_config_action",:id=>@tuan_website.id } do |f| %>
+		<div style="margin:20px 50px;">
+				<%= f.label :catch_url,"开放API网址：" %> 
+				    	<%= f.text_field :catch_url,:style=>'width:400px;' %>
+						<%= f.error_message_on  :catch_url %>  
+						
+		</div>
+		<div style="margin:15px 50px;" >
+			请输入对方网站对应的节点名称
+		</div>
+		 
+        <table style="width: 600px; padding-left: 50px;">  
+				<tr>
+				    <td><b>抓取字段</b></td>
+				    <td>
+				    	<b>对方网站的节点名称</b>
+					</td>
+				</tr>
+				<% @configures.each do |config_str|%>
+				<% config = config_str.split('|')[0] %>
+				<tr>
+				    <td><%=config_str%>：</td>
+				    <td>
+				    	<%= text_field :config, config,:value=>@website_configures[config] %>
+					</td>
+				</tr>
+				<% end %>
+				<tr>
+				    <td colspan="2">
+				    	<input type="submit" name="submit" value="提交">
+						<%= link_to '返回', '/mms/tuans/website_index'%>
+					</td>
+				</tr> 
+        </table>
+		<% end %>
+    </div>
+    <div class="clear"></div>
+</div>

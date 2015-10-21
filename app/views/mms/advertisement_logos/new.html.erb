@@ -1,0 +1,6 @@
+<h1>新广告</h1>
+
+<%= form_tag({:action => 'create', :id=>params[:id]}, {:multipart=>true}) do %>
+  <%= render :partial => 'form' %>
+  <%= submit_tag "保存" %> | <%= link_to '返回', :action => 'list', :id=>params[:id] %> 
+<% end %>

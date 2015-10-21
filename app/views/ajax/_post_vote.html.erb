@@ -1,0 +1,45 @@
+<div class="comments" id="vpostdetail_<%= post.id %>" style="display:none;">
+    <div class="comments_bg1">
+        <div class="clear">
+        </div>
+    </div>
+    <div class="comments_bg2">
+        <p class="vote_operate">
+        	<span><a href="#?" onclick="$('#vpostdetail_<%=post.id%>').hide('slow');$('#vpost_<%=post.id%>').show('slow');">收起</a></span> |
+			<span>发起人:<a href="/user/<%=post.vote.user.encrypt_user_id%>"><%= post.vote.user.name %></a></span>
+        </p>
+		<div class="vote_detail">
+			<p class="vote_title"><%= post.vote.title%></p>
+			<p class="vote_mode"><%= post.vote.mode_str%></p>
+			<% if post.vote.desc && post.vote.desc.size > 0%>
+				<p class="vote_desc"><%= post.vote.desc%></p>
+			<% end %>
+			  <% form_remote_tag :update=>"update_votepost_#{post.id}", :url=>{:controller=>"ajax", :action=>"make_a_vote", :id=>post.id, :vote_id=>post.vote.id}, :success=>"$('#vpostdetail_#{post.id}').show('slow');", :html=>{:onsubmit=>"var l = $('#vpostdetail_#{post.id} input[name=\"option[]\"]:checked').length; if (l == 0) { alert('请选择至少一项'); return false;} if (l > #{post.vote.tp}) {alert('您选择的项过多');return false;}",} do%>
+				<table class="vote_option" width="100%">
+				<% post.vote.options.split("&*").each_with_index{ |option, index|%>
+					<tr>
+						<td width="200px"><%= option %></td>
+						<td width="150px" class="vote_out">
+							<div class="vote_option<%= index % 5%>" style="width:<%=post.vote.percent(option)%>%"></div>
+						</td>
+						<td> 
+							<%= post.vote.count(option)%> (<%= post.vote.percent(option) %>%)
+						</td>
+						<td><%= check_box_tag "option[]", option %></td></tr>
+				<% } %>
+				<tr><td colspan=4 align="center">
+					<% if post.vote.voted?(@user.id)%>
+						<%= submit_tag "已投票", :class=>"button_disable", :disabled=>"disabled"%>
+					<% else %>
+						<%= submit_tag "投票", :id=>"submit_button", :class=>"button_submit_s", :onmouseover=>"this.className='button_submit_s button_submit_s_hover';", :onmouseout=>"this.className='button_submit_s';"%>
+					<% end %>
+				</td></tr>
+				</table>
+			  <% end %>
+		</div>
+    </div>
+    <div class="comments_bg3">
+        <div class="clear">
+        </div>
+    </div>
+  </div>

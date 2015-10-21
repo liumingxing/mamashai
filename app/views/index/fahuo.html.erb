@@ -1,0 +1,57 @@
+<!doctype html>
+<html>
+<head>
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type"> 
+<title>待发货清单</title>
+	<meta http-equiv="mobile-agent" content="format=html5;url=http://www.baobaorili.com/">
+	<meta content="yes" name="apple-mobile-web-app-capable" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <meta content="black" name="apple-mobile-web-app-status-bar-style" />
+    <meta name="format-detection" content="telephone=no" />
+</head>
+<style>
+	body {
+        background: #ffffff;
+    }
+    a {text-decoration: none; color: #3C3C3C;}
+    * {padding: 0;}
+    tr.main {background-color: #ccc;}
+    th, td {padding: 0.2em;}
+    .clear {clear: both;}
+</style>
+<body>
+    <table style="border-collapse: collapse" border=1>
+        <tr class="main">
+            <th>订单号</th>
+            <th>用户名</th>
+            <th>付款时间</th>
+            <th>收货地址</th>
+        </tr>
+        <% for order in @orders %>
+        <tr class="main">
+            <td><%= order.id %></td>
+            <td><%= order.user.name %></td>
+            <td><%= order.pay_at.to_s(:db) %></td>
+            <td><%= order.receiver %></td>
+        </tr>
+        <% for detail in order.details %>
+        <tr>
+            <td>
+                <img style="width:5em; height: 5em;" src="<%= detail.product.logo.thumb100.url %>"/>
+                <br/>
+                <%= detail.product.code %>
+            </td>
+            <td align='right'>
+                <%= detail.count %>
+            </td>
+            <td colspan=2>
+                <%= detail.product.name %> <br/>
+                <%= detail.product.english_name %>
+            </td>
+        </tr>
+        <% end %>
+        <% end %>
+    </table>
+	
+</body>
+</html>

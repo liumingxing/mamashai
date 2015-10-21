@@ -1,0 +1,20 @@
+<%= form_tag({:action=>"create", :id=>@column_book.id}, {:remote=>true, :id=>"remote_form"}) do%>
+	<table>
+		<tr height="30px"><td>栏目名称：</td><td><%= text_field "column_book", "name" %></td></tr>
+		<tr><td>内容简介：</td><td><%= text_area "column_book", "desc", :rows=>5 %><br/>
+		<!--
+		<tr height="30px"><td>选择标签：</td><td>
+			<% for t in ColumnType.find(:all)%>
+				<%= check_box_tag "column_type[]", t.name%><%= t.name %>
+			<% end %>
+			</td></tr>
+		-->
+		<tr><td colspan=2 align="center" valign="middle" style="height: 30px;"><%= submit_tag "提交", {:class=>"button_submit", :id=>'submit'}%></td></tr>
+<% end %>
+
+<script>
+	$("#remote_form").bind("ajax:complete", function(xhr, status){
+		hide_box(); 
+		location.reload();
+	})
+</script>

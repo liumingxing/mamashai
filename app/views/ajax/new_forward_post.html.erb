@@ -1,0 +1,44 @@
+<div class="layer">
+	<div class="layer_content">
+		<div class="layer_artich">
+			原文： <%= h @forward_post.content %> <%= post_blog_url(@forward_post) if @forward_post.blog_url %>
+		</div>
+		<div class="layer_box">
+			还可以输入<span id="forward_text_left" class="size">140</span>个字
+		</div>
+		<%= form_tag({:action => :create_forward_post,:id=>@forward_post.id,:the_post_id=>@the_post.id}, {:remote=>true, :id=>"form"}) do %>
+		<script>
+		$("#form").bind("ajax:complete", function(xhr, status){
+     		forwardshine_dialog.content('转晒成功').follow(forwardshine_dialog.follow_obj).time(2000)
+     	})
+		</script>
+		<div class="layer_box_text" >
+			<%= text_area :post, :content,{:id=>'forward_post_content',:onpropertychange=>"updateStatusTextCharCounter(this,'forward_text_left')",:oninput=>"updateStatusTextCharCounter(this,'forward_text_left')"} %>
+			<%= hidden_field_tag 'from', @from%>
+			<div>
+				<%= error_message_on :post,:content %>
+			</div>
+		</div>
+		<div class="layer_comments">
+			<%= check_box_tag :is_comment, '1'%> 同时评论给 <%= @forward_post.user.name %>
+		</div>
+		<ul class="layer_botton">
+			<li>
+				<button class="button_submit_s"  id="forward_shine_button" type="submit" onmouseover="this.className='button_submit_s button_submit_s_hover';" onmouseout="this.className='button_submit_s';">
+					转晒
+				</button>
+			</li>
+			<li>
+				<button class="button_submit_s" type="button" onclick="forwardshine_dialog.close();" onmouseover="this.className='button_submit_s button_submit_s_hover';" onmouseout="this.className='button_submit_s';">
+					取消
+				</button>
+			</li>
+			<div class="clear"></div>
+		</ul>
+		<% end %>
+	</div>
+</div>
+<script>
+	$('#forward_post_content').focus();
+	//reset_box(432, 332);
+</script>

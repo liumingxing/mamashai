@@ -1,0 +1,32 @@
+<%=link_to '新建子节点', {:action=>'new', :parent=>@category}, {:id=>"new_link", :update=>'editdiv', :remote=>true}%>
+&nbsp;&nbsp;
+
+<%=link_to '调整子节点顺序', {:action=>'reorder', :id=>@category} if @category.children.size > 0%>
+<%= form_tag( {:action=>"update", :id=>@category.id}, {:id=>'form', :update=>"form_update", :remote=>true} ) do %>
+  <%= render :partial => 'form' %>
+  <%= submit_tag '保存', :class=>"submit" %>&nbsp; | &nbsp;
+  <%= link_to '删除', "/mms/tao_categories/destroy/#{@category.id}", {:id=>"delete_link", :confirm=>"确定删除该节点吗？", :update=>"editdiv", :remote=>true, :method=>"post"}%>&nbsp; | &nbsp;
+  <%= link_to '清空商品', "/mms/tao_categories/delete_products/#{@category.id}", {:confirm=>"确定删除该类目商品吗？", :update=>"form_update", :remote=>true} %>
+<% end %>
+
+<br/>
+<div id='form_update'>
+
+</div>
+
+<script>
+$("#form").bind("ajax:complete", function(xhr, status){
+	$("#form_update").empty()
+	$("#form_update").append(status.responseText)
+})
+
+$("#delete_link").bind("ajax:complete", function(xhr, status){
+	$("#form_update").empty()
+	$("#form_update").append(status.responseText)
+})
+
+$("#new_link").bind("ajax:complete", function(xhr, status){
+	$("#editdiv").empty()
+	$("#editdiv").append(status.responseText)
+})
+</script>

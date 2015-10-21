@@ -1,0 +1,38 @@
+    <div id="middle">
+        <div id="css_mainbody">
+            <h1 class="title">商品管理<span style="float:right;"><%=link_to "返回列表", mms_products_path%></span></h1>
+			<div class="order_number">
+				<div class="order_title">修改商品信息</div>
+				<div style="color: green;width:800px;text-align:center"><%= flash[:notice] %></div>	
+				<% form_for :product, :url =>{:action => "create"},:method=>:post do |f|%>
+					<%= render :partial=>"form", :locals=>{:f,f}%>
+				<% end %>
+			 </div>
+        </div>
+        <div class="clear"></div>
+    </div>
+	
+<style type="text/css" >
+	.order_number {
+		border:1px solid #B6B6B6;
+		margin:10px auto;
+		overflow:hidden;
+		width:95%;
+	}
+	.order_number .order_title {
+		background:none repeat scroll 0 0 #E5E5E5;
+		font-size:14px;
+		font-weight:bold;
+		height:35px;
+		line-height:35px;
+		padding-left:10px;
+	}
+	.order_number .order_title span.title {
+		float:left;
+		width:50%;
+	}
+	.order_number .order_title span.title01 {
+		float:left;
+		width:49%;
+	}	
+</style>

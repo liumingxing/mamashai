@@ -1,0 +1,48 @@
+<div class="sidebar">
+	<div class="panel">
+		<% form_tag({:controller=>'friends', :action=>'find'},{:id=>"find_friend", :method => :get}) do %>
+	    	&nbsp;&nbsp;<%= text_field :search_user, :name, :class=>'default_input', :style=>"width: 140px;" %>
+	        <a href="javascript:void(0)" onclick="document.getElementById('find_friend').submit();">找人</a>
+	    <% end %>
+	</div>
+	<div class="panel">
+    	<div class="panel_title">
+            <span class="title">找专栏作家</span> 
+        </div>
+		<div class="panel_content">	
+			<% for author in ColumnAuthor.find(:all, :order=>"rand()", :limit=>8)%>
+			    <%=render :partial=>'sidebar/side_user',:locals=>{:user_item=>author.user, :tp=>"hot"} %>
+			<% end %>
+		</div>
+    </div>
+	
+	<div class="panel">
+    	<div class="panel_title">
+            <span class="title">找问答高人</span> 
+			<span class="more"><%= link_to_remote "换换", :update=>"same_age_kid", :url=>"/ajax/same_age_kid" %></span>
+        </div>
+		<div class="panel_content">	
+			<% for user_item in User.find(:all,:limit=>6,:conditions=>['tp>0 and logo is not null'],:order=>'ask_count desc') %>
+            	<%=render :partial=>'/sidebar/side_user',:locals=>{:user_item=>user_item, :tp=>''} %>
+            <% end %>
+		</div>
+    </div>
+	
+   <div class="panel">
+    	<div class="panel_title">
+            <span class="title">找热门群组</span> 
+        </div>
+		<div class="panel_content">	
+			<ul class='subjects_attention'>
+				<% for subject in Subject.all(:limit=>6, :conditions=>['name in (?)',NameValue.find_by_name('broadcast_tag').value.split('|')]) %>
+					<li class="subject"> 
+						<div class="c1"><%= logo_tag(subject, {:version=>"thumb75", :url=>"/g/#{subject.id}"})%></div>
+						<div class="c2"><a href="/g/<%= subject.id%>"><%= subject.name%></a>： <a href="/g/<%= subject.id%>"><%= subject.post.content if subject.post%></a></div>
+						<div class="c3">创建者：<a href="/user/<%= subject.user.encrypt_user_id%>"><%= subject.user.name%></a></div>
+						<div class="c4"><span class="gray"><%=refer_time(subject.post.created_at) if subject.post%></span></div>
+					</li>
+				<% end %>
+			</ul>
+		</div>
+    </div>
+</div>

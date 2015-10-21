@@ -1,0 +1,75 @@
+<table border="1" class="grid_mce" cellpadding="2">
+  <% if controller.action_name == 'new_tag'%>
+    <tr>
+        <td>话题名称：</td>
+        <td><%= text_field "tag", "name"%></td>
+    </tr>
+  <% end %>
+    <tr>
+        <td class="td01">
+            话题短名称：
+        </td>
+        <td>
+            <%= f.text_field :short_tag_name, :maxlength => 7, :size => 30  %> 注：不能超过7个字！
+        </td>
+    </tr>
+
+    <tr>
+        <td class="td01">
+            话题摘要：
+        </td>
+        <td>
+            <%= f.text_field :summary,:maxlength => 25, :size => 30 %>   注：不能超过25个字！
+        </td>
+    </tr>
+    <tr>
+        <td class="td01">
+            话题内容：
+        </td>
+        <td>
+            <%= f.text_area :description,:maxlength => 95 %>
+            <span id="count_2"></span>
+        </td>
+    </tr>
+    <tr>
+        <td class="td01">
+            话题图片
+        </td>
+        <td>
+            <%=upload_column_field :age_tag, :logo %>
+            <%= f.error_message_on  :logo %>
+        </td>
+    </tr>
+
+    <tr>
+        <td></td>
+        <td>
+           <%=logo_tag(@age_tag,{:version=>'thumb90'}) if @age_tag && @age_tag.logo %>
+        </td>
+    </tr>
+
+	<% if controller.action_name.index("new") %>
+	<tr>
+		<td>添加到年龄段</td>
+		<td>
+			<% for age in Age.find(:all)%>
+				<%= check_box_tag "age[]", age.id, params[:age_id].to_i == age.id %><%= age.name %>
+			<% end %>
+		</td>
+	</tr>
+	<% end %>
+
+    <tr>
+        <td></td>
+        <td>
+            <%= f.submit '保存' %>
+        </td>
+    </tr>
+</table>
+
+<script>
+	$("#count_2").text($("#age_tag_description").val().length);
+	$('#age_tag_description').keyup(function(){
+		$("#count_2").text($("#age_tag_description").val().length);
+	})
+</script>

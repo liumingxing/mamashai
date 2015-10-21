@@ -1,0 +1,11 @@
+<div id="middle">
+    <div id="css_mainbody">
+        <h1 class="title">妈妈晒团购-信息管理-供应商编码修改<span style="float: right; margin-right: 10px;"><%= link_to '返回列表', '/mms/mms_tuans/index' %>
+            </span></h1>
+            <% form_for @tuan, :url => { :action => "update",:id=>@tuan.id } do |f| %>
+            	<%= render :partial => 'form_supplier_code', :locals=>{:f=>f} %>
+            <% end %>
+    </div>
+    <div class="clear">
+    </div>
+</div>

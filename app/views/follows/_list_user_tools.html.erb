@@ -1,0 +1,24 @@
+<ul class="shine_local">
+    <% if user.respond_to?('is_fans') && user.is_fans=='1' %>
+    <li>
+        <img src="/images/icons/relation.gif"/>
+    </li>
+	<% end %>
+    <li id="button_cancel_<%=user.id%>">
+        <%= link_to(APP_CONFIG['cancel_follow'], {:action =>:delete_follow_user,:controller=>:ajax,:id=>user.id},{:remote=>true, :updater =>"button_cancel_#{user.id}", :class=>'button_link'}) %>
+    </li>
+    <li>
+        <a id="button_group_<%=user.id%>" class="button_link" href="javascript:void(0);" onclick="show_url_box('/users/<%=@user.id%>/follows/<%=user.id%>/edit_group', '设置分组');"><% if user.follows_group_id.blank? %>设置分组<% else %>修改分组<% end %></a>
+    </li>
+    <li>
+        <a id="button_nick_name_<%=user.id%>" class="button_link" href="javascript:void(0);" onclick="show_url_box('/users/<%=@user.id%>/follows/<%=user.id%>/edit_nick_name', '标注昵称');"><% if user.nick_name.blank? %>标注昵称<% else %>修改昵称<% end %></a>
+    </li>
+    <% if user.is_fans=='1' %>
+    <li>
+        <a class="button_link" href="javascript:void(0);" onclick="show_url_box('/ajax/new_message/<%=user.id%>', '发私信', 420, 320);">发私信</a>
+    </li>
+    <% end %>
+    <li>
+        <a class="button_link" href="/gifts/give_gifts/<%=user.id%>">赠送礼物</a>
+    </li>
+</ul>

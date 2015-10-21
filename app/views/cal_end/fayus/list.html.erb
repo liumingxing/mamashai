@@ -1,0 +1,35 @@
+<h1>宝宝生长发育监测</h1>
+
+<table class="list" border="1" width="98%">
+  <tr class="head">
+    <th>月份</th>
+    <th>发育指标</th>
+    <th>营养指南</th>
+    <th>亲子游戏</th>
+    <th>注意事项</th>
+    <th>儿童教养</th>
+    <th>智力开发</th>
+    <th colspan=3>操作</th>
+  </tr>
+  
+<% for fayu in @fayus %>
+  <tr>
+    <td><%=h fayu.month %></td>
+    <td><%=h fayu.fayu %></td>
+    <td><%=h fayu.yingyang %></td>
+    <td><%=h fayu.qinzi %></td>
+    <td><%=h fayu.zhuyi %></td>
+    <td><%=h fayu.jiaoyang %></td>
+    <td><%=h fayu.zhili %></td>
+    
+    <td><%= link_to '修改', :action => 'edit', :id => fayu, :page=>params[:page] %></td>
+  </tr>
+<% end %>
+</table>
+
+
+<%= will_paginate @fayus %>
+
+<br />
+
+<%= link_to 'New fayu', :action => 'new' %>

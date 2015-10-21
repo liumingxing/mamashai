@@ -1,0 +1,26 @@
+<h1>trends/destroy 取消对某话题的关注。</h1><%= link_to "返回到列表", "/api/test" %>
+<pre>
+  [路径]: trends/destroy
+  [HTTP请求方式]: DELETE/POST
+  [URL]: http://your.api.domain/trends/destroy.json
+  [是否需要登录]： true
+
+参数
+
+    * source 申请应用时分配的AppKey，调用接口时候代表应用的唯一身份。
+    * trend_id 要取消关注的话题ID。
+
+示例
+
+  curl -u "username:password" -X DELETE
+  "http://your.api.domain/trends/destroy.json?source=appkey&trend_id=1"
+
+
+</pre>
+<hr/>
+<%= form_tag "/api/trends/destroy.json" ,{:method=>:delete} do %>
+  <%= render :partial => '/api/test/login' %>
+  source: <%= text_field_tag "source" %><br/>
+  trend_id: <%= text_field_tag "trend_id" %><br/>
+  <%= submit_tag "提交"%>
+<% end -%>

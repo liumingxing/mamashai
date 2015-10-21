@@ -1,0 +1,2324 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>Untitled Document</title>
+        <link rel="stylesheet" href="../css_zhibiao/style.css" />
+        <script src="http://yuchanqi.duapp.com/js/jquery1.4.2.js" type="text/javascript"></script>
+        <script>
+            var myDate = new Date();
+            var year = myDate.getFullYear();
+            var month = myDate.getMonth() + 1;
+            if(month < 10) {
+                month = "0" + month.toString();
+            }
+            var day = myDate.getDate();
+            if(day < 10) {
+                day = "0" + day.toString();
+            }
+            var max_date = year.toString() + "-" + month.toString() + "-" + day.toString();
+            var min_date = (year-3).toString() + '-' + month.toString() + "-" + (day-1).toString();
+
+            
+        </script>
+        <script language="javascript" type="text/javascript" src="../My97DatePickerBeta/My97DatePicker/WdatePicker.js"></script>
+    </head>
+
+    <body>
+
+        <div class="a1_01">
+            <p id="fanhui" class="a1_02 l" style="display:none;"><a href="javascript:back();"><img src="../images_zhibiao/a1.jpg"/></a></p>
+            <p id="m_title" class="a1_03 l padding_left_168"><a href="#"><img src="../images_zhibiao/a2.jpg" /></a></p>
+            <p class="a1_04 l"><a target="blank" href="http://mamashai.com"><img src="../images_zhibiao/a3.jpg" /></a></p>
+        </div>
+        <div id="form" class="a1_05">
+            <table class="b_01">
+                <tr>
+                    <td height="65"><label>宝宝性别：</label><input checked type="radio" name="sex" id="radio" value="男" /><label> 男 </label><input type="radio" name="sex" value="女"  style="margin-left:10px;"/><label> 女 </label>
+                    </td>
+                </tr>
+                <tr>
+                    <td><label>宝宝生日：</label><label><input id="date" type="text" readonly="true"  class="text1" value="" onClick="WdatePicker({skin:'whyGreen',minDate:min_date,maxDate:max_date})"/></label>
+                    </td>
+                </tr>
+            </table>
+            <p class="b_02"><a href="javascript:;"><img id="chakan" src="../images_zhibiao/b2.jpg" /></a></p>
+            <div class="a1_12" style="margin-top:37px;"></div>
+            <p class="a1_06" style="width:494px; height:auto; padding:0px; margin:18px auto 20px; font-size:12px; line-height:30px; color:#B9B9B9;">0-3岁是儿童智力发育的关键期，这段时间宝宝的智力发育主要表现在认知、运动、语言、社交等方面。通过参照0-3岁婴幼儿生长发育监测表上具有代表性的数据，父母们可以比照自己宝宝的发育情况和检测自己的早教方案是否科学。
+            </p>
+            <div class="a1_12"></div>
+            <div class="a1_07" style="width:507px; clear:both;margin:0 auto 0px; padding-bottom:30px;">
+                <p class="a1_09 l" style=" height:34px;margin-left:19px; line-height:34px; font-size:12px; color:#B9B9B9;">以上内容来自<a target="blank" href="http://mamashai.com"><img src="../images_zhibiao/b3.jpg" /></a> &nbsp; 品牌授权图书，仅供参考。</p>
+
+            </div>
+        </div>
+        <!-- 指标页 -->
+        <div id="zhibiao_box" style="display:none" class="a1_05">
+            <p class="a1_06" id="old1">宝宝儿今天 <span id="span_year"></span> 岁 <span id="span_month"></span> 月 <span id="span_day"></span> 天</p>
+            <div class="a1_07">
+                <p class="a1_08 l"><a href="#"><img src="../images_zhibiao/a4.jpg"/></a></p>
+                <p style="margin-left:10px; width:155px; line-height:22px;" class="a1_09 l"><span id="old2" style="font-weight:bold; color:#EB5F9C;">0个月</span>儿童发育指标</p>
+                <p style="width:18px; height:18px; padding:0px 0 0 130px;" class="a1_08 l"><a href="javascript:next_page('zhibiao', 36, zhibiao_current, 'down');"><img src="../images_zhibiao/a5.jpg"/></a></p>
+                <p class="a1_10 l"><a id="zhibiao_down" href="javascript:next_page('zhibiao', 36, zhibiao_current, 'down');">上一阶段</a></p>
+                <p style="margin-left:45px;" class="a1_10 l"><a id="zhibiao_up" href="javascript:next_page('zhibiao', 36, zhibiao_current, 'up');">下一阶段</a></p>
+                <p style="width:18px; height:18px; padding:0px 0 0 5px;" class="a1_08 l"><a href="javascript:next_page('zhibiao', 36, zhibiao_current, 'up');"><img src="../images_zhibiao/a6.jpg"/></a></p>
+            </div>
+            <ul class="a1_11">
+                <li id="tab1" class="a1_11_li2" style="margin-left:7px;cursor:pointer;" onclick="change_tab(1)"><a id="tab_conten1" href="javascript:;">味觉</a></li>
+                <li id="tab2" class="a1_11_li" style="cursor:pointer;" onclick="change_tab(2)"><a id="tab_conten2" href="javascript:;">嗅觉</a></li>
+                <li id="tab3" class="a1_11_li" style="cursor:pointer;" onclick="change_tab(3)"><a id="tab_conten3" href="javascript:;">视力</a></li>
+                <li id="tab4" class="a1_11_li" style="cursor:pointer;" onclick="change_tab(4)"><a id="tab_conten4" href="javascript:;">认知</a></li>
+                <li id="tab5" class="a1_11_li" style="cursor:pointer;" onclick="change_tab(5)"><a id="tab_conten5" href="javascript:;">运动</a></li>
+            </ul>
+            <p id="content1" style="width:494px; height:auto; padding:0px; margin:45px auto 20px; font-size:14px; line-height:30px;" class="a1_06">
+            </p>
+            <p id="content2" style="display:none;width:494px; height:auto; padding:0px; margin:45px auto 20px; font-size:14px; line-height:30px;" class="a1_06">
+            </p>
+            <p id="content3" style="display:none;width:494px; height:auto; padding:0px; margin:45px auto 20px; font-size:14px; line-height:30px;" class="a1_06">
+            </p>
+            <p id="content4" style="display:none;width:494px; height:auto; padding:0px; margin:45px auto 20px; font-size:14px; line-height:30px;" class="a1_06">
+            </p>
+            <p id="content5" style="display:none;width:494px; height:auto; padding:0px; margin:45px auto 20px; font-size:14px; line-height:30px;" class="a1_06">
+            </p>
+            <div class="a1_12"></div>
+            <div style="width:507px; height:33px; margin:0 auto 25px;" class="a1_07">
+
+                <p style="margin-left:19px; width:90px; line-height:33px;" class="a1_09 l">本阶段相关：</p>
+                <p style="width:151px; height:18px; padding:0px 0 0 2px;" class="a1_08 l"><a href="javascript:show('tizhong');"><img src="../images_zhibiao/a9.jpg"/></a></p>
+                <p style="width:84px; height:18px; padding:0px 0 0 10px;" class="a1_08 l"><a href="javascript:show('yimiao');"><img src="../images_zhibiao/a10.jpg"/></a></p>
+                <p style="width:84px; height:18px; padding:0px 0 0 10px;" class="a1_08 l"><a href="javascript:show('yingyang');"><img src="../images_zhibiao/a11.jpg"/></a></p>
+            </div>
+            <div class="a1_12"></div>
+            <div style="width:507px; clear:both;margin:0 auto 0px; padding-bottom:30px;" class="a1_07">
+                <p style="margin-left:19px; width:132px; line-height:22px; color:#E23D8C;" class="a1_09 l"><a style=" color:#E23D8C; text-decoration:none;" href="javascript:;"><!--育儿资源免费下载--> &nbsp;</a></p>
+                <p style="margin-left:160px; width:160px; line-height:22px; color:#484647;cursor:pointer;" onclick="show_more('go')" class="a1_09 l">妈妈晒团队研发相关推荐</p>
+                <p style="width:18px; height:18px; padding:0px 0 0 0px;" class="a1_08 l"><a href="javascript:show_more('go');"><img src="../images_zhibiao/a6.jpg"/></a></p>
+            </div>
+
+
+          
+             <!--弹出层 -->
+  <div id="tanchu_box_tizhong" class="d_01" style="position:absolute;padding-left:60px; top:120px;display:none;">
+	<p class="d_02"><img src="../images_zhibiao/d1.jpg" border="0" usemap="#Map" />
+      <map name="Map" onclick="close_box();">
+        <area shape="rect" coords="406,9,426,29" href="#" />
+      </map>
+	</p>
+    <div class="d_03">
+    	<p class="d_04 l"><img src="../images_zhibiao/d2.jpg" border="0" usemap="#Map2" />
+          <map name="Map2" id="Map2">
+            <area shape="rect" coords="3,85,18,118" href="#" />
+          </map>
+    	</p>
+        <div class="d_05 l">
+         <p class="a1_09 l" style="margin-left:19px; width:132px; line-height:22px; margin:0 0 0 20px;"><span id="tizhong_old" style="font-weight:bold; color:#EB5F9C;">0个月</span>儿童发育指标</p>
+         <p class="d_07"><img src="../images_zhibiao/d5.png"  style="margin-right:10px;"/><span id="tizhong_sex">男</span>宝宝</p>
+         <div class="d_08">
+         	<p style=" float:left; font-size:14px; color:#999999; width:164px; height:auto;">身高：<span id="span_height">100-100</span>cm</p>
+            <p style=" float:left; font-size:14px; color:#999999; width:164px; height:auto;">体重：<span id="span_weight">100-100</span>kg</p>
+            <p id="span_head" style="display:none; float:left; font-size:14px; color:#999999; width:164px; height:auto;">身高：100-100cm</p>
+         </div>
+
+<div class="d-09">
+ <p class="a1_08 l" style="width:18px; height:18px; padding:0px 0 0 7px;"><a href="javascript:next_page('tizhong', 36, tizhong_current, 'down');"><img src="../images_zhibiao/d6.png" /></a></p>
+        <p class="a1_10 l"><a id="tizhong_down" href="javascript:next_page('tizhong', 36, tizhong_current, 'down');">上一阶段</a></p>
+        <p class="a1_10 l" style="margin-left:45px;"><a id="tizhong_up" href="javascript:next_page('tizhong', 36, tizhong_current, 'up');">下一阶段</a></p>
+        <p class="a1_08 l" style="width:18px; height:18px; padding:0px 0 0 5px;"><a href="javascript:next_page('tizhong', 36, tizhong_current, 'up');"><img src="../images_zhibiao/d7.png" /></a></p>
+</div>
+        
+        
+        
+        
+        </div>
+        <p class="d_06 l"><img src="../images_zhibiao/d4.jpg" border="0" usemap="#Map3" />
+          <map name="Map3" id="Map3">
+            <area shape="rect" coords="3,84,18,119" href="#" />
+          </map>
+        </p>
+  </div>
+</div>
+
+           <div id="tanchu_box_yimiao" class="d_01" style="position:absolute;padding-left:60px; top:120px;display:none;">
+	<p class="d_02"><img src="../images_zhibiao/d1.jpg" border="0" usemap="#Map" />
+      <map name="Map" onclick="close_box();">
+        <area shape="rect" coords="406,9,426,29" href="#" />
+      </map>
+	</p>
+    <div class="d_03">
+    	<p class="d_04 l"><img src="../images_zhibiao/d2.jpg" border="0" usemap="#Map2" />
+          <map name="Map2" id="Map2">
+            <area shape="rect" coords="3,85,18,118" href="#" />
+          </map>
+    	</p>
+        <div class="d_05 l">
+         <p class="a1_09 l" style="margin-left:19px; width:132px; line-height:22px; margin:0 0 0 20px;"><span id="yimiao_old" style="font-weight:bold; color:#EB5F9C;">0个月</span>儿童发育指标</p>
+         <p class="d_07"><img src="../images_zhibiao/d5.png"  style="margin-right:10px;"/>本月疫苗：<span id="td_tab_1" style="cursor:pointer" onclick="yimiao_show(1)"></span> <span id="td_tab_2" style="cursor:pointer" onclick="yimiao_show(2)"></span> <span id="td_tab_3" style="cursor:pointer" onclick="yimiao_show(3)"></span></p>
+         <div class="d_08">
+         	<p id="div_tab_1" style=" float:left; font-size:14px; color:#999999; width:322px; height:80px;overflow-y:scroll"></p>
+                <p id="div_tab_2" style=" float:left; font-size:14px; color:#999999; width:322px; height:98px;display:none;;overflow-y:scroll"></p>
+                <p id="div_tab_3" style=" float:left; font-size:14px; color:#999999; width:322px; height:98px;display:none;;overflow-y:scroll"></p>
+         </div>
+
+<div class="d-09">
+ <p class="a1_08 l" style="width:18px; height:18px; padding:0px 0 0 7px;"><a href="javascript:next_page('yimiao', 36, yimiao_current, 'down');"><img src="../images_zhibiao/d6.png" /></a></p>
+        <p class="a1_10 l"><a id="yimiao_down" href="javascript:next_page('yimiao', 36, yimiao_current, 'down');">上一阶段</a></p>
+        <p class="a1_10 l" style="margin-left:45px;"><a id="yimiao_up" href="javascript:next_page('yimiao', 36, yimiao_current, 'up');">下一阶段</a></p>
+        <p class="a1_08 l" style="width:18px; height:18px; padding:0px 0 0 5px;"><a href="javascript:next_page('yimiao', 36, yimiao_current, 'up');"><img src="../images_zhibiao/d7.png" /></a></p>
+</div>
+        
+        
+        
+        
+        </div>
+        <p class="d_06 l"><img src="../images_zhibiao/d4.jpg" border="0" usemap="#Map3" />
+          <map name="Map3" id="Map3">
+            <area shape="rect" coords="3,84,18,119" href="#" />
+          </map>
+        </p>
+  </div>
+</div>
+       
+
+
+          <div id="tanchu_box_yingyang" class="d_01" style="position:absolute;padding-left:60px; top:120px;display:none;">
+	<p class="d_02"><img src="../images_zhibiao/d1.jpg" border="0" usemap="#Map" />
+      <map name="Map" onclick="close_box();">
+        <area shape="rect" coords="406,9,426,29" href="#" />
+      </map>
+	</p>
+    <div class="d_03">
+    	<p class="d_04 l"><img src="../images_zhibiao/d2.jpg" border="0" usemap="#Map2" />
+          <map name="Map2" id="Map2">
+            <area shape="rect" coords="3,85,18,118" href="#" />
+          </map>
+    	</p>
+        <div class="d_05 l">
+         <p class="a1_09 l" style="margin-left:19px; width:132px; line-height:22px; margin:0 0 0 20px;"><span id="yingyang_old" style="font-weight:bold; color:#EB5F9C;">0个月</span>儿童发育指标</p>
+         <p class="d_07"><img src="../images_zhibiao/d5.png"  style="margin-right:10px;"/><span id="yingyang_1" style="cursor:pointer" onclick="yingyang_show(1)">喂养指导</span> <span id="yingyang_2" style="cursor:pointer" onclick="yingyang_show(2)">营养回答</span> <span id="yingyang_3" style="cursor:pointer" onclick="yingyang_show(3)">推荐食谱</span></p>
+         <div class="d_08">
+         	<p id="div_yy_1" style=" float:left; font-size:14px; color:#999999; width:322px; height:80px;overflow-y:scroll"></p>
+                <p id="div_yy_2" style=" float:left; font-size:14px; color:#999999; width:322px; height:98px;display:none;;overflow-y:scroll"></p>
+                <p id="div_yy_3" style=" float:left; font-size:14px; color:#999999; width:322px; height:98px;display:none;;overflow-y:scroll"></p>
+         </div>
+
+<div class="d-09">
+ <p class="a1_08 l" style="width:18px; height:18px; padding:0px 0 0 7px;"><a href="javascript:next_page('yingyang', 36, yingyang_current, 'down');"><img src="../images_zhibiao/d6.png" /></a></p>
+        <p class="a1_10 l"><a id="yingyang_down" href="javascript:next_page('yingyang', 36, yingyang_current, 'down');">上一阶段</a></p>
+        <p class="a1_10 l" style="margin-left:45px;"><a id="yingyang_up" href="javascript:next_page('yingyang', 36, yingyang_current, 'up');">下一阶段</a></p>
+        <p class="a1_08 l" style="width:18px; height:18px; padding:0px 0 0 5px;"><a href="javascript:next_page('yingyang', 36, yingyang_current, 'up');"><img src="../images_zhibiao/d7.png" /></a></p>
+</div>
+        
+        
+        
+        
+        </div>
+        <p class="d_06 l"><img src="../images_zhibiao/d4.jpg" border="0" usemap="#Map3" />
+          <map name="Map3" id="Map3">
+            <area shape="rect" coords="3,84,18,119" href="#" />
+          </map>
+        </p>
+  </div>
+</div>
+              <!--以上弹出层 -->
+
+        </div>
+        <!--更多推荐-->
+            <div id="tuijian" class="a1_05" style="display:none;">
+	   <div class="left_02">
+         	<div class="left_03">
+            	<p class="left_04"><a href="#" style="display:block; width:450px;">备孕<span style=" color:#A0A5A8;">(4)</span></a><a href="javascript:change_tuijian(1);" id="menu_1" style=" font-weight:normal; color:#E05991; font-size:12px;"><img src="../images_zhibiao/xia.jpg" /> 收起</a></p>
+                </div>
+                <ul id="tuijian_1" class="left_05" style="height:90px;">
+                    <li><a target="blank" href="http://tb.mamashai.com/app/boyorgirl2/index.html">生男生女预测表</a></li>
+                    <li><a target="blank" href="http://tb.mamashai.com/app/huaiyun_cqzz.html">怀孕初期症状</a></li>
+                    <li><a target="blank" href="http://tb.mamashai.com/app/zhunshengzheng.html">准生证办理流程</a></li>
+                    <li><a target="blank" href="http://tb.mamashai.com/app/ycjs/index.html">预产期计算器</a></li>
+                </ul>
+         </div>
+                   <div class="left_02">
+         	<div class="left_03">
+            	<p class="left_04"><a href="#" style="display:block; width:450px;">怀孕<span style=" color:#A0A5A8;">(15)</span></a><a href="javascript:change_tuijian(2);" id="menu_2" style=" font-weight:normal; color:#E05991; font-size:12px;"><img src="../images_zhibiao/shang.jpg" /> 展开</a></p>
+                </div>
+                <ul id="tuijian_2" class="left_05" style="height:90px;display:none;overflow-y:scroll">
+                    <li><a target="blank" href="http://tb.mamashai.com/app/boyorgirl2/index.html">生男生女预测表</a></li>
+                    <li><a target="blank" href="http://tb.mamashai.com/app/yangshueichuanci.html">羊水穿刺</a></li>
+                    <li><a target="blank" href="http://tb.mamashai.com/app/tangshi_shaicha.html">唐氏筛查</a></li>
+                    <li><a target="blank" href="http://tb.mamashai.com/app/zhunshengzheng.html">准生证办理流程</a></li>
+
+                    <li><a target="blank" href="http://tb.mamashai.com/app/yunqi_tizhong/index.html">孕妇体重</a></li>
+                    <li><a target="blank" href="http://tb.mamashai.com/app/yunqi_jiancha/index.html">孕期检查</a></li>
+                    <li><a target="blank" href="http://tb.mamashai.com/app/bchao/index.html?">孕妇B超</a></li>
+                    <li><a target="blank" href="http://tb.mamashai.com/app/yunqi_zhuyi/index.html">孕期注意事项</a></li>
+                    <li><a target="blank" href="http://tb.mamashai.com/app/yunqi_yingyang/index.html">孕期营养</a></li>
+
+                    <li><a target="blank" href="http://tb.mamashai.com/app/daichanbao/index.html">待产包</a></li>
+                    <li><a target="blank" href="http://tb.mamashai.com/app/ycjs/index.html">预产期计算器</a></li>
+                    <li><a target="blank" href="http://tb.mamashai.com/app/fenmian.html">分娩</a></li>
+                    <li><a target="blank" href="http://tb.mamashai.com/app/paofuchan.html">剖腹产</a></li>
+                    <li><a target="blank" href="http://tb.mamashai.com/app/shunchan.html">顺产</a></li>
+                    <li><a target="blank" href="http://tb.mamashai.com/app/qingxutiaojie.html">待产情绪调节</a></li>
+                </ul>
+
+            </div>
+  	   <div class="left_02">
+         	<div class="left_03">
+            	<p class="left_04"><a href="#" style="display:block; width:450px;">0-1岁<span style=" color:#A0A5A8;">(34)</span></a><a href="javascript:change_tuijian(3);" id="menu_3" style=" font-weight:normal; color:#E05991; font-size:12px;"><img src="../images_zhibiao/shang.jpg" /> 展开</a></p>
+                </div>
+                <ul id="tuijian_3" class="left_05" style="height:90px;display:none;overflow-y:scroll">
+                    <li><a target="blank" href="http://tb.mamashai.com/app/muruweiyang.html">母乳喂养</a></li>
+                    <li><a target="blank" href="http://tb.mamashai.com/app/cuozhejiaoyu.html">挫折教育</a></li>
+                    <li><a target="blank" href="http://tb.mamashai.com/app/sex_educate.html">性教育</a></li>
+                    <li><a target="blank" href="http://tb.mamashai.com/app/xinshengerhuangdan.html">新生儿黄疸</a></li>
+
+                    <li><a target="blank" href="http://tb.mamashai.com/app/zaojiao.html">早教</a></li>
+                    <li><a target="blank" href="http://tb.mamashai.com/app/baby_shipu/index">宝宝冬季食谱</a></li>
+                    <li><a target="blank" href="http://tb.mamashai.com/app/shengao/index.html">儿童身高预测</a></li>
+                    <li><a target="blank" href="http://tb.mamashai.com/app/baby_wanju/index.html">儿童玩具</a></li>
+                    <li><a target="blank" href="http://tb.mamashai.com/app/baby_yingyang/index.html">儿童营养(0-3岁）</a></li>
+                    <li><a target="blank" href="http://tb.mamashai.com/app/qinzi_game/index.html">亲子游戏</a></li>
+                    <li><a target="blank" href="http://tb.mamashai.com/app/xuexing_zaojiao/index.html">宝宝血型与早教</a></li>
+
+                    <li><a target="blank" href="http://tb.mamashai.com/app/xuexing_xingge/index.html">宝宝血型与性格</a></li>
+                    <li><a target="blank" href="http://tb.mamashai.com/app/xuexing/index.html">宝宝血型</a></li>
+                    <li><a target="blank" href="http://tb.mamashai.com/app/qimeng_wuqu/index.html">儿童英语</a></li>
+                    <li><a target="blank" href="http://tb.mamashai.com/app/baby_body.html">宝宝身高体重标准</a></li>
+                    <li><a target="blank" href="http://tb.mamashai.com/app/baby_yimiao.html">宝宝疫苗接种</a></li>
+                    <li><a target="blank" href="http://tb.mamashai.com/app/baby_growth.html">宝宝生长发育监测</a></li>
+                    <li><a target="blank" href="http://tb.mamashai.com/app/paofuchan_ystl.html">剖腹产饮食调理</a></li>
+                    <li><a target="blank" href="http://tb.mamashai.com/app/chanhou_bianmi.html">食疗产后便秘</a></li>
+                    <li><a target="blank" href="http://tb.mamashai.com/app/chanhou_elsl.html">食疗产后恶露</a></li>
+
+                    <li><a target="blank" href="http://tb.mamashai.com/app/chanhoushoufu.html">产后收腹</a></li>
+                    <li><a target="blank" href="http://tb.mamashai.com/app/chanhouyiyu.html">产后抑郁</a></li>
+                    <li><a target="blank" href="http://tb.mamashai.com/app/chanhou_xianti.html">产后瘦身</a></li>
+                    <li><a target="blank" href="http://tb.mamashai.com/app/qingxushudao.html">产后情绪疏导</a></li>
+                    <li><a target="blank" href="http://tb.mamashai.com/app/baby_30days.html">新生儿一天一变</a></li>
+                    <li><a target="blank" href="http://tb.mamashai.com/app/xinshenger_jibing.html">新生儿疾病</a></li>
+                    <li><a target="blank" href="http://tb.mamashai.com/app/xinshenger_wy.html">新生儿喂养</a></li>
+                    <li><a target="blank" href="http://tb.mamashai.com/app/xinshenger_huli.html">新生儿护理</a></li>
+                    <li><a target="blank" href="http://tb.mamashai.com/app/chanhou_huifu.html">产后恢复</a></li>
+                    <li><a target="blank" href="http://tb.mamashai.com/app/yuezihuli.html">月子护理</a></li>
+                    <li><a target="blank" href="http://tb.mamashai.com/app/yuezican.html">月子餐计划</a></li>
+                    <li><a target="blank" href="http://tb.mamashai.com/app/yuezi_bxbqsp.html">月子补气养血食谱</a></li>
+                    <li><a target="blank" href="http://tb.mamashai.com/app/yuezi_cnsp.html">月子催奶食谱</a></li>
+                    <li><a target="blank" href="http://tb.mamashai.com/app/yuezihuli.html">月子护理</a></li>
+                </ul>
+         </div>
+         	   <div class="left_02">
+         	<div class="left_03">
+            	<p class="left_04"><a href="#" style="display:block; width:450px;">1-3岁<span style=" color:#A0A5A8;">(18)</span></a><a href="javascript:change_tuijian(4);" id="menu_4" style=" font-weight:normal; color:#E05991; font-size:12px;"><img src="../images_zhibiao/shang.jpg" /> 展开</a></p>
+                </div>
+                <ul id="tuijian_4" class="left_05" style="height:90px;display:none;overflow-y:scroll">
+                    <li><a target="blank" href="http://tb.mamashai.com/app/cuozhejiaoyu.html">挫折教育</a></li>
+                    <li><a target="blank" href="http://tb.mamashai.com/app/sex_educate.html">性教育</a></li>
+                    <li><a target="blank" href="http://tb.mamashai.com/app/zaojiao.html">早教</a></li>
+                    <li><a target="blank" href="http://tb.mamashai.com/app/baby_shipu/index">宝宝冬季食谱</a></li>
+
+                    <li><a target="blank" href="http://tb.mamashai.com/app/shengao/index.html">儿童身高预测</a></li>
+                    <li><a target="blank" href="http://tb.mamashai.com/app/baby_wanju/index.html">儿童玩具</a></li>
+                    <li><a target="blank" href="http://tb.mamashai.com/app/baby_yingyang/index.html">儿童营养(0-3岁）</a></li>
+                    <li><a target="blank" href="http://tb.mamashai.com/app/qinzi_game/index.html">亲子游戏</a></li>
+                    <li><a target="blank" href="http://tb.mamashai.com/app/xuexing_zaojiao/index.html">宝宝血型与早教</a></li>
+                    <li><a target="blank" href="http://tb.mamashai.com/app/xuexing_xingge/index.html">宝宝血型与性格</a></li>
+                    <li><a target="blank" href="http://tb.mamashai.com/app/xuexing/index.html">宝宝血型</a></li>
+                    <li><a target="blank" href="http://tb.mamashai.com/app/qimeng_wuqu/index.html">儿童英语</a></li>
+
+                    <li><a target="blank" href="http://tb.mamashai.com/app/baby_body.html">宝宝身高体重标准</a></li>
+                    <li><a target="blank" href="http://tb.mamashai.com/app/baby_yimiao.html">宝宝疫苗接种</a></li>
+                    <li><a target="blank" href="http://tb.mamashai.com/app/baby_growth.html">宝宝生长发育监测</a></li>
+                    <li><a target="blank" href="http://tb.mamashai.com/app/qimeng_wuqu/index.html">儿童英语</a></li>
+                    <li><a target="blank" href="http://tb.mamashai.com/app/qimeng_wuqu/index.html">儿童英语</a></li>
+                    <li><a target="blank" href="http://tb.mamashai.com/app/qimeng_wuqu/index.html">儿童英语</a></li>
+                </ul>
+         </div>
+         	   <div class="left_02">
+         	<div class="left_03">
+            	<p class="left_04"><a href="#" style="display:block; width:450px;">3-6岁<span style=" color:#A0A5A8;">(11)</span></a><a href="javascript:change_tuijian(5);" id="menu_5" style=" font-weight:normal; color:#E05991; font-size:12px;"><img src="../images_zhibiao/shang.jpg" /> 展开</a></p>
+                </div>
+                <ul id="tuijian_5" class="left_05" style="height:90px;display:none;">
+                    <li><a target="blank" href="http://tb.mamashai.com/app/cuozhejiaoyu.html">挫折教育</a></li>
+                    <li><a target="blank" href="http://tb.mamashai.com/app/sex_educate.html">性教育</a></li>
+                    <li><a target="blank" href="http://tb.mamashai.com/app/zaojiao.html">早教</a></li>
+                    <li><a target="blank" href="http://tb.mamashai.com/app/baby_shipu/index">宝宝冬季食谱</a></li>
+
+                    <li><a target="blank" href="http://tb.mamashai.com/app/shengao/index.html">儿童身高预测</a></li>
+                    <li><a target="blank" href="http://tb.mamashai.com/app/baby_wanju/index.html">儿童玩具</a></li>
+                    <li><a target="blank" href="http://tb.mamashai.com/app/qinzi_game/index.html">亲子游戏</a></li>
+                    <li><a target="blank" href="http://tb.mamashai.com/app/xuexing_zaojiao/index.html">宝宝血型与早教</a></li>
+                    <li><a target="blank" href="http://tb.mamashai.com/app/xuexing_xingge/index.html">宝宝血型与性格</a></li>
+
+                    <li><a target="blank" href="http://tb.mamashai.com/app/xuexing/index.html">宝宝血型</a></li>
+                    <li><a target="blank" href="http://tb.mamashai.com/app/qimeng_wuqu/index.html">儿童英语</a></li>
+                </ul>
+         </div>
+         	   <div class="left_02" style="margin-bottom:20px;">
+         	<div class="left_03">
+            	<p class="left_04"><a href="#" style="display:block; width:450px;">6岁以上<span style=" color:#A0A5A8;">(8)</span></a><a href="javascript:change_tuijian(6);" id="menu_6" style=" font-weight:normal; color:#E05991; font-size:12px;"><img src="../images_zhibiao/shang.jpg" /> 展开</a></p>
+                </div>
+                <ul id="tuijian_6" class="left_05" style="height:90px;display:none;">
+                    <li><a target="blank" href="http://tb.mamashai.com/app/cuozhejiaoyu.html">挫折教育</a></li>
+                    <li><a target="blank" href="http://tb.mamashai.com/app/sex_educate.html">性教育</a></li>
+                    <li><a target="blank" href="http://tb.mamashai.com/app/baby_shipu/index">宝宝冬季食谱</a></li>
+                    <li><a target="blank" href="http://tb.mamashai.com/app/shengao/index.html">儿童身高预测</a></li>
+                    <li><a target="blank" href="http://tb.mamashai.com/app/baby_wanju/index.html">儿童玩具</a></li>
+                    <li><a target="blank" href="http://tb.mamashai.com/app/xuexing_zaojiao/index.html">宝宝血型与早教</a></li>
+                    <li><a target="blank" href="http://tb.mamashai.com/app/xuexing_xingge/index.html">宝宝血型与性格</a></li>
+                    <li><a target="blank" href="http://tb.mamashai.com/app/xuexing/index.html">宝宝血型</a></li>
+                </ul>
+         </div>
+
+
+<div class="a1_07" style="width:507px; clear:both;margin:0 auto 0px; padding-bottom:30px;">
+        <p class="a1_09 l" style="margin-left:12px; width:132px; line-height:22px; color:#E23D8C;"><a href="javascript:;" style=" color:#E23D8C; text-decoration:none;"><!--育儿资源免费下载-->&nbsp;</a></p>
+
+
+   </div>
+</div>
+
+
+
+        <div style=" width:540px; height:7px; margin:0 auto;">
+            <img src="../images_zhibiao/a12.jpg" />
+        </div>
+     
+<!--        </div>
+  </div>
+
+</div>-->
+
+        <script type="text/javascript">
+            jQuery(document).each(function(){
+                jQuery("#date").attr("value", max_date);
+                //change_button_color("zhibiao", date2, 36, "down");
+                //change_button_color("zhibiao", date2, 36, "up");
+
+                //change_button_color("tizhong", date2, 36, "down");
+                //change_button_color("tizhong", date2, 36, "up");
+
+                //change_button_color("yimiao", date2, 36, "down");
+                //change_button_color("yimiao", date2, 36, "up");
+
+                //change_button_color("yingyang", date2, 36, "down");
+                //change_button_color("yingyang", date2, 36, "up");
+            })
+
+            function change_tuijian(id) {
+                for(var i=1; i<=6; i++) {
+                   if(i == id) {
+                       jQuery("#menu_" + i).html("<img src='../images_zhibiao/xia.jpg' /> 收起");
+                       jQuery("#tuijian_" + i).show();
+                   } else {
+                       jQuery("#menu_" + i).html("<img src='../images_zhibiao/shang.jpg' /> 展开");
+                       jQuery("#tuijian_" + i).hide();
+                   }
+                }
+            }
+
+            function show_more(t) {
+               if(t == "go") {
+                 jQuery("#zhibiao_box").hide();
+                 jQuery("#tuijian").show();
+               } else {
+                 jQuery("#zhibiao_box").show();
+                 jQuery("#tuijian").hide();
+               }
+            }
+
+            function change_button_color(name, next, total) {
+                if(next <= 0) {
+                   jQuery("#" + name + "_down").css("color", "gray");
+                } else if(next >= total) {
+                   jQuery("#" + name + "_up").css("color", "gray");
+                } else {
+                   jQuery("#" + name + "_down").css("color", "");
+                   jQuery("#" + name + "_up").css("color", "");
+                }
+            }
+
+            var zhibiao_current = 0;
+            var tizhong_current = 0;
+            var yimiao_current = 0;
+            var yingyang_current = 0;
+            function next_page(name, total, current, direction) {
+                var next;
+                if(direction == "down"){ next = current - 1; }
+                if(direction == "up"){ next = current + 1; }
+                change_button_color(name, next, 36);
+                if(next < 0) {
+                    //alert("没有上一页了！");
+                } else if(next > total){
+                    //alert("已经是最后一页了！");
+                } else {
+                     if(name == "zhibiao") {
+                         zhibiao_next_page(next);
+                         tizhong_next_page(next);
+                         yingyang_next_page(next);
+                         yimiao_next_page(next);
+                     }
+                     if(name == "tizhong") {
+                         tizhong_next_page(next);
+                     }
+                     if(name == "yingyang") {
+                         yingyang_next_page(next);
+                     }
+                     if(name == "yimiao") {
+                         yimiao_next_page(next);
+                     }
+                }
+            }
+
+            function zhibiao_next_page(next) {
+                next = parseInt(next);
+                jQuery("#old2").html(next + "-" + (next+1) + "个月");
+                zhibiao_current = next;
+                growth(next);
+            }
+
+            function tizhong_next_page(next) {
+                next = parseInt(next);
+                jQuery("#tizhong_old").html(next + "-" + (next+1) + "个月");
+                tizhong_current = next;
+                tige(sex, next);
+            }
+
+            function yingyang_next_page(next) {
+                next = parseInt(next);
+                jQuery("#yingyang_old").html(next + "-" + (next+1) + "个月");
+                yingyang_current = next;
+                get_yingyang(next);
+            }
+
+            function yimiao_next_page(next) {
+                next = parseInt(next);
+                jQuery("#yimiao_old").html(next + "-" + (next+1) + "个月");
+                yimiao_current = next;
+                get_yimiao(next);
+            }
+
+            function healthtime(year, month, day)
+		{
+			date = new Date();
+			// 当前时间
+			var countyear = date.getFullYear();
+			var countmonth = date.getMonth();
+			var countday = date.getDate();
+			// 最开始显示的时间
+			document.getElementById("txt_month").value = countmonth+1; // javascript中的月份是 0-11，所以要+1
+			document.getElementById("txt_year").value = countyear;
+			document.getElementById("txt_day").value = countday;   
+			check_result();
+		}
+		function check_result(y, m, d)
+		{
+			var check_ok = true;
+			var hongse=new Date() // 当前时间
+			health_year = y;
+			health_month = m;
+			health_day = d;
+
+			
+			if(check_ok == true)
+			{
+				var today_time = new Date();
+				//var set_time = today_time.setFullYear(health_year, health_month-1, health_day);
+
+				var d1=new Date(health_year, health_month-1, health_day);
+				var days = Math.round((today_time - d1)/(1000*60*60*24));
+				var set_month = 0;
+				var set_year = 0;
+				var set_day = 0;
+				var months_all = 0;
+				if (((days / 30.41) + "").indexOf('.') < 0)
+				{
+					months_all = days / 30.41;
+				}
+				else
+				{
+					months_all = ((days / 30.41) + "").substring(0,((days / 30.41) + "").indexOf('.'));
+				}
+				// 如果输入日期折算月份大于36		
+				if (months_all > 36)
+				{
+					alert("宝宝的年龄超过3岁了哦,请重新输入。");
+					//health_year.focus();
+					check_ok = false;
+
+				}
+				else
+				{
+					if(days > 365 || days == 365)
+					{
+						years = (days / 365)
+						if ((years + "").indexOf('.') < 0)
+						{
+							set_year = years;
+						}
+						else
+						{
+							set_year = (years + "").substring(0,(years + "").indexOf('.'));
+						}
+
+						days = days - set_year * 365;
+
+					}
+					if (days > 30)
+					{
+						months = (days / 30.41);
+						if ((months + "").indexOf('.') < 0)
+						{
+							set_month = months
+						}
+						else
+						{
+							set_month = (months + "").substring(0,(months + "").indexOf('.'));
+						}
+
+						days = days - parseInt(set_month * 30.41)
+					}
+
+					jQuery("#span_year").html(set_year);
+					jQuery("#span_month").html(set_month);
+          set_month = parseInt(set_year) * 12 - set_month + parseInt(month);
+                                        jQuery("#old2").html(set_month + "-" + (set_month+1) + "个月");
+                                        jQuery("#tizhong_old").html(set_month + "-" + (set_month+1) + "个月");
+                                        jQuery("#yimiao_old").html(set_month + "-" + (set_month+1) + "个月");
+                                        jQuery("#yingyang_old").html(set_month + "-" + (set_month+1) + "个月");
+					jQuery("#span_day").html(days);
+
+					//growth(months_all);
+				}
+
+			}
+		}
+
+
+
+            function change_tab(id) {
+               for(var i=1; i<=5;i++) {
+                  if(parseInt(id) == i) {
+                     jQuery("#tab" + i).attr("class", "a1_11_li2");
+                     jQuery("#content" + i).show();
+                  }else {
+                     jQuery("#tab" + i).attr("class", "a1_11_li");
+                     jQuery("#content" + i).hide();
+                  }
+               }
+            }
+
+            var date2;
+            var sex = "男";
+            jQuery("#chakan").click(function(){
+               analytic_date();
+            })
+          
+            function back() {
+               if(jQuery("#tuijian").css("display") == "block") {
+                 jQuery("#tuijian").hide();
+                 jQuery("#zhibiao_box").show();
+               } else {
+                 jQuery("#m_title").attr("class", "a1_03 l padding_left_168");
+                 jQuery("#form").show();
+                 jQuery("#zhibiao_box").hide();
+                 jQuery("#fanhui").hide();
+               }
+            }
+
+            function analytic_date() {
+                var date = jQuery("#date").val();
+                if(!date.match(/^\d{4}-\d{2}-\d{2}$/) || date > max_date) {
+                    alert("请重新选择您要查询的时间");
+                }else {
+                    var year2 = parseInt(year) - parseInt(date.split("-")[0]);
+                    var year3 = parseInt(date.split("-")[0]);
+                    //if(month2 < "10") {
+                        var month2 = parseInt(month) - parseInt(date.split("-")[1]);
+                        var month3 = parseInt(date.split("-")[1]);
+                    //} else {
+                    //    var month2 = parseInt(month) - parseInt(date.split("-")[1][1]);
+                    //    var month3 = parseInt(date.split("-")[1][1]);
+                    //}
+                    //if(day2 < "10") {
+                        var day2 = parseInt(date.split("-")[2]);
+                    //} else {
+                    //    var day2 = parseInt(date.split("-")[2][1]);
+                    //}
+                    check_result(year3, month3, day2);
+                    date2 = year2 * 12 - month2 + parseInt(month);
+                    if(date.split("-")[2] > day) {
+                        date2 -= 1;
+                    }
+                    //alert(date2);
+                    jQuery("#form").hide();
+                    jQuery("#zhibiao_box").show();
+                    jQuery("#fanhui").show();
+                    jQuery("#m_title").attr("class", "a1_03 l");
+                    
+                    jQuery("input[name=sex]").each(function(){
+                        var radio = jQuery(this);
+                        if(radio.attr("checked") == true){
+                           sex = radio.val();
+                        }
+                    })
+                    jQuery("#tizhong_sex").html(sex);
+                    //tige("男",date2);
+                    zhibiao_current = date2;
+                    tizhong_current = date2;
+                    yimiao_current = date2;
+                    yingyang_current = date2;
+                    growth(date2);
+                }
+            }
+
+            
+
+            function show(id) {
+                close_box();
+                jQuery("#tanchu_box_" + id).show();
+                if(id=="tizhong"){tige(sex,date2);}
+                if(id=="yimiao"){get_yimiao(date2);}
+                if(id=="yingyang"){get_yingyang(date2);}
+            }   
+
+            function close_box() {
+                jQuery('#tanchu_box_tizhong').hide();
+                jQuery('#tanchu_box_yimiao').hide();
+                jQuery('#tanchu_box_yingyang').hide();
+            }
+         
+            function growth(month)
+            {
+                change_button_color("zhibiao", zhibiao_current, 36);
+     
+                var ta_sex = sex;
+//                if(document.getElementById("select_sex").value == "男")
+//                {
+//                    ta_sex = "他";
+//                }
+//                else
+//                {
+//                    ta_sex = "她";
+//                }
+//                var tab_1 = document.getElementById("tab_conten1");
+//                var tab_2 = document.getElementById("tab_conten2");
+//                var tab_3 = document.getElementById("tab_conten3");
+//                var tab_4 = document.getElementById("tab_conten4");
+//                var tab_5 = document.getElementById("tab_conten5");
+
+                //var div_1 = document.getElementById("content1");
+                //var div_2 = document.getElementById("content2");
+                //var div_3 = document.getElementById("content3");
+                //var div_4 = document.getElementById("content4");
+                //var div_5 = document.getElementById("content5");
+                var tab_1 = jQuery("#tab_conten1");
+                var tab_2 = jQuery("#tab_conten2");
+                var tab_3 = jQuery("#tab_conten3");
+                var tab_4 = jQuery("#tab_conten4");
+                var tab_5 = jQuery("#tab_conten5");
+
+                var div_1 = jQuery("#content1");
+                var div_2 = jQuery("#content2");
+                var div_3 = jQuery("#content3");
+                var div_4 = jQuery("#content4");
+                var div_5 = jQuery("#content5");
+
+
+                switch (parseInt(month))
+                {
+                    case 0:
+                        tab_1.html("味觉");
+                        tab_2.html("嗅觉");
+                        tab_3.html("视力");
+                        tab_4.html("认知");
+                        tab_5.html("运动");
+
+                        div_1.html("<p>你的宝宝已经有了味觉。事实上，新生儿的味蕾数量似乎比成年人多。" + ta_sex + "对甜和苦这两种味道的感知与生俱来，但对咸味食物的反应大约要在5个月之后才有。</p>");
+                        div_2.html("<p>你的宝宝生下来就会使用" + ta_sex + "的嗅觉，而且能够找出气味是从哪里来的：留意观察，当" + ta_sex + "闻到难闻的气味（像" + ta_sex + "的脏尿布）时，" + ta_sex + "是怎样把小脑袋扭开的。研究表明，5天大的新生儿会转向浸满了母乳的垫子，利用" + ta_sex + "的嗅觉，你的宝宝可以蹭着找到你的乳房。</p>");
+                        div_3.html("<p>宝宝第2周大时看东西还很不清楚，因为" + ta_sex + "天生就是个近视眼，只能看清眼前20〜25厘米左右的东西，所以只有你把" + ta_sex + "抱到眼前时，" + ta_sex + "才能看清你的脸。新生儿最喜欢看人的脸。其次则是颜色明亮、能活动、对比鲜明以及黑白图案的物品。</p>");
+                        div_4.html("<p>宝宝清醒时，引逗宝宝看大人的脸，大人可以微笑着和宝宝对视，并缓慢左右移动锻炼宝宝的视觉跟踪能力，还可以在确定宝宝能看到大人的情况下，在小床周围缓慢走动，并呼唤宝宝，逗引宝宝追视。</p>");
+                        div_5.html("<p>在这么小的时候，宝宝本能地认识人脸和表情动作，有时甚至能够模仿。你可以试试凑近宝宝的小脸，伸几次舌头或扬几次眉毛，然后看看宝宝会不会模仿你的动作。</p>");
+                        break
+
+                    case 1:
+                        tab_1.html("视觉");
+                        tab_2.html("听觉");
+                        tab_3.html("运动");
+                        tab_4.html("认知");
+                        tab_5.html("社交");
+
+                        div_1.html("<p>现在，你宝宝的双眼已经能持续地追随物体，并能更自如地盯着移动的东西看了。事实上，可能要再过3个月，宝宝的目光才能很流畅地追踪垂直运动的物体，再过6个月，" + ta_sex + "的视线才能随物体斜线移动。</p>");
+                        div_2.html("<p>你的宝宝可能也很喜欢风铃的叮当声或钟表的滴答声。给宝宝听的声音的种类越多，效果就越明显。最后你会发现宝宝对某类音乐更有反应，表现出更喜欢。" + ta_sex + "开始形成自己的爱好了。</p>");
+                        div_3.html("<p>宝宝的颈部肌肉正变得越来越强壮，这使" + ta_sex + "能够短时间地把头撑起来。比如，" + ta_sex + "趴着的时候，可以把头支起来一小会儿，可能还可以把脸从一边转向另一边。" + ta_sex + "在汽车婴儿座上或前背式婴儿兜里也许能把头撑起来了。</p>");
+                        div_4.html("<p>大人要给宝宝说儿歌，讲故事。要对着宝宝发出说话，以逗引宝宝回应。大人对宝宝的发音，也要有回应，可以通过跟宝宝玩耍，宝宝喜爱的玩具图片逗引宝宝发声。</p>");
+                        div_5.html("<p>无论在哪种文化中，宝宝第一次笑的时间都差不多，所以做好准备迎接你宝宝那天真无“牙”的灿烂微笑吧，那是只为你绽放的微笑，是对你所有呵护的回报。这种微笑可以把你的心全都融化了，即使是在你刚度过了一个最糟糕的不眠之夜的时候。</p>");
+                        break
+
+                    case 2:
+                        tab_1.html("视觉");
+                        tab_2.html("听觉");
+                        tab_3.html("运动");
+                        tab_4.html("认知");
+                        tab_5.html("社交");
+
+                        div_1.html("<p>这时候，你的宝宝已经从早期偏好明亮、双色的物体，发展到开始喜欢那些更为复杂的、有更多细节的图案、色彩和形状。为宝宝准备更多不同类别的玩具，让" + ta_sex + "触摸，比如软球和毛绒玩具。</p>");
+                        div_2.html("<p>你的宝宝的听力变得更加敏锐，" + ta_sex + "能够分辨出" + ta_sex + "所熟悉的人说话的声音了。宝宝还会让你知道，" + ta_sex + "明白周围发生的事情。留意一下，当" + ta_sex + "听到声音后，怎样四处看，寻找声音发出的地方。</p>");
+                        div_3.html("<p>你的宝宝正在学习“摇滚”，不过，现在可能还只有“滚”的本事。在这个阶段，有些宝宝可能已经会从侧躺翻到仰卧，再从仰卧翻到侧卧，也就是翻半个身。但要完整地翻过身来，恐怕还要等1个月左右才会做，因为宝宝需要更强壮的颈部和手臂肌肉，才能完成这个动作。</p>");
+                        div_4.html("<p>多与宝宝交流，培养宝宝的视听能力和社交能力，宝宝这时已经可以区分出妈妈的说话声，能够用眼睛搜索声音，父母在这个阶段应该多让宝宝变换位置，感受不同的视觉刺激，训练听力，初步培养追踪声音来源的能力，感受声音远近的能力。</p>");
+                        div_5.html("<p>在这个年龄，你的宝宝应该会愿意与其" + ta_sex + "宝宝和大人们交朋友。你可能注意到，当宝宝看到有人走进房间时，" + ta_sex + "会露出微笑；当有人伸出双臂想要抱" + ta_sex + "时，" + ta_sex + "也会张开双臂。</p>");
+                        break
+
+                    case 3:
+                        tab_1.html("语言");
+                        tab_2.html("触觉");
+                        tab_3.html("运动");
+                        tab_4.html("认知");
+                        tab_5.html("社交");
+
+                        div_1.html("<p>当你带着宝宝散步时，给" + ta_sex + "描述一下你周围的环境；当你逛超市时，利用穿梭在货架之间的机会，指给" + ta_sex + "看货价上的各种物品，并告诉" + ta_sex + "物品的名字和用途。虽然你的宝宝还不能重复这些词语，但是" + ta_sex + "正在把这些信息通通储存在" + ta_sex + "那飞速发展的记忆里。</p>");
+                        div_2.html("<p>用各种各样的材料来培养宝宝的触觉——比如毛皮、毛毡、毛巾等。你的宝宝可能会把每样东西都用嘴来尝一尝，所以，你要小心选择，而且不要让" + ta_sex + "一个人玩那些有可能会在" + ta_sex + "嘴里散架的东西。找一些为配合训练宝宝的触觉而设计的触摸式图书，让读书变成可以触摸的体验。</p>");
+                        div_3.html("<p>你的宝宝现在能够挥舞小胳臂、蹬蹬小腿了。随着宝宝的髋关节和膝关节变得更灵活，" + ta_sex + "的蹬腿动作也更加有力了。托住宝宝，让" + ta_sex + "双脚着地，你能感觉到" + ta_sex + "在用力地向下蹬。</p>");
+                        div_4.html("<p>抱宝宝看台灯，开关台灯，并对宝宝说“灯”，一关一开的灯光会吸引宝宝，并形成条件反射，听到大人说灯，宝宝就能找到灯目标。日常生活中，可以让宝宝听电话铃声，让宝宝多接触生活中常见的几种声音，经过多次反复训练，宝宝会很快建立条件反射，听到声音便看物体。</p>");
+                        div_5.html("<p>在这个年龄段，大约有一半的宝宝，开始表现出" + ta_sex + "们能够明显地认出自己的父母了。你的宝宝很有可能仍然会对陌生人微笑，但" + ta_sex + "肯定会更喜欢你和你的爱人，以及" + ta_sex + "中意的少数几个人。</p>");
+                        break
+
+                    case 4:
+                        tab_1.html("语言");
+                        tab_2.html("视力");
+                        tab_3.html("运动");
+                        tab_4.html("认知");
+                        tab_5.html("社交");
+
+                        div_1.html("<p>研究人员认为，你的宝宝现在能够明白母语中所有的基本发音了。你可以通过重复、或模仿宝宝的表情和声音，来鼓励" + ta_sex + "与人交流。" + ta_sex + "可能会试着模仿你了。你说“ba”，" + ta_sex + "可能也会试着发这个音来回应你。</p>");
+                        div_2.html("<p>宝宝对色彩之间的差别区分得更清楚了，" + ta_sex + "开始能够辨别相近的颜色了。为宝宝准备一些各种颜色的图书、玩具和衣服，帮助" + ta_sex + "提高色彩辨别能力。</p>");
+                        div_3.html("<p>现在，你宝宝的身体发育得非常快。" + ta_sex + "平躺着时，你伸出手去拉" + ta_sex + "起来，" + ta_sex + "会抬头挺肩地想起来。如果你让" + ta_sex + "趴着，" + ta_sex + "会伸开胳膊，蹬着小腿，反翘起小身子。这是一种很好的锻炼，可以增强" + ta_sex + "的颈部肌肉，并且能够帮助" + ta_sex + "练习头的控制力，为坐起来做准备。</p>");
+                        div_4.html("<p>给宝宝多看、多听、多摸玩具的机会，并给" + ta_sex + "做婴儿体操。教宝宝认识" + ta_sex + "自己，照镜子时指着镜子里的宝宝和妈妈告诉宝宝" + ta_sex + "们是谁，促进宝宝自我认识的发展。</p>");
+                        div_5.html("<p>带宝宝出门的机会要逐渐增多，多让宝宝与陌生人接触，起初宝宝进入一个陌生的环境会不习惯，父母要表现出很高兴、很欣喜的样子，要跟宝宝讲话，讲周围的环境。把宝宝给陌生人抱时，一定要让宝宝有一个心理准备阶段。</p>");
+                        break
+
+                    case 5:
+                        tab_1.html("语言");
+                        tab_2.html("视力");
+                        tab_3.html("听觉");
+                        tab_4.html("运动");
+                        tab_5.html("社交");
+
+                        div_1.html("<p>" + ta_sex + "的交流技能也在迅速地提高，" + ta_sex + "发出的尖叫、咿咿呀呀的声音、唱歌似的的音阶变化等等都是证明。" + ta_sex + "的声音能表达" + ta_sex + "的态度或者对东西的反应：诸如喜悦、渴望，甚至满足（如果" + ta_sex + "的问题被很好地解决了）等等等等。</p>");
+                        div_2.html("<p>你的宝宝能够更好地看到非常小的物品了，" + ta_sex + "还能用眼睛追踪移动中的物体。在这个阶段，宝宝也许只看到物品的一部分就能认出是什么了，比如当" + ta_sex + "看到自己最喜爱的玩具从沙发下露出一角时，" + ta_sex + "知道那是" + ta_sex + "的玩具了。</p>");
+                        div_3.html("<p>现在你的宝宝能够辨认出声音是从什么地方来的了，一听到新的声音，" + ta_sex + "就会迅速地把头转过去。如果你想吸引宝宝，最简单的方法之一就是晃动一串钥匙。风铃也是吸引宝宝注意力的好东西。</p>");
+                        div_4.html("<p>6个月左右的宝宝活动能力增加，会翻身、开始学坐，甚至开始学爬。家长要给孩子提供活动空间，可在地上铺上垫子让孩子自由玩耍，减少抱孩子的时间。</p>");
+                        div_5.html("<p>你的宝宝可能开始表现出“陌生人焦虑”的迹象，也就是人们常说的认生，这是" + ta_sex + "情感发展的第一个重要里程碑。宝宝可能会变得很粘人，只要碰到新面孔（哪怕是熟悉的人），" + ta_sex + "就会感到焦虑不安，如果有陌生人突然接近" + ta_sex + "，宝宝" + ta_sex + "可能还会哭起来。</p>");
+                        break
+
+                    case 6:
+                        tab_1.html("语言");
+                        tab_2.html("运动");
+                        tab_3.html("精细动作");
+                        tab_4.html("认知");
+                        tab_5.html("社交");
+
+                        div_1.html("<p>教给你的宝宝一些表达" + ta_sex + "自己的方法，也许能帮助" + ta_sex + "减少受挫感。当然，宝宝会做手语，并不是说" + ta_sex + "们就不会再哭闹，或者大发脾气了，但是，这个阶段的宝宝已经可以学习手语了。</p>");
+                        div_2.html("<p>翻滚可能是宝宝这个阶段最主要的“交通”手段，但" + ta_sex + "也可能干脆跳过这个阶段，直接进入到坐和爬。不论" + ta_sex + "采取什么方式，只要你的宝宝继续学习新的本领，且对四处活动和探索周围的环境表现出兴趣，你就不必担心了。</p>");
+                        div_3.html("<p>你宝宝的精细动作能力开始得到发展。" + ta_sex + "已经可以用手抓取一些东西，并轻松地把它从一只手转到另一只手上。精细动作能力指的是拇指、手指、手和手腕的细小、准确的运动。这种能力可以使宝宝用大拇指和其" + ta_sex + "手指抓取东西。</p>");
+                        div_4.html("<p>告诉宝宝家里的人，如爸爸、妈妈、爷爷、奶奶等，学习认人、听音找物，比如灯在哪儿？理解语言及认识物品。在寻找人和物品的游戏中，逐渐理解语言词汇。培养宝宝的好奇心，乐于探索，与人合作的良好心态。</p>");
+                        div_5.html("<p>你的宝宝开始想其" + ta_sex + "办法来引起你的关注：" + ta_sex + "不仅仅只用哭来得到你的注意。你还会注意到宝宝在扭动小身体，动不动就弄出点声响，伸出舌头“呸呸”作声，等等。在接下来的3个月里，" + ta_sex + "会以自己独特的方式让你知道：" + ta_sex + "在想什么，要做什么，需要什么。</p>");
+                        break
+
+                    case 7:
+                        tab_1.html("运动");
+                        tab_2.html("认知");
+                        tab_3.html("适应能力");
+                        tab_4.html("智能");
+                        tab_5.html("社交");
+
+                        div_1.html("<p>独坐时间可以适当延长，要多练习爬行，开始学扶站。父母可以和" + ta_sex + "一起做游戏，多进行户外活动，让宝宝观察世界。此时孩子的运动机能发达了，家里危险的东西一定要收起来，免得碰伤孩子，不要让孩子捅危险的地方。继续尝试让宝宝用水杯喝水。</p>");
+                        div_2.html("<p>你可以把一个物体藏起来，等着宝宝去找它。这是让你宝宝闲不下来的最简单的方法之一。宝宝已经能够识别不同的音调和口吻了。如果你很严厉地跟宝宝讲话，" + ta_sex + "可能会被你吓哭哦！</p>");
+                        div_3.html("<p>你的宝宝已经开始试着用" + ta_sex + "的小手自己抓东西吃了，尽管有些宝宝要到10个月时才可能完成这种动作。但一旦" + ta_sex + "到了这个阶段，你就可以开始让宝宝使用学饮杯了。</p>");
+                        div_4.html("<p>你的宝宝正在开始了解三维空间里的各种事物之间是怎样互相关联的。" + ta_sex + "可能可以给玩具归类了，比如把一些较小的东西堆放在一起。宝宝还会本能地把玩具一个一个地搭起来。等宝宝再大一些时，" + ta_sex + "还会试着把一个玩具塞进另一个玩具里面。</p>");
+                        div_5.html("<p>你的宝宝可能会学着去判断和模仿情绪，并且还会流露出最早的同情心。比如，要是" + ta_sex + "听到有人哭时，" + ta_sex + "可能也会跟着哭起来。尽管你的宝宝刚开始了解自己的情感，" + ta_sex + "正在通过观察你的言行举止来学习。在今后的几个月（甚至几年）里，你待人接物的方式都是宝宝模仿的对象。</p>");
+                        break
+
+                    case 8:
+                        tab_1.html("视觉");
+                        tab_2.html("运动");
+                        tab_3.html("认知");
+                        tab_4.html("智能");
+                        tab_5.html("社交");
+
+                        div_1.html("<p>现在，宝宝的视力在视觉清晰度和对深度的感知方面都已接近成人水平了。尽管宝宝现在还是看近处的东西最清楚，不过，" + ta_sex + "的远程视力也好到足以看清房间那头的人和物了。</p>");
+                        div_2.html("<p>手膝爬行是你宝宝学会的第一个能让自己有效地四处移动的本领。通常，" + ta_sex + "先学会用手带动自己，然后用手和膝盖把自己支撑起来。" + ta_sex + "会尝试如何通过挪动膝盖使自己向前、向后移动。</p>");
+                        div_3.html("<p>当你说出某个物体的名字时，注意看" + ta_sex + "开始能够指向或看那个物体了，尤其是" + ta_sex + "熟悉的东西，比如眼睛、鼻子或者嘴巴，或者" + ta_sex + "很喜欢的东西，像小狗或橡皮鸭子等。</p>");
+                        div_4.html("<p>智能和运动发展障碍危险信号：1、宝宝不会翻身、独坐，双手扶物不能站立。2、不会设法拿够不到的玩具、玩具不会倒手。3、不能发出声音吸引大人注意。4、对妈妈没有依恋，听不懂词汇。5、不会伸手要大人抱。</p>");
+                        div_5.html("<p>有时候，当你的宝宝遇到" + ta_sex + "不能理解的事物时，" + ta_sex + "会感到害怕。哪怕是以前" + ta_sex + "不在乎的事情，像丁当作响的门铃声或炉子上水壶的鸣哨声，现在" + ta_sex + "都可能会感到害怕。出现这种情况时，身为父母的你要做的最重要的事就是安慰宝宝，让" + ta_sex + "不要害怕。告诉宝宝：你就在" + ta_sex + "身边，" + ta_sex + "是安全的。给宝宝一个拥抱，把" + ta_sex + "搂在怀里依偎一下，也许" + ta_sex + "就没事了。</p>");
+                        break
+
+                    case 9:
+                        tab_1.html("语言");
+                        tab_2.html("运动");
+                        tab_3.html("认知");
+                        tab_4.html("智能");
+                        tab_5.html("社交");
+
+                        div_1.html("<P>你宝宝出生以来听到的大量词汇现在已经开始显现出神奇的作用，" + ta_sex + "的“咿咿呀呀”已经变成了隐隐约约的语调，可能听起来更像是真正的词、短语和句子了。你的宝宝认为" + ta_sex + "是在跟你“说”事情，因此，你要装做能听懂" + ta_sex + "的话似地去认真回应" + ta_sex + "。</P>");
+                        div_2.html("<p>十个月的宝宝会爬和坐了，自己扶东西就能够站起来，还能在扶持下摇摇晃晃地走起来。所以家里的家具的角应用布包起来；孩子伸手碰得到的地方，不要放热的东西；电线不要伸出过长。要消除屋里的一切不安全因素。</p>");
+                        div_3.html("<p>1岁前的最后3个月是宝宝模仿能力最强的时期，要鼓励宝宝多说话，多让宝宝认识物品，在指认物品的时候辅以语言的解说，让宝宝多积累词汇。</p>");
+                        div_4.html("<p>到了这周，你的宝宝开始能记住一些更具体的事了，比如，" + ta_sex + "的玩具在家里的什么地方。同时，宝宝也能模仿" + ta_sex + "从前看到过的动作，甚至是一周前所看到的动作。宝宝的这些技能表明" + ta_sex + "已经有记忆能力—— 一种在短期内记住某种经历细节的能力。</p>");
+                        div_5.html("<p>从现在起到接下来的几个月里，宝宝的分离焦虑感达到了高潮。宝宝表现出对你极度依恋，并且害怕其" + ta_sex + "人是很正常的现象，但是这还是会让宠爱宝宝的爷爷、奶奶或照顾" + ta_sex + "的人感到为难。为帮助宝宝逐渐适应，你可以提醒其" + ta_sex + "人慢慢接近宝宝，并等待宝宝来主动接近" + ta_sex + "们。</p>");
+                        break
+
+                    case 10:
+                        tab_1.html("语言");
+                        tab_2.html("运动");
+                        tab_3.html("认知");
+                        tab_4.html("精细动作");
+                        tab_5.html("社交");
+
+                        div_1.html("<p>现在，你的宝宝正在开始明白很多简单词语的意思，所以，这时候不断和" + ta_sex + "说话比以往任何时候都更重要。你应该用成人的语言把宝宝说的词语再重复说给" + ta_sex + "听，这样你的“小话匣子”会从一开始就接受良好的语言模式。</p>");
+                        div_2.html("<p>在这个阶段，你的宝宝能有自信地坐着，甚至还能扶着家具走上几步，没准儿" + ta_sex + "还会放开小手，独自站立片刻。如果你扶着宝宝做好走路的姿势，" + ta_sex + "会迈步；站着的时候，可能还会试着从地上捡起玩具。</p>");
+                        div_3.html("<p>继续发展宝宝的语言，可以给宝宝看画册讲故事，认识周围的人物、实物、图片，带宝宝到外面认识一些外面的事物。教宝宝一些沟通的手势，如欢迎、再见、谢谢等。父母要与宝宝多交流。</p>");
+                        div_4.html("<p>你宝宝的手指正变得越来越灵巧。" + ta_sex + "已经能够用大拇指和食指像钳子似地把小东西拣起来了。" + ta_sex + "可能已经不需要将手腕倚在坚硬的表面上，就可以捡起一小片吃的东西或其" + ta_sex + "小物品了。</p>");
+                        div_5.html("<p>你的宝宝现在和其" + ta_sex + "孩子在一起时，也许会坚持一下自己的意愿了，而且" + ta_sex + "开始喜欢和别的宝宝一起玩。" + ta_sex + "会开心地坐在其" + ta_sex + "宝宝的旁边自己玩儿，但这个阶段，" + ta_sex + "还不会和" + ta_sex + "们一起玩。为宝宝找一些经常在一起玩的小伙伴，是鼓励你家小宝贝发展社交技能的好方法。</p>");
+                        break
+
+                    case 11:
+                        tab_1.html("语言");
+                        tab_2.html("运动");
+                        tab_3.html("认知");
+                        tab_4.html("智能");
+                        tab_5.html("社交");
+
+                        div_1.html("<p>在这个年龄，宝宝很可能会模仿词语的发音和音调的变化了。" + ta_sex + "也许能够执行简单的单步指令，比如“请把球给我”或“把小勺拣起来”。你可以把复杂的指令分解成比较容易的单个步骤，借助手势强化指令，来帮助宝宝学习。</p>");
+                        div_2.html("<p>如果你的宝宝现在还不会走路，" + ta_sex + "可能很快就要迈出独立的第一步了。大多数宝宝初学走路的姿势是：胳膊弯着（为了保持平衡）向身体两侧张开，迈着外八字步，挺着肚子、撅着屁股来保持平衡。</p>");
+                        div_3.html("<p>大人买一个布娃娃，大人先给宝宝指出布娃娃的五官，对于每一个部位，大人都要强化。譬如指到鼻子，大人要告诉宝宝“鼻子”，然后大人说“鼻子”，让宝宝指认。</p>");
+                        div_4.html("<p>虽然你的宝宝还不会一页页像模像样地看书，但现在" + ta_sex + "很可能已经喜欢翻着书页、陶醉在精美的图画书里，比如专为婴幼儿编的经典童话绘本，介绍色彩与形状的益智画册。</p>");
+                        div_5.html("<p>因为现在宝宝已经有了一定的接受能力，所以是时候教" + ta_sex + "帮大人干点儿活了。你要特别注意对宝宝说“请”和“谢谢”，并把整理玩具当成做游戏，让宝宝觉得很好玩。虽然宝宝现在可能还不明白这样做的目的，但是早点开始这方面的教育总有好处。</p>");
+                        break
+
+                    case 12:
+                    case 13:
+                    case 14:
+                    case 15:
+                        tab_1.html("语言");
+                        tab_2.html("运动");
+                        tab_3.html("精细动作");
+                        tab_4.html("智能");
+                        tab_5.html("社交");
+
+                        div_1.html("<p>宝宝已经会用“爸爸”、“妈妈”和其" + ta_sex + "几个你能听懂的词了。因为词汇量不多，" + ta_sex + "会用其" + ta_sex + "办法让你明白" + ta_sex + "想要什么。如果" + ta_sex + "想下来，会指指下面；如果" + ta_sex + "想让你注意" + ta_sex + "，会拉拉你的衣服。" + ta_sex + "也能听懂不少你每天对着" + ta_sex + "说的话了。</p>");
+                        div_2.html("<p>约有3／4的宝宝在1岁1个月时能自己走，不过多半还不稳当。如果你的宝宝还要依靠家具或其" + ta_sex + "东西支撑，也别担心，再过段时间，" + ta_sex + "就能独立走路了。有些宝宝直到17或18个月大，甚至更大一些才能自己走。</p>");
+                        div_3.html("<p>运用双手的能力也会更为熟练。大多数13个月大的宝宝都能抓住一块积木，并把它扔到盒子里，一些宝宝现在都会涂鸦了。你的宝宝没准儿能握住勺子，但现在还别指望" + ta_sex + "每次都能稳稳地运用勺子。</p>");
+                        div_4.html("<p>智能和运动发展障碍危险信号：1、仍然不会扶东西走。2、不会欢迎、再见、不会用摇头表示不同意、想要东西不会用手去指。听不懂话。3、不会玩玩具。</p>");
+                        div_5.html("<p>每个孩子天生都有一套与世界互动的特别方式，这就是" + ta_sex + "的性情。随着年龄的增长，这些与生俱来的倾向将开始表现出来。" + ta_sex + "开始把自己当作一个独立的个体，而不仅仅是你的延伸物。尊重宝宝的天性，有助于" + ta_sex + "充分发挥自己的潜能。</p>");
+                        break
+
+                    case 16:
+                    case 17:
+                    case 18:
+                        tab_1.html("运动");
+                        tab_2.html("认知");
+                        tab_3.html("智能");
+                        tab_4.html("社交");
+                        tab_5.html("习惯养成");
+
+                        div_1.html("<p>宝宝走得越来越熟练了，" + ta_sex + "可能会在大人帮助下爬楼梯，喜欢在家具上到处爬。" + ta_sex + "会试着踢球，但并不总能踢到。如果你放音乐，宝宝多半喜欢跟着跳舞；如果能够到的话，" + ta_sex + "会推、转按钮和球形把手。</p>");
+                        div_2.html("<p>宝宝将开始分辨玩具和其" + ta_sex + "东西间的相似与不同之处，" + ta_sex + "玩的时候，你会发现" + ta_sex + "喜欢按照颜色、形状和类别把它们分堆儿。还有，你的宝宝没准也能自己脱衣服或假装给" + ta_sex + "的玩具娃娃喂饭了！</p>");
+                        div_3.html("<p>如果从婴儿期开始，你就一直给宝宝读书，那么现在你们一起分享一个故事会是一种非常平静的体验。让宝宝自己选书，哪怕是一本你们已经读了无数遍的书。和宝宝一起边指边说出动物、物体、颜色等的名称。</p>");
+                        div_4.html("<p>现在是让" + ta_sex + "懂礼貌的好时机。你要向宝宝示范你希望" + ta_sex + "掌握的礼仪，如果你想让" + ta_sex + "做什么事，要说请，等" + ta_sex + "做好之后，要谢谢" + ta_sex + "。最好试着告诉宝宝，说话中表达出尊重的重要性。“请”和“谢谢”不应被鹦鹉学舌般地敷衍了事，这些词应该体现出关心和真情。</p>");
+                        div_5.html("<p>在巩固良好习惯的同时，要及时纠正宝宝出现的不良习惯，如睡眠时要吮手指，玩弄生殖器等。要培养宝宝的自理能力，可让宝宝自己握勺吃饭、脱鞋袜衣服、放玩具等。学着帮助别人做事，如拿报纸、捡东西等。</p>");
+                        break
+
+                    case 19:
+                    case 20:
+                    case 21:
+                        tab_1.html("语言");
+                        tab_2.html("运动");
+                        tab_3.html("认知");
+                        tab_4.html("护理");
+                        tab_5.html("社交");
+
+                        div_1.html("<p>虽然你或许对宝宝的话还有一大半听不懂，但" + ta_sex + "却开始理解你说的大部分话了。" + ta_sex + "的词汇量猛增，而且还能把两个词放在一起说，比如“我去”或者“你放”。除了发脾气和四处探索，你可能还会发现宝宝有自己的观点了。</p>");
+                        div_2.html("<p>此时宝宝多半会跑了，尽管还不熟练。" + ta_sex + "可能还会独自上楼梯，但下来的时候很可能还需要些帮助。" + ta_sex + "说不定也会踢球了。然而，大部分宝宝在20个月大时，还不会跳或把手举过肩去扔球。</p>");
+                        div_3.html("<p>宝宝将开始明白哪些事情是不符合大人观点的。" + ta_sex + "会对那些明显错误的东西感到好笑，比如把长颈鹿叫做斑马或把哥哥喊成姐姐。" + ta_sex + "还会认识到什么时候某个东西不是它原来的样子了，比如掉了一只眼睛的玩具熊或地毯上的一块新污渍。</p>");
+                        div_4.html("<p>要多带宝宝到室外去，训练宝宝的跑、跳、抛、扔等动作，既增强了宝宝体质又提高了宝宝的运动能力。也正是由于这些，要预防宝宝外伤，父母要学会一些急救的方法。</p>");
+                        div_5.html("<p>宝宝能从自由玩耍中获得所有" + ta_sex + "需要的刺激，所以直到" + ta_sex + "至少3岁前，你都可以不用让" + ta_sex + "上什么正规的学习班。创造机会让宝宝到小区或朋友家见识更多的孩子吧。不过，这个月龄的宝宝还不会一起玩。</p>");
+                        break
+
+                    case 22:
+                    case 23:
+                    case 24:
+                        tab_1.html("语言");
+                        tab_2.html("运动");
+                        tab_3.html("智能");
+                        tab_4.html("社交");
+                        tab_5.html("习惯");
+
+                        div_1.html("<p>宝宝此时多半能哼调子、唱歌、说像“狗狗跑出去”这样包含3个词的句子；" + ta_sex + "明白包含两个步骤的要求，比如“过来，转过去，让我给你的背上擦防晒霜”；宝宝多半也会明白像“高个子”、“矮个子”、“大狗”、“小狗”这样的反义词。</p>");
+                        div_2.html("<p>宝宝开始显露出对右手或左手的使用偏爱了，这是由" + ta_sex + "的基因决定的，有5%〜10%的人是左撇子。大约有20%的孩子是左右开弓，从来不会完全偏爱用哪只手。尽管我们生活在一个右手主导的社会，但如果很明显你的宝宝爱用左手，也不要太逼" + ta_sex + "去纠正。</p>");
+                        div_3.html("<p>宝宝能够在头脑中形成图像、组织分类，并按顺序排列东西等等。" + ta_sex + "会花大量的时间去分类，指出一页画上所有的猫或所有的气球。但宝宝还不能把所有“漂亮”或“沉重的”东西都指出来，因为这些是抽象概念。宝宝的记忆力还在发育之中，" + ta_sex + "才刚刚开始理解概念。</p>");
+                        div_4.html("<p>宝宝开始比以前喜欢和别的孩子一起玩了。" + ta_sex + "可能会模仿一个大一些的哥哥、姐姐如何运球，或者在其" + ta_sex + "孩子玩追逐游戏时跟着跑。无论玩什么游戏，" + ta_sex + "都可能想让你一起参加。</p>");
+                        div_5.html("<p>培养宝宝的独立性，凡是" + ta_sex + "力所能及、乐意做的事，父母应放手让" + ta_sex + "去做。可以让宝宝学自己吃饭、学习漱口、刷牙、自己穿脱鞋袜、简单衣服等。父母不要嫌麻烦，要给宝宝提供锻炼学习的机会。要对宝宝的表现给予鼓励。</p>");
+                        break
+
+                    case 25:
+                    case 26:
+                    case 27:
+                    case 28:
+                    case 29:
+                    case 30:
+                        tab_1.html("体形");
+                        tab_2.html("语言");
+                        tab_3.html("运动");
+                        tab_4.html("护理");
+                        tab_5.html("社交");
+
+                        div_1.html("<p>宝宝两周岁后会变得越来越苗条，头长的速度比以前慢得多。四肢和身体躯干开始长长，身体各部分比例也会更像成年人。</p>");
+                        div_2.html("<p>现在，宝宝可能会用至少50个词了，会组简单的包含两个词的句子，能执行有两个步骤的要求，比如“去拿你的鞋给爸爸，让" + ta_sex + "帮你穿上。”你大概有一半时间能明白宝宝在说些什么。小一点儿的孩子经常混淆代词，因此，宝宝可能会尽量避免使用代词，用“哥哥拿”或“宝宝扔”这样的话来代替。</p>");
+                        div_3.html("<p>现在宝宝能走得很好了，脚步更加协调连贯。宝宝已经掌握了大人们使用的从脚跟到脚趾的落地动作，" + ta_sex + "在跳跃、举手过肩扔球、自己刷牙、洗手擦手等方面也比以前强多了。</p>");
+                        div_4.html("<p>相对于2岁前，宝宝能够玩更多刺激的游戏，能够做更多的动作，使得来自生活中的危险不断增多，大人要注意对孩子的保护，防止孩子的意外伤害。</p>");
+                        div_5.html("<p>这个年龄的宝宝或许能分辨出一个朋友的名字。随着宝宝越来越能意识到" + ta_sex + "人的所思所想，" + ta_sex + "会变得更愿意跟别的孩子一起玩。别指望宝宝的行为自始至终都无可挑剔，只要坚持用正面的方式提醒" + ta_sex + "就好，让" + ta_sex + "明白语言要比武力更能解决问题。</p>");
+                        break
+
+                    case 31:
+                    case 32:
+                    case 33:
+                    case 34:
+                    case 35:
+                    case 36:
+                        tab_1.html("语言");
+                        tab_2.html("运动");
+                        tab_3.html("游戏");
+                        tab_4.html("社交");
+                        tab_5.html("教育");
+
+                        div_1.html("<p>随着宝宝对" + ta_sex + "人的意识不断提高，" + ta_sex + "会开始根据自己的谈话对象改变" + ta_sex + "说的话。和同龄人或成年人说话时，" + ta_sex + "会开始使用不同的词和声调。你甚至可能注意到宝宝和比" + ta_sex + "小的孩子说话时，用的是更简单的语言。</p>");
+                        div_2.html("<p>宝宝的很多基本动作现在都已经成为" + ta_sex + "的第二天性了。" + ta_sex + "走路、站立、跑步、跳跃的时候不再需要集中精力了。不过，有些动作，诸如踮着脚尖站或单脚站，可能还需要集中注意力和付出努力后才能做到。</p>");
+                        div_3.html("<p>三岁的宝宝喜欢猜谜语和编谜语，家长可以编谜语让宝宝猜，然后再让孩子自己编，让家长猜。要通过穿珠子、折纸、剪纸等游戏发展宝宝的精细动作，通过球类、玩沙、玩泥等运动提高动作能力。</p>");
+                        div_4.html("<p>当孩子长大一些的时候，" + ta_sex + "会对社交更感兴趣。你的宝宝多半开始把" + ta_sex + "的玩伴当作朋友，" + ta_sex + "正在明白小小的善意，诸如分享和给予，都是友谊的内容。随着宝宝的天性开始越来越多地表现出来，你要明白地告诉" + ta_sex + "，不管" + ta_sex + "的性情是安静型的、冒险型的、沉思型的，还是交际型的，你都喜欢。尊重宝宝的处世方式，有助于让" + ta_sex + "感到安全和自信。</p>");
+                        div_5.html("<p>要多给宝宝看图画书，看图讲故事，让宝宝能够熟悉故事内容，激发宝宝的阅读兴趣，要培养宝宝日常的交往能力，多带宝宝到小朋友多的地方，多接触陌生人。要在日常生活中、游戏中引导孩子观察各种自然现象，培养孩子从小爱科学。</p>");
+                        break
+                }
+
+            }
+
+            function tige(sex,month)
+            {
+                change_button_color("tizhong", tizhong_current, 36);
+                // 身高
+                height = jQuery("#span_height");
+                // 体重
+                weight = jQuery("#span_weight");
+                // 头围
+                head = jQuery("#span_head");
+                //本阶段的健康贴士
+                main = jQuery("#tizhong_main");
+
+                var ta_sex = sex;
+                //if(document.getElementById("select_sex").value == "男")
+                //{
+                //    ta_sex = "他";
+                //}
+                //else
+                //{
+                //    ta_sex = "她";
+                //}
+
+                switch (parseInt(month))
+                {
+                    case 0:
+                        if (sex == "男")
+                        {
+                            height.html("48.9~60.6");
+                            weight.html("2.9~6.6");
+                            head.html("33.8~40.8");
+                        }
+                        else
+                        {
+                            height.html("47.8~59.5");
+                            weight.html("2.7~6.2");
+                            head.html("33.0~40.1");
+                        }
+                        main.html("<p>新生儿白天一般1-3小时喂1次，夜里至少喂2-3次。无论母乳喂养或人工喂养，2~3周起就应加添维生素AD制剂（小儿用鱼肝油），一般要补充到2岁，夏天可适当减量或停用。在脐带脱落前，洗澡时，不要让肚脐沾水。可适当给小儿使用护肤品，但要以“简单”为原则。在每次大、小便后，用温水擦洗臀部及会阴部，以保证新生儿舒适、干净。</p>");
+                        break
+
+                    case 1:
+                        if (sex == "男")
+                        {
+                            height.html("52.4~64.4");
+                            weight.html("3.8~8.0");
+                            head.html("35.6~42.6");
+
+                        }
+                        else
+                        {
+                            height.html("51.0~63.2");
+                            weight.html("3.4~7.5");
+                            head.html("34.6~41.9");
+                        }
+                        main.html("<p>建议按需喂哺，每次哺乳间隔可延长到3~4个小时，喂五次奶就可以了。平时不需再穿长长的婴儿服，可以给" + ta_sex + "穿轻便的服装。坚持每天带婴儿到室外去，让孩子接受日光浴和空气浴，上、下午大约各半小时，天气好还可以适当延长。尽量多的与宝宝微笑着说话、唱歌、逗乐，让宝宝醒的时分处在快乐中，在不同方位用不同的声音训练宝宝的听觉。</p>");
+                        break
+
+                    case 2:
+                        if (sex == "男")
+                        {
+                            height.html("55.3~67.6");
+                            weight.html("4.4~9.0");
+                            head.html("37.0~44.1");
+                        }
+                        else
+                        {
+                            height.html("53.5~66.1");
+                            weight.html("4.0~8.5");
+                            head.html("35.8~43.3");
+                        }
+                        main.html("<p>2~3个月白天每次喂乳可以间隔3~4小时。宝宝逐渐用不同的哭声表示不同的需求，妈妈应从宝宝不同哭声来给予适当的解决。常用温暖的手抚摸婴儿手心、脚底、脸颊、皮肤，会让孩子欣慰安静。宝宝最好和母亲在一个房间，可把小床上放在母亲的床旁。室温要以20~24℃，湿度以50%~60%为好。竖抱宝宝，锻炼宝宝颈椎的支撑力。多与宝宝交流，培养宝宝的视听能力和社交能力。</p>");
+                        break
+
+                    case 3:
+                        if (sex == "男")
+                        {
+                            height.html("57.6~70.1");
+                            weight.html("4.9~9.7");
+                            head.html("38.0~45.2");
+                        }
+                        else
+                        {
+                            height.html("55.6~68.6");
+                            weight.html("4.4~9.3");
+                            head.html("36.8~44.4");
+                        }
+                        main.html("<p>满4个月后要给宝宝添加不同口味的食品。但由于此时消化能力还较弱，所以辅食添加主要目的是让宝宝适应不同口味，而不主要是增加营养，所以辅食量要循序渐进，同时要注意添加辅食后宝宝消化不良、腹泻、过敏等表现。一般随着孩子胃容量增加，夜间需要喂奶的次数逐渐减少。</p>");
+                        break
+
+                    case 4:
+                        if (sex == "男")
+                        {
+                            height.html("59.6~72.2");
+                            weight.html("5.3~10.4");
+                            head.html("38.9~46.2");
+                        }
+                        else
+                        {
+                            height.html("57.4~70.7");
+                            weight.html("4.8~10");
+                            head.html("37.6~45.3");
+                        }
+                        main.html("<p>要注意宝宝的安全，此时宝宝的肢体活动增多，活动范围增大，要避免宝宝受到伤害或者掉到地上。这一时期宝宝渴望得到大人的关注，开始有交往的欲望，所以在宝宝有交往需求时，爸爸妈妈要及时回应宝宝；多和宝宝说话。尽量保证宝宝有优质睡眠，同时注意养成宝宝规律的作息习惯，要有意识地把尿、把大便，应循序渐进，配合宝宝的生活习惯，进行培养训练。</p>");
+                        break
+
+                    case 5:
+                        if (sex == "男")
+                        {
+                            height.html("61.2~74.0");
+                            weight.html("5.7~10.9");
+                            head.html("39.7~47.0");
+                        }
+                        else
+                        {
+                            height.html("58.9~72.5");
+                            weight.html("5.1~10.6");
+                            head.html("38.3~46.1");
+                        }
+                        main.html("<p>6个月的婴儿，从母体中得到的营养物质已经大量消耗掉，抵抗传染病的抗体也逐渐消失，患营养性疾病和传染病的机会增多，父母要学会家庭医疗护理的常用方法。此时宝宝已经开始长牙，可准备一些饼干或磨牙棒，让宝宝自己拿着去吃，通过咀嚼食物训练宝宝的咀嚼能力。六个月的孩子已有比较复杂的情绪了，父母要注意宝宝的情绪，要让宝宝在快乐中成长。</p>");
+                        break
+
+                    case 6:
+                        if (sex == "男")
+                        {
+                            height.html("62.7~75.7");
+                            weight.html("5.9~11.4");
+                            head.html("40.3~47.7");
+                        }
+                        else
+                        {
+                            height.html("60.3~74.2");
+                            weight.html("5.3~11.1");
+                            head.html("38.9~46.8");
+                        }
+                        main.html("<p>7个月是宝宝学爬的黄金期，家长们一定要抓紧这个机会让宝宝学爬。爬行动作让宝宝得到大量的触觉刺激，对宝宝的感知能力、运动能力和感觉统合能力十分有利。另外对于精细肢体运动的训练也不要轻视，多给宝宝不同的玩具，训练" + ta_sex + "手部动作的协调性。这一阶段是宝宝学习咀嚼和喂食的敏感期，要尽可能提供多种口味的食物让宝宝尝试。注意平时让宝宝多锻炼，增强抵抗力。</p>");
+                        break
+
+                    case 7:
+                        if (sex == "男")
+                        {
+                            height.html("64.0~77.2");
+                            weight.html("6.2~11.9");
+                            head.html("40.8~48.3");
+                        }
+                        else
+                        {
+                            height.html("61.7~75.8");
+                            weight.html("5.6~11.6");
+                            head.html("39.4~47.4");
+                        }
+                        main.html("<p>逐渐实行半断奶，母乳喂养减少到3~4次。辅食逐渐变为主食，也就是一天可以吃2~3顿饭了。此时孩子的运动机能发达了，家里危险的东西一定要收起来，免得碰伤孩子，不要让孩子捅危险的地方。继续尝试让宝宝用水杯喝水。让宝宝观察世界，多让宝宝和别的孩子一起玩，培养愉快地与人相处的情绪。最好要养成使用固定餐位和餐具的习惯，要养成宝宝好的排便卫生习惯，并用自己的便盆。</p>");
+                        break
+
+                    case 8:
+                        if (sex == "男")
+                        {
+                            height.html("65.2~78.7");
+                            weight.html("6.4~12.3");
+                            head.html("41.2~48.8");
+                        }
+                        else
+                        {
+                            height.html("62.9~77.4");
+                            weight.html("5.8~12.0");
+                            head.html("39.8~47.8");
+                        }
+                        main.html("<p>9个月宝宝可能会出现偏食的现象。家长要试着给" + ta_sex + "多种多样的食物，让宝宝对食物感兴趣。注意保护宝宝牙齿，睡觉前不要让" + ta_sex + "吃东西，平时少吃甜食，早晚喝白开水以清洁口腔。此时孩子的运动机能发达，不满足于整天在床上玩，家里危险的东西一定要收起来。家长要帮助孩子学扶站、扶着迈步。亲子游戏的类型要多，这个阶段的宝宝不喜欢你总是用同样的方式逗" + ta_sex + "。多赞扬宝宝，会让" + ta_sex + "更加喜欢与你用话语交谈。</p>");
+                        break
+
+                    case 9:
+                        if (sex == "男")
+                        {
+                            height.html("66.4~80.1");
+                            weight.html("6.6~12.7");
+                            head.html("41.6~49.2");
+                        }
+                        else
+                        {
+                            height.html("64.1~78.9");
+                            weight.html("5.9~12.4");
+                            head.html("40.2~48.3");
+                        }
+                        main.html("<p>这个月起，辅食将正式成为主食，可以让宝宝和大人一起吃饭，但是仍然要尽量给宝宝单做。母乳或配方奶每日2~3次，每次200ML左右。要给婴儿穿轻便的衣服，便于宝宝的活动。十个月的宝宝会爬和坐了，自己扶东西就能够站起来，要消除屋里的一切不安全因素。反复训练宝宝食指和拇指的对捏能力，提高手的灵活性和准确性。多带宝宝出去，培养宝宝的认知能力，父母要多和宝宝一起做游戏。</p>");
+                        break
+
+                    case 10:
+                        if (sex == "男")
+                        {
+                            height.html("67.6~81.5");
+                            weight.html("6.8~13.0");
+                            head.html("41.9~49.6");
+                        }
+                        else
+                        {
+                            height.html("65.2~80.3");
+                            weight.html("6.1~12.8");
+                            head.html("40.5~48.6");
+                        }
+                        main.html("<p>宝宝可以和大人同一时间进餐，但要为" + ta_sex + "单独做饭。每天三餐应变换花样，以促进宝宝的食欲。10个月以后小孩就开始扶着东西走动了，如果气候和环境允许，多让小儿光着脚练习，并继续训练宝宝的爬行。培养孩子养成独自玩耍的习惯。培养宝宝独自坐便盆排便的习惯。逐渐让宝宝与生人接触，克服怕生现象。学会与人分享。多带宝宝到外面认识一些外面的事物。</p>");
+                        break
+
+                    case 11:
+                        if (sex == "男")
+                        {
+                            height.html("68.6~82.9");
+                            weight.html("6.9~13.3");
+                            head.html("42.2~49.9");
+                        }
+                        else
+                        {
+                            height.html("66.3~81.7");
+                            weight.html("6.3~13.1");
+                            head.html("40.8~49.0");
+                        }
+                        main.html("<p>给孩子吃的膳食要营养均衡，荤素搭配，训练孩子不挑食偏食，样样都吃。这个年龄段宝宝喜欢周围乱爬乱走，家里危险的安全隐患通通除掉。要给宝宝提供一个良好的睡眠环境，帮助改善宝宝的睡眠情况。要注意培养孩子生活有规律和良好的睡眠、饮食、活动和大小便等生活习惯。多给孩子与同龄人接触的机会，在有陌生人或去到陌生地方时，爸爸妈妈要陪在宝宝身边，帮" + ta_sex + "慢慢消除恐惧。</p>");
+                        break
+
+                    case 12:
+                        if (sex == "男")
+                        {
+                            height.html("71.6~86.7");
+                            weight.html("7.4~14.3");
+                            head.html("42.9~50.7");
+                        }
+                        else
+                        {
+                            height.html("69.3~85.7");
+                            weight.html("6.7~14.1");
+                            head.html("41.5~49.8");
+                        }
+                        main.html("<p>可以给孩子一天吃三餐，在上午和下午时各加一次点心或水果。三餐要注意营养，兼顾热量、脂肪、蛋白质、微量元素等食物，使营养素均衡摄入。每天每餐给宝宝的食物品种要尽可能多样化，以维持孩子良好的食欲和正常营养素摄入。</p>");
+                        break
+
+                    case 13:
+                        if (sex == "男")
+                        {
+                            height.html("71.6~86.7");
+                            weight.html("7.4~14.3");
+                            head.html("42.9~50.7");
+                        }
+                        else
+                        {
+                            height.html("69.3~85.7");
+                            weight.html("6.7~14.1");
+                            head.html("41.5~49.8");
+                        }
+                        main.html("<p>这一阶段孩子的活动能力增强，喜欢爬楼梯，喜欢乱闯乱撞，父母要注意宝宝在爬楼梯中的安全。为孩子准备积木和画笔，让" + ta_sex + "随意地搭和画，训练宝宝的手的灵活性和手眼协调能力，以及想象力。这时的孩子喜欢对着玩具电话模仿大人打电话，家长也可以和" + ta_sex + "一起玩。</p>");
+                        break
+
+                    case 14:
+                        if (sex == "男")
+                        {
+                            height.html("71.6~86.7");
+                            weight.html("7.4~14.3");
+                            head.html("42.9~50.7");
+                        }
+                        else
+                        {
+                            height.html("69.3~85.7");
+                            weight.html("6.7~14.1");
+                            head.html("41.5~49.8");
+                        }
+                        main.html("<p>要有意识地多带宝宝到婴幼儿比较集中的地方去玩，结识一些小朋友，有利于培养孩子的社会性。平时多和孩子说话，训练孩子的语言表达能力，要鼓励宝宝学说话，用语言表达要求，要理解宝宝的语言动作，满足宝宝的正当要求。</p>");
+                        break
+
+                    case 15:
+                        if (sex == "男")
+                        {
+                            height.html("74.2~90.4");
+                            weight.html("7.8~15.3");
+                            head.html("43.4~51.4");
+                        }
+                        else
+                        {
+                            height.html("72.0~89.4");
+                            weight.html("7.2~15.1");
+                            head.html("42.1~50.4");
+                        }
+                        main.html("<p>可以给孩子一天吃三餐，在上午和下午时各加一次点心或水果。注意营养，兼顾热量、脂肪、蛋白质、微量元素等食物，使营养素均衡摄入。这一阶段孩子的活动能力增强，喜欢爬楼梯，喜欢乱闯乱撞，父母要注意宝宝在活动中的安全。为孩子准备积木和画笔，让" + ta_sex + "随意地搭和画。要有意识地多带宝宝到婴幼儿比较集中的地方去玩，有利于培养孩子的社会性。要理解宝宝的语言动作，满足宝宝的正当要求。</p>");
+                        break
+
+                    case 16:
+                        if (sex == "男")
+                        {
+                            height.html("74.2~90.4");
+                            weight.html("7.8~15.3");
+                            head.html("43.4~51.4");
+                        }
+                        else
+                        {
+                            height.html("72.0~89.4");
+                            weight.html("7.2~15.1");
+                            head.html("42.1~50.4");
+                        }
+                        main.html("<p>可以让孩子和大人一起吃饭，除了三餐外，可以给" + ta_sex + "吃些水果，或者下午补充一次点心。早餐质量要好，晚餐要清淡一些，以利睡眠。零食最好不要吃。食物要做得软、细、容易消化，花色品种应经常变换。要培养宝宝的自理能力，可让宝宝自己握勺吃饭、脱鞋袜衣服、放玩具等。学着帮助别人做事，如拿报纸、捡东西等。</p>");
+                        break
+
+                    case 17:
+                        if (sex == "男")
+                        {
+                            height.html("74.2~90.4");
+                            weight.html("7.8~15.3");
+                            head.html("43.4~51.4");
+                        }
+                        else
+                        {
+                            height.html("72.0~89.4");
+                            weight.html("7.2~15.1");
+                            head.html("42.1~50.4");
+                        }
+                        main.html("<p>父母要根据天气的变化，及时给孩子增减衣物。此时的宝宝喜欢跟着妈妈在屋子里转来转去，喜欢独自爬上椅子、沙发，要注意宝宝的安全。要经常带宝宝去户外活动，可以锻炼孩子的身体，训练宝宝行走、跑的能力。用柔软的球和" + ta_sex + "玩踢球比赛，鼓励" + ta_sex + "把球踢出去。还要继续通过积木和画道道来训练手眼的协调能力。</p>");
+                        break
+
+                    case 18:
+                        if (sex == "男")
+                        {
+                            height.html("76.5~93.8");
+                            weight.html("8.2~16.2");
+                            head.html("43.8~51.9");
+                        }
+                        else
+                        {
+                            height.html("74.5~92.9");
+                            weight.html("7.6~16.0");
+                            head.html("42.6~50.9");
+                        }
+                        main.html("<p>宝宝会对家里的人、事、物表现出自己的喜爱，喜欢注视大人的语言、行为并模仿。父母可以鼓励宝宝做些力所能及的小事，提高" + ta_sex + "的动手能力。宝宝还喜欢玩指眼、耳、鼻、口、手的游戏，这可以帮助" + ta_sex + "认识自己。在巩固良好习惯的同时，要及时纠正宝宝出现的不良习惯，如睡眠时要吮手指，玩弄生殖器等。</p>");
+                        break
+
+                    case 19:
+                        if (sex == "男")
+                        {
+                            height.html("76.5~93.8");
+                            weight.html("8.2~16.2");
+                            head.html("43.8~51.9");
+                        }
+                        else
+                        {
+                            height.html("74.5~92.9");
+                            weight.html("7.6~16.0");
+                            head.html("42.6~50.9");
+                        }
+                        main.html("<p>随着其消化功能的不断完善，饮食的种类和制做方法开始逐渐向成人过渡，以粮食、蔬菜、肉类为主的食物开始成为幼儿的主食。但需要注意营养平衡和易于消化，不能完全吃成人的食物，要将食物做得软些。幼儿期，宝宝已经会跑、会跳，会消耗大量热量，所以要吃足够的谷类、面粉、薯类等，以提供碳水化合物。</p>");
+                        break
+
+                    case 20:
+                        if (sex == "男")
+                        {
+                            height.html("76.5~93.8");
+                            weight.html("8.2~16.2");
+                            head.html("43.8~51.9");
+                        }
+                        else
+                        {
+                            height.html("74.5~92.9");
+                            weight.html("7.6~16.0");
+                            head.html("42.6~50.9");
+                        }
+                        main.html("<p>要多带宝宝到室外去，训练宝宝的跑、跳、抛、扔等动作，既增强了宝宝体质又提高了宝宝的运动能力。也正是由于这些，要预防宝宝外伤，父母要学会一些急救的方法。宝宝热衷于给家里的物品搬家，大人可以和" + ta_sex + "做这个游戏，可以训练宝宝的平衡感。这个阶段还要通过积木、画道以及穿眼等游戏训练宝宝的手眼协调能力。</p>");
+                        break
+
+                    case 21:
+                        if (sex == "男")
+                        {
+                            height.html("78.0~96.3");
+                            weight.html("8.6~17.1");
+                            head.html("44.2~52.3");
+                        }
+                        else
+                        {
+                            height.html("76.0~95.4");
+                            weight.html("8.1~17.0");
+                            head.html("43.0~51.4");
+                        }
+                        main.html("<p>宝宝在这个阶段会慢慢进入反抗期，父母要了解其特点，因势利导，从旁协助，给予正确合理的教育。宝宝喜欢与成人讲话，家长应该把握时机，通过各种方式，增加词汇，使宝宝知识面加宽。逐渐培养宝宝自己穿衣服、戴帽子、洗手、洗脸等习惯。要给孩子养成良好的卫生习惯，早晚洗脸，晚上睡前洗脚、洗屁股等。若发现孩子有不良习惯，随时要纠正。</p>");
+                        break
+
+                    case 22:
+                        if (sex == "男")
+                        {
+                            height.html("78.0~96.3");
+                            weight.html("8.6~17.1");
+                            head.html("44.2~52.3");
+                        }
+                        else
+                        {
+                            height.html("76.0~95.4");
+                            weight.html("8.1~17.0");
+                            head.html("43.0~51.4");
+                        }
+                        main.html("<p>此阶段的宝宝应逐渐增加食物的品种，适当摄入含碘丰富的食品，如紫菜、海带等。宝宝在这个阶段有节奏感，可以放一些音乐，让宝宝随着音乐跳舞。这个阶段还要利用玩具训练宝宝走、跑、跳、平衡、攀爬等的能力，还要继续训练宝宝的手灵活性和手眼协调能力。</p>");
+                        break
+
+                    case 23:
+                        if (sex == "男")
+                        {
+                            height.html("78.0~96.3");
+                            weight.html("8.6~17.1");
+                            head.html("44.2~52.3");
+                        }
+                        else
+                        {
+                            height.html("76.0~95.4");
+                            weight.html("8.1~17.0");
+                            head.html("43.0~51.4");
+                        }
+                        main.html("<p>2岁的宝宝乳牙刚出齐或还未完全出齐，咀嚼功能还较弱，因此制作饭菜时，各种肉、菜均要细碎。炖烂才易于幼儿咀嚼、消化。给宝宝读长一点的、复杂一点的故事和童话。家长可以利用宝宝的好奇心多接触有兴趣的事物，让宝宝对图书、画片、玩具或者大自然进行观察，激发宝宝的注意力和想象力，并通过语言与宝宝交流，丰富宝宝的词汇量和句型。</p>");
+                        break
+
+                    case 24:
+                        if (sex == "男")
+                        {
+                            height.html("81.7~102.1");
+                            weight.html("9.4~19.0");
+                            head.html("44.8~53.1");
+                        }
+                        else
+                        {
+                            height.html("80.1~101.3");
+                            weight.html("8.9~19.0");
+                            head.html("43.7~52.2");
+                        }
+                        main.html("<p>此阶段宝宝的乳量在250~300毫升/天。要少吃糖果、巧克力等太甜的食品，多吃蔬菜、水果、蛋、鱼、肉类食品，防止偏食、挑食。培养宝宝的独立性，凡是" + ta_sex + "力所能及、乐意做的事，父母应放手让" + ta_sex + "去做。可以让宝宝学自己吃饭、学习漱口、刷牙、自己穿脱鞋袜、简单衣服等。父母不要嫌麻烦，要给宝宝提供锻炼学习的机会。要对宝宝的表现给予鼓励。</p>");
+                        break
+
+                    case 25:
+                        if (sex == "男")
+                        {
+                            height.html("81.7~102.1");
+                            weight.html("9.4~19.0");
+                            head.html("44.8~53.1");
+                        }
+                        else
+                        {
+                            height.html("80.1~101.3");
+                            weight.html("8.9~19.0");
+                            head.html("43.7~52.2");
+                        }
+                        main.html("<p>对于2岁以上的宝宝，应安排好早、午、晚三餐。不要让宝宝养成挑食、偏食、吃零食的习惯，达到均衡的饮食结构。相对于2岁前，宝宝能够玩更多刺激的游戏，能够做更多的动作，使得来自生活中的危险不断增多，大人要注意对孩子的保护，防止孩子的意外伤害。</p>");
+                        break
+
+                    case 26:
+                        if (sex == "男")
+                        {
+                            height.html("81.7~102.1");
+                            weight.html("9.4~19.0");
+                            head.html("44.8~53.1");
+                        }
+                        else
+                        {
+                            height.html("80.1~101.3");
+                            weight.html("8.9~19.0");
+                            head.html("43.7~52.2");
+                        }
+                        main.html("<p>在宝宝开始逐渐适应正常的饮食后，要培养宝宝良好的咀嚼习惯。要鼓励宝宝多跑、多跳、多爬楼梯，引导" + ta_sex + "们学会滑滑梯、荡秋千等。要鼓励宝宝多同其" + ta_sex + "孩子接触，学习与朋友分享玩具，一起做游戏。可以增加一些小智力玩具，开发孩子的智能，多去大自然户外运动，体会世界的美好，有利于情商教育。</p>");
+                        break
+
+                    case 27:
+                        if (sex == "男")
+                        {
+                            height.html("81.7~102.1");
+                            weight.html("9.4~19.0");
+                            head.html("44.8~53.1");
+                        }
+                        else
+                        {
+                            height.html("80.1~101.3");
+                            weight.html("8.9~19.0");
+                            head.html("43.7~52.2");
+                        }
+                        main.html("<p>在喂食宝宝的时候，刻意拉长两口饭菜的间隔时间，让宝宝有充足的咀嚼时间。要和孩子不断沟通，尊重孩子的想法，要鼓励宝宝多和其" + ta_sex + "小朋友接触，同时引导" + ta_sex + "关注家人，学会爱别人。父母可以让孩子读读画册、小人书，有选择的看一些电视节目，来积累知识，发展想象力。</p>");
+                        break
+
+                    case 28:
+                        if (sex == "男")
+                        {
+                            height.html("81.7~102.1");
+                            weight.html("9.4~19.0");
+                            head.html("44.8~53.1");
+                        }
+                        else
+                        {
+                            height.html("80.1~101.3");
+                            weight.html("8.9~19.0");
+                            head.html("43.7~52.2");
+                        }
+                        main.html("<p>对于2岁以上的宝宝，应安排好早、午、晚三餐。不要让宝宝养成挑食、偏食、吃零食的习惯，达到均衡的饮食结构。继续主动的训练宝宝在生活中的常见技能，比如自己吃饭、穿衣、洗漱、卫生等等方面，要求宝宝帮助家长做一些简单的家务。</p>");
+                        break
+
+                    case 29:
+                        if (sex == "男")
+                        {
+                            height.html("81.7~102.1");
+                            weight.html("9.4~19.0");
+                            head.html("44.8~53.1");
+                        }
+                        else
+                        {
+                            height.html("80.1~101.3");
+                            weight.html("8.9~19.0");
+                            head.html("43.7~52.2");
+                        }
+                        main.html("<p>在宝宝开始逐渐适应正常的饮食后，要培养宝宝良好的咀嚼习惯。要让宝宝认知早晨和晚上的一些基本特征。早晨起床时让宝宝看太阳出来，知道要起床穿衣服，要吃早饭，要洗漱干净。晚上了天就黑了，要开灯，宝宝要洗澡、脱衣服睡觉。大人也可以找表现早晚的图片让宝宝辨认，让宝宝从最具体的现象开始学会辨认早晚。</p>");
+                        break
+
+                    case 30:
+                        if (sex == "男")
+                        {
+                            height.html("85.0~107.2");
+                            weight.html("10.0~20.7");
+                            head.html("45.2~53.7");
+                        }
+                        else
+                        {
+                            height.html("83.6~106.5");
+                            weight.html("9.6~20.9");
+                            head.html("44.3~52.7");
+                        }
+                        main.html("<p>在喂食宝宝的时候，刻意拉长两口饭菜的间隔时间，让宝宝有充足的咀嚼时间。早上起床时、中午吃饭、晚上吃饭、睡觉的时候让宝宝看钟，观察钟长短针的位置，建立宝宝一个最基本的时间概念。大人多学几首儿童歌曲，创造好的氛围让宝宝学唱歌。宝宝学唱歌的时候，大人一定要一起唱，培养宝宝的兴趣。</p>");
+                        break
+
+                    case 31:
+                        if (sex == "男")
+                        {
+                            height.html("85.0~107.2");
+                            weight.html("10.0~20.7");
+                            head.html("45.2~53.7");
+                        }
+                        else
+                        {
+                            height.html("83.6~106.5");
+                            weight.html("9.6~20.9");
+                            head.html("44.3~52.7");
+                        }
+                        main.html("<p>宝宝每天的饮食要平衡搭配，每顿应以主要供热量的粮食作为主食。这个年龄段的宝宝喜欢猜谜语和编谜语，家长可以编谜语让宝宝猜，然后再让孩子自己编，让家长猜。要通过穿珠子、折纸、剪纸等游戏发展宝宝的精细动作，通过球类、玩沙、玩泥等运动提高动作能力。</p>");
+                        break
+
+                    case 32:
+                        if (sex == "男")
+                        {
+                            height.html("85.0~107.2");
+                            weight.html("10.0~20.7");
+                            head.html("45.2~53.7");
+                        }
+                        else
+                        {
+                            height.html("83.6~106.5");
+                            weight.html("9.6~20.9");
+                            head.html("44.3~52.7");
+                        }
+                        main.html("<p>要给宝宝提供含足够蛋白质的食物，譬如奶、蛋、肉类、鱼和豆制品等。要多给宝宝看图画书，看图讲故事，让宝宝能够熟悉故事内容，激发宝宝的阅读兴趣，要培养宝宝日常的交往能力，多带宝宝到小朋友多的地方，多接触陌生人。</p>");
+                        break
+
+                    case 33:
+                        if (sex == "男")
+                        {
+                            height.html("85.0~107.2");
+                            weight.html("10.0~20.7");
+                            head.html("45.2~53.7");
+                        }
+                        else
+                        {
+                            height.html("83.6~106.5");
+                            weight.html("9.6~20.9");
+                            head.html("44.3~52.7");
+                        }
+                        main.html("<p>宝宝的每顿正餐后都应配有一定数量的蔬菜或水果。要在日常生活中、游戏中引导孩子观察各种自然现象，培养孩子从小爱科学。孩子从小在生活中树立环境保护意识是比较容易的，所以要培养孩子的环保意识。</p>");
+                        break
+
+                    case 34:
+                        if (sex == "男")
+                        {
+                            height.html("85.0~107.2");
+                            weight.html("10.0~20.7");
+                            head.html("45.2~53.7");
+                        }
+                        else
+                        {
+                            height.html("83.6~106.5");
+                            weight.html("9.6~20.9");
+                            head.html("44.3~52.7");
+                        }
+                        main.html("<p>宝宝每天的饮食要平衡搭配，每顿应以主要供热量的粮食作为主食。还要培养宝宝的自理能力，如自己吃饭、穿衣服、自己洗脸、刷牙、自己如厕等。锻炼宝宝的独立生活能力，以便为宝宝进入幼儿园做准备。</p>");
+                        break
+
+                    case 35:
+                        if (sex == "男")
+                        {
+                            height.html("85.0~107.2");
+                            weight.html("10.0~20.7");
+                            head.html("45.2~53.7");
+                        }
+                        else
+                        {
+                            height.html("83.6~106.5");
+                            weight.html("9.6~20.9");
+                            head.html("44.3~52.7");
+                        }
+                        main.html("<p>要给宝宝提供含足够蛋白质的食物，譬如奶、蛋、肉类、鱼和豆制品等。大人可以说电话号码，让宝宝按键，或者大人把电话号码写下来，让宝宝按键，或者大人按键，让宝宝说出电话号码数字，通过这样的方式，训练宝宝数字的认知，手眼协调等能力。</p>");
+                        break
+
+                    case 36:
+                        if (sex == "男")
+                        {
+                            height.html("85.0~107.2");
+                            weight.html("10.0~20.7");
+                            head.html("45.2~53.7");
+                        }
+                        else
+                        {
+                            height.html("83.6~106.5");
+                            weight.html("9.6~20.9");
+                            head.html("44.3~52.7");
+                        }
+                        main.html("<p>宝宝的每顿正餐后都应配有一定数量的蔬菜或水果。让宝宝看一幅图画，首先让宝宝说出图中有哪些东西，然后可以让宝宝就看到的东西编句子，最后让宝宝根据这个图画讲一个故事，大人可以和宝宝一起讲故事，可以用一问一答的方式对宝宝的故事进行补充，完毕以后让宝宝再复述。这样可以训练宝宝的表达能力、记忆力和想象力。</p>");
+                        break
+                }
+            }
+
+
+            function get_yimiao(month)
+		{
+                        change_button_color("yimiao", yimiao_current, 36);
+
+			var div_yimiao = jQuery("#div_yimiao");
+			var td_tab = jQuery("#td_tab");
+			var td_tab_1 = jQuery("#td_tab_1");
+			var td_tab_2 = jQuery("#td_tab_2");
+			var td_tab_3 = jQuery("#td_tab_3");
+			var div_tab_1 = jQuery("#div_tab_1");
+			var div_tab_2 = jQuery("#div_tab_2");
+			var div_tab_3 = jQuery("#div_tab_3");
+			//var table_main = jQuery("#table_main");
+			//alert(month);
+			switch (month)
+			{
+				case 0:
+				//div_yimiao.html("卡介苗、乙肝疫苗");
+				td_tab_1.html("卡介苗");
+				td_tab_2.html("乙肝疫苗");
+				td_tab_3.html("");
+
+				div_tab_1.html("<p>出生后48小时接种卡介苗，大部分接种3周左右接种局部会出现红肿硬结，中间逐渐软化形成白色小脓疤，脓疤自行穿破后结痂，结痂脱落后留下一个小疤痕。这就是卡介苗接种后的全过程，需要时间约2〜3个月。如果小儿为早产、低出生体重或有其他疾病，预防接种要推迟进行。</p><p>宝宝3~4个月间要带去结核病防治所检查卡介苗接种是否成功。需要做一个叫结核菌素试验的皮试。</p>");
+				div_tab_2.html("<p>宝宝接种乙肝疫苗后可预防乙型病毒性肝炎。宝宝在出生24小时内应接种第一针乙型肝炎疫苗，在宝宝满月和6个月时，再各接种一针乙肝疫苗，这样才能在体内产生抵抗乙肝病毒的能力。乙肝疫苗接种在新生儿的右上臂，为皮下注射。</p>");
+				div_tab_3.html("");
+				tab_num = 2;
+				//table_main.style.display = "block";
+				break
+
+				case 1:
+				//div_yimiao.html("乙肝疫苗");
+				td_tab_1.html("乙肝疫苗");
+				td_tab_2.html("");
+				td_tab_3.html("");
+
+				div_tab_1.html("<p>新生儿满月后要接种第二针乙肝疫苗。乙型肝炎疫苗接种后一般很少有不良反应，但少数宝宝可能会出现轻微反应，如注射部位出现红肿、疼痛、轻微发热等，不过均不需要处理，24小时内即可自行消退。</p>");
+				div_tab_2.html("");
+				div_tab_3.html("");
+
+				tab_num = 1;
+				//table_main.style.display = "block";
+				break
+
+				case 2:
+				//div_yimiao.html("脊灰疫苗");
+				td_tab_1.html("脊灰疫苗");
+				td_tab_2.html("");
+				td_tab_3.html("");
+
+				div_tab_1.html("<p>2月龄时宝宝需要口服脊髓灰质炎疫苗（俗称糖丸）：在小儿2、3、4个月龄时要各接种脊髓灰质炎疫苗一次。</p><p>脊髓灰质炎疫苗是减毒的活疫苗，如果免疫力低下的小儿服用，会造成病毒在体内过渡繁殖，造成疫苗型脊髓灰质炎。所以有免疫缺陷的儿童,比如小儿经常感染、肺炎或小婴儿发生过肛周脓肿就要考虑是否有免疫力低下，先暂缓接种。其他疾病如发热、腹泻、口腔溃疡等也都要暂缓接种。为了保证疫苗效果，服疫苗前后0.5~1小时内不要吃热东西，也不要吃母乳。</p>");
+				div_tab_2.html("");
+				div_tab_3.html("");
+
+				tab_num = 1;
+				//table_main.style.display = "block";
+				break
+
+				case 3:
+				//div_yimiao.html("脊灰疫苗、百白破疫苗");
+				td_tab_1.html("脊灰疫苗");
+				td_tab_2.html("百白破疫苗");
+				td_tab_3.html("");
+
+				div_tab_1.html("<p>3月龄时还要口服第二粒脊髓灰质炎疫苗。由于脊髓灰质炎减毒活疫苗是糖丸，所以并不难吃。宝宝口服后一般没有什么不良反应。少数宝宝可能出现发烧、恶心、呕吐、腹泻和皮疹，一般不需特殊处理。如果宝宝的症状比较严重，你需要及时带他去医院治疗。</p>");
+				div_tab_2.html("<p>3月龄宝宝要接种百白破疫苗（百日咳、白喉、破伤风三联疫苗）。百白破疫苗在婴儿3、4、5个月龄时各接种1次（基础免疫3次，1岁半时加强1次）。</p><p>百白破疫苗含有吸附剂成分。接种百白破疫苗后一些儿童会在注射局部会出现红肿、疼痛和硬结，多在接种后12~24小时内发生，持续2~3日可自行消退。</p>");
+				div_tab_3.html("");
+
+				tab_num = 2;
+				//table_main.style.display = "block";
+				break
+
+				case 4:
+				//div_yimiao.html("脊灰疫苗、无细胞百白破疫苗");
+				td_tab_1.html("脊灰疫苗");
+				td_tab_2.html("无细胞百白破疫苗");
+				td_tab_3.html("");
+
+				div_tab_1.html("<p>口服脊髓灰质炎疫苗第三粒。脊髓灰质炎减毒活疫苗（糖丸）在连续3次接种后，保护率可达90%以上。而脊髓灰质炎灭活疫苗3剂注射后，保护率可达99%〜100%。等到宝宝4岁时，会再加强免疫1次。</p>");
+				div_tab_2.html("<p>满4月龄时接种百白破疫苗第二针。接种百白破疫苗有的宝宝会出现接种部位红肿，家长第二天要看看接种部位有无红肿，这种红肿大部分在2天后消退，如果接种后48小时仍然红肿，就要局部热敷，每次15分钟，每天3-4次。</p>");
+				div_tab_3.html("");
+
+				tab_num = 2;
+
+				//table_main.style.display = "block";
+				break
+
+				case 5:
+				//div_yimiao.html("无细胞百白破疫苗");
+				td_tab_1.html("无细胞百白破疫苗");
+				td_tab_2.html("");
+				td_tab_3.html("");
+
+				div_tab_1.html("<p>满5月龄时接种百白破疫苗第三针。接种第三针百白破疫苗后当天下午或晚上有的宝宝会出现发热。如果体温不超过38.5度，就可以不用吃退烧药，多喝些水、多加护理。如果体温超过38.5度应该去医院看一下。因为半岁以内的宝宝家长不要自主给孩子吃退烧药。</p>");
+				div_tab_2.html("");
+				div_tab_3.html("");
+
+				tab_num = 1;
+
+				//table_main.style.display = "block";
+				break
+
+				case 6:
+				//div_yimiao.html("乙肝疫苗、流脑A疫苗");
+				td_tab_1.html("乙肝疫苗");
+				td_tab_2.html("流脑A疫苗");
+				td_tab_3.html("");
+
+				div_tab_1.html("<p>满6个月要给宝宝接种乙肝疫苗第三针。父母亲如果有乙肝表面抗原阳性，宝宝接种完成三针乙肝疫苗1、2个月后可以查一下乙肝五项， 看一下宝宝乙肝抗体产生情况。凡按规定程序注射3针乙肝疫苗的宝宝，95%体内可以产生抵抗乙肝病毒的抗体。</p>");
+				div_tab_2.html("<p>6月龄也需要接种流脑疫苗。流脑疫苗用于预防流脑。流脑的致病原脑膜炎奈瑟菌一般以A、C群为主。相应地，A群流脑疫苗是预防A群脑膜炎奈瑟菌引起的呼吸道传染病，A+C群流脑多糖疫苗则是预防A群和C群流脑的。</p><p>A群流脑疫苗接种2剂次。在你的宝宝6〜18个月大期间，你要带他去接种第1剂A群流脑疫苗，3个月后再接种第2剂。</p>");
+				div_tab_3.html("");
+
+				tab_num = 2;
+
+				//table_main.style.display = "block";
+				break
+
+				case 7:
+				//div_yimiao.html("7个月程序中没有疫苗接种。但家长可以选择自费疫苗，比如轮状病毒疫苗可以预防秋季腹泻，HIB疫苗可以预防HIB细菌引起的感染，肺炎疫苗可以预防肺炎。");
+				td_tab_1.html("轮状病毒疫苗");
+				td_tab_2.html("HIB疫苗");
+				td_tab_3.html("肺炎疫苗");
+
+				div_tab_1.html("<p>轮状病毒疫苗也叫口服轮状病毒活疫苗，用于预防轮状病毒引起的秋季腹泻。轮状病毒疫苗的接种对象是2个月至3岁的婴幼儿。轮状病毒疫苗常年都可接种，但不推荐在秋季腹泻流行季节使用。一般建议接种轮状病毒疫苗的时间在7〜10月份。与大多数疫苗不同，轮状病毒疫苗是一种带甜味的口服液，接种方式是口服，1次口服1瓶，每年应服1次。</p>");
+				div_tab_2.html("<p>HIB疫苗的全称是B型流感嗜血杆菌疫苗。宝宝接种HIB疫苗只能预防由B型流感嗜血杆菌引起的一系列呼吸道疾病。</p><p>HIB疫苗一般在宝宝2个月大的时候开始接种，接种剂次取决于宝宝首次接种时的月龄：2〜6个月大的宝宝接种HIB疫苗分3剂，每两剂之间间隔2个月，等到宝宝15个月大时再额外加强接种1剂。7〜12个月大的宝宝接种HIB疫苗分2剂，两剂间隔2个月，等到宝宝15个月大时再额外加强接种1剂。13〜60个月大的宝宝接种HIB疫苗只需要接种1剂。</p>");
+				div_tab_3.html("<p>肺炎疫苗用于预防肺炎球菌感染的疾病。目前，中国的肺炎球菌疫苗有7价肺炎球菌结合疫苗和23价肺炎球菌多糖疫苗2种。7价肺炎球菌疫苗最适合3个月~2岁大的宝宝。23价肺炎球菌多糖疫苗只适用于2岁以上的宝宝，特别是那些体质虚弱的孩子。</p><p>7价肺炎球菌结合疫苗接种时间不受季节限制，但是不同月龄的宝宝接种剂次不同。7~11个月大的宝宝基础接种2剂7价肺炎球菌结合疫苗，每剂之间接种至少间隔1个月。12~15个月大时需要额外注射1剂。</p>");
+
+				tab_num = 3;
+
+				//table_main.style.display = "block";
+				break
+
+				case 8:
+				//div_yimiao.html("8月龄宝宝要接种麻疹疫苗或者麻疹、风疹二联疫苗。");
+				td_tab_1.html("麻疹疫苗");
+				td_tab_2.html("麻疹、风疹二联疫苗");
+				td_tab_3.html("");
+
+				div_tab_1.html("<p>麻疹疫苗可以预防麻疹。宝宝首次接种麻疹疫苗的时间是他满8个月的时候，第二剂是18~24个月。宝宝接种麻疹疫苗后，需要在接种单位停留30分钟，在此期间，你需要观察孩子的反应，看是否有异常情况，在确保一切正常后再离开。</p>");
+				div_tab_2.html("<p>麻疹疫苗一般存在于联合疫苗中，最常见的是麻风疫苗（麻疹和风疹的联合疫苗）和麻风腮疫苗（麻疹、风疹和腮腺炎的联合疫苗）。宝宝接种麻疹疫苗时使用的到底是哪种联合疫苗，要看你所居住的地区。目前的趋势是宝宝第一剂接种麻风疫苗，第二剂多为麻风腮疫苗或麻腮疫苗。具体要根据你所在地区卫生防疫部门的安排。</p>");
+				div_tab_3.html("");
+
+				tab_num = 2;
+
+				//table_main.style.display = "block";
+				break
+
+				case 9:
+				//div_yimiao.html("流脑A疫苗");
+				td_tab_1.html("流脑A疫苗");
+				td_tab_2.html("");
+				td_tab_3.html("");
+
+				div_tab_1.html("<p>满9个月的宝宝，需要接种流脑疫苗第二针。接种2剂A群流脑多糖疫苗的间隔时间必须大于3个月。在你的宝宝注射完第2剂A群流脑多糖疫苗后，他至少要等1年才可以注射A+C群流脑多糖疫苗。</p><p>宝宝接种任何一种流脑疫苗后需要在接种单位停留30分钟。在此期间，你要注意观察宝宝，留意是否有异常反应情况，在确保宝宝一切正常后再带他离开。宝宝接种流脑疫苗后最好适当休息，多饮水，注意保暖，同时避免进行剧烈的活动。</p>");
+				div_tab_2.html("");
+				div_tab_3.html("");
+
+				tab_num = 1;
+
+				//table_main.style.display = "block";
+				break
+
+				case 10:
+				case 11:
+				//div_yimiao.html("本月无所需接种疫苗");
+				td_tab_1.html("");
+				td_tab_2.html("");
+				td_tab_3.html("");
+
+				div_tab_1.html("");
+				div_tab_2.html("");
+				div_tab_3.html("");
+
+				//table_main.style.display = "none";
+				break
+
+				case 12:
+				//div_yimiao.html("乙脑疫苗（夏季）");
+				td_tab_1.html("乙脑疫苗（夏季）");
+				td_tab_2.html("");
+				td_tab_3.html("");
+
+				div_tab_1.html("<p>1岁的宝宝需要接种乙脑疫苗，当然有些南方地区接种乙脑疫苗可能在更小的月龄，要按照当地的接种程序给宝宝接种疫苗。</p><p>目前中国常用的乙型脑炎疫苗有乙型脑炎减毒活疫苗和乙型脑炎灭活疫苗两种，其中大部分地区使用的是乙脑减毒活疫苗。当你的宝宝满8个月后，你就可以带他去接种乙型脑炎疫苗了。两种乙型脑炎疫苗的第1剂接种起始时间相同，但是剂次和间隔时间不同。乙脑减毒活疫苗接种2剂次，在你的宝宝8个月和2周岁时各接种1次，2剂间隔至少16个月。乙脑灭活疫苗接种4剂次，在你的宝宝8个月时接种2次，两次间隔7-10天，然后等他到2周岁和6周岁时再各接种1次。</p>");
+				div_tab_2.html("");
+				div_tab_3.html("");
+
+				tab_num = 1;
+
+				//table_main.style.display = "block";
+				break
+
+				case 13:
+				case 14:
+				case 15:
+				//div_yimiao.html("水痘疫苗");
+				td_tab_1.html("水痘疫苗");
+				td_tab_2.html("");
+				td_tab_3.html("");
+
+				div_tab_1.html("<p>按照儿童免疫规划内容，13-15个月之间没有必须接种的疫苗，但此时可以接种自费的水痘疫苗。自从接种水痘疫苗以来，水痘的发病率明显降低。所以还是建议家长给孩子接种水痘疫苗。水痘疫苗是一种很安全的疫苗，副反应发生率很低。</p><p>水痘疫苗用于预防水痘。首次接种水痘疫苗后，大约有97%的宝宝体内可以形成抗体。水痘疫苗接种后免疫力持久，并且基本可以形成终生免疫。</p>");
+				div_tab_2.html("");
+				div_tab_3.html("");
+
+				tab_num = 1;
+
+				//table_main.style.display = "block";
+				break
+
+				case 16:
+				case 17:
+				case 18:
+				//div_yimiao.html("按照免疫规划要求，18个月的孩子应该接种百白破三联疫苗加强针、麻疹、腮腺炎、风疹三联针和甲肝疫苗。但这三种疫苗一般不同时接种，可以分两次或三次接种。");
+				td_tab_1.html("");
+				td_tab_2.html("");
+				td_tab_3.html("");
+
+				div_tab_1.html("");
+				div_tab_2.html("");
+				div_tab_3.html("");
+
+				//table_main.style.display = "none";
+				break
+
+				case 19:
+				case 20:
+				case 21:
+				//div_yimiao.html("本月无所需接种疫苗");
+				td_tab_1.html("");
+				td_tab_2.html("");
+				td_tab_3.html("");
+
+				div_tab_1.html("");
+				div_tab_2.html("");
+				div_tab_3.html("");
+
+				//table_main.style.display = "none";
+
+				break
+
+				case 22:
+				case 23:
+				case 24:
+				//div_yimiao.html("乙脑疫苗加强");
+				td_tab_1.html("乙脑疫苗加强");
+				td_tab_2.html("");
+				td_tab_3.html("");
+
+				div_tab_1.html("<p>2岁的小儿应该接种乙脑疫苗加强针。宝宝接种1剂乙脑减毒活疫苗后，对乙脑的预防能力会达到80%以上。再经加强1剂接种后，预防能力就会达到90%以上，而且可以维持相当长的一段时间。这也是为什么中国大部分地区选择给儿童接种乙脑减毒活疫苗。</p>");
+				div_tab_2.html("");
+				div_tab_3.html("");
+
+				tab_num = 1;
+
+				//table_main.style.display = "block";
+				break
+
+				case 25:
+				case 26:
+				case 27:
+				case 28:
+				case 29:
+				case 30:
+				//div_yimiao.html("本月无所需接种疫苗";
+				td_tab_1.html("");
+				td_tab_2.html("");
+				td_tab_3.html("");
+
+				div_tab_1.html("");
+				div_tab_2.html("");
+				div_tab_3.html("");
+
+				//table_main.style.display = "none";
+				break
+
+				case 31:
+				case 32:
+				case 33:
+				case 34:
+				case 35:
+				case 36:
+				//div_yimiao.html("流脑A+C疫苗");
+				td_tab_1.html("流脑A+C疫苗");
+				td_tab_2.html("");
+				td_tab_3.html("");
+
+				div_tab_1.html("<p>3岁的宝宝应该接种流脑A+C疫苗。A+C群流脑多糖疫苗接种同样是2剂次，在你的宝宝3周岁和6周岁时各接种1次，两次间隔时间是3年。</p>");
+				div_tab_2.html("");
+				div_tab_3.html("");
+
+				tab_num = 1;
+
+				//table_main.style.display = "block";
+				break
+			}
+		}
+
+                function yimiao_show(id) {
+                   for(var i=1;i<=3; i++) {
+                      if(i == parseInt(id)) {
+                        jQuery("#div_tab_" + i).show();
+                      } else {
+                        jQuery("#div_tab_" + i).hide();
+                      }
+                   }
+                }
+
+                function yingyang_show(id) {
+                   for(var i=1;i<=3; i++) {
+                      if(i == parseInt(id)) {
+                        jQuery("#div_yy_" + i).show();
+                      } else {
+                        jQuery("#div_yy_" + i).hide();
+                      }
+                   }
+                }
+
+                function get_yingyang(months_all)
+			{	
+                                change_button_color("yingyang", yingyang_current, 36);
+
+				//setTimeout("change_main_img("+months_all+")",200);
+				//alert("images_zhibiao/shipu_img/" + months_all + ".gif");
+                                var p_weiyang = jQuery("#div_yy_1");
+                                var p_yingyang = jQuery("#div_yy_2");
+                                var p_shipu = jQuery("#div_yy_3");
+				switch (months_all)
+				{
+					
+                                        case 0:
+					//setHeight(0);
+					p_weiyang.html("坚持母乳喂养，早开奶、多吸吮。按需哺乳，注意合理喂养，并观察奶量是否充足。新生儿白天一般1～3小时喂1次，夜里至少2～3次。婴儿如果能够得到足够的母乳，会睡觉安稳，醒的时候比较安静愉快，体重能按规律增长。如果婴儿喂奶后不久就又哭闹，吸吮口唇、手指、来回转头找奶吃，睡不安稳，体重增长很少或不增，就说明母乳不足，必要时可给予配方奶粉混合喂养。");
+					
+					p_yingyang.html("如何给宝宝补充维生素A和D？" + "<br/>" +"由于人乳及牛乳中维生素A和D含量较低，建议非配方奶喂养儿和冬季出生的母乳喂养儿从出生后第15天起按预防剂量进行补充。配方奶喂养儿应参考婴儿奶粉摄入量，当每天摄入维生素D达到400国际单位时，不必补充。一般维生素AD补充到2岁，夏天可适当减量或停用，冬天可适当延长。");
+					p_shipu.html("阿胶猪肉煲：阿胶能促进体内血红细胞和血红蛋白的生成，促进钙质吸收，有助于新妈妈补血补钙。原料：瘦猪肉、阿胶、葱姜蒜等调料；做法：猪肉洗净，切成小块。锅内放水煮沸，放入肉块焯一下。将猪肉放煲内文火炖熟，放入阿胶炖化，调味即可。");
+					//yingyang_span.html("1个月宝宝的");
+					break
+
+                                        case 1:
+					//setHeight(0);
+					p_weiyang.html("坚持母乳喂养，早开奶、多吸吮。按需哺乳，注意合理喂养，并观察奶量是否充足。新生儿白天一般1～3小时喂1次，夜里至少2～3次。婴儿如果能够得到足够的母乳，会睡觉安稳，醒的时候比较安静愉快，体重能按规律增长。如果婴儿喂奶后不久就又哭闹，吸吮口唇、手指、来回转头找奶吃，睡不安稳，体重增长很少或不增，就说明母乳不足，必要时可给予配方奶粉混合喂养。");
+					
+					p_yingyang.html("如何给宝宝补充维生素A和D？" + "<br/>" +"由于人乳及牛乳中维生素A和D含量较低，建议非配方奶喂养儿和冬季出生的母乳喂养儿从出生后第15天起按预防剂量进行补充。配方奶喂养儿应参考婴儿奶粉摄入量，当每天摄入维生素D达到400国际单位时，不必补充。一般维生素AD补充到2岁，夏天可适当减量或停用，冬天可适当延长。");
+					p_shipu.html("阿胶猪肉煲：阿胶能促进体内血红细胞和血红蛋白的生成，促进钙质吸收，有助于新妈妈补血补钙。原料：瘦猪肉、阿胶、葱姜蒜等调料；做法：猪肉洗净，切成小块。锅内放水煮沸，放入肉块焯一下。将猪肉放煲内文火炖熟，放入阿胶炖化，调味即可。");
+					//yingyang_span.html("1个月宝宝的");
+					break
+					
+					case 2:
+					//setHeight(0);
+					p_weiyang.html("建议按需喂哺，白天每次哺乳间隔可延长到3～4个小时，夜间宝宝睡眠，哺乳间隔可延长。如果母乳不足的话，可以采用混合喂养的方式。纯母乳喂养的宝宝，在4个月以前，一般是不需要另外加水的；但人工喂养的宝宝日间则需要在两次哺乳之间喂一次水。");
+					
+					p_yingyang.html("婴儿需要补DHA和AA吗？" + "<br/>" +"人体中约一半的DHA和AA是胎儿从母体中获得的，另一半是从母乳中获得的。早产儿由母体获得的DHA的量较少，如果婴儿出生后没有用母乳喂养或奶粉中缺乏DHA和AA，则婴儿的智力发育和视力发育将受到影响。因此，早产儿和人工喂养儿可在医生指导下适当补充DHA和AA。");
+					p_shipu.html("人参鸡肉煲：人参能补益元气，填精补髓，活血调经。具有增乳、补气的功效。做法：将鸡切块，姜切片，葱切段。锅内放入清水、鸡块、人参、淮山、大枣、姜葱、料酒、盐用旺火煮沸后改文火至鸡肉煮透，加入味精，盐调味即可。");
+					//yingyang_span.html("2个月宝宝的");
+
+					break
+					
+					case 3:
+					//setHeight(0);
+					p_weiyang.html("进入第三个月之后，宝宝的喝奶量增多了，每次喂奶间隔时间也相应变得长了，以前过3个小时就饿得直哭的宝宝，现在可以睡上4、5个小时。这说明宝宝喝进去的奶还没有完全消化吸收，也说明宝宝已经具备了储存能量的能力。一般来讲，宝宝大多知道自己的需要，奶供过于求，宝宝会拒而不受，奶供不应求，则会提前醒来。爸爸妈妈不必因宝宝推迟吃奶时间而操心。");
+					
+					p_yingyang.html("3个月婴儿能加果汁米粉吗？" + "<br/>" +"纯母乳喂养的婴儿在4～6个月内不需要补充其他食物。配方奶喂养的4个月内婴儿一般情况下也不需要添加其他食物，因为配方奶粉中已经添加了此期婴儿所需要的铁、钙和维生素等营养素。如果用普通牛奶或豆奶喂养，则应适当添加果汁和菜水。");
+					p_shipu.html("黄豆猪蹄汤：猪蹄高蛋白、黄豆高钙，适合产后滋补。做法：黄豆用清水浸泡1小时，猪蹄用沸水烫后洗净，刮去老皮。猪蹄加清水煮沸，撇去浮沫。再加绍酒、葱及黄豆，中火煲35分钟。加盐、味精调味，再高火煲15分钟即可。");
+					//yingyang_span.html("3个月宝宝的");
+					break
+					
+					case 4:
+					//setHeight(0);
+					p_weiyang.html("继续坚持母乳喂养，纯母乳喂养最好能坚持到宝宝满4个月。到宝宝4个月时，吃奶次数应该是基本固定的。一般每天吃5次，夜里不起来。还有的宝宝是每隔4小时吃一次奶，5次以外夜里还要加1次，共喂6次。究竟用不用夜里给宝宝喂奶，这要根据宝宝的具体情况而定。总的原则，是以宝宝能够消化吸收，体重在合适的范围以内而定。");
+					
+					p_yingyang.html("辅食添加何时开始？"+ "<br/>" +"由于宝宝在4～6个月龄期间是适应不同口味的关键期，所以，满4个月后要给宝宝添加不同口味的食品。但由于此时消化能力还较弱，所以辅食添加主要目的是让宝宝适应不同口味，而不主要是增加营养。辅食量要循序渐进，同时要注意添加辅食后宝宝是否有消化不良、腹泻、过敏等表现。");
+					p_shipu.html("鸡汁土豆泥：将土豆洗干净、去皮、用清水蒸熟，再用勺子碾碎，放入鸡汤中煮并搅匀。要将土豆碾碎，煮的稠稠的才好，太小的宝宝要稀释后再吃哦。这道适合4-6个月的宝宝。土豆泥是最不容易过敏的食物之一，是最适合小宝宝吃的辅食之一。");
+					//yingyang_span.html("4个月宝宝的");
+					break
+					
+					case 5:
+					//setHeight(0);
+					p_weiyang.html("5个月宝宝的吃奶量每天不超过1000ml，每次不超过200毫升为宜。5个月宝宝吃的奶量大约等于体重的1/6。开始吃辅食，但生长发育所需的营养素，还必须依赖于母乳或奶粉。辅食添加原则是从少量开始，逐渐增加。从稀到稠，从流质到半流质，再到固体食物。");
+					
+					p_yingyang.html("添加辅食的首选食品是什么？" + "<br/>" + "精细的谷类很少引起过敏反应，其中米粉比小麦粉较少引起过敏，是首选的最适宜的添加食品。4～6个月婴儿生理性缺铁性贫血的发生率较高，故最好选用为婴儿特制的含强化铁的米粉。在添加米粉1个星期后，可开始添加蔬菜和水果。可先从添加果汁、菜汁开始，当孩子适应后，再改为菜泥、果泥，最后过渡到小块状水果和蔬菜。");
+					p_shipu.html("苹果泥：将苹果用清水洗干净，把外皮用刀削去，再将其中的籽去除干净，然后磨成泥状给小宝宝喂食。苹果富含各种维生素、果胶及纤维素，其中的纤维素能使大便变得松软，可以帮助纠正便秘，果胶能帮助止住轻度腹泻。因此，苹果泥具有通便、止泻的双重功效。");
+					//yingyang_span.html("5个月宝宝的");
+					break
+					
+					case 6:
+					//setHeight(0);
+					p_weiyang.html("6个月时的宝宝，一天的主食仍是母乳或奶粉，可逐渐延长喂奶间隔，缩短喂奶时间。此时宝宝已经开始长牙，可准备一些饼干或磨牙棒，让宝宝自己拿着去吃，通过咀嚼食物训练宝宝的咀嚼能力。6个月龄会出现所谓的“生理性厌奶”，建议父母最好选择比较安静且不受干扰的环境喂奶，避免造成宝宝分心。");
+					
+					p_yingyang.html("如何给宝宝制作辅食？" + "<br/>" + "给宝宝制作辅食时，不要添加其他调味料或成分。不要放糖或盐，不要加油脂。不要添加苏打粉，虽然苏打粉可以保持食物色泽，却有损于维生素及矿物质。土豆要连皮一起蒸、烤或放入微波炉中，煮好后再剥皮。最好用蒸、加压或不加水的方法烹煮蔬菜，尽可能减少与光、空气、热和水接触，尽可能减少维生素的损失。");
+					p_shipu.html("苹果土豆泥：土豆去皮洗净，切成小块放入锅内，加入适量的水煮熟或在蒸锅中蒸熟。熟后用汤匙或捣泥棒捣成泥状。苹果刮出2勺果泥，与土豆泥混匀即可。提示：将苹果换成香蕉、胡萝卜也不错。");
+					//yingyang_span.html("6个月宝宝的");
+					break
+					
+					case 7:
+					//setHeight(0);
+					p_weiyang.html("这个年龄段的宝宝主食为母乳和代乳食品，奶量不变，这一阶段是宝宝学习咀嚼和喂食的敏感期，要尽可能提供多种口味的食物让宝宝尝试。添加的辅食品种要丰富多样，可以吃菜泥、果泥、鱼泥、肝泥、蛋黄、肉泥，可以添加粥或烂面片等。此时的宝宝已经出牙，可以继续给宝宝吃饼干、面包等，让他练习咀嚼。");
+					
+					p_yingyang.html("如何添加碎末状食物？" + "<br/>" +"7-9个月时，当孩子适应了泥糊状食物后，可以试着给孩子吃一些碎末状食物，锻炼孩子的咀嚼能力。可以先从碎菜试起，如果孩子能咀嚼并顺利咽下，可逐渐增加食物种类。10个月后，可增加肉末、肝末等。还可让孩子练习自己拿着饼干、苹果吃，这样既锻炼了孩子咀嚼能力，又培养了孩子手眼协调能力和生活自理能力。");
+					p_shipu.html("青菜肉糜粥：米洗净，用水泡1～2小时，放入锅内，加高汤，熬煮半小时左右。将青菜洗干净，放入开水锅内煮软，切碎备用。再将瘦肉洗净切成薄片，加少许精盐，入锅中，水开煮10分钟，取出切成肉糜。然后，将肉糜和青菜加入煮好的粥中。");
+					//yingyang_span.html("7个月宝宝的");
+					break
+					
+					case 8:
+					//setHeight(0);
+					p_weiyang.html("逐渐实行半断奶，母乳喂养减少到3～4次。辅食逐渐变为主食，也就是一天可以吃2～3顿饭了。可以早、中、晚吃三顿饭，或早晨喝奶加一些面包等，中午、晚餐要按时吃饭。此时大部分营养从三餐中获得。可以吃软粥、软面条，里面可以加各种碎菜、豆腐、碎肉、鱼泥，可以吃鸡蛋羹。此年龄段宝宝容易出现缺铁性贫血，所以家长要给宝宝多吃些含铁丰富的食品，如动物肝脏、血豆腐、瘦肉等。1岁以内的宝宝不建议吃虾、蟹类容易出现过敏的食品。");
+					
+					p_yingyang.html("如何添加鸡蛋？"+ "<br/>" +"一般7-9个月左右，当添加了强化铁的米粉及蔬菜、水果后，可酌情添加鸡蛋。蛋黄比蛋清较少引起过敏，所以先从蛋黄加起。作为一种新添加的食物，应从1／4个蛋黄喂起，先将煮老的蛋黄(开锅后再煮10分钟)用勺压成泥状，再用母乳、配方奶或白开水调成糊喂给孩子，也可将蛋黄加到米粉糊或面片中喂孩子。");
+					p_shipu.html("牛奶鸡蛋羹：有两种做法，做法一是：鸡蛋，牛奶，白糖共调匀，隔水用慢火炖熟，便可食用。做法二是：牛奶放入锅里，加鸡蛋，慢火煮至鸡蛋熟，以白糖调味，便可食用。这款美食可滋养强身，健脑益智，是助长宝宝身体发育和大脑发育的最佳营养食品。");
+					//yingyang_span.html("8个月宝宝的");
+					break
+					
+					case 9:
+					//setHeight(0);
+					p_weiyang.html("9个月以后各种谷类、面类、蔬菜、水果类的食品就会在宝宝的饮食中逐渐增多，饮食的改变从某个角度来说是宝宝长大的最重要标志，饮食从流质到半流质，最后过渡到正常的固体饮食，一方面是宝宝身体成长的需要，同时也是宝宝咀嚼能力、消化、吸收能力发展的重要表现。在这个时期，即使母乳再充足，也不能作为宝宝的主食了，但有哺乳条件的妈妈还应哺喂母奶，要逐步减少，直至宝宝断奶。");
+					
+					p_yingyang.html("如何对付挑食宝宝？" + "<br/>" +"9个月宝宝可能会出现偏食的现象。家长要试着给他多种多样的食物，让宝宝对食物感兴趣。比如，宝宝不爱吃碎菜或肉末，就可以把它们混在粥内或包成馄饨来喂；宝宝不爱吃鸡蛋羹，就可以煮鸡蛋或者荷包鸡蛋给宝宝吃等等。总而言之，要想方设法变着花样给宝宝吃。");
+					p_shipu.html("瘦肉鸡蛋羹：瘦肉剁烂与鸡蛋拌匀，放入碗内，加适量温开水，以盐调味，隔水炖熟，便可食用。此款辅食可补中益气，开胃佐膳。鸡蛋中富含有蛋白质、脂肪、维生素、钙、锌、铁、核黄素、DHA和卵磷脂等人体所需的营养物质，是婴幼儿成长的理想食品。");
+					//yingyang_span.html("9个月宝宝的");
+					break
+					
+					case 10:
+					//setHeight(0);
+					p_weiyang.html("这个月起，辅食将正式成为主食，可以让宝宝和大人一起吃饭，但是仍然要尽量给宝宝单做。宝宝可以继续吃粥、面片、蛋羹等食物，也可以开始吃小饺子、小包子等带馅的食物，但皮要薄，馅细一些。母乳或配方奶每日2～3次，每次200毫升左右。");
+					
+					p_yingyang.html("哪些食品宝宝要少吃？" + "<br/>" +"10个月的宝宝已经到了断奶后期，饮食基本上都是断奶食品，爸爸妈妈在为宝宝准备食物的时候，也有应该回避的食品。一般应回避的食品有以下几种：某些贝类和鱼类：如乌贼、章鱼、鲍鱼以及用调料煮的鱼贝类小菜、干鱿鱼等。蔬菜类：牛蒡、藕、腌菜等不易消化的食物。香辣味调料：芥末、胡椒、姜、大蒜和咖喱粉等辛辣调味品。");
+					p_shipu.html("胡萝卜汤：取新鲜胡萝卜，洗净切成大块。然后放入锅中煮烂后，用漏勺捞出，挤压成糊状，再放回原汤中煮沸，用白糖调味。胡萝卜含有多种氨基酸以及丰富的维A，对组成人体骨骼、神经细胞、红血球有益。此汤适合宝宝断奶期食用。");
+					//yingyang_span.html("10个月宝宝的");
+					break
+					
+					case 11:
+					//setHeight(0);
+					p_weiyang.html("11个月的宝宝接受食物、消化食物的能力增强了，一般的食物几乎都能吃了，有的时候还可以与爸爸妈妈吃同样的饭菜了。这时候的宝宝，可以吃蒸肉末、鱼丸子、面条等成人食物，但实物要做的既碎烂软嫩、又色香味美，这样宝宝才爱吃。宝宝可以每天吃2～3次奶，总量400～500毫升，三餐饭。");
+					
+					p_yingyang.html("宝宝的饮食如何搭配？" + "<br/>" +"宝宝断乳后，谷类食品就成为主食，因为热能的来源大部分也靠谷类食品提供。因此，宝宝的膳食安排要以米、面为主，同时搭配动物食品及蔬菜、水果、禽、蛋、鱼、豆制品等。在食物的搭配制作上也要多样化，最好能经常更换花样，如小包子、小饺子、馄饨、馒头、花卷等，以提高宝宝的食欲和兴趣。");
+					p_shipu.html("西红柿猪肝汤：西红柿剥皮并切碎，将切碎的猪肝和切碎的葱头同时放入锅内，加水或肉汤煮，然后再加入西红柿和少许盐即可。番茄含有丰富的胡萝卜素、维生素C和B族维生素。此款汤不仅口味好，而且营养价值高，适合宝宝断奶期食用。");
+					//yingyang_span.html("11个月宝宝的");
+					break
+					
+					case 12:
+					//setHeight(0);
+					p_weiyang.html("合理地安排饮食，保证热能和蛋白质的供应。给宝宝吃的膳食要营养均衡，荤素搭配，训练宝宝不挑食偏食，样样都吃。菜肴要切碎煮烂，专为宝宝制作。尽管1岁的宝宝已经能够吃各种食物了，但是，宝宝的牛奶是绝对不可以少的。如果辅食添加正常，1岁的宝宝每天应该保证喝奶300～500毫升，这样才能满足生长发育的需要。");
+					
+					p_yingyang.html("水果能替代蔬菜吗？" + "<br/>" +"蔬菜和水果所含营养素各有不同，均对小儿有益，二者不能互相替代。孩子天生喜欢甜味，因此也容易接受大多数水果。蔬菜口味比较淡，某些还带有特殊的味道如香椿、芹菜等，如在添加辅食阶段没有接触过，以后孩子较难接受他们。最有效的方法是在添加辅食时给孩子尝试各种深绿色及橙黄色蔬菜，使他们熟悉各种蔬菜的味道。");
+					p_shipu.html("鱼片蒸蛋：此款美食可调理孩子营养不良。制法：草鱼宰杀洗净，片取净肉切片，用盐、油拌匀；鸡蛋拌成蛋液，放盐、味精搅匀；蒸锅烧沸，放入蛋慢火蒸约7分钟，再加入鱼片、葱粒续蒸3分钟后关火，利用余热蒸2分钟取出，淋上生抽、油即可。");
+					//yingyang_span.html("12个月宝宝的");
+					break
+					
+					case 13:
+					//setHeight(0);
+					p_weiyang.html("可以给宝宝一天吃三餐，在上午和下午时各加一次点心或水果。三餐要注意营养，兼顾热量、脂肪、蛋白质、微量元素等食物，使营养素均衡摄入。每天每餐给宝宝的食物品种要尽可能多样化，以维持宝宝良好的食欲和正常营养素摄入。");
+					
+					p_yingyang.html("如何培养宝宝良好的饮食习惯？" + "<br/>" +"培养宝宝良好的饮食习惯是保证宝宝营养均衡、身体健康以及身心正常发育的重要前提。宝宝正确的饮食习惯应该是：固定就餐时间，饭前不吃零食，心情愉快的用餐，就餐时专心致志即用餐时不宜边吃边看电视或玩耍。");
+					p_shipu.html("鸡肉粥：将鸡胸脯肉去筋，切成小块，用酱油和白糖腌一下。将菠菜炖熟并切碎。米饭用海带清汤煮一下，再放入菠菜、鸡肉同煮。鸡肉是磷、铁、铜与锌的良好来源，并且富含维生素B12、维生素B6、维生素A、维生素D、维生素K等。");
+					//yingyang_span.html("13个月宝宝的");
+					break
+					
+					case 14:
+					//setHeight(0);
+					p_weiyang.html("可以给宝宝一天吃三餐，在上午和下午时各加一次点心或水果。三餐要注意营养，兼顾热量、脂肪、蛋白质、微量元素等食物，使营养素均衡摄入。每天每餐给宝宝的食物品种要尽可能多样化，以维持宝宝良好的食欲和正常营养素摄入。");
+					
+					p_yingyang.html("宝宝多大可以喝豆浆？"+ "<br/>" +"一岁以后的幼儿可以喝豆浆。豆浆中富含人体所需的脂肪和蛋白质，适当饮用好处多，但要防止一次喝得过多，以免蛋白质过敏。未满周岁的婴儿不宜喝豆浆。因这个年龄段的宝宝肠胃功能尚未发育完全，胃内还没有分解豆类的消化酶。另外豆浆也不可以替代母乳和奶粉。");
+					p_shipu.html("豆腐粥：豆腐切成小块。将米饭、肉汤、豆腐加水放在锅中同煮，煮至粘稠时加入适量的盐调味。豆腐的蛋白质含量丰富，且豆腐蛋白属完全蛋白，不仅含有人体必需的八种氨基酸，而且比例也接近人体需要，营养价值较高。");
+					//yingyang_span.html("14个月宝宝的");
+					break
+					
+					case 15:
+					//setHeight(0);
+					p_weiyang.html("可以给宝宝一天吃三餐，在上午和下午时各加一次点心或水果。三餐要注意营养，兼顾热量、脂肪、蛋白质、微量元素等食物，使营养素均衡摄入。每天每餐给宝宝的食物品种要尽可能多样化，以维持宝宝良好的食欲和正常营养素摄入。");
+					
+					p_yingyang.html("如何给宝宝喝水？" + "<br/>" + "宝宝（1～3岁）每天每公斤体重需水量为100～160毫升，是成人的3～4倍，婴幼儿的新陈代谢旺盛，身体机能还不完善，所以要及时给宝宝补充水分。白开水是宝宝的最佳选择。宝宝腹泻呕吐时可喝点小米汤、苹果水、胡萝卜水，便秘时可喝白萝卜水与青菜水通气。");
+					p_shipu.html("清蒸肝糊：猪肝去掉筋膜，切成小片，和葱花一起炒熟，盛出剁成细末。将猪肝末放入碗内，加入鸡蛋液、清水、精盐、香油搅匀，上屉用旺火蒸熟即成。此菜能提供大量的维生素A、铁、蛋白质等营养素，具有养肝明目、益智安神、益腑补脏、清热解毒的作用。");
+					//yingyang_span.html("15个月宝宝的");
+					break
+					
+					case 16:
+					//setHeight(0);
+					p_weiyang.html("可以让宝宝和大人一起吃饭，除了三餐外，可以给他吃些水果，或者下午补充一次点心。早餐质量要好，晚餐要清淡一些，以利睡眠。最好不要吃零食。食物要做得软、细、容易消化，花色品种应经常变换。");
+					
+					p_yingyang.html("宝宝补钙要补到何时？"+ "<br/>" +"不同年龄段孩子有不同的钙需求。1至3岁幼儿的适宜摄入量为600毫克/天。补钙没有周期，只要缺钙就要补。比如宝宝当天喝了300到500毫升的奶，钙摄入比较多，就不用额外补钙。但若宝宝长期挑食、奶吃得不够，就需要补钙。");
+					p_shipu.html("香米瘦肉粥。材料：香米，瘦猪肉。做法：1、香米洗净，用冷水泡2小时。2、瘦猪肉剁成肉糜，加少许精盐，搅拌后放入碗中，入蒸锅蒸熟。3、香米入锅，加水后微火熬煮至半熟，再将蒸熟的肉糜放入锅中，继续熬煮直至成稠粥。这款粥味道鲜美易咀嚼，适合10个月以上宝宝食用。");
+					//yingyang_span.html("16个月宝宝的");
+					break
+					
+					case 17:
+					//setHeight(0);
+					p_weiyang.html("可以让宝宝和大人一起吃饭，除了三餐外，可以给他吃些水果，或者下午补充一次点心。早餐质量要好，晚餐要清淡一些，以利睡眠。最好不要吃零食。食物要做得软、细、容易消化，花色品种应经常变换。");
+					
+					p_yingyang.html("如何让宝宝爱上吃蔬菜？"+ "<br/>" +"让宝宝爱上蔬菜的方法在于：1、不强迫宝宝吃菜；2、充分利用蔬菜鲜艳的色彩和形状巧做花样，且经常变换花样；3、有异味的蔬菜尽量剁烂、滤干，或加入一些苹果汁和酸乳酪，再喂给宝宝吃；4、大人不要在宝宝面前批评食物的好坏；5、让宝宝参与选择和制作蔬菜。");
+					p_shipu.html("菠菜梨稀粥：此款粥有助缓解宝宝便秘。做法：泡好的大米加水煮成粥。菠菜汆烫一下后磨碎，梨子去皮去籽磨成泥。粥里放入菠菜、梨共煮，煮好后过滤一下浮沫即可。菠菜含大量的胡萝卜素和铁，而煮熟的梨则有助肾脏排泄尿酸。");
+					//yingyang_span.html("17个月宝宝的");
+					break
+					
+					case 18:
+					//setHeight(0);
+					p_weiyang.html("可以让宝宝和大人一起吃饭，除了三餐外，可以给他吃些水果，或者下午补充一次点心。早餐质量要好，晚餐要清淡一些，以利睡眠。最好不要吃零食。食物要做得软、细、容易消化，花色品种应经常变换。");
+					
+					p_yingyang.html("宝宝不吃饭怎么办？"+ "<br/>" +"宝宝不爱吃饭原因很多。聪明的妈妈们要找到原因，学会有技巧地让宝宝进食，合理安排好宝宝的饮食。对此妈妈也要放轻松，1～3岁的宝宝饮食量不是很稳定。如果宝宝这两天不好好吃东西，不要着急，过两天他自会多吃补回来。");
+					p_shipu.html("合河二鲜粥：呵护宝宝胃肠道健康。原料：百合、荸荠各2个，粳米25克，冰糖少许。做法：将荸荠去皮煮熟，压碎；百合切成细丝。用煮荸荠的水加入粳米、百合和荸荠同煮成粥。加入冰糖即可。");
+					//yingyang_span.html("18个月宝宝的");
+					break
+					
+					case 19:
+					//setHeight(0);
+					p_weiyang.html("随着宝宝消化功能的不断完善，饮食的种类和制做方法开始逐渐向成人过渡，以粮食、蔬菜、肉类为主的食物开始成为幼儿的主食。但需要注意营养平衡和易于消化，不能完全吃成人的食物，要将食物做得软些。幼儿期，宝宝已经会跑、会跳，会消耗大量热量，所以要吃足够的谷类、面粉、薯类等，以提供碳水化合物。");
+					
+					p_yingyang.html("日常生活中如何帮宝宝补钙？" + "<br/>" + "方法有：1、鼓励宝宝多喝含钙质的饮料，如鲜奶、酸奶等。2、平常煮汤时多选一些大骨头来熬汤，再加几滴醋，更可增进钙质吸收。3、常吃黑芝麻制品，黑芝麻是便宜又好吃的植物性钙质来源。4、常吃豆干类食物。5、吃含钙量高的蔬菜，并喝掉煮菜的汤汁。");
+					p_shipu.html("香香骨汤面：宝宝成长的补钙美食。原料：脊骨、龙须面、青菜、盐、米醋。制法：将骨头剁成块，放入冷水中用中火熬煮，煮沸后酌加米醋，继续煮30分钟；将骨弃之，取清汤，将龙须面下入骨汤中，放青菜，煮至面熟，加盐调味即成。");
+					//yingyang_span.html("19个月宝宝的");
+					break
+					
+					case 20:
+					//setHeight(0);
+					p_weiyang.html("随着宝宝消化功能的不断完善，饮食的种类和制做方法开始逐渐向成人过渡，以粮食、蔬菜、肉类为主的食物开始成为幼儿的主食。但需要注意营养平衡和易于消化，不能完全吃成人的食物，要将食物做得软些。幼儿期，宝宝已经会跑、会跳，会消耗大量热量，所以要吃足够的谷类、面粉、薯类等，以提供碳水化合物。");
+					
+					p_yingyang.html("两岁以下宝宝可以喝鲜榨果汁吗？" + "<br/>" + "两岁以下婴幼儿不宜饮用鲜榨果汁，如果要喝一定要兑水或米汤。鲜榨果汁糖分多，过量的糖分会对幼儿肠道产生不良的刺激，同时还易养成孩子嗜甜的习惯。另外鲜榨果汁内矿物质多，对两岁以下孩子的肾脏造成负担，导致肾脏排泄困难。");
+					p_shipu.html("白萝卜豆腐脑：萝卜可消积食，豆腐补钙还含丰富蛋白质。做法：白萝卜洗净切丝，豆腐切成薄片，用开水焯一下。将萝卜丝裹上淀粉放入温油锅中炒一下，再加水煮开，放入豆腐，煮十分钟，勾薄芡，放盐，淋上香油、蒜末，调匀即可。");
+					//yingyang_span.html("20个月宝宝的");
+					break
+					
+					case 21:
+					//setHeight(0);
+					p_weiyang.html("随着宝宝消化功能的不断完善，饮食的种类和制做方法开始逐渐向成人过渡，以粮食、蔬菜、肉类为主的食物开始成为幼儿的主食。但需要注意营养平衡和易于消化，不能完全吃成人的食物，要将食物做得软些。幼儿期，宝宝已经会跑、会跳，会消耗大量热量，所以要吃足够的谷类、面粉、薯类等，以提供碳水化合物。");
+					
+					p_yingyang.html("宝宝吃水果要注意什么？" + "<br/>" + "注意事项有：1、挑选当季水果；2、吃水果的最佳时间为两餐之间，餐前吃水果会影响正餐的摄取，饭后立即吃水果易胀气；3、水果要与宝宝体质相宜；4、水果不能代替蔬菜；5、吃水果的量要有节制，多了会影响食欲；6、水果要清洗干净。");
+					p_shipu.html("苹果胡萝卜汁：美味且是身体最好的排毒剂与营养补充剂。两种水果中大量的食物纤维则可以提高机体新陈代谢的能力，改善宝宝胃肠功能，缓解并治疗宝宝便秘。制法：2个胡萝卜、1个大的苹果，洗净，先将胡萝卜榨汁，再将苹果榨汁。混合、搅拌，即可饮用。");
+					//yingyang_span.html("21个月宝宝的");
+					break
+					
+					case 22:
+					//setHeight(0);
+					p_weiyang.html("此阶段的宝宝应逐渐增加食物的品种，适当摄入含碘丰富的食品，如紫菜、海带等。2岁的宝宝乳牙刚出齐或还未完全出齐，咀嚼功能还较弱，因此制作饭菜时，各种肉、菜均要细碎、炖烂才易于幼儿咀嚼、消化。此阶段宝宝的乳量在250～300毫升/天。要少吃糖果、巧克力等太甜的食品，多吃蔬菜、水果、蛋、鱼、肉类食品，防止偏食、挑食。");
+					
+					p_yingyang.html("宝宝如何补碘？" + "<br>" + "碘是人体各个时期所必需的微量元素之一。婴幼儿缺碘，会影响大脑发育。海带和紫菜是日常生活中补碘的较好食品。经常吃海带不但可以补充体内的碘，而且还可以同时摄入其他种类的微量元素、氨基酸和维生素等。而紫菜含有较高的碘和人体不可缺少的无机盐。");
+					p_shipu.html("紫菜蛋花汤：宝宝的补碘美食。做法：将虾皮洗净，紫菜用清水洗净，撕成小块，鸡蛋磕入碗内打散，香菜择洗干净，切成小段。将锅置火上，放水两大碗，烧沸后，淋入鸡蛋液，放入紫菜、虾皮、香菜、精盐、葱花即可。");
+					//yingyang_span.html("22个月宝宝的");
+					break
+					
+					case 23:
+					//setHeight(0);
+					p_weiyang.html("此阶段的宝宝应逐渐增加食物的品种，适当摄入含碘丰富的食品，如紫菜、海带等。2岁的宝宝乳牙刚出齐或还未完全出齐，咀嚼功能还较弱，因此制作饭菜时，各种肉、菜均要细碎、炖烂才易于幼儿咀嚼、消化。此阶段宝宝的乳量在250～300毫升/天。要少吃糖果、巧克力等太甜的食品，多吃蔬菜、水果、蛋、鱼、肉类食品，防止偏食、挑食。");
+					
+					p_yingyang.html("宝宝爱甜食怎么办？" +"<br/>" + "过多的甜食会影响宝宝的健康成长，易导致营养不良、肥胖、脱钙等，降低宝宝身体免疫力，危害牙齿健康。对于父母而言，首先要做的是减少购买甜食。其次，尽量购买高营养量的甜食。第三，规定宝宝对甜食的摄入量。");
+					p_shipu.html("鸡肉青菜粥：宝宝的营养美味早餐。原料：鸡胸脯碎肉，粳米，绿叶青菜。做法：粳米煮成粥备用。鸡胸脯碎肉剁成肉泥，锅中加少量植物油，油热后，放入鸡肉泥煸炒，熟后放进粳米粥中煮开。出锅前加少量精盐等，最后撒入青菜末盛出。");
+					//yingyang_span.html("23个月宝宝的");
+					break
+					
+					case 24:
+					//setHeight(0);
+					p_weiyang.html("此阶段的宝宝应逐渐增加食物的品种，适当摄入含碘丰富的食品，如紫菜、海带等。2岁的宝宝乳牙刚出齐或还未完全出齐，咀嚼功能还较弱，因此制作饭菜时，各种肉、菜均要细碎、炖烂才易于幼儿咀嚼、消化。此阶段宝宝的乳量在250～300毫升/天。要少吃糖果、巧克力等太甜的食品，多吃蔬菜、水果、蛋、鱼、肉类食品，防止偏食、挑食。");
+					
+					p_yingyang.html("怎样洞察到宝宝有没有微量元素缺乏症？" + "<br>" + "一般而言，儿童如果出现厌食、挑食、食欲不振、生长发育迟缓、反复感冒、口腔溃疡、贫血等症状时，都可能与缺乏某种微量元素有关。微量元素在人体中的分量虽然很少，但重要性并不小。因此当宝宝出现以上症状时，不妨给宝宝做个微量元素检测。");
+					p_shipu.html("海带鸭血汤：为宝宝补碘、补血的美食。做法：海带洗净、切条。鸭血加精盐调匀后放入碗中，隔水蒸熟，用刀划成块。鸡汤大火煮沸后倒入海带及鸭血，烹入料酒，改小火煮10分钟，加葱花、姜末、精盐、味精、五香粉等配料。再沸时入蒜末，淋入麻油即成。");
+					
+					//yingyang_span.html("24个月宝宝的");
+					
+					break
+					
+					case 25:
+					//setHeight(0);
+					p_weiyang.html("对于2岁以上的宝宝，应安排好早、午、晚三餐。不要让宝宝养成挑食、偏食、吃零食的习惯，达到均衡的饮食结构。在宝宝开始逐渐适应正常的饮食后，要培养宝宝良好的咀嚼习惯。在喂宝宝的时候，刻意拉长两口饭菜的间隔时间，让宝宝有充足的咀嚼时间。");
+					
+					p_yingyang.html("如何应对宝宝挑食？"+ "<br/>" +"可尝试以下方法：1、让宝宝适度体验饥饿。2、限制零食，餐前一小时不喝饮料和吃点心。3、营造快乐进食气氛，减少进餐分心，如电视玩具等。4、当孩子哭闹不肯吃时，移开食品，采取暂时隔离法不理他。5、多让孩子自己选择食物。6、用趣味名称称呼食品。");
+					p_shipu.html("红枣小米粥：小米益肾安神，红枣补血生血，此粥适合消化不良及厌食、脾虚的小孩。原料：红枣、小米、冰糖或红糖。做法：小米和红枣洗净，红枣去核切片。将小米，红枣放入锅里，加水适量。大火烧开后转小火，煮到粥粘稠，加冰糖或者红糖即可。");
+					
+					//yingyang_span.html("25个月宝宝的");
+					
+					break
+					
+					case 26:
+					//setHeight(0);
+					p_weiyang.html("对于2岁以上的宝宝，应安排好早、午、晚三餐。不要让宝宝养成挑食、偏食、吃零食的习惯，达到均衡的饮食结构。在宝宝开始逐渐适应正常的饮食后，要培养宝宝良好的咀嚼习惯。在喂宝宝的时候，刻意拉长两口饭菜的间隔时间，让宝宝有充足的咀嚼时间。");
+					
+					p_yingyang.html("宝宝吃苹果好处多多"+ "<br/>" +"苹果营养丰富，可开胃润肺止咳，吃法不同功效不同。宝宝消化不良时，吃加温的熟苹果泥，可止泻。宝宝排便不通畅时，生食苹果较适宜，能促进通便。对于食用配方奶而便秘的宝宝，可吃一些苹果泥。宝宝咳嗽并嘶哑时，把生苹果榨成汁给宝宝喝，可以润肺止咳。");
+					p_shipu.html("莲藕苹果排骨汤：本款汤可补充蛋白质、钙、磷等矿物质和维生素，增强免疫力，益智健脑。做法：新鲜的排骨和莲藕洗净切块，加冷水、姜、葱、大料、少量的醋，用高压锅煮30~40分钟，再放入切好的苹果煲几分钟，调味后即可食用。");
+					//yingyang_span.html("26个月宝宝的");
+					break
+					
+					case 27:
+					//setHeight(0);
+					p_weiyang.html("对于2岁以上的宝宝，应安排好早、午、晚三餐。不要让宝宝养成挑食、偏食、吃零食的习惯，达到均衡的饮食结构。在宝宝开始逐渐适应正常的饮食后，要培养宝宝良好的咀嚼习惯。在喂宝宝的时候，刻意拉长两口饭菜的间隔时间，让宝宝有充足的咀嚼时间。");
+					
+					p_yingyang.html("如何给宝宝做蔬菜美食？"+ "<br/>" +"做给宝贝吃的蔬菜别烧煮太久。蔬菜中的维生素都怕热、怕煮，维生素c遇热更容易氧化。正确做法是：用大火快炒蔬菜，这样不仅色美味好，而且菜里的营养素损失得也最少。若在烧菜时加些醋，还很利于维生素的保存。");
+					p_shipu.html("猪肝粥：猪肝粥富含丰富蛋白质、脂肪、铁，维生素B1、B2，烟碱酸和大量维生素A，营养价值颇高。材料：粥、猪肝、白菜叶。做法：白菜洗净，放入热水中烫软，捞起后泡冷水，沥干，切成细末。猪肝切细，放入熬好的粥中煮熟。最后放入白菜末即可。");
+					//yingyang_span.html("27个月宝宝的");
+					break
+					
+					case 28:
+					//setHeight(0);
+					p_weiyang.html("对于2岁以上的宝宝，应安排好早、午、晚三餐。不要让宝宝养成挑食、偏食、吃零食的习惯，达到均衡的饮食结构。在宝宝开始逐渐适应正常的饮食后，要培养宝宝良好的咀嚼习惯。在喂宝宝的时候，刻意拉长两口饭菜的间隔时间，让宝宝有充足的咀嚼时间。");
+					
+					p_yingyang.html("如何给宝宝吃糖？"+ "<br/>" +"糖果类零食热量高，食用过多易造成龋齿。因此妈咪们要把好关，让宝宝适量吃糖。一般每天吃两块糖果足够，且最好在午餐与晚餐之间吃。若宝宝偏瘦，可选奶糖，以补充蛋白质和热量；如宝宝缺钙，可选钙质酥糖等。而巧克力、咖啡、可可类糖果则不要给宝宝吃得太多。");
+					p_shipu.html("冰糖银耳汤：适合宝宝的夏季饮品。银耳富含蛋白质、维生素以及多种矿物质，具有润肺、生津止咳、降火润肠、养胃补气、和血强心和补脑以及提神的作用。原料：水发银耳，冰糖做法：将银耳加水文火煮烂，至汤汁黏稠，加冰糖晾凉后饮用。");
+					//yingyang_span.html("28个月宝宝的");
+					break
+					
+					case 29:
+					//setHeight(0);
+					p_weiyang.html("对于2岁以上的宝宝，应安排好早、午、晚三餐。不要让宝宝养成挑食、偏食、吃零食的习惯，达到均衡的饮食结构。在宝宝开始逐渐适应正常的饮食后，要培养宝宝良好的咀嚼习惯。在喂宝宝的时候，刻意拉长两口饭菜的间隔时间，让宝宝有充足的咀嚼时间。");
+					
+					p_yingyang.html("如何为宝宝挑选肉类食物？"+ "<br/>" +"根据以下两原则：1、越小的动物越好。日常生活中的最佳肉食当数虾肉、鱼肉、鹅肉、鸭肉、鸡肉，其次才是羊肉、猪肉和牛肉。2、颜色浅的肉类营养成分越好。故无色或浅色的肉类（如蟹肉、鸡肉、鱼肉等）营养大于色泽鲜红的红肉（猪肉、牛肉、羊肉等）。");
+					p_shipu.html("鱼头豆腐汤：可为宝贝补充钙质和蛋白质。做法：鱼头洗干净，沥干水分。锅放油烧热，下鱼头炸至两面金黄，然后加水至漫过鱼头，放葱、姜、蒜、豆腐、盐、料酒和白糖，大火炖约15分钟，炖至汤汁呈奶白色即可。");
+					//yingyang_span.html("29个月宝宝的");
+					break
+					
+					case 30:
+					//setHeight(0);
+					p_weiyang.html("对于2岁以上的宝宝，应安排好早、午、晚三餐。不要让宝宝养成挑食、偏食、吃零食的习惯，达到均衡的饮食结构。在宝宝开始逐渐适应正常的饮食后，要培养宝宝良好的咀嚼习惯。在喂宝宝的时候，刻意拉长两口饭菜的间隔时间，让宝宝有充足的咀嚼时间。");
+					
+					p_yingyang.html("如何给宝宝补铁？"+ "<br/>" +"给宝宝补铁，可以适当添加些动物性食品在宝宝的食谱中，如瘦肉末、肝泥、鱼肉茸、动物血，从少到多，逐渐增加。同时，给宝宝多吃一些含丰富维生素C的水果，如猕猴桃、柑橘等，对提高铁的吸收率有好处。");
+					p_shipu.html("鸡血豆腐汤：为宝宝补铁的营养美食。做法：豆腐和鸡血切成细条，黑木耳、熟瘦肉、胡萝卜切成细丝，下入鲜汤中烧开，略煮片刻。加入适量酱油、盐，用水淀粉勾薄芡，然后淋入打好的鸡蛋液，加香油、葱花即成。");
+					//yingyang_span.html("30个月宝宝的");
+					break
+					
+					case 31:
+					//setHeight(0);
+					p_weiyang.html("每天的饮食要平衡搭配，每顿应以主要供热量的粮食作为主食，也要有足够提供蛋白质的食物，譬如奶、蛋、肉类、鱼和豆制品等。每顿饭都还应有一定数量的蔬菜或水果。");
+					
+					p_yingyang.html("宝宝怎样吃零食更科学？"+ "<br/>" +"宝宝吃零食很有讲究，零食宜安排在饭前2小时吃，量以不影响正常食欲为原则。切记宝宝的胃不能填太多东西，1－3岁宝宝胃的容量在200毫升左右，一般零食的量应在几十毫升内，否则会影响下一餐的进食。吃零食的量或时间不适宜是一些宝宝不好好吃饭最主要的原因。");
+					p_shipu.html("核仁莲藕煲：核桃仁可健胃补血、润肺养神。莲藕含丰富的铁质，对贫血者颇为相宜。二者同食，营养又美味。做法：莲藕洗净切块，桃仁去皮，打碎。将碎桃仁、莲藕放入锅中，加水煮沸，然后再加适量红糖或食盐调味即可。");
+					//yingyang_span.html("31个月宝宝的");
+					break
+					
+					case 32:
+					//setHeight(0);
+					p_weiyang.html("每天的饮食要平衡搭配，每顿应以主要供热量的粮食作为主食，也要有足够提供蛋白质的食物，譬如奶、蛋、肉类、鱼和豆制品等。每顿饭都还应有一定数量的蔬菜或水果。");
+					
+					p_yingyang.html("哪些零食宝宝一定要少吃？"+ "<br/>" +"以下零食宝宝要少吃：1、泡泡糖：其增塑剂含微毒，其代谢物苯酚对人体有害。2、果冻：多含多种食品添加剂。3、巧克力：吃多影响孩子食欲，易造成焦虑、心跳加快。4、爆米花：含铅量高；5、葵花籽：含不饱和脂肪酸。6、烤羊肉串：熏烤过程中会产生致癌物。");
+					p_shipu.html("炖排骨：宝宝的补钙美食。做法：新鲜的排骨洗净切成小块，加冷水、姜、葱、大料、少量的醋，用高压锅煮30—40分钟即可。吃法：取炖好的排骨加在宝宝的粥或面条中烹调食用，或直接吃肉，或加菜食用。肉、骨头和汤一起吃，可补充优质蛋白质及钙、磷等矿物质。");
+					//yingyang_span.html("32个月宝宝的");
+					break
+					
+					case 33:
+					//setHeight(0);
+					p_weiyang.html("每天的饮食要平衡搭配，每顿应以主要供热量的粮食作为主食，也要有足够提供蛋白质的食物，譬如奶、蛋、肉类、鱼和豆制品等。每顿饭都还应有一定数量的蔬菜或水果。");
+					
+					p_yingyang.html("适合宝宝吃的零食有哪些？"+"<br/>"+"主要有：1、奶和奶制品，如牛奶、酸奶等含钙丰富，有益骨骼和牙齿生长；2、新鲜蔬菜和各种水果，含丰富的维生素、矿物质和膳食纤维，有益健康；3、坚果类，如瓜子、花生、核桃、栗子等，含丰富的微量元素，强身益脑。不要给孩子吃太多含糖高、膨化、油炸食品。");
+					p_shipu.html("红枣果仁糕：为孩子补血的美味糕点。做法：将红枣、枸杞、葡萄干、黑芝麻、糙米、薏米洗净，加核桃仁、面粉和少许水在盆中拌匀。拌匀后的材料放进蒸笼，放在沸水锅中蒸20分钟，再闷10分钟，冷却后切片即可。");
+					//yingyang_span.html("33个月宝宝的");
+					break
+					
+					case 34:
+					//setHeight(0);
+					p_weiyang.html("每天的饮食要平衡搭配，每顿应以主要供热量的粮食作为主食，也要有足够提供蛋白质的食物，譬如奶、蛋、肉类、鱼和豆制品等。每顿饭都还应有一定数量的蔬菜或水果。");
+					
+					p_yingyang.html("宝宝吃南瓜有什么好处？"+ "<br/>" +"南瓜营养丰富，含碳水化合物、蛋白质、萝卜素、维生素、钙、钾、磷等，易消化吸收。孩子吃南瓜，一可治病，帮助治疗蛔虫、糖尿病，减少麻疹的患病危险。二可改善秋燥症状，增强免疫力。三可补血，通便美容。南瓜除做成汤、糊外，还可煮粥、蒸食、煮饭等。");
+					p_shipu.html("香甜南瓜粥：呵护宝宝肠胃的开胃美食。原料：老南瓜、大米、白糖。做法：南瓜去皮、洗净并切成小方块；将锅里加水置于火上烧，开锅后放入南瓜，南瓜微烂时再倒入米，开锅后改小火，煮至粥有黏稠感时放少许白糖出锅即可。");
+					
+					//yingyang_span.html("34个月宝宝的");
+					break
+					
+					case 35:
+					//setHeight(0);
+					p_weiyang.html("每天的饮食要平衡搭配，每顿应以主要供热量的粮食作为主食，也要有足够提供蛋白质的食物，譬如奶、蛋、肉类、鱼和豆制品等。每顿饭都还应有一定数量的蔬菜或水果。");
+					
+					p_yingyang.html("如何给孩子补钙才有效？"+ "<br/>" +"宝宝补钙不仅要吃钙片，还要注重食补，如常喝牛奶、吃豆类制品、小鱼、绿色蔬菜等。补钙的同时还需要补充其他的维生素，以辅助身体更好地吸收钙，否则难以吸收也会缺钙。每吃一粒钙片的同时需补10微克的维生素D，同时经常晒太阳。");
+					p_shipu.html("炖排骨：可为宝宝补充优质蛋白质及钙、磷等矿物质，帮助宝宝补钙并长高。做法：新鲜的排骨洗净切成小块，加冷水、姜、葱、大料、少量的醋，用高压锅煮30—40分钟即可。吃法：取炖好的排骨加在宝宝的粥或面条中烹调食用，或直接吃肉，或加菜食用。");
+					//yingyang_span.html("35个月宝宝的");
+					break
+					
+					case 36:
+					//setHeight(0);
+					p_weiyang.html("每天的饮食要平衡搭配，每顿应以主要供热量的粮食作为主食，也要有足够提供蛋白质的食物，譬如奶、蛋、肉类、鱼和豆制品等。每顿饭都还应有一定数量的蔬菜或水果。");
+					
+					p_yingyang.html("哪些食物有助宝宝吃出好牙齿？"+ "<br/>" +"有助宝宝牙齿健康的食物有：1、消除牙内细菌：吃橘子、猕猴桃、草莓、哈密瓜、木瓜；2、去除牙齿残留物：生吃胡萝卜、芹菜、花椰菜；3、强健牙釉质：吃芝麻、瓜子、南瓜子和坚果（4岁后）；4、改变口腔PH值：喝牛奶、酸奶，吃奶酪，大大降低蛀牙的几率。");
+					p_shipu.html("胡萝卜烩牛肉：胡萝卜味甘性温，可增强食欲。做法：胡萝卜去皮切丝，牛肉切片加入黄酒、淀粉拌匀；锅中加油葱姜炒爆香后，倒入牛肉，炒到七分熟捞出；胡萝卜入油锅炒熟加盖闷酥后加入牛肉片，翻炒至牛肉由红色转为深色稍稍调味即可。");
+					//yingyang_span.html("36个月宝宝的");
+					break
+				}
+			}
+        </script>
+
+
+        <!--
+                <script src="http://app.baidu.com/static/appstore/monitor.st"></script>
+
+                <script>
+                    function setHeight(height)
+                    {
+
+                        if (height > 0){
+
+                            baidu.app.setHeight(height)
+
+                        }else{
+
+                            setTimeout("baidu.app.setHeight(document.getElementById('body').clientHeight)", 400)
+
+                            setTimeout("baidu.app.setHeight(document.getElementById('body').clientHeight)", 1500)
+
+                        }
+
+                    }
+                    baidu.app.autoHeight();
+                    setHeight(0);
+                </script>
+
+                <div style="display:none;">
+                    <script type="text/javascript">
+                        var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+                        document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3F2f4856497854ce3df66f8b40863365d9' type='text/javascript'%3E%3C/script%3E"));
+
+                    </script>
+                </div>
+        -->
+    </body>
+</html>

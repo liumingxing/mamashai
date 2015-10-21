@@ -1,0 +1,9 @@
+<h1>Editing bse_apply</h1>
+
+<% form_tag :action => 'update', :id => @bse_apply do %>
+  <%= render :partial => 'form' %>
+  <%= submit_tag 'Edit' %>
+<% end %>
+
+<%= link_to 'Show', :action => 'show', :id => @bse_apply %> |
+<%= link_to 'Back', :action => 'list' %>

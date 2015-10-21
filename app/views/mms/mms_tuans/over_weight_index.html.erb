@@ -1,0 +1,52 @@
+<div id="middle">
+    <div id="css_mainbody">
+        <h1 class="title">妈妈晒团购-附加邮费管理<span style="float: right; margin-right: 10px;"><%= link_to '返回邮费列表', "/mms/mms_tuans/cities" %>
+            </span></h1>
+        <div style="text-align:center;" class="green">
+            <%= flash[:notice] %>
+        </div>
+        <table class="grid">
+            <tr>
+                <th width="5%">
+                    序号
+                </th>
+                <th width="10%">
+                    名称
+                </th>
+                <th width="5%">
+                    价格(元/kg)
+                </th>
+                <th width="10%">
+                    描述
+                </th>
+                <th width="10%">
+                    操作
+                </th>
+            </tr>
+            <% @fright_profiles.each_with_index do |profile,index| %>
+            <tr>
+                <td>
+                    <%=index+1 %>
+                </td>
+                <td>
+                    <%= profile.name %>
+                </td>
+                <td>
+                    <%= profile.fee %>
+                </td>
+                <td>
+                    <%= profile.info %>
+                </td>
+                <td>
+                    <%= link_to "修改","/mms/mms_tuans/over_weight_edit/#{profile.id}" %>
+					<% if profile.id > 2%>
+                    |<%= link_to '删除', "/mms/mms_tuans/over_weight_destroy/#{profile.id}", :confirm => '确认删除吗？', :method => :delete %>
+                	<% end %>
+				</td>
+            </tr>
+            <% end %>
+        </table>
+    </div>
+    <div class="clear">
+    </div>
+</div>

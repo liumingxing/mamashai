@@ -1,0 +1,29 @@
+
+<div style="margin:20px 50px;">
+   这里是说明和介绍，告诉用户实名认证后的好处，以及保证用户的隐私说明。
+</div>
+
+<table class="grid">
+    <tbody>
+        <tr height="40">
+            <td class="t01" width="100">
+                <span class="red">*</span>
+                真实姓名： 
+            </td>
+            <td class="t02">
+                <%=text_field :user_profile, :real_name,:class=>'default_input' %>
+				<%=error_message_on :user_profile,:real_name %>
+            </td>
+        </tr>
+        <tr height="40">
+            <td class="t01" width="100">
+                <span class="red">*</span>
+                身份证号： 
+            </td>
+            <td class="t02">
+                <%=text_field :user_profile, :idcard,:class=>'default_input' %>
+				<%=error_message_on :user_profile,:idcard %>
+            </td>
+        </tr>
+    </tbody>
+</table>

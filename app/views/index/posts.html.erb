@@ -1,0 +1,63 @@
+<div style="margin-top:-10px;">
+	<%= render :partial=>"/share/taobao_adv_top" %>
+</div>
+
+<div class="sharp mt20">
+	<div class="content">
+		<div class="cjy_left">
+			<h2>妈爸们正在记</h2>
+			
+			<DIV id="chanel_content">
+				<div class="navigate_tab mt20" id="n">
+					<ul class="class1">
+						<li <%=raw  'class="current"' if params[:action] == "jh" %>>
+							<a href="<%= url_for :action=>"jh" %>">精华</a>
+						</li>
+						<% if @user && @user.tp == 4 %>
+						<li <%=raw  'class="current"' if params[:action] == "posts"%>>
+							<a href="<%= url_for :action=>"posts" %>">新鲜</a>
+						</li>
+						<li <%=raw  'class="current"' if params[:action] == "rookie"%>>
+							<a href="<%= url_for :action=>"rookie" %>">新手</a>
+						</li>
+						<% end %>
+					</ul>
+				</div>
+				<% for post in @posts %>
+					<%= render :partial=>"/share/post", :locals=>{:post=>post} %>
+				<% end %>
+				<%= will_paginate @posts %>
+			</DIV>
+		</div>
+		<div class="cjy_right">
+			<div class="zl_dz">
+				<table width="100%" border="0" cellspacing="0" cellpadding="0">
+					<tr>
+						<th>日历达人</th>
+						<td align="right">&nbsp;</td>
+					</tr>
+				</table>
+				<ul>
+					<% for vip in BbrlVip.find(:all) %>
+						<%= render :partial=>"/share/user1", :locals=>{:user_item => vip.user} %>
+					<% end %>
+					
+				</ul>
+			</div>
+
+			<%= render :partial=>"/share/taobao_adv_right" %>
+		</div>
+	</div>
+	<!--cjy_right-->
+	<div><img src="/images/sharp_bottom.jpg" />
+	</div>
+</div>
+
+
+<script src="/javascripts/FancyZoom.js" language="JavaScript" type="text/javascript"></script>
+<script src="/javascripts/FancyZoomHTML.js" language="JavaScript" type="text/javascript"></script>
+<script>
+	$(document).ready(function() {
+		setupZoom();
+	});	
+</script>

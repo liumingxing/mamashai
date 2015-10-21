@@ -1,0 +1,19 @@
+<div class="user_content">
+    <div class="article_content">
+        <div class="user_pic">
+            <%=logo_tag(post.user,{:version=>'thumb48',:url=>user_url(post.user)}) %>
+        </div>
+		
+        <div class="user_article">
+            <div class="article_info">
+                <div class="orgtxt">
+                    <%=link_user(post.user) %>:<%=post_content post.content %>
+                </div>
+            </div>
+        </div>
+        <div class="clear">
+        </div>
+    </div>
+    <%= render :partial=>'events/post_event_logo',:locals=>{:post=>post} if post.logo %>
+    <%=render :partial=>'home/post_tools', :locals => {:post => post} %>
+</div>

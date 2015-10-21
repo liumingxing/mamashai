@@ -1,0 +1,39 @@
+<div class="layer" id="layer_link">
+    <div class="layer_title">
+        <span class="title">添加链接</span>
+        <span class="more"><a href="javascript:void(0);" onclick="hide_box();"><img src="/images/layer/del_06.gif"></a></span>
+    </div>
+    <div class="layer_content_login">
+        <% form_remote_tag :url => {:action => :create_user_link}, :loading => "", :update => "lbContent" do %>
+		<%=hidden_field :user_link, :link_category_id,{:class=>'default_input'}%> 
+        <table class="grid">
+            <tbody>
+                <tr height="30">
+                    <td class="t01" width="70">
+                        名称：
+                    </td>
+                    <td class="t02">
+                    	<%=text_field :user_link, :name,{:class=>'default_input'}%> 
+                    </td>
+                </tr>
+                <tr height="30">
+                    <td class="t01" width="70">
+                        网址：
+                    </td>
+                    <td class="t02">
+                       <%=text_field :user_link, :url,{:class=>'default_input'}%> 
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="button01">
+            <button class="button_submit_s" type="submit" onmouseover="this.className='button_submit_s button_submit_s_hover';" onmouseout="this.className='button_submit_s';">
+                添加 
+            </button>
+        </div>
+        <% end %>
+    </div>
+</div>
+<script>
+    reset_box(432, 152);
+</script>

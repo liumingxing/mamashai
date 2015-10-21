@@ -1,0 +1,5 @@
+
+<script>
+	hide_box();
+	new Ajax.Updater('link_<%=@link_category.id%>_1', '/ajax/get_category_user_links/<%=@link_category.id%>', {asynchronous:true, evalScripts:true});
+</script>

@@ -1,0 +1,55 @@
+<div id="lbContent">
+        <%= form_tag({:action => :select_follow_users}, {:remote=>true, :updater => "update"}) do %>
+        <div id='update'></div>
+        <ul class="tags_container">
+            <% for user in @users %>
+			<% if user.name %>
+            <li>
+                <%=check_box :user_names, user.name,  {:raw=>user.name, :class => "default_checkbox" ,:checked => false} %>&nbsp;<%=user.name %>
+            </li>
+			 <% end %>
+            <% end %>
+        </ul>
+		 <div class="layer_pag">
+                   <span class="title">&lt; <%= link_to('上一页', {:action =>:list_follow_users,:controller=>:ajax,:page=>@users.previous_page, :tp => "at"}, {:remote=>true, :updater => "lbContent"}) %></span>
+		 <span class="more"><%= link_to('下一页', {:action =>:list_follow_users,:controller=>:ajax,:page=>@users.next_page, :tp => "at"}, {:remote=>true, :updater => "lbContent"}) %> &gt;</span></div>
+
+         <div class="clear">
+            </div>
+        <ul class="layer_botton">
+            <li>
+               <% if params[:tp] == "at" %>
+               	<button onclick="select_followers()" class="button_submit_s" type="button" onmouseover="this.className='button_submit_s button_submit_s_hover';" onmouseout="this.className='button_submit_s';">
+                    选择
+                </button>
+               <% else %>
+                <button class="button_submit_s" type="submit" onmouseover="this.className='button_submit_s button_submit_s_hover';" onmouseout="this.className='button_submit_s';">
+                    选择
+                </button>
+               <% end %>
+            </li>
+            <li>
+                <button class="button_submit_s" type="button" onclick="hide_box();" onmouseover="this.className='button_submit_s button_submit_s_hover';" onmouseout="this.className='button_submit_s';">
+                    取消
+                </button>
+            </li>
+            
+        </ul>
+		<div class="clear">
+            </div>
+        <% end %>
+</div>
+<script>
+    reset_box(432, 222);
+    function select_followers(){
+    	var str = ""
+    	$(".tags_container input").each(function(){
+    		var input = $(this)
+    		if (input.attr('checked')){
+    			str += "@" + input.attr("raw") + "，"
+    		}
+    	})
+    	$("#post_content").val($("#post_content").val() + str)
+    	forwardshine_dialog.close();
+    }
+</script>

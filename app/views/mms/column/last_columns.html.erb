@@ -1,0 +1,39 @@
+<div id="middle">
+    <div id="css_mainbody">
+        <h1 class="title"><%= @title%>
+         <span style="float:right;margin-right:10px;"><%= @link%></span>
+		</h1>
+        <% form_tag("/mms/column/create_short_title")  do%>
+        <table class="grid">
+            <thead>
+                <tr>
+                    <th>
+                        作者昵称
+                    </th>
+                    <th>
+                        专栏标题
+                    </th>
+                    <th>
+                        首页标题
+                    </th>
+
+                </tr>
+            </thead>
+            <tbody>
+                <% @column_authors.each do | author | %>
+                <% author.latest_chapter_for_home_index(3, @tp).each_with_index do | chapter, index | %>
+                <tr>
+                	<td><%=author.user.name%></td>
+					<td style="text-align:left"><%= chapter.title%></td>
+					<td style="text-align:left"><input type="text" value="<%= chapter.short_title.blank? ? chapter.title : chapter.short_title%>" name="short_title_<%= chapter.id%>" class="user_tag_input"><input type="hidden" name="chapter_id[]" value="<%= chapter.id%>"></td>
+            	</tr>
+                <% end %>
+            <% end %>
+        </tbody>
+        </table>
+        <p style="text-align:center"><%= submit_tag "保存"%></p>
+        <% end %>
+    </div>
+    <div class="clear">
+    </div>
+</div>

@@ -1,0 +1,32 @@
+<h1>
+  推荐精选
+</h1>
+
+<table class="list" border="1" width="100%" id="product_list">
+  <tr class="head">
+    <th width="150px">商品名称</th>
+    <th>logo</th>
+    <th>品类</th>
+    <th>价格</th>
+    <th>类别</th>
+    <th colspan=7>操作</th>
+  </tr>
+
+  <% for recommand in @recommands %>
+  <% product = recommand.tao_product %>
+    <tr>
+      <td>
+        <a href="<%=h product.url_mobile %>" target="_blank"><%=h product.name %></a>
+      </td>
+      <td><img src='<%=product.pic_url%>_310x310.jpg' style="width:200px;"/></td>
+      <td><%= TaoCategory.find(product.category_id).name if product.category_id %>(<%= product.category_id %>)</td>
+      <td><%=h product.price %></td>
+      <td><%= product.tao_ages.map{|a| a.desc}.join(',')%></td>
+
+      <td>
+      	<%= link_to '取消推荐', { :action => 'delete_recommand', :id => recommand.id}, :confirm => '确认删除吗?', :method => :post %>
+      </td>
+    </tr>
+  <% end %>
+</table>
+

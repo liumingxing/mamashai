@@ -1,0 +1,107 @@
+
+<table class="grid_order" border="1">
+    <tr>
+        <td class="td01" width="300px">
+            商品名称：
+        </td>
+        <td>
+            <%= f.text_field :name, :size=>50,:required=>"required" %>
+			<%= f.hidden_field :tp %>
+			<%= f.hidden_field :user_id %>
+            <%= f.error_message_on :name %>
+        </td>
+    </tr>
+    <tr>
+        <td class="td01">
+            商品图片：
+        </td>
+        <td>
+            <%= upload_column_field :gou, :logo %>
+            <%= f.error_message_on :logo %>
+        </td>
+    </tr>
+    <tr>
+        <td class="td01">
+            商品分类名称：
+        </td>
+        <td>
+            <%= f.text_field :cate, :required=>"required" %>
+            <%= f.error_message_on :gou_category_id %>
+        </td>
+    </tr>
+    <tr>
+        <td class="td01">
+            商品品牌名称：
+        </td>
+        <td>
+            <%= f.text_field :brand, :size=>50 %>
+            <%= f.error_message_on :gou_brand_id %>
+        </td>
+    </tr>
+    <tr>
+        <td class="td01">
+            价格：
+        </td>
+        <td>
+            <%= f.text_field :price, :size=>50,:required=>"required" %>元
+            <%= f.error_message_on :price %>
+        </td>
+    </tr>
+    <tr>
+        <td class="td01">
+            商品规格：
+        </td>
+        <td>
+            <%= f.text_field :standard, :size=>50,:required=>"required" %> 如:20cm*30cm
+            <%= f.error_message_on :standard %>
+        </td>
+    </tr>
+    <tr>
+        <td class="td01">
+            适用年龄：
+        </td>
+        <td>
+            <%= f.select :for_ages, Age.all.map{|age| [age.name, age.id]}, :include_blank=>"请选择年龄段" %>
+            <%= f.error_message_on :for_ages %>
+        </td>
+    </tr>
+    <tr>
+        <td class="td01">
+            网站名称：
+        </td>
+        <td>
+            <%= f.select :site_id, GouSite.all.map{|site| [site.name, site.id]}, :include_blank=>"请选择所属品牌" %>
+            <%= f.error_message_on :site_name %>
+        </td>
+    </tr>
+    <tr>
+        <td class="td01">
+            网站ＵＲＬ：
+        </td>
+        <td>
+            <%= f.text_field :link, :size=>50 %>
+            <%= f.error_message_on :link %>
+        </td>
+    </tr>
+	<tr>
+        <td class="td01">
+            商品介绍：
+        </td>
+        <td>
+            <%#= f.cktext_area :content, :toolbar=>'Full', :width => '100%', :height => '500px'%>
+            <%= f.text_area :content %>
+			<%= f.error_message_on :content %>
+        </td>
+    </tr>
+    <tr>
+        <td class="td01">
+        </td>
+        <td>
+        	<input type="submit" name="submit" value="提交">
+			<%= link_to '返回', '/mms/gous/index', {:style => "color:#329BCB;"} %>
+        </td>
+    </tr>
+</table>
+
+<%= tiny_mce_js %>
+<%= tiny_mce if using_tiny_mce? %>

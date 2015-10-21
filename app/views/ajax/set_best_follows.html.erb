@@ -1,0 +1,6 @@
+<% for user_item in @best_follows %>
+        <%=render :partial=>'sidebar/side_user',:locals=>{:user_item=>user_item} %>
+<% end %>
+<script>
+	follows_layer.hide();
+</script>

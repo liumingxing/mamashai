@@ -1,0 +1,16 @@
+<div id="middle">
+
+    <div id="css_mainbody">
+        <h1 class="title">优惠券类型管理-新建类型
+			<span style="float: right; margin-right: 10px;">
+		        <%= link_to '返回列表', '/mms/coupons/categories' %>
+		    </span>
+		</h1>
+        <table style="width: 1000px; padding-left: 50px;">
+        	<% form_for @category,:url => { :action => "category_update",:id=>@category.id}, :html=>{:multipart=>true} do |f| %>
+				<%= render :partial => 'form_category', :locals=>{:f=>f}%>
+			<% end %>
+        </table>
+    </div>
+    <div class="clear"></div>
+</div>

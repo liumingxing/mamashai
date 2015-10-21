@@ -1,0 +1,11 @@
+<div id="middle">
+    <div id="css_mainbody">
+    	
+	<h1 class="title">新建<%=@age.name%>标签</h1>
+
+    <%= form_for(:age_tag, :url => {:action => :create_tag, :age_id => @age},  :html=>{:multipart=>true} ) do |f| %>
+    <%=render :partial=>'tag_form', :locals => {:f => f} %>
+    <% end %>
+
+	</div>
+</div>

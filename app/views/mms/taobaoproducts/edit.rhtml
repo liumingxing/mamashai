@@ -1,0 +1,6 @@
+<h1>修改商品</h1>
+
+<% form_tag({:action => 'update', :id => @product, :tt=>params[:age], :category_id=>params[:category_id]},{:multipart=>true}) do %>
+  <%= render :partial => 'form' %>
+  <%= submit_tag '保存' %> ｜ <%= link_to '返回', :action => 'list', :page=>params[:page] %>
+<% end %>

@@ -1,0 +1,323 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+	<head>
+		<META NAME="keywords" CONTENT="宝宝血型,血型测试,孩子的血型,血型性格"/>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+		<title>宝宝血型预测 - 妈妈晒 - 妈妈爸爸们的网络社区</title>
+		<style type="text/css">
+		* {
+			padding:0px;
+			margin:0px;
+		}
+		a {
+			text-decoration:none;
+		}
+		a img {
+			border:0px;
+		}
+		p {
+		  text-indent:5mm;
+		}
+		td img {
+			display: block;
+		}
+		.STYLE1 {
+			color: #666666;
+			font-size: 14px;
+			line-height: 22px;
+		}
+		.STYLE2 {
+			font-size: 16px;
+			font-weight: bold;
+			color: #DA5295;
+		}
+		.STYLE3 {
+			font-size: 12px;
+			color: #999999;
+		}
+		.STYLE4 {
+			font-size: 14px;
+			font-weight: bold;
+			color: #FFFFFF;
+		}
+		.STYLE5 {
+			font-size: 15px; 
+			font-weight: bold; 
+			color: #666666; 
+			font-family: "微软雅黑";
+		}
+		.STYLE6 {
+			font-size: 15px; 
+			font-weight: bold; 
+			color: #DA5295; 
+			font-family: "微软雅黑";
+		}
+		.STYLE7 {
+			font-size: 15px; 
+			font-weight: bold; 
+			color: #000ccc; 
+			font-family: "微软雅黑";
+		}
+		</style>
+	</head>
+
+	<body bgcolor="#ffffff" id="body">
+		<div align='center'>
+			<table width="538" height="51" border="0" cellpadding="0" cellspacing="0" background="images/top2.gif">
+			  <tr>
+			    <td width="16">
+			    	
+			    </td>
+			    <td width="97">
+			    	<a href="http://www.mamashai.com/index/bang">
+			    		<img name="a_r1_c4" src="images/top1.png"  border="0" id="a_r1_c4" alt="" />
+			    	</a>
+			    </td>
+			    <td width="355">
+			    	<div align="center">
+			    		<span style="color:white; font-size: 15px; font-weight: bold;">宝 宝 血 型 预 测</span>
+			    	</div>
+			    </td>
+			    <td width="140">
+			    	<a style="color: white; text-decoration: underline; font-size: 12px;" href="http://www.mamashai.com/index/bang?step=2" target="_blank">0-3岁资源免费下载</a>
+			    </td>
+			  </tr>
+			</table>
+			<table width="538" border="0" cellpadding="0" cellspacing="0" background="images/a_r10_c1.gif">
+			  <tr>
+			    <td>
+			    	<img name="a_r9_c1" src="images/a_r9_c1.gif" width="538" height="9" border="0" id="a_r9_c1" alt="" />
+			    </td>
+			  </tr>
+			  <tr>
+			    <td background="images/a_r10_c1.gif">
+			    	<table width="95%" height="26" border="0" align="center" cellpadding="0" cellspacing="0">
+			    		<tr>
+					        <td align="center" valign="middle" style="padding-left:2mm;">
+					        	爸爸的血型：&nbsp;
+								<select id="select_male_blood" style="width:60px;">
+									<option id="option_male_A" value="A">A</option>
+									<option id="option_male_B" value="B">B</option>
+									<option id="option_male_AB" value="AB">AB</option>
+									<option id="option_male_O" value="O">O</option>
+								</select>
+					        </td>
+							<td align="center">
+								妈妈的血型：&nbsp;
+								<select id="select_female_blood" style="width:60px;">
+									<option id="option_female_A" value="A">A</option>
+									<option id="option_female_B" value="B">B</option>
+									<option id="option_female_AB" value="AB">AB</option>
+									<option id="option_female_O" value="O">O</option>
+								</select>
+							</td>
+							<td align="right" style="padding-right:25px;">
+								<a href="javascript:void(0);" onclick="checkBlood()">
+									<img src="images/d_r2_c3.gif" />
+								</a>
+							</td>
+					      </tr>
+			    	</table>		      
+			    </td>
+			  </tr>
+			  <tr>
+			    <td valign="bottom">
+			    	<img name="a_r12_c1" src="images/a_r12_c1.gif" width="538" height="9" border="0" id="a_r12_c1" alt="" />
+			    </td>
+			  </tr>
+			</table>
+			<table width="538" border="0" cellpadding="0" cellspacing="0" background="images/a_r10_c1.gif" id="table_main">
+			  <tr>
+			    <td><img name="a_r9_c1" src="images/a_r9_c1.gif" width="538" height="9" border="0" id="a_r9_c1" alt="" /></td>
+			  </tr>
+			  <tr>
+			  	<td style="padding-left:15px; padding-right:15px;">
+			  		<table width="500" border="0" style="border-style:dotted;">
+			  			<tr border="0">
+			  				<td align="left" valign="bottom">
+			  					<p class="STYLE5" id="p_baby_blood">
+			  						宝宝可能的血型：<span id="span_baby_blood" class="STYLE7"> A 型或 O 型</span> 
+			  					</p>
+								<p class="STYLE5" id="p_baby_blood_no">
+									宝宝不可能的血型是：<span id="span_baby_blood_no" class="STYLE6" style="display:inline;"> B 型 和 AB 型</span>
+								</p>
+			  				</td>
+							<td style="width:127px; padding-right:13px;padding-top:5px;" valign="top" align='right'>
+								<!--  
+									<a href="http://www.mamashai.com/ebook/baby_0dao3?from=baidu_xuexing" target='_blank'>
+										<img src="images/d_r4_c2.gif" onclick="javascript:void(0);" width="127" height="34" />
+									</a>	
+								-->
+							</td>
+			  			</tr>
+						<tr>
+							<td id="td_main" align="left" colspan="2" valign='top'>
+								
+							</td>
+						</tr>
+			  		</table>
+			  	</td>
+			  </tr>
+			  <tr>
+			    <td valign="bottom">
+			    	<img name="a_r12_c1" src="images/a_r12_c1.gif" width="538" height="9" border="0" id="a_r12_c1" alt="" />
+			    </td>
+			  </tr>
+			</table>
+			<table width="538" border="0" cellpadding="0" cellspacing="0" background="images/a_r10_c1.gif">
+			  <tr>
+			    <td>
+			    	<img name="a_r9_c1" src="images/a_r9_c1.gif" width="538" height="9" border="0" id="a_r9_c1" alt="" />
+			    </td>
+			  </tr>
+			  <tr>
+			    <td background="images/a_r10_c1.gif">
+			    	<table width="95%" height="26" border="0" align="center" cellpadding="0" cellspacing="0">
+			    		<tr>
+					        <td align="left">
+					        	<p class="STYLE3">
+					        		提示：以上内容来自<a href='http://www.mamashai.com/ebook/baby_0dao3' target="_blank">《0-3岁宝宝生长发育监测》</a>，仅供参考。
+					        	</p>
+					        </td>
+					      </tr>
+			    	</table>		      
+			    </td>
+			  </tr>
+			  <tr>
+			    <td valign="bottom">
+			    	<img name="a_r12_c1" src="images/a_r12_c1.gif" width="538" height="9" border="0" id="a_r12_c1" alt="" />
+			    </td>
+			  </tr>
+			</table>
+		</div>
+		<script type="text/javascript">
+			function checkBlood() 
+			{
+				var result = '';    
+				var result_no = '';    
+				var b1 = document.getElementById("select_male_blood").value, b2 = document.getElementById("select_female_blood").value;        
+				if (b1 == 'A' && b2 == 'B')
+				{
+					result = ' A 型、B 型、AB 型、O 型';
+				}        
+				if (b1 == 'B' && b2 == 'A')
+				{
+					result = ' A 型、B 型、AB 型、O 型';
+				}        
+				if (b1 == 'A' && b2 == 'A')
+				{
+					result = ' A 型或 O 型';
+					result_no = ' B 型 和 AB 型';
+				}        
+				if (b1 == 'A' && b2 == 'O')
+				{
+					result = ' A 型或 O 型';
+					result_no = ' B 型 和 AB 型';
+				}        
+				if (b1 == 'O' && b2 == 'A')
+				{
+					result = ' A 型或 O 型';
+					result_no = ' B 型 和 AB 型';
+				}        
+				if (b1 == 'A' && b2 == 'AB')
+				{
+					result = ' A 型 、B型 及 AB型之一';
+					result_no = ' O 型';
+				}        
+				if (b1 == 'AB' && b2 == 'A')
+				{
+					result = ' A 型 、B型 及 AB型之一';
+					result_no = ' O 型';
+				}        
+				if (b1 == 'B' && b2 == 'B')
+				{
+					result = ' B 型或 O 型';
+					result_no = ' A 型 和 AB 型';
+				}        
+				if (b1 == 'B' && b2 == 'O')
+				{
+					result = ' B 型或 O 型';
+					result_no = ' A 型 和 AB 型';
+				}        
+				if (b1 == 'O' && b2 == 'B')
+				{
+					result = ' B 型或 O 型';
+					result_no = ' A 型 和 AB 型';
+				}        
+				if (b1 == 'B' && b2 == 'AB')
+				{
+					result = ' A 型 、B型 及 AB型之一';
+					result_no = ' O 型';
+				}        
+				if (b1 == 'AB' && b2 == 'B')
+				{
+					result = ' A 型 、B型 及 AB型之一';
+					result_no = ' O 型';
+				}        
+				if (b1 == 'O' && b2 == 'O')
+				{
+					result = ' O 型';
+					result_no = ' A 型、B 型和 AB 型';
+				}        
+				if (b1 == 'O' && b2 == 'AB')
+				{
+					result = ' A 型或 B 型';
+					result_no = ' O 型 和 AB 型';
+				}        
+				if (b1 == 'AB' && b2 == 'O')
+				{
+					result = ' A 型或 B 型';
+					result_no = ' O 型 和 AB 型';
+				}        
+				if (b1 == 'AB' && b2 == 'AB')
+				{
+					result = ' A 型 、B型 及 AB型之一';
+					result_no = ' O 型';
+				}        
+				if (result.length > 0) 
+				{
+					document.getElementById("span_baby_blood").innerHTML = result;
+					if(result_no.length > 0)
+					{
+						setHeight(0);
+						document.getElementById("span_baby_blood_no").innerHTML = result_no;
+						document.getElementById("p_baby_blood_no").style.display = "block";
+					}
+					else
+					{
+						setHeight(0);
+						document.getElementById("p_baby_blood_no").style.display = "none";
+					}
+				}
+				
+				
+			}
+		</script>
+		<script>
+			function setHeight(height)
+			{
+				if (height > 0){
+					baidu.app.setHeight(height)
+				}
+				else{
+					setTimeout("baidu.app.setHeight(document.getElementById('body').clientHeight)", 400)
+					setTimeout("baidu.app.setHeight(document.getElementById('body').clientHeight)", 1500)
+				}	
+			}
+		</script>
+		<script src="http://app.baidu.com/static/appstore/monitor.st"></script>
+		<script>
+		     baidu.app.autoHeight();
+			 setHeight(0);
+		     //baidu.app.setHeight(245);
+		</script>
+		<div style="display:none;">
+			<script type="text/javascript">
+var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3F2f4856497854ce3df66f8b40863365d9' type='text/javascript'%3E%3C/script%3E"));
+</script>
+		</div>
+	</body>
+</html>

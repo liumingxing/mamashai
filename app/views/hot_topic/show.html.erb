@@ -1,0 +1,101 @@
+<div class="sharp mt5">
+	<div class="content">
+		<div class="cjy_left">
+
+			<div class="ht">
+				<% if @age_tag %>
+				<div id="ht_main bor">
+					<% if @age_tag.logo %>
+					<div id="ht_cen_hot_left"><img src="<%= @age_tag.logo.thumb90 %>"/>
+					</div>
+					<% end %>
+					<div id="ht_cen_hot_right">
+						<div>
+							<h4><%= @age_tag.summary %></h4>
+						</div>
+						<%= @age_tag.description %>
+					</div>
+				</div>
+				<% end %>
+				<div class="clear"></div>
+				<%= render :partial=>"/share/shai", :locals=>{:back=>"/topic/#{URI.encode(params[:id])}"} if @user %>
+				<script>
+					$(function(){
+						$("#post_content").val("#<%= @title %>#")
+						$("#post_content").focus();
+						$("#post_content").get(0).setSelectionRange(100, 100)
+					})
+				</script>
+			</div>
+
+			<DIV id=con>
+				<DIV id=tagContent>
+					<DIV id=tagContent0  class="tagContent selectTag">
+						<DIV id="chanel_content">
+							<% for post in @posts %>
+								<% next if post.is_hide || post.is_private %>
+								<%= render :partial=>"/share/post", :locals=>{:post=>post} %>
+							<% end %>
+							<%= will_paginate @posts %>
+						</DIV>
+						
+					</DIV>
+				</DIV>
+				<SCRIPT type=text/javascript>
+					function selectTag(showContent, selfObj) {
+						// 操作标签
+						var tag = document.getElementById("tags1").getElementsByTagName("li");
+						var taglength = tag.length;
+						for( i = 0; i < taglength; i++) {
+							tag[i].className = "";
+						}
+						selfObj.parentNode.className = "selectTag";
+						// 操作内容
+						for( i = 0; j = document.getElementById("tagContent" + i); i++) {
+							j.style.display = "none";
+						}
+						document.getElementById(showContent).style.display = "block";
+					}
+				</SCRIPT>
+			</div>
+		</div>
+		<div class="cjy_right">
+			<div class="bdxq_li">
+				<span class="title">本周话题</span>
+				<ul>
+					<% for topic in @week_topics %>
+					<li>
+						<a href="/topic/<%= topic.short_tag_name %>"><%= topic.short_tag_name %></a> <span class='red'>(<%= topic.total_count %>)</span>
+					</li>
+					<% end %>
+				</ul>
+			</div>
+			<div class="zl_dz">
+				<table width="100%" border="0" cellspacing="0" cellpadding="0">
+					<tr>
+						<th>日历达人</th>
+						<td align="right">&nbsp;</td>
+					</tr>
+				</table>
+				<ul>
+					<% for vip in BbrlVip.find(:all, :limit=>6) %>
+						<%= render :partial=>"/share/user1", :locals=>{:user_item => vip.user} %>
+					<% end %>
+					
+				</ul>
+			</div>
+		</div>
+	</div>
+	<!--cjy_right-->
+	<div><img src="/images/sharp_bottom.jpg" />
+	</div>
+</div>
+
+
+<script src="/javascripts/FancyZoom.js" language="JavaScript" type="text/javascript"></script>
+<script src="/javascripts/FancyZoomHTML.js" language="JavaScript" type="text/javascript"></script>
+<script>
+	$(document).ready(function() {
+		setupZoom();
+	});	
+</script>

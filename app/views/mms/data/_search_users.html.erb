@@ -1,0 +1,30 @@
+<label >
+    关键字： 
+</label>
+ <%= text_field :search_user, :name, :style=>'width:80px;' %>
+  <label >
+    所在行业： 
+</label>
+ <%=select :search_user, :industry_id, Industry.find(:all).collect {|p| [ p.name, p.id ] }, {:prompt=>'所在行业'} %>
+ 
+ <br/>
+ <label >
+ 年龄段： 
+  </label>
+  <%=select :search_user, :birthyear, APP_CONFIG['time_birthyears'].split('|').collect {|p| [ "#{p}后", p.to_i ] }, {:prompt=>'年代'} %>
+ <label >
+ 孩子年龄段： 
+  </label>
+   <%=select :search_user, :kid_age, Age.find(:all).collect {|p| [ p.name, p.id ] }, {:prompt=>'宝贝年龄'} %>
+   
+ <br/>
+ <label >
+    所在地区： 
+</label>
+<%=select :search_user, :province_id, Province.find(:all).collect {|p| [ p.name, p.id ] }, {:prompt=>'省/直辖市'} %>
+        <span id="cities_span"></span>
+        <%= observe_field("search_user_province_id",:url => { :action => 'get_cities',:controller=>'ajax',:model=>'search_user' },:before=>'show_loadding("cities_span")',:update => 'cities_span',:with => "'model=search_user&city_id=#{@search_user.city_id}&id='+ $('#search_user_province_id').val()") %>
+        <script>show_loadding("cities_span");
+			$("#cities_span").load("/ajax/get_cities?" + "model=search_user&city_id=<%=@search_user.city_id%>&id=" + $("#search_user_province_id").val())
+			
+        </script>

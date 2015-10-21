@@ -1,0 +1,16 @@
+<div id="middle">
+    <div id="css_mainbody">
+        <h1 class="title">链接管理-新建链接
+			<span style="float:right;margin-right:10px;">
+		        <a href="/mms/links/list_links" title="返回列表">返回列表</a>
+		    </span>
+		</h1>			
+		<% form_tag({:action=>:create_link},{:multipart=>true }) do %>
+		    <%= render :partial=>'form_link' %>
+		    <div id="submit_area" class="ifnull"> 
+		      <button class="button_submit" type="submit" onmouseover="this.className='button_submit button_submit_hover';" onmouseout="this.className='button_submit';" >保存</button>
+		    </div>
+		<% end %>
+    </div>
+    <div class="clear"></div>
+</div>

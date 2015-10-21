@@ -1,0 +1,22 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <title>Mails</title>
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>妈妈团</title>
+    </head>
+    <body style="margin: 0px; padding: 0px; background: none repeat scroll 0% 0% rgb(204, 204, 204);">
+        <table style=" margin: 0px auto; padding: 0pt; border-collapse: collapse; empty-cells: show; overflow: hidden; border: 0px solid rgb(204, 204, 204); background: none repeat scroll 0% 0% rgb(255, 255, 255);">
+            <tbody>
+                <tr>
+                    <td style="font-size: 12px; text-align: center; height: 25px;padding :0px; line-height: 25px;">
+                        如果无法看到邮件，<a target="_blank" style="color: rgb(26, 120, 193);" href="<%= @email.url %>">请点击这里</a>
+                    </td>
+                </tr>
+                <% @email.images_path.split(";").each do |image_path| %>
+                <tr><td style="padding:0px;margin:0px"><a target="_blank" href="<%= @email.url %>"><img style="border: 0px none;" src="http://www.mamashai.com<%= image_path %>"></a></td></tr>
+				<% end -%>
+            </tbody>
+        </table>
+    </body>
+</html>

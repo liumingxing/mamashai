@@ -1,0 +1,23 @@
+<h1>articles/show 查看单条资讯。 </h1><%= link_to "返回到列表", "/api/test" %>
+<pre>
+  [路径]: articles/show
+  [HTTP请求方式]: GET
+  [URL]: http://your.api.domain/articles/show/:id.json
+  [是否需要登录]： false
+
+参数
+
+    * source 申请应用时分配的AppKey，调用接口时候代表应用的唯一身份。
+    * id 文章id。(必选)
+
+示例
+
+  curl "http://your.api.domain/articles/show/100.json?source=appkey"
+</pre>
+<hr/>
+<%= form_tag "/api/articles/show.json" ,{:method=>:get} do %>
+  <%= render :partial => '/api/test/login' %>
+  source: <%= text_field_tag "source" %><br/>
+  id: <%= text_field_tag "id" %><br/>
+  <%= submit_tag "提交"%>
+<% end -%>

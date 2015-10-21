@@ -1,0 +1,13 @@
+<h1>添加商品 <%= "——" + @category.name if @category%></h1>
+
+<% form_tag :action => 'new_from_url', :id=>params[:id]  do %>
+  淘宝商品网址:<%= text_field_tag :url, params[:url], :style=>"width:300px"%>
+  <%= submit_tag "自动解析" %>
+<% end %>
+
+<% form_tag({:action => 'create', :id=>params[:id]},{:multipart=>true})  do %>
+  <%= render :partial => 'form' %>
+  <%= submit_tag "保存" %> | <%= link_to '返回', :action => 'list' %>
+<% end %>
+
+

@@ -1,0 +1,6 @@
+<h1>新建</h1>
+
+<%= form_tag :action => 'create' do %>
+  <%= render :partial => 'form' %>
+  <%= submit_tag "保存" %> | <%= link_to 'Back', :action => 'list' %>
+<% end %>

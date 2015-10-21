@@ -1,0 +1,36 @@
+<%= error_messages_for 'bse_apply' %>
+
+<table class="ft" border="1">
+<!--[form:bse_apply]-->
+<tr>
+	<td>Name</td>
+	<td><%= text_field 'bse_apply', 'name'  %></td>
+</tr>
+
+<tr>
+	<td>Mobile</td>
+	<td><%= text_field 'bse_apply', 'mobile'  %></td>
+</tr>
+
+<tr>
+	<td>Age</td>
+	<td><%= text_field 'bse_apply', 'age'  %></td>
+</tr>
+
+<tr>
+	<td>Address</td>
+	<td><%= text_field 'bse_apply', 'address'  %></td>
+</tr>
+
+<tr>
+	<td>Created at</td>
+	<td><%= datetime_select 'bse_apply', 'created_at'  %></td>
+</tr>
+
+<tr>
+	<td>Updated at</td>
+	<td><%= datetime_select 'bse_apply', 'updated_at'  %></td>
+</tr>
+<!--[eoform:bse_apply]-->
+
+</table>

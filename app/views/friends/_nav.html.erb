@@ -1,0 +1,19 @@
+<ul class="post_event_tabs">
+    <li class="c1">
+        <a href="/users/<%=@user.id%>/follows" <%=' class="current"' if params[:controller]=='follows'%> title="我关注的人">我关注的人</a>
+    </li>
+    <li>
+        <a href="/users/<%=@user.id%>/fans" <%=' class="current"' if params[:controller]=='fans'%> title="我的粉丝">我的粉丝</a>
+    </li>
+	<li>
+        <a href="/friends/my" <%=' class="current"' if params[:controller]=='friends' and params[:action]=='my'%> title="我的好友">我的好友</a>
+    </li>
+    <li>
+        <a href="/friends" <%=' class="current"' if params[:controller]=='friends' and params[:action]=='index'%> title="找人">找人</a>
+    </li>
+    <li>
+        <a href="/friends/invite" <%=' class="current"' if params[:controller]=='friends' and params[:action]=='invite'%> title="邀请">邀请</a>
+    </li>
+    <li class="diary">
+    </li>
+</ul>

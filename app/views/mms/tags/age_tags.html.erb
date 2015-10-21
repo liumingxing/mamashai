@@ -1,0 +1,18 @@
+<div id="middle">
+    <div id="css_mainbody" style="width:800px;">
+        <h1 class="title">话题配置</h1>
+		<div class="settings" style="text-align:center;color:#008000;">
+	    	<%= flash[:notice] %>
+	  	</div>
+		<div>
+		    <% form_tag({:action=>:build_age_tags}, {:onSubmit => "if(!confirm('确认保存？')){return false}"}) do %>
+		      <%= text_area_tag :age_tags_csv, @csv,:class=>"age_tags_csv_input",:style=>"width:600px;height:500px;margin-left:50px;" %>
+		      <div id="submit_area" class="ifnull"> 
+		        <button class="button_submit" type="submit" onmouseover="this.className='button_submit button_submit_hover';" onmouseout="this.className='button_submit';" >保存</button>
+		      </div>
+		    <% end %>
+		</div>
+		
+    </div>
+    <div class="clear"></div>
+</div>

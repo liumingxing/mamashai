@@ -1,0 +1,220 @@
+<%= javascript_include_tag :ckeditor %>
+<fieldset>
+    <legend>
+        描述性信息
+    </legend>
+	<div class="line_item">
+        <span class="title"><%= f.label :short_content,"团购标题：" %>
+        </span>
+        <span class="content"><%= f.text_field :short_content, :size=>50,:required=>"required" %>
+            <%= f.error_message_on :short_content %>
+        </span>
+    </div>
+    <div class="line_item">
+        <span class="title"><%= f.label :content,"内页标题：" %>
+        </span>
+        <span class="content"><%= f.text_field :content, :size=>50,:required=>"required" %>
+            <%= f.error_message_on :content %>
+        </span>
+    </div>
+	<div class="line_item">
+        <span class="title"><%= f.label :gou_category_id,"商品分类：(导购平台)" %><img src="/images/icons/02270438.gif"/>
+        </span>
+        <span class="content">
+        	<%= f.select :gou_category_id, nested_set_options(::GouCategory, @category) {|i| "#{'--' * i.level} #{i.name}" },{:include_blank=>"请选择所属分类"}%>
+            <%= f.error_message_on :gou_category_id %>
+        </span>
+    </div>
+    <div class="line_item">
+        <span class="title"><%= f.label :tuan_category_id,"团购分类：(团购导航)" %>
+        </span>
+        <span class="content"><%= f.select :tuan_category_id, TuanCategory.all.collect{|tc| [tc.name,tc.id]} %>
+            <%= f.error_message_on :tuan_category_id %>
+        </span>
+    </div>
+    <div class="line_item">
+        <span class="title"><%= f.label :title,"广告语：" %>
+        </span>
+        <span class="content"><%= f.text_field :title, :size=>50 %>
+            <%= f.error_message_on :title %>
+        </span>
+    </div>
+    <div class="line_item">
+        <span class="title"><%= f.label :logo,"团购图片：" %>
+        </span>
+        <span class="content"><%= upload_column_field :tuan, :logo %>
+            <%= f.error_message_on  :logo %>
+        </span>
+    </div>
+</fieldset>
+<fieldset>
+    <legend>
+        交易类信息
+    </legend>
+	<div class="line_item">
+        <span class="title"><%= f.label :supplier_code,"供应商编码：" %>
+        </span>
+        <span class="content">
+			<% if params[:action]=="edit" or params[:action]=="update" %>
+				<%= @tuan.supplier_code||'无' %>
+				<%="<b class='red'>不存在对应的供应商</b>" unless @tuan.supplier_code and ::Supplier.first(:conditions=>["code=?",@tuan.supplier_code])%>
+				<%= link_to "修改",:action=>:supplier_code_edit,:id=>@tuan.id %>
+            <% else %>
+				<%= f.text_field :supplier_code %>
+				<%= link_to "查看供应商编码清单","/mms/suppliers",:target=>"_blank"%>
+	            <%= f.error_message_on :supplier_code %>
+			<% end %>
+        </span>
+    </div>
+    <div class="line_item">
+        <span class="title"><%= f.label :begin_time,"开始时间：" %>
+        </span>
+        <span class="content"><%= f.datetime_select :begin_time, :use_month_numbers => true, :include_seconds => true %>
+            <%= f.error_message_on  :begin_time %>
+        </span>
+    </div>
+    <div class="line_item">
+        <span class="title"><%= f.label :end_time, "结束时间：" %>
+        </span>
+        <span class="content"><%= f.datetime_select :end_time, :use_month_numbers => true, :include_seconds => true %>
+            <%= f.error_message_on  :end_time %>
+        </span>
+    </div>
+	<div class="line_item">
+        <span class="title"><%= f.label :address,"团购地区：" %>
+        </span>
+        <span class="content"><%= f.text_field :address %>
+            <%= f.error_message_on  :address %>
+        </span>
+    </div>
+    <div class="line_item">
+        <span class="title"><%= f.label :origin_price,"原价：" %>
+        </span>
+        <span class="content"><%= f.text_field :origin_price,:required=>"required" %>
+            <%= f.error_message_on  :origin_price %>
+        </span>
+    </div>
+    <div class="line_item">
+        <span class="title"><%= f.label :current_price,"现价：" %>
+        </span>
+        <span class="content"><%= f.text_field :current_price,:required=>"required" %>
+            <%= f.error_message_on :current_price %>
+        </span>
+    </div>
+	<div class="line_item">
+        <span class="title"><%= f.label :max_amount,"最大数量：" %><img src="/images/icons/02270438.gif"></span>
+        <span class="content"><%= f.text_field :max_amount %>为空则不限量<%= f.error_message_on :max_amount %></span>
+    </div>
+	<div class="line_item">
+        <span class="title"><%= f.label :weight,"重量(kg)：" %><img src="/images/icons/02270438.gif"></span>
+        <span class="content"><%= f.text_field :weight %><%= f.error_message_on :weight %></span>
+    </div>
+</fieldset>
+<fieldset>
+    <legend>
+        <span class="red">相关配置</span>
+    </legend>
+	<div class="line_item">
+        <span class="title"><%= f.label :tp ,"团购类别：" %></span>
+        <span class="content"><%= f.select :tp, Tuan.mms_tuan_type.collect{|t| t.reverse} %>
+            <%= f.error_message_on  :tp %>
+        </span>
+    </div>
+	<div class="line_item">
+        <span class="title"><%= f.label :virtual ,"团购商品属性：" %><img src="/images/icons/02270438.gif"></span>
+        <span class="content"><%= f.radio_button :virtual, true %>虚拟类 <%= f.radio_button :virtual, false %>实物类<%= f.error_message_on  :virtual %></span>
+    </div>
+	<div class="line_item">
+        <span class="title"><%= f.label :current_key ,"今日主推：" %></span>
+        <span class="content"><%= f.radio_button :current_key, true %>是<%= f.radio_button :current_key, false %>否<%= f.error_message_on  :current_key %></span>
+    </div>
+	<div class="line_item">
+        <span class="title"><%= f.label :fright_money,"是否包邮：" %></span>
+        <span class="content"><%= f.radio_button :fright_money, 0.to_f %>是<%= f.radio_button :fright_money, 1.to_f %>否<%= f.error_message_on :fright_money %></span>
+    </div>
+	<div class="line_item">
+        <span class="title"><%= f.label :free_fright_amount,"包邮最低购买数量：" %></span>
+        <span class="content"><%= f.text_field :free_fright_amount %><a href="javascript:void(0);" onclick="$('#tuan_free_fright_amount').val(1);">包邮</a>则设为1，<a href="javascript:void(0);" onclick="$('#tuan_free_fright_amount').val(999999);">永不包邮</a>则设为999999<%= f.error_message_on :free_fright_amount %></span>
+    </div>
+    <div class="line_item">
+        <span class="title"><%= f.label :back_money,"邀请好友奖励：" %></span>
+        <span class="content"><%= f.text_field :back_money %>元<%= f.error_message_on :back_money %></span>
+    </div>
+    <div class="line_item">
+        <span class="title"><%= f.label :person_amount,"实际购买数量：" %></span>
+        <span class="content">
+        	<span class="red"><%= @tuan.person_amount||0 %></span>
+			<% if params[:action]=="edit" or params[:action]=="update" %>
+            	<%= link_to "修改",:action=>:person_amount_edit,:id=>@tuan.id %>
+            <% end %>
+        </span>
+    </div>
+    <div class="line_item">
+        <span class="title"><%= f.label :buyers_count,"目前点击次数：" %></span>
+        <span class="content"><%= @tuan.buyers_count %></span>
+    </div>
+</fieldset>
+<fieldset>
+    <legend>
+        团购内容说明
+    </legend>
+    <div class="line_item">
+        <span class="content" style="padding: 0 30px;width:800px;">
+			 <%= f.cktext_area :introduction, :toolbar=>'Full', :width => '100%', :height => '500px'%>
+            <%= f.error_message_on  :introduction %>
+        </span>
+    </div>
+</fieldset>
+<div class="submit">
+	<span class="left">
+    	<input type="submit" name="submit" value="提交">
+	</span>
+	<span class="right">
+		<%= link_to '返回', '/mms/mms_tuans' %>
+	</span>
+</div>
+<style type="text/css">
+    fieldset {
+        border: 1px solid #D1D1D1;
+        color: #333333;
+        line-height: 220%;
+        margin: 20px;
+        padding: 10px;
+    }
+    
+    legend {
+        background: none repeat scroll 0 0 #FFFFFF;
+        color: #666666;
+        font-weight: 800;
+    }
+    
+    fieldset div.line_item {
+        height: 30px;
+        display: block;
+		width:100%;
+    }
+    
+    .line_item .title {
+        margin-left: 30px;
+        font-weight: bolder;
+        width: 150px;
+        float: left;
+    }
+    
+    .line_item .content {
+        float: left;
+    }
+	div.submit{
+		margin:20px;
+		text-align:center;
+	}
+	div.submit span{
+		margin:0 20px;
+	}
+</style>
+<script type="text/javascript">
+	$("#tuan_fright_money_00").click(function(){
+		$("#tuan_free_fright_amount").val(1);
+	});
+</script>
+

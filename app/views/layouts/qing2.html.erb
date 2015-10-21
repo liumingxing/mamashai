@@ -1,0 +1,57 @@
+
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>宝宝</title>
+	<meta http-equiv="mobile-agent" content="format=html5;url=http://www.baobaorili.com/">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+	<meta name="baidu-tc-cerfication" content="1c88fe0c2ddb346c25844d9f99c91d52" />
+	<meta name="apple-itunes-app" content="app-id=499828643" />
+	<meta name="keywords" content="宝宝日历 怀孕指南 预产期计算 孕期指导" />
+	<meta name="description" content="宝宝日历汇聚了大量年轻的父母。提供大量孕期至6岁的权威内容，让小白父母学习如何养育子女。并提供记录功能。让父母能够流畅快速记录，不错过孩子成长的每一个精彩瞬间。" />
+	<link href="/stylesheets/qing.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<header class="action-bar">
+	<div class="action-bar-left">
+		<a href="/qing2">
+			<img src="/images/qing/qing.png" style="width: 44px;"/>
+			<span class="view-control">宝宝</span>
+		</a>
+	</div>
+	<div class="action-bar-right">
+		<!--
+		<a href="http://www.mamashai.com/bbrl/download?qing">
+			下载客户端
+		</a>
+	-->
+	</div>
+</header>
+
+<nav class="top-bar">
+	<a href="/qing2/tips" class=<%= 'active' if %w(yun yu0 yu3 index tips).include?(controller.action_name) %>>
+	<span>指南</span>
+	</a>
+	<a href="/qing2/articles" class=<%= 'active' if %w(articles article).include?(controller.action_name) %>>
+	<span>宝典</span>
+	</a>
+	<a href="/qing2/posts" class=<%= 'active' if controller.action_name == "posts" %>>
+	<span>记录</span>
+	</a>
+</nav>
+
+<div class="main" id="home">
+	<%= yield %>
+</div>
+
+<footer class="m-l ta-c">
+&copy; <a href="http://www.baobaorili.com/" target="_blank">www.baobaorili.com</a> &nbsp;&nbsp;
+<!-- KanShu -->
+<div class="ext-link"></div>
+<!-- Hao123 -->
+<img src="http://m.hao123.com/?tn=qiubai" alt=" " width="1" height="1"/>
+</footer>
+
+</body>
+</html>

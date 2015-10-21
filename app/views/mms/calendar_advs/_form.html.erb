@@ -1,0 +1,57 @@
+<%= error_messages_for 'calendar_advs' %>
+
+<table class="ft" border="1">
+<!--[form:calendar_advs]-->
+<tr>
+	<td>名称</td>
+	<td><%= text_field 'calendar_advs', 'name'  %></td>
+</tr>
+
+<tr>
+	<td>Logo</td>
+	<td>
+		<%=upload_column_field :calendar_advs, :logo %>
+	</td>
+</tr>
+
+<tr>
+	<td>类别</td>
+	<td>
+		<%= select "calendar_advs", 'tp', [['应用内弹出',2], ['新弹出', 1], ['执行代码', 3], ['网页', 4], ] %>
+	</td>
+</tr>
+
+<tr>
+	<td>图片或网页url,点击事件代码</td>
+	<td><%= text_area 'calendar_advs', 'url', {:rows=>5}  %></td>
+</tr>
+
+<tr>
+	<td>执行代码</td>
+	<td><%= text_area 'calendar_advs', 'code', {:rows=>5}  %></td>
+</tr>
+
+<tr>
+	<td>排序</td>
+	<td><%= text_field 'calendar_advs', 'position'  %></td>
+</tr>
+
+<tr>
+	<td>平台</td>
+	<td><%= text_field 'calendar_advs', 'only'  %> (iphone / android / 不填则通用)</td>
+</tr>
+
+<tr>
+	<td>客户代码</td>
+	<td><%= text_field 'calendar_advs', 'client'  %></td>
+</tr>
+
+<tr>
+	<td>状态</td>
+	<td>
+		<%= select "calendar_advs", 'status', [['上线', 'online'], ['下线', 'offline'], ['测试', 'test']] %>
+	</td>
+</tr>
+<!--[eoform:calendar_advs]-->
+
+</table>

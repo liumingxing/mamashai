@@ -1,0 +1,136 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>妈妈团</title>
+        <style>
+            .address {
+                width: 700px;
+                margin: 20px auto;
+                border-collapse: collapse;
+                empty-cells: show;
+                overflow: hidden;
+            }
+            
+            .address td {
+                vertical-align: center;
+                text-align: left;
+                padding-left: 15px;
+                font-size: 12px;
+                line-height: 180%;
+                border: 1px solid #e792b9;
+            }
+        </style>
+    </head>
+    <body style="margin: 0px; padding: 0px; background: none repeat scroll 0% 0% rgb(204, 204, 204);">
+        <table style="width: 734px; margin: 0px auto; padding: 0pt; border-collapse: collapse; empty-cells: show; overflow: hidden; border: 1px solid rgb(204, 204, 204); background: none repeat scroll 0% 0% rgb(255, 255, 255);">
+            <tbody>
+                <tr>
+                    <td style="font-size: 12px; text-align: center; height: 25px; line-height: 25px;">
+                        如果无法看到邮件，<a target="_blank" style="color: rgb(26, 120, 193);" href="http://www.mamashai.com/partners/tuan">请点击这里</a>直接登录妈妈晒供应商订单管理系统
+                    </td>
+                </tr>
+                <tr>
+                    <td style="height: 20px; background: none repeat scroll 0% 0% rgb(245, 211, 235);">
+                    </td>
+                </tr>
+                <tr>
+                </tr>
+                <tr>
+                    <td style="height: 40px; line-height: 40px; text-align: center;">
+                        您好，有用户刚刚订购了您的商品，请注意查看，以下是订单详细信息！（未付款）
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <table class="address">
+                            <tbody>
+                                <tr height="35">
+                                    <td bgcolor="#fdeff3" width="20%">
+                                        订单号
+                                    </td>
+                                    <td width="80%">
+                                        <%= @order.order_sn %>
+                                    </td>
+                                </tr>
+                                <tr height="35">
+                                    <td bgcolor="#fdeff3" width="20%">
+                                        商品名称
+                                    </td>
+                                    <td width="80%">
+                                        <%= @tuan.content %>
+                                    </td>
+                                </tr>
+								<tr height="35">
+                                    <td bgcolor="#fdeff3" width="20%">
+                                        顾客姓名
+                                    </td>
+                                    <td width="80%">
+                                        <%= @order.receiver_name %>
+                                    </td>
+                                </tr>
+								<tr height="35">
+                                    <td bgcolor="#fdeff3" width="20%">
+                                        顾客手机
+                                    </td>
+                                    <td width="80%">
+                                        <%= @order.receiver_mobile %>
+                                    </td>
+                                </tr>
+                                <tr height="35">
+                                    <td bgcolor="#fdeff3" width="20%">
+                                        购买数量
+                                    </td>
+                                    <td width="80%">
+                                        <%= @item.amount %>
+                                    </td>
+                                </tr>
+                                <tr height="35">
+                                    <td bgcolor="#fdeff3" width="20%">
+                                        下单时间
+                                    </td>
+                                    <td width="80%">
+                                        <%= @order.created_at.strftime("%Y-%m-%d %H:%M:%S") %>
+                                    </td>
+                                </tr>
+                                <tr height="35">
+                                    <td bgcolor="#fdeff3" width="20%">
+                                        备注信息
+                                    </td>
+                                    <td width="80%">
+                                        <%= @order.info[:memo] %>
+                                    </td>
+                                </tr>
+                                <tr height="35">
+                                    <td bgcolor="#fdeff3" width="20%">
+                                        配送地址
+                                    </td>
+                                    <td width="80%">
+                                        <%= @order.sent_address %>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="height: 40px; line-height: 40px; text-align: center;">
+                        <a style="border: 0pt none; font-size: 14px; color: rgb(50, 155, 203);" href="http://www.mamashai.com/partners/tuan" target="_blank">点击这里</a>，进入妈妈晒供应商订单管理系统
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <table style="width: 100%; background: url(&quot;http://www.mamashai.com/images/ads/week/foot_bg.gif&quot;) no-repeat scroll 0% 0% transparent; font-size: 14px;">
+                            <tbody>
+                                <tr height="50">
+                                    <td style="text-align: right; color: rgb(255, 255, 255); padding: 5px;">
+                                        妈妈晒网站 www.mamashai.com
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

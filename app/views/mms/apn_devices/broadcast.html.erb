@@ -1,0 +1,23 @@
+<div id="middle">
+    <div id="css_mainbody">
+        <h1 class="title">广播推送</h1>			
+    </div>
+</div>
+
+<%= form_tag :action => 'make_broadcast2' do %>
+  <table class="ft" border="1">
+	<tr>
+		<td><%= text_area_tag 'text', "", :rows=>6, :cols=>60  %></td>
+	</tr>
+	<tr>
+		<td>
+			类型: <%= select_tag :t, options_for_select([['', nil], ['礼物上新', 'ddh_all'], ['用户记录', 'post'], ['url', 'url2']]) %>
+
+			ID：<%= text_field_tag 'id', ""%>
+		</td>
+	</tr>
+	<tr>
+		<td align="center"><%= submit_tag '提交' %></td>
+	</tr>
+  </table>
+<% end %>

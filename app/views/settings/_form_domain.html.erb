@@ -1,0 +1,23 @@
+<table class="form_table">
+    <tbody>
+        <tr height="40">
+            <td width="110" >
+                设置个性域名：
+            </td>
+            <td class="t02" valign="top">
+                <div class="domain" style="font-size:14px;">
+                    http://mamashai.com/u/
+					<%=text_field :user, :domain,:style=>'width:60px;', :onkeyup=>"$('#domain_url').get(0).innerHTML=this.value" %> 
+					<div><%=error_message_on :user,:domain %></div>
+                </div>
+            </td>
+        </tr>
+        <tr height="20">
+            <td class="t01" width="90">
+            </td>
+            <td class="t02">
+                你的网页域名是：http://mamashai.com/u/<span id="domain_url"></span>
+            </td>
+        </tr>
+    </tbody>
+</table>

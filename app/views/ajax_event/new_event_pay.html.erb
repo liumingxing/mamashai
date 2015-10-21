@@ -1,0 +1,55 @@
+<div class="layer" id="layer_apply">
+    <div class="layer_title">
+        <span class="title">填写缴费记录</span>
+        <span class="more"><a href="javascript:void(0);" onclick="hide_box();"><img src="/images/layer/del_06.gif"></a></span>
+    </div>
+    <div class="layer_content">
+        <% form_remote_tag :url => {:action => :create_event_pay,:id=>@event.id}, :before=>"if(jQuery.trim($('#event_pay_pay_money').get(0).val())==''){$('#error_event_pay_pay_money').get(0).innerHTML='请填缴费金额';return false}", :update => "lbContent" do %>
+        <table class="grid">
+            <tbody>
+                <tr height="40">
+                    <td class="t01" width="120">
+                        缴费日期<span class="gray">(必填)</span>：
+                    </td>
+                    <td class="t02">
+                        <%=date_select :event_pay, :created_at ,:use_month_numbers => true %>
+                        <div id="error_event_pay_real_name" class="formError">
+                        </div>
+                    </td>
+                </tr>
+                <tr height="40">
+                    <td class="t01" width="100">
+                        缴费金额<span class="gray">(必填)</span>：
+                    </td>
+                    <td class="t02">
+                        <%=text_field :event_pay, :pay_money, :class=>'required' %>元 
+                        <div id="error_event_pay_pay_money" class="formError">
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <div style="margin:10px 20px;">
+            选择缴费人（可多选）：
+        </div>
+        <div style="margin:10px 20px;overflow-y:auto;line-height:20px;height:200px;">
+            <% @event.event_users.each do |event_user| %>
+			<% user = event_user.user %>
+            <div style="width:82px;height:20px;overflow:hidden;float:left;"><%=check_box :pay_user_ids, user.id,  {:class => "default_checkbox" ,:checked => false } %>&nbsp;<%=user.name%></div>
+            <% end %>
+        </div>
+        <ul class="layer_botton">
+            <li>
+                <button class="button_submit_s" type="submit" onmouseover="this.className='button_submit_s button_submit_s_hover';" onmouseout="this.className='button_submit_s';">
+                    提交 
+                </button>
+            </li>
+            <div class="clear">
+            </div>
+        </ul>
+        <% end %>
+    </div>
+</div>
+<script>
+    reset_box(472, 402);
+</script>

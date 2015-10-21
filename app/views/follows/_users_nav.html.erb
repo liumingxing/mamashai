@@ -1,0 +1,62 @@
+<div id="follows_search">
+    <ul id="follow_list">
+        <li class="c1">
+            排序：
+        </li>
+        <li>
+            <% if params[:action]=='index' %>
+            最新关注 <% else %>
+            <a href="/users/<%=@space_user.id%>/follows">最新关注</a>
+            <% end %>
+        </li>
+        <li class="line">
+        </li>
+        <li>
+            <% if params[:action]=='group_by_kid_age' %>
+            宝贝年龄 <% else %>
+            <a href="/users/<%=@space_user.id%>/follows/group_by_kid_age">宝贝年龄</a>
+            <% end %>
+        </li>
+        <li class="line">
+        </li>
+        <li>
+            <% if params[:action]=='group_by_group' %>
+            所属分组 <% else %>
+            <a href="/users/<%=@space_user.id%>/follows/group_by_group">所属分组</a>
+            <% end %>
+        </li>
+    </ul>
+    
+</div><% if params[:action]=='group_by_kid_age' %>
+<div class="circle_user">
+    <div class="circle_top circle_top01">
+    </div>
+    <div class="circle_content">
+        <div class="circle_article circle_article01">
+            <% i=0 %>
+            <% for age in Age.find(:all) %>
+            <% if i>0 %>|<% end %><a href="/users/<%=@space_user.id%>/follows/group_by_kid_age?age=<%=age.id%>"<%=' class="current"' if @age.id==age.id %>><%=age.name %></a>
+            <% i+=1 %>
+            <% end %>
+        </div>
+    </div>
+    <div class="circle_button">
+    </div>
+</div>
+<% end %>
+<% if params[:action]=='group_by_group' %>
+<div class="circle_user">
+    <div class="circle_top ">
+    </div>
+    <div class="circle_content">
+        <div class="circle_article">
+            <% for group in @groups %>
+            <a href="/users/<%=@space_user.id%>/follows/group_by_group?group=<%=group.id%>"<%=' class="current"' if @group && @group.id==group.id %>><%=group.name %></a>
+            | <% end %>
+            <a href="/users/<%=@space_user.id%>/follows/group_by_group"<%=' class="current"' if @group.blank? %>>未分组</a>
+        </div>
+    </div>
+    <div class="circle_button">
+    </div>
+</div>
+<% end %>

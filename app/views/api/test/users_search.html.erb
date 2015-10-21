@@ -1,0 +1,46 @@
+<h1>search 搜索微博用户 </h1><%= link_to "返回到列表", "/api/test" %>
+<pre>
+  [路径]: users/search
+  [HTTP请求方式]: GET
+  [URL]: http://your.api.domain/users/search.json
+  [是否需要登录]： true
+
+参数
+
+    * source 申请应用时分配的AppKey，调用接口时候代表应用的唯一身份。
+    * name 搜索的用户名关键字。必须进行URL Encode(必选)
+    * province_id 省份ID，参考省份城市编码表
+    * city_id 城市ID，参考省份城市编码表
+    * industry_id 行业ID，参考行业表
+    * gender 性别 (m 为男，w 为女)
+    * birthyear 出生年代，参考出生年代表
+    * is_org 是否是机构 1为是机构, 0为非机构
+    * sort 排序方式，1为按注册时间倒序，2为按粉丝数，默认值是1
+    * count 指定每页返回的记录条数。默认值10
+    * page 页码,默认是1。
+
+示例
+
+  curl -u "username:password"
+  "http://your.api.domain/users/search.json?source=appkey&name=%E5%93%88%E5%93%88&sort=1"
+
+注意事项
+
+    * 搜索关键词如果为空，则返回error。
+</pre>
+<hr/>
+<%= form_tag "/api/users/search.json" ,{:method=>:get} do %>
+  <%= render :partial => '/api/test/login' %>
+  source: <%= text_field_tag "source" %><br/>
+  name: <%= text_field_tag "name" %><br/>
+  province_id: <%= text_field_tag "province_id" %><br/>
+  city_id: <%= text_field_tag "city_id" %><br/>
+  industry_id: <%= text_field_tag "industry_id" %><br/>
+  gender: <%= text_field_tag "gender" %><br/>
+  birthyear: <%= text_field_tag "birthyear" %><br/>
+  is_org: <%= text_field_tag "is_org" %><br/>
+  sort: <%= text_field_tag "sort" %><br/>
+  count: <%= text_field_tag "count" %><br/>
+  page: <%= text_field_tag "page" %><br/>
+  <%= submit_tag "提交"%>
+<% end -%>

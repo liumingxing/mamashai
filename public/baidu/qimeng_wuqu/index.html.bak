@@ -1,0 +1,649 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+	<head>
+		<META NAME="keywords" CONTENT="儿童英语,儿童英语学习,儿童学英语,幼儿英语"/>
+		<title>儿童英语启蒙个性方案 - 妈妈晒 - 妈妈爸爸们的网络社区</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<style type="text/css">
+		* {
+			padding:0px;
+			margin:0px;
+		}
+		a {
+			text-decoration:none;
+		}
+		a img {
+			border:0px;
+		}
+		p {
+		  text-indent:8mm;
+		}
+		td img {
+			display: block;
+		}
+		.STYLE1 {
+			color: #666666;
+			font-size: 14px;
+			line-height: 22px;
+		}
+		.STYLE2 {
+			font-size: 16px;
+			font-weight: bold;
+			color: #DA5295;
+		}
+		.STYLE3 {
+			font-size: 12px;
+			color: #999999;
+		}
+		.STYLE4 {
+			font-size: 14px;
+			font-weight: bold;
+			color: #FFFFFF;
+		}
+		.STYLE5 {
+			font-size: 14px;
+			color: #666666;
+			font-family: "宋体";
+			line-height:18px;
+		}
+		.STYLE6 {
+			font-size: 16px; 
+			font-weight: bold; 
+			color: #DA5295; 
+			font-family: "微软雅黑";
+		}
+		.STYLE7 {
+			font-size: 14px;
+			font-weight: bold;
+			color: #DA5295;
+		}
+		</style>
+	</head>
+
+	<body bgcolor="#ffffff" id="body">
+		<div align="center">
+			<table width="538" border="0" cellpadding="0" cellspacing="0" background="images/top2.gif">
+			  <tr height="51">
+			    <td width="16"></td>
+			    <td width="97">
+			    	<a href="http://www.mamashai.com/index/bang?step=3" target="_blank">
+			    		<img name="a_r1_c4" src="images/top1.png"  border="0" id="a_r1_c4" alt="" />
+			    	</a>
+			    </td>
+			    <td width="355">
+			    	<div align="center">
+			    		<span style="color: white; font-size: 15px;">儿童英语启蒙个性方案</span>
+			    	</div>
+			    </td>
+			    <td width="140">
+			    	<a style="color: white; text-decoration: underline;font-size: 12px;" href="http://www.mamashai.com/index/bang?step=3" target="_blank">3-6岁资源免费下载</a>
+			    </td>
+			  </tr>
+			</table>
+			<table width="538" border="0" cellpadding="0" cellspacing="0" background="images/a_r10_c1.gif">
+				<tr>
+					<td>
+				    	<img name="a_r9_c1" src="images/a_r9_c1.gif" width="538" height="9" border="0" id="a_r9_c1" alt="" />
+				    </td>
+				</tr>
+				<tr>
+					<td background="images/a_r10_c1.gif">
+				    	<table width="95%" height="26" border="0" align="center" cellpadding="0" cellspacing="0">
+				    		<tr>
+						        <td align="left" style="padding-left:4mm;" valign="middle">
+						        	宝宝生日：
+									<input type="text" id="txt_year" value="" style="width:35px;" />&nbsp;年&nbsp;
+									<input type="text" id="txt_month" value="" style="width:20px;" />&nbsp;月&nbsp;
+									<input type="text" id="txt_day" value="" style="width:20px;" />&nbsp;日&nbsp;
+						        </td>
+								<td align="right" style="padding-right:12px;">
+									<a href="javascript:void(0);" onclick="check_result()">
+										<img src="images/d_r2_c3.gif" />
+									</a>
+								</td>
+						      </tr>
+				    	</table>		      
+				    </td>
+				</tr>
+				<tr>
+					<td valign="bottom" align='right'>
+				    	<img name="a_r12_c1" src="images/a_r12_c1.gif" width="538" height="9" border="0" id="a_r12_c1" alt="" />
+				    </td>
+				</tr>
+			</table>
+			
+			<table width="538" border="0" cellpadding="0" cellspacing="0" background="images/a_r10_c1.gif" id="table_main">
+			  <tr>
+			    <td>
+			    	<img name="a_r9_c1" src="images/a_r9_c1.gif" width="538" height="9" border="0" id="a_r9_c1" alt="" />
+			    </td>
+			  </tr>
+			  <tr>
+			  	<td style="padding-left:10px; padding-right:10px;">
+			  		<table border="0" cellspacing="0" cellpadding="0" style=" margin:0px">
+			  			<tr border="0">
+			  				<td align="left"  style='width:280px;text-indent:5mm; padding-top:10px;'>
+			  					宝宝现在&nbsp;&nbsp;<span id="span_year" class="STYLE2">0</span>&nbsp;岁&nbsp;<span id="span_month" class="STYLE2">0</span>&nbsp;月&nbsp;<span id="span_day" class="STYLE2">1</span>&nbsp;天&nbsp;
+			  				</td>
+							<td style="padding-right:5px; MARGIN:0px;" align='right'>
+								<!-- 
+									<a href="http://www.mamashai.com/ebook/baby_0dao3?from=baidu_baby_yingyang" target='_blank' style="padding-top:5px; margin:0px;">
+										<img src="/images/baidu/baby_growth/d_r4_c2.gif" onclick="javascript:void(0);" width="127" height="34" style="margin:0px; padding-right:8px;"/>
+									</a>	
+								-->
+							</td>
+
+							<tr>
+								<td id="td_shipu" colspan="2" align="left" class="STYLE1" style="padding-left:20px;">
+								推荐给<span id="span_wuqu" class="STYLE7">0个月宝宝的</span>
+							英语启蒙个性方案：
+								<input type="button" value="上个月" onclick="downmonth()"/>&nbsp;
+								<input type="button" value="下个月" onclick="upmonth()"/>&nbsp;
+
+							</td>
+							</tr>
+			  			</tr>
+						<tr border="0" cellspacing="0" cellpadding="0">
+						    <td id="td_main">
+								<table style="width:500px;">
+									<tr>
+										<td align="left">
+											<p id="p_main" style="padding-left:17px; line-height:22px;" class="STYLE5">
+国外提倡亲子阅读从0岁开始。中文亲子阅读不从认字以后才开始，英文亲子阅读一样。妈妈读宝宝听，就能提高听力辨音和听力理解能力了。如果孩子在六个月之内没有开始阅读，那也许要等到十八个月以后才能开始接受阅读。
+									    	</p>
+										</td>
+									</tr>
+								</table>
+						    </td>
+						</tr>
+						<tr>
+							<td colspan="2" align="left" valign="top" style="background:url(images/yy_r6_c2.gif) no-repeat; padding:0px; margin:0px;" border="0" cellspacing="0" cellpadding="0">
+								&nbsp;
+							</td>
+						</tr>
+			  		</table>
+			  	</td>
+			  </tr>
+			  <tr>
+			    <td valign="bottom">
+			    	<img name="a_r12_c1" src="images/a_r12_c1.gif" width="538" height="9" border="0" id="a_r12_c1" alt="" />
+			    </td>
+			  </tr>
+			</table>
+			<table width="538" border="0" cellpadding="0" cellspacing="0" background="images/a_r10_c1.gif">
+			  <tr>
+			    <td>
+			    	<img name="a_r9_c1" src="images/a_r9_c1.gif" width="538" height="9" border="0" id="a_r9_c1" alt="" />
+			    </td>
+			  </tr>
+			  <tr>
+			    <td background="images/a_r10_c1.gif">
+			    	<table width="95%" height="26" border="0" align="center" cellpadding="0" cellspacing="0">
+			    		<tr>
+					        <td align="left">
+					        	<p class="STYLE3">
+					        		提示：以上内容来自<a href='http://www.mamashai.com/ebook/qimeng?from=baidu_qimeng_wuqu' target="_blank">《不能错过的英语启蒙》</a>，仅供参考。
+					        	</p>
+					        </td>
+					      </tr>
+			    	</table>		      
+			    </td>
+			  </tr>
+			  <tr>
+			    <td valign="bottom">
+			    	<img name="a_r12_c1" src="images/a_r12_c1.gif" width="538" height="9" border="0" id="a_r12_c1" alt="" />
+			    </td>
+			  </tr>
+			</table>
+		</div>
+		<script type="text/javascript">
+			date = new Date();
+			// 当前时间
+			var countyear = date.getFullYear();
+			var countmonth = date.getMonth();
+			var countday = date.getDate();
+			// 最开始显示的时间
+			document.getElementById("txt_month").value = countmonth+1; // javascript中的月份是 0-11，所以要+1
+			document.getElementById("txt_year").value = countyear;
+			document.getElementById("txt_day").value = countday;
+			
+			tab_td = document.getElementById("td_tab");
+			
+			weiyang_div = document.getElementById("div_weiyang");
+			yingyang_div = document.getElementById("div_yingyang");
+			shipu_div = document.getElementById("div_shipu");
+			
+			weiyang_p = document.getElementById("p_weiyang");
+			yingyang_ask_p = document.getElementById("p_yingyang_ask");
+			yingyang_p = document.getElementById("p_yingyang");
+			shipu_p = document.getElementById("p_shipu");
+			
+			weiyang_img = document.getElementById("img_weiyang");
+			yingyang_img = document.getElementById("img_yingyang");
+			shipu_img = document.getElementById("shipu_img");
+			g_month=0;
+			function check_result()
+			{
+				var check_ok = true;
+				var hongse=new Date() // 当前时间
+				health_year = document.getElementById("txt_year");
+				health_month = document.getElementById("txt_month");
+				health_day = document.getElementById("txt_day");
+				// 如果年月日其中一项没有填写
+				if (health_year.value == "" || health_month.value == "" || health_day.value == "")
+				{
+					alert("请填写完整年月日!");
+					check_ok = false;
+
+				}
+
+				// 如果年份过大或者过小
+				else if (health_year.value>2050 || health_year.value<1990)
+				{
+					alert("请填写正确年份!");
+					health_year.focus();
+					check_ok = false;
+
+				}
+
+				// 如果输入年份大于当前年份
+				else if (health_year.value>hongse.getFullYear())
+				{
+					alert("输入的的年份可能过大，请重新输入!");
+					health_year.focus();
+					check_ok = false;
+
+				}
+
+				// 如果输入的月份大于12，或者月份小于1
+				else if (health_month.value>12 || health_month.value<1)
+				{
+					alert("请填写正确月份!");
+					health_month.focus();
+					check_ok = false;
+
+				}
+				// 如果输入日子大于31，或者输入日子小于1
+				else if (health_day.value>31 || health_day.value<1)
+				{
+					alert("请填写正确日子!");
+					health_day.focus();
+					check_ok = false;
+
+				}
+
+				// 如果年月日组合出来的时间并不是正常年月日
+				else if (!isDate(health_year.value ,health_month.value ,health_day.value))
+				{
+					alert("年月日组合有错,请重新填写!");
+					check_ok = false;
+
+				}
+				
+				else 
+				{
+					var zise=new Date(health_year.value+"/"+health_month.value+"/"+health_day.value);
+					// 获得当前时间
+					var lse=new Date();
+
+					// 如果当前时间 - 输入的时间 < 0 
+					if ((lse.getTime()-zise.getTime())<0)
+					{
+						alert("对不起，您输入的时间还没有到来，请重新输入！")
+						health_year.focus();
+						check_ok = false;
+					}	
+				}
+
+				if(check_ok == true)
+				{
+					var today_time = new Date();
+					//var set_time = today_time.setFullYear(health_year.value, health_month.value-1, health_day.value);
+
+					var d1 = new Date(health_year.value, health_month.value - 1, health_day.value);
+					var days = Math.round((today_time - d1) / (1000 * 60 * 60 * 24));
+					var set_month = 0;
+					var set_year = 0;
+					var set_day = 0;
+					var months_all = 0;
+					if (((days / 30.41) + "").indexOf('.') < 0)
+					{
+						months_all = days / 30.41;
+					}
+					else
+					{
+						months_all = ((days / 30.41) + "").substring(0,((days / 30.41) + "").indexOf('.'));
+					}
+					if(days > 365 || days == 365)
+					{
+						years = (days / 365)
+						if ((years + "").indexOf('.') < 0)
+						{
+							set_year = years;
+						}
+						else
+						{
+							set_year = (years + "").substring(0,(years + "").indexOf('.'));
+						}
+
+						days = days - set_year * 365;
+
+					}
+					if (days > 30)
+					{
+						months = (days / 30.41);
+						if ((months + "").indexOf('.') < 0)
+						{
+							set_month = months
+						}
+						else
+						{
+							set_month = (months + "").substring(0,(months + "").indexOf('.'));
+						}
+
+						days = days - parseInt(set_month * 30.41)
+					}
+					document.getElementById("span_year").innerHTML = set_year;
+					document.getElementById("span_month").innerHTML = set_month;
+					document.getElementById("span_day").innerHTML = days;
+						
+						g_month = parseInt(months_all);
+						get_wuqu(parseInt(months_all));
+
+				}
+			}
+			function get_wuqu(months_all)
+			{
+				main = document.getElementById("p_main");
+				wuqu_span = document.getElementById("span_wuqu");
+
+				if(months_all < 73)
+				{
+					switch (months_all)
+					{
+						case 1:
+						case 2:
+						case 3:
+						main.innerHTML = "国外提倡亲子阅读从0岁开始。中文亲子阅读不从认字以后才开始，英文亲子阅读一样。妈妈读宝宝听，就能提高听力辨音和听力理解能力了。如果孩子在六个月之内没有开始阅读，那也许要等到十八个月以后才能开始接受阅读。";
+						setHeight(0);
+						wuqu_span.innerHTML = "1-3个月宝宝的";
+
+						break
+
+						case 4:
+						case 5:
+						case 6:
+						main.innerHTML = "英语启蒙应该从辨音能力开始，多听原汁原味的儿歌童谣多看动画片，整句输入后更容易开口说英语。英语启蒙早晚的关键不在于学习多少单词和句子，而在于听力辨音能力的培养。从出生开始，越早输入英语语音信号，孩子的听力辨音能力、听觉记忆能力就越强。";
+						setHeight(0);
+						wuqu_span.innerHTML = "4-6个月宝宝的";
+						break
+
+						case 7:
+						case 8:
+						case 9:
+						main.innerHTML = "从辨音能力训练来讲，不用妈妈教唱，宝宝自己听就好。国内引进版的wee sing里面有很多宝宝儿歌，是很好的听力素材。儿歌的韵律节奏往往能让从来没有接触过英语的孩子很容易接受英语。";
+						setHeight(0);
+						wuqu_span.innerHTML = "7-9个月宝宝的";
+						break
+
+						case 10:
+						case 11:
+						case 12:
+						main.innerHTML = "1岁以内宝宝的听力辨音能力最强，早启蒙事半功倍。一岁以内宝宝的英语启蒙，既可以听儿歌童谣，也可以听妈妈读读英文绘本，甚至可以听听新闻，语速快的脱口秀对辨音能力都有好处。";
+						setHeight(0);
+						wuqu_span.innerHTML = "10-12个月宝宝的";
+						break
+
+						case 13:
+						case 14:
+						case 15:
+						main.innerHTML = "妈妈英语不好不影响为宝宝提供听力资源。英语不好的妈妈可以给宝宝提供原版儿歌动画片。看多了听力基础好，以后开始阅读更容易。孩子的英语学习是不是能上轨道，和妈妈的英语水平没关系，倒是和妈妈理解英语教育的理念、方向、方法有关。";
+						setHeight(0);
+						wuqu_span.innerHTML = "13-15个月宝宝的";
+						break
+
+						case 16:
+						case 17:
+						case 18:
+						main.innerHTML = "听原版儿歌看原版动画对于吸收语音的韵律节奏非常关键，也是语感的基础。目前很多孩子就是从喜欢的动画片比如卡由、粉红猪小妹等开始了地道的英语之路。韵律节奏直接关系到孩子的语感，所以选听力资源，原汁原味很重要。";
+						setHeight(0);
+						wuqu_span.innerHTML = "16-18个月宝宝的";
+						break
+
+						case 19:
+						case 20:
+						case 21:
+						main.innerHTML = "看原版动画片如果担心宝宝听不懂，可以和宝宝一起讨论画面内容，中文英文都可以。对场景理解了，慢慢画面就和语言对应上了，理解力就提高了。动画片的精髓在于它的情境对应，这一点和原版书一样，可以构成孩子的口语基础。";
+						setHeight(0);
+						wuqu_span.innerHTML = "19-21个月宝宝的";
+						break
+
+						case 22:
+						case 23:
+						case 24:
+						main.innerHTML = "国外双语甚至三语宝宝很多，没有影响母语能力的数据显示。2岁宝宝思维发展到开始对情节有关注，所以可以适当地看有情节的动画片和绘本，多听儿歌童谣，但是看电视时间一定要控制哦。";
+						setHeight(0);
+						wuqu_span.innerHTML = "22-24个月宝宝的";
+						break
+
+						case 25:
+						case 26:
+						case 27:
+						main.innerHTML = "背句型学语法不如用动画片和图画书中的对话更管用。中式背英语单词的方法，已经严重影响到了孩子的阅读能力。孩子根本就不会读英文书！死记单词、句型，孤立地学习语法，目前已经成了制约孩子综合英语能力的一大问题。";
+						setHeight(0);
+						wuqu_span.innerHTML = "25-27个月宝宝的";
+						break
+
+						case 28:
+						case 29:
+						case 30:
+						main.innerHTML = "学英语不用要求宝宝跟读跟唱，听多了宝宝自己就能复述了。有时候几个月前听过的儿歌宝宝会在几个月后才开口唱，不用强求。模仿是孩子的天性。当他准备好了的时候，你想不让他输出都难。但是在条件不成熟的时候，大人的要求只能让孩子退缩，甚至产生畏惧心理。";
+						setHeight(0);
+						wuqu_span.innerHTML = "28-30个月宝宝的";
+						break
+
+						case 31:
+						case 32:
+						case 33:
+						main.innerHTML = "二至四岁的孩子应继续听力输入，同时加强情境对应的训练，通过动画片、原版书来建立对应模式。不管是听歌、看动画片、还是阅读，最重要的是要点燃孩子的兴趣。孩子喜欢的就会主动去重复，重复的过程就是内在能力形成的过程。";
+						setHeight(0);
+						wuqu_span.innerHTML = "31-33个月宝宝的";
+						break
+
+						case 34:
+						case 35:
+						case 36:
+						main.innerHTML = "三岁以前的孩子，真正的语言基本功训练应该是听，通过听在大脑中建立强有力的语音信号。听力辨音能力的积累和提高是一个内化的过程。做家长的，只要提供孩子喜欢的东西即可，孩子能看进去能听进去，积累到了一定的量，他自然就会有收获。";
+						setHeight(0);
+						wuqu_span.innerHTML = "34-36个月宝宝的";
+						break
+
+						case 37:
+						case 38:
+						case 39:
+						main.innerHTML = "家庭英语环境主要是听力辨音和听力理解能力的积累。不能对话的妈妈可以提供提供原版听力素材，也可以和宝宝一起读原版书。输入更重要。四岁之前的阅读，一般以绘本为主，辅以孩子喜欢的分级读物。";
+						setHeight(0);
+						wuqu_span.innerHTML = "37-39个月宝宝的";
+						break
+
+						case 40:
+						case 41:
+						case 42:
+						main.innerHTML = "英语启蒙过程中的发音不准一般不用纠正。随着孩子听力辨音能力的提高会自行矫正。如果想矫正，也要注意方法，以免挫伤积极性。而韵律节奏训练是比单个词的发音更重要的语感训练。";
+						setHeight(0);
+						wuqu_span.innerHTML = "40-42个月宝宝的";
+						break
+
+						case 43:
+						case 44:
+						case 45:
+						main.innerHTML = "英语启蒙不一定非要等孩子会说之后才开始读。说需要良好的环境激活。在环境具备之前，亲子阅读能提高听力理解能力，让孩子更容易说出来。四岁以前进行的亲子阅读，重点进行的就是情境对应训练。情境对应能力和辨音能力一样，是内化之后形成的能力。";
+						setHeight(0);
+						wuqu_span.innerHTML = "43-45个月宝宝的";
+						break
+
+						case 46:
+						case 47:
+						case 48:
+						main.innerHTML = "一般正确启蒙的孩子到了4岁左右会出现拼读的敏感期。这个时候是开始Phonics的最佳时机。但是如果孩子启蒙的晚，听力积累时间不足，亲子阅读时间短从而造成听力理解能力也不足的话，可以先积累听力时间及听力理解能力再开始。";
+						setHeight(0);
+						wuqu_span.innerHTML = "46-48个月宝宝的";
+						break
+
+						case 49:
+						case 50:
+						case 51:
+						main.innerHTML = "英语启蒙家庭和社会要互动。不能只靠培训班的几小时。在家庭中听儿歌看动画片看原版绘本会让培训班事半功倍。越小的孩子越应该在玩中学。家庭中和宝宝一起听儿歌唱童谣，给宝宝读原版书，和宝宝一起看动画片比在教室学习一个个单词效果好。";
+						setHeight(0);
+						wuqu_span.innerHTML = "49-51个月宝宝的";
+						break
+
+						case 52:
+						case 53:
+						case 54:
+						main.innerHTML = "如果四岁以上的孩子英语学习才刚刚起步，则可以几步同时进行，按照上一节所说的原版绘本亲子阅读三步曲，用两三个月的时间，先加大听力输入，同时培养英语阅读兴趣，然后开始 Phonics 的学习，进入自主阅读阶段。";
+						setHeight(0);
+						wuqu_span.innerHTML = "52-54个月宝宝的";
+						break
+
+						case 55:
+						case 56:
+						case 57:
+						main.innerHTML = "自主阅读之前要先亲子阅读，这样听力辨音、听力理解能力提高后自主阅读更容易。大声地给孩子阅读是让孩子对阅读产生兴趣的最好方法。孩子们会逐步喜欢故事、喜欢书，最后发展成为想要自己去读书。";
+						setHeight(0);
+						wuqu_span.innerHTML = "55-57个月宝宝的";
+						break
+
+						case 58:
+						case 59:
+						case 60:
+						main.innerHTML = "英语启蒙不是单个的系统教材就能解决问题。注意看动画片和绘本中的场景。场景积累越多，英语的听力理解和阅读理解能力越强。";
+						setHeight(0);
+						wuqu_span.innerHTML = "58-60个月宝宝的";
+						break
+
+						case 61:
+						case 62:
+						case 63:
+						main.innerHTML = "不要让宝宝长时间地进行学习，或为了检查效果而强迫孩子用规定的语言表达。不要规定孩子看指定的内容并要求孩子跟读或者背诵，甚至因为孩子的英语不能达到大人想要的程度而训斥甚至惩罚。这些方式会让宝宝的心灵受到伤害，严重的还会患上心理疾病。";
+						setHeight(0);
+						wuqu_span.innerHTML = "61-63个月宝宝的";
+						break
+
+						case 64:
+						case 65:
+						case 66:
+						main.innerHTML = "精听和泛听让孩子自己安排。每个孩子都有能力去选择，他选择的应该就是他需要的。不要关心他听的看的是画面还是音乐还是里面的什么具体热闹，只要他肯看肯听语音就会有输入，输入时间的积累就是硬道理。孩子自发的重复是知识内化的过程，对孩子的综合英语能力非常有价值。要珍惜孩子的自主选择，不要干预。";
+						setHeight(316);
+						wuqu_span.innerHTML = "64-66个月宝宝的";
+						break
+
+						case 67:
+						case 68:
+						case 69:
+						main.innerHTML = "学英文和中文一样，作为一门语言，没有哪一套教材能解决所有问题。这也是国外小学生都没有统一教材的原因。听和读的量决定了场景积累的广度。积累100个场景和积累1000个场景对输出的作用是完全不同的。同一级别积累的量决定了基础的扎实程度。";
+						setHeight(0);
+						wuqu_span.innerHTML = "67-69个月宝宝的";
+						break
+
+						case 70:
+						case 71:
+						case 72:
+						main.innerHTML = "Phonics是阅读必备的技能。依靠Phonics技能进行大量阅读，进而扩大Vocabulary（词汇量）和提高Fluency（阅读流利性）,最后提高Comprehension（阅读理解能力）。Phonics作为孩子自主阅读的敲门砖，让孩子做到见词能读、听词能写。";
+						setHeight(0);
+						wuqu_span.innerHTML = "70-72个月宝宝的";
+						break
+					}
+				}
+				else if (months_all < 7*12)
+				{
+					main.innerHTML = "自然语速的听力资源是最好的资源。所以越小的孩子越不建议用教学片，直接听正常语速的儿歌童谣动画片就可以了。教材不容易激发兴趣，难以产生内在动力。必须学教材的话也要和其他故事类的内容结合在一起更好。";
+					setHeight(0);
+					wuqu_span.innerHTML = "73个月宝宝的";
+					wuqu_span.innerHTML = "74个月宝宝的";
+				}
+				else if (months_all < 8*12)
+				{
+					main.innerHTML = "虽然越小启蒙越省力，但是大孩子也有大孩子的优势。小孩子从儿歌等韵律节奏开始，大孩子从情节内容开始，各有侧重。学习英语，从孩子喜欢的动画片入手会比较容易。动画片看多听多之后，对书的音频就能接受了。";
+					setHeight(0);
+					wuqu_span.innerHTML = "76-78个月宝宝的";
+				}
+				else if (months_all < 9*12)
+				{
+					main.innerHTML = "教材是纵向的，运用好语言还需要横向的积累。各种故事书以及动画片都属于横向积累的素材。所以教材级别的高低和孩子的英语能力不完全成正比。听力基础不等于背单词。要先给孩子有自然场景的内容比如动画片图画书，同时结合诗歌童谣等韵律节奏训练，比背单词更有效果。";
+					setHeight(0);
+					wuqu_span.innerHTML = "79-81个月宝宝的";
+				}
+				else if (months_all < 10*12)
+				{
+					main.innerHTML = "大孩子可能会觉得语感启蒙很幼稚。可以选择大孩子爱看的，比如大孩子喜欢汉娜玛特娜就可以不用语感启蒙。看带中文字幕的英文动画片是可以的，只要不形成依赖就好。一般可以看几遍懂了大意之后就撤掉字幕。";
+					setHeight(0);
+					wuqu_span.innerHTML = "82-84个月宝宝的";
+				}
+				else
+				{
+					main.innerHTML = "自然拼音属于识字阶段的内容，之前需要有基础。用儿歌童谣动画片和图画书训练听力辨音和听力理解能力会让自然拼音更容易有效果。动画片都听懂做不到。依靠整句话和画面的对应来加强理解，听多看多自然听力辨音和听力理解能力都提高。只要喜欢就会重复，重复多了就自然懂了。" ;
+					setHeight(0);
+					wuqu_span.innerHTML = "85-87个月宝宝的";
+				}
+			}
+			function isDate (year,month,day)
+			{
+				month = month - 1;  // javascript month range : 0- 11
+				var tempDate = new Date(year,month,day);
+				if ( (year2k(tempDate.getFullYear()) == year) && (month == tempDate.getMonth()) && (day == tempDate.getDate()) )
+				{    
+					return true;
+				}
+				else
+				{
+					return false;
+				}
+			}
+			function year2k(d) 
+			{ 
+				return (d < 1000) ? d + 1900 : d;
+			}
+		</script>
+		
+		<script>
+			function setHeight(height)
+			{
+				if (height > 0){
+					baidu.app.setHeight(height)
+				}
+				else{
+					setTimeout("baidu.app.setHeight(document.getElementById('body').clientHeight)", 400)
+					setTimeout("baidu.app.setHeight(document.getElementById('body').clientHeight)", 1500)
+				}	
+			}
+		</script>
+		
+		<script src="http://app.baidu.com/static/appstore/monitor.st"></script>
+		<script>
+		     baidu.app.autoHeight();
+		     setHeight(0);
+		</script>
+		<div style="display:none;">
+		<script type="text/javascript">
+var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3F2f4856497854ce3df66f8b40863365d9' type='text/javascript'%3E%3C/script%3E"));
+</script>
+</div>
+	</body>
+</html>
+<script type="text/javascript">
+	function upmonth()  /*月份加1*/
+	{
+		g_month += 3;
+		get_wuqu(g_month);
+		
+	}
+	function downmonth()  /*月份减1*/
+	{
+		g_month -= 3;
+		get_wuqu(g_month);
+	}
+</script>

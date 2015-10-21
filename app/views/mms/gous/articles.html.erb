@@ -1,0 +1,214 @@
+<div id="middle">
+    <div id="css_mainbody">
+        <h1 class="title">商品品牌资讯、故事列表<span style="float: right; margin-right: 10px;"><%= link_to '返回商品品牌首页', :action => :brand_index %> ｜ <%= link_to '新建商品品牌资讯', :action => :article_new, :brand_id => @brand.id, :type => "article" %> <% if @article.blank? %>｜ <%= link_to '新建商品品牌故事', :action => :article_new, :brand_id => @brand.id, :type => "story" %><% end %></span></h1>
+        <div style="text-align:center;" class="green">
+            <%= flash[:notice] %>
+        </div>
+		<div style="margin-left:20px;margin-top:10px;">
+			商品品牌故事：
+		</div>
+        <table class="grid">
+            <tbody>
+                <tr>
+                    <th>
+                        栏目名称
+                    </th>
+                    <th>
+                        商品品牌名称
+                    </th>
+                    <th>
+                        标题
+                    </th>
+                    <th>
+                        作者
+                    </th>
+                    <th>
+                        来源
+                    </th>
+                    <th>
+                        缩略图
+                    </th>
+                    <th>
+                        是否发布
+                    </th>
+                    <th>
+                        操作
+                    </th>
+                    <th>
+                        编辑
+                    </th>
+                    <th>
+                        删除
+                    </th>
+                </tr>
+				<% if @article.blank? %>
+				<tr>
+					<td colspan="10">
+						暂无……
+					</td>
+				</tr>
+				<% else %>
+                <tr>
+                    <td>
+                        <%=h @article.try(:article_category).try(:name) %>
+                    </td>
+                    <td>
+                        <%=h @article.try(:story_brand).try(:name) %>
+                    </td>
+                    <td>
+                        <%= link_to @article.title, "/gou/brand_story/#{@article.gou_brand_story_id}", {:target => "_blank", :style => "color:#329BCB;"} %>
+                    </td>
+                    <td>
+                        <% if @article.user_id.present? %>
+                        <%= link_user(@article.user) %>
+                        <% else %>
+                        <%= h @article.author %>
+                        <% end %>
+                    </td>
+                    <td>
+                        <%=h @article.origin_url %>
+                    </td>
+                    <td>
+                        <%=logo_tag(@article,{:version=>'thumb99'}) if @article.logo %>
+                    </td>
+                    <td>
+                        <% if @article.state == "已发布" %>
+                        <img src="/images/icons/icons_01.png" alt="/images/icons/icons_01.png"><% else %>
+                        <img src="/images/icons/icon_25.gif" alt="/images/icons/icon_25.gif"><% end %>
+                    </td>
+                    <td>
+                        <% if @article.state == "已发布" %>
+                        <%= link_to '取消发布', {:action => 'unpublish', :id => @article.id}, {:style => "color:#329BCB;"} %>
+                        <% else %>
+                        <%= link_to '发布', {:action => 'publish', :id => @article.id}, {:style => "color:#329BCB;"} %>
+                        <% end %>
+                    </td>
+                    <td>
+                        <%= link_to '编辑', {:action => :article_edit, :id => @article}, {:style => "color:#329BCB;"} %>
+                    </td>
+                    <td>
+                        <%= link_to '删除', {:action => :article_destroy, :id => @article, :method => :delete}, {:confirm => "您确定删除吗?", :style => "color:#329BCB;"} %>
+                    </td>
+                </tr>
+				<% end %>
+            </tbody>
+        </table>
+        <br/>
+        <div id="page_count">
+            <span style="float:right;">共有<b class="blue"><%=h @articles.total_entries %></b>条记录</span>
+        </div>
+		<div style="margin-left:20px;">
+		商品品牌资讯：
+        <% form_tag :action => :article_search, :brand_id => @brand.id do %>
+        <table>
+            <tbody>
+                <tr>
+                    <td width="10%" align="right">
+                        商品品牌资讯搜索：
+                    </td>
+                    <td width="20%">
+                        <%= text_field_tag :keyword, {}, {:value => @keyword} -%>
+                    </td>
+                    <td width="10%">
+                        <%= button_to "搜索", :action => :find %>
+                    </td>
+                    <td>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <% end %>
+		</div>
+        <table class="grid">
+            <tbody>
+                <tr>
+                    <th>
+                        栏目名称
+                    </th>
+                    <th>
+                        商品品牌名称
+                    </th>
+                    <th>
+                        标题
+                    </th>
+                    <th>
+                        作者
+                    </th>
+                    <th>
+                        来源
+                    </th>
+                    <th>
+                        缩略图
+                    </th>
+                    <th>
+                        是否发布
+                    </th>
+                    <th>
+                        操作
+                    </th>
+                    <th>
+                        编辑
+                    </th>
+                    <th>
+                        删除
+                    </th>
+                </tr>
+				<% if @articles.blank? %>
+				<tr>
+					<td colspan="10">
+						暂无……
+					</td>
+				</tr>
+				<% else %>
+                <% @articles.each do |article| %>
+                <tr>
+                    <td>
+                        <%=h article.try(:article_category).try(:name) %>
+                    </td>
+                    <td>
+                        <%=h article.try(:article_brand).try(:name) %>
+                    </td>
+                    <td>
+                        <%= link_to article.title, "/gou/brand_article/#{article.id}", {:target => "_blank", :style => "color:#329BCB;"} %>
+                    </td>
+                    <td>
+                        <% if article.user_id.present? %>
+                        <%= link_user(article.user) %>
+                        <% else %>
+                        <%= h article.author %>
+                        <% end %>
+                    </td>
+                    <td>
+                        <%=h article.origin_url %>
+                    </td>
+                    <td>
+                        <%=logo_tag(article,{:version=>'thumb99'}) if article.logo %>
+                    </td>
+                    <td>
+                        <% if article.state == "已发布" %>
+                        <img src="/images/icons/icons_01.png" alt="/images/icons/icons_01.png"><% else %>
+                        <img src="/images/icons/icon_25.gif" alt="/images/icons/icon_25.gif"><% end %>
+                    </td>
+                    <td>
+                        <% if article.state == "已发布" %>
+                        <%= link_to '取消发布', {:action => 'unpublish', :id => article.id}, {:style => "color:#329BCB;"} %>
+                        <% else %>
+                        <%= link_to '发布', {:action => 'publish', :id => article.id}, {:style => "color:#329BCB;"} %>
+                        <% end %>
+                    </td>
+                    <td>
+                        <%= link_to '编辑', {:action => :article_edit, :id => article}, {:style => "color:#329BCB;"} %>
+                    </td>
+                    <td>
+                        <%= link_to '删除', {:action => :article_destroy, :id => article, :method => :delete}, {:confirm => "您确定删除吗？", :style => "color:#329BCB;"} %>
+                    </td>
+                </tr>
+                <% end %>
+				<% end %>
+            </tbody>
+        </table>
+        <div class="book_page">
+            <%=will_paginate @articles %>
+        </div>
+    </div>
+</div>

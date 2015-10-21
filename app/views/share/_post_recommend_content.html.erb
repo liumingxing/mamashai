@@ -1,0 +1,15 @@
+<div class="comments_reply">
+    <div class="comments_my">
+        <span class="pic"><%=logo_tag(post_recommend.user,{:version=>'thumb30',:url=>user_url(post_recommend.user)}) %></span>
+        <span class="com_content"><a href="<%=user_url(post_recommend.user)%>"><%=post_recommend.user.name %></a>推荐了这个微博<span class="time">(<%=refer_time post_recommend.created_at %>)</span>
+		 <br/>推荐原因：<%=post_content post_recommend.content %>
+		</span>
+        <div class="clear">
+        </div>
+    </div>
+    <div class="reply">
+        <% if @user and post_recommend.user_id == @user.id %>
+        <span id="post_recommend_<%=post_recommend.post_id%>"><%= link_to_remote('取消推荐', :update => "post_recommend_#{post_recommend.post_id}", :url => {:action =>:delete_post_recommend,:controller=>:ajax,:id=>post_recommend.post_id}) %></span> 
+		<% end %>
+    </div>
+</div>

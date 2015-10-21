@@ -1,0 +1,357 @@
+<div style="text-align:center;" class="green">
+    <%= flash[:notice] %>
+</div>
+<%= javascript_include_tag :ckeditor %>
+<table border="1" class="grid_mce" cellpadding="2" style="line-height:20px;">
+    <tr style="padding-top:5px; padding-bottom:5px;">
+        <td class="td01" width="140" align="right" style="padding-right:10px;">
+            电子书名称：
+        </td>
+        <td>
+            <%= f.text_field :ebook_title %>
+        </td>
+    </tr>
+    <tr>
+        <td class="td01" width="140" align="right" style="padding-right:10px;">
+            电子书页面URL：
+        </td>
+        <td>
+            http://<%= f.text_field :ebook_url %>
+        </td>
+    </tr>
+	<tr>
+        <td class="td01" width="140" align="right" style="padding-right:10px;">
+            二级域名名称：
+        </td>
+        <td>
+            <%= f.text_field :ebook_action %><span style="color:blue;">与电子书页面URL中的二级域名相同即可</span>
+        </td>
+    </tr>
+	
+	<tr>
+        <td class="td01" width="140" align="right" style="padding-right:10px;">
+            作家类别：
+        </td>
+        <td>
+        <%= f.radio_button("ebook_author_status", "1", :checked => "checked") %>作者
+		&nbsp;
+        <%= f.radio_button("ebook_author_status", "2") %>编著
+        </td>
+    </tr>
+    <tr>
+        <td class="td01" width="140" align="right" style="padding-right:10px;">
+            作者/编著名称：
+        </td>
+        <td>
+            <%= f.text_field :ebook_author %>
+        </td>
+    </tr>
+	<tr>
+        <td class="td01" width="140" align="right" style="padding-right:10px;">
+            作者/编著url：
+        </td>
+        <td>
+            <%= f.text_field :ebook_author_url %><span style="color:blue;">若作家数量超过一个，则url也需要匹配个数，以半角逗号分割。</span>
+        </td>
+    </tr>
+    <tr>
+    	<td>
+    		（作者不是妈妈晒则填此）作者：
+    	</td>
+    	<td>
+    		作者：<%= f.text_field :username %><br/>
+    		<%= f.text_area :userdesc %>
+    	</td>
+    </tr>
+    <tr>
+        <td class="td01" width="140" align="right" style="padding-right:10px;">
+            出版社：
+        </td>
+        <td>
+            <%= f.text_field :ebook_publishing_house, :value => "人民邮电出版社" %>
+        </td>
+    </tr>
+	<tr>
+		<td class="td01" width="140" align="right" style="padding-right:10px;">
+            特邀嘉宾：
+        </td>
+        <td>
+			<%= f.text_field :topic_admin, {:style => "width:500px;"} %>
+			<span style="color:blue;">格式：输入用户名，用半角逗号分割</span>
+        </td>
+	</tr>
+    <tr>
+        <td class="td01" width="140" align="right" style="padding-right:10px;">
+            读者观点：
+        </td>
+        <td style="padding-top:5px; padding-bottom:5px;">
+			<span style="color:blue;">格式：缩略观点，名称，日期，头像url，完整观点；。多条信息以半角分号分割，一条信息中的不同内容以半角逗号分割。</span>
+			<br/>
+			<%= f.text_area :ebook_reader_reply, :style => "width:700px; height:130px;" %>
+        </td>
+    </tr>
+    <tr>
+        <td class="td01" width="140" align="right" style="padding-right:10px;">
+            电子书简介：
+        </td>
+        <td>
+          <%= f.text_area :ebook_abstruct, :style => "width:700px; height:70px;" %>
+        </td>
+    </tr>
+    <tr>
+        <td class="td01" width="140" align="right" style="padding-right:10px;">
+            分享到新浪、腾讯时显示的文字信息：
+        </td>
+        <td>
+          <%= f.text_area :ebook_share_info, :style => "width:700px; height:70px;" %>
+		  <span style="color:blue;">不要超过微博规定字数</span>
+        </td>
+    </tr>
+
+    <tr>
+        <td class="td01" width="140" align="right" style="padding-right:10px;">
+            分享到新浪、腾讯时显示的url地址：
+        </td>
+        <td>
+          <%= f.text_field :ebook_share_url, :style => "width:500px;" %>
+        </td>
+    </tr>
+
+    <tr>
+        <td class="td01" width="140" align="right" style="padding-right:10px;">
+            <%= f.label :ebook_abstruct_images,"电子书简介图：" %>
+        </td>
+        <td>
+        	图1：
+			<%=upload_column_field :ebook, :ebook_abstruct_images_1 %>
+            <%= f.error_message_on  :ebook_abstruct_images_1 %>
+			<% if @ebook && @ebook.ebook_abstruct_images_1%>
+				<a href="<%= @ebook.ebook_abstruct_images_1%>">下载</a>
+			<% end %>
+			
+			<br/>
+			图2：
+			<%=upload_column_field :ebook, :ebook_abstruct_images_2 %>
+            <%= f.error_message_on  :ebook_abstruct_images_2 %>
+			<% if @ebook && @ebook.ebook_abstruct_images_2%>
+				<a href="<%= @ebook.ebook_abstruct_images_2%>">下载</a>
+			<% end %>
+			
+			<br/>
+			图3：
+			<%=upload_column_field :ebook, :ebook_abstruct_images_3 %>
+            <%= f.error_message_on  :ebook_abstruct_images_3 %>
+			<% if @ebook && @ebook.ebook_abstruct_images_3%>
+				<a href="<%= @ebook.ebook_abstruct_images_3%>">下载</a>
+			<% end %>
+			
+			<br/>
+			图4：
+			<%=upload_column_field :ebook, :ebook_abstruct_images_4 %>
+            <%= f.error_message_on  :ebook_abstruct_images_4 %>
+			<% if @ebook && @ebook.ebook_abstruct_images_4%>
+				<a href="<%= @ebook.ebook_abstruct_images_4%>">下载</a>
+			<% end %>
+			
+        </td>
+    </tr>
+    <tr>
+        <td class="td01" width="140" align="right" style="padding-right:10px;">
+            免费版电子书：
+        </td>
+        <td>
+			<span style="color:blue;">格式：介绍，购买地址（不需要加http://）</span>
+			<br/>
+            <%= f.text_area :ebook_ipad_free, :style => "width:400px; height:70px;" %><br/>
+			logo: <%=upload_column_field :ebook, :ebook_ipad_free_logo %>
+			<% if @ebook && @ebook.ebook_ipad_free_logo%>
+				<a href="<%= @ebook.ebook_ipad_free_logo %>">下载</a>
+			<% end %>
+        </td>
+    </tr>
+     <tr>
+        <td class="td01" width="140" align="right" style="padding-right:10px;">
+            完整版电子书：
+        </td>
+        <td>
+			<span style="color:blue;">格式：价钱，介绍，节约钱数介绍，购买地址（不需要加http://）</span>
+			<br/>
+            <%= f.text_area :ebook_ipad_pay, :style => "width:400px; height:70px;" %><br/>
+			logo: <%=upload_column_field :ebook, :ebook_ipad_pay_logo %>
+			<% if @ebook && @ebook.ebook_ipad_pay_logo%>
+				<a href="<%= @ebook.ebook_ipad_pay_logo %>">下载</a>
+			<% end %>
+        </td>
+    </tr>
+    <tr>
+        <td class="td01" width="140" align="right" style="padding-right:10px;">
+            相关百度APP应用：
+        </td>
+        <td>
+            <% BaiduApp.all.each_with_index do |baidu_app,index| %>
+			<div style="width:150px; display:inline;">
+			<% unless @ebook_app.blank? %>
+			<input id="ebook_baidu_apps_<%= baidu_app.id %>" type="checkbox" value="<%= baidu_app.id %>" name="ebook_baidu_apps[]" <%= "checked" if @ebook_app.to_a.include?(baidu_app.id) %>>
+			<% else %>
+			<input id="ebook_baidu_apps_<%= baidu_app.id %>" type="checkbox" value="<%= baidu_app.id %>" name="ebook_baidu_apps[]">
+			<% end %>
+			
+			<%= baidu_app.app_name %>
+			</div>
+			<%= "<br/>" if (index+1)/4.to_f == 1.to_f %>
+			<% end %>
+        </td>
+    </tr>
+
+    <tr>
+        <td class="td01" width="140" align="right" style="padding-right:10px;">
+            纸质书购买信息：
+        </td>
+        <td>
+            <span style="color:blue;">格式：网站图片名称，购买地址； 多个地址之间以；分割 （图片地址：京东：360buy_logo.jpg，当当：dangdang_logo.jpg，卓越：joyo_logo.jpg）</span><br/>
+        	<%= f.text_area :ebook_paper_books, :style=>"width:700px; height:70px;" %>
+		</td>
+    </tr>
+	<tr>
+		<td class="td01" width="140" align="right" style="padding-right:10px;">
+			下载资源id：
+		</td>
+		<td>
+			<%= f.text_field :ebook_download_ids, :style => "width:700px;" %><span style="color:blue;">格式：多个地址之间用逗号隔开</span>
+		</td>
+	</tr>
+	<tr>
+		<td class="td01" width="140" align="right" style="padding-right:10px;">
+			热点话题：
+		</td>
+		<td>
+			<%= f.text_field :hot_topic_title %>
+		</td>
+	</tr>
+	<tr>
+		<td class="td01" width="140" align="right" style="padding-right:10px;">
+			热点话题介绍：
+		</td>
+		<td>
+			<%= f.text_area :hot_topic_desc, :style => "width:400px; height:70px;" %>
+		</td>
+	</tr>
+	<tr>
+		<td class="td01" width="140" align="right" style="padding-right:10px;">
+			相关话题：
+		</td>
+		<td>
+			<span style="color:blue;">可以录入多个话题,不同话题之间请用空格隔开。如: 奶粉 牛奶</span><br/>
+			<%= f.text_area :topics, :style => "width:400px; height:70px;" %>
+		</td>
+	</tr>
+	<tr>
+		<td class="td01" width="140" align="right" style="padding-right:10px;">
+			相关年龄段：
+		</td>
+		<td>
+			
+			<% @ages.each do |age| %>
+			<% unless @ebook.age_id.blank? %>
+			<input type="checkbox" value="<%= age.id %>" name="age_id[]" id="age_id_<%= age.id %>" <%= "checked" if @ebook.age_id.split(',').include?("#{age.id}") %>> <%= age.name %>
+			<% else %>
+			<input type="checkbox" value="<%= age.id %>" name="age_id[]" id="age_id_<%= age.id %>"><%= age.name %>
+			<% end %>
+			<% end %>
+			<%= f.hidden_field :id %>
+			<%= f.hidden_field :age_id %>
+			<%= f.hidden_field :user_id %>
+		</td>
+	</tr>
+	<tr>
+        <td class="td01" width="140" align="right" style="padding-right:10px;">
+            初始话题过滤：
+        </td>
+        <td>
+            <%= f.text_field :topic_filter %>
+        </td>
+    </tr>
+	<tr>
+        <td class="td01" width="140" align="right" style="padding-right:10px;">
+            免费拿产品ID：
+        </td>
+        <td>
+            <%= f.text_field :mfn_id %>
+        </td>
+    </tr>
+    <tr>
+        <td></td>
+        <td>
+            <%= f.submit '保存' %> | <%= link_to "返回", :action => :index %>
+        </td>
+    </tr>
+</table>
+<script>
+	$("#book_submit").click(function(){
+		if ($("#book_ebook_title").val().trim()  == "")
+		{
+			alert("电子书名称不能为空");
+			$("#book_ebook_title").focus();
+			return false;
+		}
+		else if ($("#book_ebook_url").val().trim()  == "")
+		{
+			alert("电子书URL不能为空");
+			$("#book_ebook_url").focus();
+			return false;
+		}
+		else if ($("#book_ebook_action").val().trim() == "")
+		{
+			alert("二级域名名称");
+			$("#book_ebook_action").focus();
+			return false;
+		}
+		else if ($("#book_ebook_author").val().trim()  == "")
+		{
+			alert("作者/编著名称不能为空");
+			$("#book_ebook_author").focus();
+			return false;
+		}
+		else if ($("#book_ebook_author_url").val().trim()  == "")
+		{
+			alert("作者/编著url不能为空");
+			$("#book_ebook_author_url").focus();
+			return false;
+		}
+		else if ($("#book_ebook_publishing_house").val().trim()  == "")
+		{
+			alert("出版社名称不能为空");
+			$("#book_ebook_publishing_house").focus();
+			return false;
+		}
+		else if ($("#book_ebook_reader_reply").val().trim()  == "")
+		{
+			alert("读者观点不能为空");
+			$("#book_ebook_reader_reply").focus();
+			return false;
+		}
+		else if ($("#book_ebook_abstruct").val().trim()  == "")
+		{
+			alert("电子书简介不能为空");
+			$("#book_ebook_abstruct").focus();
+			return false;
+		}
+		else if ($("#book_ebook_share_info").val().trim()  == "")
+		{
+			alert("分享到新浪、腾讯时显示的文字信息不能为空");
+			$("#book_ebook_share_info").focus();
+			return false;
+		}
+		else if ($("#book_ebook_share_url").val().trim()  == "")
+		{
+			alert("分享到新浪、腾讯时显示的url地址不能为空");
+			$("#book_ebook_share_url").focus();
+			return false;
+		}
+		else
+		{
+			return true;
+		}
+	});
+</script>
+<%= tiny_mce_js %>

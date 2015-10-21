@@ -1,0 +1,47 @@
+<div class="sharp mt20">
+  <div class="about">
+    <h1>专题合作</h1>
+    <h2>&nbsp;</h2>
+    <table cellpadding="0" cellspacing="0" style="width: 628px;">
+      <tr>
+        <td align="center" valign="middle" width="13">
+          <img src="/images/jiantou_left.png" id="go-prev" border="0"/>
+        </td>
+        <td>
+          <ul id="slider" style="">
+            <% 4.times.each do |i| %>
+              <li>
+                <img id="photo_container" src='<%= "/images/biz/biz3/" + (i+1).to_s + ".gif" %>' border="0"/>
+              </li>
+            <% end %>
+          </ul>
+        </td>
+        <td align="center" valign="middle" width="13">
+          <img src="/images/jiantou_right.png" id="go-next" border="0"/>
+        </td>
+      </tr>
+    </table>
+    <%= javascript_include_tag '../jquery.bxSlider/jquery.bxSlider/jquery.bxSlider.min.js' %>
+    <script type="text/javascript">
+      $(function(){
+        var slider = $('#slider').bxSlider({
+          controls: false,
+          infiniteLoop: false
+        });
+
+        $('#go-prev').click(function(){
+          slider.goToPreviousSlide();
+          return false;
+        });
+
+        $('#go-next').click(function(){
+          slider.goToNextSlide();
+          return false;
+        });
+      }); 
+
+    </script>
+  </div>
+  <%= render :partial=>"about_right" %>
+  <div><img src="/images/sharp_bottom.jpg" /></div>
+</div>

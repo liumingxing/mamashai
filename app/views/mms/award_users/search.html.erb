@@ -1,0 +1,169 @@
+<div id="middle">
+    <div id="css_mainbody">
+        <h1 class="title">活动中奖用户管理-用户查询
+			<span style="float: right; margin-right: 10px;">
+		        <%= link_to '返回列表', mms_award_users_path %>
+		    </span>
+		</h1>
+		<div class="menu_form">
+			<form action="/mms/award_users/search">
+			  用户名：
+			  <input type="text" name="search_name" id="search_name" />
+			  <input type="hidden" name="event_id" value="<%=@event.id%>" />
+			  <input type="submit" value="搜索" name="commit" />
+			</form>
+		</div>
+		  <table class="grid">
+		    <tbody>
+		      <tr>
+		        <th>
+		          序号
+		        </th>
+		        <th>
+		          用户名
+		        </th>
+		        <th >
+		          是否通过验证
+		        </th>
+				<th>
+		          是否上传头像
+		        </th>
+				<th>
+		          是否中过其他奖项
+		        </th>
+				<th>
+		          微博/关注/粉丝
+		        </th>
+				<th>
+		          积分
+		        </th>
+				<th>
+		          注册时间
+		        </th>
+				<th>
+		          操作
+		        </th>
+		      </tr>
+			  <% if @users and @users.size > 0 %>
+			      <% @users.each_with_index do |user,index| %>
+			        <tr height="35">
+			          <td>
+			            <%= index+1%>
+			          </td>
+			          <td >
+			          	<%=link_user(user) %>
+			          </td>
+			          <td >
+			          	<%=user.is_verify ? '是' : '否' %>
+			          </td>
+					  <td >
+			          	<%=user.logo.blank? ? '否' : '是' %>
+			          </td>
+					  <td >
+					  	<% is_award =  user.is_award %>
+			          	<%=is_award ? '是' : '否' %>
+			          </td>
+				  	  <td >
+				  	  	<%=user.posts_count %>/<%=user.follow_users_count %>/<%=user.fans_users_count %>
+			          </td>
+			          <td>
+			            <%=user.score %>
+			          </td>
+					  <td>
+			            <%=user.created_at.strftime("%Y年%m月%d日") %>
+			          </td>
+					  <td>
+					  	<% award_user = Mms::AwardUser.find_by_user_id_and_mms_event_id(user,@event)%>
+			            <% if award_user %> 
+							<%=link_to "取消获奖资格", destroy_mms_award_user_path(award_user), :method => :delete, :confirm => "你确定要取消#{user.name}的获奖资格?" %>
+			            <% else %>
+							<a href="javascript:;" title="授予<%=user.name%>获奖资格" onclick="show_dialog(<%=h user.id%>,<%=h @event.id%>)">授予获奖资格</a>
+			            <% end %>
+			          </td>
+			        </tr>
+			      <% end %>
+			  <% else %>
+				<tr>
+					<td colspan=9>
+						<b>暂无记录</b>
+					</td>
+				</tr>
+			  <% end %>
+		    </tbody>
+		  </table> 
+    </div>
+    <div class="clear"></div>
+</div>
+
+<div id="dialog" title="您将添加该用户为<%=@event.name%>的获奖用户，请输入一下信息：">
+	<% form_tag :action=>"create" do%>
+		<span>活动名称：<%= @event.name%></span>
+		<span>活动时间：<%= @event.begin_time.strftime("%Y年%m月%d日")%>——<%=@event.end_time.strftime("%Y年%m月%d日")%></span>
+		<span>奖&nbsp;&nbsp;&nbsp;&nbsp;项：<%= select :mms_award_user,:award_type,Mms::Event.all_award_types%>(默认选择奖项一即可)</span>
+		<span>中奖时间：<%=text_field :mms_award_user, :award_date%></span>
+		<br/>
+		<br/>
+		<input type="hidden" name="mms_award_user[user_id]" id="user_id"/>
+		<input type="hidden" name="mms_award_user[mms_event_id]" id="event_id"/>
+		<span class="right"><input type="submit" value="确认"/></span>
+	<% end %>
+</div>
+
+
+<script type="text/javascript">
+		$('#dialog').dialog({
+			autoOpen: false,
+			hide: 'explode',
+			width:500,
+			height:250
+		});
+		
+	 function show_dialog(user_id,event_id) {
+		$("#user_id").val(user_id);
+		$("#event_id").val(event_id);
+		$('#dialog').dialog('open');
+		return false;
+	}
+	
+	$(function() {
+		$.datepicker.regional['zh-CN'] = {
+			closeText: '关闭',
+			prevText: '&#x3c;上月',
+			nextText: '下月&#x3e;',
+			currentText: '今天',
+			monthNames: ['一月','二月','三月','四月','五月','六月',
+			'七月','八月','九月','十月','十一月','十二月'],
+			monthNamesShort: ['一','二','三','四','五','六',
+			'七','八','九','十','十一','十二'],
+			dayNames: ['星期日','星期一','星期二','星期三','星期四','星期五','星期六'],
+			dayNamesShort: ['周日','周一','周二','周三','周四','周五','周六'],
+			dayNamesMin: ['日','一','二','三','四','五','六'],
+			weekHeader: '周',
+			dateFormat: 'yy-mm-dd',
+			firstDay: 1,
+			isRTL: false,
+			showMonthAfterYear: true,
+			yearSuffix: '年'};
+		$.datepicker.setDefaults($.datepicker.regional['zh-CN']);
+		$("#mms_award_user_award_date").datepicker({ dateFormat: 'yy-mm-dd'});
+	});
+</script>
+<style type="text/css">
+	.right{
+		float:right;
+	}
+	#dialog span{
+		display:block;
+		padding:5px 0;
+	}
+	div.menu_bar{
+		line-height:30px;
+		padding-left:50px;
+		height:36px;
+	}
+	.menu_form{
+		line-height:30px;
+		padding-left:50px;
+		height:36px;
+	}
+</style>

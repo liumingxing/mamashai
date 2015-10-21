@@ -1,0 +1,68 @@
+<%= link_to '编辑', :action => :category_edit, :id => @article_category.id %> |<%= link_to '返回', :action => :category %>
+<div id="middle">
+    <div id="css_mainbody">
+        <h1 class="title">资讯栏目</h1>
+        <table class="article">
+            <tr>
+                <td class="column_1">
+                    名称：
+                </td>
+                <td class="column_2">
+                    <%=h @article_category.name %>
+                </td>
+            </tr>
+            <tr>
+                <td class="column_1">
+                    栏目描述：
+                </td>
+                <td class="column_2">
+                    <%=h @article_category.description %>
+                </td>
+            </tr>
+            <tr>
+                <td class="column_1">
+                    类型：
+                </td>
+                <td class="column_2">
+                	<%=h @article_category.tp == 0 ? "资讯" : (@article_category.tp == -1 ? "团购获奖公告" : '') %>
+                </td>
+            </tr>
+            <tr>
+                <td class="column_1">
+                </td>
+                <td class="column_2">
+                    <%= link_to '编辑', :action => :category_edit, :id => @article_category.id %>| <%= link_to '返回', :action => :category %>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+<style>
+    .article {
+        border: 1px solid #DDDDDD;
+        border-collapse: collapse;
+        empty-cells: show;
+        margin: 10px auto;
+        width: 98%;
+    }
+    
+    .article td {
+        border: 1px solid #DDDDDD;
+        color: #666666;
+        font-size: 12px;
+        height: 30px;
+        line-height: 30px;
+        padding-left: 10px;
+        text-align: center;
+    }
+    
+    .article td.column_1 {
+        width: 11%;
+        text-align: right;
+    }
+    
+    .article td.column_2 {
+        align: left;
+        text-align: left;
+    }
+</style>

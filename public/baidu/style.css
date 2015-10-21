@@ -1,0 +1,212 @@
+* {margin: 0px; padding: 0px; font-size: 13px;}
+img {border: 0px; vertical-align: middle;}
+a {color: #006699;blr:expression(this.onFocus=this.blur());}
+a:focus { outline:none; -moz-outline:none;}
+.fr {float: right;}
+.fl {float: left;}
+.gray {color: gray;}
+.f9 {font-size: 9px;}
+.f10 {font-size: 10px;}
+.f11 {font-size: 11px;}
+.f12 {font-size: 12px;}
+.f13 {font-size: 13px;}
+div.clear {clear: both;}
+ul {list-style: none;}
+body {
+	width: 540px;
+	margin: 0px auto;
+}
+.foot {clear: both;}
+
+div#top {background: url("images/top2.gif") repeat-x; height: 51px;}
+div#top #top_left {float: left; margin-left: 10px; margin-top: 4px; }
+div#top #top_center {float: left; width: 250px; text-align: center; font-size: 16px; letter-spacing: 2px; font-weight: bold; color: white; margin-top: 16px;}
+div#top #top_right {float: right; margin-right: 10px; margin-top: 16px; }
+div#top #top_right a {color: white;}
+
+div.word {background: url("images/bg.gif") repeat;}
+div.word div.left {float:left; width: 149px; padding-left: 4px; margin-top: 4px;  position: relative;}
+div.word div.left .left_t { height: 11px; background: url("images/lt.png") no-repeat; padding: 0px;}
+div.word div.left .left_m { background: url("images/lm.png") repeat-y; position: relative; top: -4px;}
+div.word div.left .left_b { height: 11px; background: url("images/lb.png") no-repeat;position: relative; top: -4px;}
+div.word div.left ul {margin-left: 4px; padding-bottom: 30px;}
+div.word div.left ul li {position: relative; font-size: 17px; color: #555555; height:42px; width: 126px; border-bottom: 1px dashed #989898; margin-left: 6px;}
+
+div.word div.right {width: 382px; float: right; margin-right: 4px; margin-top: 4px;}
+div.word div.right .right_t { height: 16px; background: url("images/rt.png");}
+div.word div.right .right_m { padding: 0px 6px 0px 12px; background: url("images/rm.png"); font-size: 14px; line-height: 150%; text-indent: 26px; color: #666666; }
+div.word div.right .right_b { height: 20px; background: url("images/rb.png");}
+div.word div.right .right_m p {padding: 2px 0px;}
+div.word div.right .right_m h2 {color: #D7468E; font-weight: normal; font-size: 14px; padding-top: 4px; text-indent: 0px;}
+
+div.section {background: url("images/bg.gif") repeat; clear: both; padding: 4px; padding-left: 3px; position: relative;}
+div.section div.st {height:11px; background: url("images/st.png") no-repeat; }
+div.section div.sm {background: url("images/sc.png"); padding: 6px 16px; text-align: left;position: relative; top: -4px;}
+div.section div.sm .baby p, div.section div.sm .baby {font-size: 14px; line-height: 150%;text-indent: 26px;}
+div.section div.sm p {padding: 2px 0px;}
+div.section div.sb {height:10px; background: url("images/sb.png") no-repeat; position: relative; top: -4px;}
+
+div.t_section {background: url("images/bg.gif") repeat; clear: both; padding: 0 4px; padding-left: 3px;}
+div.t_section div.st {margin-left: 2px; height:13px; background: url("images/a_t.png") no-repeat;}
+div.t_section div.sm {margin-left: 2px; background: url("images/a_m.png"); padding: 0px 16px; text-align: left;}
+div.t_section div.sb {margin-left: 2px; height:15px; background: url("images/a_b.png") no-repeat;}
+
+
+div.word div.left ul li a {display: block; height: 42px; vertical-align: middle; line-height: 42px; padding-left: 4px; }
+div.word div.left ul li a.current { position: absolute; background: url("images/current.png"); width: 148px; padding-left: 10px; margin-left: -6px; color: #D84B91; z-index: 1000;}
+
+
+div.tab_bar {height: 30px; position: relative;padding-left: 18px;}
+div.tab_bar div.tab {
+	float: left; 
+	background: url("images/unselected.png"); 
+	z-index: 10; 
+	margin-left: -16px; 
+	height: 30px; 
+	width: 105px; 
+	padding-top: 12px; 
+	text-align: center; 
+	color: white; 
+	font-size: 14px;
+	font-weight: bold;
+	position: relative; 
+	cursor: pointer;
+}
+div.tab_bar div.selected {background: url("images/selected.png"); z-index: 100;}
+
+
+/* =Navigation
+============================================================================== */
+
+	/* =Reflection Nav
+	-------------------------------------------------------------------------- */
+		
+		#nav-reflection {
+			margin: 0 auto 50px auto;
+			padding: 50px 0 0 172px;
+			width: 452px;
+			min-height: 130px;
+			background: url(images/page-shadow.jpg) top center no-repeat;
+			list-style: none;
+			}
+			
+		#nav-reflection li {
+			margin-right: 15px;
+			width: 59px;
+			float: left;
+			}
+			
+		#nav-reflection a, #nav-reflection a:visited, #nav-reflection a:hover {
+			width: 59px;
+			height: 59px;
+			text-indent: -9999px;
+			overflow: hidden;
+			background: url(images/icons.png) no-repeat;
+			display: block;
+			}
+			
+		#nav-reflection span {
+			margin-top: 1px;
+			width: 59px;
+			height: 34px;
+			text-align: center;
+			background: url(images/icons-reflections.jpg) no-repeat;
+			display: block;
+			}
+			
+		/* Button Colors */
+		
+		#nav-reflection li.button-color-1 a {
+			background-position: -3px -3px;
+			}
+			
+		#nav-reflection li.button-color-2 a {
+			background-position: -92px -3px;
+			}
+			
+		#nav-reflection li.button-color-3 a {
+			background-position: -181px -3px;
+			}
+			
+		#nav-reflection li.button-color-4 a {
+			background-position: -270px -3px;
+			}
+			
+		/* Button Reflection Color */
+		
+		#nav-reflection li.button-color-1 span {
+			background-position: 0 0;
+			}
+			
+		#nav-reflection li.button-color-2 span {
+			background-position: -89px 0;
+			}
+			
+		#nav-reflection li.button-color-3 span {
+			background-position: -178px 0;
+			}
+			
+		#nav-reflection li.button-color-4 span {
+			background-position: -267px 0;
+			}
+			
+			
+	/* =Shadow Nav
+	-------------------------------------------------------------------------- */
+		
+		#nav-shadow {
+			text-align: center;
+			list-style: none;
+			}
+			
+		#nav-shadow li {
+			margin-right: 15px;
+			width: 81px;
+			height: 67px;
+			position: relative;
+			float: left;
+			}
+			
+		#nav-shadow a, #nav-shadow a:visited, #nav-shadow a, #nav-shadow a:hover {
+			margin: 0 auto;
+			width: 59px;
+			height: 59px;
+			padding-top: 18px;
+			overflow: hidden;
+			background: url(images/icons.png) no-repeat;
+			display: block;
+			position: relative;
+			z-index: 2;
+			color: #ff0000;
+			font-size: 16px;
+			text-decoration: none;
+			letter-spacing: 4px;
+			}
+			
+		/* Button Colors */
+		
+		#nav-shadow li.button-color-1 a {
+			background-position: -3px -3px;
+			}
+			
+		#nav-shadow li.button-color-2 a {
+			background-position: -92px -3px;
+			}
+			
+		#nav-shadow li.button-color-3 a {
+			background-position: -181px -3px;
+			}
+			
+		#nav-shadow li.button-color-4 a {
+			background-position: -270px -3px;
+			}
+			
+		/* Button Shadow */
+		
+		#nav-shadow li img.shadow {
+			margin: 0 auto;
+			position: absolute;
+			bottom: 0;
+			left: 0;
+			z-index: 1;
+			}

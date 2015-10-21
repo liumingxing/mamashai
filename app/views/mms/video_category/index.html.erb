@@ -1,0 +1,50 @@
+<div id="middle">
+    <div id="css_mainbody">
+        <h1 class="title">类目管理
+		<span style="float: right; margin-right: 10px;">
+			<%= link_to '新添类目', :action=>:new %>
+        </span>
+		</h1>
+        <table class="grid">
+            <thead>
+                <tr>
+                    <th>
+                        名称
+                    </th>
+                    <th>
+                        logo
+                    </th>
+                    <th>
+                        视频数
+                    </th>
+                    <th>
+                        父类目
+                    </th>
+                    <th>
+                        序号
+                    </th>
+					<th colspan=2>
+						操作
+					</th>
+                </tr>
+            </thead>
+            <% for video in @videos %>
+			<tr>
+				<td><%= video.name %></td>
+				<td>
+                    <% if video.logo %>
+                    <img src="<%= video.logo.thumb160.url %>" />
+                    <% end %>
+                </td>
+				<td><%= video.video_resources_count%></td>
+				<td><%= video.parent.name if video.parent %></td>
+                <td><%= link_to "修改", :action=>"edit", :id=>video %></td>
+                <td><%= link_to "视频", :action=>"resources", :id=>video %></td>
+			</tr>
+			<% end %>
+        </table>
+        <%= will_paginate @videos %>
+    </div>
+    <div class="clear">
+    </div>
+</div>

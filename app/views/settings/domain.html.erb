@@ -1,0 +1,66 @@
+<style>
+.domain_content .domain_title {height:40px;line-height:40px;}
+.domain_content .domain_title_one {padding-left:40px;color:#666;height:20px;line-height:20px;}
+ul.domain_tool {width:300px;margin:0px auto;overflow:hidden;}
+ul.domain_tool  li{float:left;width:90px;padding-left:20px;height:30px;line-height:30px;}
+ul.domain_tool  li.c1 {background:url(/images/icons/icons_1_03.jpg) 0px 7px no-repeat;width:75px;}
+ul.domain_tool  li.c2 {background:url(/images/icons/icon_1_05.jpg) 0px 5px no-repeat;}
+
+.invite {overflow:hidden; border:1px solid #DFD5B2;padding:10px 0px; margin: 10px auto;; width: 700px; display:none;}
+.invite_input {height:30px;width:680px;margin:0px auto;}
+.invite_input span.input {float:left;width:450px;height:30px;}
+.invite_input span.input input {width:440px;color:#999;}
+.invite_input span.button_ok {float:left;width:65px;}
+
+.invite_input01 {heigth:20px;line-height:20px;color:#c60;padding-left:10px;}
+.invite_input02 {line-height:180%;padding-top:10px;color:#666;}
+
+</style>
+<div class="sharp">
+	<div class="content2">
+		<h1>设置</h1>
+		<div class="navigate_tab" id="n">
+			<%= render :partial=>'nav' %>
+			<div class="class2">
+				<%= render :partial=>'success_pmt' if params[:success] %>
+				<% if @user.domain and @user.errors.empty? %>
+				<div class="domain_content">
+					<div class="domain_title">
+						你已经设置个性域名
+					</div>
+					<div class="domain_title_one">
+						网址：<%= http_user_url(@user) %>
+					</div>
+					<ul class="domain_tool">
+						<li class="c1" style="padding: 0px; padding-left: 16px;">
+							<a href="javascript:void(0);" onclick="add_favorite('<%= http_user_url(@user) %>', '<%= @user.name%>');return false;">加入收藏夹</a>
+						</li>
+						<li class="c2" style="padding: 0px; padding-left: 16px;">
+							<a href="javascript:void(0);" onclick="$('#domain_invite').toggle();">邀请朋友也来晒</a>
+						</li>
+					</ul>
+					<div class="invite" id="domain_invite">
+						<div class="invite_input">
+							<span class="input">
+								<input class="default_input" id="clip_text" size="30" readonly="readonly" value="http://www.mamashai.com/account/signup/<%= @user.id %>" type="text">
+							</span><span class="button_ok"><a id="d_clip_button" href="javascript:void(0);" onclick="copy_to_clipboard('clip_text')" class="button_link">复制链接</a></span>
+						</div>
+						<div class="invite_input01">
+							将以上链接发给亲朋好友，他们接受邀请后会成为你的粉丝。
+						</div>
+					</div>
+				</div>
+				<% else %>
+				<%= form_tag :action=>:update_domain do %>
+				<%= render :partial=>'form_domain' %>
+				<div style="margin-left: 140px;">
+					<%= submit_tag "保存", :class=>"button2"%>
+				</div>
+				<% end %>
+				<% end %>
+			</div>
+		</div>
+	</div>
+	<div><img src="/images/sharp_bottom.jpg" /></div>
+</div>
+<div class="clear"></div>

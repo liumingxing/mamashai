@@ -1,0 +1,20 @@
+<div style="margin-top:-10px;">
+	<%= render :partial=>"/share/taobao_adv_top" %>
+</div>
+
+<div class="sharp mt20">
+	<% from_left = true %>
+	<% @zts.each_slice(2) do |zts| %>
+		<% zts.each_with_index{|zt, index| %>
+		<div class="tjzt_<%= from_left&&index==0|| !from_left&&index==1  ? 'left' : 'right'%> ">
+			<a href="<%= zt.url %>" target="_blank"><img src="http://tbbang.mamashai.com<%= from_left&&index==0|| !from_left&&index==1  ? zt.logo2.web : zt.logo3.web %>" /></a>
+		</div>
+		<% } %>
+		<% from_left = !from_left %>
+	<% end %>
+
+	<div style="text-align:center; margin: 20px; clear: both;">
+		<%= will_paginate @zts%>
+	</div>
+	<div><img src="/images/sharp_bottom.jpg" /></div>
+</div>

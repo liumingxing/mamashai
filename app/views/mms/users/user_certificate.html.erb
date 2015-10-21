@@ -1,0 +1,41 @@
+<div id="middle">
+    <div id="css_mainbody">
+        <h1 class="title">机构验证</h1>
+        <table style="width:500px; line-height:30px;">
+			<% form_tag({:action=>'set_certificate'}) do %>
+		  <tr>
+		  	<td colspan=2>
+		  		<h3>填写用户验证信息</h3>
+		  	</td>
+		  </tr>
+		  <tr>
+		  	<td>
+		  		用户：
+		  	</td>
+			<td>
+				<%= @u.name %> 
+			</td>
+		  </tr>
+		  <tr>
+		  	<td>
+		  		用户验证信息：
+		  	</td>
+			<td>
+				<%= text_area_tag :remark,@u.remark %><%= hidden_field_tag :id,@u.id %>
+			</td>
+		  </tr>
+		  <tr>
+			<td colspan=2 style="text-align:right;">
+				 <%= submit_tag "验证" %>
+			</td>
+		  </tr>
+		  <% end %>
+		</table>
+    </div>
+    <div class="clear"></div>
+</div>
+
+
+
+
+

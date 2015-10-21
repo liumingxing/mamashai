@@ -1,0 +1,28 @@
+<h1>Show 根据ID获取单条微博消息，以及该微博消息的作者信息</h1><%= link_to "返回到列表", "/api/test" %>
+<pre>
+  [路径]:statuses/show/:id
+  [HTTP请求方式]: GET
+  [URL]: http://your.api.domain/statuses/show/:id.json
+  [是否需要登录]： true
+
+参数
+
+    * source 申请应用时分配的AppKey，调用接口时候代表应用的唯一身份。
+    * id 要获取的微博消息ID，该参数为REST风格的参数 
+
+示例
+
+  curl -u "username:password" -d 'status=abc'
+  "http://your.api.domain/statuses/update.json?source=appkey"
+
+注意
+
+    * 如果:id参数输入一个不存在的微博ID，则返回400错误
+</pre>
+<hr/>
+<%= form_tag "/api/statuses/show.json" ,{:method=>:get} do %>
+  <%= render :partial => '/api/test/login' %>
+  source: <%= text_field_tag "source" %><br/>
+  id: <%= text_field_tag "id" %><br/>
+  <%= submit_tag "提交"%>
+<% end -%>

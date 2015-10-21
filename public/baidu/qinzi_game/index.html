@@ -1,0 +1,681 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+	<head>
+		<title>亲子游戏（0-3岁） - 妈妈晒 - 妈妈爸爸们的网络社区</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<style type="text/css">
+		a {
+			text-decoration:none;
+		}
+		a img {
+			border:0px;
+		}
+		p {
+		  text-indent:8mm;
+		  	width:250px;
+			margin-top:-5px;
+
+		}
+		td img {
+			display: block;
+			float:right;
+		}
+		.STYLE1 {
+			color: #666666;
+			font-size: 14px;
+			line-height: 22px;
+			margin: 3px 0px;
+		}
+		.STYLE2 {
+			font-size: 16px;
+			font-weight: bold;
+			color: #DA5295;
+			margin: 2px 0px;
+		}
+		.STYLE3 {
+			font-size: 12px;
+			color: #999999;
+		}
+		.STYLE4 {
+			font-size: 14px;
+			font-weight: bold;
+			color: #FFFFFF;
+		}
+		.STYLE5 {
+			font-size: 14px;
+			font-weight: bold;
+			color: #DA5295;
+		}
+		.STYLE6 {
+			font-size: 16px; 
+			font-weight: bold; 
+			color: #DA5295; 
+			font-family: "微软雅黑";
+		}
+		.STYLE7 {
+		  text-indent:8mm;
+		  	width:270px;
+			margin-top:-5px;
+		}
+		</style>
+		
+		<script src="http://app.baidu.com/static/appstore/monitor.st"></script>
+		<script>
+			function setHeight(height)
+			{
+				if (height > 0){
+					baidu.app.setHeight(height)
+				}
+				else{
+					setTimeout("baidu.app.setHeight(document.getElementById('body').clientHeight)", 400)
+					setTimeout("baidu.app.setHeight(document.getElementById('body').clientHeight)", 1500)
+				}	
+			}
+		</script>
+		
+	</head>
+
+	<body bgcolor="#ffffff"  style="padding:0px;margin:0px;" id="body">
+		<div align="center" ><!-- style="width:540px" -->
+			<table width="538" height="51" border="0" cellpadding="0" cellspacing="0" background="images/top2.gif">
+			  <tr>
+			    <td width="16"></td>
+			    <td width="97">
+			    	<a href="http://www.mamashai.com/index/bang">
+			    		<img name="a_r1_c4" src="images/top1.png" border="0" id="a_r1_c4" alt="" />
+			    	</a>
+			    </td>
+			    <td width="355">
+			    	<div align="center">
+			    		<span style="color:white; font-weight: bold; font-size: 15px;">亲 子 游 戏（0-3岁）</span>
+			    	</div>
+			    </td>
+			    <td width="70">
+			    	
+			    </td>
+			  </tr>
+			</table>
+			<table width="538" border="0" cellpadding="0" cellspacing="0" background="images/a_r10_c1.gif">
+				<tr>
+					<td>
+				    	<img name="a_r9_c1" src="images/a_r9_c1.gif" width="538" height="9" border="0" id="a_r9_c1" alt="" />
+				    </td>
+				</tr>
+				<tr>
+					<td background="images/a_r10_c1.gif">
+				    	<table width="95%" height="26" border="0" align="center" cellpadding="0" cellspacing="0">
+				    		<tr>
+						        <td align="left" style="padding-left:6mm;" valign="middle">
+								宝宝性别：
+								<select id="select_sex">
+								<option value="男">男</option>
+								<option value="女">女</option>
+							</select>&nbsp;&nbsp;
+						        	宝宝生日
+									<input type="text" id="txt_year" value="" style="width:35px;" />&nbsp;年&nbsp;
+									<input type="text" id="txt_month" value="" style="width:20px;" />&nbsp;月&nbsp;
+									<input type="text" id="txt_day" value="" style="width:20px;" />&nbsp;日&nbsp;
+						        </td>
+								<td align="right" style="padding-right:12px;">
+									<a href="javascript:void(0);" onclick="check_result()">
+									<img src="images/d_r2_c3.gif" />
+									</a>
+								</td>
+						      </tr>
+				    	</table>		      
+				    </td>
+				</tr>
+				<tr>
+					<td valign="bottom" align='right'>
+				    	<img name="a_r12_c1" src="images/a_r12_c1.gif" width="538" height="9" border="0" id="a_r12_c1" alt="" />
+				    </td>
+				</tr>
+			</table>
+			<table width="538" border="0" cellpadding="0" cellspacing="0" background="images/a_r10_c1.gif" id="table_main">
+			  <tr>
+			    <td>
+			    	<img name="a_r9_c1" src="images/a_r9_c1.gif" width="538" height="9" border="0" id="a_r9_c1" alt="" />
+			    </td>
+			  </tr>
+			  <tr>
+			  	<td style="padding-left:10px;">
+			  		<table border="0" style="border-style:dotted; margin:0px">
+			  			<tr border="0">
+			  				<td align="left" valign="bottom" style='width:500px;text-indent:5mm;'>
+			  					宝宝现在&nbsp;&nbsp;<span id="span_year" class="STYLE2">0</span>&nbsp;岁&nbsp;<span id="span_month" class="STYLE2">0</span>&nbsp;月&nbsp;<span id="span_day" class="STYLE2">1</span>&nbsp;天&nbsp;	
+			  				</td>
+							<!--<td style="padding-right:5px; MARGIN:0px;" align='right'>
+								<a href="http://www.mamashai.com/ebook/baby_0dao3?from=baidu_shipu" target='_blank' style="margin:0px;">
+								 <img src="/images/baidu/baby_growth/d_r4_c2.gif" onclick="javascript:void(0);" width="127" height="34" style="margin:0px; padding:0px;"/>
+								</a>	
+							</td> -->
+							
+							
+							
+			  			</tr>
+
+
+						<tr>
+							<td id="td_shipu" colspan="2" align="left" class="STYLE1" style="padding-left:20px;">
+								推荐给<span id="span_game" class="STYLE5">1</span>个月宝宝的亲子游戏是：
+								<input type="button" value="上个月" onclick="downmonth()"/>&nbsp;
+								<input type="button" value="下个月" onclick="upmonth()"/>&nbsp;
+
+							</td>
+						</tr>
+
+
+				<tr>
+					<td style="padding-right:2px;" id="td_main" valign="top" class='STYLE1'align="left">
+						<h2 style="padding-left:19px;margin-top:2px;"align="left"><font color="#FFCC00" id="p_title">听觉训练：</font></h2>
+						<p style="float:left;" id="game_main">通过用拨浪鼓、摇铃、风铃等带响声的玩具逗引宝宝,训练宝宝对声音的反应,声音不用太大,以免惊吓到宝宝。大人也可以微笑着和宝宝说话,通过说话来逗引宝宝,训练宝宝的听觉。</p>
+						<img id='imftg_main' src="images/01-1.gif" />
+ 						
+					</td>
+
+			  		</table>
+			  	</td>
+			  </tr>
+			  <tr>
+			    <td valign="bottom">
+			    	<img name="a_r12_c1" src="images/a_r12_c1.gif" width="538" height="9" border="0" id="a_r12_c1" alt="" />
+			    </td>
+			  </tr>
+			</table>
+			<table width="538" border="0" cellpadding="0" cellspacing="0" background="images/a_r10_c1.gif">
+			  <tr>
+			    <td>
+			    	<img name="a_r9_c1" src="images/a_r9_c1.gif" width="538" height="9" border="0" id="a_r9_c1" alt="" />
+			    </td>
+			  </tr>
+			  <tr>
+			    <td background="images/a_r10_c1.gif">
+			    	<table width="95%" height="26" border="0" align="center" cellpadding="0" cellspacing="0">
+			    		<tr>
+					        <td align="left">
+					        	<span class="STYLE7">
+					        		提示：以上内容来自<a href='http://www.mamashai.com/ebook/baby_0dao3?from=baidu_shipu' target="_blank">《0-3岁宝宝生长发育监测》</a>，仅供参考。
+					        	</span>
+					        </td>
+					      </tr>
+			    	</table>		      
+			    </td>
+			  </tr>
+			  <tr>
+			    <td valign="bottom">
+			    	<img name="a_r12_c1" src="images/a_r12_c1.gif" width="538" height="9" border="0" id="a_r12_c1" alt="" />
+			    </td>
+			  </tr>
+			</table>
+		</div>
+		<script type = "text/javascript">
+			date = new Date();
+			// 当前时间
+			var countyear = date.getFullYear();
+			var countmonth = date.getMonth();
+			var countday = date.getDate();
+			// 最开始显示的时间
+			document.getElementById("txt_month").value = countmonth+1; // javascript中的月份是 0-11，所以要+1
+			document.getElementById("txt_year").value = countyear;
+			document.getElementById("txt_day").value = countday;
+			g_month=0;
+			function check_result()
+			{
+				var check_ok = true;
+				var hongse=new Date() // 当前时间
+				health_year = document.getElementById("txt_year");
+				health_month = document.getElementById("txt_month");
+				health_day = document.getElementById("txt_day");
+				// 如果年月日其中一项没有填写
+				if (health_year.value == "" || health_month.value == "" || health_day.value == "")
+				{
+					alert("请填写完整年月日!");
+					check_ok = false;
+
+				}
+
+				// 如果年份过大或者过小
+				else if (health_year.value>2050 || health_year.value<1990)
+				{
+					alert("请填写正确年份!");
+					health_year.focus();
+					check_ok = false;
+
+				}
+
+				// 如果输入年份大于当前年份
+				else if (health_year.value>=hongse.getFullYear())
+				{
+					alert("输入的的年份可能过大，请重新输入!");
+					health_year.focus();
+					check_ok = false;
+
+				}
+
+				// 如果输入的月份大于12，或者月份小于1
+				else if (health_month.value>12 || health_month.value<1)
+				{
+					alert("请填写正确月份!");
+					health_month.focus();
+					check_ok = false;
+
+				}
+				// 如果输入日子大于31，或者输入日子小于1
+				else if (health_day.value>31 || health_day.value<1)
+				{
+					alert("请填写正确日子!");
+					health_day.focus();
+					check_ok = false;
+
+				}
+
+				// 如果年月日组合出来的时间并不是正常年月日
+				else if (!isDate(health_year.value ,health_month.value ,health_day.value))
+				{
+					alert("年月日组合有错,请重新填写!");
+					check_ok = false;
+
+				}
+				
+				else 
+				{
+					var zise=new Date(health_year.value+"/"+health_month.value+"/"+health_day.value);
+					// 获得当前时间
+					var lse=new Date();
+
+					// 如果当前时间 - 输入的时间 < 0 
+					if ((lse.getTime()-zise.getTime())<0)
+					{
+						alert("对不起，您输入的时间还没有到来，请重新输入！")
+						health_year.focus();
+						check_ok = false;
+					}	
+				}
+
+				if(check_ok == true)
+				{
+					var today_time = new Date();
+					//var set_time = today_time.setFullYear(health_year.value, health_month.value-1, health_day.value);
+
+					var d1 = new Date(health_year.value, health_month.value - 1, health_day.value);
+					var days = Math.round((today_time - d1) / (1000 * 60 * 60 * 24));
+					var set_month = 0;
+					var set_year = 0;
+					var set_day = 0;
+					var months_all = 0;
+					if (((days / 30.41) + "").indexOf('.') < 0)
+					{
+						months_all = days / 30.41;
+					}
+					else
+					{
+						months_all = ((days / 30.41) + "").substring(0,((days / 30.41) + "").indexOf('.'));
+					}
+					// 如果输入日期折算月份大于36		
+					if (months_all > 36)
+					{
+						alert("宝宝的年龄超过3岁了哦,请重新输入。");
+						health_year.focus();
+						check_ok = false;
+
+					}
+					else
+					{
+						if(days > 365 || days == 365)
+						{
+							years = (days / 365)
+							if ((years + "").indexOf('.') < 0)
+							{
+								set_year = years;
+							}
+							else
+							{
+								set_year = (years + "").substring(0,(years + "").indexOf('.'));
+							}
+
+							days = days - set_year * 365;
+
+						}
+						if (days > 30)
+						{
+							months = (days / 30.41);
+							if ((months + "").indexOf('.') < 0)
+							{
+								set_month = months
+							}
+							else
+							{
+								set_month = (months + "").substring(0,(months + "").indexOf('.'));
+							}
+
+							days = days - parseInt(set_month * 30.41)
+						}
+						document.getElementById("span_year").innerHTML = set_year;
+						document.getElementById("span_month").innerHTML = set_month;
+						document.getElementById("span_day").innerHTML = days;
+						
+						g_month = parseInt(months_all);
+						get_game(parseInt(months_all));
+					}
+
+				}
+			}
+			
+			function get_game(months_all)
+			{
+				var main_game = document.getElementById("game_main");
+				var game_span = document.getElementById("span_game");
+				var p_title = document.getElementById("p_title");
+				var imftg_main = document.getElementById("imftg_main");
+				
+				switch (months_all)
+				{
+					case 1:
+					p_title.innerHTML = "适应能力训练— 翻书训练";
+					main_game.innerHTML = "找一本适合宝宝阅读,内容能够引起宝宝兴趣的图画书,找到有 宝宝认识的动物图画的一页,给宝宝 看,逗引宝宝注意,然后合上,说“×× 藏起来了, 我们一起找出来吧!”。大人给宝宝示范一页一页翻书,翻到了要显出兴奋的样子。然后再合上书, 让宝宝模仿大人的动作翻书。";
+					game_span.innerHTML = "1";
+					imftg_main.src ="images/11-3.gif";
+					break
+					
+					case 2:
+					p_title.innerHTML = "语言沟通能力训练— 理解能力培养";
+					main_game.innerHTML = "继续告诉宝宝感兴趣的物品、食物、人物的名称,提高宝宝的词汇理解力。继续教宝宝一些沟通手势,如欢迎、再见、谢谢,指认物品、人物等。给宝宝选一些带有动作的儿歌,这种动作性儿歌不仅是语言的韵律与节奏的信息,还可以让宝宝知道像“飞”、“拍”等动作的意思。给宝宝讲讲各种动物不同的运动、生活方式,并让宝宝在学儿歌的过程中学习动作与声音的对应关系,让宝宝对语言产生更加浓厚的兴趣。";
+					game_span.innerHTML = "2";
+					imftg_main.src ="images/10-3.gif";
+					break
+					
+					case 3:
+					p_title.innerHTML = "精细动作训练— 盖瓶盖训练";
+					main_game.innerHTML = "选择适合宝宝手抓握的瓶子和瓶盖,大人先给宝宝示范将瓶盖盖在瓶子上,然后将瓶盖和瓶子都放在桌子或床上,鼓励宝宝把瓶盖拿起来盖到瓶子上。";
+					game_span.innerHTML = "3";
+					imftg_main.src ="images/10-2.gif";
+					break
+					
+					case 4:
+					p_title.innerHTML = "精细动作训练— 细物入瓶训练";
+					main_game.innerHTML = "准备一个干净的小瓶和一些小的物品,譬如小纸球,小葡萄干等,大人先示范把小物品捏着放到小瓶里,逗引宝宝模仿大人的动作,也把小物品捡进去。要注意安全,防止宝宝误吞小物品。";
+					game_span.innerHTML = "4";
+					imftg_main.src ="images/09-2.gif";
+					break
+					
+					case 5:
+					p_title.innerHTML = "大动作训练— 手膝爬行训练";
+					main_game.innerHTML = "让宝宝俯卧,用手和膝把身体支撑起来,通过玩具逗引宝宝向前爬行。刚开始的时候,大人可以帮助宝宝弯曲双腿放在肚子下面。手膝爬行前大多数宝宝会出现手膝原地的姿势,手膝还不会配合,往往是在原地前后晃动,然后借助惯性向前蹿。大人要引逗使宝宝有意识的向前主动够取玩具。最好为会爬行的宝宝开辟一个爬行的空间。";
+					game_span.innerHTML = "5";
+					imftg_main.src ="images/08-1.gif";
+					break
+					
+					case 6:
+					p_title.innerHTML = "精细动作训练— 发声对敲训练";
+					main_game.innerHTML = "准备带响声的玩具,能捏响的玩具,还有不同材质的可以敲击的 玩具,让宝宝抓握;对于带响声的玩具,鼓励宝宝摇动玩具发出响声; 对于能捏响的玩具,鼓励宝宝用拇指和食指捏出声音;对不同质地的敲击玩具,让宝宝一手拿一个,鼓励宝宝对敲。";
+					game_span.innerHTML = "6";
+					imftg_main.src ="images/07-2.gif";
+					break
+					
+					case 7:
+					p_title.innerHTML = "语言能力训练— 模仿发音训练";
+					main_game.innerHTML = "大人要经常训练宝宝发音,本月要训练简 单的辅音,譬如 ma-ma(妈 - 妈),ba-ba(爸 -爸),bao-bao(宝 - 宝),pai-pai(拍 - 拍),pa-pa(爬 - 爬)等,这些都是宝宝日常生 活和训练中会经常听到的。";
+					game_span.innerHTML = "7";
+					imftg_main.src ="images/06-3.gif";
+					break
+					
+					case 8:
+					p_title.innerHTML = "适应能力训练— 主动寻找目标训练";
+					main_game.innerHTML = "大人那玩具引起宝宝注意，在宝宝注视的过程中，将玩具故意失落，并且失落在孩子的视线以内，看宝宝是不去寻找，如果寻找，大人可以捡起来给宝宝，并使鼓励。";
+					game_span.innerHTML = "8";
+					imftg_main.src ="images/05-4.gif";
+					break
+					
+					case 9:
+					p_title.innerHTML = "俯卧抬头训练";
+					main_game.innerHTML = "宝宝俯卧位，哎宝宝头部上方用带声的玩具引宝宝，促使宝宝抬头。当宝宝用手臂支撑前身抬头时，左右移动玩具引宝宝往左、前、右三个方向看。";
+					game_span.innerHTML = "9";
+					imftg_main.src ="images/03-4.gif";
+					break
+					
+					case 10:
+					p_title.innerHTML = "户外活动";
+					main_game.innerHTML = "天气比较好时,每天带宝宝到户外活动1 ~ 2 个小时,让宝宝更多地接受阳光、空气,接触自然,并感知周围的环境,丰 富宝宝的认知。";
+					game_span.innerHTML = "10";
+					imftg_main.src ="images/03-3.gif";
+					break
+					
+					case 11:
+					p_title.innerHTML = "追视训练";
+					main_game.innerHTML = "新生儿视力有限,对红色比较偏爱。把红毛线球或红气球在离宝宝眼睛上方 20 厘米左右逗引宝 宝,当确认宝宝已经看到后,缓慢水平移动,使宝宝的视线跟踪红球移动。宝宝清醒 时,引逗宝宝看大人的脸,大人可以微笑着和宝宝对视,并缓慢左右移动 锻炼宝宝的视觉跟踪能力,还可以在确定宝宝能看到大人的情况下,在小床周围缓慢走动,并呼唤宝宝,逗引宝宝追视。";
+					game_span.innerHTML = "11";
+					imftg_main.src ="images/01-2.gif";
+					break
+					
+					case 12:
+					p_title.innerHTML = "精细动作训练— 螺旋训练";
+					main_game.innerHTML = "准备一些螺旋盖的瓶子和瓶盖,大人示范将瓶盖拧下,再盖上,让宝宝模仿。宝宝熟练以后,可以准备一些螺旋玩具, 让宝宝练习拧开和上紧螺旋,训练宝宝的 手指灵活性。";
+					game_span.innerHTML = "12";
+					imftg_main.src ="images/22-2.gif";
+					break
+					
+					case 13:
+					p_title.innerHTML = "语言能力训练— 身体详细部位认知训练";
+					main_game.innerHTML = "通过照镜子,看图片等方法,让宝宝巩固前面所学到的身体部位的知识,然后扩展到其他部位,并让宝宝指出相应部位的位置,大人还要给宝宝讲各个器官部位的作用,让宝宝学习。";
+					game_span.innerHTML = "13";
+					imftg_main.src ="images/22-3.gif";
+					break
+					
+					case 14:
+					p_title.innerHTML = "大动作训练— 变高变矮训练";
+					main_game.innerHTML = "大人先给宝宝做示范,喊口令:“变高!”,大人就踮起脚,伸直身体,手侧平举,再喊口令:“变矮!”,则蹲下双腿,弯腰低头,双手抱住膝盖。大人喊口令,让宝宝模仿做,这样可以练习宝宝的伸展、屈曲和平衡能力。";
+					game_span.innerHTML = "14";
+					imftg_main.src ="images/22-1.gif";
+					break
+					
+					case 15:
+					p_title.innerHTML = "大动作训练— 户外活动";
+					main_game.innerHTML = "1. 带宝宝到户外活动,让宝宝采集各种树叶交给大人,给宝宝机会练习四处走动。2. 教宝宝倒退走、跑、上下台阶、扔球等动作。";
+					game_span.innerHTML = "15";
+					imftg_main.src ="images/19-1-1.gif";
+					break
+				
+					case 16:
+					p_title.innerHTML = "语言能力训练— 看图画书,讲故事";
+					main_game.innerHTML = "1. 给宝宝看简单故事情节的图画书、 讲故事。2. 训练宝宝说出画片中的动物和物品的名称。3. 教宝宝说有动词、名词组成的 2 ~3 个字的短语。如妈妈抱、吃饭、喝水等。";
+					game_span.innerHTML = "16";
+					imftg_main.src ="images/19-3.gif";
+					break
+					
+					case 17:
+					p_title.innerHTML = "精细动作训练— 搭积木";
+					main_game.innerHTML = "1. 让宝宝练习搭积木,可以搭塔、排火车、摆楼梯等。2. 用笔乱画或模仿画直线、圆圈等。3. 穿扣眼、穿珠子游戏。但要 注意安全,防止宝宝误吞";
+					game_span.innerHTML = "17";
+					imftg_main.src ="images/19-2.gif";
+					break
+					
+					case 18:
+					p_title.innerHTML = "语言能力训练— 语言表达训练";
+					main_game.innerHTML = "大人要抓住宝宝需要表达诉求的机会,可以先鼓励宝宝使用单字,或者不连续的单字来表达诉求,甚至大人可以在理解宝宝诉求的基础上,引导宝宝表达。慢慢的,要开始训练宝宝用两个到三个字表达诉求。在日常生活中,大人可以多创造与宝宝的对话环境, 教宝宝如何对话,然后进行演练。";
+					game_span.innerHTML = "18";
+					imftg_main.src ="images/16-3.gif";
+					break
+
+					case 19:
+					p_title.innerHTML = "大运动训练— 抛球踢球训练";
+					main_game.innerHTML = "准备一个大皮球和小皮球,在家里和户外都可以进行这个训练。 大人先示范,告诉宝宝怎么踢球,怎么抛球,然后大人跟宝宝做游戏, 大人把球踢向宝宝,宝宝再把球踢给大人。抛球可以先从下抛开始,逐渐地让宝宝练过肩抛球。一开始 宝宝的踢球和抛球可能没有方向性, 要多练习。";
+					game_span.innerHTML = "19";
+					imftg_main.src ="images/16-1.gif";
+					break
+
+					case 20:
+					p_title.innerHTML = "精细动作训练— 投小丸训练";
+					main_game.innerHTML = "大人先示范,然后让宝宝用拇指和食指捏住小丸往杯子里投。训练宝宝手的准确性以及协调性。训练的时候,杯子距离宝宝不要太远,可逐渐加大距离,大人可以和宝宝比赛。此游戏要注意安全,不要让宝宝把小丸放进嘴里。";
+					game_span.innerHTML = "20";
+					imftg_main.src ="images/16-2.gif";
+					break
+
+					case 21:
+					p_title.innerHTML = "精细动作训练— 模仿画训练";
+					main_game.innerHTML = "在上个月涂鸦的基础上,大人可以教宝宝模仿画横线、竖线、圆圈等,大人不要在意宝宝能否画出来,关键是锻炼宝宝的小手。";
+					game_span.innerHTML = "21";
+					imftg_main.src ="images/13-2.gif";
+					break
+
+					case 22:
+					p_title.innerHTML = "大运动训练— 退后走训练";
+					main_game.innerHTML = "准备一个拖着走有声音、会摇头的响鸭玩具。大人把拖拉玩具放到宝宝前面,让宝宝拉着它退后走。宝宝既可以听到声音,又能看着响鸭摇头的样子,会很快乐。训练时,大人可以事先示范,在宝宝退着走的时候,大人要从旁保护。";
+					game_span.innerHTML = "22";
+					imftg_main.src ="images/13-1.gif";
+					break
+
+					case 23:
+					p_title.innerHTML = "适应能力训练— 形状概念建立训练";
+					main_game.innerHTML = "准备几张方形的卡片和一张圆形的卡片,教宝宝指认哪个是方形,哪个是圆形,并取出来给宝宝看。平时要多给宝宝指认圆形的物体,加深宝宝对圆的概念的理解。";
+					game_span.innerHTML = "23";
+					imftg_main.src ="images/13-3.gif";
+					break
+
+					case 24:
+					p_title.innerHTML = "精细动作训练— 按键训练";
+					main_game.innerHTML = "大人可以说电话号码,让宝宝按键;或者大人把电话号码写下来,让宝宝按键;或者大人按键,让宝宝说出电话号码数字,通过这样的方式,训练宝宝对数字的认知、手眼协调等能力。";
+					game_span.innerHTML = "24";
+					imftg_main.src ="images/31-2.gif";
+					break
+
+					case 25:
+					p_title.innerHTML = "大动作训练— 跳高投篮训练";
+					main_game.innerHTML = "把小球篮或用铁丝做成的篮球圈固定在距离宝宝头顶 35 ~ 40 厘米 的地方,大人先给宝宝示范投篮,然后鼓励宝宝抱着球跑到篮下跳高投篮;或者大人站在篮圈附近,让宝宝捡球,练习边跑边拍球到篮下再跳高投篮。";
+					game_span.innerHTML = "25";
+					imftg_main.src ="images/31-1.gif";
+					break
+
+					case 26:
+					p_title.innerHTML = "语言能力训练— 看图讲故事训练";
+					main_game.innerHTML = "让宝宝看一幅图画,首先让宝宝说出图中有哪些东西,然后可以让宝宝就看到的东西编句子,最后让宝宝根据这个图画讲一个故事。 大人可以和宝宝一起讲故事,可以用一问一答的方式对宝宝的故事进行补充,完毕以后让宝宝再复述。这样可以训练宝宝的表达能力、记忆力和想象力。";
+					game_span.innerHTML = "26";
+					imftg_main.src ="images/31-3.gif";
+					break
+
+					case 27:
+					p_title.innerHTML = "精细动作训练— 筷子夹物训练";
+					main_game.innerHTML = "在桌上放 10 个大枣,让宝宝把枣从 桌上夹到盘子里。刚开始的时候大人可以 给宝宝示范,慢慢的可以和宝宝比赛,这样 更能激起宝宝的兴趣,锻炼宝宝的手眼协调 能力和手的技巧。在宝宝夹枣比较熟练之后, 可以让宝宝试着夹更小一些的物品。";
+					game_span.innerHTML = "27";
+					imftg_main.src ="images/25-2.gif";
+					break
+
+					case 28:
+					p_title.innerHTML = "语言能力训练— 唱歌训练";
+					main_game.innerHTML = "大人多学几首儿童歌曲,创造好的氛围让宝宝学唱歌。宝宝学唱歌的时候,大人一定要一起唱,培养宝宝的兴趣。";
+					game_span.innerHTML = "28";
+					imftg_main.src ="images/25-3.gif";
+					break
+					
+					case 29:
+					p_title.innerHTML = "大动作训练— 踩影子训练";
+					main_game.innerHTML = "大人和宝宝在阳光下玩耍,让宝宝追踩大人的影子。大人可以向不同的方向躲闪,让宝宝在阳光下跑来跑去,锻炼宝宝的奔跑能力。";
+					game_span.innerHTML = "29";
+					imftg_main.src ="images/25-1.gif";
+					break
+
+					case 30:
+					p_title.innerHTML = "大动作训练— 单脚站立训练";
+					main_game.innerHTML = "大人和宝宝对面站立,互相牵着右手,提起左脚,和宝宝比赛谁站立得久,训练宝宝的身体平衡能力。训练完右脚站立后,训练左脚站立,一段时间后,可以让宝宝训练没有任何倚靠地单脚站立。";
+					game_span.innerHTML = "30";
+					imftg_main.src ="images/25-4.gif";
+					break
+
+					case 31:
+					p_title.innerHTML = "适应能力训练— 时间认知训练";
+					main_game.innerHTML = "早上起床时、中午吃饭、晚上吃饭、睡 觉的时候让宝宝看钟,观察钟长短针的位置,让宝宝建立最基本的时间概念。";
+					game_span.innerHTML = "31";
+					imftg_main.src ="images/25-5.gif";
+					break
+
+					case 32:
+					p_title.innerHTML = "适应能力训练— 拼图训练";
+					main_game.innerHTML = "给宝宝买一些拼图游戏,或者大 人把一些画册剪成拼图,让宝宝拼。可以让宝宝从 3、4 块拼图拼起,再到 更多的拼图,可以让宝宝先拼有规则边的拼图,再拼斜线边、圆弧边的拼图。";
+					game_span.innerHTML = "32";
+					imftg_main.src ="images/25-6.gif";
+					break
+
+					case 33:
+					p_title.innerHTML = "社会交往能力训练— 早晚区分训练";
+					main_game.innerHTML = "要让宝宝认知早晨和晚上的一些基本特 征。早晨起床时让宝宝看太阳出来,知道要起床穿衣服,要吃早饭,要洗漱干净。晚上天就黑了,要开灯,宝 宝要洗澡、脱衣服睡觉。大人也可以找表现早晚的图片让宝宝辨认,让宝宝从最 具体的现象开始学会辨认早晚。";
+					game_span.innerHTML = "33";
+					imftg_main.src ="images/25-8.gif";
+					break
+
+					case 34:
+					p_title.innerHTML = "社会交往能力训练— 说物品用途训练";
+					main_game.innerHTML = "找一些常见的日常用品放在桌上,大人可以拿起一件物品,问宝宝这个物品的功能是什么。或者大人向宝宝提一个问题,让宝宝从桌上的物品中挑一个来对应这个问题,譬如大人问“用什么喝水?”,宝宝会选择桌上的杯子。";
+					game_span.innerHTML = "34";
+					imftg_main.src ="images/25-9.gif";
+					break
+
+					case 35:
+					p_title.innerHTML = "精细动作训练— 折纸训练";
+					main_game.innerHTML = "准备几种颜色的纸,大人给宝宝示范把纸折成长方形、正方形、三角形、扇子、风琴等,让宝宝模仿,大人可以给予一些指导,慢慢的,可以过渡 到稍微复杂的折纸,市场上有相应的 折纸书,家长可以购买。";
+					game_span.innerHTML = "35";
+					imftg_main.src ="images/31-4.gif";
+					break
+
+					case 36:
+					p_title.innerHTML = "社会交往能力训练— 说物品用途训练";
+					main_game.innerHTML = "找一些常见的日常用品放在桌上,大人可以拿起一件物品,问宝宝这个物品的功能是什么。或者大人向宝宝提一个问题,让宝宝从桌上的物品中挑一个来对应这个问题,譬如大人问“用什么喝水?”,宝宝会选择桌上的杯子。";
+					game_span.innerHTML = "36";
+					imftg_main.src ="images/25-9.gif";
+					break
+
+				}
+				setHeight(0);
+			}
+			function isDate (year,month,day)
+			{
+				month = month - 1;  // javascript month range : 0- 11
+				var tempDate = new Date(year,month,day);
+				if ( (year2k(tempDate.getFullYear()) == year) && (month == tempDate.getMonth()) && (day == tempDate.getDate()) )
+				{    
+					return true;
+				}
+				else
+				{
+					return false;
+				}
+			}
+			function year2k(d) 
+			{ 
+				return (d < 1000) ? d + 1900 : d;
+			}
+		</script>
+		
+		<script>
+		     baidu.app.autoHeight();
+		     setHeight(0);
+		</script>
+	</body>
+</html>
+
+<script type="text/javascript">
+	function upmonth()  /*月份加1*/
+	{
+		if (g_month >= 36)
+			{
+			
+			alert("已经过了36个月了，没有游戏项目可看了");
+			return;
+			}	
+		g_month += 1;
+		get_game(g_month);
+		document.getElementById("span_game").innerHTML = g_month;		
+	}
+	function downmonth()  /*月份减1*/
+	{
+		if (g_month <= 1)
+		{
+			alert("已经到第一个月了，不能在往前了！");
+			return;
+		}
+		g_month -= 1;
+		get_game(g_month);
+		document.getElementById("span_game").innerHTML = g_month;		
+
+	}
+</script>

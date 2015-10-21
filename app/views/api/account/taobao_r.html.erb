@@ -1,0 +1,158 @@
+<!doctype html>
+<html>
+<head>
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type"> 
+<title>宝宝日历</title>
+	<meta http-equiv="mobile-agent" content="format=html5;url=http://www.baobaorili.com/">
+	<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport" />
+    <meta content="yes" name="apple-mobile-web-app-capable" />
+    <meta content="black" name="apple-mobile-web-app-status-bar-style" />
+    <meta name="format-detection" content="telephone=no" />
+
+</head>
+<style>
+	body {
+		background: #f0f0f0;
+	}
+	* {padding: 0;}
+	div.txt {text-indent: 25px; padding-left: 0px; padding-right: 0px; }
+	div.txt h3 {line-height: 130%; font-size: 14px; margin: 6px;}
+
+	ul, ol, li {
+	list-style: none;
+	}
+
+	.login .login-form {
+	margin: 0;
+	margin-top: 10px;
+	}
+	.box-module {
+	border: 1px solid #c6c6c6;
+	-webkit-border-radius: 4px;
+	background: #fff;
+	}
+
+	.login .login-form li:first-child {
+	border-bottom: 1px solid #dbdbdb;
+	}
+
+	.login .login-form li.line {
+	border-bottom: 1px solid #dbdbdb;
+	}
+
+.login .login-form li {
+padding: 14px 11px;
+height: 36px;
+display: -webkit-box;
+}
+
+.login .login-form li {
+padding: 4px 11px;
+height: 36px;
+display: -webkit-box;
+}
+
+.login .login-form li div {
+width: 90px;
+height: 36px;
+line-height: 40px;
+font-size: 16px;
+color: #656565;
+}
+
+.login .login-form li .input {
+-webkit-box-flex: 1;
+width: 75%;
+}
+
+.login .login-form li input {
+width: 100%;
+height: 30px;
+font-size: 16px;
+border: 1px solid #c6c6c6;
+-webkit-border-radius: 4px;
+background: -webkit-gradient(linear,left top,left bottom,color-stop(0,#f6f6f6),color-stop(1,#fefefe));
+text-indent: 5px;
+color: #a0a0a0;
+-webkit-box-shadow: inset 0 1px 3px #aaa;
+}
+
+.btns {
+padding: 10px 7px;
+}
+
+.common-btn-full {
+width: 100%;
+height: 36px;
+line-height: 34px;
+font-weight: 700;
+color: #fff;
+font-size: 20px;
+text-shadow: 0px -1px 1px #451408;
+border: none;
+border-bottom: 1px solid #999999;
+-webkit-border-radius: 3px;
+background-color: #f94920;
+background: -webkit-gradient(linear,left top,left bottom, from(#F6AAC1), to(#F16F93));
+}
+
+</style>
+<body>
+	<div class="txt">
+		<h3>亲，由于淘宝政策调整，淘宝账号近期可能无法登录“宝宝日历”。</h3>
+	</div>
+	<div class="txt">
+		<h3>如果您是新用户，请点击返回并选择其它方式登录。</h3>
+	</div>
+	<div class="txt">
+		<h3>如果您是老用户，您需要绑定一个新的电子邮件账号并设置密码：</h3>
+	</div>
+	<%= form_tag({:action=>"taobao_bind"}, {:class=>"login", :onsubmit=>"return check_form();"}) do %>
+	  <div>
+        <ul class="login-form box-module">
+           <li><div for="user-name">原淘宝账号</div><div class="input"><input id='f1' type="text" name="taobao_account" class="txt J_Must" value=""></div></li>
+           <li class="line"><div for="user-name">新邮件账号</div><div class="input"><input id='f2' type="text" name="email" class="txt J_Must" value=""></div></li>
+           <li class="line"><div for="password">新密码</div><div class="input"><input id='f3' type="password" name="password" class="txt J_Must"></div></li>
+           <li><div for="password">再输一遍</div><div class="input"><input id='f4' type="password" name="password_again" class="txt J_Must"></div></li>
+        </ul>
+        
+    	<div class="btns">
+    		<input type="submit" id="J_Login" value="登录" class="common-btn-full">
+       	</div>
+ 	  </div>	
+    <% end %>
+    <script>
+    	function check_form(){
+    		var f1 = document.getElementById("f1").value;
+    		var f2 = document.getElementById("f2").value;
+    		var f3 = document.getElementById("f3").value;
+    		var f4 = document.getElementById("f4").value;
+    		
+    		if (f1 == ""){
+    			alert("请填写原淘宝登录账号");
+    			return false;
+    		}
+
+    		if (f2 == ""){
+    			alert("请填写新的电子邮件账号");
+    			return false;	
+    		}
+
+    		if (f3 == ""){
+    			alert("请填写登录密码");
+    			return false;		
+    		}
+
+    		if (f3 != f4){
+    			alert("两次密码需要一致");
+    			return false;		
+    		}
+
+    		return true;
+    	}
+    	<% if flash[:notice] %>
+    		alert("<%= flash[:notice] %>")
+    	<% end %>
+   	</script>
+</body>
+</html>

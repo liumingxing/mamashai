@@ -1,0 +1,313 @@
+	var win = Titanium.UI.createWindow({
+		title: "视频课堂",
+		backButtonTitle: !Ti.App.is_android && Ti.App.osversion < "7.0" ? '返回' : '',
+		backgroundColor: 'white'
+	});
+
+	if (!Ti.App.is_android) {
+		win.hideTabBar();
+	}
+
+	function make_more_row(){
+			//获取更多的行
+			var get_more_row = Ti.UI.createTableViewRow({
+				height : Ti.UI.SIZE,
+				selectedBackgroundColor : '#eee',
+				tag : 'get_more',
+				textAlign : "center",
+				name : 'get_more'
+			});
+
+			var get_more_row_center = Ti.UI.createView({
+				top : 0,
+				bottom : 0,
+				width : __l(100),
+				height : __l(46),
+				touchEnabled: false
+			})
+
+			var get_more_title = Ti.UI.createLabel({
+				top : __l(12),
+				bottom : __l(12),
+				left : __l(28),
+				right : __l(10),
+				textAlign : 'left',
+				height : __l(22),
+				font : {
+					fontSize : __l(16)
+				},
+				width : __l(70),
+				color : "#333",
+				text : '下一页',
+				touchEnabled: false
+			});
+
+			var navActInd = Titanium.UI.createActivityIndicator({
+				left : __l(0),
+				top : __l(12),
+				bottom : __l(12),
+				width : __l(22),
+				height : __l(22),
+				style : Ti.App.is_android ? Titanium.UI.ActivityIndicatorStyle.BIG_DARK : Titanium.UI.iPhone.ActivityIndicatorStyle.DARK
+			});
+			
+			get_more_row_center.add(navActInd);
+			get_more_row.navActInd = navActInd;
+			
+			get_more_row_center.add(get_more_title)
+			get_more_row.add(get_more_row_center);
+			return get_more_row;
+	}
+
+	add_default_action_bar(win, win.title, true);
+win.addEventListener("open", function(e){
+	cache_http_call(Ti.App.mamashai + "/api/videos/categories", 'video_category', function(e){
+		var category_json = JSON.parse(e.responseText);
+
+		var TabBar = require("lib/tab_bar");
+		var options = [];
+		for(var i=0; i<category_json.length; i++){
+			options.push({text: category_json[i].name, value: category_json[i].id});
+		}
+		var container = TabBar.create_tab_bar(options, false);
+		container.addEventListener("tab_click", function(e){
+			show_loading();
+			
+			var page = 1;
+			function callback(e){
+				var json = JSON.parse(e.responseText);
+				for(var i=0; i<json.length; i++){
+					if (i%2 == 0){
+						row = Ti.UI.createTableViewRow({
+							hasChild : false,
+							selectedBackgroundColor : 'white',
+							className: 'r2',
+							height: Ti.UI.SIZE
+						});
+					}
+
+					var wrapper = Ti.UI.createView({
+						left: i%2 == 0 ? (Ti.App.platform_width-__l(260))/3 : __l(140) + (Ti.App.platform_width-__l(260))*2/3,
+						width: __l(130),
+						top: __l(10),
+						height: Ti.UI.SIZE,
+						json: json[i],
+					})
+					wrapper.addEventListener("click", function(e){
+						var json = e.source.json;
+						var win = Titanium.UI.createWindow({
+							title: json.name,
+							backgroundColor: 'white',
+							backButtonTitle: !Ti.App.is_android && Ti.App.osversion < "7.0" ? '返回' : ''
+						});
+
+						var web = Ti.UI.createWebView({
+							left: 0,
+							top: 0,
+							right: 0,
+							bottom : Ti.App.is_ipad ? 90 : __l(50),
+							url: json.page_url
+						});
+						web.addEventListener("load", function(e){
+							hide_loading();
+						})
+						win.add(web);
+						win.addEventListener("open", function(e){
+							show_loading();	
+						})
+						win.addEventListener("androidback", function(){
+							web.url = "/local.html";
+							win.close()
+						})
+						win.addEventListener("close", function(e){
+							hide_loading();
+						})
+
+						http_call(Ti.App.mamashai + "/api/videos/visit/" + json.id, function(e){
+
+						}, function(){
+
+						})
+
+						var repost = Ti.UI.createButton({
+							title: "转发"
+						});
+						repost.addEventListener("click", function(e){
+							if (!check_login()){
+								to_login();
+								return;
+							}
+
+							http_call(Ti.App.mamashai + json.logo_url, function(e1){
+								show_window("write_post", {
+									title : '视频转发',
+									text : '刚刚在视频课堂看到一个很棒的视频“' + json.name+ "”，地址：" +json.short_url,
+									kind : 'wenzi',
+									from : 'wenzi',
+									image : e1.responseData
+								});
+							})
+							
+						})
+						if (!Ti.App.is_android)
+							win.setRightNavButton(repost);
+
+						var ZhinanAdv = require("lib/zhinan_adv");
+						ZhinanAdv.zhinan_adv('gou', win);
+
+						pre(win);
+						add_default_action_bar2(win, win.title, "转发", function(e){
+							repost.fireEvent("click")
+						});
+						Ti.App.currentTabGroup.activeTab.open(win, {
+							animated : true
+						});
+					})
+					row.add(wrapper)
+
+					wrapper.add(Ti.UI.createImageView({
+						left: __l(0),
+						right: __l(0),
+						top: __l(0),
+						bottom: __l(4),
+						width: __l(130),
+						touchEnabled: false,
+						height: __l(80),
+						image: Ti.App.mamashai + json[i].logo_thumb320
+					}));
+
+					wrapper.add(Ti.UI.createImageView({
+						left: __l(40),
+						right: __l(40),
+						top: __l(15),
+						bottom: __l(15),
+						width: __l(50),
+						touchEnabled: false,
+						height: __l(50),
+						image: "/images/video_mask.png"
+					}));
+					
+					wrapper.add(Ti.UI.createLabel({
+						left: __l(0),
+						top: __l(84),
+						bottom: __l(4),
+						right: __l(0),
+						height: __l(30),
+						touchEnabled: false,
+						text: json[i].name,
+						font: {fontSize: __l(12), fontWeight: 'bold'},
+						color: "#333"
+					}));
+					if (i%2 == 0)
+						tableview.appendRow(row);
+				}
+
+				setTimeout(function(){
+					var index = tableview.getIndexByName('get_more');
+					if (index > 0){
+						tableview.deleteRow(index);
+					}
+
+					if (json.length == 20){
+						var get_more_row = make_more_row();
+						get_more_row.addEventListener("click", function(e) {
+							if (!check_login()){
+								to_login();
+								return;
+							}
+
+							if (e.source.navActInd)
+								e.source.navActInd.show();
+							
+							page += 1;
+
+							http_call(Ti.App.mamashai + "/api/videos/videos/" + category_id + "?page=" + page, callback);
+						})
+						tableview.appendRow(get_more_row);
+					}
+				}, 600)
+
+				hide_loading();
+			}
+
+			category_id = e.value;
+			
+			var children_json = null;
+			for(var i=0; i<category_json.length; i++){
+				if (category_json[i].id == e.value && category_json[i].children){
+					children_json = category_json[i].children;
+					break;
+				}
+			}
+
+			if (children_json){
+				var header = Ti.UI.createView({
+					left: 0,
+					right: 0,
+					width: Ti.App.platform_width,
+					height: __l(40),
+					backgroundColor: "white",
+				});
+				for(var i=0; i<children_json.length; i++){
+					var btn = Ti.UI.createButton({
+						text : children_json[i].name,
+						title : children_json[i].name,
+						id: children_json[i].id,
+						height: __l(30),
+						top: __l(5),
+						bottom: __l(5),
+						font: {fontSize: __l(12)},
+						color: "#666",
+						backgroundColor: 'transparent',
+						left: Ti.App.is_android ? __l(8) + __l(62)*i : __l(10) + __l(60)*i,
+						width: Ti.App.is_android ? __l(58) : __l(50),
+					});
+
+					btn.addEventListener("click", function(e){
+						for(var i=0; i<header.children.length; i++){
+							header.children[i].color = '#666';
+						}
+						e.source.color = Ti.App.bar_color;
+						tableview.setData([]);
+						page = 1;
+						category_id = e.source.id;
+						http_call(Ti.App.mamashai + "/api/videos/videos/" + e.source.id + "?page=" + page, callback);
+					});
+					header.add(btn);
+				}
+				win.remove(tableview);
+				tableview = null;
+				
+				tableview = Titanium.UI.createTableView({top: container.height, separatorColor : "#ccc"});
+				tableview.headerView = header;
+				win.add(tableview)
+				
+				header.children[0].fireEvent("click");
+				hide_loading();
+			}
+			else{
+				http_call(Ti.App.mamashai + "/api/videos/videos/" + e.value + "?page=" + page, function(e){
+					win.remove(tableview);
+					tableview = null;
+					tableview = Titanium.UI.createTableView({top: container.height, separatorColor : "#ccc"});
+					win.add(tableview);
+
+					callback(e)
+				});
+			}
+			
+		});
+		win.add(container);
+		var tableview = Titanium.UI.createTableView({top: container.height, separatorColor : "#ccc"});
+		win.add(tableview)
+
+		container.fireEvent("click", {index: 0});
+	});
+});
+	pre(win);
+	
+	logEvent('video_class');
+
+	Ti.App.currentTabGroup.activeTab.open(win, {
+		animated : true
+	});

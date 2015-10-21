@@ -1,0 +1,143 @@
+<div id="middle">
+    <div id="css_mainbody">
+        <h1 class="title">妈妈晒团购-信息管理<span style="float: right; margin-right: 10px;"><% if params[:action]=="index" %>
+                <%= link_to '已结束团购信息', '/mms/mms_tuans/old' %>| <% else %>
+                <%= link_to '返回列表', '/mms/mms_tuans/index' %>| <% end %>
+                <%= link_to '添加新的团购信息', '/mms/mms_tuans/new' %>
+            </span></h1>
+        <div style="text-align:center;" class="green">
+            <%= flash[:notice] %>
+        </div>
+        <div id="page_count">
+            <span style="float:right;">共有<b class="blue"><%=h @tuans.total_entries %></b>条记录</span>
+        </div>
+        <% form_tag "/mms/mms_tuans/search", {:method => "get"} do %>
+        <table style="width:800px;">
+            <tr>
+                <td align="right" width="200px">
+                    搜索：
+                </td>
+                <td>
+                    <%= text_field_tag "keyword", {},{:value => @keyword, :size => 40} %><%= submit_tag "查询" %>
+                </td>
+            </tr>
+        </table>
+        <% end %>
+        <% form_tag "/mms/mms_tuans/tuans_email", {:method => "get"} do %>
+        <table style="width:800px;">
+            <tr>
+                <td align="right" width="200px">
+                    生成email(多个团购)：
+                </td>
+                <td>
+                    <%= text_field_tag "tuan_ids", {}, {:size => 40} %><%= submit_tag "生成" %>注：输入团购ID号，以 ，号隔开
+                </td>
+            </tr>
+        </table>
+        <% end %>
+        <div class="clear">
+        </div>
+        <table class="grid">
+            <tr>
+                <th width="5%">
+                    序号
+                </th>
+                <th width="30%">
+                    团购主题
+                </th>
+                <th width="5%">
+                    Id
+                </th>
+                <th width="10%">
+                    开始时间
+                </th>
+                <th width="10%">
+                    结束时间
+                </th>
+                <th width="10%">
+                    团购类别
+                </th>
+                <th width="8%">
+                    实际购买数量
+                </th>
+                <th width="5%">
+                    今日主推
+                </th>
+                <th>
+                    操作
+                </th>
+            </tr>
+            <% if @tuans.blank? %>
+            <tr>
+                <td colspan=8>
+                    <b>暂无记录</b>
+                </td>
+            </tr>
+            <% else %>
+            <% @tuans.each_with_index do |tuan,index| %>
+            <tr>
+                <td>
+                    <%=(index+1).to_s %>
+                </td>
+                <td>
+                    <%=link_to truncate(h(tuan.content),50),"/tuan/mama/#{tuan.id}",:target=>"_blank" %>
+                </td>
+                <td>
+                    <%= tuan.id %>
+                </td>
+                <td>
+                    <%= (tuan.begin_time.blank?)? '暂无信息' : tuan.begin_time.strftime("%Y年%m月%d日<br/>%H时%M分%S秒") %>
+                </td>
+                <td>
+                    <%= (tuan.end_time.blank?)? '暂无信息' : tuan.end_time.strftime("%Y年%m月%d日<br/>%H时%M分%S秒") %>
+                </td>
+                <td>
+                    <%= tuan.mms_tuan_type %>
+                </td>
+                <td>
+                    <%= tuan.person_amount.blank? ? '暂无数据' : tuan.person_amount %>
+                </td>
+                <td>
+                    <%= tuan.current_key ? '是' : '否' %>
+                </td>
+                <td>
+                    <%= link_to '修改', "/mms/mms_tuans/edit/#{h tuan.id}" %>
+                    <%= link_to '删除', "/mms/mms_tuans/destroy/#{h tuan.id}", :confirm => '确认删除吗？', :method => :delete %>
+                    <%= link_to '邀请排序', "javascript:void(0);",:onclick=>"show_prompt(#{tuan.id});" %>
+                    <%= link_to '地址核查', "/mms/mms_tuans/address/#{tuan.id}" %>
+                    <br/>
+                    <%= link_to '生成email', "/mms/mms_tuans/generate_email/#{tuan.id}", :target => "_blank" %>
+                    <%= link_to '订单查看', "/mms/mms_tuans/orders/#{tuan.id}", :target => "_blank" %>
+                    <% if [2,3].include? tuan.tp %>
+                    <%= link_to '商品发放', "javascript:void(0);",:onclick=>"show_prompt_products(#{tuan.id});" %>
+                    <% end %>
+                    <% if tuan.virtual? %>
+                    <%= link_to "虚拟产品","/mms/mms_tuans/virtual_index/#{tuan.id}" %>
+                    <% end %>
+                </td>
+            </tr>
+            <% end %>
+            <%end %>
+        </table>
+        <div class="book_page">
+            <%=will_paginate @tuans %>
+        </div>
+    </div>
+    <div class="clear">
+    </div>
+</div>
+<script type="text/javascript">
+    function show_prompt(tuan_id){
+        var limit = prompt("请输入查询数量", "30");
+        if (limit != null && limit != "") {
+            location.href = "/mms/mms_tuans/invite_order/" + tuan_id + "?limit=" + limit
+        }
+    }
+    
+    function show_prompt_products(tuan_id){
+        var per_page = prompt("请输入查询数量", "30");
+        if (per_page != null && per_page != "") {
+            location.href = "/mms/mms_tuans/products/" + tuan_id + "?per_page=" + per_page
+        }
+    }
+</script>

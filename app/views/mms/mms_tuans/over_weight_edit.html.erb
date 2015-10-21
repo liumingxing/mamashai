@@ -1,0 +1,13 @@
+<div id="middle">
+    <div id="css_mainbody">
+        <h1 class="title">妈妈晒团购-附加邮费管理-修改<span style="float: right; margin-right: 10px;"><%= link_to '返回列表', '/mms/mms_tuans/index' %>
+            </span></h1>
+        <% form_for @fright_profile,:url => { :action => "over_weight_update",:id=>@fright_profile.id } do |f| %>
+        <%= render :partial => "form_over_weight", :locals=>{:f=>f} %>
+        <% end %>
+    </div>
+    <div class="clear">
+    </div>
+</div>
+
+

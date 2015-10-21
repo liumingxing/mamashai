@@ -1,0 +1,82 @@
+<div id="middle">
+    <div id="css_mainbody">
+        <h1 class="title">妈妈晒团购-虚拟产品管理-购买记录<span style="float: right; margin-right: 10px;"><%=link_to "返回虚拟商品管理","/mms/mms_tuans/virtual_index/#{@tuan.id}"%>|<%= link_to '返回团购列表', '/mms/mms_tuans/index' %>
+            </span></h1>
+        <div style="text-align:center;" class="green">
+            <%= flash[:notice] %>
+        </div>
+        <div id="page_count">
+            <span style="float:right;">共有<b class="blue"><%=h @logs.total_entries %></b>条记录</span>
+        </div>
+        <div class="clear">
+        </div>
+        <table class="grid">
+            <tr>
+                <th width="5%">
+                    序号
+                </th>
+				<th width="10%">
+                    用户名
+                </th>
+				<th width="10%">
+                    订单号
+                </th>
+                <th width="15%">
+                    优惠券编码
+                </th>
+				<th width="15%">
+                    优惠券密码
+                </th>
+                <th width="5%">
+                    Id
+                </th>
+                <th width="10%">
+                    开始时间
+                </th>
+                <th width="10%">
+                    结束时间
+                </th>
+            </tr>
+            <% if @logs.blank? %>
+            <tr>
+                <td colspan=8>
+                    <b>暂无记录</b>
+                </td>
+            </tr>
+            <% else %>
+            <% @logs.each_with_index do |log,index| %>
+            <tr>
+                <td>
+                    <%=(index+1).to_s %>
+                </td>
+				<td>
+                    <%= log.user.name %>
+                </td>
+				<td>
+					<% order_id = log.order_item.order_id%>
+                    <%=link_to Order.order_sn_view(order_id),"/mms/tuan_orders/#{order_id}",:target=>"_blank"%>
+                </td>
+                <td>
+                    <%= link_to log.code,"/mms/mms_tuans/virtual_log_show/#{log.id}", :target=>"_blank"%>
+                </td>
+				<td>
+                     <%= log.password||'无' %>
+                </td>
+                <td>
+                    <%= log.id %>
+                </td>
+                <td>
+                    <%= log.begin_time.strftime("%Y年%m月%d日<br/>%H时%M分%S秒") %>
+                </td>
+                <td>
+                    <%= log.end_time.strftime("%Y年%m月%d日<br/>%H时%M分%S秒")%>
+                </td>
+            </tr>
+            <% end %>
+            <%end %>
+        </table>
+		<%= will_paginate @logs%>
+    </div>
+    <div class="clear">
+    </div>
+</div>

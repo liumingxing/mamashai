@@ -1,0 +1,148 @@
+<h3>用户行为表</h3>
+<table class="grid">
+    <tbody>
+        <tr>
+            <th>
+                序号
+            </th>
+            <th>
+                用户名
+            </th>
+            <th>
+                注册日期
+            </th>
+            <th>
+                性别
+            </th>
+            <th>
+                地区
+            </th>
+            <th>
+                年龄段
+            </th>
+            <th>
+                孩子年龄段
+            </th>
+            <th>
+                行业
+            </th>
+            <th>
+                关注
+            </th>
+            <th>
+                粉丝
+            </th>
+            <th>
+                微博
+            </th>
+			<th>
+                评论
+            </th>
+			<th>
+                转晒
+            </th>
+			<th>
+                收藏
+            </th>
+            <th>
+              6-11点
+            </th>
+            <th>
+              11-17点
+            </th>
+            <th>
+              17-24点
+            </th>
+            <th>
+                头像
+            </th>
+            <th>
+                资料
+            </th>
+            <th>
+                手机
+            </th>
+            <th>
+                域名
+            </th>
+            <th>
+                博客
+            </th>
+        </tr>
+        <% i = 1 + (@users.current_page-1)*25 %>
+        <% for user in @users %>
+        <tr height="35">
+            <td>
+                <%=i %>
+            </td>
+            <td>
+                <%=link_user(user) %>
+            </td>
+            <td>
+                <%=date_en user.created_at %>
+            </td>
+            <td>
+                <%=APP_CONFIG["gender_label_#{user.gender}"] %>
+            </td>
+            <td>
+                <%=user.province.name if user.province %><%=user.city.name if user.city %>
+            </td>
+            <td>
+                <%=user.birthyear %>后
+            </td>
+            <td>
+                <%=user.age.name if user.age %>
+            </td>
+            <td>
+                <%=user.industry.name if user.industry %>
+            </td>
+            <td>
+                <%=user.follow_users_count %>
+            </td>
+            <td>
+                <%=user.fans_users_count %>
+            </td>
+            <td>
+                <%=user.posts_count %>
+            </td>
+			<td>
+                <%=Comment.count(:all,:conditions=>['user_id=?',user.id]) %>
+            </td>
+			<td>
+                <%=Post.count(:all,:conditions=>['user_id=? and forward_post_id is not null',user.id]) %>
+            </td>
+			<td>
+                <%=FavoritePost.count(:all,:conditions=>['user_id=?',user.id]) %>
+            </td>
+			<td>
+                <%=Post.count(:all,:conditions=>['user_id=? and HOUR(created_at) >= ? and HOUR(created_at) <= ? ',user.id,6,11]) %>
+            </td>
+			<td>
+                <%=Post.count(:all,:conditions=>['user_id=? and HOUR(created_at) > ? and HOUR(created_at) < ? ',user.id,11,17]) %>
+            </td>
+			<td>
+               <%=Post.count(:all,:conditions=>['user_id=? and HOUR(created_at) >= ? and HOUR(created_at) <= ? ',user.id,17,24]) %>
+            </td>
+            <td>
+                <%=true_or_false(!user.logo.blank?) %>
+            </td>
+            <td>
+                <%=true_or_false(user.user_profile && UserProfile.is_finish_profile(user,user.user_profile)) %>
+            </td>
+            <td>
+                <%=true_or_false(!user.mobile.blank?) %>
+            </td>
+            <td>
+                <%=true_or_false(!user.domain.blank?) %>
+            </td>
+            <td>
+                <%=true_or_false(!user.user_blogs.blank?) %>
+            </td>
+        </tr>
+        <% i+=1 %>
+        <% end %>
+    </tbody>
+</table>
+<div class="summary">
+    <%=will_paginate @users %>
+</div>

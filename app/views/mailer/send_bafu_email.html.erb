@@ -1,0 +1,59 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta property="wb:webmaster" content="a3d20eb561df1cb6" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>八福公学报名表</title>    
+  </head>
+  <style>
+  	body {color: #4E4E4E; font-size: 15px;}
+  	div#main {min-width: 310px; width: 96%; max-width:768px; margin: 5px auto;}
+  	table.form {border-collapse:collapse;}
+  	table.form td {line-height: 160%; }
+  	table.form td input {width:95%; margin: auto 0px; height: 24px;}
+  	div.submit_wrapper {text-align: center; margin: 10px;}
+  	div.submit_wrapper input {width: 60px; height: 20px;}
+  </style>
+  <body>
+  <div id='main'>
+     <table class='form' border=1>
+     	<tr>
+     		<th>孩童姓名</th>
+     		<td><%= text_field :form, :name %></td>
+     		<th width="80px">乳名(小名)</th>
+     		<td><%= text_field :form, :name2 %></td>
+     		<th width="50px">英文名</th>
+     		<td><%= text_field :form, :name3 %></td>
+     	</tr>
+     	<tr>
+     		<th>出生地</th>
+     		<td><%= text_field :form, :born_at %></td>
+     		<th>出生时间</th>
+     		<td colspan=3><%= date_select :form, :birthday, :start_year=>Date.today.year-10, :end_year =>Date.today.year, :use_month_numbers=>true %></td>
+     	</tr>
+     	<tr>
+     		<th>简要描述这个孩童</th>
+     		<td colspan=5><%= text_field :form, :desc %></td>
+     	</tr>
+     	<tr>
+     		<th>爸爸或妈妈姓名</th>
+     		<td><%= text_field :form, :parent_name %></td>
+     		<th>手机</th>
+     		<td><%= text_field :form, :mobile %></td>
+     		<th>邮箱</th>
+     		<td><%= text_field :form, :email %></td>
+     	</tr>
+     	<tr>
+     		<th>报名类型</th>
+     		<td colspan=5>
+     			<%= select :form, :kind, options_for_select(%w(幼儿园 学前班 小学1年级 小学2年级)) %>
+     		</td>
+     	</tr>
+     	<tr>
+     		<th>在这里学习的预期和目标</th>
+     		<td colspan=5><%= text_field :form, :target %></td>
+     	</tr>
+     </table>
+  </div>
+  </body>
+</html>

@@ -1,0 +1,7 @@
+<div>
+	<a class="back" href="/qing/articles?page=<%= params[:page].to_i %>" hidefocus="true">返回</a>
+	<h2 class="article_title"><%= @article.title %></h2>
+</div>
+<div class="article_body">
+	<%= @article.article_content.content.html_safe%>
+</div>

@@ -1,0 +1,28 @@
+<h1>trends/follow 关注某话题。</h1><%= link_to "返回到列表", "/api/test" %>
+<pre>
+  [路径]: trends/follow
+  [HTTP请求方式]: POST
+  [URL]: http://your.api.domain/trends/follow.json
+  [是否需要登录]： true
+
+参数
+
+    * source 申请应用时分配的AppKey，调用接口时候代表应用的唯一身份。
+    * trend_name 要关注的话题关键词。
+
+示例
+
+  curl -u "username:password" -d "trend_name=JAVA"
+  "http://your.api.domain/trends/destroy.json?source=appkey"
+
+注意事项
+
+    * 成功返回ok，失败返回error
+</pre>
+<hr/>
+<%= form_tag "/api/trends/follow.json" ,{:method=>:post} do %>
+  <%= render :partial => '/api/test/login' %>
+  source: <%= text_field_tag "source" %><br/>
+  trend_name: <%= text_field_tag "trend_name" %><br/>
+  <%= submit_tag "提交"%>
+<% end -%>

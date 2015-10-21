@@ -1,0 +1,28 @@
+<h1>create 添加收藏 </h1><%= link_to "返回到列表", "/api/test" %>
+<pre>
+  [路径]: favorites/create
+  [HTTP请求方式]: POST
+  [URL]: http://your.api.domain/favorites/create.json
+  [是否需要登录]： true
+
+参数
+
+    * source 申请应用时分配的AppKey，调用接口时候代表应用的唯一身份。
+    * id 要收藏的微博消息ID。
+
+示例
+
+  curl -u "username:password" -X POST
+  "http://your.api.domain/favorites/create.json?source=appkey&id=100041"
+
+注意
+
+    * 收藏成功返回ok，失败则返回error
+</pre>
+<hr/>
+<%= form_tag "/api/favorites/create.json" ,{:method=>:post} do %>
+  <%= render :partial => '/api/test/login' %>
+  source: <%= text_field_tag "source" %><br/>
+  id: <%= text_field_tag "id" %><br/>
+  <%= submit_tag "提交"%>
+<% end -%>

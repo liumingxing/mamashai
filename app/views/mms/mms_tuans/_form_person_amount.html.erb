@@ -1,0 +1,61 @@
+<fieldset>
+    <legend>
+        信息更改
+    </legend>
+    <div class="line_item">
+        <span class="title"><%= f.label :person_amount,"实际购买数量更改：" %>
+        </span>
+        <span class="content">
+			<%= f.text_field :person_amount %>
+		<%= f.error_message_on  :person_amount %>
+        </span>
+    </div>
+</fieldset>
+<div class="submit">
+	<span class="left">
+    	<input type="submit" name="submit" value="提交">
+	</span>
+	<span class="right">
+		<%= link_to '返回', '/mms/mms_tuans' %>
+	</span>
+</div>
+
+<style type="text/css">
+    fieldset {
+        border: 1px solid #D1D1D1;
+        color: #333333;
+        line-height: 220%;
+        margin: 20px;
+        padding: 10px;
+    }
+    
+    legend {
+        background: none repeat scroll 0 0 #FFFFFF;
+        color: #666666;
+        font-weight: 800;
+    }
+    
+    fieldset div.line_item {
+        height: 30px;
+        display: block;
+		width:100%;
+    }
+    
+    .line_item .title {
+        margin-left: 30px;
+        font-weight: bolder;
+        width: 150px;
+        float: left;
+    }
+    
+    .line_item .content {
+        float: left;
+    }
+	div.submit{
+		margin:20px;
+		text-align:center;
+	}
+	div.submit span{
+		margin:0 20px;
+	}
+</style>

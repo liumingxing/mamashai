@@ -1,0 +1,6 @@
+<h1>修改热点话题</h1>
+
+<%= form_tag({:action => 'update', :id => @week_tag}, {:multipart=>true}) do %>
+  <%= render :partial => 'form' %>
+  <%= submit_tag '保存' %> | <%= link_to '返回', :action => 'list' %>
+<% end %>

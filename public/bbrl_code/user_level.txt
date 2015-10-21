@@ -1,0 +1,55 @@
+var win = Titanium.UI.createWindow({
+	title : "用户等级",
+	backgroundColor : '#fff',
+	backButtonTitle : !Ti.App.is_android && Ti.App.osversion < "7.0" ? '返回' : ''
+});
+
+var wrapper = Ti.UI.createView({
+	top: 0,
+	left: 0,
+	bottom: 0,
+	right: 0,
+	layout: 'vertical'
+})
+win.add(wrapper);
+
+function create_row(index, text){
+	var level1_wrapper = Ti.UI.createView({
+		top: __l(20),
+		left: 0,
+		right: 0,
+		height: Ti.UI.SIZE
+	})
+	level1_wrapper.add(Ti.UI.createImageView({
+				left : __l(20),
+				height : __l(16),
+				width: __l(50),
+				hires: true,
+				image: "/images/level/" + index + ".png"
+	}))
+
+	level1_wrapper.add(Ti.UI.createLabel({
+				left : __l(90),
+				height : Ti.UI.SIZE,
+				font: {fontSize: __l(14)},
+				width: __l(300),
+				text: text
+	}))
+	return level1_wrapper;
+}
+
+wrapper.add(create_row(1, "用户等级1，新手用户等级"));
+wrapper.add(create_row(2, "用户等级2"));
+wrapper.add(create_row(3, "用户等级3"));
+wrapper.add(create_row(4, "用户等级4"));
+wrapper.add(create_row(5, "用户等级5"));
+wrapper.add(create_row(6, "用户等级6"));
+wrapper.add(create_row(7, "用户等级7，最高等级"));
+
+add_default_action_bar(win, win.title, true)
+
+pre(win)
+	
+Ti.App.currentTabGroup.activeTab.open(win, {
+	animated : true
+});

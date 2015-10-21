@@ -1,0 +1,24 @@
+<tr>
+    <td colspan="2">
+        &nbsp;
+    </td>
+</tr>
+<tr>
+    <td>
+        <%= label :city,:fright_fee,"邮费：" %>
+    </td>
+    <td>
+        <%= text_field :city,:fright_fee %>
+        <%= error_message_on :city,:fright_fee %>
+    </td>
+</tr>
+<tr>
+    <td colspan="2">
+        &nbsp;
+    </td>
+</tr>
+<tr>
+    <td colspan="2">
+        <input type="submit" name="submit" value="提交"><%= link_to '返回', '/mms/mms_tuans/cities' %>
+    </td>
+</tr>

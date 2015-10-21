@@ -1,0 +1,24 @@
+<h1>update 发布一条微博信息</h1><%= link_to "返回到列表", "/api/test" %>
+<pre>
+    [路径]:statuses/update
+    [HTTP请求方式]: POST
+    [URL]: http://your.api.domain/statuses/update.json
+    [是否需要登录]： true
+  
+  参数
+  
+      * source 申请应用时分配的AppKey，调用接口时候代表应用的唯一身份。
+      * status 要发布的微博消息文本内容
+  
+  示例
+  
+    curl -u "username:password" -d 'status=abc'
+    "http://your.api.domain/statuses/update.json?source=appkey"
+</pre>
+<hr/>
+<%= form_tag "/api/statuses/update.json" ,{:method=>:post} do %>
+  <%= render :partial => '/api/test/login' %>
+  source: <%= text_field_tag "source" %><br/>
+  status: <%= text_field_tag "status" %><br/>
+  <%= submit_tag "提交"%>
+<% end -%>

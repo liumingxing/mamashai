@@ -1,0 +1,39 @@
+<div class="layer" id="layer_push">
+    <div class="layer_title">
+        <span class="title">把<%=@recommend_user.name %>推荐给朋友</span>
+        <span class="more"><a href="javascript:void(0);" onclick="MMS.tools.hidedialog();"><img src="/images/layer/del_06.gif"></a></span>
+    </div>
+    <div class="layer_content">
+        <div class="layer_pmt">
+            说说推荐理由吧：
+        </div>
+        <div class="layer_box">
+            还可以输入<span id="recommand_text_left" class="size">210</span>个汉字
+        </div>
+        <% form_remote_tag :url => {:action => :create_recommend}, :loading => "", :update => "lbContent" do %>
+        <div class="layer_box_text">
+            <%= text_area :post, :content,{:onpropertychange=>"updateStatusTextCharCounter(this,'recommand_text_left')",:oninput=>"updateStatusTextCharCounter(this,'recommand_text_left')"} %>
+            <div>
+                <%=error_message_on :post,:content %>
+            </div>
+        </div>
+        <ul class="layer_botton">
+            <li>
+                <button class="button_submit_s" id="recommand_button" onmouseover="this.className='button_submit_s button_submit_s_hover';" onmouseout="this.className='button_submit_s';">
+                    推荐
+                </button>
+            </li>
+            <li>
+                <button class="button_submit_s" type="button" onclick="MMS.tools.hidedialog();" onmouseover="this.className='button_submit_s button_submit_s_hover';" onmouseout="this.className='button_submit_s';">
+                    取消
+                </button>
+            </li>
+            <div class="clear">
+            </div>
+        </ul>
+        <% end %>
+    </div>
+</div>
+<script>
+    reset_box(432, 262);
+</script>

@@ -1,0 +1,10 @@
+<ul class="all_event_list all_event_list01">
+    <li<%=' class="current"' if params[:tag_id]=='all' %>>
+        <a href="/ask/list?tag_id=all&age_id=<%=@age.id%>">全部分类</a>
+    </li>
+    <% for tag in @tags %>
+    <li<%=' class="current"' if params[:tag_id]==tag.id.to_s %>>
+		<a href="/ask/list?tag_id=<%=tag.id%>&age_id=<%=@age.id%>"><%=tag.name %></a>
+    </li>
+    <% end %>
+</ul>

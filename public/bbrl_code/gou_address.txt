@@ -1,0 +1,680 @@
+function GouAddress(attr){
+	var win = Ti.UI.createWindow(attr);
+
+	//打开编辑地址的窗口
+	function show_edit_win(attr){
+		var address_win = Ti.UI.createWindow({
+			title: "添加收货地址",
+			backgroundColor: "white",
+			backButtonTitle: "",
+			id: attr.id
+		});
+
+		var submit = Ti.UI.createButton({
+			title: "提交"
+		})
+		submit.addEventListener("click", function(e){
+			var error_tips = [[txt_receiver.value, "请输入收货人姓名"],
+						  [txt_mobile.value, "请输入收货人联系手机"],
+						  [txt_city.value, "请选择城市"],
+						  [txt_address.value, "请输入详细地址"],
+						  [txt_id_name.value==txt_receiver.value, "收货人姓名与身份证姓名必须一致"],
+						  [txt_id_name.value, "请输入收货人身份证姓名"],
+						  [txt_id_code.value, "请输入收货人身份证号码"],
+						  [txt_id_code.value.length == 18, "身份证号码必须18位"],
+						  [id_logo_wrapper1.blob || id_logo_wrapper1.has, "请上传身份证照片"],
+						  [id_logo_wrapper2.blob || id_logo_wrapper2.has, "请上传身份证反面照片"]];
+			for(var i=0; i<error_tips.length; i++){
+				if (!error_tips[i][0]){
+					show_alert("提示", error_tips[i][1]);
+					return;
+				}
+			}
+
+			var url = Ti.App.mamashai + "/api/gou/add_address?" + account_str();
+			var xhr = Ti.Network.createHTTPClient()
+			xhr.timeout = Ti.App.timeout
+			xhr.onload = function(){
+				hide_loading();
+
+				var json = JSON.parse(this.responseText);
+				if (json.error){
+					show_alert("提示", json.error)
+				}
+				else{
+					if (address_win.id)
+						show_alert("提示", "修改地址成功");
+					else
+						show_alert("提示", "添加地址成功");
+					Ti.App.fireEvent("add_gou_address", {json: json});
+					address_win.close();
+				}
+			}
+			xhr.open("POST", url)
+			var args = {}
+			args.receiver = txt_receiver.value;
+			args.mobile   = txt_mobile.value;
+			args.city  	  = txt_city.value;
+			args.address  = txt_address.value;
+			args.default  = check.view.value ? "yes" : "no"
+			
+			if (address_win.id){
+				args.id = address_win.id
+			}
+			if (txt_id_name.value){
+				args.id_name = txt_id_name.value
+			}
+			if (txt_id_code.value){
+				args.id_code = txt_id_code.value
+			}
+			if (id_logo_wrapper1.blob){
+				args.id_logo1 = id_logo_wrapper1.blob
+			}
+			if (id_logo_wrapper2.blob){
+				args.id_logo2 = id_logo_wrapper2.blob
+			}
+			xhr.send(args)
+			show_loading("正在提交");
+		})
+
+		if (!Ti.App.is_android){
+			address_win.setRightNavButton(submit)
+		}
+
+		var section1 = Ti.UI.createTableViewSection({})
+		
+		//收货人
+		var row1 = Ti.UI.createTableViewRow({
+			selectedBackgroundColor: "#eee",
+			height: __l(46),
+		})
+		row1.add(Ti.UI.createLabel({
+			font: {fontSize: __l(16)},
+			color: "#333",
+			left: __l(20),
+			height: __l(46),
+			text: "收货人"
+		}))
+		var txt_receiver = Ti.UI.createTextField({
+			height: __l(44),
+			top: __l(1),
+			bottom: __l(1),
+			left: __l(100),
+			right: __l(4),
+			value: attr.receiver,
+			font: {fontSize: __l(16)},
+			hintText: "请输入收件人姓名"
+		})
+		row1.add(txt_receiver);
+		section1.add(row1)
+
+		//联系手机
+		var row2 = Ti.UI.createTableViewRow({
+			selectedBackgroundColor: "#eee",
+			height: __l(46),
+		})
+		row2.add(Ti.UI.createLabel({
+			font: {fontSize: __l(16)},
+			color: "#333",
+			left: __l(20),
+			height: __l(46),
+			text: "联系手机"
+		}))
+		var txt_mobile = Ti.UI.createTextField({
+			height: __l(44),
+			top: __l(1),
+			bottom: __l(1),
+			left: __l(100),
+			right: __l(4),
+			maxLength: 13,
+			keyboardType: Titanium.UI.KEYBOARD_PHONE_PAD,
+			hintText: "请输入正确手机号",
+			font: {fontSize: __l(16)},
+			value: attr.mobile,
+		})
+		row2.add(txt_mobile);
+		section1.add(row2)
+
+		//省市地区
+		var row3 = Ti.UI.createTableViewRow({
+			selectedBackgroundColor: "#eee",
+			height: __l(46),
+		})
+		row3.add(Ti.UI.createLabel({
+			font: {fontSize: __l(16)},
+			color: "#333",
+			left: __l(20),
+			height: __l(46),
+			text: "省市"
+		}))
+		var txt_city = Ti.UI.createTextField({
+			height: __l(44),
+			top: __l(1),
+			bottom: __l(1),
+			left: __l(100),
+			right: __l(4),
+			editable: false,
+			hintText: "选择省份和城市",
+			font: {fontSize: __l(16)},
+			value: attr.city,
+		})
+		
+		txt_city.addEventListener(Ti.App.is_android ? "focus" : "click", function(e){
+			show_window("city", {
+				title: "选择城市",
+				backgroundColor: 'white'
+			});
+			function change_city(e){
+				txt_city.value = e.province_name + " " + e.city_name;
+			}
+			Ti.App.addEventListener("select_city", change_city);
+			address_win.addEventListener("close", function(e){
+				Ti.App.removeEventListener("select_city", change_city);	
+			});
+		})
+		row3.add(txt_city);
+		section1.add(row3)
+
+		//详细地址
+		var row4 = Ti.UI.createTableViewRow({
+			selectedBackgroundColor: "#eee",
+			height: __l(46),
+		})
+		row4.add(Ti.UI.createLabel({
+			font: {fontSize: __l(16)},
+			color: "#333",
+			left: __l(20),
+			height: __l(46),
+			text: "详细地址"
+		}))
+		var txt_address = Ti.UI.createTextField({
+			height: __l(44),
+			top: __l(1),
+			bottom: __l(1),
+			left: __l(100),
+			right: __l(4),
+			hintText: "具体到门牌号",
+			font: {fontSize: __l(16)},
+			value: attr.address,
+		})
+		row4.add(txt_address);
+		section1.add(row4);
+
+		//默认地址
+		var row5 = Ti.UI.createTableViewRow({
+			selectedBackgroundColor: "#eee",
+			height: __l(46),
+		})
+		row5.add(Ti.UI.createLabel({
+			font: {fontSize: __l(16)},
+			color: "#333",
+			left: __l(20),
+			height: __l(46),
+			text: "默认地址"
+		}))
+		
+		var CheckBox = require("lib/checkbox").CheckBox
+		var check = new CheckBox({
+			top: __l(4),
+			height: __l(40),
+			width: __l(40),
+			left: __l(100)
+		})
+		if (attr.default){
+			Ti.App.is_android ? check.view.value = true : check.setCheck()
+		}
+		else
+			Ti.App.is_android ? check.view.value = false : check.setUncheck()
+		row5.add(check.view)
+		section1.add(row5)
+
+
+		//身份证信息
+		var headerView = Ti.UI.createView({
+			backgroundColor: "#F8F8F8",
+			width: Ti.App.platform_width,
+			height: __l(40)
+		})
+		headerView.add(Ti.UI.createLabel({
+			text: "身份证信息",
+			color: '#333',
+			font: {fontSize: __l(16)},
+			height: __l(30),
+			top: __l(5),
+			left: __l(10),
+			textAlign: "left",
+		}))
+		headerView.add(Ti.UI.createLabel({
+			text: "（购买境外商品须提交）",
+			color: '#999',
+			font: {fontSize: __l(13)},
+			height: __l(30),
+			top: __l(5),
+			left: __l(100),
+			textAlign: "left"
+		}))
+		var footerView = Ti.UI.createView({
+			backgroundColor: "#F8F8F8",
+			width: Ti.App.platform_width,
+			height: __l(50)
+		})
+		footerView.add(Ti.UI.createLabel({
+			text: "亲，购买境外商品，根据海关规定，需上传收货人本人身份证正反照，以便报关，请填写真实信息。",
+			color: '#999',
+			font: {fontSize: __l(13)},
+			height: __l(40),
+			top: __l(5),
+			bottom: __l(5),
+			left: __l(10),
+			right: __l(10),
+			textAlign: "left"
+		}))
+		if (attr.id){
+			var delete_btn = Ti.UI.createButton({
+				width: __l(160),
+				left: (Ti.App.platform_width - __l(160))/2,
+				height: __l(36),
+				color: "#F11",
+				title: "删除",
+				top: __l(52),
+				borderRadius: __l(4),
+				id: attr.id
+			})
+			delete_btn.addEventListener("click", function(e){
+				var alert_dialog = Titanium.UI.createAlertDialog({
+					title : '提示',
+					message : '确定要删除此地址吗？',
+					buttonNames : ['取消', '确定'],
+					cancel : 0
+				});
+				alert_dialog.addEventListener("click", function(e1){
+					if (e1.index == 1){
+						http_call(Ti.App.mamashai + "/api/gou/delete_address/" + e.source.id + "?" + account_str(), function(e2){
+							if (e2.responseText == "ok"){
+								Ti.App.fireEvent("delete_gou_address", {id: e.source.id})
+								address_win.close();
+								show_notice("删除地址成功")
+							}
+							else{
+								show_notice("删除地址失败")	
+							}
+						})
+					}
+				});
+				alert_dialog.show();
+			})
+			if (!Ti.App.is_android && parseInt(Ti.Platform.version[0]) < 7){
+				pre_btn(delete_btn)
+			}
+			else{
+				delete_btn.color = 'white'
+				delete_btn.backgroundColor = "#FF3333"
+				delete_btn.backgroundSelectedColor = "#EE3333"
+			}
+			footerView.height = __l(100)
+			footerView.add(delete_btn)
+		}
+		var section2 = Ti.UI.createTableViewSection({
+			headerView: headerView,
+			footerView: Ti.App.is_android ? null : footerView
+		})
+		
+		//身份证姓名
+		var row1 = Ti.UI.createTableViewRow({
+			selectedBackgroundColor: "#eee",
+			height: __l(46),
+		})
+		row1.add(Ti.UI.createLabel({
+			font: {fontSize: __l(16)},
+			color: "#333",
+			left: __l(20),
+			height: __l(46),
+			text: "姓名"
+		}))
+		var txt_id_name = Ti.UI.createTextField({
+			height: __l(44),
+			top: __l(1),
+			bottom: __l(1),
+			left: __l(100),
+			right: __l(4),
+			hintText: "收件人身份证姓名",
+			font: {fontSize: __l(16)},
+			value: attr.id_name,
+		})
+		row1.add(txt_id_name);
+		section2.add(row1);
+
+		//身份证号
+		var row2 = Ti.UI.createTableViewRow({
+			selectedBackgroundColor: "#eee",
+			height: __l(46),
+		})
+		row2.add(Ti.UI.createLabel({
+			font: {fontSize: __l(16)},
+			color: "#333",
+			left: __l(20),
+			height: __l(46),
+			text: "身份证号"
+		}))
+		var txt_id_code = Ti.UI.createTextField({
+			height: __l(44),
+			top: __l(1),
+			bottom: __l(1),
+			left: __l(100),
+			right: __l(4),
+			maxLength: 18,
+			hintText: "收件人身份证号码",
+			font: {fontSize: __l(16)},
+			value: attr.id_code,
+		})
+		row2.add(txt_id_code);
+		section2.add(row2);
+
+		//身份证正反面
+		var row3 = Ti.UI.createTableViewRow({
+			selectedBackgroundColor: "#eee",
+			height: __l(90),
+			selectionStyle: 'NONE'
+		})
+		row3.add(Ti.UI.createLabel({
+			font: {fontSize: __l(16)},
+			color: "#333",
+			left: __l(20),
+			height: __l(90),
+			text: "证件照",
+		}))
+
+		var id_logo_wrapper1 = Ti.UI.createView({
+			borderColor: "#999",
+			borderWidth: 1,
+			backgroundColor: "#EBF4F5",
+			left: __l(106),
+			top: __l(10),
+			width: __l(70),
+			height: __l(70),
+			has: false
+		})
+		id_logo_wrapper1.addEventListener("click", function(e){
+			select_image(false, function(image, path){
+				id_logo_wrapper1.blob = image
+				id_logo_wrapper1.add(Ti.UI.createImageView({
+					image: image,
+					backgroundColor: "white",
+					left: 0,
+					top: 0,
+					right: 0,
+					bottom: 0,
+					touchEnabled: false
+				}))
+			})
+		})
+		id_logo_wrapper1.add(Ti.UI.createLabel({
+			text: "上传正面照",
+			textAlign: "center",
+			color: "#999",
+			height: __l(70),
+			width: __l(70),
+			font: {fontSize: __l(11)}
+		}))
+
+		var id_logo_wrapper2 = Ti.UI.createView({
+			borderColor: "#999",
+			borderWidth: 1,
+			backgroundColor: "#EBF4F5",
+			left: __l(200),
+			top: __l(10),
+			width: __l(70),
+			height: __l(70),
+			has: false
+		})
+		id_logo_wrapper2.addEventListener("click", function(e){
+			select_image(false, function(image, path){
+				id_logo_wrapper2.blob = image
+				id_logo_wrapper2.add(Ti.UI.createImageView({
+					image: image,
+					backgroundColor: "white",
+					left: 0,
+					top: 0,
+					right: 0,
+					bottom: 0,
+					touchEnabled: false
+				}))
+			})
+		})
+		id_logo_wrapper2.add(Ti.UI.createLabel({
+			text: "上传反面照",
+			textAlign: "center",
+			color: "#999",
+			height: __l(70),
+			width: __l(70),
+			font: {fontSize: __l(11)}
+		}))
+
+		if (attr.id_logo1){
+			id_logo_wrapper1.has = true
+
+			id_logo_wrapper1.add(Ti.UI.createImageView({
+					image: Ti.App.mamashai + attr.id_logo1,
+					backgroundColor: "white",
+					left: 0,
+					top: 0,
+					right: 0,
+					bottom: 0,
+					touchEnabled: false
+				}))
+		}
+		if (attr.id_logo2){
+			id_logo_wrapper2.has = true
+			id_logo_wrapper2.add(Ti.UI.createImageView({
+					image: Ti.App.mamashai + attr.id_logo2,
+					backgroundColor: "white",
+					left: 0,
+					top: 0,
+					right: 0,
+					bottom: 0,
+					touchEnabled: false
+				}))
+		}
+
+		row3.add(id_logo_wrapper1)
+		row3.add(id_logo_wrapper2)
+		
+		section2.add(row3);
+
+		var tableview = Ti.UI.createTableView({
+			style : Titanium.UI.iPhone.TableViewStyle.GROUPED,
+			footerView: Ti.App.is_android ? footerView : null
+		})
+		tableview.appendSection(section1);
+		tableview.appendSection(section2);
+		address_win.add(tableview);
+
+		pre(address_win);
+		add_default_action_bar2(address_win, address_win.title, "提交", function(e){
+			submit.fireEvent("click")
+		})
+
+		Ti.App.currentTabGroup.activeTab.open(address_win, {
+			animated : true
+		});
+
+		return address_win;
+	}
+
+	var btn = Ti.UI.createButton({
+		title: "添加地址",
+		height: __l(40),
+		left: __l(100),
+		right: __l(100),
+		font: {fontSize: __l(16)},
+		top: __l(300)
+	})
+	btn.addEventListener("click", function(e){
+		show_edit_win({})
+	})
+	pre_btn(btn);
+
+	function refresh_win(){
+		http_call(Ti.App.mamashai + "/api/gou/get_addresses?" + account_str(), function(e){		
+			clear_window(win);
+		
+			var json = JSON.parse(e.responseText);
+			if (json.length == 0){					//没有地址信息
+				win.add(Ti.UI.createImageView({
+					image: "./images/gou/wenhao.png",
+					top: __l(40),
+					left: (Ti.App.platform_width - __l(140))/2,
+					right: __l(100),
+					hires: true,
+					width: __l(140),
+					height: __l(140)
+				}))
+
+				win.add(Ti.UI.createLabel({
+					left: __l(10),
+					right: __l(10),
+					top: __l(220),
+					font: {fontSize: __l(18)},
+					color: "#333",
+					text: "主人，宝贝递到哪儿呢？",
+					textAlign: "center"
+				}))
+
+				win.add(Ti.UI.createLabel({
+					left: __l(10),
+					right: __l(10),
+					top: __l(250),
+					font: {fontSize: __l(13)},
+					color: "#ccc",
+					text: "快去添加地址吧",
+					textAlign: "center"
+				}))
+
+				
+				win.add(btn);
+			}
+			else{
+				var footerView = Ti.UI.createView({
+					height: __l(60),
+					width: Ti.App.platform_width,
+				})
+				
+				btn.top = __l(10);
+				footerView.add(btn)
+
+				var table_header = Ti.UI.createView({
+					height: __l(20)
+				});
+				var tableview = Ti.UI.createTableView({
+					style : Titanium.UI.iPhone.TableViewStyle.GROUPED,
+					headerView: table_header,
+					backgroundColor: "#F9F9F9",
+					footerView: footerView
+				})
+
+				for(var i=0; i<json.length; i++){
+					var header = Ti.UI.createView({
+						height: Ti.App.is_android ? __l(20) : __l(1)
+					});
+					var section = Ti.UI.createTableViewSection({headerView: i==0 ? null : header});
+					var row = Ti.UI.createTableViewRow({
+						selectedBackgroundColor: "#eee",
+						backgroundColor: json[i].default ? "#FEE" : "white",
+						hasChild: Ti.App.is_android ? false : true,
+						height: Ti.UI.SIZE
+					})
+					var wrapper = Ti.UI.createView({
+						left: 0,
+						right: 0,
+						top: 0,
+						bottom:0,
+						height: Ti.UI.SIZE,
+						json: json[i],
+						id: json[i].id,
+						row: row
+					})
+					row.add(wrapper);
+					wrapper.addEventListener("click", function(e){
+						if (win.select_popup){				//弹出选择框
+							win.close();
+							Ti.App.fireEvent("select_address", {address: e.source.json})
+						}
+						else{
+							show_edit_win({
+								id: e.source.json.id,
+								receiver: e.source.json.receiver,
+								mobile: e.source.json.mobile,
+								city: e.source.json.city,
+								default: e.source.json.default,
+								address: e.source.json.address,
+								id_name: e.source.json.id_name,
+								id_code: e.source.json.id_code,
+								id_logo1: e.source.json.logo_thumb200_1,
+								id_logo2: e.source.json.logo_thumb200_2
+							})
+						}
+					})
+					
+					wrapper.add(Ti.UI.createLabel({
+						left: __l(20),
+						top: __l(16),
+						text: json[i].receiver,
+						font: {fontSize: __l(18), fontWeight: "bold"},
+						touchEnabled: false,
+						color: "#333"
+					}))
+					if (json[i].id_code && json[i].logo_url1 && json[i].logo_url2){
+						wrapper.add(Ti.UI.createImageView({
+							left: __l(84),
+							top: __l(18),
+							width: __l(30),
+							height: __l(18),
+							touchEnabled: false,
+							image: "/images/gou/shenfenzheng.png",
+							touchEnabled: false,
+						}))
+					}
+
+					wrapper.add(Ti.UI.createLabel({
+						right: __l(20),
+						top: __l(16),
+						text: json[i].mobile,
+						font: {fontSize: __l(16)},
+						touchEnabled: false,
+						color: "#333"
+					}))
+
+					wrapper.add(Ti.UI.createLabel({
+						left: __l(20),
+						top: __l(46),
+						bottom: __l(16),
+						height: Ti.UI.SIZE,
+						text: json[i].city + " " +json[i].address,
+						font: {fontSize: __l(16)},
+						touchEnabled: false,
+						color: "#333"
+					}))
+					section.add(row);
+					tableview.appendSection(section)
+				}
+				win.add(tableview)
+			}
+
+		})
+	}
+	refresh_win();
+
+	Ti.App.addEventListener("add_gou_address", refresh_win);
+	Ti.App.addEventListener("delete_gou_address", refresh_win);
+
+	win.addEventListener("close", function(e){
+		Ti.App.removeEventListener("add_gou_address", refresh_win);
+		Ti.App.removeEventListener("delete_gou_address", refresh_win);		
+	})
+
+	pre(win);
+	add_default_action_bar(win, win.title, true)
+	return win;
+}
+
+module.exports = GouAddress;

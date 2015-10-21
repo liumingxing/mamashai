@@ -1,0 +1,74 @@
+<tr>
+    <td><%= f.label :name,"资源类别：" %></td>
+    <td>
+    	<%= f.select :mms_tool_category_id, Mms::ToolCategory.all.collect{|category| [category.name,category.id]}, :include_blank=>"请选择分类" %>
+		<%= f.error_message_on  :name %>
+	</td>
+</tr>
+<tr>
+    <td><%= f.label :name,"名称：" %></td>
+    <td>
+    	<%= f.text_field :name, :size=>50 %>
+		<%= f.error_message_on  :name %>
+	</td>
+</tr>
+<tr>
+    <td><%= f.label :tuan_id,"关联团购：" %></td>
+    <td>
+    	<%= f.text_field :tuan_id, :size=>10 %>(输入团购id) <%= link_to '查看团购id','/mms/mms_tuans',:target=>"_blank"%>
+		<%= f.error_message_on  :tuan_id %>
+	</td>
+</tr>
+<tr>
+    <td><%= f.label :score,"下载积分：" %></td>
+    <td>
+    	<%= f.text_field :score, :size=>50 %>
+		<%= f.error_message_on  :score %>
+	</td>
+</tr>
+<tr>
+    <td><%= f.label :logo,"图片：" %></td>
+    <td>
+		<%=upload_column_field :mms_tool, :logo%>
+		<%= f.error_message_on  :logo %>
+	</td>
+</tr>
+<tr>
+    <td><%= f.label :pdf,"下载资源：" %></td>
+    <td>
+    	<%=upload_column_field :mms_tool, :pdf%>
+		<%= f.error_message_on  :pdf %>
+	</td>
+</tr>
+<tr>
+    <td><%= f.label :url, "下载网址：" %></td>
+    <td>
+    	<%= f.text_field :url%>
+		<%= f.error_message_on  :url %>
+	</td>
+</tr>
+<tr>
+    <td><%= f.label :content,"资源介绍：" %></td>
+    <td>
+    	<%= f.text_area :content%>
+		<%= f.error_message_on  :content %>
+	</td>
+</tr>
+<tr>
+    <td></td>
+    <td> <%= f.check_box :tool %>手机APP工具 </td>
+</tr>
+<tr>
+    <td>年龄段</td>
+    <td> <%= f.select "step_id", Age.find(:all).collect{|age| [age.name, age.id]},{:include_blank => true} %></td>
+</tr>
+<tr>
+    <td colspan="2">&nbsp;
+	</td>
+</tr>
+<tr>
+    <td colspan="2">
+    	<input type="submit" name="submit" value="提交">
+		<%= link_to '返回', :action=>"list"%>
+	</td>
+</tr>

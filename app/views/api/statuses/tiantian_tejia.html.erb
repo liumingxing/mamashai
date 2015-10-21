@@ -1,0 +1,25 @@
+var win = Titanium.UI.createWindow({
+	title: "天天特价",
+	backButtonTitle: "返回"
+});
+pre(win)
+
+var web = Ti.UI.createWebView({
+	top: 0,
+	left: 0,
+	right: 0,
+	bottom: 0,
+	url: Ti.App.is_android ? "http://m.taobao.com/channel/chn/mobile/tejia_taoke.php?pid=mm_54242674_6044733_21236076" : "http://m.taobao.com/channel/chn/mobile/tejia_taoke.php?pid=mm_54242674_6034853_21224149"
+})
+win.add(web)
+add_default_action_bar(win, win.title, true)
+
+if (!Ti.App.is_android) {
+	win.hideTabBar();
+}
+
+logEvent("tiantiantejia")
+			
+Ti.App.currentTabGroup.activeTab.open(win, {
+	animated : true
+});

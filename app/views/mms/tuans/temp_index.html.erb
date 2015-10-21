@@ -1,0 +1,117 @@
+<div id="middle">
+    <div id="css_mainbody">
+        <h1 class="title">团购导航-内容抓取管理
+			<span style="float: right; margin-right: 10px;">
+				<%= link_to '网站列表', '/mms/tuans/website_index' %>		
+        	</span>
+		</h1>
+        <div style="text-align:center;" class="green">
+            <%= flash[:notice] %>
+			<%= @notice %>
+        </div>
+        <div id="page_count">
+            <span style="float:right;">共有<b class="blue"><%=h @tuans.total_entries %></b>条记录</span>
+        </div>
+        <div class="clear">
+        </div>
+        <table class="grid">
+            <tr>
+                <th width="5%">
+                    序号
+                </th>
+                <th width="20%">
+                    团购内容
+                </th>
+                <th width="10%">
+                    团购网站
+                </th>
+                <th width="20%">
+                    开始时间
+                </th>
+                <th width="10%">
+                    结束时间
+                </th>
+                <th width="10%">
+                    团购人数
+                </th>
+				<th width="10%">
+                    最后抓取时间
+                </th>
+                <th width="10%">
+                    操作
+                </th>
+            </tr>
+            <% if @tuans.blank? %>
+	            <tr>
+	                <td colspan=8>
+	                    <b>暂无记录</b>
+	                </td>
+	            </tr>
+            <% else %>
+	            <% @tuans.each_with_index do |tuan,index| %>
+		            <tr>
+		                <td>
+		                    <%=(index+1).to_s %>
+		                </td>
+		                <td>
+		                    <%=link_to tuan.content,"/mms/tuans/temp_show/#{tuan.id}",:target=>"_blank"%>
+		                </td>
+		                <td>
+		                    <%=link_to tuan.tuan_website.try(:name),tuan.tuan_website.try(:url),:target=>"_blank" %>
+		                </td>
+		                <td>
+		                    <%= (tuan.begin_time.blank?)? '暂无信息' : tuan.begin_time.strftime("%Y年%m月%d日<br/>%H时%M分%S秒") %>
+		                </td>
+		                <td>
+		                    <%= (tuan.end_time.blank?)? '暂无信息' : tuan.end_time.strftime("%Y年%m月%d日<br/>%H时%M分%S秒") %>
+		                </td>
+		                <td>
+		                    <%= tuan.person_amount.blank? ? '暂无数据' : tuan.person_amount %>
+		                </td>
+						<td>
+		                    <%= (tuan.updated_at.blank?)? '暂无信息' : tuan.updated_at.strftime("%Y年%m月%d日<br/>%H时%M分%S秒") %>
+		                </td>
+		                <td>
+		                	<%= link_to '补充', "/mms/tuans/temp_edit/#{h tuan.id}" %>
+		                    <%= link_to '发布', "javascript:void(0);", :onclick=>"show_dialog(#{h tuan.id})" %>
+		                    <%= link_to '删除', "/mms/tuans/temp_destroy/#{h tuan.id}", :confirm => '确认删除吗？', :method => :delete %>
+		                </td>
+		            </tr>
+	            <% end %>
+            <%end %>
+        </table>
+        <div class="book_page">
+            <%=will_paginate @tuans %>
+        </div>
+    </div>
+    <div class="clear">
+    </div>
+</div>
+<div id="dialog" title="为此信息添加团购分类：">
+	<% upload_form_tag :action=>"temp_publish" do%>
+		<%=hidden_field_tag "temp_tuan_id"%>
+		团购分类：<%= select :tuan,:tuan_category_id, TuanCategory.all.collect{|tc| [tc.name,tc.id]}%><br/>
+		团购图片：<%= upload_column_field 'tuan', 'logo'  %>
+		<span class="right"><input type="submit" value="确认"/></span>
+	<% end %>
+</div>
+
+
+<script type="text/javascript">
+		$('#dialog').dialog({
+			autoOpen: false,
+			width: 400
+		});
+		
+	 function show_dialog(id) {
+		$("#temp_tuan_id").val(id);
+		$('#dialog').dialog('open');
+		return false;
+	}
+</script>
+
+<style type="text/css">
+	.right{
+		float:right;
+	}
+</style>

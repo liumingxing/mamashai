@@ -1,0 +1,211 @@
+/* CSS Document */
+body{ width:800px; height:350px; background:url(images/bj.jpg) repeat; margin:0 auto; padding:0;}
+a:{ cursor:hand;}
+a{ text-decoration:none;}
+#top{ width:540px; height:35px; background:url(images/top_bg.jpg) repeat-x; margin:0 auto; padding:0; overflow:hidden;}
+#logo{ width:100px; height:35px; float:left;}
+#top_r{ width:115px; height:35px; float:right;}
+img { border:0;}
+
+#contents{ width:540px; height:315px; background-color:#FFF; margin:0 auto; padding:0; overflow:hidden;}
+
+#time{ width:535px; height:92px; background:url(images/time_bg.jpg) no-repeat; margin:0 auto; padding:0; overflow:hidden;}
+#time_l{ width:300px; height:60px; margin-top:15px; float:left; display:inline;}
+
+#time_r{ width:168px; height:58px; margin-top:34px; float:right;}
+#mid{ width:535px; height:183px; margin:0 auto; padding:0;overflow:hidden;}
+#mid_l{ width:360px; height:183px; background:url(images/ml_bg.jpg) no-repeat; margin:0; padding:0; float:left;}
+#mid_r{ width:175px; height:183px; background:url(images/mr_bg.jpg) no-repeat; margin:0; padding:0; float:right; overflow:hidden;}
+#tupian{ width:120px; height:107px; margin-left:34px; padding:0; float:left; display:inline;}
+#tupian div{ float:left; margin:10px auto 0;}
+#bot_r_b{ width:163px; height:76px; margin:0 auto; padding:0; float:left; display:inline; overflow:hidden;}
+#jiantou{ width:34px; height:76px; background:url(images/xiazai.jpg) right; float:left; margin-left:8px; display:inline;}
+#lianjie_text{ width:120px; height:76px; float:left; overflow:hidden;}
+#bot_r_b_t{width:160px; height:20px; font:"ËÎÌו"; font-size:14px; color:#e60062; line-height:20px; text-indent:5px; float:left; margin-top:10px;}
+#bot_r_b_t a{ color:#e60062;}
+#bot_r_b_b{width:160px; height:200px; font:"ËÎÌו"; font-size:14px; color:#e60062; line-height:20px; text-indent:5px; float:left; margin-top:18px;}
+#bot_r_b_b a{ color:#e60062;}
+#foot{ width:535px; height:40px; margin:0 auto; padding:0;}
+
+
+#abc{ width:330px; height:40px; margin:120px auto 0; font:"ËÎÌו"; font-size:18px; line-height:20px; color:#F69; letter-spacing:-1px;}
+.content_top_time { width:300px; height:36px;margin:0 auto; position: relative; float:left;}
+.content_top_time img { float:left;}
+.content_top_time input {
+	position: absolute;
+	background: transparent;
+	height: 20px;
+	line-height: 20px;
+	border: 0;
+	cursor:hand;
+}
+.content_top_time .t_year{
+	font-size:14px;
+	color:#ff1e00;
+	left: 71px;
+	top: 2px;
+	width: 55px;
+	padding-left: 10px;
+}
+.content_top_time .t_month{
+	font-size:14px;
+	color:#ff1e00;
+	text-indent:3px;
+    left: 162px;
+    top: 2px;
+    width: 35px;
+	padding-left: 8px;
+}
+.content_top_time .t_day{
+	font-size:14px;
+	color:#ff1e00;
+	text-indent:2px;
+    border: 0 none;
+    height: 20px;
+	line-height: 20px;
+    left: 231px;
+    padding-left: 8px;
+    position: absolute;
+    top: 2px;
+    width: 35px;
+}
+.content_top_time .t_week{
+    left: 427px;
+    position: absolute;
+    text-align: center;
+    top: 2px;
+    width: 30px;
+}
+#t_week_prev{
+    left: 410px;
+    position: absolute;
+    text-align: center;
+    top: 2px;
+    width: 16px;
+	height: 22px;
+	cursor: pointer;
+}
+#t_week_next{
+    left: 458px;
+    position: absolute;
+    text-align: center;
+    top: 2px;
+    width: 16px;
+	height: 22px;
+	cursor: pointer;
+}
+
+.pop_select{
+	margin-left:2px;
+	position: absolute;
+	border: 1px solid silver;
+	background: white;
+	overflow-y: scroll;
+	overflow-x: hidden;
+	cursor:hand;
+}
+.pop_select a{
+	display: block;
+	color: black;
+	text-decoration: none;
+	text-align: center;
+	font-size: 12px;
+	padding: 2px 0;
+	cursor:hand;
+}
+.pop_select a:hover{
+	background: #ebebeb;
+	cursor:hand;
+}
+
+
+.content_top_timea { width:300px; height:30px;margin:0 auto; position: relative; float:left;}
+.content_top_timea img { float:left;}
+.content_top_timea input {
+	position: absolute;
+	background: transparent;
+	height: 20px;
+	line-height: 20px;
+	border: 0;
+	cursor:hand;
+}
+.content_top_timea .t_yeara{
+	font-size:14px;
+	color:#ff1e00;
+	left: 71px;
+	top: 2px;
+	width: 55px;
+	padding-left: 10px;
+}
+.content_top_timea .t_montha{
+	font-size:14px;
+	color:#ff1e00;
+	text-indent:3px;
+    left: 163px;
+    top: 2px;
+    width: 35px;
+	padding-left: 8px;
+	float:left;
+}
+.content_top_timea .t_daya{
+	font-size:14px;
+	color:#ff1e00;
+	text-indent:2px;
+    border: 0 none;
+    height: 20px;
+	line-height: 20px;
+    left: 231px;
+    padding-left: 8px;
+    position: absolute;
+    top: 2px;
+    width: 35px;
+	float:left;
+}
+.content_top_timea .t_weeka{
+    left: 427px;
+    position: absolute;
+    text-align: center;
+    top: 2px;
+    width: 30px;
+}
+#t_week_preva{
+    left: 410px;
+    position: absolute;
+    text-align: center;
+    top: 2px;
+    width: 16px;
+	height: 22px;
+	cursor: pointer;
+}
+#t_week_nexta{
+    left: 458px;
+    position: absolute;
+    text-align: center;
+    top: 2px;
+    width: 16px;
+	height: 22px;
+	cursor: pointer;
+}
+
+.pop_selecta{
+	margin-left:2px;
+	position: absolute;
+	border: 1px solid silver;
+	background: white;
+	overflow-y: scroll;
+	overflow-x: hidden;
+	cursor:hand;
+}
+.pop_selecta a{
+	display: block;
+	color: black;
+	text-decoration: none;
+	text-align: center;
+	font-size: 12px;
+	padding: 2px 0;
+	cursor:hand;
+}
+.pop_selecta a:hover{
+	background: #ebebeb;
+	cursor:hand;
+}

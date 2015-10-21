@@ -1,0 +1,144 @@
+ <div id="middle">
+	<div id="css_mainbody">
+		<h1 class="title">邮件预览<%= "--#{flash[:notice]}" unless flash[:notice].blank? %><span style="float: right; margin-right: 10px;"><a href="/mms/email/index">返回首页</a></span></h1>
+		<table class="email_new">
+			<tr>
+				<td class="column_1">
+					发送时间：
+				</td>
+				<td colspan="4" class="column_2">
+					<%= @email.blank? ? '' : @email.send_time%>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					每次发送的邮件地址数量:
+				</td>
+				<td colspan="4" class="column_2">
+					<%= @email.blank? ? '' : @email.send_count%>
+				</td>
+			</tr>
+			<tr>
+				<td class="column_1">
+					每次发送时间间隔：
+				</td>
+				<td colspan="4" class="column_2">
+					<%= @email.blank? ? '' : @email.send_interval%> 分钟
+				</td>
+			</tr>
+			<tr>
+				<td class="column_1">
+					不发送的邮箱类型：
+				</td>
+				<td colspan="4" class="column_2">
+					<%= @email.blank? ? "" : @email.ignore_email_type.blank? ? "" : @email.ignore_email_type %>
+				</td>
+			</tr>
+			<tr>
+				<td class="column_1">
+					测试邮件地址：
+				</td>
+				<td colspan="4" class="column_2">
+					<%= @email.blank? ? '' : @email.test_address %>
+				</td>
+				<td class="column_2">
+					&nbsp;
+				</td>
+			</tr>
+			<tr>
+				<td class="column_1">
+					收件人：
+				</td>
+				<td colspan="4" class="column_2">
+					<%= @email.blank? ? '' : @email.flag %>
+				</td>
+				<td class="column_2">
+					&nbsp;
+				</td>
+			</tr>
+			<tr>
+				<td class="column_1">
+					主题：
+				</td>
+				<td colspan="4" class="column_2">
+					<%= @email.blank? ? '' : @email.subject %>
+				</td>
+			</tr>
+			<tr>
+				<td class="column_1">
+					内容：
+				</td>
+				<td colspan="4"></td>
+			</tr>
+			<tr>
+				<td class="column_1">&nbsp;</td>
+				<td colspan="4" class="column_2">
+					<%= @email.blank? ? '' : @email.content %>
+				</td>
+			</tr>
+			<tr>
+				<td class="column_1">&nbsp;</td>
+				<td colspan="4" class="column_2">
+					&nbsp;
+				</td>
+			</tr>
+			<tr>
+				<td>&nbsp;</td>
+				<td class="column_button">
+					<% unless @email.blank? %>
+					<% if !@email.state.blank? and (@email.state != "wait" and @email.state != "send") %><%= button_to_function "发送", "if (confirm('您确定要发送邮件吗?')) send_email()" -%><% end %>
+					<% if !@email.state.blank? and (@email.state != "draft" and @email.state != "pause" and @email.state != "stop" and @email.state != "finish") %><%= button_to_function "暂停发送", "if (confirm('您确定要暂停发送邮件吗?')) pause()" -%><% end %>
+					<% if !@email.state.blank? and (@email.state != "draft" and @email.state != "stop" and @email.state != "finish") %><%= button_to_function "停止发送", "if (confirm('您确定要停止发送邮件吗?')) stop()" -%><% end %>
+					<% end %>
+				</td>
+				<td class="column_button"><%= button_to_function "测试发送", "if (confirm('您确定要发送测试邮件吗?')) send_test_email()" -%></td>
+			</tr>
+		</table>
+	</div>
+</div>
+<style type="text/css">
+	.email_new  {
+	border:1px solid #DDDDDD;
+	border-collapse:collapse;
+	empty-cells:show;
+	margin:10px auto;
+	width:98%;
+	}
+	.email_new td {
+		border:1px solid #DDDDDD;
+		color:#666666;
+		font-size:12px;
+		height:30px;
+		line-height:30px;
+		padding-left:10px;
+		text-align:center;
+	}
+	.email_new td.column_1 {
+		width:11%;
+		text-align:right;
+	}
+	.email_new td.column_2 {
+		align:left;
+		text-align:left;
+	}
+	.email_new td.column_button {
+		text-align:center;
+	}
+</style>
+<script type="text/javascript">
+	$('#preview').click(function(){
+		window.open("/mms/email/preview/<%= @email.id unless @email.blank? -%>")
+	});
+	function send_email(){
+		window.location.href="/mms/email/send_email?id=<%= @email.blank? ? '' : @email.id %>";
+	}
+	function pause(){
+		window.location.href="/mms/email/pause?id=<%= @email.blank? ? '' : @email.id %>";
+	}
+	function stop(){
+		window.location.href="/mms/email/stop?id=<%= @email.blank? ? '' : @email.id %>";
+	}
+	function send_test_email(){
+		window.location.href="/mms/email/send_email_now?id=<%= @email.blank? ? '' : @email.id %>";
+	}
+</script>

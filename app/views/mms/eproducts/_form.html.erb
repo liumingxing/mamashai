@@ -1,0 +1,89 @@
+<fieldset>
+    <legend>
+        商品信息
+    </legend>
+	<div class="line_item">
+        <span class="title"><%= f.label :name,"商品名称：" %>
+        </span>
+        <span class="content"><%= f.text_field :name, :size=>50,:required=>"required" %>
+            <%= f.error_message_on :name %>
+        </span>
+    </div>
+    <div class="line_item">
+        <span class="title"><%= f.label :eproduct_category_id,"所属分类" %>
+        </span>
+        <span class="content">
+        	<%= f.select :eproduct_category_id, nested_set_options(::EproductCategory, @category) {|i| "#{'--' * i.level} #{i.name}" },{:include_blank=>"请选择所属分类"}%>
+            <%= f.error_message_on :eproduct_category_id %>
+        </span>
+    </div>
+	<div class="line_item">
+        <span class="title"><%= f.label :price,"价格：" %>
+        </span>
+        <span class="content"><%= f.text_field :price, :size=>50,:required=>"required" %>
+            <%= f.error_message_on :price %>
+        </span>
+    </div>
+	<div class="line_item">
+        <span class="title"><%= f.label :link,"链接：" %>
+        </span>
+        <span class="content"><%= f.text_field :link, :size=>50,:required=>"required" %>
+            <%= f.error_message_on :link %>
+        </span>
+    </div>
+	<div class="line_item">
+        <span class="title"><%= f.label :content,"商品描述：" %>
+        </span>
+        <span class="content"><%= f.text_area :content, :cols=>40,:rows=>10,:required=>"required" %>
+            <%= f.error_message_on :content %>
+        </span>
+    </div>
+</fieldset>
+<div class="submit">
+	<span class="left">
+    	<input type="submit" name="submit" value="提交">
+	</span>
+	<span class="right">
+		<%= link_to '返回', '/mms/eproducts' %>
+	</span>
+</div>
+<style type="text/css">
+    fieldset {
+        border: 1px solid #D1D1D1;
+        color: #333333;
+        line-height: 220%;
+        margin: 20px;
+        padding: 10px;
+    }
+    
+    legend {
+        background: none repeat scroll 0 0 #FFFFFF;
+        color: #666666;
+        font-weight: 800;
+    }
+    
+    fieldset div.line_item {
+        height: 30px;
+        display: block;
+		width:100%;
+    }
+    
+    .line_item .title {
+        margin-left: 30px;
+        font-weight: bolder;
+        width: 150px;
+        float: left;
+    }
+    
+    .line_item .content {
+        float: left;
+    }
+	div.submit{
+		margin:20px;
+		text-align:center;
+	}
+	div.submit span{
+		margin:0 20px;
+	}
+</style>
+

@@ -1,0 +1,32 @@
+<h1>statuses followers 获取用户粉丝列表及每个粉丝的最新一条微博，返回结果按关注时间倒序排列，最新关注的粉丝排在最前面。</h1><%= link_to "返回到列表", "/api/test" %>
+<pre>
+  [路径]：statuses/followers
+  [HTTP请求方式]: GET
+  [URL]: http://your.api.domain/statuses/followers.json
+  [是否需要登录]: true
+
+参数
+
+    * source 申请应用时分配的AppKey，调用接口时候代表应用的唯一身份。
+    * :id: 用户ID，为空则返回当前登录用户
+    * count 指定每页返回的记录条数。默认值10
+    * page 页码,默认是1。
+
+示例
+
+  curl -u "username:password"
+  "http://your.api.domain/statuses/followers.json?source=appkey&count=5&page=2&id=203"
+
+注意
+
+    * 如果ID对应的用户不存在，取当前登录用户
+</pre>
+<hr/>
+<%= form_tag "/api/statuses/followers.json" ,{:method=>:get} do %>
+  <%= render :partial => '/api/test/login' %>
+  source: <%= text_field_tag "source" %><br/>
+  id: <%= text_field_tag "id" %><br/>
+  count: <%= text_field_tag "count" %><br/>
+  page: <%= text_field_tag "page" %><br/>
+  <%= submit_tag "提交"%>
+<% end -%>

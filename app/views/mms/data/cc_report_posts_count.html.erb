@@ -1,0 +1,90 @@
+<h3><%=date_cn @date1%>到<%=date_cn @date2%> 微博量统计表</h3>
+<table class="grid">
+    <tbody>
+        <tr>
+        	<th>
+                序号
+            </th>
+            <th>
+                用户名
+            </th>
+			<th>
+                类型
+            </th>
+            <th>
+                性别
+            </th>
+			<th>
+                地区
+            </th>
+			<th>
+                年龄段
+            </th>
+			<th>
+                孩子年龄段
+            </th>
+			<th>
+                行业
+            </th>
+			<th>
+                微博量
+            </th>
+			<th>
+                被评论次数
+            </th>
+			<th>
+                被转晒次数
+            </th>
+			<th>
+                被收藏次数
+            </th>
+        </tr>
+		<% i = 1 %>
+		<% @total_count = 0 %>
+        <% for user in @users %>
+        <tr height="35">
+        	<td>
+                <%=i %>
+            </td>
+            <td>
+               <%=link_user(user) %>
+            </td>
+			<td>
+                  个人
+            </td>
+			<td>
+				<%=APP_CONFIG["gender_label_#{user.gender}"] %>
+			</td>
+            <td>
+                <%=user.province.name if user.province %> <%=user.city.name if user.city%>
+            </td>
+            <td>
+                <%=user.birthyear %>后
+            </td>
+            <td>
+               <%=user.age.name if user.age %>
+            </td>
+            <td>
+                <%=user.industry.name if user.industry %>
+            </td>
+			<td>
+                <%=user.posts_count %>
+            </td>
+			<td>
+                <%=user.comments_count %>
+            </td>
+			<td>
+                <%=user.forward_posts_count %>
+            </td>
+			<td>
+                <%=user.favorite_posts_count %>
+            </td>
+        </tr>
+		<% i+=1 %>
+		<% @total_count += user.posts_count %>
+        <% end %>
+    </tbody>
+</table>
+<div class="summary">
+	总计：<%=@users.length%>个用户，<%=@total_count%>个微博
+</div>

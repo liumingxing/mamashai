@@ -1,0 +1,41 @@
+<div class="comments01">
+    <div class="comments01_bg1">
+    </div>
+    <div class="comments01_bg2">
+        <% if @post.comments_count > 0 %>
+        <div class="look">
+            共有<span class="number"><%=@post.comments_count %></span>条<%=comment_or_answer(@post) %>，<a href="/post/<%=@post.id%>">看看你关注的人<%=comment_or_answer(@post) %>了什么?</a>
+        </div>
+		<% else %>
+			<div style="text-align: center;">暂时没有评论</div>
+        <% end %>
+        <% for comment in Comment.find(:all, :conditions=>['post_id=?',@post.id],:include=>[:user],:order=>'id') %>
+         <%=render :partial=>'/share/comment_content',:locals=>{:comment=>comment}%>
+        <% end %>
+        <!--
+        <% if @post.comments_count > 10 %>
+        <div class="look look_after">
+            后面还有<span class="number"><%=@post.comments_count-10 %></span>条<%=comment_or_answer(@post) %>，<a href="/post/<%=@post.id%>">看看你关注的人<%=comment_or_answer(@post) %>了什么?</a>
+        </div>
+         <% end %>
+        -->
+        <%= form_tag({:action => :create_comment, :id =>@post.id}, {:id=>"form_#{@post.id}", :remote=>true, :updater => "post_expand_#{@post.id}"}) do %>
+        <%=render :partial=>'/share/form_comment'%>
+        <script>
+        $("#form_<%= @post.id%>").bind("ajax:complete", function(xhr, status){
+            $('#post_expand_<%=@post.id%>').show('slow')
+        })
+        $("#form_<%= @post.id%>").bind("ajax:beforeSend", function(xhr, status){
+            $('#post_expand_<%=@post.id%>').hide('slow')
+        })
+        </script>
+		<% end if @user%>
+    </div>
+    <div class="comments01_bg3">
+    </div>
+</div>
+<div class="clear">
+</div>
+<% if params[:hide_box] %>
+<script>hide_box();</script>
+<% end %>

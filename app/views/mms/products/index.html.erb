@@ -1,0 +1,82 @@
+    <div id="middle">
+        <div id="css_mainbody">
+            <h1 class="title">商品管理
+				<span style="float:right;">
+					<%=link_to "新增纸质书", new_mms_products_path%>
+					<%if @state.blank?%>
+						<%=link_to "已删除纸质书", mms_products_path(:state=>:delete)%>
+					<%else%>
+						<%=link_to "返回列表", mms_products_path%>
+					<%end%>
+				</span>
+			</h1>
+			<div style="color: green;width:100%;text-align:center"><%= flash[:notice] %></div>		
+            <table class="grid">
+                <thead>
+                    <tr>
+                    	<th width="5%">序号</th>
+                        <th width="5%">商品编号</th>
+                        <th width="10%">商品名称</th>
+                        <th width="5%">页数</th>
+                        <th width="5%">原价</th>
+                        <th width="5%">折扣价</th>
+                        <th width="5%">成本价</th>
+                        <th width="15%">商品简介</th>
+						<th width="20%">商品详情</th>
+						<th width="10%">制作要求</th>
+						<th width="5%">修改</th>
+						<th width="5%">删除</th>
+                    </tr>
+                </thead>
+                <tbody>
+                	<% if @products.size == 0%>
+						<tr>
+							<td colspan=11><b>暂无相关记录。</b></td>
+						</tr>
+					<% else %>
+						<%@products.each_with_index do |product, index| %>
+		                    <tr>
+		                        <td><%= index+1 %></td>
+		                        <td><%= (product.code.blank?)? '暂无信息' : product.code %></td>
+		                        <td><%= (product.name.blank?)? '暂无信息' : product.name %></td>
+		                        <td><%= (product.size.blank?)? '暂无信息' : product.size.to_s %></td>
+		                        <td><%= (product.price.blank?)? '暂无信息' : product.price %></td>
+								<td><%= (product.preferential.blank?)? '暂无信息' : product.preferential %></td>
+		                        <td><%= (product.cost.blank?)? '暂无信息' : product.cost %></td>
+		                        <td style="text-align:left;"><%= (product.intro.blank?)? '暂无信息' : product.intro %></td>
+								<%- if product.desc.blank?%>
+									<td>暂无信息</td>
+								<% else %>
+									<td style="text-align:left;">
+										<% num = 0%>
+										<% product.desc.each do |value| %>
+											<% unless value.blank?%>
+												<%= (num+=1).to_s + "、" + value%><br/>
+											<% end %>
+										<% end %>
+									</td>
+								<%- end -%>
+								<td><%= (product.requirement.blank?)? '暂无信息' : product.requirement %></td>
+		                        <td><%=link_to "修改", edit_mms_product_path(product), :class=>"delete" %></td>
+								<td>
+									<%if @state.blank?%>
+										<%=link_to "删除", mms_product_path(product), :class=>"delete",:method=>:delete %>
+									<% else %>
+										<%=link_to "恢复", return_new_mms_product_path(product), :class=>"delete" %>
+									<% end %>
+								</td>
+		                    </tr>
+						<% end %>
+					<% end %>
+                </tbody>
+            </table>
+			<%#will_paginate @orders %>
+        </div>
+        <div class="clear"></div>
+    </div>
+	
+<style type="text/css">
+	a.current{
+		color:#FF9900;
+	}
+</style>

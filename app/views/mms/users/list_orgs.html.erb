@@ -1,0 +1,59 @@
+<div id="middle">
+    <div id="css_mainbody">
+        <h1 class="title">机构验证</h1>
+        <table class="grid">
+	        <tbody>
+		      <tr>
+		        <th width="180">
+		          机构名
+		        </th>
+		        <th>
+		          负责人
+		        </th>
+				<th>
+		          联系方式
+		        </th>
+		        <th>
+		          评价
+		        </th>
+		        <th>
+		          隐藏
+		        </th>
+		        <th>
+		          认证
+		        </th>
+		      </tr>
+		      <% for user in @users %>
+		        <tr height="35">
+		          <td >
+		            <%=link_user(user) %>
+		          </td>
+		          <td >
+		            <%=user.user_profile.real_name if user.user_profile.present? %>
+		          </td>
+			      <td style="text-align:left;">
+			    		Email：<%=user.email %><br/> 
+			         	Mobile：<%=user.mobile %><br/> 
+			          	ID： <%=user.user_profile.idcard if user.user_profile.present? %>
+		          </td>
+		          <td>
+		            <%=user.rate %>
+		          </td>
+		          <td>
+		            <%=link_to '隐藏',{:action=>'hide_user',:id=>user.id},:confirm => "你确定要隐藏吗?", :method => :delete %>
+		          </td>
+		          <td>
+		            <% if user.tp==3 %> 
+		              <%=link_to '取消验证',{:action=>'set_certificate',:id=>user.id},:confirm => "你确定要取消验证吗?" %>
+		            <% else %>
+		              <%=link_to '验证',{:action=>'user_certificate',:id=>user.id},:confirm => "你确定要验证吗?" %>
+		            <% end %>
+		          </td>
+		        </tr>
+		      <% end %>
+		    </tbody>
+	    </table>
+	    <%=will_paginate @users %>
+    </div>
+    <div class="clear"></div>
+</div>

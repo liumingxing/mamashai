@@ -1,0 +1,58 @@
+<div style="float: left; width:200px; height: 300px;">
+	<% for category in Category.find(:all, :conditions=>"parent_id is null") %>
+	<div style="margin: 20px;">
+		<%= link_to_if category.id != params[:category_id].to_i, category.name, :category_id=>category.id, :age=>params[:age]%>
+	</div>
+	<% end %>
+</div>
+
+<div>
+	<div>
+		<%= link_to_if params[:age], "全部", :category_id=>params[:category_id]%>&nbsp;&nbsp;&nbsp;
+		
+		<% for key in $ages.keys.sort %>
+			<%= link_to_if $ages[key]!=params[:age], $ages[key], :age=>$ages[key], :category_id => params[:category_id]%>
+			&nbsp;&nbsp;&nbsp;
+		<% end %>
+	</div>
+	<div style="text-align: center; margin: 20px 0px;">
+		<% form_tag :action=>"add_position", :age=>params[:age], :category_id=>params[:category_id] do %>
+			商品ID:<%= text_field_tag "product_id"%> <%= submit_tag "添加"%>
+		<% end %>
+	</div>
+	<table class="list" border="1" width="900px">
+	  <tr class="head">
+	    <th>序列号</th>
+		<th width="150px">商品名称</th>
+	    <th>logo</th>
+	    <th>价格</th>
+	    <th>类目</th>
+	    <th>平台</th>
+		<th>身份</th>
+	    <th>性别</th>
+	    <th>年龄段1</th>
+	    <th>录入人</th>
+		<th>来源</th>
+	    <th colspan=3>操作</th>
+	  </tr>
+		<% @positions.each_with_index{|position, index| %>
+		<% next if !position.product%>
+		<tr>
+			<td><%= index + 1 %></td>
+			<td><a target="_blank" href="position.product.url"><%= position.product.name %></a></td>
+			<td><img src='<%= position.product.logo.thumb112 %>' /></td>
+			<td><%= position.product.price %></td>
+			<td><%= position.product.categorys %></td>
+			<td><%= position.product.platform %></td>
+			<td><%= position.product.age %></td>
+			<td><%= position.product.sex %></td>
+			<td><%= position.product.step1 %></td>
+			<td><%= position.product.inputer %></td>
+			<td><%= position.product.source %></td>
+			<td><%= link_to "删除", {:action=>"delete_position", :id=>position.id}, :confirm=>"确认删除吗"%></td>
+		</tr>
+		<% } %>
+	</table>
+	
+	<%= will_paginate @positions%>
+</div>

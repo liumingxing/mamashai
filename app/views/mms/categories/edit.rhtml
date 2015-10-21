@@ -1,0 +1,15 @@
+<%=link_to_remote '新建子节点', :update=>'editdiv', :url=>{:action=>'new', :parent=>@category}%>
+&nbsp;&nbsp;
+
+<%=link_to '调整子节点顺序', {:action=>'reorder', :id=>@category} if @category.children.size > 0%>
+<% form_remote_tag( :update=>"form_update", :url=>"/mms/categories/update/#{@category.id}") do %>
+  <%= render :partial => 'form' %>
+  <%= submit_tag '保存', :class=>"submit" %>&nbsp; | &nbsp;
+  <%= link_to_remote '删除', :update=>"editdiv", :url=>"/mms/categories/destroy/#{@category.id}", :confirm=>"确定删除该节点吗？", :method => :post%>
+<% end %>
+
+<br/>
+<div id='form_update'>
+
+</div>
+

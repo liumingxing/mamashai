@@ -1,0 +1,308 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta property="wb:webmaster" content="a3d20eb561df1cb6" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title><%= "#{@title} - " if @title.present? %>妈妈晒 - 怀孕、育儿、教育、生活的交流平台 </title>
+    <%= render :partial=>'/layouts/meta' %>
+    <%= stylesheet_link_tag 'css','style','style(more)', '/javascripts/artDialog5.0/skins/default.css'%>
+    <%= javascript_include_tag "jquery-1.7.1.min.js", "rails.js", "application.js", 'artDialog5.0/jquery.artDialog.min.js' %>
+  </head>
+  <body>
+    <div id="J_ToTop" style="position: fixed;right: 40px;top:400px;display: none;z-index: 9999"><a href="javascript:;"><span style="position: relative;margin-top: 0px;margin-left:12px;">顶部</span></a><div style="background:url(/images/totop.png) no-repeat;width: 50px;height: 70px;cursor: pointer"></div></div>
+    <%= render :partial=>"/layouts/header" %>
+    <div id="main">
+      <div id="main_left">
+        <% if @space_user['my_skin'].to_s.size > 1 %>
+          <img src="<%= @space_user.my_skin.thumb812 %>" style="width: 812px; height: 251px;"/>
+        <% elsif @space_user.skin && @space_user.skin.to_i < 6 %>
+          <img src="/images/headlogo/<%= @space_user.skin %>.jpg" style="width: 812px; height: 251px;"/>
+        <% else %>
+          <img src="/images/ad_01.jpg" style="width: 812px; height: 251px;" />
+        <% end %>
+
+        <div id="main_b">
+          <% if @user && @space_user.id == @user.id %>
+            <div id="main_cover">
+              <a href="/settings/skin"><img src="/images/cover.jpg" /></a>
+            </div>
+          <% end %>
+          <div id="main_photo">
+            <div id="main_photo1">
+              <%=raw logo_tag2 @space_user, {:version=>"thumb140"} %>
+
+              <span class='red'><%= @space_user.name %></span> <%= @space_user.first_kid ? '' : '准'%><%= {'w'=>'妈妈', 'm'=>'爸爸'}[@space_user.gender]%>
+            </div>
+            <% @space_user.user_kids.each_with_index {|kid, index| %>
+              <% next if index >= 2%>
+              <div id="main_photo2">
+                <% if kid.logo %>
+                  <%=raw logo_tag2 kid, {:version=>"thumb75" }%>
+                <% else %>
+                  <img src="/images/logos/nilclass_logo_thumb75.gif" />
+                <% end %>
+                <div class="clear"></div>
+                <span class="red"><%= kid.name %> </span>
+                <div class="clear"></div>
+                <%= detail_age_for_birthday(kid.birthday)%>
+              </div>
+            <% } %>
+          </div>
+          <div class="gz">
+            <ul>
+              <li>
+                <img class="level" src="/images/level/<%= @space_user.mms_level %>.png"/>
+              </li>
+              <li><img src="/images/gz_li.jpg"/></li>
+              <li>
+                <%= @space_user.posts_count %>
+                <h4>
+                  <a <%= 'class="current"' if %w(space home).include?(controller.controller_name) && %w(index user).include?(controller.action_name) %>  href="<%= user_url(@space_user) %>">记录</a>
+                </h4>
+              </li>
+              <li><img src="/images/gz_li.jpg"/></li>
+              <li>
+                <%= @space_user.follow_users_count %> <h4><a <%= 'class="current"' if controller.controller_name == "follows" %> href="/users/<%= @space_user.id %>/follows">关注</a></h4>
+              </li>
+              <li><img src="/images/gz_li.jpg"/>
+              </li>
+              <li>
+                <%= @space_user.fans_users_count %> <h4><a <%= 'class="current"' if controller.controller_name == "fans" %> href="/users/<%= @space_user.id %>/fans">粉丝</a></h4>
+              </li>
+              <li><img src="/images/gz_li.jpg"/>
+              </li>
+              <li>
+                <%= GiftGet.count(:conditions=>"send_user_id = #{@space_user.id}") %> <h4><a  <%= 'class="current"' if controller.controller_name == "gifts" %> href="/users/<%= @space_user.id %>/gifts">礼物</a></h4>
+              </li>
+            </ul>
+            <div class="clear"></div>
+            <div class="functions">
+              <ul>
+                <% if !@user %>
+                  <li><a class="button_link" href="/account/signup/<%= @space_user.id%>">加关注</a></li>
+                  <li><a class="button_link" href="/account/signup/<%= @space_user.id%>">送礼物</a></li>
+                <% else %>
+                  <% if @user && @user.tp == 4 %>
+                  <li id='add_private'>
+                  <%= link_to('私有黑名单', {:action =>:private_block,:controller=>:ajax,:id=>@space_user.id},{:remote=>true, :updater => "add_private", :class=>'button_link'} ) %>
+                  </li>
+                  <li id='add_write'>
+                  <%= link_to('记录黑名单', {:action =>:write_block,:controller=>:ajax,:id=>@space_user.id},{:remote=>true, :updater => "add_write", :class=>'button_link'} ) %>
+                  </li>
+                  <% end %>
+                  <% if @user.has_follow?(@space_user.id) %>
+                    <li id='add_follow'>
+                      <% if FollowUser.find_by_follow_user_id_and_user_id(@space_user.id, @user.id).is_fans %>
+                        <img src="/images/icons/relation.gif" style="float:left"/>
+                      <% end %>
+                      <%= link_to('取消关注', {:action =>:delete_follow_user,:controller=>:ajax,:id=>@space_user.id},{:remote=>true, :updater => "add_follow", :class=>'button_link'} ) %>
+                    </li>
+                  <% elsif @user.id != @space_user.id %>
+                    <li id='add_follow'><%= link_to('加关注', {:action =>:create_follow_user,:controller=>:ajax,:id=>@space_user.id},{:remote=>true, :updater => "add_follow", :class=>'button_link'} ) %></li>
+                  <% end %>
+
+                  <% if @user.id == 431 || @user.id == 1654761 || @user.has_fan?(@space_user.id) %>
+                      <li>
+                        <a class="button_link" href="javascript:void(0);" onclick="show_url_box('/ajax/new_message/<%=@space_user.id%>', '发私信', 420, 320);">发私信</a>
+                      </li>
+                  <% end %>
+
+                  <% if @user.id != @space_user.id %>
+                    <li><a class="button_link" href="/gifts/new/<%= @space_user.id %>">送礼物</a></li>
+                  <% end %>
+                <% end %>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div id="tmsd" class="mt10">
+          <div class="font_0"><img src="/images/tmsd_top.jpg" />
+          </div>
+          <div id="tmsd_cen" class="cjy_left" style="width:723px">
+            <%= yield %>
+          </DIV>
+        </div>
+        <div><img src="/images/tmsd_bot.jpg"/>
+        </div>
+
+        <% if controller.action_name == 'post' && (@post.from.to_s.include?("lama") || @post.from_calendar?) %>
+          <div class="zmj">
+            <div class="zmj_top"><img src="/images/fdlzt_ck/fdl_zyjtop.jpg" width="804" height="2" />
+            </div>
+            <div class="zmj_main">
+              <table width="804" border="0" cellspacing="0" cellpadding="0">
+                <tr>
+                  <td>
+                    <div class="zmj_dl">
+                      <span>我也想这样</span>开始全新育儿记录：
+                    </div></td>
+                  <td colspan="2">
+                    <a href="/bbrl"><img src="/images/lmrb_sybb_01.jpg"/></a>&nbsp;&nbsp;&nbsp;&nbsp;
+                    <a href="/lmrb"><img src="/images/lmrb_sybb_03.jpg"/></a></td>
+                  <td width="190"></td>
+                </tr>
+                <tr>
+                  <td width="234">
+                    <div class="zmj_xz">
+                                                                  或下载手机客户端：
+                    </div></td>
+                  <td width="190"><a href="https://itunes.apple.com/cn/app/bao-bao-ri-li-huai-yun-yu/id499828643?ls=1&mt=8" target="_blank"><img src="/images/fdlzt_ck/fdl_zyjbbrl.jpg" width="157" height="61" /></a></td>
+                  <td width="190"><a href="http://as.baidu.com/a/item?docid=1481725544&pre=web_am_se"><img src="/images/fdlzt_ck/fdl_zyjlmrb.jpg" width="158" height="59" /></a></td>
+                  <td><a href="https://itunes.apple.com/cn/app/la-ma-ri-bao-ma-ma-bao-bao/id464568504?ls=1&mt=8" target="_blank"><img src="/images/fdlzt_ck/fdl_zyjlmrbi.jpg" width="158" height="59" /></a></td>
+                </tr>
+              </table>
+
+            </div>
+            <div class="zmj_foot"><img src="/images/fdlzt_ck/fdl_zyjfood.jpg" width="804" height="2" />
+            </div>
+          </div>
+        <% end %>
+      </div>
+
+      <!--main_left-->
+      <div id="main_right">
+        <div class="gzht">
+          <h4>帐号绑定</h4>
+          <ul>
+            <li>
+              <% if UserWeibo.find(:first, :conditions=>"user_id = #{@space_user.id} and tp = 1") %>
+                <img src="/images/login_method_v3_01.png"/>
+              <% else %>
+                <% if @user && @space_user.id == @user.id %>
+                  <a href="/settings/weibo"><img src="/images/login_method_v3_01_hui.png"/></a>
+                <% else %>
+                  <img src="/images/login_method_v3_01_hui.png"/>
+                <% end %>
+              <% end %>
+            </li>
+            <li>
+              <% if UserQq.find(:first, :conditions=>"user_id = #{@space_user.id} and tp = 2") %>
+                <img src="/images/login_method_v3_07.png"/>
+              <% else %>
+                <% if @user && @space_user.id == @user.id %>
+                  <a href="/settings/weibo"><img src="/images/login_method_v3_07_hui.png"/></a>
+                <% else %>
+                  <img src="/images/login_method_v3_07_hui.png"/>
+                <% end %>
+              <% end %>
+            </li>
+            <li>
+              <% if UserTaobao.find(:first, :conditions=>"user_id = #{@space_user.id}") %>
+                <img src="/images/login_method_v3_05.png"/>
+              <% else %>
+                <% if @user && @space_user.id == @user.id %>
+                  <a href="/settings/weibo"><img src="/images/login_method_v3_05_hui.png"/></a>
+                <% else %>
+                  <img src="/images/login_method_v3_05_hui.png"/>
+                <% end %>
+              <% end %>
+            </li>
+            <li>
+              <% if UserBaidu.find(:first, :conditions=>"user_id = #{@space_user.id}") %>
+                <img src="/images/login_method_v3_09.png"/>
+              <% else %>
+                <% if @user && @space_user.id == @user.id %>
+                  <a href="/settings/weibo"><img src="/images/login_method_v3_09_hui.png"/></a>
+                <% else %>
+                  <img src="/images/login_method_v3_09_hui.png"/>
+                <% end %>
+              <% end %>
+            </li>
+          </ul>
+        </div>
+
+        <div class="gzht">
+          <h4>热点话题拿晒豆</h4>
+          <% age_tag = WeekTag.find(:first, :conditions=>"current = 1") %>
+          <div class="index_nsd">
+            <b><a href="/topic/<%= age_tag.short_tag_name %>"><%= age_tag.summary %></a></b>
+            <div class="clear"></div>
+            <%= age_tag.description %><a href="/topic/<%= age_tag.short_tag_name %>">详情>></a>
+          </div>
+        </div>
+        <div class="clear"></div>
+        
+        <!--
+        <div class="gzht">
+           <h4>用过的商品</h4>
+           <div class="yg_index_sp">
+             <ul>
+             </ul>
+            <li><a href=""><img src="images/sp_ad2.jpg" />笛莎女儿童...</a></li>
+            <li><a href=""><img src="images/sp_ad2.jpg" />笛莎女儿童...</a></li>
+            <li><a href=""><img src="images/sp_ad2.jpg" />笛莎女儿童...</a></li>
+
+          </div>
+         </div>
+        <h3>本阶段商品清单</h3>
+        -->
+        <div class="gzht">
+
+          <h4>必备记录工具下载</h4>
+          <div class="index_gjxz">
+            <ul>
+              <li>
+                <a href="http://itunes.apple.com/cn/app/bao-bao-ri-li-huai-yun-yu/id499828643?ls=1&mt=8" target="_blank"><img src="/images/index_iphone.png"/><br />
+                  宝宝日历iPhone版</a>
+              </li>
+              <li><a href="http://itunes.apple.com/cn/app/la-ma-ri-bao-ma-ma-bao-bao/id464568504?ls=1&mt=8" target="_blank"><img src="/images/index_iphone.png"/><br />
+                  辣妈日报iPhone版</a>
+              </li>
+              <li><a href="http://as.baidu.com/a/item?docid=1481725544&pre=web_am_se" target="_blank"><img src="/images/index_android.png"/><br />
+                  辣妈日报Android版</a></li>
+            </ul>
+          </div>
+        </div><div class="index_top_line"></div>
+        <div class="index_zjfk mt10">
+          <h4>最近访客</h4>
+          <% last_visit_users = User.find_last_visit_users(@space_user) %>
+          <ul>
+            <% for user in last_visit_users %>
+              <li><a href="<%= user_url(user) %>"><img src="<%= user.logo.thumb48%>"/></a></li>
+            <% end %>
+          </ul>
+        </div>
+        <% if @user && @user.id == @space_user.id %>
+          <div class="gzht">
+            <h4>意见反馈<a href=""></a></h4>
+            <p>亲，欢迎提出反馈意见</p>
+            <ul>
+              <li><a href="javascript:void(0)" onclick="$('#post_content').val('意见反馈#新版妈妈晒#，'); $('#post_content').focus();">#新版妈妈晒#</a></li>
+            </ul>
+          </div>
+        <% end %>
+
+        <%= render :partial=>"/share/taobao_adv_right_narrow" %>
+      </div>
+      <script>
+        $(document).ready(function() {
+          setupZoom();
+
+      <% if flash[:notice] %>
+            $.dialog({content: '<%= flash[:notice]%>'}).hideTitle().time(3000)
+      <% end %><% if flash[:error] %>
+            $.dialog({content: '<%= flash[:error]%>'}).hideTitle().time(3000)
+      <% end %>});</script>
+      <script src="/javascripts/FancyZoom.js" language="JavaScript" type="text/javascript"></script>
+      <script src="/javascripts/FancyZoomHTML.js" language="JavaScript" type="text/javascript"></script>
+      <%= render :partial=>"/layouts/footer" %>
+    </div>
+    <!--main-->
+    <!--[if IE 6]>
+		<script type="text/javascript" src="js/pngIE-min.js"></script>
+		<script type="text/javascript">DD_belatedPNG.fix('*')</script>
+		<![endif]-->
+    <script type="text/javascript">
+        var ToTop = $('#J_ToTop');
+        var Win = $(window);
+        ToTop.bind('click', function () { $('html,body').animate({ scrollTop: '0px' }, 500); return false; });
+        Win.scroll(function () {
+          if (Win.scrollTop() > 100) {
+            ToTop.fadeIn(1500);
+          } else {
+            ToTop.fadeOut(1500);
+          }
+        });
+    </script>
+  </body>
+</html>

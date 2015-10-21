@@ -1,0 +1,119 @@
+<div id="middle">
+    <div id="css_mainbody">
+        <h1 class="title">查看组件<%= "--#{flash[:notice]}" unless flash[:notice].blank? %></h1>
+        <table class="apps">
+            <tbody>
+                <tr>
+                    <td class="column_1">
+                        Logo：
+                    </td>
+                    <td class="column_2">
+                        <%= image_tag @app.logo %>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="column_1">
+                        URL：
+                    </td>
+                    <td class="column_2">
+                        <%= @app.url %>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="column_1">
+                        组件名称：
+                    </td>
+                    <td class="column_2">
+                        <%= @app.name %>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="column_1">
+                        默认顺序：
+                    </td>
+                    <td class="column_2">
+                        <%= @app.default_position %>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="column_1">
+                        功能描述：
+                    </td>
+                    <td class="column_2">
+                        <%= @app.content %>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="column_1">
+                        icon：
+                    </td>
+                    <td class="column_2">
+                        <%=image_tag @app.icon %>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="column_1">
+                        子链接名称：
+                    </td>
+                    <td class="column_2">
+                        <%= @app.sub_link_name %>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="column_1">
+                        子链接：
+                    </td>
+                    <td class="column_2">
+                        <%= @app.sub_link %>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="column_1">
+                        组件类别：
+                    </td>
+                    <td class="column_2">
+                        <%= @app.get_type%>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="column_1">
+                        是否为系统默认：
+                    </td>
+                    <td class="column_2">
+                        <%= @app.is_default == false ? "否" : "是" %>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <%= button_to '返回', :action => :index %>
+    </div>
+</div>
+<style type="text/css">
+    .apps {
+        border: 1px solid #DDDDDD;
+        border-collapse: collapse;
+        empty-cells: show;
+        margin: 10px auto;
+        width: 98%;
+    }
+    
+    .apps td {
+        border: 1px solid #DDDDDD;
+        color: #666666;
+        font-size: 12px;
+        height: 30px;
+        line-height: 30px;
+        padding-left: 10px;
+        text-align: center;
+    }
+    
+    .apps tr td.column_1 {
+        width: 20%;
+        text-align: right;
+    }
+    
+    .apps tr td.column_2 {
+        align: left;
+        text-align: left;
+    }
+</style>

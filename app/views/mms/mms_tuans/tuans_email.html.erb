@@ -1,0 +1,457 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>妈妈团</title>
+    </head>
+    <body>
+        <link type="text/css" rel="stylesheet" media="screen" href="/stylesheets/all.css?1278402909">
+        <style>
+            body {
+                background: #ccc;
+            }
+            
+            #wapper {
+                width: 800px;
+                margin: 0px auto;
+                background: #fff;
+            }
+            
+            #head {
+                overflow: hidden;
+            }
+            
+            #head a.logo {
+                height: 81px;
+                display: block;
+            }
+            
+            #head .look_link {
+                height: 25px;
+                line-height: 25px;
+                text-align: center;
+            }
+            
+            #middle {
+                overflow: hidden;
+            }
+            
+            #mms_tuan_banner {
+                background: #FFFFFF;
+                border: 1px solid #DE90B8;
+                overflow: hidden;
+                width: 790px;
+                margin: 5px auto 3px;
+            }
+            
+            #mms_tuan_banner .banner_pic {
+                float: left;
+                width: 210px;
+            }
+            
+            #mms_tuan_banner .banner_pic h1 {
+                height: 25px;
+                line-height: 25px;
+                font-size: 16px;
+                margin: 10px 0px 5px 15px;
+            }
+            
+            #mms_tuan_banner .banner_pic p {
+                text-align: center;
+            }
+            
+            #mms_tuan_banner .banner_pic p img {
+                -moz-border-radius: 5px 5px 5px 5px;
+                border: 1px solid #ccc;
+                padding: 2px;
+                width: 175px;
+                height: 110px;
+            }
+            
+            #mms_tuan_banner .banner_text {
+                float: left;
+                width: 380px;
+                margin: 13px 0px 10px 0px;
+                padding-right: 10px;
+                border-right: 1px dashed #ccc;
+                position: relative;
+            }
+            
+            #mms_tuan_banner .banner_text h2.title {
+                overflow: hidden;
+                font-size: 18px;
+                line-height: 150%;
+            }
+            
+            #mms_tuan_banner .banner_text strong {
+                color: #DF537A;
+            }
+            
+            #mms_tuan_banner .banner_text p {
+                text-align: right;
+                padding-bottom: 0px;
+            }
+            
+            #mms_tuan_banner ul.infor_list {
+                float: left;
+                margin-left: 10px;
+                display: inline-block;
+                padding: 10px 0px;
+                width: 160px;
+                margin-top: 10px;
+            }
+            
+            #mms_tuan_banner ul.infor_list li.title {
+                height: 30px;
+                line-height: 30px;
+                font-size: 18px;
+                font-weight: bold;
+                font-family: Arial;
+            }
+            
+            #mms_tuan_banner ul.infor_list li.title strong {
+                font-family: Arial;
+                color: #cc0000;
+                font-size: 20px;
+            }
+            
+            #mms_tuan_banner ul.infor_list li {
+                line-height: 25px;
+                padding-left: 10px;
+            }
+            
+            #mms_tuan_banner ul.infor_list li b {
+                font-family: Arial;
+                font-size: 14px;
+                color: #000;
+            }
+            
+            #mms_tuan_banner ul.infor_list li strong {
+                font-family: Arial;
+                font-size: 14px;
+                color: #cc0000;
+            }
+            
+            .post_hot_content {
+                overflow: hidden;
+                width: 780px;
+                margin: 0px auto 10px;
+                border: 1px solid #ccc;
+                -moz-border-radius: 5px 5px 5px 5px;
+            }
+            
+            .post_hot_content_top {
+                height: 12px;
+                overflow: hidden;
+            }
+            
+            .post_hot_content_min {
+                overflow: hidden;
+                width: 100%;
+            }
+            
+            .post_hot_content_min .shop_content_min {
+                overflow: hidden;
+            }
+            
+            .hot_tuan_green {
+                background: url(/images/tuan/hot_tuan_1.png) no-repeat;
+                width: 57px;
+                height: 53px;
+                color: #fff;
+                text-align: center;
+                float: left;
+                margin-left: 10px;
+                display: inline;
+            }
+            
+            .hot_tuan_red {
+                background: url(/images/tuan/hot_tuan_2.png) no-repeat;
+            }
+            
+            .hot_tuan_yellow {
+                background: url(/images/tuan/hot_tuan.png) no-repeat;
+            }
+            
+            .hot_tuan_green span.number {
+                display: block;
+                font-size: 20px;
+                font-weight: bold;
+                font-family: Arial, Helvetica, sans-serif;
+            }
+            
+            .hot_tuan_green span.label {
+                border-bottom: 1px solid #fff;
+                display: block;
+                height: 25px;
+                line-height: 25px;
+                width: 50px;
+                margin: auto;
+            }
+            
+            .hot_pic {
+                float: left;
+                width: 220px;
+                text-align: center;
+            }
+            
+            .hot_pic span.pic {
+                display: block;
+            }
+            
+            .hot_pic span.time {
+                display: block;
+                background: #E1E1E1;
+                font-size: 14px;
+                height: 25px;
+                line-height: 25px;
+                width: 205px;
+                margin: auto;
+            }
+            
+            .hot_article {
+                overflow: hidden;
+                float: left;
+                width: 490px;
+            }
+            
+            .hot_article .text_left {
+                float: left;
+                width: 260px;
+                _height: 120px;
+                min-height: 120px;
+            }
+            
+            .hot_article .text_left p.text {
+                line-height: 180%;
+                height: 83px;
+                overflow: hidden;
+            }
+            
+            .hot_article .text_left p.text a {
+                font-weight: bold;
+                color: #444;
+            }
+            
+            .hot_article .text_left p.text a.web_name {
+                font-weight: normal;
+                color: #329BCB;
+            }
+            
+            .hot_article .text_left p.shop {
+                font-size: 14px;
+                font-weight: bold;
+                height: 30px;
+                line-height: 30px;
+                overflow: hidden;
+                width: 100%;
+            }
+            
+            .hot_article .text_left p {
+                padding-bottom: 5px;
+            }
+            
+            .hot_article .button_right {
+                float: right;
+                width: 193px;
+                position: relative;
+                overflow: hidden;
+            }
+            
+            .post_hot_content_min .tools_list {
+                overflow: hidden;
+                height: 30px;
+                line-height: 30px;
+                text-align: right;
+                width: 100%;
+            }
+            
+            .hot_article .button_right .button {
+                overflow: hidden;
+                width: 163px;
+                margin-left: 30px;
+            }
+            
+            .hot_article .button_right .button a.money {
+                display: block;
+                background: url(/images/tuan/drape_button_2.png) no-repeat;
+                width: 78px;
+                height: 58px;
+                line-height: 58px;
+                font-family: Arial, Helvetica, sans-serif;
+                font-size: 20px;
+                font-weight: bold;
+                color: #f90;
+                text-align: center;
+                text-decoration: none;
+            }
+            
+            .hot_article .button_right .button a {
+                float: left;
+            }
+            
+            .hot_article .button_right .drape {
+                position: absolute;
+                z-index: 1;
+                left: 1px;
+                top: 15px;
+                background: url(/images/tuan/drape1.png) no-repeat;
+                width: 38px;
+                height: 25px;
+                line-height: 25px;
+                color: #fff;
+                text-align: center;
+            }
+            
+            .hot_article .button_right .cost_money {
+                overflow: hidden;
+                width: 180px;
+                text-align: right;
+                margin-left: 11px;
+                height: 20px;
+                margin-top: 10px;
+                font-size: 12px;
+                text-align: center;
+            }
+            
+            .hot_article .button_right .cost_money img {
+                margin: 0px 10px;
+            }
+            
+            .banner {
+                overflow: hidden;
+                height: 59px;
+            }
+            
+            .tuan_info {
+                overflow: hidden;
+                margin-top: 10px;
+            }
+            
+            .tuan_info .title_pic {
+                overflow: hidden;
+                text-align: center;
+                height: 44px;
+            }
+            
+            .buttom_email {
+                overflow: hidden;
+                margin: 15px 0px;
+                text-align: center;
+            }
+        </style>
+        <div id="wapper">
+            <div id="head">
+                <a class="logo" href="#"><img src="/images/ads/email/tuan/tuan_web_1.png"></a>
+            </div>
+            <div id="middle">
+                <% @tuans.each do |tuan| %>
+                <% if tuan.tp >= 1 %>
+                <div id="mms_tuan_banner">
+                    <div class="banner_pic">
+                        <h1>妈妈晒团购</h1>
+                        <p>
+                            <%=logo_tag(tuan,{:version => "thumb205", :url=>"/tuan/mama/#{h tuan.id}",:title=>tuan.content}) %>
+                        </p>
+                    </div>
+                    <div class="banner_text">
+                        <h2 class="title"><a href="/tuan/mama?ad_keyword=152">今日主推：<%= h tuan.content %></a></h2>
+                        <p>
+                            <a href="/tuan/mama?ad_keyword=152"><img src="/images/tuan/button_11.png"></a>
+                        </p>
+                    </div>
+                    <ul class="infor_list">
+                        <li class="title">
+                            <strong><%= h tuan.person_amount_view(Time.now) %></strong>人已经购买 
+                        </li>
+                        <li>
+                            原价：<b>￥<%= tuan.origin_price %>元</b>
+                        </li>
+                        <li>
+                            折扣：<strong><%= tuan.discount %>折</strong>
+                        </li>
+                        <li>
+                            现价：<b>￥<%= tuan.current_price %>元</b>
+                        </li>
+                        <li>
+                            节省：<b>￥<%= tuan.save_money %>元</b>
+                        </li>
+                    </ul>
+                    <div class="clear">
+                    </div>
+                </div>
+                <% end %>
+                <% end %>
+                <!--mms_tuan_banner-->
+                <div class="banner">
+                    <a href="#"><img src="/images/ads/email/tuan/tuan_web_2.png"></a>
+                </div><!--banner-->
+				<% @tuans.select{|tuan| tuan.tp<=0}.group_by(&:tuan_category).each do |category,tuans| %>
+                <% tuans.each do |tuan| %>
+                <div class="tuan_info">
+                    <div class="title_pic">
+                        <a href="#"><img src="/images/ads/email/tuan/tuan_email_<%=tuan.tuan_category_id%>.png"></a>
+                    </div>
+                    <div class="post_hot_content">
+                        <div class="post_hot_content_top">
+                        </div>
+                        <div class="post_hot_content_min">
+                            <div class="shop_content_min">
+                                <div class="hot_tuan_green hot_tuan_red">
+                                    <span class="label">购买数量</span>
+                                    <span class="number"><%= h tuan.person_amount %></span>
+                                </div>
+                                <div class="hot_pic">
+                                    <span class="pic"><%=logo_tag(tuan,{:version => "thumb205", :url=>"/tuan/mama/#{h tuan.id}",:title=>tuan.content}) %></span>
+                                    <% if tuan.tuan_state == "未开始" %>
+                                    <%= h tuan.begin_time.month %>月<%= h tuan.begin_time.day %>日<%= h tuan.begin_time.hour %>点开始<% elsif tuan.tuan_state == "抢购中" %>
+                                    <span class="time" id="time<%=tuan.id%>"><% time = tuan.end_time - Time.now %>
+                                        <span class="none"><%=tuan.end_time.to_i %></span><span class="orange day"><%=(time/(60*60*24)).to_i %></span>天<span class="orange hour"><%=((time/60/60)%60).to_i %></span>时<span class="orange minute"><%=((time/60)%60).to_i %></span>分<span class="orange second"><%=(time%60).to_i %></span>秒</span>
+                                    <% else %>
+                                    <%= tuan.tuan_state %>
+                                    <% end %>
+                                </div>
+                                <div class="hot_article">
+                                    <div class="text_left">
+                                        <p class="text">
+                                            <%= link_to_tuan_website tuan %>
+                                            <%= link_to tuan.content, "/tuan/go/#{tuan.id}", :target=>"_blank" %>
+                                        </p>
+                                        <div class="post_com_view" id="tuan_rate_view_<%=tuan.id%>">
+                                            <span class="allstar allstar<%=tuan.rate%>"><%=tuan.rate %></span>
+                                            <span class="all_c">(<%=tuan.rates_count %>人评价)</span>
+                                        </div>
+                                        <p class="shop">
+                                            共<span class="orange"><%=tuan.buyers_count %></span>个用户查看
+                                        </p>
+                                    </div>
+                                    <div class="button_right">
+                                        <div class="button">
+                                            <a class="money" href="#">￥<%=tuan.current_price %></a>
+                                            <a href="/tuan/go/<%=tuan.id%>" title="去购买" target="_blank"><img src="/images/tuan/button_3.png" alt="去购买"></a>
+                                        </div>
+                                        <div class="cost_money">
+                                            原价<%=tuan.origin_price.to_s %><img src="/images/tuan/icon_3.gif">节省<%=tuan.save_money.to_s %>
+                                        </div>
+                                        <div class="drape">
+                                            <%=h tuan.discount %>折
+                                        </div>
+                                    </div>
+                                    <div class="tools_list">
+                                        <%= render :partial=>"/tuan/tuan_tools",:locals=>{:tuan=>tuan} %>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <% end %>
+                <% end %>
+                <!--tuan_info-->
+                <div class="buttom_email">
+                    <a title="马上去抢购吧！" href="#"><img src="/images/ads/email/tuan/tuan_web_7.png"></a>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

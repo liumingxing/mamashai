@@ -1,0 +1,119 @@
+<style>
+#mainbody #chanel_content .event_content  .user_pic_event {overflow:hidden;font-size:12px;}
+#mainbody #chanel_content .event_content  .grid { width:98%; vertical-align:center; border-collapse:collapse; empty-cells:show;margin:5px auto; border:1px solid #ccc;}
+#mainbody #chanel_content .event_content  .grid th{ font-size:12px;height:25px;background:#EAEAEA; color:#666;text-align:center;border:1px solid #ccc; font-weight:normal;}
+#mainbody #chanel_content .event_content  .grid td{ text-align:center;height:35px; border:1px solid #ccc; word-WRAP: break-word; font-family: Arial;line-height:180%;color:#666;}
+</style>
+
+
+<div class="event_share">
+	<div style="margin:5px 0px 0px 10px;font-size:12px;">
+		 <a href="javascript:void(0);" style="color:#666;font-weight:bold;" onclick="show_event_expand('<%=@event.post_id%>','<%=@event.id%>','report_event_users',this);">报名管理</a> |
+		 <a href="javascript:void(0);" onclick="show_event_expand('<%=@event.post_id%>','<%=@event.id%>','report_event_pays',this);">缴费管理</a> |
+		 <a href="javascript:void(0);" onclick="show_event_expand('<%=@event.post_id%>','<%=@event.id%>','report_event_check',this);">对账单</a>
+	</div>
+	
+    <div class="user_all">
+        共<%=@event_users.length %>人
+    </div>
+    <div class="user_pic_event">
+        <table class="grid">
+            <tbody>
+                <tr>
+                    <th width="40px">
+                        序号 
+                    </th>
+                    <th width="80px">
+                        用户名 
+                    </th>
+                    <th width="30px">
+                        报名人数 
+                    </th>
+					<th width="80px">
+                       真实姓名 
+                    </th>
+                    <th width="80px">
+                     Email 
+                    </th>
+                    <th width="80px">
+                        手机 
+                    </th>
+					<th width="80px">
+                        分部/地区 
+                    </th>
+                    <th width="80px">
+                        报名时间 
+                    </th>
+					<% if @event.user_id == @user.id and @event.pay_fee.present? %>
+					<th width="80px">
+                        缴费 
+                    </th>
+					<% end %>
+                    <th width="80px">
+                        操作 
+                    </th>
+                </tr>
+                <% i = 1 %>
+                <% for event_user in @event_users %>
+                <% user = event_user.user %>
+                <tr id="event_user_<%=event_user.id%>">
+                    <td rowspan="2" style="color: rgb(153, 153, 153);">
+                        <%=i %>
+                    </td>
+                    <td>
+                        <%=link_user(user) %>
+                    </td>
+                    <td>
+                        <%=event_user.join_num %>
+                    </td>
+					<td>
+                    	 <% if @user.id == @event.user_id %>
+                        <%=event_user.real_name %>
+						<% else %>
+						不公开
+						<% end %>
+                    </td>
+                    <td>
+                    	 <% if @user.id == @event.user_id %>
+                        <%=event_user.email %>
+						<% else %>
+						不公开
+						<% end %>
+                    </td>
+                    <td>
+						<% if @user.id == @event.user_id %>
+                        <%=event_user.mobile %>
+						<% else %>
+						不公开
+						<% end %>
+                    </td>
+					<td>
+						<%=event_user.city%>
+                    </td>
+                    <td style="color: rgb(153, 153, 153);">
+                        <%=refer_time event_user.created_at %>报名 
+                    </td>
+					<% if @event.user_id == @user.id and @event.pay_fee.present? %>
+					<td> 
+                        <%=event_user.is_pay ? '是' : '否' %> 
+                    </td>
+					<% end %>
+                    <td id="event_user_button_<%=event_user.id%>" >
+                         <%=render :partial=>'ajax_event/result_event_user',:locals=>{:event_user=>event_user} %>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="7" style="text-align: left;padding-left:10px;">
+						 <% if event_user.note.present?%> 
+						    <span class="red">取消原因：<%=event_user.note%></span>
+						 <% else %>
+						     备注： <%=h event_user.remark %>
+						 <% end %>
+                    </td>
+                </tr>
+				<% i += 1 %>
+                <% end %>
+            </tbody>
+        </table>
+    </div>
+</div>

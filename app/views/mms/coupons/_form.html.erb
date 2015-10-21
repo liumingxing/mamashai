@@ -1,0 +1,29 @@
+<tr>
+    <td class="td01" width="20%">
+        金额：
+    </td>
+    <td>
+        <%= f.text_field "money" %>
+		<%= error_message_on :coupon, :money %>
+    </td>
+</tr>
+<tr>
+    <td class="td01" width="20%">
+        截止时间：
+    </td>
+    <td>
+        <%= f.datetime_select "limit_time", :use_month_numbers => true %>
+		<%= error_message_on :coupon, :limit_time %>
+    </td>
+</tr>
+<tr>
+    <td class="td01" width="20%">
+        生成个数：
+    </td>
+    <td>
+        <%= text_field_tag "count", "", :size => 30, :required => "required" %>
+		<% unless flash[:error].blank? %>
+		<div class="formError"><%= flash[:error] %></div>
+		<% end %>
+    </td>
+</tr>

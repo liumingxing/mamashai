@@ -1,0 +1,810 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+	<title>宝宝疫苗接种表（0-3岁） - 妈妈晒 - 妈妈爸爸们的网络社区</title>
+	<style type="text/css">
+	* {
+		padding:0px;
+		margin:0px;
+	}
+	a {
+		text-decoration:none;
+	}
+	td img {
+		display: block;
+	}
+	a img {
+		border:0px;
+	}
+	p {
+	  text-indent:8mm;
+	}
+	.STYLE1 {
+		color: #666666;
+		font-size: 13px;
+		line-height: 22px;
+	}
+	.STYLE2 {
+		font-size: 16px;
+		font-weight: bold;
+		color: #DA5295;
+	}
+	.STYLE3 {
+		font-size: 12px;
+		color: #999999;
+	}
+	.STYLE4 {
+		font-size: 14px;
+		font-weight: bold;
+		color: #FFFFFF;
+	}
+	.STYLE6 {
+		font-size: 16px; 
+		font-weight: bold; 
+		color: #DA5295; 
+		font-family: "微软雅黑";
+	}
+	</style>
+</head>
+<body bgcolor="#ffffff" onload="healthtime()">
+	<div align="center">
+		<table width="538" border="0" cellpadding="0" cellspacing="0" background="/baidu/xuexing/images/top2.gif">
+		  <tr>
+		    <td width="16">
+		    	
+		    </td>
+		    <td width="97">
+		    	<a href="http://www.mamashai.com/index/bang?step=2">
+		    		<img name="a_r1_c4" src="/baidu/xuexing/images/top1.png" border="0" id="a_r1_c4" alt="" />
+		    	</a>
+		    </td>
+		    <td width="355">
+		    	<div align="center">
+		    		<span style="color: white; font-size: 15px; font-weight: bold;">宝宝疫苗接种表（0-3岁）</span>
+		    	</div>
+		    </td>
+		    <td width="140">
+		    	<a style="color: white; text-decoration: underline;font-size: 12px;" href="http://www.mamashai.com/index/bang?step=2" target="_blank">0-3岁资源免费下载</a>
+		    </td>
+		  </tr>
+		</table>
+		<table width="538" border="0" cellspacing="0" cellpadding="0">
+		  <tr>
+		    <td background="/images/baidu/baby_yimiao/a_r13_c1.gif">&nbsp;</td>
+		  </tr>
+		</table>
+		<table width="538" border="0" cellspacing="0" cellpadding="0" background="/images/baidu/baby_yimiao/a_r10_c1.gif">
+		  <tr>
+		  	<td colspan="2">
+		  		<img name="a_r9_c1" src="/images/baidu/baby_yimiao/a_r9_c1.gif" width="538" height="9" border="0" id="a_r9_c1" alt="" />
+		  	</td>
+		  </tr>
+		  <tr>
+		    <td width="405" height="44" background="/images/baidu/baby_yimiao/a_r4_c1.gif">
+		    	<table width="100%" border="0" cellspacing="0" cellpadding="0">
+			      <tr style="padding-top:5px;" align="left">
+			        <td style="padding-left:20px;">
+			        	宝宝性别&nbsp;
+						<select id="select_sex">
+							<option value="男">男</option>
+							<option value="女">女</option>
+						</select>&nbsp;&nbsp;
+						宝宝生日
+						<input type="text" id="txt_year" value="" style="width:35px;" />&nbsp;年&nbsp;
+						<input type="text" id="txt_month" value="" style="width:20px;" />&nbsp;月&nbsp;
+						<input type="text" id="txt_day" value="" style="width:20px;" />&nbsp;日&nbsp;
+			        </td>
+			      </tr>
+			    </table>
+		    </td>
+		    <td style="width:78px;height:32px; padding-right:10px;" >
+		    	<div align="center" style="padding-top:1px;">
+		    		<a href="javascript:void(0)" style="width:135px;height:37px;">
+		    			<img onclick="check_result()" name="a_r3_c10" src="/images/baidu/baby_yimiao/d_r2_c3.gif" width="78" height="32" border="0" id="d_r2_c3" alt="" style="padding:0px; margin:0px;" />
+		    		</a>
+		    	</div>
+		    </td>
+		  </tr>
+		  <tr>
+		  	<td valign="bottom" colspan="2">
+		  		<img name="a_r12_c1" src="/images/baidu/baby_yimiao/a_r12_c1.gif" width="538" height="9" border="0" id="a_r12_c1" alt="" />
+		  	</td>
+		  </tr>
+		</table>
+		<table width="538" border="0" cellpadding="0" cellspacing="0" background="/images/baidu/baby_yimiao/a_r10_c1.gif">
+			<tr>
+			    <td>
+			    	<img name="a_r9_c1" src="/images/baidu/baby_yimiao/a_r9_c1.gif" width="538" height="9" border="0" id="a_r9_c1" alt="" />
+			    </td>
+			</tr>
+			<tr>
+				<td background="/images/baidu/baby_yimiao/a_r10_c1.gif">
+			    	<table width="95%" height="26" border="0" align="center" cellpadding="0" cellspacing="0">
+				      <tr align="left">
+				        <td style="padding-left:10px; padding-top:10px; width:370px;">
+				        	宝宝现在&nbsp;&nbsp;<span id="span_year" class="STYLE2"></span>&nbsp;岁&nbsp;<span id="span_month" class="STYLE2"></span>&nbsp;月&nbsp;<span id="span_day" class="STYLE2"></span>&nbsp;天&nbsp;
+				        </td>
+						<td style=" padding-right:5px;">
+							
+						</td>
+				      </tr>
+					  <tr align="left">
+					  	<td style="padding-left:10px; padding-right:15px; padding-top:5px; padding-bottom:10px; width:370px;" colspan="2">
+					  		本月疫苗：
+							<div id="div_yimiao" style="display:inline;"></div>
+					  	</td>
+					  </tr>
+				    </table>
+			    </td>
+			</tr>
+			<tr>
+			    <td valign="bottom">
+			    	<img name="a_r12_c1" src="/images/baidu/baby_yimiao/a_r12_c1.gif" width="538" height="9" border="0" id="a_r12_c1" alt="" />
+			    </td>
+			</tr>
+		</table>
+		<table width="538" border="0" cellspacing="0" cellpadding="0" id='table_main'>
+		  <tr>
+		    <td id="td_tab" width="295" height="40" rowspan="2" background="/images/baidu/baby_yimiao/f_r2_c5.gif">
+		    	<table width="295" border="0" cellspacing="0" cellpadding="0">
+			      <tr style="padding-top:5px; width:295px;" align="left">
+				<td width="10">&nbsp;</td>
+			      	<td width="102" align="center"><a href="javascript:void(0);" id="td_tab_1" onclick="show_div_1()" class="STYLE4">误区1</a></td>
+				    <td width="102" align="center"><a href="javascript:void(0);" id="td_tab_2" onclick="show_div_2()" class="STYLE4">误区2</a></td>
+				    <td width="102" align="center"><a href="javascript:void(0);" id="td_tab_3" onclick="show_div_3()" class="STYLE4">误区3</a></td>
+					<td>&nbsp;</td>
+			     </tr>
+			    </table>
+		    </td>
+		    <td align="right" style="padding-right:20px;" background="/images/baidu/baby_yimiao/a_r13_c1.gif" height="35">
+				<a href="http://www.mamashai.com/ebook/baby_0dao3?from=baidu_yimiao" target='_blank'>
+					<img src="/images/baidu/baby_yimiao/d_r4_c2.gif" onclick="javascript:void(0);" width="127" height="34" />
+				</a>
+			</td>
+		  </tr>
+		  <tr>
+		    <td>
+		    	<img name="f_r2_c8" src="/images/baidu/baby_yimiao/f_r2_c8.gif" width="243" height="9" border="0" id="a_r5_c9" alt="" />
+		    </td>
+		  </tr>
+		<tr>
+		    <td background="/images/baidu/baby_yimiao/a_r10_c1.gif" colspan="2">
+		    	<table width="95%" height="26" border="0" align="center" cellpadding="0" cellspacing="0">
+		    		<tr>
+				        <td align="left">
+				        	<div id="div_tab_1" class="STYLE1" style="padding-left:20px;padding-right:20px; display:block;"></div>
+							<div id="div_tab_2" class="STYLE1" style="padding-left:20px;padding-right:20px; display:none;"></div>
+							<div id="div_tab_3" class="STYLE1" style="padding-left:20px;padding-right:20px; display:none;"></div>
+				        </td>
+				      </tr>
+		    	</table>		      
+		    </td>
+		  </tr>
+			<tr>
+			    <td valign="bottom" colspan="2">
+			    	<img name="a_r12_c1" src="/images/baidu/baby_yimiao/a_r12_c1.gif" width="538" height="9" border="0" id="a_r12_c1" alt="" />
+			    </td>
+			</tr>
+		</table>
+		<table width="538" border="0" cellpadding="0" cellspacing="0" background="/images/baidu/baby_yimiao/a_r10_c1.gif">
+		  <tr>
+		    <td>
+		    	<img name="a_r9_c1" src="/images/baidu/baby_yimiao/a_r9_c1.gif" width="538" height="9" border="0" id="a_r9_c1" alt="" />
+		    </td>
+		  </tr>
+		  <tr>
+		    <td background="/images/baidu/baby_yimiao/a_r10_c1.gif">
+		    	<table width="95%" height="26" border="0" align="center" cellpadding="0" cellspacing="0">
+		    		<tr>
+				        <td align="left">
+				        	<p class="STYLE3">提示：以上内容来自<a href='http://www.mamashai.com/ebook/0dao3?from=baidu_yimiao'>《0-3岁宝宝生长发育监测卡》</a>，仅供参考。</p>
+				        </td>
+				      </tr>
+		    	</table>		      
+		    </td>
+		  </tr>
+		  <tr>
+		    <td valign="bottom">
+		    	<img name="a_r12_c1" src="/images/baidu/baby_yimiao/a_r12_c1.gif" width="538" height="9" border="0" id="a_r12_c1" alt="" />
+		    </td>
+		  </tr>
+		</table>
+	</div>
+	<script type="text/javascript">
+	date = new Date();
+	// 当前时间
+	var countyear = date.getFullYear();
+	var countmonth = date.getMonth();
+	var countday = date.getDate();
+	// 最开始显示的时间
+	document.getElementById("txt_month").value = countmonth+1; // javascript中的月份是 0-11，所以要+1
+	document.getElementById("txt_year").value = countyear;
+	document.getElementById("txt_day").value = countday;
+		function healthtime()
+		{
+			  
+			check_result();
+		}
+		function check_result()
+		{
+			var check_ok = true;
+			var hongse=new Date() // 当前时间
+			health_year = document.getElementById("txt_year");
+			health_month = document.getElementById("txt_month");
+			health_day = document.getElementById("txt_day");
+
+			// 如果年月日其中一项没有填写
+			if (health_year.value == "" || health_month.value == "" || health_day.value == "")
+			{
+				alert("请填写完整年月日!");
+				check_ok = false;
+
+			}
+
+			// 如果年份过大或者过小
+			else if (health_year.value>2050 || health_year.value<1990)
+			{
+				alert("请填写正确年份!");
+				health_year.focus();
+				check_ok = false;
+
+			}
+
+			// 如果输入年份大于当前年份
+			else if (health_year.value>hongse.getFullYear())
+			{
+				alert("输入的的年份可能过大，请重新输入!");
+				health_year.focus();
+				check_ok = false;
+
+			}
+			// 如果输入的月份大于12，或者月份小于1
+			else if (health_month.value>12 || health_month.value<1)
+			{
+				alert("请填写正确月份!");
+				health_month.focus();
+				check_ok = false;
+
+			}
+			// 如果输入日子大于31，或者输入日子小于1
+			else if (health_day.value>31 || health_day.value<1)
+			{
+				alert("请填写正确日子!");
+				health_day.focus();
+				check_ok = false;
+
+			}
+
+			// 如果年月日组合出来的时间并不是正常年月日
+			else if (!isDate(health_year.value ,health_month.value ,health_day.value))
+			{
+				alert("年月日组合有错,请重新填写!");
+				check_ok = false;
+
+			}
+			else 
+			{
+				var zise=new Date(health_year.value+"/"+health_month.value+"/"+health_day.value);
+				// 获得当前时间
+				var lse=new Date();
+
+				// 如果当前时间 - 输入的时间 < 0 
+				if ((lse.getTime()-zise.getTime())<0)
+				{
+					alert("对不起，您输入的时间还没有到来，请重新输入！")
+					health_year.focus();
+					check_ok = false;
+				}	
+			}
+
+			if(check_ok == true)
+			{
+				var today_time = new Date();
+				//var set_time = today_time.setFullYear(health_year.value, health_month.value-1, health_day.value);
+
+				var d1 = new Date(health_year.value, health_month.value-1, health_day.value);
+				var days = Math.round((today_time - d1) / (1000 * 60 * 60 * 24));
+				var set_month = 0;
+				var set_year = 0;
+				var set_day = 0;
+				var months_all = 0;
+				if (((days / 30.41) + "").indexOf('.') < 0)
+				{
+					months_all = days / 30.41;
+				}
+				else
+				{
+					months_all = ((days / 30.41) + "").substring(0,((days / 30.41) + "").indexOf('.'));
+				}
+				// 如果输入日期折算月份大于36		
+				if (months_all > 36)
+				{
+					alert("宝宝的年龄超过3岁了哦,请重新输入。");
+					health_year.focus();
+					check_ok = false;
+
+				}
+				else
+				{
+					if(days > 365 || days == 365)
+					{
+						years = (days / 365)
+						if ((years + "").indexOf('.') < 0)
+						{
+							set_year = years;
+						}
+						else
+						{
+							set_year = (years + "").substring(0,(years + "").indexOf('.'));
+						}
+
+						days = days - set_year * 365;
+
+					}
+					if (days > 30)
+					{
+						months = (days / 30.41);
+						if ((months + "").indexOf('.') < 0)
+						{
+							set_month = months
+						}
+						else
+						{
+							set_month = (months + "").substring(0,(months + "").indexOf('.'));
+						}
+
+						days = days - parseInt(set_month * 30.41)
+					}
+					document.getElementById("span_year").innerHTML = set_year;
+					document.getElementById("span_month").innerHTML = set_month;
+					document.getElementById("span_day").innerHTML = days;
+
+					get_yimiao(parseInt(months_all));	
+				}
+
+				//alert(months_all);
+			}
+		}
+
+		function isDate (year,month,day)
+		{
+			month = month - 1;  // javascript month range : 0- 11
+			var tempDate = new Date(year,month,day);
+			if ( (year2k(tempDate.getFullYear()) == year) && (month == tempDate.getMonth()) && (day == tempDate.getDate()) )
+			{    
+				return true;
+			}
+			else
+			{
+				return false;
+			}
+		}
+		function year2k(d) 
+		{ 
+			return (d < 1000) ? d + 1900 : d;
+		}
+
+		// 确定标签显示数量
+		var tab_num = 0;
+
+		function get_yimiao(month)
+		{
+
+			var div_yimiao = document.getElementById("div_yimiao");
+			var td_tab = document.getElementById("td_tab");
+			var td_tab_1 = document.getElementById("td_tab_1");
+			var td_tab_2 = document.getElementById("td_tab_2");
+			var td_tab_3 = document.getElementById("td_tab_3");
+			var div_tab_1 = document.getElementById("div_tab_1");
+			var div_tab_2 = document.getElementById("div_tab_2");
+			var div_tab_3 = document.getElementById("div_tab_3");
+			var table_main = document.getElementById("table_main");
+			//alert(month);
+			switch (month)
+			{
+				case 0:
+				baidu.app.setHeight(395);
+				div_yimiao.innerHTML = "卡介苗、乙肝疫苗";
+				setTimeout('td_tab.style.backgroundImage = "url(/images/baidu/baby_yimiao/f_r2_c5.gif)"',200);
+				td_tab_1.innerHTML = "卡介苗";
+				td_tab_2.innerHTML = "乙肝疫苗";
+				td_tab_3.innerHTML = "";
+
+				div_tab_1.innerHTML = "<p>出生后48小时接种卡介苗，大部分接种3周左右接种局部会出现红肿硬结，中间逐渐软化形成白色小脓疤，脓疤自行穿破后结痂，结痂脱落后留下一个小疤痕。这就是卡介苗接种后的全过程，需要时间约2〜3个月。如果小儿为早产、低出生体重或有其他疾病，预防接种要推迟进行。</p><p>宝宝3~4个月间要带去结核病防治所检查卡介苗接种是否成功。需要做一个叫结核菌素试验的皮试。</p>";
+				div_tab_2.innerHTML = "<p>宝宝接种乙肝疫苗后可预防乙型病毒性肝炎。宝宝在出生24小时内应接种第一针乙型肝炎疫苗，在宝宝满月和6个月时，再各接种一针乙肝疫苗，这样才能在体内产生抵抗乙肝病毒的能力。乙肝疫苗接种在新生儿的右上臂，为皮下注射。</p>";
+				div_tab_3.innerHTML = "";
+				tab_num = 2;
+				table_main.style.display = "block";
+				break
+
+				case 1:
+				baidu.app.setHeight(395);
+				div_yimiao.innerHTML = "乙肝疫苗";
+				setTimeout('td_tab.style.backgroundImage = "url(/images/baidu/baby_yimiao/f_r2_c7.gif)"',200);
+				td_tab_1.innerHTML = "乙肝疫苗";
+				td_tab_2.innerHTML = "";
+				td_tab_3.innerHTML = "";
+
+				div_tab_1.innerHTML = "<p>新生儿满月后要接种第二针乙肝疫苗。乙型肝炎疫苗接种后一般很少有不良反应，但少数宝宝可能会出现轻微反应，如注射部位出现红肿、疼痛、轻微发热等，不过均不需要处理，24小时内即可自行消退。</p>";
+				div_tab_2.innerHTML = "";
+				div_tab_3.innerHTML = "";
+
+				tab_num = 1;
+				table_main.style.display = "block";
+				break
+
+				case 2:
+				baidu.app.setHeight(495);
+				div_yimiao.innerHTML = "脊灰疫苗";
+				setTimeout('td_tab.style.backgroundImage = "url(/images/baidu/baby_yimiao/f_r2_c7.gif)"',200);
+				td_tab_1.innerHTML = "脊灰疫苗";
+				td_tab_2.innerHTML = "";
+				td_tab_3.innerHTML = "";
+
+				div_tab_1.innerHTML = "<p>2月龄时宝宝需要口服脊髓灰质炎疫苗（俗称糖丸）：在小儿2、3、4个月龄时要各接种脊髓灰质炎疫苗一次。</p><p>脊髓灰质炎疫苗是减毒的活疫苗，如果免疫力低下的小儿服用，会造成病毒在体内过渡繁殖，造成疫苗型脊髓灰质炎。所以有免疫缺陷的儿童,比如小儿经常感染、肺炎或小婴儿发生过肛周脓肿就要考虑是否有免疫力低下，先暂缓接种。其他疾病如发热、腹泻、口腔溃疡等也都要暂缓接种。为了保证疫苗效果，服疫苗前后0.5~1小时内不要吃热东西，也不要吃母乳。</p>";
+				div_tab_2.innerHTML = "";
+				div_tab_3.innerHTML = "";
+
+				tab_num = 1;
+				table_main.style.display = "block";
+				break
+
+				case 3:
+				baidu.app.setHeight(412);
+				div_yimiao.innerHTML = "脊灰疫苗、百白破疫苗";
+				setTimeout('td_tab.style.backgroundImage = "url(/images/baidu/baby_yimiao/f_r2_c5.gif)"',200);
+				td_tab_1.innerHTML = "脊灰疫苗";
+				td_tab_2.innerHTML = "百白破疫苗";
+				td_tab_3.innerHTML = "";
+
+				div_tab_1.innerHTML = "<p>3月龄时还要口服第二粒脊髓灰质炎疫苗。由于脊髓灰质炎减毒活疫苗是糖丸，所以并不难吃。宝宝口服后一般没有什么不良反应。少数宝宝可能出现发烧、恶心、呕吐、腹泻和皮疹，一般不需特殊处理。如果宝宝的症状比较严重，你需要及时带他去医院治疗。</p>";
+				div_tab_2.innerHTML = "<p>3月龄宝宝要接种百白破疫苗（百日咳、白喉、破伤风三联疫苗）。百白破疫苗在婴儿3、4、5个月龄时各接种1次（基础免疫3次，1岁半时加强1次）。</p><p>百白破疫苗含有吸附剂成分。接种百白破疫苗后一些儿童会在注射局部会出现红肿、疼痛和硬结，多在接种后12~24小时内发生，持续2~3日可自行消退。</p>";
+				div_tab_3.innerHTML = "";
+
+				tab_num = 2;
+				table_main.style.display = "block";
+				break
+
+				case 4:
+				baidu.app.setHeight(390);
+				div_yimiao.innerHTML = "脊灰疫苗、无细胞百白破疫苗";
+				setTimeout('td_tab.style.backgroundImage = "url(/images/baidu/baby_yimiao/f_r2_c5.gif)"',200);
+				td_tab_1.innerHTML = "脊灰疫苗";
+				td_tab_2.innerHTML = "无细胞<br/>百白破疫苗";
+				td_tab_3.innerHTML = "";
+
+				div_tab_1.innerHTML = "<p>口服脊髓灰质炎疫苗第三粒。脊髓灰质炎减毒活疫苗（糖丸）在连续3次接种后，保护率可达90%以上。而脊髓灰质炎灭活疫苗3剂注射后，保护率可达99%〜100%。等到宝宝4岁时，会再加强免疫1次。</p>";
+				div_tab_2.innerHTML = "<p>满4月龄时接种百白破疫苗第二针。接种百白破疫苗有的宝宝会出现接种部位红肿，家长第二天要看看接种部位有无红肿，这种红肿大部分在2天后消退，如果接种后48小时仍然红肿，就要局部热敷，每次15分钟，每天3-4次。</p>";
+				div_tab_3.innerHTML = "";
+
+				tab_num = 2;
+
+				table_main.style.display = "block";
+				break
+
+				case 5:
+				baidu.app.setHeight(410);
+				div_yimiao.innerHTML = "无细胞百白破疫苗";
+				setTimeout('td_tab.style.backgroundImage = "url(/images/baidu/baby_yimiao/f_r2_c7.gif)"',200);
+				td_tab_1.innerHTML = "无细胞<br/>百白破疫苗";
+				td_tab_2.innerHTML = "";
+				td_tab_3.innerHTML = "";
+
+				div_tab_1.innerHTML = "<p>满5月龄时接种百白破疫苗第三针。接种第三针百白破疫苗后当天下午或晚上有的宝宝会出现发热。如果体温不超过38.5度，就可以不用吃退烧药，多喝些水、多加护理。如果体温超过38.5度应该去医院看一下。因为半岁以内的宝宝家长不要自主给孩子吃退烧药。</p>";
+				div_tab_2.innerHTML = "";
+				div_tab_3.innerHTML = "";
+
+				tab_num = 1;
+
+				table_main.style.display = "block";
+				break
+
+				case 6:
+				baidu.app.setHeight(410);
+				div_yimiao.innerHTML = "乙肝疫苗、流脑A疫苗";
+				setTimeout('td_tab.style.backgroundImage = "url(/images/baidu/baby_yimiao/f_r2_c5.gif)"',200);
+				td_tab_1.innerHTML = "乙肝疫苗";
+				td_tab_2.innerHTML = "流脑A疫苗";
+				td_tab_3.innerHTML = "";
+
+				div_tab_1.innerHTML = "<p>满6个月要给宝宝接种乙肝疫苗第三针。父母亲如果有乙肝表面抗原阳性，宝宝接种完成三针乙肝疫苗1、2个月后可以查一下乙肝五项， 看一下宝宝乙肝抗体产生情况。凡按规定程序注射3针乙肝疫苗的宝宝，95%体内可以产生抵抗乙肝病毒的抗体。</p>";
+				div_tab_2.innerHTML = "<p>6月龄也需要接种流脑疫苗。流脑疫苗用于预防流脑。流脑的致病原脑膜炎奈瑟菌一般以A、C群为主。相应地，A群流脑疫苗是预防A群脑膜炎奈瑟菌引起的呼吸道传染病，A+C群流脑多糖疫苗则是预防A群和C群流脑的。</p><p>A群流脑疫苗接种2剂次。在你的宝宝6〜18个月大期间，你要带他去接种第1剂A群流脑疫苗，3个月后再接种第2剂。</p>";
+				div_tab_3.innerHTML = "";
+
+				tab_num = 2;
+
+				table_main.style.display = "block";
+				break
+
+				case 7:
+				baidu.app.setHeight(465);
+				div_yimiao.innerHTML = "7个月程序中没有疫苗接种。但家长可以选择自费疫苗，比如轮状病毒疫苗可以预防秋季腹泻，HIB疫苗可以预防HIB细菌引起的感染，肺炎疫苗可以预防肺炎。";
+				setTimeout('td_tab.style.backgroundImage = "url(/images/baidu/baby_yimiao/f_r2_c1.gif)"',200);
+				td_tab_1.innerHTML = "轮状病毒疫苗";
+				td_tab_2.innerHTML = "HIB疫苗";
+				td_tab_3.innerHTML = "肺炎疫苗";
+
+				div_tab_1.innerHTML = "<p>轮状病毒疫苗也叫口服轮状病毒活疫苗，用于预防轮状病毒引起的秋季腹泻。轮状病毒疫苗的接种对象是2个月至3岁的婴幼儿。轮状病毒疫苗常年都可接种，但不推荐在秋季腹泻流行季节使用。一般建议接种轮状病毒疫苗的时间在7〜10月份。与大多数疫苗不同，轮状病毒疫苗是一种带甜味的口服液，接种方式是口服，1次口服1瓶，每年应服1次。</p>";
+				div_tab_2.innerHTML = "<p>HIB疫苗的全称是B型流感嗜血杆菌疫苗。宝宝接种HIB疫苗只能预防由B型流感嗜血杆菌引起的一系列呼吸道疾病。</p><p>HIB疫苗一般在宝宝2个月大的时候开始接种，接种剂次取决于宝宝首次接种时的月龄：2〜6个月大的宝宝接种HIB疫苗分3剂，每两剂之间间隔2个月，等到宝宝15个月大时再额外加强接种1剂。7〜12个月大的宝宝接种HIB疫苗分2剂，两剂间隔2个月，等到宝宝15个月大时再额外加强接种1剂。13〜60个月大的宝宝接种HIB疫苗只需要接种1剂。</p>";
+				div_tab_3.innerHTML = "<p>肺炎疫苗用于预防肺炎球菌感染的疾病。目前，中国的肺炎球菌疫苗有7价肺炎球菌结合疫苗和23价肺炎球菌多糖疫苗2种。7价肺炎球菌疫苗最适合3个月~2岁大的宝宝。23价肺炎球菌多糖疫苗只适用于2岁以上的宝宝，特别是那些体质虚弱的孩子。</p><p>7价肺炎球菌结合疫苗接种时间不受季节限制，但是不同月龄的宝宝接种剂次不同。7~11个月大的宝宝基础接种2剂7价肺炎球菌结合疫苗，每剂之间接种至少间隔1个月。12~15个月大时需要额外注射1剂。</p>";
+
+				tab_num = 3;
+
+				table_main.style.display = "block";
+				break
+
+				case 8:
+				baidu.app.setHeight(390);
+				div_yimiao.innerHTML = "8月龄宝宝要接种麻疹疫苗或者麻疹、风疹二联疫苗。";
+				setTimeout('td_tab.style.backgroundImage = "url(/images/baidu/baby_yimiao/f_r2_c5.gif)"',200);
+				td_tab_1.innerHTML = "麻疹疫苗";
+				td_tab_2.innerHTML = "麻疹、风疹<br/>二联疫苗";
+				td_tab_3.innerHTML = "";
+
+				div_tab_1.innerHTML = "<p>麻疹疫苗可以预防麻疹。宝宝首次接种麻疹疫苗的时间是他满8个月的时候，第二剂是18~24个月。宝宝接种麻疹疫苗后，需要在接种单位停留30分钟，在此期间，你需要观察孩子的反应，看是否有异常情况，在确保一切正常后再离开。</p>";
+				div_tab_2.innerHTML = "<p>麻疹疫苗一般存在于联合疫苗中，最常见的是麻风疫苗（麻疹和风疹的联合疫苗）和麻风腮疫苗（麻疹、风疹和腮腺炎的联合疫苗）。宝宝接种麻疹疫苗时使用的到底是哪种联合疫苗，要看你所居住的地区。目前的趋势是宝宝第一剂接种麻风疫苗，第二剂多为麻风腮疫苗或麻腮疫苗。具体要根据你所在地区卫生防疫部门的安排。</p>";
+				div_tab_3.innerHTML = "";
+
+				tab_num = 2;
+
+				table_main.style.display = "block";
+				break
+
+				case 9:
+				baidu.app.setHeight(470);
+				div_yimiao.innerHTML = "流脑A疫苗";
+				setTimeout('td_tab.style.backgroundImage = "url(/images/baidu/baby_yimiao/f_r2_c7.gif)"',200);
+				td_tab_1.innerHTML = "流脑A疫苗";
+				td_tab_2.innerHTML = "";
+				td_tab_3.innerHTML = "";
+
+				div_tab_1.innerHTML = "<p>满9个月的宝宝，需要接种流脑疫苗第二针。接种2剂A群流脑多糖疫苗的间隔时间必须大于3个月。在你的宝宝注射完第2剂A群流脑多糖疫苗后，他至少要等1年才可以注射A+C群流脑多糖疫苗。</p><p>宝宝接种任何一种流脑疫苗后需要在接种单位停留30分钟。在此期间，你要注意观察宝宝，留意是否有异常反应情况，在确保宝宝一切正常后再带他离开。宝宝接种流脑疫苗后最好适当休息，多饮水，注意保暖，同时避免进行剧烈的活动。</p>";
+				div_tab_2.innerHTML = "";
+				div_tab_3.innerHTML = "";
+
+				tab_num = 1;
+
+				table_main.style.display = "block";
+				break
+
+				case 10:
+				case 11:
+				baidu.app.setHeight(246);
+				div_yimiao.innerHTML = "本月无所需接种疫苗";
+				setTimeout('td_tab.style.backgroundImage = "url(/images/baidu/baby_yimiao/)"',200);
+				td_tab_1.innerHTML = "";
+				td_tab_2.innerHTML = "";
+				td_tab_3.innerHTML = "";
+
+				div_tab_1.innerHTML = "";
+				div_tab_2.innerHTML = "";
+				div_tab_3.innerHTML = "";
+
+				table_main.style.display = "none";
+				break
+
+				case 12:
+				baidu.app.setHeight(515);
+				div_yimiao.innerHTML = "乙脑疫苗（夏季）";
+				setTimeout('td_tab.style.backgroundImage = "url(/images/baidu/baby_yimiao/f_r2_c7.gif)"',200);
+				td_tab_1.innerHTML = "乙脑疫苗<br/>（夏季）";
+				td_tab_2.innerHTML = "";
+				td_tab_3.innerHTML = "";
+
+				div_tab_1.innerHTML = "<p>1岁的宝宝需要接种乙脑疫苗，当然有些南方地区接种乙脑疫苗可能在更小的月龄，要按照当地的接种程序给宝宝接种疫苗。</p><p>目前中国常用的乙型脑炎疫苗有乙型脑炎减毒活疫苗和乙型脑炎灭活疫苗两种，其中大部分地区使用的是乙脑减毒活疫苗。当你的宝宝满8个月后，你就可以带他去接种乙型脑炎疫苗了。两种乙型脑炎疫苗的第1剂接种起始时间相同，但是剂次和间隔时间不同。乙脑减毒活疫苗接种2剂次，在你的宝宝8个月和2周岁时各接种1次，2剂间隔至少16个月。乙脑灭活疫苗接种4剂次，在你的宝宝8个月时接种2次，两次间隔7-10天，然后等他到2周岁和6周岁时再各接种1次。</p>";
+				div_tab_2.innerHTML = "";
+				div_tab_3.innerHTML = "";
+
+				tab_num = 1;
+
+				table_main.style.display = "block";
+				break
+
+				case 13:
+				case 14:
+				case 15:
+				baidu.app.setHeight(450);
+				div_yimiao.innerHTML = "水痘疫苗";
+				setTimeout('td_tab.style.backgroundImage = "url(/images/baidu/baby_yimiao/f_r2_c7.gif)"',200);
+				td_tab_1.innerHTML = "水痘疫苗";
+				td_tab_2.innerHTML = "";
+				td_tab_3.innerHTML = "";
+
+				div_tab_1.innerHTML = "<p>按照儿童免疫规划内容，13-15个月之间没有必须接种的疫苗，但此时可以接种自费的水痘疫苗。自从接种水痘疫苗以来，水痘的发病率明显降低。所以还是建议家长给孩子接种水痘疫苗。水痘疫苗是一种很安全的疫苗，副反应发生率很低。</p><p>水痘疫苗用于预防水痘。首次接种水痘疫苗后，大约有97%的宝宝体内可以形成抗体。水痘疫苗接种后免疫力持久，并且基本可以形成终生免疫。</p>";
+				div_tab_2.innerHTML = "";
+				div_tab_3.innerHTML = "";
+
+				tab_num = 1;
+
+				table_main.style.display = "block";
+				break
+
+				case 16:
+				case 17:
+				case 18:
+				baidu.app.setHeight(280);
+				div_yimiao.innerHTML = "按照免疫规划要求，18个月的孩子应该接种百白破三联疫苗加强针、麻疹、腮腺炎、风疹三联针和甲肝疫苗。但这三种疫苗一般不同时接种，可以分两次或三次接种。";
+				setTimeout('td_tab.style.backgroundImage = "url(/images/baidu/baby_yimiao/f_r2_c7.gif)"',200);
+				td_tab_1.innerHTML = "";
+				td_tab_2.innerHTML = "";
+				td_tab_3.innerHTML = "";
+
+				div_tab_1.innerHTML = "";
+				div_tab_2.innerHTML = "";
+				div_tab_3.innerHTML = "";
+
+				table_main.style.display = "none";
+				break
+
+				case 19:
+				case 20:
+				case 21:
+				baidu.app.setHeight(245);
+				div_yimiao.innerHTML = "本月无所需接种疫苗";
+				setTimeout('td_tab.style.backgroundImage = "url(/images/baidu/baby_yimiao/f_r2_c7.gif)"',200);
+				td_tab_1.innerHTML = "";
+				td_tab_2.innerHTML = "";
+				td_tab_3.innerHTML = "";
+
+				div_tab_1.innerHTML = "";
+				div_tab_2.innerHTML = "";
+				div_tab_3.innerHTML = "";
+
+				table_main.style.display = "none";
+
+				break
+
+				case 22:
+				case 23:
+				case 24:
+				baidu.app.setHeight(414);
+				div_yimiao.innerHTML = "乙脑疫苗加强";
+				setTimeout('td_tab.style.backgroundImage = "url(/images/baidu/baby_yimiao/f_r2_c7.gif)"',200);
+				td_tab_1.innerHTML = "乙脑疫苗加强";
+				td_tab_2.innerHTML = "";
+				td_tab_3.innerHTML = "";
+
+				div_tab_1.innerHTML = "<p>2岁的小儿应该接种乙脑疫苗加强针。宝宝接种1剂乙脑减毒活疫苗后，对乙脑的预防能力会达到80%以上。再经加强1剂接种后，预防能力就会达到90%以上，而且可以维持相当长的一段时间。这也是为什么中国大部分地区选择给儿童接种乙脑减毒活疫苗。</p>";
+				div_tab_2.innerHTML = "";
+				div_tab_3.innerHTML = "";
+
+				tab_num = 1;
+
+				table_main.style.display = "block";
+				break
+
+				case 25:
+				case 26:
+				case 27:
+				case 28:
+				case 29:
+				case 30:
+				baidu.app.setHeight(245);
+				div_yimiao.innerHTML = "本月无所需接种疫苗";
+				setTimeout('td_tab.style.backgroundImage = "url(/images/baidu/baby_yimiao/f_r2_c7.gif)"',200);
+				td_tab_1.innerHTML = "";
+				td_tab_2.innerHTML = "";
+				td_tab_3.innerHTML = "";
+
+				div_tab_1.innerHTML = "";
+				div_tab_2.innerHTML = "";
+				div_tab_3.innerHTML = "";
+
+				table_main.style.display = "none";
+				break
+
+				case 31:
+				case 32:
+				case 33:
+				case 34:
+				case 35:
+				case 36:
+				baidu.app.setHeight(370);
+				div_yimiao.innerHTML = "流脑A+C疫苗";
+				setTimeout('td_tab.style.backgroundImage = "url(/images/baidu/baby_yimiao/f_r2_c7.gif)"',200);
+				td_tab_1.innerHTML = "流脑A+C疫苗";
+				td_tab_2.innerHTML = "";
+				td_tab_3.innerHTML = "";
+
+				div_tab_1.innerHTML = "<p>3岁的宝宝应该接种流脑A+C疫苗。A+C群流脑多糖疫苗接种同样是2剂次，在你的宝宝3周岁和6周岁时各接种1次，两次间隔时间是3年。</p>";
+				div_tab_2.innerHTML = "";
+				div_tab_3.innerHTML = "";
+
+				tab_num = 1;
+
+				table_main.style.display = "block";
+				break
+			}
+		}
+
+		function show_div_1()
+		{
+			baidu.app.setHeight(325);
+			document.getElementById("div_tab_1").style.display = "block";
+			document.getElementById("div_tab_2").style.display = "none";
+			document.getElementById("div_tab_3").style.display = "none";
+			switch (tab_num)
+			{
+				case 1:
+				setTimeout('document.getElementById("td_tab").style.backgroundImage = "url(/images/baidu/baby_yimiao/f_r2_c7.gif)"',200);
+				break
+
+				case 2:
+				setTimeout('document.getElementById("td_tab").style.backgroundImage = "url(/images/baidu/baby_yimiao/f_r2_c5.gif)"',200);
+				break
+
+				case 3:
+				setTimeout('document.getElementById("td_tab").style.backgroundImage = "url(/images/baidu/baby_yimiao/f_r2_c1.gif)"',200);
+				break
+
+				default:
+				setTimeout('document.getElementById("td_tab").style.backgroundImage = "url(/images/baidu/baby_yimiao/a_r13_c1.gif)"',200);
+			}
+		}
+
+		function show_div_2()
+		{
+			baidu.app.setHeight(325);
+			document.getElementById("div_tab_1").style.display = "none";
+			document.getElementById("div_tab_2").style.display = "block";
+			document.getElementById("div_tab_3").style.display = "none";
+			switch (tab_num)
+			{
+				case 1:
+				setTimeout('document.getElementById("td_tab").style.backgroundImage = "url(/images/baidu/baby_yimiao/f_r2_c7.gif)"',200);
+				break
+
+				case 2:
+				setTimeout('document.getElementById("td_tab").style.backgroundImage = "url(/images/baidu/baby_yimiao/f_r2_c4.gif)"',200);
+				break
+
+				case 3:
+				setTimeout('document.getElementById("td_tab").style.backgroundImage = "url(/images/baidu/baby_yimiao/f_r2_c2.gif)"',200);
+				break;
+
+				default:
+				setTimeout('document.getElementById("td_tab").style.backgroundImage = "url(/images/baidu/baby_yimiao/a_r13_c1.gif)"',200);
+			}
+
+		}
+
+		function show_div_3()
+		{
+			baidu.app.setHeight(325);
+			document.getElementById("div_tab_1").style.display = "none";
+			document.getElementById("div_tab_2").style.display = "none";
+			document.getElementById("div_tab_3").style.display = "block";
+			switch (tab_num)
+			{
+				case 1:
+				setTimeout('document.getElementById("td_tab").style.backgroundImage = "url(/images/baidu/baby_yimiao/f_r2_c7.gif)"',200);
+				break
+
+				case 2:
+				setTimeout('document.getElementById("td_tab").style.backgroundImage = "url(/images/baidu/baby_yimiao/f_r2_c4.gif)"',200);
+				break
+
+				case 3:
+				setTimeout('document.getElementById("td_tab").style.backgroundImage = "url(/images/baidu/baby_yimiao/f_r2_c3.gif)"',200);
+				break;
+
+				default:
+				setTimeout('document.getElementById("td_tab").style.backgroundImage = "url(/images/baidu/baby_yimiao/a_r13_c1.gif)"',200);
+			}
+		}
+	</script>
+	<script src="http://app.baidu.com/static/appstore/monitor.st"></script>
+	<script>
+	     baidu.app.autoHeight();
+	     baidu.app.setHeight(325);
+	</script>
+</body>
+</html>
+<div style="display:none;">
+<script type="text/javascript">
+var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3F2f4856497854ce3df66f8b40863365d9' type='text/javascript'%3E%3C/script%3E"));
+</script>
+</div>

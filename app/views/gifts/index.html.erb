@@ -1,0 +1,54 @@
+<style>
+.user_article_gift {font-size:14px;color:#666;overflow:hidden;margin-top:25px;}
+.user_gift_line {border-bottom:1px solid #ccc;}
+.user_article_gift  .user_pic {text-align:center;float:left;width:70px;height:70px; }
+.uft  .user_pic img {padding:1px;border:1px solid #ccc;}
+.user_article_gift  .orgtxt {overflow:hidden;line-height:180%;}
+.user_article_gift  .orgtxt div img {border:1px solid #ccc;padding:1px;}
+.user_article_gift  .orgtxt  span.color1 {color:#900;}
+
+
+
+#closegift_content  .user_tools {overflow:hidden;font-size:12px;color:#999;height:35px;line-height:35px;margin-top:12px;border-bottom:1px solid #ccc;}
+#closegift_content  .user_tools  span.time {float:left;width:230px;padding-top:2px;padding-left:7px;}
+#closegift_content  .user_tools  span.tools {float:right;width:260px;text-align:right;padding-right:10px;}
+#closegift_content  .user_tools  span.number {color:#F90;}
+#closegift_content  .user_tools  span.min {color:#CB0000;}
+#closegift_content  .user_tools a {color: #329BCB;}
+</style>
+
+	<div class="gifts_panel">
+	    <%=render :partial=>'/gifts/nav' %>
+	    <div class="mms_panel_content">
+	        <div id="closegift_content">
+	            <% for gift_get in @gift_gets %>
+	            <% gift_user = gift_get.send_user %>
+				<% gift_user = gift_get.user if params[:action] == 'index' %>
+	            <%=render :partial=>'list_gift',:locals=>{:gift_get=>gift_get,:gift_user=>gift_user} %>
+	            <div class="user_tools">
+	                <span class="time"><%=refer_time gift_get.created_at %><%=(params[:action]=='gifts' ? '收到' : '送出') %></span>
+	                <span class="tools"><% if params[:action] == 'gifts' %>
+	                    <a href="/gifts/give_gifts/<%=gift_user.id%>">回赠</a> | <a href="/home/hide_gift_get/<%=gift_get.id%>">删除</a> | <span id="is_private_button_<%=gift_get.id%>"><% if gift_get.is_private %>已隐藏 <% else %>
+	                        <%= link_to_remote("隐藏", :update => "is_private_button_#{gift_get.id}", :url => {:action =>:set_private_gift,:controller=>:ajax,:id=>gift_get.id}) %>
+	                        <% end %>
+	                    </span><% else %>
+	                    <a href="<%= url_for :action=>"hide_gift_sent", :id=>gift_get.id%>">删除</a><% end %>
+	                </span>
+	                <div class="clear">
+	                </div>
+	            </div>
+	            <% end %>
+	        </div>
+	        <% if @gift_gets.blank? %>
+	        <div style="margin: 20px 10px;">
+	            目前还没有任何礼物
+	        </div>
+	        <% else %>
+	       <% end %>
+	    </div>
+	    <div class="clear">
+	    </div>
+	    <%=will_paginate @gift_gets %>
+	    <div class="clear">
+	    </div>
+	</div>

@@ -1,0 +1,87 @@
+<tr>
+    <td><%= f.label :name,"网站名称：" %></td>
+    <td>
+    	<%= f.text_field :name %>
+		<%= f.error_message_on  :name %>
+	</td>
+</tr>
+<tr>
+    <td><%= f.label :url,"网站Url：" %></td>
+    <td>
+    	<%= f.text_field :url %>
+		<%= f.error_message_on  :url %>
+	</td>
+</tr>
+<tr>
+    <td><%= f.label :tp,"认证状态：" %></td>
+    <td>
+    	<%=f.select :tp, [['未认证',0],['普通认证',1],['推荐认证',2],['封锁',-1]].collect {|p| [ p[0], p[1] ] } %>
+		<%= f.error_message_on  :tp %>
+	</td>
+</tr>
+<tr>
+    <td><%= f.label :open_at,"开团日：" %></td>
+    <td>
+    	<%= f.text_field :open_at %>
+		<%= f.error_message_on  :open_at %>
+	</td>
+</tr>
+
+<tr>
+    <td><%= f.label :icp,"ICP证：" %></td>
+    <td>
+    	<%= f.text_field :icp %>
+		<%= f.error_message_on  :icp %>
+	</td>
+</tr>
+
+<tr>
+    <td><%= f.label :icp_bei,"ICP备：" %></td>
+    <td>
+    	<%= f.text_field :icp_bei %>
+		<%= f.error_message_on  :icp_bei %>
+	</td>
+</tr>
+
+<tr>
+    <td><%= f.label :note,"备注：" %></td>
+    <td>
+    	<%= f.text_field :note %>
+		<%= f.error_message_on  :note %>
+	</td>
+</tr>
+
+<tr>
+    <td colspan="2">&nbsp;
+	</td>
+</tr>
+<tr>
+    <td colspan="2">
+    	<input type="submit" name="submit" value="提交">
+		<%= link_to '返回', '/mms/tuans/website_index'%>
+	</td>
+</tr>
+<script type="text/javascript">
+	$(function() {
+		$.datepicker.regional['zh-CN'] = {
+			closeText: '关闭',
+			prevText: '&#x3c;上月',
+			nextText: '下月&#x3e;',
+			currentText: '今天',
+			monthNames: ['一月','二月','三月','四月','五月','六月',
+			'七月','八月','九月','十月','十一月','十二月'],
+			monthNamesShort: ['一','二','三','四','五','六',
+			'七','八','九','十','十一','十二'],
+			dayNames: ['星期日','星期一','星期二','星期三','星期四','星期五','星期六'],
+			dayNamesShort: ['周日','周一','周二','周三','周四','周五','周六'],
+			dayNamesMin: ['日','一','二','三','四','五','六'],
+			weekHeader: '周',
+			dateFormat: 'yy-mm-dd',
+			firstDay: 1,
+			isRTL: false,
+			showMonthAfterYear: true,
+			yearSuffix: '年'};
+		$.datepicker.setDefaults($.datepicker.regional['zh-CN']);
+		$("#tuan_website_open_at").datepicker({ dateFormat: 'yy-mm-dd'});
+	});
+</script>

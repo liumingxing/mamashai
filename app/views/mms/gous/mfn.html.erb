@@ -1,0 +1,176 @@
+<div id="middle">
+    <div id="css_mainbody">
+        <h1 class="title">免费拿设置<span style="float: right; margin-right: 10px;"><%= link_to '返回列表', '/mms/gous/index?tp=na' %>
+            </span></h1>
+        <% form_for @profile,:url => { :action => "create_mfn_profile" }, :html=>{:multipart=>true} do |f| %>
+        	<table class="grid_order" border="1">
+			    <tr>
+			        <td class="td01" width="100px">
+			            总数量：
+			        </td>
+			        <td>
+			            <%= f.text_field :total_count, :required=>"required" %>
+						<%= f.hidden_field :gou_id %>
+			            <%= f.error_message_on :total_count %>
+			        </td>
+			    </tr>
+				<tr>
+			        <td class="td01" width="100px">
+			            供应商邮件：
+			        </td>
+			        <td>
+			            <%= f.text_field :email, :required=>"required" %>
+			        </td>
+			    </tr>
+				<tr>
+			        <td class="td01" width="100px">
+			            重量：
+			        </td>
+			        <td>
+			            <%= f.text_field :weight, :required=>"required" %>公斤
+			        </td>
+			    </tr>
+				<tr>
+			        <td class="td01" width="100px">
+			            中奖几率：
+			        </td>
+			        <td>
+			            每<%= f.text_field :random, :required=>"required" %>人出一个奖
+			        </td>
+			    </tr>
+				<tr>
+			        <td class="td01" width="100px">
+			            已送出：
+			        </td>
+			        <td>
+			            <%= f.text_field :has_sent, :required=>"required" %>
+			        </td>
+			    </tr>
+				<tr>
+			        <td class="td01" width="100px">
+			            主页1：
+			        </td>
+			        <td>
+			            <%= f.text_field :site1, :required=>"required" %>
+			        </td>
+			    </tr>
+				<tr>
+			        <td class="td01" width="100px">
+			            主页2：
+			        </td>
+			        <td>
+			            <%= f.text_field :site2, :required=>"required" %>
+			        </td>
+			    </tr>
+				<tr>
+			        <td class="td01" width="100px">
+			            主页3：
+			        </td>
+			        <td>
+			            <%= f.text_field :site3, :required=>"required" %>
+			        </td>
+			    </tr>
+				<tr>
+			        <td class="td01" width="100px">
+			            注意事项：
+			        </td>
+			        <td>
+			            <%= f.text_field :notice, :required=>"required", :size=>100 %>
+			        </td>
+			    </tr>
+			    <tr>
+			        <td class="td01" width="100px">
+			            问题1：
+			        </td>
+			        <td>
+			            描述 <%= f.text_field :question1, :required=>"required" %>  选项 <%= f.text_field :option1, :required=>"required" %>
+						答案 <%= f.text_field :answer1, :required=>"required" %>
+			        </td>
+			    </tr>
+				<tr>
+			        <td class="td01" width="100px">
+			            问题2：
+			        </td>
+			        <td>
+			            描述 <%= f.text_field :question2, :required=>"required" %> 选项 <%= f.text_field :option2, :required=>"required" %>
+						答案 <%= f.text_field :answer2, :required=>"required" %>
+			        </td>
+			    </tr>
+				<tr>
+			        <td class="td01" width="100px">
+			            问题3：
+			        </td>
+			        <td>
+			            描述 <%= f.text_field :question3, :required=>"required" %> 选项 <%= f.text_field :option3, :required=>"required" %>
+						答案 <%= f.text_field :answer3, :required=>"required" %>
+			        </td>
+			    </tr>
+				<tr>
+			        <td class="td01" width="100px">
+			            输入型问题：
+			        </td>
+			        <td>
+			            描述 <%= f.text_field :text_question, :required=>"required" %>
+						长度 <%= f.text_field :text_answer_len, :size=>4 %> 如填写此字段，则只要答案长度符合就算答对
+			        </td>
+			    </tr>
+				<tr>
+			        <td class="td01" width="100px">
+			            输入型问题答案：
+			        </td>
+			        <td>
+			            <%= f.text_area :text_answer, :rows=>4, :cols=>80, :required=>"required" %>
+			        </td>
+			    </tr>
+				<tr>
+			        <td class="td01" width="100px">
+			            图片：
+			        </td>
+			        <td>
+			            <%= @profile[:picture1]%> <%= upload_column_field :na_profile, :picture1 %>
+						<%= @profile[:picture2]%> <%= upload_column_field :na_profile, :picture2 %>
+						<%= @profile[:picture3]%> <%= upload_column_field :na_profile, :picture3 %>
+						<%= @profile[:picture4]%> <%= upload_column_field :na_profile, :picture4 %>
+						<%= @profile[:picture5]%> <%= upload_column_field :na_profile, :picture5 %>
+			        </td>
+			    </tr> 
+				<tr>
+			        <td class="td01" width="100px">
+			            状态：
+			        </td>
+			        <td>
+			            <%= f.select :is_hide, [['下架', true], ['上架', false]] %>
+						<%= f.select :top, [['置顶', true], ['不置顶', false]] %>
+			        </td>
+			    </tr> 
+				<tr>
+			        <td class="td01" width="100px">
+			            供应商后台密码：
+			        </td>
+			        <td>
+			            <%= f.text_field :password %>						
+			        </td>
+			    </tr> 
+				<tr>
+				    <td class="td01">
+				    	适用年龄段
+					</td>
+				    <td> <%= f.select "step_id", [["孕期", 1],["0到3岁", 2], ["3到6岁", 3], ["6岁以上", 4]],{:include_blank => true} %></td>
+				</tr>
+				<tr>
+			        <td class="td01">
+			        </td>
+			        <td>
+			        	<input type="submit" name="submit" value="提交">
+						<%= link_to '返回', '/mms/gous/index?tp=na', {:style => "color:#329BCB;"} %>
+			        </td>
+			    </tr>	  
+				 
+			</table>
+        <% end %>
+    </div>
+    <div class="clear">
+    </div>
+</div>
+
+

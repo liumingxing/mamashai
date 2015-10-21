@@ -1,0 +1,8 @@
+<div class="event_share">
+	<div class="user_all">
+        共<%=@posts.length%>个
+    </div>
+    <% for post in @posts %>
+    <%= render :partial=>'event_forward_post',:locals=>{:post=>post} %>
+    <% end %>
+</div>

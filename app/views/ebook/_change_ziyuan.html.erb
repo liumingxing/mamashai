@@ -1,0 +1,32 @@
+<% unless @ziyuan.blank? %>
+<table>
+	
+	<% @ziyuan.each do |tool| %>
+	<tr>
+		<td>
+			<table>
+				<tr>
+					<td rowspan='2' width="73px" height="87px" valign="top">
+						<%= logo_tag tool, {:version=>'thumb99', :style => "width:72px; border:1px solid #ccc; padding:1px;"}%>
+					</td>
+					<td style="color:#333333; padding-left:10px; " width='120px;' align='left'>
+						<% if @user %>
+							<a class="resource" href="/mms_tools/show/<%= tool.id %>" target="_blank">
+						<% else %>
+							<a class="resource" href="/account/login?origin_url=/ebook/qimeng">
+						<% end %>
+							<%= tool.name.split("-").split("——").last%>
+						</a>
+					</td>
+				</tr>
+				<tr>
+					<td align='left' style="line-height: 140%; color:#999999; width:120px; padding-left:10px; " valign='top'>
+						<%= truncate(tool.content, :length=>36) %>
+					</td>
+				</tr>
+			</table>
+		</td>
+	</tr>
+	<% end %>
+</table>
+<% end %>

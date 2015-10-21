@@ -1,0 +1,87 @@
+<div id="middle">
+    <div id="css_mainbody">
+        <h1 class="title">导购平台-商品列表
+			<span style="float: right; margin-right: 10px;">
+				<%= link_to '添加商品', '/mms/eproducts/new' %>
+        	</span>
+		</h1>
+        <div style="text-align:center;" class="green">
+            <%= flash[:notice] %>
+        </div>
+        <div id="page_count">
+            <span style="float:right;">共有<b class="blue"><%=h @eproducts.total_entries %></b>条记录</span>
+        </div>
+        <% form_tag "/mms/eproducts/search", {:method => "get"} do %>
+	        <div>
+	            搜索：<%= text_field_tag "keyword",@keyword %><%= submit_tag "查询" %>
+	        </div>
+        <% end %>
+        <div class="clear">
+        </div>
+        <table class="grid">
+            <tr>
+                <th width="5%">
+                    序号
+                </th>
+				<th width="10%">
+                    名称
+                </th>
+				<th width="10%">
+                    商品分类
+                </th>
+				<th width="5%">
+                    商品数目
+                </th>
+				<th width="10%">
+                    创建时间
+                </th>
+				<th width="10%">
+                    最后修改
+                </th>
+                <th width="10%">
+                    操作
+                </th>
+            </tr>
+            <% if @eproducts.blank? %>
+	            <tr>
+	                <td colspan=9>
+	                    <b>暂无记录</b>
+	                </td>
+	            </tr>
+            <% else %>
+	            <% @eproducts.each_with_index do |eproduct,index| %>
+		            <tr>
+		                <td>
+		                    <%=(index+1).to_s %>
+		                </td>
+		                <td>
+		                    <%=eproduct.name %>
+		                </td>
+						<td>
+		                    <%=eproduct.eproduct_category.try(:name)||'暂无' %>
+		                </td>
+						<td>
+		                    dsdd
+		                </td>
+						<td>
+		                    <%= eproduct.created_at.strftime("%Y年%m月%d日 %H时%M分%S秒") %>
+		                </td>
+						<td>
+		                    <%= eproduct.updated_at.strftime("%Y年%m月%d日 %H时%M分%S秒") %>
+		                </td>
+		                <td>
+		                	<%= link_to '查看', "/mms/eproducts/show/#{h eproduct.id}" %>
+		                    <%= link_to '修改', "/mms/eproducts/edit/#{h eproduct.id}" %>
+		                    <%= link_to '删除', "/mms/eproducts/destroy/#{h eproduct.id}", :confirm => '确认删除吗？', :method => :delete %>
+		                </td>
+		            </tr>
+	            <% end %>
+            <%end %>
+        </table>
+        <div class="book_page">
+            <%=will_paginate @eproducts %>
+        </div>
+    </div>
+    <div class="clear">
+    </div>
+</div>

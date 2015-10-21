@@ -1,0 +1,2 @@
+module QingHelper
+end

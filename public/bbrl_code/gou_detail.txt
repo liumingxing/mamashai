@@ -1,0 +1,1249 @@
+function GouDetail(attr){
+	var win = Ti.UI.createWindow(attr);
+	win.backgroundColor = "#F4F6F1"
+	var active_window = win;
+
+	function make_number_spin(product_json, min, max, value, step, callback){
+		var view = Ti.UI.createView({
+			top: 0,
+			left: 0,
+			width: Ti.UI.platform_width,
+			bottom: 0,
+			backgroundColor: "transparent",
+			zIndex: 100
+		})
+		view.add(Ti.UI.createView({
+			backgroundColor: "black",
+			opacity: 0.1,
+			left: 0,
+			right: 0,
+			top: 0,
+			bottom: 0
+		}));
+
+		var bottom_container = Ti.UI.createView({
+			backgroundColor: "white",
+			height: __l(250),
+			bottom: 0,
+		})
+		var close = Ti.UI.createImageView({
+			image: "/images/gou/close.png",
+			right: __l(16),
+			top: __l(16),
+			width: __l(30),
+			height: __l(30),
+		})
+		close.addEventListener("click", function(e){
+			active_window.remove(view);
+		})
+		bottom_container.add(close);
+		bottom_container.add(Ti.UI.createImageView({
+			image: Ti.App.aliyun + product_json.logo_thumb200,
+			left: __l(16),
+			top: __l(16),
+			width: __l(60)
+		}))
+
+		bottom_container.add(Ti.UI.createLabel({
+			text: product_json.name,
+			font: {fontSize: __l(14)},
+			color: "#333",
+			left: __l(92),
+			top: __l(16),
+			right: __l(62),
+			height: __l(56)
+		}))
+
+		bottom_container.add(Ti.UI.createLabel({
+			text: "￥" + parseFloat(product_json.price).toFixed(2),
+			font: {fontSize: __l(17), fontWeight: "bold"},
+			color: Ti.App.bar_color,
+			left: __l(110),
+			top: __l(76),
+			height: Ti.UI.SIZE
+		}))
+
+		bottom_container.add(Ti.UI.createLabel({
+			text: "省" + (parseFloat(product_json.o_price) - parseFloat(product_json.price)).toFixed(2),
+			font: {fontSize: __l(11)},
+			color: "#999",
+			left: __l(194),
+			top: __l(80),
+			height: Ti.UI.SIZE
+		}))
+
+		bottom_container.add(Ti.UI.createView({
+			top: __l(110),
+			left: 0,
+			right: 0,
+			height: __l(1),
+			backgroundColor: "#ccc",
+		}))
+
+		bottom_container.add(Ti.UI.createLabel({
+			text: "选择数量：",
+			font: {fontSize: __l(16)},
+			color: "#333",
+			left: __l(16),
+			top: __l(124),
+			height: __l(35)
+		}))
+
+		bottom_container.add(Ti.UI.createView({
+			bottom: __l(60),
+			left: 0,
+			right: 0,
+			height: __l(1),
+			backgroundColor: "#ccc",
+		}))
+
+		var ok = Ti.UI.createButton({
+			bottom: __l(10),
+			title: "确定",
+			left: __l(20),
+			right: __l(20),
+			height: __l(40),
+			backgroundColor: "#ccc",
+		})
+		ok.addEventListener("click", function(e){
+			callback(txt.value);
+			active_window.remove(view);
+		})
+		pre_btn(ok);
+		bottom_container.add(ok)
+
+		view.add(bottom_container);
+
+		var wrapper = Ti.UI.createView({
+			top: __l(124),
+			left: __l(110),
+			height: __l(35),
+			width: __l(120),
+			borderWidth: __l(1),
+			borderColor: "#9C9C9C",
+			borderRadius: __l(2),
+			value: value
+		})
+
+		var left = Ti.UI.createView({
+			backgroundColor: "#EFEFEF",
+			width: __l(35),
+			left: 0
+		})
+		left.addEventListener("click", function(e){
+			if (parseInt(txt.value) <= min)
+				return;
+
+			txt.value = parseInt(txt.value) - step; 
+			right.touchEnabled = true;
+
+			if (txt.value == min){
+				left.touchEnabled = false;
+			}
+		})
+		left.addEventListener("touchstart", function(e){
+			left.backgroundColor = "#E0E0E0";
+		});
+		left.addEventListener("touchend", function(e){
+			left.backgroundColor = "#EFEFEF";
+		});
+		left.addEventListener("touchcancel", function(e){
+			left.backgroundColor = "#EFEFEF";
+		});
+		left.add(Ti.UI.createImageView({
+			image: "/images/gou/minus.png",
+			left: __l(4),
+			right: __l(4),
+			top: __l(4),
+			bottom: __l(4),
+			width: __l(27),
+			height: __l(27),
+			touchEnabled: false,
+			backgroundColor: "transparent"
+		}))
+		wrapper.add(left)
+		wrapper.add(Ti.UI.createView({
+			top: 0,
+			bottom: 0,
+			width: __l(1),
+			backgroundColor: "#9C9C9C",
+			left: __l(35)
+		}))
+
+		var txt = Ti.UI.createTextField({
+			height: __l(35),
+			left: __l(35),
+			right: __l(35),
+			bottom: Ti.App.is_android ? __l(-2) : __l(0),
+			borderWidth: 0,
+			textAlign: "center",
+			color: "#252525",
+			font: {fontSize: __l(18)},
+			backgroundColor: "transparent",
+			editable: false,
+			value: value
+		})
+		txt.addEventListener("change", function(e){
+			wrapper.value = txt.value;
+		})
+		wrapper.add(txt);
+
+		var right = Ti.UI.createView({
+			backgroundColor: "#EFEFEF",
+			width: __l(35),
+			right: 0,
+		})
+		right.addEventListener("click", function(e){
+			if (parseInt(txt.value) >= max)
+				return;
+
+			txt.value = parseInt(txt.value) + step; 
+			left.touchEnabled = true;
+
+			if (txt.value == max){
+				right.touchEnabled = false;
+			}
+		})
+
+		right.addEventListener("touchstart", function(e){
+			right.backgroundColor = "#E0E0E0";
+		});
+		right.addEventListener("touchend", function(e){
+			right.backgroundColor = "#EFEFEF";
+		});
+		right.addEventListener("touchcancel", function(e){
+			right.backgroundColor = "#EFEFEF";
+		});
+		right.add(Ti.UI.createImageView({
+			image: "/images/gou/add.png",
+			left: __l(4),
+			right: __l(4),
+			top: __l(4),
+			bottom: __l(4),
+			width: __l(27),
+			height: __l(27),
+			touchEnabled: false,
+			backgroundColor: "transparent"
+		}))
+		wrapper.add(right)
+		wrapper.add(Ti.UI.createView({
+			top: 0,
+			bottom: 0,
+			width: __l(1),
+			backgroundColor: "#9C9C9C",
+			right: __l(35)
+		}))
+
+		bottom_container.add(wrapper);
+		active_window.add(view);
+	}
+
+	var container = Ti.UI.createScrollView({
+		contentHeight : 'auto',
+		contentWidth: Ti.App.platform_width,
+		showVerticalScrollIndicator : true,
+		left : 0,
+		width : Ti.App.platform_width,
+		bottom : 0,
+		top : 0,
+		layout: 'vertical'
+	})
+	win.add(container)
+
+	http_call(Ti.App.mamashai + "/api/gou/detail_of/" + attr.id, function(e){
+		var json = JSON.parse(e.responseText)
+
+		var arr = [Ti.App.mamashai + json.logo_thumb400];
+		var arr_big = [Ti.App.aliyun + json.logo_url]
+		for(var i=0; i<json.logos.length; i++){
+			arr.push(Ti.App.mamashai + json.logos[i].logo_thumb400)
+			arr_big.push(Ti.App.aliyun + json.logos[i].logo_url)
+		}
+
+		//显示图片
+		var pic_arr = [];
+		var scrollView = Titanium.UI.createScrollableView({
+			pagingControlHeight : __l(40),
+			backgroundColor: "white",
+			pagingControlColor : "transparent",
+			showPagingControl : true,
+			top: 0, 
+			height: __l(260),
+			width: Ti.App.platform_width,
+			left: 0,
+			right: 0,
+			pics: []
+		});
+		for(var i=0; i<arr.length; i++){
+			var wrapper = Titanium.UI.createView({
+				top : 0,
+				left : 0,
+				right : 0,
+				height: __l(260)
+			});
+
+			var pic = Ti.UI.createImageView({
+				image : arr[i],
+				top: 0,
+				//left: 0,
+				//right: 0,
+				bottom: 0,
+				wrapper: wrapper,
+				index: i
+			});
+			scrollView.pics.push(pic);
+			if (Ti.App.is_android){
+				//pic.width = Ti.App.platform_width;
+				pic.width = __l(260);
+			}	
+				
+			pic.addEventListener("click", function(e){
+				galary_browse(arr_big, e.source.index)
+			});
+			
+			pic.opacity = 0;
+			pic.addEventListener("load", function(e){
+				e.source.opacity = 0;
+				e.source.animate({opacity: 1, duration: 800});
+			});
+			wrapper.add(pic)
+			scrollView.addView(wrapper);
+		}
+		add_android_scroll_ind(scrollView, Ti.App.platform_width);
+		container.add(scrollView)
+
+		//显示商品信息
+		var line = Ti.UI.createView({
+			backgroundColor: "#ccc",
+			left: 0,
+			top: 0,
+			height: 1,
+			right: 0,
+		})
+		container.add(line);
+		var info_wrapper = Ti.UI.createView({
+			left: 0,
+			right: 0,
+			top: 0,
+			height: Ti.UI.SIZE,
+			backgroundColor: "#F9F9F9",
+			layout: 'vertical'
+		})
+		container.add(info_wrapper)
+		info_wrapper.add(Ti.UI.createLabel({
+			top: __l(4),
+			font: {fontSize: __l(16)},
+			color: "#333",
+			left: __l(10),
+			right: __l(10),
+			text: json.name
+		}))
+		info_wrapper.add(Ti.UI.createLabel({
+			top: __l(6),
+			font: {fontSize: __l(14)},
+			color: "#999",
+			left: __l(10),
+			right: __l(10),
+			text: json.introduce
+		}))
+		var price_wrapper = Ti.UI.createView({
+			top: __l(8),
+			left: 0,
+			right: 0,
+			bottom: __l(4),
+			height: Ti.UI.SIZE
+		})
+
+		price_wrapper.add(Ti.UI.createLabel({
+			color: Ti.App.bar_color,
+			textAlign: "center",
+			left: __l(10),
+			font: {fontSize: __l(14)},
+			top: __l(4),
+			width: __l(56),
+			borderWidth: 1,
+			borderColor: Ti.App.bar_color,
+			borderRadius: __l(4),
+			text: json.is_baokuan ? "爆款价" : "特卖价"
+		}))
+
+		price_wrapper.add(Ti.UI.createLabel({
+			color: Ti.App.bar_color,
+			textAlign: "center",
+			left: __l(74),
+			font: {fontSize: __l(14)},
+			top: __l(4),
+			width: __l(40),
+			borderWidth: 1,
+			borderColor: Ti.App.bar_color,
+			borderRadius: __l(4),
+			text: parseInt(json.price*10/json.o_price) + "折"
+		}))
+
+		price_wrapper.add(Ti.UI.createLabel({
+			text: "￥" + parseFloat(json.price).toFixed(2),
+			color: Ti.App.bar_color,
+			left: __l(120),
+			top: __l(0),
+			font: {fontSize: __l(20), fontWeight: "bold"}
+		}))
+
+	    var o_price_wrapper = Ti.UI.createView({
+	    	left: __l(210),
+	    	top: __l(4),
+	    	width: Ti.UI.SIZE,
+	    	height: __l(20)
+	    })
+	    price_wrapper.add(o_price_wrapper)
+
+		o_price_wrapper.add(Ti.UI.createLabel({
+			text: "￥" + parseFloat(json.o_price).toFixed(2),
+			color: "#999",
+			left: __l(0),
+			width: Ti.UI.SIZE,
+			top: __l(0),
+			font: {fontSize: __l(16)}
+		}))
+		o_price_wrapper.add(Ti.UI.createView({
+			backgroundColor: "#aaa",
+			left: __l(0),
+			width: json.o_price >= 100 ? __l(60) : __l(50),
+			height: 1,
+			top: Ti.App.is_android ? __l(12) : __l(10),
+		}))
+		
+		info_wrapper.add(price_wrapper)
+		container.add(Ti.UI.createView({
+			backgroundColor: "#ccc",
+			left: 0,
+			top: 0,
+			height: 1,
+			right: 0,
+		}))
+
+		function add_header(text, has_right, callback){
+			var header = Ti.UI.createView({
+				left: 0,
+				right: 0,
+				top: __l(16),
+				height: __l(48),
+				backgroundSelectedColor: "#eee",
+				backgroundColor: "#F8F8F8",
+				height: Ti.UI.SIZE,
+			})
+
+			header.addEventListener("click", function(e){
+				callback();
+			})
+
+			header.add(Ti.UI.createView({
+				backgroundColor: "#ccc",
+				left: 0,
+				top: 0,
+				height: 1,
+				right: 0,
+			}))
+			
+			header.add(Ti.UI.createLabel({
+				text: text,
+				left: __l(10),
+				height: __l(46),
+				font: {fontSize: __l(18)},
+				textAlign: "left",
+				touchEnabled: false,
+				color: "#333"
+			}))
+			if (has_right){
+				header.add(Ti.UI.createImageView({
+					image: "/images/table_right.png",
+					right: __l(10),
+					top: __l(10),
+					bottom: __l(10),
+					height: __l(26),
+					width: __l(26),
+					touchEnabled: false
+				}))
+			}
+			
+			header.add(Ti.UI.createView({
+				backgroundColor: "#ccc",
+				left: 0,
+				bottom: __l(0),
+				height: 1,
+				right: 0,
+			}))
+
+			return header;
+		}
+
+		//商品图文
+		container.add(add_header("商品介绍", true, function(e){
+			var win_detail = Ti.UI.createWindow({
+				title: "商品介绍",
+				backgroundColor: "white",
+				backButtonTitle: ""
+			});
+
+			var html = '<html><head><meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" /></head><style>* {margin: 0; padding: 0;} img {max-width: 100%;}</style><body>' + json.detail + "</body></html>"
+			var web = Ti.UI.createWebView({
+				html : html,
+				top : 0,
+				bottom: __l(60),
+				left: __l(0),
+				right: __l(0),
+			})
+			win_detail.add(web);
+
+			var w = make_buy_buttons();
+			w.bottom = 0;
+			win_detail.add(w);
+			pre(win_detail);
+
+			var right_btn = Ti.UI.createButton({ 
+				backgroundImage: "/images/gou/gwc_ios.png",
+				width: 26, 
+				height: 26 
+			});
+			right_btn.addEventListener("click", function(e){
+				cache_http_call(Ti.App.mamashai + "/bbrl_code/gou_cart.txt", "cache_gou_cart", function(e){
+					var CartWin = eval(e.responseText);
+					var win = new CartWin({
+						title: "购物车",
+						backButtonTitle: "",
+						backgroundColor: "white"
+					})
+					if (!Ti.App.is_android)
+						win.hideTabBar();
+					Ti.App.currentTabGroup.activeTab.open(win, {
+						animated : true
+					});
+				})
+			})
+			if (!Ti.App.is_android){
+				win_detail.setRightNavButton(right_btn);	
+			}
+			add_default_action_bar2(win_detail, win_detail.title, "/images/gou/gwc@" + Ti.App.logicalDensityFactor + "x.png", function(){
+				right_btn.fireEvent("click")
+			})
+
+			Ti.App.currentTabGroup.activeTab.open(win_detail, {
+				animated : true
+			});
+			win_detail.addEventListener("close", function(e){
+				active_window = win;
+			})
+			active_window = win_detail;
+		}))
+		
+		var detail_wrapper = Ti.UI.createView({
+			top: 0,
+			height: Ti.UI.SIZE,
+			backgroundColor: "white",
+			left: 0,
+			right: 0,
+		})
+		detail_wrapper.add(Ti.UI.createImageView({
+			left: __l(14),
+			top: __l(10),
+			width: __l(40),
+			height: __l(62),
+			image: Ti.App.mamashai + "/images/bbrl/gou/logo_guan.png"
+		}))
+
+		detail_wrapper.add(Ti.UI.createLabel({
+			text: json.remark,
+			left: __l(70),
+			top: __l(10),
+			bottom: __l(10),
+			right: __l(10),
+			height: Ti.UI.SIZE,
+			font: {fontSize: __l(14)},
+			color: '#999'
+		}))
+		
+		container.add(detail_wrapper);
+
+		container.add(Ti.UI.createView({
+			backgroundColor: "#ccc",
+			left: 0,
+			top: __l(0),
+			height: 1,
+			right: 0,
+		}))
+
+		//商品参数
+		container.add(add_header("商品参数", true, function(e){
+			var win_canshu = Ti.UI.createWindow({
+				title: "商品参数",
+				backgroundColor: "white",
+				backButtonTitle: ""
+			});
+
+			var data = [];
+			function make_row(title, content){
+				if (!content || content.length == 0)
+					return;
+
+				var row = Ti.UI.createTableViewRow({
+					height: Ti.UI.SIZE
+				})
+				row.add(Ti.UI.createLabel({
+					left: __l(20),
+					text: title + "：",
+					font: {fontSize: __l(16)},
+					color: "#333",
+					top: __l(10),
+					bottom: __l(10),
+					height: Ti.UI.SIZE
+				}))
+				row.add(Ti.UI.createLabel({
+					left: __l(140),
+					text: content,
+					font: {fontSize: __l(16)},
+					color: "#333",
+					top: __l(10),
+					bottom: __l(10),
+					right: __l(20),
+					height: Ti.UI.SIZE
+				}))
+				data.push(row)
+			}
+			
+			make_row("品牌", json.brand)
+			make_row("产地", json.from)
+			make_row("规格", json.model)
+			make_row("适用对象", json.age)
+			make_row("保质期", json.bzq)
+			make_row("重量", json.weight)
+			make_row("商品编码", json.code)
+
+			var tableview = Ti.UI.createTableView({
+				top: 0, 
+				separatorColor : "#ccc",
+				data: data
+			});
+
+			win_canshu.add(tableview);
+			
+			pre(win_canshu);
+			add_default_action_bar(win_canshu, win_canshu.title, true)
+			Ti.App.currentTabGroup.activeTab.open(win_canshu, {
+				animated : true
+			});
+		}))
+
+		if (json.articles && json.articles.length > 0){
+			container.add(add_header("相关资讯", false, function(e){				
+			}))
+
+			var tableview = Ti.UI.createTableView({
+				height: Ti.UI.SIZE
+			});
+			var section1 = Ti.UI.createTableViewSection()
+			for(var j=0; j<json.articles.length; j++){
+				var row = Ti.UI.createTableViewRow({
+					height: __l(50),
+					backgroundColor: "white",
+					hasChild: !Ti.App.is_android,
+					_title: json.articles[j].title,
+					selectedBackgroundColor : '#E8E8E8',
+					id: json.articles[j].id
+				})
+				row.add(Ti.UI.createImageView({
+					left: __l(14),
+					top: __l(8),
+					bottom: __l(8),
+					width: __l(34),
+					height: __l(34),
+					touchEnabled: false,
+					image: Ti.App.mamashai + json.articles[j].logo_url_thumb99
+				}))
+				row.add(Ti.UI.createLabel({
+					left: __l(62),
+					height: __l(50),
+					font: {fontSize: __l(14)},
+					color: "#999",
+					touchEnabled: false,
+					text: json.articles[j].title,
+					right: Ti.App.is_android ? __l(40) : __l(10)
+				}))
+				row.addEventListener("click", function(e){
+					cache_http_call(Ti.App.mamashai + "/bbrl_code/article.txt", "cache_article", function(e1){
+						var ArticleWindow = eval(e1.responseText);
+						var win = new ArticleWindow({
+							id : e.source.id,
+							t : 'article',
+							backgroundColor : 'white',
+							title : e.source._title,
+							backButtonTitle: ""
+						});
+						Ti.App.currentTabGroup.activeTab.open(win, {
+							animated : true
+						});
+					});
+				})
+				if (Ti.App.is_android){
+					row.add(Ti.UI.createImageView({
+						image: "/images/table_right.png",
+						right: __l(10),
+						top: __l(15),
+						bottom: __l(15),
+						height: __l(20),
+						width: __l(20),
+						touchEnabled: false
+					}))
+				}
+
+				section1.add(row);
+			}
+			tableview.appendSection(section1);
+			container.add(tableview);
+		}
+
+		//配送说明
+		container.add(add_header("配送说明", true, function(e){
+			Ti.App.fireEvent("open_url", {
+				url : Ti.App.mamashai + "/bbrl_code/gou_peisong.html",
+				title : "配送说明"
+			});
+		}))
+		
+		container.add(Ti.UI.createImageView({
+			left: __l(0),
+			right: __l(0),
+			height: Ti.App.platform_width * 143/640,
+			width: Ti.App.platform_width,
+			image: Ti.App.mamashai + "/images/bbrl/peisong.jpg",
+			backgroundColor: "white"
+		}))
+
+		//购买，购物车，收藏，客服
+		function make_buy_buttons(){
+			var buy_container = Ti.UI.createView({
+				bottom: -__l(60),
+				backgroundColor: "white",
+				height: __l(60)
+			})
+
+			buy_container.add(Ti.UI.createView({
+				backgroundColor: "#ccc",
+				left: 0,
+				top: 0,
+				height: 1,
+				right: 0,
+			}))
+
+			var blank = (Ti.App.platform_width - __l(320))/2
+			var buy = Ti.UI.createButton({
+				title : "立即购买",
+				left: __l(8),
+				width: __l(96) + blank,
+				borderRadius: __l(4),
+				top: __l(8),
+				bottom: __l(8),
+				font: {fontSize: __l(16)},
+				backgroundColor: "#FF9F2E",
+				backgroundSelectedColor: "#EF8F1E",
+				color: "white",
+				json: json
+			})
+			buy.addEventListener("click", function(e){
+				if (!check_login()){
+					to_login();
+					return;
+				}
+
+				make_number_spin(json, json.kd, 10, json.kd, e.source.json.kd == 2 ? 2 : 1, function(count){
+					Ti.App.db.execute('CREATE TABLE IF NOT EXISTS cart (id int, name varchar(200), logo varchar(200), price float, o_price float, count int, yunfee float, kd char(20), category_id int, count_fixed int default 0, created_at char(50), end_at char(50))');
+				
+					var record = Ti.App.db.execute('SELECT * FROM cart where id=?', json.id);
+					if (!record.isValidRow()){
+						var now = new Date();
+						Ti.App.db.execute('INSERT INTO cart (id, name, logo, price, o_price, count, kd, category_id, created_at) VALUES (?,?,?,?,?,?,?,?,?)', json.id, json.name, json.logo_thumb200, json.price, json.o_price, json.kd, json.kd, json.category_id, now.getTime());
+					}
+						
+					record.close();
+
+					cache_http_call(Ti.App.mamashai + "/bbrl_code/gou_order.txt", "cache_gou_order", function(e1){
+						var json = {details: []};		//传给结算窗体的参数
+
+						json.details.push({
+							product_id : e.source.json.id,
+							price 	: parseFloat(e.source.json.price),
+							o_price : parseFloat(e.source.json.o_price),
+							count 	: count,
+							sum 	: count * e.source.json.price,
+							name 	: e.source.json.name,
+							logo 	: e.source.json.logo_thumb200
+						})
+
+
+						json.price = count * e.source.json.price;
+						json.o_price = count * e.source.json.o_price;
+						
+						var OrderWin = eval(e1.responseText);
+						var win = new OrderWin({
+							title: "订单确认",
+							backButtonTitle: "",
+							backgroundColor: "white",
+							json: json
+						})
+						if (!Ti.App.is_android)
+							win.hideTabBar();
+						Ti.App.currentTabGroup.activeTab.open(win, {
+							animated : true
+						});
+					})
+				})
+			})
+			buy_container.add(buy)
+
+			var cart = Ti.UI.createButton({
+				title : "加入购物车",
+				left: __l(112) + blank,
+				width: __l(96) + blank,
+				borderRadius: __l(4),
+				top: __l(8),
+				bottom: __l(8),
+				font: {fontSize: __l(16)},
+				backgroundColor: "#CA0D61",
+				backgroundSelectedColor: "#BA0061",
+				color: "white"
+			})
+			cart.addEventListener("click", function(e){
+				make_number_spin(json, json.kd, 10, json.kd, json.kd == 2 ? 2 : 1, function(count){
+					Ti.App.db.execute('CREATE TABLE IF NOT EXISTS cart (id int, name varchar(200), logo varchar(200), price float, o_price float, count int, yunfee float, kd char(20), category_id int, count_fixed int default 0, created_at char(50), end_at char(50))');
+
+					var record = Ti.App.db.execute('SELECT * FROM cart where id=?', json.id);
+					if (record.isValidRow()){
+						Ti.App.db.execute('update cart set count = ? where id = ?', count, record.fieldByName("id"));
+					}
+					else{
+						var now = new Date();
+						Ti.App.db.execute('INSERT INTO cart (id, name, logo, price, o_price, count, kd, category_id, created_at) VALUES (?,?,?,?,?,?,?,?,?)', json.id, json.name, json.logo_thumb200, json.price, json.o_price, count, json.kd, json.category_id, now.getTime());
+					}
+						
+					record.close();
+					
+					//制作动画特效
+					var img = Ti.UI.createImageView({
+						image : Ti.App.aliyun + json.logo_thumb400,
+						width: __l(60),
+						height: __l(60),
+						bottom: __l(20),
+						left: __l(150),
+						zIndex: 100
+					})
+					active_window.add(img);
+
+					var t = Titanium.UI.create2DMatrix();
+					var animate = Titanium.UI.createAnimation({
+						transform : t,
+						top: 0,
+						left: Ti.App.platform_width - __l(30),
+						width: __l(0),
+						height: __l(0),
+						opacity: Ti.App.is_android ? 0.1 : 0.5,
+						duration : 1000
+					});
+					animate.addEventListener('complete', function() {
+						active_window.remove(img);
+						show_notice("成功加入购物车");
+						Ti.App.fireEvent("refresh_cart");
+					});
+					img.animate(animate);
+				})
+			})
+			buy_container.add(cart)
+
+			var fav = Ti.UI.createView({
+				right: __l(60),
+				width: __l(44),
+				borderRadius: __l(4),
+				top: __l(8),
+				bottom: __l(8),
+				backgroundColor: "#EDEDED"
+			})
+			fav.addEventListener("click", function(e){
+				if (!check_login()){
+					to_login();
+					return;
+				}
+				
+				http_call(Ti.App.mamashai + "/api/statuses/favourite/" + json.id + "?tp=gou&" + account_str(), function(e){
+					if (e.responseText == "ok"){
+						show_notice("收藏商品成功");
+					}
+					else if (e.responseText == "cancel"){
+						show_notice("取消收藏成功");
+					}
+					else{
+						show_notice("收藏商品失败");	
+					}
+				})
+			})
+			fav.addEventListener("touchstart", function(e){
+				fav.backgroundColor = "#dddddd";
+			});
+			fav.addEventListener("touchend", function(e){
+				fav.backgroundColor = "#EDEDED";
+			});
+			fav.addEventListener("touchcancel", function(e){
+				fav.backgroundColor = "#EDEDED";
+			});
+			fav.add(Ti.UI.createImageView({
+				image: "/images/gou/xing.png",
+				left: __l(10),
+				top: __l(4),
+				touchEnabled: false,
+				width: __l(24),
+				height: __l(24)
+			}))
+			fav.add(Ti.UI.createLabel({
+				text: "收藏",
+				left: __l(0),
+				bottom: __l(2),
+				right: __l(0),
+				touchEnabled: false,
+				font: {fontSize: __l(10)},
+				textAlign: "center",
+				color: "#666"
+			}))
+			buy_container.add(fav)
+
+			var kefu = Ti.UI.createView({
+				right: __l(8),
+				width: __l(44),
+				borderRadius: __l(4),
+				top: __l(8),
+				bottom: __l(8),
+				backgroundColor: "#EDEDED"
+			})
+			kefu.addEventListener("click", function(e){
+				var win_kefu = Ti.UI.createWindow({
+					title: "答疑",
+					backgroundColor: "white",
+					backButtonTitle: ""
+				});
+
+				var right = Ti.UI.createButton({
+					title: "联系QQ"
+				})
+				right.addEventListener("click", function(e){
+					var alert_dialog = Titanium.UI.createAlertDialog({
+						title : '提示',
+						message : '客服QQ：2475149240\n在线时间：每周一至周日9:00-22:00（其他时间或法定节日请留言）\n客服邮箱：bd@mamashai.com',
+						buttonNames : Ti.App.is_android ? ['关闭', '复制QQ号'] : ['关闭'],
+						cancel : 0
+					});
+					alert_dialog.addEventListener("click", function(e1){
+						if (e1.index == 1){
+							Ti.UI.Clipboard.setText('2475149240');
+							show_notice("已成功复制QQ号");
+						}
+					});
+					alert_dialog.show();
+				})
+
+				if (!Ti.App.is_android)
+					win_kefu.setRightNavButton(right)
+
+				var web = Ti.UI.createWebView({
+					url : Ti.App.mamashai + "/bbrl_code/gou_faq_" + json.category_id + ".html",
+					top : 0,
+					bottom: 0,
+					left: 0,
+					right: 0,
+				})
+				win_kefu.add(web);
+
+				pre(win_kefu);
+				add_default_action_bar2(win_kefu, win_kefu.title, "联系QQ", function(e){
+					right.fireEvent("click")
+				})
+				Ti.App.currentTabGroup.activeTab.open(win_kefu, {
+					animated : true
+				});
+			})
+			kefu.addEventListener("touchstart", function(e){
+				kefu.backgroundColor = "#dddddd";
+			});
+			kefu.addEventListener("touchend", function(e){
+				kefu.backgroundColor = "#EDEDED";
+			});
+			kefu.addEventListener("touchcancel", function(e){
+				kefu.backgroundColor = "#EDEDED";
+			});
+			kefu.add(Ti.UI.createImageView({
+				image: "/images/gou/kefu.png",
+				left: __l(10),
+				top: __l(4),
+				touchEnabled: false,
+				width: __l(24),
+				height: __l(24)
+			}))
+			kefu.add(Ti.UI.createLabel({
+				text: "答疑",
+				left: __l(0),
+				bottom: __l(2),
+				right: __l(0),
+				touchEnabled: false,
+				font: {fontSize: __l(10)},
+				textAlign: "center",
+				color: "#666"
+			}))
+			buy_container.add(kefu);
+			return buy_container;
+		}
+
+		var buy_wrapper = make_buy_buttons();
+		win.add(buy_wrapper)
+		buy_wrapper.animate({bottom: 0, duration: 300}, function(e){
+			container.bottom = __l(60)
+		})
+		if (Ti.App.is_android){
+			setTimeout(function(e){
+				container.bottom = __l(60)
+			}, 400)
+		}
+
+		http_call(Ti.App.mamashai + "/api/gou/get_comment?product_id=" + json.id, function(e2){
+			var json = JSON.parse(e2.responseText);
+			if (json.count == 0)
+				return;
+
+			container.add(Ti.UI.createView({
+				backgroundColor: "#ccc",
+				left: 0,
+				top: __l(0),
+				height: 1,
+				right: 0,
+			}))
+
+			container.add(Ti.UI.createView({
+				backgroundColor: "#ccc",
+				left: 0,
+				top: __l(16),
+				height: 1,
+				right: 0,
+			}))
+			var comment_header = Ti.UI.createView({
+				top: __l(0),
+				left: 0,
+				right: 0,
+				height: __l(46),
+				backgroundSelectedColor: "#eee",
+				backgroundColor: "#F8F8F8"
+			})
+			comment_header.add(Ti.UI.createLabel({
+				text: "用户评价",
+				left: __l(10),
+				height: __l(46),
+				font: {fontSize: __l(18)},
+				textAlign: "left",
+				touchEnabled: false,
+				color: "#333"
+			}))
+
+			comment_header.add(Ti.UI.createLabel({
+				text: "(" + json.count + ")",
+				left: __l(90),
+				height: __l(46),
+				font: {fontSize: __l(13)},
+				textAlign: "left",
+				touchEnabled: false,
+				color: "#999"
+			}))
+			
+			var star_wrapper = Ti.UI.createView({
+				top: __l(16),
+				left: __l(120),
+				bottom: __l(4),
+				width: __l(150),
+				height: __l(14),
+				layout: "horizontal"
+			})
+			for(var j=0; j<json.star; j++){
+				star_wrapper.add(Ti.UI.createImageView({
+					left : 0,
+					right: __l(6),
+					width: __l(14),
+					height: __l(14),
+					image: "/images/star1.png",
+					hires: true,
+					index: i
+				}))
+			}
+			for(var j=json.star; j<5; j++){
+				star_wrapper.add(Ti.UI.createImageView({
+					left : 0,
+					right: __l(6),
+					width: __l(14),
+					height: __l(14),
+					image: "/images/star2.png",
+					hires: true,
+					index: i
+				}))
+			}
+			comment_header.add(star_wrapper)
+
+			container.add(comment_header)
+
+			container.add(Ti.UI.createView({
+				backgroundColor: "#ccc",
+				left: 0,
+				top: __l(0),
+				height: 1,
+				right: 0,
+			}))
+
+			var comments = Ti.UI.createView({
+				layout: 'vertical',
+				height: Ti.UI.SIZE,
+				backgroundColor: "white",
+				left: 0,
+				right: 0,
+				top: 0
+			})
+			for(var i=0; i<json.comments.length; i++){
+				var wrapper = Ti.UI.createView({
+					height: Ti.UI.SIZE,
+					top: __l(10),
+					left: 0,
+					right: 0
+				})
+				var logo = Ti.UI.createImageView({
+					image: Ti.App.aliyun + json.comments[i].user.logo_url_thumb140,
+					left: __l(10),
+					top: __l(0),
+					width: __l(40),
+					height: __l(40),
+					id: json.comments[i].user.id,
+					name: json.comments[i].user.name
+				})
+				logo.addEventListener("click", function(e){
+					show_window("user", {
+						id: e.source.id, 
+						title: e.source.name
+					});
+
+				})
+				wrapper.add(logo)
+
+				wrapper.add(Ti.UI.createLabel({
+					text: json.comments[i].user.name,
+					color: "#333",
+					font: {fontSize: __l(14)},
+					left: __l(60),
+					top: __l(0)
+				}))
+
+				var refer = Ti.UI.createLabel({
+					top : 0,
+					right : __l(10),
+					textAlign : 'right',
+					font : {
+						fontSize : __l(13)
+					},
+					color : "gray",
+					text : referMinute(json.comments[i].created_at),
+					touchEnabled : false
+				});
+				wrapper.add(refer)
+
+				var v = Ti.UI.createView({
+					top: __l(26),
+					left: __l(60),
+					right: 0,
+					height: Ti.UI.SIZE,
+					layout: "vertical"
+				})
+
+				v.add(Ti.UI.createLabel({
+					top: __l(0),
+					bottom: __l(10),
+					left: __l(0),
+					right: __l(10),
+					height: Ti.UI.SIZE,
+					color: "#333",
+					font: {fontSize: __l(14)},
+					text: json.comments[i].text
+				}))
+				var logo_wrapper = Ti.UI.createView({
+					top: __l(0),
+					bottom: __l(0),
+					left: 0,
+					right: 0,
+					height: __l(56),
+					layout: 'horizontal'
+				})
+				for(var j=0; j<json.comments[i].logos.length; j++){
+					var img = Ti.UI.createImageView({
+						image: Ti.App.mamashai + json.comments[i].logos[j].logo_thumb100,
+						image_big : Ti.App.mamashai + json.comments[i].logos[j].logo_url,
+						hires: true,
+						left: 0,
+						top: 0,
+						width: Ti.UI.SIZE,
+						right: __l(6),
+						height: __l(50)
+					})
+					img.addEventListener("click", function(e){
+						Ti.App.fireEvent("showPicture", {
+							src : e.source.image_big,
+							thumb_src : e.source.image
+						});
+					})
+					logo_wrapper.add(img)
+				}
+				if (json.comments[i].logos.length > 0)
+					v.add(logo_wrapper)
+
+				wrapper.add(v)
+
+				wrapper.add(Ti.UI.createView({
+					bottom: 0,
+					height: __l(1),
+					left: 0,
+					right: 0,
+					backgroundColor: "#F2F1EF"
+				}))
+				comments.add(wrapper)
+			}
+
+			container.add(comments)
+			
+		})
+	})
+	pre(win);
+
+	var right_btn = Ti.UI.createButton({ 
+		backgroundImage: "/images/gou/gwc_ios.png",
+		width: 26, 
+		height: 26 
+	});
+	right_btn.addEventListener("click", function(e){
+		cache_http_call(Ti.App.mamashai + "/bbrl_code/gou_cart.txt", "cache_gou_cart", function(e){
+			var CartWin = eval(e.responseText);
+			var win = new CartWin({
+				title: "购物车",
+				backButtonTitle: "",
+				backgroundColor: "white"
+			})
+			if (!Ti.App.is_android)
+				win.hideTabBar();
+			Ti.App.currentTabGroup.activeTab.open(win, {
+				animated : true
+			});
+		})
+	})
+	if (!Ti.App.is_android){
+		win.setRightNavButton(right_btn);	
+	}
+	add_default_action_bar2(win, win.title, "/images/gou/gwc@" + Ti.App.logicalDensityFactor + "x.png", function(){
+		right_btn.fireEvent("click")
+	})
+	return win;
+}
+
+module.exports = GouDetail;

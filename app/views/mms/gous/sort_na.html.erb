@@ -1,0 +1,20 @@
+<%= javascript_include_tag "controllers/jquery-ui-1.8.custom.min.js" %>
+<div id="middle">
+    <div id="css_mainbody">
+        <h1 class="title">免费拿置顶商品排序<span style="float: right; margin-right: 10px;"><%= link_to '返回列表', '/mms/gous/index?tp=na' %>
+            </span>
+		</h1>
+	        <div style="margin: 30px;　font-size: 14px;">
+			<ul id="list"　>
+	        	<% for profile in @profiles %>
+					<li id="item_<%=profile.gou_id%>"><%= profile.gou.name %></li>
+				<% end %>
+	        </ul>
+		</div>
+    </div>
+    <div class="clear">
+    </div>
+</div>
+
+<script type="text/javascript">
+<%= sortable_element("list", :url => { :action => "order_na" }) %>

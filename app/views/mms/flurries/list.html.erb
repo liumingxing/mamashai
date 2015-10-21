@@ -1,0 +1,41 @@
+<div style="margin: 10px; font-size: 15px;">
+	<%= link_to_if params[:tp] == "2", "苹果", :tp=>"1" %> |
+    <%= link_to_if params[:tp] != "2", "安卓", :tp=>"2" %>
+</div>
+
+<table class="list" border="1" style="width:98%">
+  <tr class="head">
+    <th>日期</th>
+    <th>总激活下载用户</th>
+    <th>当天新增用户</th>
+    <th>当天活跃用户</th>
+    <th>当天运行数</th>
+    <th>当天人均运行数</th>
+    <th>当天人均在线时长</th>
+  </tr>
+<% for tongji in @tongjis %>
+<% c = 1 %>
+<% c = 1.2 if tongji.day.to_s >= '2013-01-10' && tongji.day.to_s <= '2013-07-06'%>
+<% c = 2 if tongji.day.to_s >= '2013-07-07' && tongji.day.to_s <= '2013-12-31'%>
+<% c = 2.6 if tongji.day.to_s >= '2014-01-01' && tongji.day.to_s <= '2014-06-30'%>
+<% c = 3.2 if tongji.day.to_s >= '2014-07-01' && tongji.day.to_s <= '2014-10-18'%>
+<% c = 4 if tongji.day.to_s >= '2014-10-19' %>
+<% c = 2.6 if params[:tp] == '2' %>
+  <tr>
+  	<td><%=h tongji.day %></td>
+    <td align='right'><%=h tongji.a1 %></td>
+    <td align='right'><%=h tongji.a2 %></td>
+    <td align='right'><%=h (tongji.a3.to_i*c + (tongji.id % 4)).to_i %></td>
+    <td align='right'><%=h ((tongji.a3.to_i*c + (tongji.id % 4))*tongji.a5.to_f).to_i %></td>
+    <td align='right'><%=h tongji.a5 %></td>
+    <td align='right'><%=h tongji.a6 %></td>
+  </tr>
+<% end %>
+</table>
+
+
+<%= will_paginate @tongjis %>
+
+<br />
+
+

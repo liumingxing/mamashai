@@ -1,0 +1,35 @@
+<div class="layer" id="layer_apply_cancel">
+    <div class="layer_title">
+        <span class="title">取消活动：<%=@event.name %></span>
+        <span class="more"><a href="javascript:void(0);" onclick="hide_box();"><img src="/images/layer/del_06.gif"></a></span>
+    </div>
+    <div class="layer_content">
+        <% form_remote_tag :url => {:action => :create_event_cancel,:id=>@event.id}, :before=>"if(jQuery.trim($('#event_cancel_reason').val())==''){$('#error_event_cancel_reason').get(0).innerHTML='请填写原因';return false}", :update => "lbContent" do %> 
+        <table class="grid">
+            <tbody>
+                <tr height="35">
+                    <td class="t01" width="100">
+                        取消原因<span class="gray">(必填)</span>：
+                    </td>
+                    <td class="t02">
+                        <%=text_area :event, :cancel_reason,:style=>'width:250px;height:100px;' %>
+						<div id="error_event_cancel_reason" class="red"></div>
+                    </td>
+                </tr> 
+            </tbody>
+        </table>
+        <ul class="layer_botton">
+            <li>
+                <button class="button_submit_s" type="submit" onmouseover="this.className='button_submit_s button_submit_s_hover';" onmouseout="this.className='button_submit_s';">
+                    确定 
+                </button>
+            </li>
+            <div class="clear">
+            </div>
+        </ul>
+        <% end %>
+    </div>
+</div>
+<script>
+    reset_box(432, 198);
+</script>

@@ -1,0 +1,74 @@
+<h5>我的资料</h5>
+
+<% if controller.controller_name == "settings" %>
+<div class="profile_content_picture">
+    <div class="pic">
+       <%= logo_tag(@user,{:version=>'thumb48',:url=>'/settings/logo'}) %>
+    </div>
+    <div class="pic_title">
+       <a href="/settings/logo">修改头像</a>
+    </div>
+</div>
+<% end %>
+
+<table class="form_table">
+	<tr>
+		<td width="160px" align="right"><font>*</font>个人昵称： </td>
+		<td  width="200px"> <%= text_field :user, :name, :class=>'dl_input5' %> </td>
+		<td> <%= error_message_on :user,:name %> </td>
+	</tr>
+	<tr>
+		<td align="right"><font>*</font>个人身份：</td>
+		<td> <%= select("user", "gender", [['准妈妈', 'w'], ['准爸爸', 'm'], ['妈妈', 'w'], ['爸爸', 'm']], {}, {:class=>"dl_input6"}) %> </td>
+		<td></td>
+	</tr>
+	<tr>
+		<td align="right"><font>*</font>居住地： </td>
+		<td>
+			<span id="user_address_id" class="error_container"> 
+				<%= select :user, :province_id, Province.find(:all).collect {|p| [ p.name, p.id ] }, {:prompt=>'省/直辖市'} %> 
+				<span id="cities_span"></span> 
+				<script>
+				$('#user_province_id').delayedObserver(0, function(element, value) {show_loadding("cities_span"); $.ajax({data:'model=user&city_id=@user.city_id&id='+value, success:function(request){$('#cities_span').html(request);}, type:'post', url:'/ajax/get_cities'})})
+				</script>
+				
+			<script>
+				show_loadding("cities_span");
+				$("#cities_span").load("/ajax/get_cities?" + "model=user&city_id=<%= @user.city_id%>&id=" + $("#user_province_id").val())
+			</script> 
+			</span>
+		</td>
+		<td> <%= error_message_on :user,:province_id %>
+		<%= error_message_on :user,:city_id %> </td>
+	</tr>
+</table>
+
+<div class="clear"></div>
+
+<h5>我的宝贝</h5>
+<%= render :partial=>'form_kids',:locals=>{:user_kid=>@user_kid1,:user_kid_obj=>'user_kid1'} %>
+
+<div class="infor_content" id="user_kid_2">
+	<% unless @user_kid2.blank? %>
+	<div class="infor_content_one">
+		<h5>
+			老二
+			<a href="javascript:void(0)" onclick="$.ajax({url: '/settings/delete_kid/<%= @user_kid2.id%>', success: function(response){$('#user_kid_2').fadeOut(); $.dialog({fixed: true, title: '提示', content: '操作成功'}).hideTitle().time(3000);}})"><img src="/images/del_06.gif"/></a>
+		</h5>
+		
+	</div>
+	<%= render :partial=>'form_kids',:locals=>{:user_kid=>@user_kid2,:user_kid_obj=>'user_kid2'} %>
+
+	<% end %>
+</div>
+<div class="infor_content" id="user_kid_3">
+	<% unless @user_kid3.blank? %>
+	<div class="infor_content_one">
+		<h5>
+			老三
+			<a href="javascript:void(0)" onclick="$.ajax({url: '/settings/delete_kid/<%= @user_kid3.id%>', success: function(response){$('#user_kid_3').fadeOut(); $.dialog({fixed: true, title: '提示', content: '操作成功'}).hideTitle().time(3000);}})"><img src="/images/del_06.gif"/></a>
+		</h5>
+	</div>
+	<%= render :partial=>'form_kids',:locals=>{:user_kid=>@user_kid3,:user_kid_obj=>'user_kid3'} %>
+	<% end %>
+</div>

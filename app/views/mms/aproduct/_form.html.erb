@@ -1,0 +1,236 @@
+    <tr>
+        <td class="td01">
+            商品编码
+        </td>
+        <td>
+            <%= text_field "product", "code", :style=>"width:200px" %>
+        </td>
+    </tr>
+    <tr>
+        <td class="td01">
+            类别
+        </td>
+        <td>
+            <%= select "product", "category_id", ACategory.all.map{|c| [c.name, c.id]} %>
+        </td>
+    </tr>
+    <tr>
+        <td class="td01">
+            品牌
+        </td>
+        <td>
+            <%= text_field "product", "brand", :style=>"width:200px" %>
+            <%= error_message_on :product, :brand %>
+        </td>
+    </tr>
+    <tr>
+        <td class="td01">
+            名称
+        </td>
+        <td>
+            <%= text_field "product", "name", :style=>"width:600px" %>
+            <%= error_message_on :product, :name %>
+        </td>
+    </tr>
+    <tr>
+        <td class="td01">
+            英文名称
+        </td>
+        <td>
+            <%= text_field "product", "english_name", :style=>"width:600px" %>
+            <%= error_message_on :product, :english_name %>
+        </td>
+    </tr>
+    <tr>
+        <td class="td01">
+            产地
+        </td>
+        <td>
+            <%= select "product", "from", %w(澳大利亚 新西兰 美国 德国).map{|a| [a, a]}.push([nil, nil]) %>
+        </td>
+    </tr>
+    <tr>
+        <td class="td01">
+            包装方式
+        </td>
+        <td>
+            <%= select "product", "packet", %w(袋装 盒装 瓶装 罐装 独立装).map{|a| [a, a]}.push([nil, nil]) %>
+        </td>
+    </tr>
+    <tr>
+        <td class="td01">
+            保质期(如10个月)
+        </td>
+        <td>
+            <%= text_field "product", "bzq", :style=>"width:100px" %>
+        </td>
+    </tr>
+    <tr>
+        <td class="td01">
+            适用人群(消费者阅读用)
+        </td>
+        <td>
+            <%= text_field "product", "age", :style=>"width:400px" %>
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td class="td01">
+            适用人群(后台搜索用)
+        </td>
+        <td>
+            <%= text_field "product", "for_age", :style=>"width:400px" %>
+            <script>
+            function set(value){
+                if ($("#product_for_age").val() == ""){
+                    $("#product_for_age").val(value)
+                }
+                else{
+                    $("#product_for_age").val($("#product_for_age").val() + "," + value)
+                }
+                
+            }
+            </script>
+            <a href="javascript:set('孕妈')">孕妈</a>
+            <a href="javascript:set('宝宝')">宝宝</a>
+            <a href="javascript:set('女人')">女人</a>
+            <a href="javascript:set('老人')">老人</a>
+            <a href="javascript:set('男士')">男士 </a>
+        </td>
+    </tr>
+    <tr>
+        <td class="td01">
+            原价
+        </td>
+        <td>
+            <%= text_field "product", "o_price", :style=>"width:100px" %>
+        </td>
+    </tr>
+    <tr>
+        <td class="td01">
+            价格(特卖价)
+        </td>
+        <td>
+            <%= text_field "product", "price", :style=>"width:100px" %>
+        </td>
+    </tr>
+    <tr>
+        <td class="td01">
+            规格
+        </td>
+        <td>
+            <%= text_field "product", "model", :style=>"width:100px" %> （如重量、体积）
+        </td>
+    </tr>
+    <tr>
+        <td class="td01">
+            重量
+        </td>
+        <td>
+            <%= text_field "product", "weight", :style=>"width:100px" %>
+        </td>
+    </tr>
+    <tr>
+        <td class="td01">
+            运费政策
+        </td>
+        <td>
+            <%= select "product", "kd", [['包邮', '1'], ['2件发货包邮', '2'], ['3件发货包邮', '3'], ['4件发货包邮', '4']] %>
+        </td>
+    </tr>
+    <tr>
+        <td class="td01">
+            采购来源
+        </td>
+        <td>
+            <%= select "product", "buy_from", [['ex', 'ex'], ['cw', 'cw']] %>
+        </td>
+    </tr>
+    <tr>
+        <td class="td01">
+            商品概述(200字以内)
+        </td>
+        <td>
+            <%= text_area "product", "introduce", :rows=>8, :cols=>80 %>
+        </td>
+    </tr>
+    <tr>
+        <td class="td01">
+            主图
+        </td>
+        <td>
+            <%= upload_column_field :product, :logo %>
+            <%= error_message_on :product, :logo %>
+        </td>
+    </tr>
+    <tr>
+        <td class="td01">
+            官方说明(300字以内)
+        </td>
+        <td>
+            <%= text_area "product", "remark", :rows=>8, :cols=>80 %>
+        </td>
+    </tr>
+	<tr>
+        <td class="td01">
+            图文
+        </td>
+        <td>
+            <%= text_area "product", "detail" %>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            下架
+        </td>
+        <td>
+            <%= check_box("product", "hide") %>下架
+        </td>
+    </tr>
+    <tr>
+        <td>
+            组合子产品代码
+        </td>
+        <td>
+            <%= text_field "product", "composit_codes" %>
+            <% if @product.composit_codes.to_s.size > 0 %>
+            <div>
+                <% for product in AProduct.all(:conditions=>"code in (#{@product.composit_codes.split(",").map{|p| "'" + p + "'"}.join(',')})") %>
+                    <p><%= product.name %></p>
+                <% end %>
+            </div>
+            <% end %>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2" style="padding: 10px; text-align: center">
+            <input type="submit" name="submit" value="提交">
+        </td>
+    </tr>
+
+    <script src="/javascripts/tiny_mce/tiny_mce.js?1340120505" type="text/javascript"></script>
+    <script type="text/javascript">
+    //<![CDATA[
+    tinyMCE.init({
+    browsers : "msie,gecko",
+    entity_encoding : "utf-8",
+    document_base_url : '/',
+    language : 'zh-cn',
+    mode : "exact",
+    elements : "product_detail_draft,product_detail",
+    paste_auto_cleanup_on_paste : true,
+    plugins : "contextmenu,inlinepopups,paste,emotions,fullscreen,advimage,table,media,searchreplace,insertdatetime",
+    relative_urls : false,
+    remove_script_host : false,
+    theme : 'advanced',
+    theme_advanced_buttons1 : "formatselect,fontselect,fontsizeselect,bold,italic,underline,separator,justifyleft,justifycenter,justifyright,indent,outdent,separator,bullist,numlist,forecolor,backcolor",
+    theme_advanced_buttons2 : "undo,redo,cut,copy,paste,pasteword,|,search,replace,|,table,image,media,emotions,charmap,separator,link,unlink,removeformat,|,fullscreen,code",
+    theme_advanced_buttons3 : "",
+    theme_advanced_fonts : '宋体=宋体;黑体=黑体;仿宋=仿宋;楷体=楷体;隶书=隶书;幼圆=幼圆;Arial=arial,helvetica,sans-serif;Comic Sans MS=comic sans ms,sans-serif;Courier New=courier new,courier;Tahoma=tahoma,arial,helvetica,sans-serif;Times New Roman=times new roman,times;Verdana=verdana,geneva;Webdings=webdings;Wingdings=wingdings,zapf dingbats',
+    theme_advanced_resize_horizontal : false,
+    theme_advanced_resizing : true,
+    theme_advanced_toolbar_align : 'left',
+    theme_advanced_toolbar_location : 'top'
+    });
+    //]]>
+    </script>

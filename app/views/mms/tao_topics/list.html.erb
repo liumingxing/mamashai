@@ -1,0 +1,42 @@
+<div id="middle">
+    <div id="css_mainbody">
+        <h1 class="title">
+          编辑精选
+          <span style="float: right; margin-right: 10px;">
+            <%= link_to '新建主题', :action => 'new' %>
+          </span>
+        </h1>
+
+
+<table class="list" border="1">
+  <tr class="head">
+    <th>名称</th>
+    <th>logo</th>
+    <th>描述</th>
+    <th>状态</th>
+    <th>创建日期</th>
+    <th colspan=3>操作</th>
+  </tr>
+  
+<% for tao_topic in @tao_topics %>
+  <tr>
+    <td><%=h tao_topic.title %></td>
+    <td><img style="width: 200px" src='<%=h tao_topic.logo %>' /></td>
+    <td style="width: 300px"><%=h tao_topic.desc %></td>
+    <td><%=h tao_topic.status %></td>
+    <td><%=h tao_topic.created_at.to_date.to_s %></td>
+    
+    <td><%= link_to '商品', :action => 'products', :id => tao_topic %></td>
+    <td><%= link_to '修改', :action => 'edit', :id => tao_topic %></td>
+    <td><%= link_to '删除', { :action => 'destroy', :id => tao_topic }, :confirm => '确认删除吗?', :method => :post %></td>
+  </tr>
+<% end %>
+</table>
+
+
+<%= will_paginate @tao_topics %>
+
+</div>
+</div>
+
+

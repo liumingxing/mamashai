@@ -1,0 +1,2 @@
+module Mms::OrdersHelper
+end

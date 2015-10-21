@@ -1,0 +1,27 @@
+<div class="comments01">
+    <div class="comments01_bg_recommends">
+    </div>
+    <div class="comments01_bg2">
+        <% if @post.post_recommends_count > 0 %>
+        <div class="look">
+            共有<span class="number"><%=@post.post_recommends_count %></span>个人推荐这个微博为资讯
+        </div>
+        <% end %>
+		<% is_recommended = false %>
+        <% for post_recommend in PostRecommend.find(:all,:conditions=>['post_id=?',@post.id],:include=>[:user],:order=>'post_recommends.id desc') %>
+         <%=render :partial=>'/home/post_recommend_content',:locals=>{:post_recommend=>post_recommend}%>
+		 <% is_recommended = true if (post_recommend.user_id == @user.id)%>
+        <% end %>
+		<% if is_recommended %>
+		<div class="is_favorited">您已经推荐了这个微博。</div>
+		<% else %>
+        <% form_remote_tag :url => {:action => :create_post_recommend, :id =>@post.id}, :loading => "",:complete=>'', :update => "post_expand_#{@post.id}" do %>
+        <%=render :partial=>'/home/form_post_recommend'%>
+		<% end %>
+		<% end %>
+    </div>
+    <div class="comments01_bg3">
+    </div>
+</div>
+<div class="clear">
+</div>

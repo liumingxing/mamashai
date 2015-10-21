@@ -1,0 +1,21 @@
+<%= javascript_include_tag "controllers/jquery-ui-1.8.custom.min.js" %>
+
+<div id='orderdiv' style="margin: 30px;">
+    <%= image_tag '/img/indicator.gif', :id=>'indicator', :style=>'display:none' %>
+    <ul id="nodelist">
+      <% for child in @node.children %>
+        <li id="nodelist_<%= child.id %>" style="font-size:13px;margin:3px;"><%=child.text%></li>
+      <%end%>
+    </ul>
+</div>
+
+      
+<%= sortable_element("nodelist", 
+                    :update=>"response", 
+                    :url => { :action => "order", :parent=>params[:id] },
+                    :loading => "$('#indicator').show()", 
+                    :complete => "$('#indicator').hide()")%>
+
+<script>
+    add_tab_button("/img/iconBack.png", "返回", "javascript:window.history.back(-1);");  
+</script>

@@ -1,0 +1,619 @@
+function weibo_invite(){
+	var win = Titanium.UI.createWindow({
+			title : "微博邀请",
+			backgroundColor : '#fff',
+			backButtonTitle : !Ti.App.is_android && Ti.App.osversion < "7.0" ? '返回' : ''
+	});
+
+	var tableview = Ti.UI.createTableView({
+		top : 0,
+		bottom : 0,
+		left: 0,
+		width: Ti.App.platform_width
+	});
+	win.add(tableview);
+
+	var get_more_row = Ti.UI.createTableViewRow({
+		height : Ti.UI.SIZE,
+		selectedBackgroundColor : '#eee',
+		tag : 'get_more',
+		textAlign: "center",
+		name: 'get_more'
+	});
+
+	var get_more_row_center = Ti.UI.createView({
+		top : 0,
+		bottom : 0,
+		width : __l(160),
+		height : __l(64)
+	})
+
+	var get_more_title = Ti.UI.createLabel({
+		top : __l(18),
+		bottom : __l(12),
+		left : __l(26),
+		right : __l(10),
+		textAlign : 'left',
+		height : Ti.UI.SIZE,
+		font : {
+			fontSize : __l(22)
+		},
+		width: __l(90),
+		color: "#333",
+		text : '下一页'
+	});
+
+	var navActInd = Titanium.UI.createActivityIndicator({
+		left : __l(2),
+		top : __l(22),
+		width : __l(30),
+		height: __l(30)
+	});
+
+	get_more_row_center.add(navActInd);
+	get_more_row.navActInd = navActInd;
+	
+	get_more_row_center.add(get_more_title)
+	get_more_row.add(get_more_row_center);
+	get_more_row.addEventListener("click", function(e){
+		navActInd.show();
+		page += 1;
+		var url = "https://api.weibo.com/2/friendships/friends/bilateral.json?count=50&access_token=" + token + "&uid=" + uid + "&page=" + page
+		xhr.open('GET', url)
+		xhr.send()
+	})
+
+
+	// Create a Button.
+	var done = Ti.UI.createButton({
+		title : '邀请'
+	});
+
+	// Listen for click events.
+	done.addEventListener('click', function() {
+		if(!tableview.data || tableview.data[0].length == 0) {
+			show_notice("对不起，没有粉丝可邀请");
+			return;
+		}
+
+		var data = tableview.data[0];
+		var result = ""
+		var count = 0
+		for(var i = 0; i < data.rowCount; i++) {
+			var row = data.rows[i];
+			if(row.value == 1) {
+				result += "@" + row.filter + "，";
+				count += 1;
+			}
+		}
+		if (count > 3){
+			show_alert("提示", "一次最多邀请3个好友!");
+			return;
+		}
+
+		if(result == "") {
+			show_notice("请选择粉丝");
+			return;
+		}
+
+		var WritePost = require("write_post")
+		var win = new WritePost({
+			title : "邀请微博好友",
+			backgroundColor : '#fff',
+			text : result + "快下载宝宝日历，贴心实用而且抽大奖！下载地址：http://t.cn/zHIAP2N，别忘了邀请人写：" + decodeURI(Ti.App.Properties.getString("name")),
+			from : "wenzi"
+		});
+		win.backButtonTitle = !Ti.App.is_android && Ti.App.osversion < "7.0" ? '返回' : ''
+		pre(win)
+		Ti.App.currentTabGroup.activeTab.open(win, {
+			animated : true
+		});
+
+	});
+	var token = Ti.App.Properties.getString("token", '');
+
+	var page = 1;
+	var xhr = null;
+	var uid = null;
+	var account_xhr = Ti.Network.createHTTPClient({
+		timeout: Ti.App.timeout,
+		onerror: function(){
+			hide_loading();
+		},
+		onload : function() {
+			var json = JSON.parse(this.responseText)
+			uid = json.uid
+			
+			xhr = Ti.Network.createHTTPClient({
+				timeout: Ti.App.timeout,
+				onerror : function() {
+					hide_loading()
+					show_notice("获取好友失败")
+				},
+				onload : function() {
+					hide_loading();
+					
+					var pre_length = get_row_count(tableview);
+					
+					if (get_row_count(tableview) > 0)
+						tableview.deleteRow(get_row_count(tableview) - 1);
+						
+					var json = JSON.parse(this.responseText)
+						
+					var CheckBox = require("lib/checkbox").CheckBox
+
+					for(var i = 0; i < json.users.length; i++) {
+						var user = json.users[i];
+						var row = Ti.UI.createTableViewRow({
+							//selectedBackgroundColor : "white",
+							filter : user.screen_name,
+							value : 0,
+							
+							height : Ti.UI.SIZE,
+							color: '#333',
+							selectedBackgroundColor: '#ccc'
+						});
+
+						var user_logo = Ti.UI.createImageView({
+							top : __l(5),
+							bottom : __l(5),
+							left : __l(5),
+							width : __l(30),
+							height : __l(30),
+							defaultImage : "./images/default.gif",
+							image : user.profile_image_url,
+							hires : true
+						});
+
+						var label = Ti.UI.createLabel({
+							text : user.screen_name,
+							top : __l(5),
+							left : __l(44),
+							bottom : __l(5),
+							color : '#666666',
+							font : {
+								fontSize : __l(15)
+							},
+							height : 'auto',
+							width : __l(200)
+						});
+						
+						var check = new CheckBox({
+								top : 0,
+								height : 44,
+								width : 44,
+								right : 20,
+								row: row
+						})	
+						
+						check.view.addEventListener("click", function(e){
+							if (e.source.value == 1)
+								e.source.row.value = 1;
+							else
+								e.source.row.value = 0;
+						})
+						
+						row.add(user_logo)
+
+						row.add(label)
+
+						row.add(check.view)
+
+						tableview.appendRow(row)					
+					}
+
+					hide_loading();
+
+					navActInd.hide();
+					
+					if(json.total_number > get_row_count(tableview)) {
+						tableview.appendRow(get_more_row)
+						tableview.scrollToIndex(pre_length-1)
+					}
+				}
+			})
+
+			var url = "https://api.weibo.com/2/friendships/friends/bilateral.json?count=50&access_token=" + token + "&uid=" + uid + "&page=" + page
+			xhr.open('GET', url)
+			xhr.send()
+		}
+	})
+	account_xhr.open("GET", "https://api.weibo.com/2/account/get_uid.json?access_token=" + token)
+	account_xhr.send();
+	show_loading();
+
+	if (!Ti.App.is_android){
+		win.setRightNavButton(done);
+	}
+	else{
+		add_default_action_bar2(win, win.title, "邀请", function(){
+			done.fireEvent("click");
+		});
+	}
+
+	logEvent('weibo_invite');
+
+	pre(win)
+	
+	Ti.App.currentTabGroup.activeTab.open(win, {
+		animated : true
+	});
+}
+
+function Invite(attr){
+	Ti.include("public.js");
+
+	var win = Ti.UI.createWindow(attr);
+	if (!Ti.App.is_android) {
+		win.hideTabBar();
+	}
+
+	var right = Ti.UI.createButton({
+		title: '我邀请的'
+	})
+	right.addEventListener("click", function(e){
+		http_call(Ti.App.mamashai + "/api/statuses/invite_list?" + account_str(), function(e){
+			var jsons = JSON.parse(e.responseText);
+			var win2 = Ti.UI.createWindow({
+				title : "我邀请的",
+				backButtonTitle: !Ti.App.is_android && Ti.App.osversion < "7.0" ? '返回' : '',
+				backgroundColor : 'white'
+			});
+			pre(win2)
+
+			var label = Ti.UI.createLabel({
+					top: __l(0),
+					left: __l(4),
+					right: __l(4),
+					height: __l(40),
+					textAlign: 'center',
+					font: {fontSize: __l(11)},
+					color: '#666',
+					text: "注意：反复注册或虚假邀请等作弊者，不计数不给豆，严重者取消活动资格。"
+			})
+			win2.add(label)
+
+			var tableview = Ti.UI.createTableView({
+				left: 0,
+				top: __l(40),
+				right: 0,
+				bottom: 0
+			})
+			tableview.addEventListener("click", function(e){
+				var UserWin = require('user')
+				var json = e.rowData.json 
+				var win = new UserWin({
+					title : json.name,
+					backgroundColor : '#fff',
+					id : json.id
+				});
+				pre(win);
+				
+				win.backButtonTitle = !Ti.App.is_android && Ti.App.osversion < "7.0" ? '返回' : ''
+		
+				Ti.App.currentTabGroup.activeTab.open(win, {
+					animated : true
+				});
+			})
+			for(var i=0; i<jsons.users.length; i++){
+				var json = jsons.users[i]
+
+				var row = Ti.UI.createTableViewRow({
+					height : __l(64),
+					id : json.id,
+					selectedBackgroundColor : '#fEE',
+					url : "user.js",
+					json: json,
+					className : 'user'
+				})
+
+				var sub = Ti.UI.createView({
+					backgroundColor: "#E2E2E2",
+					left: 0,
+					top: 0,
+					bottom: 0,
+					height: __l(64),
+					width: __l(38)
+				})
+
+				sub.add(Ti.UI.createLabel({
+					top: __l(8),
+					bottom: __l(8),
+					textAlign: 'center',
+					font: {fontSize: __l(24), fontWeight: 'bold'},
+					color: 'white',
+					text: (i+1) + ""
+				}))
+				row.add(sub)
+				
+				var user_logo = Ti.UI.createImageView({
+					top : __l(8),
+					left : __l(48),
+					width : __l(48),
+					height : __l(48),
+					defaultImage : "./images/default.gif",
+					hires : true,
+					image : Ti.App.mamashai + encodeURI(json.logo_url_thumb140),
+					borderRadius : __l(4),
+					touchEnabled: false
+				});
+			
+				var user_name = Ti.UI.createLabel({
+					top : __l(8),
+					left : __l(104),
+					width: __l(200),
+					height : Ti.UI.SIZE,
+					font : {
+						fontSize : __l(15)
+					},
+					color: "#333",
+					text : json.name,
+					touchEnabled: false
+				});
+			
+				var kid_json = json.user_kids[0]
+				if (json.kid_id && json.user.user_kids != "null"){
+					for(var i=0; i<json.user.user_kids.length; i++){
+						if (json.kid_id == json.user.user_kids[i].id){
+							kid_json = json.user.user_kids[i]
+							break;
+						}
+					}	
+				}
+				
+				var user_posts = Ti.UI.createLabel({
+					top : __l(34),
+					left : __l(104),
+					height : Ti.UI.SIZE,
+					font : {
+						fontSize : __l(14)
+					},
+					color: "#333",
+					text : kid_desc(kid_json, datetime_str(new Date)),
+					touchEnabled: false
+				});
+				
+				row.add(user_logo);
+				row.add(user_name);
+				row.add(user_posts);
+				tableview.appendRow(row)
+			}
+			win2.add(tableview)
+
+			add_default_action_bar(win2, win2.title, true)
+
+			logEvent('invite_history');
+			Ti.App.currentTabGroup.activeTab.open(win2, {
+				animated : true
+			});
+		})
+	})
+
+	if (Ti.App.is_android){
+		add_default_action_bar2(win, win.title, "我邀请的", function(){
+			right.fireEvent("click");
+		});
+	}
+	else{
+		win.setRightNavButton(right)
+	}
+
+	win.add(Ti.UI.createLabel({
+		text : '成功邀请1人获10个晒豆',
+		color : '#666666',
+		font : {
+			fontSize : __l(16),
+			fontWeight : 'bold'
+		},
+		height : __l(21),
+		top : __l(10),
+		left : __l(10),
+		right : __l(10),
+		textAlign : 'left'
+	}));
+
+	win.add(Ti.UI.createLabel({
+		text : '被邀请者须登录并写邀请人昵称',
+		color : '#999999',
+		font : {
+			fontSize : __l(11),
+		},
+		height : __l(14),
+		top : __l(34),
+		left : __l(16),
+		right : __l(10),
+		textAlign : 'left'
+	}));
+	
+	var tableview = Titanium.UI.createTableView({
+		style:Titanium.UI.iPhone.TableViewStyle.GROUPED,
+		separatorColor : "#ccc",
+		backgroundColor : 'transparent',
+		rowBackgroundColor : 'white',
+		top : Ti.App.is_android ? __l(66) : __l(40),
+		scrollable: false
+	});
+	
+	group_tableview(tableview)
+
+	function add_a_row(text, callback) {
+			var row = Ti.UI.createTableViewRow({
+				height : Ti.UI.SIZE,
+				hasChild : true,
+				selectedBackgroundColor: "#E8E8E8",
+				callback: callback
+			});
+			
+			var label = Ti.UI.createLabel({
+				top : __l(10),
+				bottom : __l(10),
+				left : __l(20),
+				height : __l(20),
+				width: __l(200),
+				font : {
+					fontSize : __l(16)
+				},
+				color: Ti.App.bar_color,
+				text : text,
+				touchEnabled : false
+			});
+			row.label = label;
+			row.add(label)
+			
+			row.addEventListener("click", function(e){
+				e.source.callback(e)
+			})
+			return row;
+	}
+
+	tableview.appendRow(add_a_row("邀请微信好友", function(e){
+		var tiwechat = require('com.mamashai.tiwechat');
+		tiwechat.exampleProp = Ti.App.wechat_key;
+		tiwechat.shareSession("下载宝宝日历抽大奖", "宝宝日历太赞了，下载还能抽大奖！别忘了邀请人写：" + Ti.App.Properties.getString("name"), "http://www.mamashai.com/mobile/bbrl/mobile", "http://www.mamashai.com/images/bbrl/bbrl.png");
+		logEvent('invite_weixin_user');			
+	}))
+
+	tableview.appendRow(add_a_row("邀请微博好友", function(e){
+		//判断有没有新浪授权关键字
+		var token = Ti.App.Properties.getString("token", "");
+		var expire_at = parseInt(Ti.App.Properties.getString("expire_at", ""));
+					
+		var now = new Date();
+		if(token == "" || expire_at * 1000 < now.getTime())//没有token或token已过期
+		{
+			var win = Titanium.UI.createWindow({
+				url : "sina.js",
+				title : "新浪微博授权",
+				backgroundColor : '#fff',
+				backButtonTitle: !Ti.App.is_android && Ti.App.osversion < "7.0" ? '返回' : ''
+			});
+			pre(win)
+	
+			Ti.App.currentTabGroup.activeTab.open(win, {
+				animated : true
+			});
+		} else {
+			weibo_invite();
+		}
+	}))
+
+	win.add(tableview)
+
+	win.add(Ti.UI.createLabel({
+		text : Ti.App.is_android ? '点击复制以下文字，粘贴给QQ好友：' : '复制以下文字，粘贴给QQ好友：',
+		color : '#666666',
+		font : {
+			fontSize : __l(16),
+			fontWeight : 'bold'
+		},
+		height : __l(21),
+		top : __l(164),
+		left : __l(10),
+		right : __l(10),
+		textAlign : 'left'
+	}));
+
+	if (Ti.App.is_android){
+		var tip = Ti.UI.createLabel({
+			text : "亲，推荐下载宝宝日历：时下最火的怀孕育儿应用！还能赢取999元宝宝大礼包！下载地址：http://t.cn/zHIAP2N，别忘了邀请人写我昵称啊：" + decodeURI(Ti.App.Properties.getString("name")),
+			color : Ti.App.bar_color,
+			font : {
+				fontSize : __l(11),
+			},
+			height : Ti.UI.SIZE,
+			top : __l(190),
+			left : __l(10),
+			right : __l(10),
+			textAlign : 'left'
+		})
+		tip.addEventListener("touchstart", function(e){
+			Titanium.UI.Clipboard.setText("亲，推荐下载宝宝日历：时下最火的怀孕育儿应用！还能赢取999元宝宝大礼包！下载地址：http://t.cn/zHIAP2N，别忘了邀请人写我昵称啊：" + decodeURI(Ti.App.Properties.getString("name")));
+			show_notice("文字已复制到剪贴板")
+		})
+		win.add(tip)	
+	}
+	else{
+		var tip = Ti.UI.createTextArea({
+			value : "亲，推荐下载宝宝日历：时下最火的怀孕育儿应用！还能赢取999元宝宝大礼包！下载地址：http://t.cn/zHIAP2N，别忘了邀请人写我昵称啊：" + decodeURI(Ti.App.Properties.getString("name")),
+			color : Ti.App.bar_color,
+			editable: false,
+			borderWidth : 1,
+			borderColor : '#ccc',
+			borderRadius : __l(0),
+			font : {
+				fontSize : __l(11),
+			},
+			height : Ti.UI.SIZE,
+			top : __l(190),
+			left : __l(10),
+			right : __l(10),
+			textAlign : 'left'
+		})
+		tip.setSelection(0, 200)
+		win.add(tip)		
+	}
+
+	
+	
+	
+	win.add(Ti.UI.createLabel({
+		text : '扫描二维码，和我一起妈妈晒吧：',
+		color : '#666666',
+		font : {
+			fontSize : __l(16),
+			fontWeight : 'bold'
+		},
+		height : __l(21),
+		top : __l(262),
+		left : __l(10),
+		right : __l(10),
+		textAlign : 'left'
+	}));
+
+	win.add(Ti.UI.createImageView({
+		height : __l(121),
+		width : __l(121),
+		top : __l(286),
+		left : __l(20),
+		image: "http://www.mamashai.com/images/bbrl/bbrl_2d.png"
+	}));
+
+	win.add(Ti.UI.createLabel({
+		text : '登录后邀请人处输入我的昵称：',
+		color : '#999999',
+		font : {
+			fontSize : __l(11),
+		},
+		height : __l(30),
+		top : __l(290),
+		left : __l(150),
+		right : __l(10),
+		textAlign : 'left'
+	}));
+
+	win.add(Ti.UI.createLabel({
+		text : decodeURI(Ti.App.Properties.getString("name")),
+		color : "#666666",
+		font : {
+			fontSize : __l(16),
+			fontWeight: 'bold',
+		},
+		height : __l(30),
+		top : __l(326),
+		left : __l(170),
+		right : __l(10),
+		textAlign : 'left'
+	}));
+
+	logEvent('invite_user');
+	
+	pre(win)
+	Ti.App.currentTabGroup.activeTab.open(win, {
+		animated : true
+	});
+}
+
+Invite({title : "邀请好友",
+		backButtonTitle : !Ti.App.is_android && Ti.App.osversion < "7.0" ? '返回' : '',
+		backgroundColor : 'white'
+})

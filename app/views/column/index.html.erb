@@ -1,0 +1,102 @@
+<div id="zl_zj">
+	<ul>
+  <%@authors.each do |author|%>
+		<li>
+      <a href="/column/space/<%=author.user_id%>"><img src="<%=author.img%>" /></a>
+      <a href="/column/space/<%=author.user_id%>"><span class="red"><%=User.find(:first,:conditions => "id = #{author.user_id}").name%></span></a>
+      <% for chapter in ColumnChapter.find(:all, :conditions=>"user_id = #{author.user_id} and draft = 0", :limit=>2, :order=>"id desc")%>
+			<br />
+			<a href="/column/show/<%= chapter.id %>"><%= chapter.title %></a>
+			<% end %>
+		</li>
+  <% end %>
+	</ul>
+</div>
+<div class="sharp">
+	<div class="content">
+		<div class="cjy_left">
+			<div class="navigate_tab mt20" id="n">
+				<ul class="class1">
+					<li <%=raw 'class="current"' if params[:c].to_i == 0 %>>
+						<a href="/column">全部</a>
+					</li>
+					<li <%=raw 'class="current"' if params[:c] == "1" %>>
+						<a href="/column?c=1"><img src="/images/zl_mj.jpg"/></a>
+					</li>
+					<li <%=raw 'class="current"' if params[:c] == "2" %>>
+						<a href="/column?c=2"><img src="/images/zl_hw.jpg"/></a>
+					</li>
+					<li <%=raw 'class="current"' if params[:c] == "3" %>>
+						<a href="/column?c=3"><img src="/images/zl_zc.jpg"/></a>
+					</li>
+					<li <%=raw 'class="current"' if params[:c] == "4" %>>
+						<a href="/column?c=4"><img src="/images/zl_nb.jpg"/></a>
+					</li>
+					<li <%=raw 'class="current"' if params[:c] == "5" %>>
+						<a href="/column?c=5"><img src="/images/zl_ys.jpg"/></a>
+					</li>
+					<li <%=raw 'class="current"' if params[:c] == "6" %>>
+						<a href="/column?c=6"><img src="/images/zl_jy.jpg"/></a>
+					</li>
+					<li <%=raw 'class="current"' if params[:c] == "7" %>>
+						<a href="/column?c=7"><img src="/images/zl_yh.jpg"/></a>
+					</li>
+				</ul>
+			</div>
+
+			<div class="clear mt10"></div>
+			<DIV id="chanel_content">
+				<% for post in @posts %>
+					<%= render :partial=>"/share/post", :locals=>{:post=>post} %>
+				<% end %>
+				<%= will_paginate @posts %>
+			</DIV>
+		</div>
+		<!--cjy_left-->
+		<div class="cjy_right">
+			<!--
+			<div id="zl_zlzjsq">
+				<img src="/images/zlzjsq.jpg" />
+			</div>
+			-->
+			<div class="clear"></div>
+			<span class="title">经典专栏 </span>
+			<div class="cjy_ts">
+				<ul class="relate_column">
+					<% for chapter in @hot_chapters %>
+					<li>
+						<a href="/column/show/<%= chapter.id %>" title="<%= chapter.title %>"> ·《<%= chapter.title %>》</a>
+					</li>
+					<% end %>
+				</ul>
+			</div>
+
+			<div class="zl_dz">
+				<table width="100%" border="0" cellspacing="0" cellpadding="0">
+					<tr>
+						<th>专栏作家</th>
+						<td align="right"><a href="/column/author">全部》</a></td>
+					</tr>
+				</table>
+				<ul>
+				  <% for chapter in @hot_user_chapters %>
+					    <%=render :partial=>'/share/user_column',:locals=>{:user_item=>chapter.user} %>
+				  <% end %>
+				</ul>
+			</div>
+			
+			<%= render :partial=>"/share/taobao_adv_right" %>
+		</div>
+		<!--cjy_right-->
+	</div>
+	<div><img src="/images/sharp_bottom.jpg" />
+	</div>
+</div>
+
+<script src="/javascripts/FancyZoom.js" language="JavaScript" type="text/javascript"></script>
+<script src="/javascripts/FancyZoomHTML.js" language="JavaScript" type="text/javascript"></script>
+<script>
+	$(document).ready(function() {
+		setupZoom();
+	});	
+</script>

@@ -1,0 +1,37 @@
+<div class="nav_rm"><a href="/articles">宝典</a>>> 宝典详情 </div>
+<div class="sharp color1 mt5">
+  <div class="content">
+    <div class="cjy_left">
+      <div id="bdxq_text">
+        <h4><%=raw @article.title %></h4>
+        <% if @article.origin_url %>
+        <h5>来源：<%= @article.origin_url%></h5>
+        <% end %>
+        
+        <% if params[:tag] %>
+        	<%= highlight(@article.article_content.content, params[:tag]) %>
+        <% else %>
+        	<%=raw @article.article_content.content %>
+        <% end %>
+        <div style='text-align:center; margin: 30px 0px; font-size: 12px;'>
+        	~~~~~~~~~~~~~~~~~~~~~~更多育儿宝典，尽在<a target="_blank" href='/bbrl/mobile'>宝宝日历</a>~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+        </div>
+        <%= render :partial=>"post_tools", :locals=>{:article=>@article} %>
+      </div>
+      
+    </div>
+    <!--cjy_left-->
+    <div class="cjy_right">
+      <div class="bdxq_li"> <span>相关宝典</span>
+        <ul>
+          <% for article in @relate_articles%>
+          	<li><a href="/articles/article/<%= article.id %>">· <%= article.title %></a></li>
+          <% end %>
+        </ul>
+      </div>
+      <%= render :partial=>"/share/taobao_adv_right" %>
+    </div>
+    <!--cjy_right--> 
+</div><div><img src="/images/sharp_bottom.jpg" /></div>
+  <!--box1-->
+</div>

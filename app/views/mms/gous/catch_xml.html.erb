@@ -1,0 +1,374 @@
+<div id="middle">
+    <div id="css_mainbody">
+        <h1 class="title">导购平台-商品抓取<span style="float: right; margin-right: 10px;"> 按分类过滤：
+                <select onchange="if(this.options[this.selectedIndex].value != ''){window.location='/mms/gous/catch_xml?site[id]=<%= @site_id %>&site[catch_time]=<%= @site_catch_time %>&category_name='+this.options[this.selectedIndex].value;}" name="gou[category_name]" id="gou_category_name">
+                    <% GouCategory.all.each do |category| %>
+                    <option value="<%= category.name %>"<%= 'selected="selected"' if category.name == @category_name %>><%= category.name %></option>
+                    <% end %>
+                </select>
+            </span></h1>
+        <% form_for :gou, :url => {:action => "create_gou"} do |f| %>
+        <table class="grid_order"  border="1">
+            <tr class="gou_category">
+                <th width="5%">
+                    <%= check_box :gou, :check_all %>全选
+                </th>
+                <th width="35%">
+                    商品名称
+                </th>
+                <th width="5%">
+                    价格
+                </th>
+                <th width="10%">
+                    规格
+                </th>
+                <th width="8%">
+                    品牌
+                </th>
+                <th width="20%">
+                    分类
+                </th>
+                <th>
+                    操作
+                </th>
+            </tr>
+            <% @gous.each_with_index do |gou, index| %>
+            <% first_category = gou.at_xpath("./ProductFirstCategoryName").try(:text).try(:to_s) || nil %>
+            <% second_category = gou.at_xpath("./ProductSecondCategoryName").try(:text).try(:to_s) || nil %>
+            <% third_category = gou.at_xpath("./ProductThirdCategoryName").try(:text).try(:to_s) || nil %>
+            <% link = gou.at_xpath("./ProductUrl").try(:text).try(:to_s) || nil %>
+            <% if @category_name.present? %>
+            <% if (first_category == @category_name or second_category == @category_name or third_category == @category_name) %>
+            <tr class="gou_info">
+                <td>
+                    <%= check_box :gou, :check, :name => "gou[check][#{index}]", :class => "gou_check", :checked => Gou.find_by_link(link).present? ? true : false %>
+                </td>
+                <td>
+                    <% name =  gou.at_xpath("./ProductName").try(:text).try(:to_s) || nil %>
+                    <%= name %>
+                </td>
+                <td>
+                    <% price = gou.at_xpath("./ProductSellPrice").try(:text).try(:to_f) || nil %>
+                    <%= price %>
+                </td>
+                <td>
+                    <% standard = gou.at_xpath("./ProductStandard").try(:text).try(:to_s) || nil %>
+                    <%= standard %>
+                </td>
+                <td>
+                    <% brand = gou.at_xpath("./ProductBrand").try(:text).try(:to_s) || nil %>
+                    <%= brand %>
+                </td>
+                <td>
+                    <span class="first_category"><%= first_category %>
+                    </span>-><span class="second_category"><%= second_category %></span>-><span class="third_category"><%= third_category %></span>
+                </td>
+                <td>
+                    <%= link_to "详情", "javascript:void(0);", :onclick => "show_gou_details(#{index.to_s});", :style => "color:#329BCB" %>
+                </td>
+            </tr>
+            <tr id="gou_details_<%= index %>" style="display:none;">
+                <td colspan="7">
+                    <table class="grid_order"  border="1">
+                        <tr>
+                            <td class="td0" width="10%">
+                                抓取网站名称：
+                            </td>
+                            <td>
+                                <%= @site_name %>
+                                <%= f.hidden_field :site_name, :value => @site_name, :name => "gou[site_name][#{index}]" %>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="td0" width="10%">
+                                商品名称：
+                            </td>
+                            <td>
+                                <%= name %>
+                                <%= f.hidden_field :name, :value => name, :name => "gou[name][#{index}]" %>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="td0">
+                                URL：
+                            </td>
+                            <td>
+                                <%= link %>
+                                <%= f.hidden_field :link, :value => link, :name => "gou[link][#{index}]" %>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="td0">
+                                价格：
+                            </td>
+                            <td>
+                                <%= price %>
+                                <%= f.hidden_field :price, :value => price, :name => "gou[price][#{index}]" %>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="td0">
+                                规格：
+                            </td>
+                            <td>
+                                <%= standard %>
+                                <%= f.hidden_field :standard, :value => standard, :name => "gou[standard][#{index}]" %>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="td0">
+                                商品图片路径：
+                            </td>
+                            <td>
+                                <% logo = gou.at_xpath("./ProductImages/ProductImageUrl").try(:text).try(:to_s) || nil %>
+                                <%= logo %>
+                                <%= f.hidden_field :logo, :value => logo, :name => "gou[logo][#{index}]" %>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="td0">
+                                商品品牌：
+                            </td>
+                            <td>
+                                <%= brand %>
+                                <%= f.hidden_field :brand, :value => brand, :name => "gou[brand][#{index}]" %>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="td0">
+                                一级分类：
+                            </td>
+                            <td>
+                                <%= first_category %>
+                                <%= f.hidden_field :first_category, :value => first_category, :name => "gou[first_category][#{index}]" %>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="td0">
+                                二级分类：
+                            </td>
+                            <td>
+                                <%= second_category %>
+                                <%= f.hidden_field :second_category, :value => second_category, :name => "gou[second_category][#{index}]" %>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="td0">
+                                三级分类：
+                            </td>
+                            <td>
+                                <%= third_category %>
+                                <%= f.hidden_field :third_category, :value => third_category, :name => "gou[third_category][#{index}]" %>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="td0">
+                                商品说明：
+                            </td>
+                            <td>
+                                <% content = gou.at_xpath("./ProductIntro").try(:text).try(:to_s) || nil %>
+                                <%= h content %>
+                                <%= f.hidden_field :content, :value => content, :name => "gou[content][#{index}]" %>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="td0">
+                            </td>
+                            <td>
+                                <%= link_to "返回", "javascript:void(0);", :onclick => "show_gous(#{index.to_s});", :style => "color:#329BCB" %>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+            <% end %>
+            <% else %>
+            <tr class="gou_info">
+                <td>
+                    <%= check_box :gou, :check, :name => "gou[check][#{index}]", :class => "gou_check", :checked => Gou.find_by_link(link).present? ? true : false %>
+                </td>
+                <td>
+                    <% name =  gou.at_xpath("./ProductName").try(:text).try(:to_s) || nil %>
+                    <%= name %>
+                </td>
+                <td>
+                    <% price = gou.at_xpath("./ProductSellPrice").try(:text).try(:to_f) || nil %>
+                    <%= price %>
+                </td>
+                <td>
+                    <% standard = gou.at_xpath("./ProductStandard").try(:text).try(:to_s) || nil %>
+                    <%= standard %>
+                </td>
+                <td>
+                    <% brand = gou.at_xpath("./ProductBrand").try(:text).try(:to_s) || nil %>
+                    <%= brand %>
+                </td>
+                <td>
+                    <span class="first_category"><%= first_category %>
+                    </span>-><span class="second_category"><%= second_category %></span>-><span class="third_category"><%= third_category %></span>
+                </td>
+                <td>
+                    <%= link_to "详情", "javascript:void(0);", :onclick => "show_gou_details(#{index.to_s});", :style => "color:#329BCB" %>
+                </td>
+            </tr>
+            <tr id="gou_details_<%= index %>" style="display:none;">
+                <td colspan="7">
+                    <table class="grid_order" border="1">
+                        <tr>
+                            <td class="td0" width="10%">
+                                抓取网站名称：
+                            </td>
+                            <td>
+                                <%= @site_name %>
+                                <%= f.hidden_field :site_name, :value => @site_name, :name => "gou[site_name][#{index}]" %>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="td0" width="10%">
+                                商品名称：
+                            </td>
+                            <td>
+                                <%= name %>
+                                <%= f.hidden_field :name, :value => name, :name => "gou[name][#{index}]" %>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="td0">
+                                URL：
+                            </td>
+                            <td>
+                                <% link = gou.at_xpath("./ProductUrl").try(:text).try(:to_s) || nil %>
+                                <%= link %>
+                                <%= f.hidden_field :link, :value => link, :name => "gou[link][#{index}]" %>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="td0">
+                                价格：
+                            </td>
+                            <td>
+                                <%= price %>
+                                <%= f.hidden_field :price, :value => price, :name => "gou[price][#{index}]" %>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="td0">
+                                规格：
+                            </td>
+                            <td>
+                                <%= standard %>
+                                <%= f.hidden_field :standard, :value => standard, :name => "gou[standard][#{index}]" %>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="td0">
+                                商品图片路径：
+                            </td>
+                            <td>
+                                <% logo = gou.at_xpath("./ProductImages/ProductImageUrl").try(:text).try(:to_s) || nil %>
+                                <%= logo %>
+                                <%= f.hidden_field :logo, :value => logo, :name => "gou[logo][#{index}]" %>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="td0">
+                                商品品牌：
+                            </td>
+                            <td>
+                                <%= brand %>
+                                <%= f.hidden_field :brand, :value => brand, :name => "gou[brand][#{index}]" %>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="td0">
+                                一级分类：
+                            </td>
+                            <td>
+                                <%= first_category %>
+                                <%= f.hidden_field :first_category, :value => first_category, :name => "gou[first_category][#{index}]" %>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="td0">
+                                二级分类：
+                            </td>
+                            <td>
+                                <%= second_category %>
+                                <%= f.hidden_field :second_category, :value => second_category, :name => "gou[second_category][#{index}]" %>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="td0">
+                                三级分类：
+                            </td>
+                            <td>
+                                <%= third_category %>
+                                <%= f.hidden_field :third_category, :value => third_category, :name => "gou[third_category][#{index}]" %>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="td0">
+                                商品说明：
+                            </td>
+                            <td>
+                                <% content = gou.at_xpath("./ProductIntro").try(:text).try(:to_s) || nil %>
+                                <%= h content %>
+                                <%= f.hidden_field :content, :value => content, :name => "gou[content][#{index}]" %>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="td0">
+                            </td>
+                            <td>
+                                <%= link_to "返回", "javascript:void(0);", :onclick => "show_gous(#{index.to_s});", :style => "color:#329BCB" %>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+            <% end %>
+            <% end %>
+        </table>
+        <div style="margin-left:500px;" class="submit">
+            导入到:<%= select :gou, :category, GouCategory.all.map {|category| [[category.name], [category.id]]} %>
+            <%= submit_tag "保存" %>
+            <br/>
+            <br/>
+        </div>
+        <% end %>
+    </div>
+    <div class="clear">
+    </div>
+</div>
+<script>
+    function show_gou_details(index){
+        var id = "#gou_details_" + index;
+        if ($(id).css("display") == "none") {
+            $(id).show();
+            $('.gou_info').hide();
+            $('.gou_category').hide();
+            $('.submit').hide();
+        }
+    }
+    
+    function show_gous(index){
+        var id = "#gou_details_" + index;
+        if ($(id).css("display") != "none") {
+            $(id).hide()
+            $('.gou_info').show();
+            $('.gou_category').show();
+            $('.submit').show();
+        }
+    }
+    
+    $(function(){
+        $('#gou_check_all').click(function(){
+            if ($('#gou_check_all').attr('checked') == true) {
+                $('.gou_check').attr('checked', true)
+            }
+            else {
+                $('.gou_check').attr('checked', false)
+            }
+        });
+    });
+</script>

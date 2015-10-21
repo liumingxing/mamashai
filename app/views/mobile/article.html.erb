@@ -1,0 +1,80 @@
+<style>
+	* {margin: 0px; padding: 0px;}
+	div#article {margin: 1em;}
+	h2 {font-size: 1.5em; font-weight: normal; text-align: left; margin: 1em 0em; line-height: 150%;}
+	div.article_content img {width: 100%;}
+	div.article_content p, div.article_content p span {line-height: 150%;}
+	p.refer {margin: 1em 0em 2em 0em; }
+	p.refer span.refer{color: #666; font-size: 1em;}
+	div#comments {margin-top: 1em;}
+	div#comments div.comment {margin: 0.2em; border-top: 1px solid #ccc; padding: 1em 0;}
+	div#comments div.comment div.comment_logo {float: left; margin-right: 0.5em;}
+	div#comments div.comment div.comment_logo img {width: 2em;}
+	div#comments div.comment div.top span {float: right;}
+	div#comments div.comment div.content {line-height: 150%;}
+
+
+		div.clear {clear: both;}
+		div#download {margin-top: 2em;}
+		div#download p.desc {text-align: left; line-height: 30px; margin: 8px 0px; color: #999;}
+		div#head {background-color: #999; padding: 6px; color: #FFF;}
+		div#head div#logo {text-align: center; float: left; width: 25%;}
+		div#head div#logo img {width: 60px; height: 60px;}
+		div#head div#logo p {font-size: 15px; color: #E02882; line-height: 20px; font-weight: bold; margin: 0px;}
+		div#head div#slogan {float:left; width: 50%;}
+		div#head div#slogan p {font-size: 13px; margin: 0px; line-height: 1.4;}
+		div#head div#slogan p.p1 {font-size: 20px; font-weight: bold;}
+		div#head div#slogan p.p2 {font-size: 12px;}
+		div#head div#slogan p.p3 img {float: left; margin-top: 2px; width: 80px;}
+		div#head div#slogan p.p3 span{margin-left: 8px; font-size: 10px;}
+		div#head div#downloads {float: left; width: 24%; text-align: center;}
+		div#head div#downloads a img {width: 70px; margin-top: 15px;}
+</style>
+</style>
+<div id="head">
+			<div id='logo'>
+				<img src='/images/advs/mobile/logo.png'/>
+			</div>
+			<div id="slogan">
+				<p class="p1">
+					宝宝日历
+				</p>
+				<p class="p2">孕期到12岁全程监测记录</p>
+				<p class="p3"><img src="/images/advs/mobile/xing.png"/> <span>明星育儿应用</span></p>
+			</div>
+			<div id="downloads">
+				<a href="http://www.mamashai.com/bbrl/download" target="_blank"><img src="/images/advs/mobile/hd_r2_c4.png" /></a>
+			</div>
+			<div class="clear"></div>
+</div>
+<div id='article'>
+	<h2 class="title"><%= @article.title %></h2>
+	<p class="refer">
+		<span class="refer"><%= @article.created_at.to_date.to_s %></span>
+	</p>
+	<div class="article_content">
+		<%= @article.article_content.content.html_safe %>
+	</div>
+	<div id="download">
+		<p class="desc">
+				====关于宝宝日历==== <br/>
+				宝宝日历是时下最受欢迎的明星育儿应用：最真实的记录+最真诚的分享=最棒的育儿社区！
+		</p>
+	</div>
+</div>
+<div id="head">
+			<div id='logo'>
+				<img src='/images/advs/mobile/logo.png'/>
+			</div>
+			<div id="slogan">
+				<p class="p1">
+					宝宝日历
+				</p>
+				<p class="p2">孕期到12岁全程监测记录</p>
+				<p class="p3"><img src="/images/advs/mobile/xing.png"/> <span>明星育儿应用</span></p>
+			</div>
+			<div id="downloads">
+				<a href="http://www.mamashai.com/bbrl/download" target="_blank"><img src="/images/advs/mobile/hd_r2_c4.png" /></a>
+			</div>
+			<div class="clear"></div>
+</div>

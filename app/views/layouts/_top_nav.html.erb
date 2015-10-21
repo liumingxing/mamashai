@@ -1,0 +1,46 @@
+<% if @user and @user.errors.empty? %>
+<%= stylesheet_link_tag 'head_nav' %>
+<div id="top_nav">
+    <div id="nav">
+        <ul class="top_nav">
+            <li class="logo">
+                <a href="/" title="妈妈晒"><%=image_tag('/images/home/nav/nav_logo.jpg') %></a>
+            </li>
+			
+			<li class="top_nav_lan"><a href="/column">专栏</a></li>
+            <li><a href="/mybook/show/3">图书</a></li>
+            <li><a href="/ask">问答</a></li>
+            <li><a href="/articles?age=<%= @user.age_id%>">宝典</a></li>
+            <li><a href="/mms_tools">下载</a></li>
+        </ul>
+		<ul class="top_tools2" style="margin-left: 10px;">
+			<li><a href="/index/bang">育儿帮</a></li>
+			<li class="line"></li>
+			<li><a href="/hot_topic">话题</a></li>
+			<li class="line"></li>
+			<li><a href="/huodong">活动</a></li>
+			<li class="line"></li>
+            <li><a href="/subjects/list/<%= @user.age_id%>">群组</a></li>
+		</ul>
+		<ul class="top_tools3">
+			<li class="top_tools3_bao"><a href="http://lama.mamashai.com">辣妈日报</a>&nbsp;</li>
+			<li class="line"></li>
+			<li>&nbsp;<a href="/baby_books">个性书</a></li>
+		</ul>
+
+
+        <ul class="top_tools">
+            <li style="display:none;"><a href="/na">免费拿</a></li>
+			<li class="line"></li>
+			<li><a href="/tao">快乐淘</a></li>
+			<li class="line"></li>
+			<li class="top_tools_daogou"><a href="/gou">导购</a></li>
+			<li class="line"></li>
+            <li class="top_tools_daogou"><a href="/account/logout">退出</a></li>
+
+        </ul>
+    </div>
+</div>
+<% else %>
+<%= render :partial=>'/layouts/top_nav_notlogin' %>
+<% end %>

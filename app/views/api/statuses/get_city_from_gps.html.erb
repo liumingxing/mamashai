@@ -1,0 +1,57 @@
+	Ti.Geolocation.preferredProvider = "gps";
+	Ti.Geolocation.purpose = "同城妈妈定位";
+
+	if (Titanium.Geolocation.locationServicesEnabled == false){
+		Ti.API.log("对不起，您没有打开手机定位功能");
+	}
+	else{
+		if (!Ti.App.is_android){
+			var authorization = Titanium.Geolocation.locationServicesAuthorization;
+			if (authorization == Titanium.Geolocation.AUTHORIZATION_DENIED) {
+			}
+			else if (authorization == Titanium.Geolocation.AUTHORIZATION_RESTRICTED) {
+			}
+		}
+
+		Titanium.Geolocation.getCurrentPosition(function(e)
+		{
+				if (!e.success || e.error)
+				{
+					Ti.API.log('error ' + JSON.stringify(e.error));
+					show_notice("自动定位城市失败")
+					return;
+				}
+					
+				var longitude = e.coords.longitude;
+				var latitude = e.coords.latitude;
+				var url = "https://api.weibo.com/2/location/geo/geo_to_address.json?coordinate=" + longitude + "%2C" + latitude + "&access_token=<%= @user_weibo.access_token %>&source=3584196665";
+					
+				Ti.API.log(url)
+				http_call(url, function(e){
+					var url = "";
+					if (check_login()){
+						url = Ti.App.mamashai + "/api/account/upload_location?" + account_str();
+					}
+					else{
+						url = Ti.App.mamashai + "/api/account/get_location";
+					}
+
+					var xhr = Ti.Network.createHTTPClient();
+					xhr.open('POST', url);
+					xhr.onload = function(){
+							var json = JSON.parse(this.responseText)
+							Ti.App.fireEvent("select_city", {
+								province_id : json.province_id,
+								province_name : json.province_name,
+								city_id       : json.city_id,
+								city_name     : json.city_name
+							})
+					}
+					xhr.send({
+						json : e.responseText
+					});
+				}, function(e){
+					Ti.API.log(e.error)
+				});
+		});
+	}

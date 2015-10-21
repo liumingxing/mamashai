@@ -1,0 +1,104 @@
+
+indexer
+{
+}
+
+searchd
+{
+  listen = 127.0.0.1:9306:mysql41
+  log = /Users/liumingxing/Documents/Titanium/mamashai/log/development.searchd.log
+  query_log = /Users/liumingxing/Documents/Titanium/mamashai/log/development.searchd.query.log
+  pid_file = /Users/liumingxing/Documents/Titanium/mamashai/log/development.sphinx.pid
+  workers = threads
+  binlog_path = /Users/liumingxing/Documents/Titanium/mamashai/tmp/binlog/development
+}
+
+source article_core_0
+{
+  type = mysql
+  sql_host = 127.0.0.1
+  sql_user = root
+  sql_pass = 
+  sql_db = mamashai
+  sql_query_pre = SET TIME_ZONE = '+0:00'
+  sql_query_pre = SET NAMES utf8
+  sql_query = SELECT SQL_NO_CACHE `articles`.`id` * 3 + 0 AS `id`, `articles`.`title_` AS `title_`, `articles`.`id` AS `sphinx_internal_id`, 'Article' AS `sphinx_internal_class`, 0 AS `sphinx_deleted` FROM `articles`  WHERE (`articles`.`id` BETWEEN $start AND $end) GROUP BY `articles`.`id`, `articles`.`title_`, `articles`.`id` ORDER BY NULL
+  sql_query_range = SELECT IFNULL(MIN(`articles`.`id`), 1), IFNULL(MAX(`articles`.`id`), 1) FROM `articles` 
+  sql_attr_uint = sphinx_internal_id
+  sql_attr_uint = sphinx_deleted
+  sql_attr_string = sphinx_internal_class
+  sql_field_string = title_
+  sql_query_info = SELECT `articles`.* FROM `articles`  WHERE (`articles`.`id` = ($id - 0) / 3)
+}
+
+index article_core
+{
+  type = plain
+  path = /Users/liumingxing/Documents/Titanium/mamashai/db/sphinx/development/article_core
+  docinfo = extern
+  charset_type = utf-8
+  charset_table = 0..9, A..Z->a..z, _, a..z, U+410..U+42F->U+430..U+44F, U+430..U+44F
+  ngram_len = 1
+  ngram_chars  = U+3000..U+2FA1F
+  source = article_core_0
+}
+
+source post_core_0
+{
+  type = mysql
+  sql_host = 127.0.0.1
+  sql_user = root
+  sql_pass = 
+  sql_db = mamashai
+  sql_query_pre = SET TIME_ZONE = '+0:00'
+  sql_query_pre = SET NAMES utf8
+  sql_query = SELECT SQL_NO_CACHE `posts`.`id` * 3 + 1 AS `id`, `posts`.`content_` AS `content_`, `posts`.`id` AS `sphinx_internal_id`, 'Post' AS `sphinx_internal_class`, 0 AS `sphinx_deleted` FROM `posts`  WHERE (`posts`.`id` BETWEEN $start AND $end AND is_hide = 0 and is_private=0) GROUP BY `posts`.`id`, `posts`.`content_`, `posts`.`id` ORDER BY NULL
+  sql_query_range = SELECT IFNULL(MIN(`posts`.`id`), 1), IFNULL(MAX(`posts`.`id`), 1) FROM `posts` 
+  sql_attr_uint = sphinx_internal_id
+  sql_attr_uint = sphinx_deleted
+  sql_attr_string = sphinx_internal_class
+  sql_field_string = content_
+  sql_query_info = SELECT `posts`.* FROM `posts`  WHERE (`posts`.`id` = ($id - 1) / 3)
+}
+
+index post_core
+{
+  type = plain
+  path = /Users/liumingxing/Documents/Titanium/mamashai/db/sphinx/development/post_core
+  docinfo = extern
+  charset_type = utf-8
+  charset_table = 0..9, A..Z->a..z, _, a..z, U+410..U+42F->U+430..U+44F, U+430..U+44F
+  ngram_len = 1
+  ngram_chars  = U+3000..U+2FA1F
+  source = post_core_0
+}
+
+source user_core_0
+{
+  type = mysql
+  sql_host = 127.0.0.1
+  sql_user = root
+  sql_pass = 
+  sql_db = mamashai
+  sql_query_pre = SET TIME_ZONE = '+0:00'
+  sql_query_pre = SET NAMES utf8
+  sql_query = SELECT SQL_NO_CACHE `users`.`id` * 3 + 2 AS `id`, `users`.`remark` AS `remark`, `users`.`id` AS `sphinx_internal_id`, 'User' AS `sphinx_internal_class`, 0 AS `sphinx_deleted` FROM `users`  WHERE (`users`.`id` BETWEEN $start AND $end) GROUP BY `users`.`id`, `users`.`remark`, `users`.`id` ORDER BY NULL
+  sql_query_range = SELECT IFNULL(MIN(`users`.`id`), 1), IFNULL(MAX(`users`.`id`), 1) FROM `users` 
+  sql_attr_uint = sphinx_internal_id
+  sql_attr_uint = sphinx_deleted
+  sql_attr_string = sphinx_internal_class
+  sql_field_string = remark
+  sql_query_info = SELECT `users`.* FROM `users`  WHERE (`users`.`id` = ($id - 2) / 3)
+}
+
+index user_core
+{
+  type = plain
+  path = /Users/liumingxing/Documents/Titanium/mamashai/db/sphinx/development/user_core
+  docinfo = extern
+  charset_type = utf-8
+  charset_table = 0..9, A..Z->a..z, _, a..z, U+410..U+42F->U+430..U+44F, U+430..U+44F
+  ngram_len = 1
+  ngram_chars  = U+3000..U+2FA1F
+  source = user_core_0
+}

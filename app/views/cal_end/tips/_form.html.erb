@@ -1,0 +1,30 @@
+<%= error_messages_for 'tip' %>
+
+<table class="ft" border="1">
+<!--[form:tip]-->
+<tr>
+	<td>周龄</td>
+	<td><%= text_field 'tip', 'distance'  %></td>
+</tr>
+
+<tr>
+	<td>类型</td>
+	<td><%= text_field 'tip', 't'  %></td>
+</tr>
+
+<tr>
+	<td>提示文本</td>
+	<td><%= text_field 'tip', 'title', :style=>"width:600px"  %></td>
+</tr>
+
+<tr>
+	<td>选项</td>
+	<td>
+		<p>输入一行后请换行</p>
+		<%= text_area 'tip', 'options', :cols=>85  %>
+	</td>
+</tr>
+
+<!--[eoform:tip]-->
+
+</table>

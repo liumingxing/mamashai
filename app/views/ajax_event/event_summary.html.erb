@@ -1,0 +1,16 @@
+<div class="event_share">
+    <div class="infor_money">
+        活动总结：<% if @event.user_id == @user.id %>
+        <a href="javascript:void(0)" onclick="$('#event_summary_<%=@event.id%>').toggle();$('#event_summary_edit_<%=@event.id%>').toggle();">编辑活动总结</a>
+        <% end %>
+    </div>
+	 <div id="event_summary_edit_<%=@event.id%>" class="infor_article" style="display:none;">
+	    <% form_remote_tag :url => {:action => :create_event_summary,:id=>@event.id}, :loading => "", :update => "event_summary_#{@event.id}" do %>
+        <textarea name="event_summary" style="width:450px;height:350px;"><%=@event.summary %></textarea>
+		<br/><input type="submit" value="保存"/>
+		<% end %>
+    </div>
+    <div id="event_summary_<%=@event.id%>" class="infor_article">
+        <%=simple_format(h(@event.summary)) %>
+    </div>
+</div>

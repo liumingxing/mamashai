@@ -1,0 +1,58 @@
+<div id="css_mainbody">
+    <div class="main_top main_top_list">
+    </div>
+    <div class="main_content">
+        <div class="shopping_info_content">
+            <div class="shopping_info">
+                <div class="hot_number">
+                    <span class="label">热购指数</span>
+                    <span class="number">xx</span>
+                </div>
+                <div class="hot_info_article">
+                    <p class="text">
+                        <%=link_to_tuan_website @tuan %>
+                        <a class="address" href="/tuan/go/<%=@tuan.id%>"><%=@tuan.content %></a>
+                    </p>
+                    <ul class="list_info">
+                        <li class="c1">
+                            现价：<strong>￥<%=@tuan.current_price %></strong>
+                        </li>
+                        <li>
+                            原价：
+                            <del>
+                                ￥<%=@tuan.origin_price %>
+                            </del>
+                        </li>
+                        <li>
+                            折扣：<%=@tuan.discount %>
+                        </li>
+                        <li>
+                            节省：￥<%=@tuan.save_money %>
+                        </li>
+                        <li>
+                            已有<span class="orange"><%=@tuan.person_amount %></span>人购买
+                        </li>
+                        <li>
+                            这里应该显示时间
+                        </li>
+                        <li class="button_shop">
+                            <a title="去购买" href="/tuan/go/<%=@tuan.id%>"><img src="/images/tuan/button_4.png" alt="去购买"></a>
+                        </li>
+                    </ul>
+                    <p class="pic">
+                        <%=logo_tag @tuan, {:url => "/tuan/go/#{@tuan.id}"} %>
+                    </p>
+                </div>
+               
+                <div id="tuan_expand_<%=@tuan.id%>" style="display:none;">
+                </div>
+            </div>
+            <div class="clear">
+            </div>
+        </div>
+        <!--shopping_info_content-->
+        <div class="clear">
+        </div>
+    </div>
+</div>
+<%= render :partial=>"/tuan/sidebar_ad" %>

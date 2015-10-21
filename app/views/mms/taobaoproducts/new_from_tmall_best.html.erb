@@ -1,0 +1,66 @@
+添加到: <b><%= @category.name %></b>
+<div id="updater"></div>
+<% form_remote_tag :update=>"updater", :url=>{:action=>"create_from_tmall_best", :id=>params[:id], :code=>params[:code] }, :complete=>"alert('添加成功');"  do %>
+<table class="list" border="1" width="100%">
+    <tr>
+        <th>
+            <%= check_box_tag "select_all", '', false, :onchange=>"if ($(this).is(':checked')){$('td input').attr('checked',true)} else {$('td input').attr('checked', false)}" %>
+        </th>
+        <th>
+            logo
+        </th>
+        <th>
+            名称
+        </th>
+        <th>
+            价格
+        </th>
+        <th>
+            佣金
+        </th>
+        <th>
+            信誉等级
+        </th>
+        <th>
+            累计成交量
+        </th>
+    </tr>
+    <% for product in @products %>
+    <tr>
+        <td>
+            <%= check_box_tag "num_iid[]", product["num_iid"] %>
+        </td>
+        <td>
+            <a target="_blank" href="<%= product["click_url"]%>"><img src="<%= product["pic_url"]%>_310x310.jpg" height=120  width=120/></a>
+        </td>
+        <td>
+            <%= product["title"] %>
+        </td>
+        <td>
+            <%= product["price"] %>
+        </td>
+        <td>
+            <%= product["commission"] %>
+        </td>
+        <td>
+            <%= product["seller_credit_score"] %>
+        </td>
+        <td>
+            <%= product["commission_num"] %>
+        </td>
+    </tr>
+    <% end %>
+</table>
+<div style="text-align: right; margin: 10px;">
+	<%= submit_tag "添加选中商品"%>
+</div>
+<% end %>
+<div style="text-align: center;">
+    <% 1.upto(10) do |i| %>
+    <% if i==params[:page].to_i %>
+    <span><%= i %></span>
+    <% else %>
+    <%= link_to i, :page=>i, :key=>params[:key], :start_commisionRate=>params[:start_commisionRate], :end_commisionRate=>params[:end_commisionRate], :sort=>params[:sort], :mall_item=>params[:mall_item] %>
+    <% end %>
+    <% end %>
+</div>

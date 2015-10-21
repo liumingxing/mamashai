@@ -1,0 +1,13 @@
+<div class="comments01">
+    <div class="comments01_bg_recommends">
+    </div>
+    <div class="comments01_bg2"> 
+        <% form_remote_tag :url => {:action => :update_post_new_title, :id =>@post.id}, :loading => "",:complete=>'', :update => "post_expand_#{@post.id}" do %>
+        <%=render :partial=>'/ajax/form_post_new_title'%>
+		<% end %> 
+    </div>
+    <div class="comments01_bg3">
+    </div>
+</div>
+<div class="clear">
+</div>

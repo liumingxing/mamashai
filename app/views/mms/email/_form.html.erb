@@ -1,0 +1,145 @@
+<tr>
+    <td class="column_1">
+        发送时间：
+    </td>
+    <td colspan="4" class="column_2">
+        <%= f.datetime_select( "send_time", options = {}, html_options = {}) %>
+    </td>
+</tr>
+<tr>
+    <td>
+        每次发送的邮件地址数量:
+    </td>
+    <td colspan="4" class="column_2">
+        <% send_count = 100
+        unless @email.blank?
+        send_count = @email.send_count
+        end %>
+        <input type="text" size="20" name="email[send_count]" id="email_send_count" value="<%= send_count.blank? ? '100' : send_count %>"/>
+    </td>
+</tr>
+<tr>
+    <td class="column_1">
+        每次发送时间间隔：
+    </td>
+    <td colspan="4" class="column_2">
+        <% send_interval = 1
+        unless @email.blank?
+        send_interval = @email.send_interval
+        end %>
+        <input type="text" size="20" name="email[send_interval]" id="email_send_interval" value="<%= send_interval.blank? ? '1' : send_interval %>"/>分钟
+    </td>
+</tr>
+<tr>
+    <td class="column_1">
+        不发送的邮箱类型：
+    </td>
+    <td colspan="4" class="column_2">
+        <% ignore_email_type = ""
+        unless @email.blank?
+        ignore_email_type = @email.ignore_email_type
+        end %>
+        <%= f.text_field(:ignore_email_type, :size => 125, :value => ignore_email_type ) -%>
+        例：@163.com|@126.com－－请以|隔开
+    </td>
+</tr>
+<tr>
+    <td class="column_1">
+        邮件服务器类型：
+    </td>
+    <td colspan="4" class="column_2">
+        <%= f.select(:email_server_type, [['Sendmail', '1'],['SMTP', '2']], {}, {}) %>
+    </td>
+</tr>
+<tr>
+    <td class="column_1">
+        收件人：
+    </td>
+    <td colspan="4" class="column_2">
+        <%= f.select(:flag, [['所有用户', '所有用户'],['营销人员', '营销人员'],['注册用户', '注册用户']], {}, {}) %>
+        <% unless @email.blank? %>
+        <input type="button" value="查看收件人邮件地址" id="show_address"/><% if @email.state != "wait" and @email.state != "send" and @email.state != "pause" %><%= button_to_function "修改收件人", "if (confirm('您确定要修改收件人吗?')) update_address()" -%><% end %>
+        <% end %>
+    </td>
+    <td class="column_2">
+        &nbsp;
+    </td>
+</tr>
+<tr>
+    <td class="column_1">
+        测试邮件：
+    </td>
+    <td colspan="4" class="column_2">
+        <% test_address = "mmstests@163.com;mmstests@126.com;mmstests2010@gmail.com;mmstests@sina.cn;mmstests@sohu.com;mmstests@yahoo.cn;mmstests@hotmail.com;mmstests@qq.com"
+        unless @email.blank?
+        test_address = @email.test_address
+        end %>
+        <%= text_area(:email, :test_address, :cols => 100, :rows => 5, :value => test_address) %>注：请用;隔开
+    </td>
+    <td class="column_2">
+        &nbsp;
+    </td>
+</tr>
+<tr>
+    <td class="column_1">
+        主题：
+    </td>
+    <td colspan="4" class="column_2">
+        <% subject = ""
+        unless @email.blank?
+        subject = @email.subject
+        end %>
+        <input type="text" size="125" name="email[subject]" id="email_subject" value="<%= subject %>"/>
+    </td>
+</tr>
+<tr>
+    <td class="column_1">
+        上传图片：
+    </td>
+    <td colspan="4" class="column_2">
+        <%= f.file_field :picture %>
+    </td>
+</tr>
+<tr>
+    <td class="column_1">
+        URL：
+    </td>
+    <td colspan="4" class="column_2">
+        <%= f.text_field("url", :size => "125") %>
+    </td>
+</tr>
+<tr>
+    <td class="column_1">
+        团购ID号：
+    </td>
+    <td colspan="4" class="column_2">
+        <%= f.text_field("tuan_id", :size => "125") %>
+    </td>
+</tr>
+<tr>
+    <td class="column_1">
+        内容：
+    </td>
+    <td colspan="4">
+    </td>
+</tr>
+<tr>
+    <td class="column_1">
+        &nbsp;
+    </td>
+    <td colspan="4" class="column_2">
+        <% content = ""
+        unless @email.blank?
+        content = @email.content
+        end %>
+        <%= text_area(:email, :content, :cols => 100, :rows => 25, :value => content) %>
+    </td>
+</tr>
+<tr>
+    <td class="column_1">
+        &nbsp;
+    </td>
+    <td colspan="4" class="column_2">
+        &nbsp;
+    </td>
+</tr>

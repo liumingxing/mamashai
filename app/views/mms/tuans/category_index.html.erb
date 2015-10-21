@@ -1,0 +1,57 @@
+  <div id="middle">
+        <div id="css_mainbody">
+            <h1 class="title">团购导航-分类管理
+				<span style="float: right; margin-right: 10px;">
+			        <%= link_to '添加新的导航分类', '/mms/tuans/category_new' %>
+			    </span>
+			</h1>
+			<div style="text-align:center;" class="green"><%= flash[:notice]%></div>
+			<div id="page_count">
+				<span style="float:right;">
+					共有
+					<b class="blue">
+						<%=h @tuan_categories.total_entries%>
+					</b>
+					条记录
+				</span>
+			</div>
+			<div class="clear"></div>
+            <table class="grid">
+            	<tr>
+            		<th width="5%">序号</th>
+				    <th width="20%">分类名称</th>
+				    <th width="20%">团购信息数</th>
+					<th width="10%">数据库id</th>
+				    <th width="20%">创建时间</th>
+				    <th width="10%">修改时间</th>
+					<th width="10%">操作</th>
+				  </tr>
+               <% if @tuan_categories.size == 0 %>
+					<tr>
+						<td colspan=7>
+							<b>暂无记录</b>
+						</td>
+					</tr>
+				<% else %>
+					<% @tuan_categories.each_with_index do |categroy,index| %>
+					  <tr>
+					  	<td><%=(index+1).to_s%></td>
+					    <td><%=h categroy.name %></td>
+					    <td><%=h categroy.tuans_count%></td>
+					    <td><%=h categroy.id%></td>
+					    <td><%= (categroy.created_at.blank?)? '暂无信息' : categroy.created_at.strftime("%Y年%m月%d日<br/>%H时%M分%S秒") %></td>
+						<td><%= (categroy.updated_at.blank?)? '暂无信息' : categroy.updated_at.strftime("%Y年%m月%d日<br/>%H时%M分%S秒") %></td>
+					    <td>
+					    	<%= link_to '修改', "/mms/tuans/category_edit/#{h categroy.id}" %>
+					    	<%= link_to '删除', "/mms/tuans/category_destroy/#{h categroy.id}", :confirm => '确认删除吗？', :method => :delete %>
+						</td>
+					  </tr>
+					<% end %>
+				<%end%>
+            </table>
+			<div class="paginate">
+				<%= will_paginate @tuan_categories %>
+			</div>
+        </div>
+        <div class="clear"></div>
+    </div>

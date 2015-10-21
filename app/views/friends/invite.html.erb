@@ -1,0 +1,182 @@
+<div class="mms_panel_content">
+        <div class="mainbody">
+            <div class="success" id="success" style="display:none;">
+            </div>
+            <div class="success mms_error_tp" id="error" style="display:none;">
+            </div>
+            <!-- <% form_tag({:action=>:invite_dispatch}) do %>
+            <div class="findfriends">
+            <div class="search">
+            方法一：邀请MSN联系人
+            </div>
+            <div class="search03">
+            输入你的MSN账号和密码，邀请MSN的联系人来玩这游戏。
+            <br>
+            妈妈晒承诺：会对你的账号和密码绝对保密！
+            </div>
+            <table class="grid">
+            <tbody>
+            <tr height="35">
+            <td class="ts01">
+            你的MSN：
+            </td>
+            <td class="ts02">
+            <%= text_field("invite", "account", :size => "30", :readonly => true) -%>
+            </td>
+            </tr>
+            <tr height="15">
+            <td class="ts01">
+            </td>
+            <td class="ts02">
+            请输入完整的帐号，如：msn@hotmail.com
+            </td>
+            </tr>
+            <tr height="35">
+            <td class="ts01">
+            MSN密码：
+            </td>
+            <td class="ts02">
+            <%= password_field("invite", "password", :size => "30", :readonly => true) -%>
+            </td>
+            </tr>
+            <tr height="35">
+            <td class="ts01">
+            <%= hidden_field_tag 'invite','type', :value => "msn", :name => "invite[type]" %>
+            </td>
+            <td class="t03">
+            <input type="image" src="/images/games/button_1.gif" disabled="disabled"/>
+            </td>
+            </tr>
+            </tbody>
+            </table>
+            </div>
+            <% end %>
+            --><% form_tag({:action=>:invite_dispatch}) do %>
+            <div class="findfriends">
+                <div class="search">
+                    方法一：邀请邮箱联系人 
+                </div>
+                <div class="search03">
+                    妈妈晒承诺：会对你的帐号和密码绝对保密！ 
+                </div>
+                <table class="grid">
+                    <tbody>
+                        <tr height="35">
+                            <td class="ts01">
+                                邮箱地址：
+                            </td>
+                            <td class="ts02">
+                                <%= text_field("invite", "account", :size => "30") -%>@ <%= select("invite", "type", [["请选择邮箱类型", ""], ["gmail.com", "gmail.com"], ["yahoo.com.cn", "yahoo.com.cn"], ["yahoo.com", "yahoo.com"], ["yahoo.cn", "yahoo.cn"], ["sina.com", "sina.com"], ["tom.com", "tom.com"], ["163.com", "163.com"], ["126.com", "126.com"]], {}, {:id => "user_province_id"}) %>
+                            </td>
+                        </tr>
+                        <tr height="35">
+                            <td class="ts01">
+                                邮箱密码：
+                            </td>
+                            <td class="ts02">
+                                <%= password_field("invite", "password", :size => "30") -%>
+                            </td>
+                        </tr>
+                        <tr height="35">
+                            <td class="ts01">
+                            </td>
+                            <td class="t03">
+                                <input type="image" src="/images/games/button_2.gif">
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div><% end %>
+            <div class="findfriends">
+                <div class="search">
+                    方法二：邀请链接 
+                </div>
+                <div class="search03">
+                    通过QQ、MSN、电子邮件发送邀请链接给你的朋友 
+                    <br>
+                    注册成功后他们会自动成为你的粉丝。 
+                </div>
+                <table class="grid">
+                    <tbody>
+                        <tr height="35">
+                            <td width="370" class="t05">
+                                <input type="text" value="http://mamashai.com/signup/<%=@user.id%>" id="clip_text" readonly="readonly">
+                            </td>
+                            <td class="t01">
+                                <input type="image" onclick="copy_to_clipboard('clip_text')" src="/images/games/button_4.gif">
+                            </td>
+                        </tr>
+                        <tr height="15">
+                            <td class="t03">
+                                成功邀请的朋友，完善了个人资料，上传了头像并发布了微博后，你将获得15个积分。 
+                            </td>
+                            <td class="t01">
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="findfriends">
+                <div class="search">
+                    方法三：发送邮件邀请 
+                </div>
+                <% form_tag({:action=>:send_invite_email}) do %>
+                <div class="invite_fin">
+                    <span class="red">每邀请1个朋友注册妈妈晒，并帮助朋友上传了头像完善了个人资料发布了微博的,可获15个积分！</span>
+                    <br>
+                    <textarea rows="20" name="invite[emails]" id="invite_emails" cols="40" class="default_input"></textarea>
+                    <br>
+                    请输入邮箱地址，多个地址用分号(;)隔开。 
+                </div>
+                <div class="invite_fin_area">
+                    <input type="image" src="/images/games/button_5.gif">
+                </div><% end %>
+                <% invite_users = User.not_hide.find(:all,:conditions=>['invite_user_id=?',@user.id]) %>
+                <div class="search">
+                    我邀请成功的用户 (<%=invite_users.length %>) 
+                </div>
+                <div class="invite_fin_mail">
+                    <% for invite_user in invite_users %>
+                    <%=link_user(invite_user) %>(<%=date_en invite_user.created_at %>)&nbsp;&nbsp; <% end %>
+                </div>
+                <div class="search">
+                    邮件邀请记录 (<%=@user.invite_codes_count %>) 
+                </div>
+                <div class="invite_fin_mail">
+                    <% for invite_code in InviteCode.find(:all,:conditions=>['user_id=?',@user.id],:include=>[:signuped_user]) %>
+                    <%=invite_code.email %>
+                    <% if invite_code.signuped_user %>
+                    已注册： <a href="<%=user_url(invite_code.signuped_user)%>" target="_blank"><%=invite_code.signuped_user.name %></a>
+                    <% else %>
+                    <a href="/friends/resend_invite_email/<%=invite_code.id %>">重新发送</a>
+                    <% end %>
+                    <br/>
+                    <% end %>
+                    <% if @user.invite_codes_count==0 %>
+                    无<% end %>
+                </div>
+            </div>
+            <div class="clear">
+            </div>
+        </div>
+        <div class="clear">
+        </div>
+    <div class="clear">
+    </div>
+</div>
+<script type="text/javascript">
+         	jQuery(document).ready(function(){
+				
+        		<% messages = flash[:notice].split("=>") unless flash[:notice].blank? %>
+        		<% if !messages.blank? and messages[0].to_i==2 %>
+        			jQuery("#success").html("<%= messages[1].to_s %>");
+        			jQuery("#success").show(500);
+        			jQuery("#success").hide(1000);
+        		<% end %>
+        		<% if !messages.blank? and messages[0].to_i==1%>
+        			jQuery("#error").html("<%= messages[1].to_s %>");
+        			jQuery("#error").show(500);
+        			jQuery("#error").hide(1000);
+        		<% end %>
+        	});
+</script>

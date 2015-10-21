@@ -1,0 +1,76 @@
+<% form_tag({:action=>"new_from_api", :id=>params[:id]}, :method=>"get") do %>
+添加到: <b><%= @category.name %></b>
+关键词: <%= text_field_tag :key, params[:key] %>
+佣金比例(1000表示10.00%): <%= text_field_tag :start_commisionRate, params[:start_commisionRate] || 100, :style=>"width:40px" %>
+至 <%= text_field_tag :end_commisionRate, params[:end_commisionRate] || 6000, :style=>"width:40px" %>
+信誉大于: <%= select_tag :start_credit, options_for_select([['一心', '1heart'], ['两心', '2heart'], ['三心', '3heart'], ['四心', '4heart'], ['五心', '5heart'], ["一钻", "1diamond"], ["两钻", "2diamond"],["三钻", "3diamond"], ["四钻", "4diamond"],["五钻", "5diamond"]], params[:start_credit] || "3diamond") %>
+排序: <%= select_tag :sort, options_for_select([['', ''], ["价格从高到低", 'price_desc'],["价格从低到高", 'price_asc'], ['信用等级从高到低', 'credit_desc'], ['佣金比率从高到低', 'commissionRate_desc'], ['佣金比率从低到高', 'commissionRate_asc'],['成交量成高到低', 'commissionNum_desc'],['总支出佣金从高到低', 'commissionVolume_desc']], params[:sort]||'') %>
+<%= check_box_tag "mall_item", "true", params[:mall_item]=="true" %>商城<%= submit_tag "查询" %>
+<% end %>
+<div id="updater"></div>
+<% form_remote_tag :update=>"updater", :url=>{:action=>"create_from_api", :id=>params[:id], :mall_item=>params[:mall_item] }, :complete=>"alert('添加成功');"  do %>
+<table class="list" border="1" width="100%">
+    <tr>
+        <th>
+        	<%= check_box_tag "select_all", '', false, :onchange=>"if ($(this).is(':checked')){$('td input').attr('checked',true)} else {$('td input').attr('checked', false)}" %>
+        </th>
+        <th>
+            logo
+        </th>
+        <th>
+            名称
+        </th>
+        <th>
+            价格
+        </th>
+        <th>
+            佣金
+        </th>
+        <th>
+            信誉等级
+        </th>
+        <th>
+            累计成交量
+        </th>
+    </tr>
+    <% for product in @products %>
+    <tr>
+        <td>
+        	<% if !TaobaoProduct.find_by_iid(product["num_iid"]) %>
+            <%= check_box_tag "num_iid[]", product["num_iid"] %>
+            <% end %>
+        </td>
+        <td>
+            <a target="_blank" href="<%= product["click_url"]%>"><img src="<%= product["pic_url"]%>_310x310.jpg" height=120  width=120/></a>
+        </td>
+        <td>
+            <%= product["title"] %>
+        </td>
+        <td>
+            <%= product["price"] %>
+        </td>
+        <td>
+            <%= product["commission"] %>
+        </td>
+        <td>
+            <%= product["seller_credit_score"] %>
+        </td>
+        <td>
+            <%= product["commission_num"] %>
+        </td>
+    </tr>
+    <% end %>
+</table>
+<div style="text-align: right; margin: 10px;">
+	<%= submit_tag "添加选中商品"%>
+</div>
+<% end %>
+<div style="text-align: center;">
+    <% 1.upto(10) do |i| %>
+    <% if i==params[:page].to_i %>
+    <span><%= i %></span>
+    <% else %>
+    <%= link_to i, :page=>i, :key=>params[:key], :start_commisionRate=>params[:start_commisionRate], :end_commisionRate=>params[:end_commisionRate], :sort=>params[:sort], :mall_item=>params[:mall_item] %>
+    <% end %>
+    <% end %>
+</div>

@@ -1,0 +1,43 @@
+  <div id="middle">
+        <div id="css_mainbody">
+            <h1 class="title">宝贝姓名贴信息汇总</h1>
+			<div style="text-align:center;" class="red"><%= flash[:notice]%></div>
+			<div style="line-height:30px;padding-left:50px;">								
+				<% form_tag :action=>"search" do %>
+					<span>
+						<label>请选择时间范围：</label>
+						<%= select_date @search_date||Date::today,:prefix => 'start',:use_month_numbers=>true%>
+					</span>
+					<span>
+						<label>| 用户名：</label>
+						<%= text_field_tag :search_key, @search_key%>
+					</span>
+						<%= submit_tag "查找"%>
+					<% if @date %>
+						<span style="float:right;">
+							<a href="/mms/name_stick/send_messages?year=<%=h @date.year%>&month=<%=h @date.month%>&day=<%=@date.day%>">通知以下用户</a>
+						</span>	
+					<% end %>
+				<% end %>
+					
+			</div>
+			<div id="page_count" style="float:right;">
+				<span><%=@date.strftime('%Y年%m月%d日') if @date%> 共有<%= @count%>条记录</span>
+			</div>
+			<div class="clear"></div>
+            <table class="grid">
+               <% if @name_sticks.size == 0 %>
+					<tr><td><b>暂无记录,</b>请重新选择时间范围。</td></tr>
+					<tr>
+						<td>
+							<a href="javascript:window.history.go(-1);" title="返回到上一页面">返回</a>
+						</td>
+					</tr>
+				<% else %>
+					<%= show_table_top%>
+					<%= show_all_namesticks(@name_sticks)%>
+				<%end%>
+            </table>
+        </div>
+        <div class="clear"></div>
+    </div>

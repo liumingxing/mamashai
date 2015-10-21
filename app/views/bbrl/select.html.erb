@@ -1,0 +1,47 @@
+<html>
+<meta name="viewport" content="user-scalable=yes,width=320px" />
+<head>
+	<meta property="qc:admins" content="154054207765151301163757572145" />
+	<title>宝宝日历下载</title>
+	<style>
+		body {background-color: #E7F1F3; text-align: center;}
+		img {border: 0px;}
+		div.logo {margin-top: 20px;}
+		div.logo img {width: 160px;}
+		div.logo p.title{color: #DA408D; font-size: 26px; font-weight: bold; margin: 20px 0;}
+		div.logo p.desc{color: #5B5B5B; margin: 20px 0; font-size: 18px;}
+		div.link {margin: 20px 0px;}
+		div.link img {width: 110px;}
+		div.link a {margin: 0px 18px;}
+	</style>
+</head>
+<body>
+	<div class='logo'>
+		<img src="/images/bbrl/bbrl.png"/>
+		<p class='title'>宝宝日历</p>
+		<p class="desc">真实记录+真诚分享=最棒的育儿社区</p>
+	<div>
+	<div class='link'>
+		<% if request.env['HTTP_USER_AGENT'].to_s.downcase.include?('micromessenger') %>
+			<% if request.env['HTTP_USER_AGENT'].to_s.downcase.include?('iphone') || request.env['HTTP_USER_AGENT'].to_s.downcase.include?('ipad')%>
+				<a onclick="alert('请先点击右上角按钮，然后选择“在Safari中打开“')"><img src="/images/bbrl/button1.png"/></a>
+				<a onclick="alert('请先点击右上角按钮，然后选择“在Safari中打开“')"><img src="/images/bbrl/button2.png"/></a>
+			<% else %>
+				<a onclick="alert('请先点击右上角按钮，然后选择“在浏览器中打开“')"><img src="/images/bbrl/button1.png"/></a>
+				<a onclick="alert('请先点击右上角按钮，然后选择“在浏览器中打开“')"><img src="/images/bbrl/button2.png"/></a>
+			<% end %>
+		<% else %>
+			<a href="http://www.mamashai.com/index/ipa"><img src="/images/bbrl/button1.png"/></a>
+			<a href="http://www.mamashai.com/index/apk"><img src="/images/bbrl/button2.png"/></a>
+		<% end %>
+	</div>
+</body>
+</html>
+
+<div style="display:none">
+	<script type="text/javascript">
+var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3Fb62084ced4b6982bc50286972cbf6fce' type='text/javascript'%3E%3C/script%3E"));
+</script>
+
+</div>

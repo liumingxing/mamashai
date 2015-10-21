@@ -1,0 +1,2 @@
+module BangHelper
+end

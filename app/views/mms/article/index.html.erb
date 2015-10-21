@@ -1,0 +1,132 @@
+<div id="middle">
+    <div id="css_mainbody">
+        <h1 class="title">资讯列表<%= "--#{flash[:notice]}" unless flash[:notice].blank? %><span style="float: right; margin-right: 10px;"><%= link_to '新建资讯', :action => :new %></span></h1>
+        <br/>
+        <% form_tag :action => :find do %>
+        <table>
+            <tbody>
+                <tr>
+                    <td width="10%" align="right">
+                        文章搜索：
+                    </td>
+                    <td width="20%">
+                        <%= text_field :search, :title -%>
+                    </td>
+                    <td width="10%">
+                        <%= button_to "搜索", :action => :find %>
+                    </td>
+                    <td>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <% end %>
+        <table class="grid">
+            <tbody>
+                <tr>
+                    <th>
+                        栏目名称
+                    </th>
+                    <th>
+                        标题
+                    </th>
+                    <th>
+                        作者
+                    </th>
+                    <th>
+                        来源
+                    </th>
+                    <th>
+                        缩略图
+                    </th>
+					<th>
+						标签
+					</th>
+                    <th>
+                        是否发布
+                    </th>
+                    <th>
+                        关联微博
+                    </th>
+                    <th>
+                        操作
+                    </th>
+                    <th>
+                        编辑
+                    </th>
+                    <th>
+                        删除
+                    </th>
+                </tr>
+                <% @articles.each do |article| %>
+                <tr>
+                    <td>
+                        <%=h article.article_category.present? ? article.article_category.name : '' %>
+                    </td>
+                    <td>
+                        <a href="/pub/article/<%=article.id%>" target="_blank"><%=h article.title %></a>
+                    </td>
+                    <td>
+
+                        <%= h article.author %>
+                    </td>
+                    <td>
+                        <%=h article.origin_url %>
+                    </td>
+                    <td>
+                        <img src="<%= article.logo.try(:thumb99).try(:url) %>"/>
+                    </td>
+					<td>
+						<%= article.tags%>
+					</td>
+                    <td>
+                        <% if article.state == "已发布" %>
+                        <img src="/images/icons/icons_01.png" alt="/images/icons/icons_01.png"><% else %>
+                        <img src="/images/icons/icon_25.gif" alt="/images/icons/icon_25.gif"><% end %>
+                    </td>
+                    <td>
+                        <% post = Post.find_by_from_and_from_id("article", article.id) %>
+                        <% if !post %>
+                            <a href="javascript:void(0)" onclick="$.artDialog({title: '发微博', content: document.getElementById('article_<%= article.id %>'), id: <%= article.id %>})">关联微博</a>
+                            <div id="article_<%= article.id %>" style="display:none;">
+                                <% form_tag({:action=>"create_post", :id=>article.id, :page=>params[:page]}, {:multipart=>true}) do %>
+                                    <div style="text-align: right; margin: 4px 0px">
+                                        还可以输入<span id="remain">140</span>字
+                                    </div>
+                                    <%= hidden_field_tag "post[from]", "article" %>
+                                    <%= hidden_field_tag "post[from_id]", article.id %>
+                                    <%= text_area :post, :content, {:rows=>8, :cols=>50, :onkeyup=>"updateStatusTextCharCounter(this, 'remain')"}%>
+                                    <div style="margin: 8px 0px;">
+                                        图片：<%= upload_column_field :post, :logo %>
+                                    </div>
+                                    <div style="margin-top: 10px; text-align: center;">
+                                        <%= submit_tag "保存"%>
+                                    </div>
+                                <% end %>
+                            </div>
+                        <% else %>
+                            <a href="/post/<%= post.id %>" target="_blank">微博</a>
+                        <% end %>
+                    </td>
+                    <td>
+                        <% if article.state == "已发布" %>
+                        <%= link_to '取消发布', {:action => 'unpublish', :id => article.id}, {:style => "color:#329BCB;"} %>
+                        <% else %>
+                        <%= link_to '发布', {:action => 'publish', :id => article.id}, {:style => "color:#329BCB;"} %>
+                        <% end %>
+                    </td>
+                    <td>
+                        <%= link_to '编辑', {:action => :edit, :id => article}, {:style => "color:#329BCB;"} %>
+                    </td>
+                    <td>
+                        <%= link_to '删除', {:action => :destroy, :id => article, :page=>params[:page]}, {:confirm => "您确定删除吗？", :method => :delete, :style => "color:#329BCB;"} %>
+                    </td>
+                </tr>
+                <% end %>
+            </tbody>
+        </table>
+        <div class="book_page">
+            <%=will_paginate @articles %>
+        </div>
+    </div>
+</div>

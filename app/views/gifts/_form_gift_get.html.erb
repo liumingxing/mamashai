@@ -1,0 +1,97 @@
+<style>
+.send_mygift {overflow:hidden;border:1px solid #ccc; padding: 4px 0px;}
+.send_mygift  .title_list {height:30px;line-height:30px;color:#ccc;margin-left:12px;overflow:hidden;}
+.send_mygift  .title_list a.current {color:#666;font-weight:bold;}
+.send_mygift  .title_list .send {float:left;width:280px;}
+.send_mygift  .title_list .scores {float:right;width:150px;text-align:right;padding-right:8px;color:#666;}
+.send_mygift  .title_list .scores span.number {font-family:Arial;color:#ff0000;}
+
+.send_mygift  .gifts_content {overflow:hidden;}
+.send_mygift  .gifts_content  .picture {width:71px;float:left;height:90px;text-align:center;margin-top:10px;overflow:hidden;}
+.send_mygift  .gifts_content  .picture .pic {height:55px;}
+.send_mygift  .gifts_content  .picture .pic img {border:1px solid #ccc;padding:1px; width: 48px; height: 48px;}
+.send_mygift  .gifts_content  .current .pic img {border:2px solid #65B954;}
+.send_mygift  .gifts_content  .picture .title {height:16px;line-height:20px;width:74px;margin:0px auto;overflow:hidden;}
+.send_mygift  .gifts_content  .picture .title a {color:#666;}
+.send_mygift  .gifts_content  .picture .title01 {color:#ff9900;}
+.grid02 td.t04 textarea {border: 1px solid #ccc; width: 600px; height: 50px; margin-top: 10px;}
+
+</style>
+
+<%= hidden_field :gift_get, :gift_id %>
+<table class="grid02">
+    <tbody>
+        <tr height="50">
+            <td class="t01" width="60">
+                送给谁：
+            </td>
+            <td class="t02">
+                <span class="title"><%= text_field :gift_get, :user_name, :style=>'width:300px;' %>
+                </span>
+                <span class="picture_01"><a href="javascript:void(0);" onclick="show_url_box('/ajax/list_follow_users', '选择好友', 400);"><img src="/images/button/select.gif" /></a></span>
+                <div class="clear">
+                </div>
+                <div>
+                    <%=error_message_on :gift_get,:user_name %>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td class="t02" colspan=2>
+                <div class="send_mygift">
+                    <div class="title_list">
+                        <div class="send">
+                          <a id="line_1_t" href="javascript:void(0)" class="current">普通礼物</a>
+                        </div>
+                    </div>
+                    <div class="gifts_content" style="display: block;" id="line_1">
+                        <% for gift in Gift.find_normal_gifts %>
+                        <div id="send_gift_<%=gift.id%>" class="picture <%=' current' if gift.id==@gift_get.gift_id %>">
+                            <div class="pic">
+                                <%=logo_tag(gift,{:version=>'thumb48',:url=>'javascript:void(0);',:onclick=>"select_send_gift(#{gift.id});"}) %>
+                            </div>
+                            <div class="title">
+                                <a href="javascript:void(0);" onclick="select_send_gift('<%=gift.id%>');"><%=gift.name %></a>
+                            </div>
+                        </div>
+                        <% end %>
+                    </div>
+                    <div class="clear">
+                    </div>
+                </div>
+            </td>
+        </tr>
+        <tr height="80">
+            <td width="60" valign='center'>
+                说什么： 
+            </td>
+            <td class="t04">
+                <%= text_area :gift_get, :content, {:onpropertychange=>"updateStatusTextCharCounter(this,'gift_text_left')",:oninput=>"updateStatusTextCharCounter(this,'gift_text_left')"} %>
+                <span class="word" style="font-size: 12px;"><span id="gift_text_left" class="size">140</span>/140</span>
+                <div>
+                    <%=error_message_on :gift_get,:content %>
+                </div>
+            </td>
+        </tr>
+		</table>
+		<table>
+		<tr height="20">
+            <td >
+                <%=check_box_tag :is_private, true, !params[:is_private].blank? %>&nbsp;悄悄的送 （不让别人知道你送了礼物） 
+            </td>
+			<td rowspan=3 align='center' style="padding-left: 100px;">
+				<%= submit_tag "赠送", :class=>"button3"%>
+			</td>
+        </tr>
+        <tr height="20">
+            <td>
+                <%=check_box_tag :is_no_name, true, !params[:is_no_name].blank?,{:onclick=>"$('#is_new_post').get(0).checked = false;"} %>&nbsp;匿名赠送 （不让收礼物的人知道你的名字） 
+            </td>
+        </tr>
+        <tr height="20">
+            <td>
+                <%=check_box_tag :is_new_post, true, !params[:is_new_post].blank?,{:onclick=>"$('#is_no_name').get(0).checked = false;"} %>&nbsp;同时发一个记录
+            </td>
+        </tr>
+    </tbody>
+</table>

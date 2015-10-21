@@ -1,0 +1,38 @@
+<tr>
+    <td><%= f.label :event,"触发事件：" %></td>
+    <td>
+    	<%= f.text_field :event%>
+		<%= f.error_message_on  :event %>
+	</td>
+</tr>
+<tr>
+    <td><%= f.label :description,"描述：" %></td>
+    <td>
+    	<%= f.text_field :description, :size=>50 %>
+		<%= f.error_message_on  :description %>
+	</td>
+</tr>
+<tr>
+    <td><%= f.label :score,"分值：" %></td>
+    <td>
+    	<%= f.text_field :score%>
+		<%= f.error_message_on  :score %>
+	</td>
+</tr>
+<tr>
+    <td><%= f.label :exchange_ratio,"兑换比例：" %></td>
+    <td>
+    	<%= f.text_field :exchange_ratio%>
+		<%= f.error_message_on  :exchange_ratio %>
+	</td>
+</tr>
+<tr>
+    <td colspan="2">&nbsp;
+	</td>
+</tr>
+<tr>
+    <td colspan="2">
+    	<input type="submit" name="submit" value="提交">
+		<%= link_to '返回', '/mms/score_profiles'%>
+	</td>
+</tr>

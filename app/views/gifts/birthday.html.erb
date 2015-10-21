@@ -1,0 +1,70 @@
+<div class="mms_sns_panel">
+    <div class="mms_panel_title">
+        <span class="title title_gift">礼物</span>
+    </div>
+    <%=render :partial=>'/gifts/nav' %>
+    <div class="mms_panel_content">
+        <div id="messages_content"> 
+            <div class="mygift_title">
+                最近要过生日的妈爸
+            </div>
+            <div class="mygift">
+                <% for user in User.find_last_birthday_users(@user) %>
+                <div class="mygift_list">
+                    <div class="pic">
+                        <%=logo_tag(user,{:version=>'thumb48',:url=>user_url(user),:blank=>true}) %>
+                    </div>
+                    <ul class="gift">
+                        <li class="name">
+                            <a href="<%=user_url(user)%>" target="_blank" title="<%=user_birthday_str(user)%>"><%=user.name_str %></a>
+                        </li>
+                        <li>
+                            <% days = diff_day(Date.today,user.birthday) %>
+                            <% if days>0 %>
+                            还有<%=days %>天<% else %>
+                            今天<% end %>
+                        </li>
+                        <li>
+                            <a href="/gifts/give_gifts/<%= user.id%>" title="<%=user_birthday_str(user)%>"><img src="/images/icons/icon_03.jpg"></a>
+                        </li>
+                    </ul>
+                </div><% end %>
+                <div class="clear">
+                </div>
+            </div>
+            <div class="mygift_title">
+                最近要过生日的宝宝
+            </div>
+            <div class="mygift">
+                <% for user in User.find_last_kid_birthday_users(@user) %>
+                <% first_kid = user.first_kid %>
+                <div class="mygift_list">
+                    <div class="pic">
+                        <%=logo_tag(first_kid,{:version=>'thumb75',:url=>user_url(user),:blank=>true}) %>
+                    </div>
+                    <ul class="gift">
+                        <li class="name">
+                            <a href="<%=user_url(user)%>" target="_blank" title="<%=date_cn user.birthday %>"><%=first_kid.name %></a>
+                        </li>
+                        <li>
+                            <% days = diff_day(Date.today,first_kid.birthday) %>
+                            <% if days>0 %>
+                            还有<%=days %>天<% else %>
+                            今天<% end %>
+                        </li>
+                        <li>
+                            <a href="/gifts/give_gifts/<%= user.id%>" title="<%=date_cn user.birthday %>"><img src="/images/icons/icon_03.jpg"></a>
+                        </li>
+                    </ul>
+                </div><% end %>
+                <div class="clear">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<% if !@gift_get.errors.empty? or params[:id] %>
+<script>
+    scroll_to_gift_form();
+</script>
+<% end %>

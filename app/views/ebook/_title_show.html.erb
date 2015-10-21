@@ -1,0 +1,9 @@
+
+<% if @ebook_topic && @ebook_topic.topics.to_s%>
+<div class="book_topics">
+	<span style='color:#999999'>相关话题：</span> 
+		<% for tag in @ebook_topic.topics.to_s.split(" ")%>
+			<a href="/topic/<%= tag%>"><%= tag %></a>
+		<% end %>
+</div>
+<% end %>

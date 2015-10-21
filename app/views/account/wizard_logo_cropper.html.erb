@@ -1,0 +1,44 @@
+<div class="sharp mt5">
+	<div id="dl">
+		<div id="dl_left">
+			<h1>上传头像</h1>
+			<div id="zc_bz"><img src="/images/zc_wszl_out.jpg"/><img src="/images/zc_sctx_in.jpg"/><img src="/images/zc_zgz_out.jpg"/>
+			</div>
+			<div class="fl ml55" style="margin-left: 0px">
+				<%= form_tag({:action=>:wizard_logo_cropper_update}) do %>
+	            <div class="post_edit_picture">
+	                <div class="eidt_pic_cd">
+	                    <%= render :partial=>'form_logo_cropper' %>
+	                </div>
+	            </div>
+	            <div class="clear"></div>
+	            
+	            <div style="margin: 20px; text-align: center;">
+					<input type="image" src="/images/zc_next.jpg" />
+				</div>
+				
+	            <% end %>
+			</div>
+		</div>
+		<div id="dl_right">
+			<div id="dl_right_zc">
+
+				<p><a href="/account/wizard_info"><img src="/images/zc_pra.jpg"/></a>
+					<br />
+					<a href="">跳过此步</a>
+				</p>
+			</div>
+			<div id="zc_ws">
+				<li>
+					为什么要上传头像?
+				</li>
+				<li>
+					在妈妈晒大家都上传自己的真实头像，这样有助于结交同类父母作为朋友。上传头像还有积分赠送哦！
+				</li>
+			</div>
+		</div>
+	</div>
+	<!--登录内容-->
+	<div><img src="/images/sharp_bottom.jpg" />
+	</div>
+</div>

@@ -1,0 +1,44 @@
+<div class="sharp mt5">
+	<div id="dl">
+		<div id="dl_left">
+			<h1>上传头像</h1>
+			<div id="zc_bz"><img src="/images/zc_wszl_out.jpg"/><img src="/images/zc_sctx_in.jpg"/><img src="/images/zc_zgz_out.jpg"/>
+			</div>
+			<div class="fl ml55">
+				<%= form_tag({:action=>'wizard_logo_upload'},{:multipart=>true }) do %>
+	            <div class="post_edit_picture">
+	                <%= render :partial=>'form_logo' %>
+	            </div>
+				
+				<div  style="text-align: center;">
+				   <%= submit_tag "确定", {:class=>"button2"}%>
+				</div>
+	            
+	            <% end %>
+			</div>
+		</div>
+		<div id="dl_right">
+			<div id="dl_right_zc">
+				<p>
+					<a href="/account/wizard_info" class="button2" style="color: white; text-decoration: none;">上一步</a>
+					
+				</p>
+			</div>
+			<div id="zc_ws">
+				<li>
+					为什么要上传头像?
+				</li>
+				<li>
+					在妈妈晒大家都上传自己的真实头像，这样有助于结交同类父母作为朋友。上传头像还有积分赠送哦！
+				</li>
+			</div>
+		</div>
+	</div>
+	<!--登录内容-->
+	<div><img src="/images/sharp_bottom.jpg" />
+	</div>
+</div>
+
+<% if flash[:error] %>
+<script>alert("<%= flash[:error] %>")</script>	
+<% end %>

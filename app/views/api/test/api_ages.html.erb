@@ -1,0 +1,34 @@
+<h1>ages 获取年龄段列表。 </h1><%= link_to "返回到列表", "/api/test" %>
+<pre>
+  [路径]: ages
+  [HTTP请求方式]: GET
+  [URL]: http://your.api.domain/ages.json
+  [是否需要登录]： false
+
+字段
+
+    * id 年龄ID
+    * name 名称
+    * posts_count 该年龄段下微博数量
+
+示例
+
+  curl "http://your.api.domain/ages.json?source=appkey"
+</pre>
+<%= link_to "测试ages接口", "/api/ages.json" %>
+<hr/>
+<h2>年龄表</h2>
+<table border="1" cellspacing="0" cellpadding="1">
+    <tr>
+        <th width="150">ID</th>
+        <th width="150">名称</th>
+        <th width="150">微博数量</th>
+    </tr>
+    <% @ages.each do |age| %>
+    <tr>
+        <td align="center"><%= age.id %></td>
+        <td align="center"><%= age.name %></td>
+        <td align="center"><%= age.posts_count %></td>
+    </tr>
+    <% end %>
+</table>

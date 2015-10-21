@@ -1,0 +1,2 @@
+module HotTopicHelper
+end

@@ -1,0 +1,28 @@
+    <div id="middle">
+        <div id="css_mainbody">
+            <h1 class="title">省份管理</h1>
+				
+            <table class="grid">
+                <thead>
+                    <tr>
+                    	<th>名称</th>
+						<th>区号</th>
+						<th colspan=2>操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+					<% for province in @provinces %>
+						<tr>
+							<td><%= province.name %></td>
+							<td><%= province.post_code %></td>
+							<td><%= link_to "城市", :action=>"list_cities", :id=>province %></td>
+                            <td><%= link_to "修改", :action=>"edit", :id=>province %></td>
+						</tr>
+					<% end %>	
+                </tbody>
+            </table>
+        </div>
+        <%= will_paginate @provinces %>
+        <div class="clear"></div>
+    </div>
+	

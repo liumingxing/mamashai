@@ -1,0 +1,38 @@
+<div id="middle">
+    <div id="css_mainbody">
+        <h1 class="title">编辑组件<span style="float: right; margin-right: 10px;"><%= link_to '返回列表', :action=>:index %>
+            </span></h1>
+        <% form_for(@app) do |f| %>
+        <%= render :partial=>'form_app',:locals=>{:f=>f} %>
+        <% end %>
+    </div>
+</div>
+<style type="text/css">
+    .apps {
+        border: 1px solid #DDDDDD;
+        border-collapse: collapse;
+        empty-cells: show;
+        margin: 10px auto;
+        width: 98%;
+    }
+    
+    .apps td {
+        border: 1px solid #DDDDDD;
+        color: #666666;
+        font-size: 12px;
+        height: 30px;
+        line-height: 30px;
+        padding-left: 10px;
+        text-align: center;
+    }
+    
+    .apps tr td.column_1 {
+        width: 20%;
+        text-align: right;
+    }
+    
+    .apps tr td.column_2 {
+        align: left;
+        text-align: left;
+    }
+</style>

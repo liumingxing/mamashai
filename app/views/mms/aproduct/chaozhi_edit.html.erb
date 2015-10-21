@@ -1,0 +1,18 @@
+<div id="middle">
+    <div id="css_mainbody">
+        <h1 class="title">修改本周超值
+		<span style="float: right; margin-right: 10px;">
+			<%= link_to '返回', :action=>"chaozhi_list" %>
+        </span>
+		</h1>
+        
+    	<%= form_tag :action=>"chaozhi_update", :id=>params[:id], :page=>params[:page] do %>
+		  <table class="ft" border=1 cellpadding=2>
+        	<%= render :partial=>"form_chaozhi"%>
+		  </table>
+        <% end %>
+		
+    </div>
+    <div class="clear">
+    </div>
+</div>

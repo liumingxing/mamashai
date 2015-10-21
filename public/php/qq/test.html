@@ -1,0 +1,31 @@
+<html>
+    <head>
+        <title>
+            test for QQ login
+        </title>
+        <script>
+            function toQzoneLogin()
+            {
+                var A=window.open("oauth/redirect_to_login.php","TencentLogin","width=450,height=320,menubar=0,scrollbars=1, resizable=1,status=1,titlebar=0,toolbar=0,location=1");
+            } 
+        </script>
+    </head>
+    <body>
+        <a href="#" onclick='toQzoneLogin()'><img src="img/qq_login.png"></a>
+        <!--a href="redirect_to_login.php" target="_blank" ><img src="img/qq_login.png"></a-->
+        <br><br>
+        <a href="user/get_user_info.php"    target="_blank">获取用户信息</a>
+        <br><br>
+        <a href="user/logout_connect.php"   target="_blank">退出</a>
+        <br><br>
+        <a href="user/del_authinfo.php"     target="_blank">删除授权信息</a>
+        <br><br>
+        <a href="photo/list_album.php"      target="_blank">获取相册列表</a>
+        <br><br>
+        <a href="photo/add_album.html"      target="_blank">创建相册</a>
+        <br><br>
+        <a href="photo/upload_pic.html"     target="_blank">上传图片</a>
+        <br><br>
+        <a href="feeds/add_feeds.html"      target="_blank">添加FEEDS</a>
+    </body>
+</html>

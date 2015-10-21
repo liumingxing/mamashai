@@ -1,0 +1,145 @@
+<div class="settings_content">
+    <div class="settings_title">
+        运营数据
+    </div>
+	<% form_tag({:action=>:cc_report_new_users},{:target=>'_blank' }) do %>
+    <fieldset>
+        <legend>
+            新增注册用户表
+        </legend>
+        <label for="username">
+            查询日期:
+        </label>
+        <%=date_select :search, :created_at ,:use_month_numbers => true %> 到
+		<%=date_select :search, :last_login_at ,:use_month_numbers => true %>
+        <input type="submit" value="查询"/>
+    </fieldset>
+	<% end %>
+	
+	<% form_tag({:action=>:cc_report_posts_count},{:target=>'_blank' }) do %>
+    <fieldset>
+        <legend>
+            微博量统计表
+        </legend>
+        <label for="username">
+            查询日期:
+        </label>
+        <%=date_select :search, :created_at ,:use_month_numbers => true %> 到
+		<%=date_select :search, :last_login_at ,:use_month_numbers => true %>
+        <input type="submit" value="查询"/>
+    </fieldset>
+	<% end %>
+	 
+	<% form_tag({:action=>:cc_report_user_posts_chart},{:target=>'_blank' }) do %>
+    <fieldset>
+        <legend>
+            用户微博趋势图
+        </legend>
+        <label for="username">
+            用户名:
+        </label>
+        <%=text_field :search, :name %>
+		<%=select :search, :tp, [1,7,30].collect {|p| [ p, p ] } %> 天
+        <input type="submit" value="查询"/>
+    </fieldset>
+	<% end %>
+	
+	<% form_tag({:action=>:cc_report_vip_users},{:target=>'_blank' }) do %>
+    <fieldset>
+        <legend>
+            天使妈爸一览表
+        </legend>
+		<label for="username">
+            用户名:
+        </label>
+        <%=text_field :search, :name, :style=>'width:150px;' %>
+        <label for="username">
+            查询日期:
+        </label>
+        <%=date_select :search, :created_at ,:use_month_numbers => true %> 
+        <input type="submit" value="查询"/>
+    </fieldset>
+	<% end %>
+	
+	
+	<% form_tag({:action=>:cc_report_unlogin_users},{:target=>'_blank' }) do %>
+    <fieldset>
+        <legend>
+            沉默用户统计
+        </legend>
+        <label for="username">
+            查询日期:
+        </label>
+        <%=date_select :search, :created_at ,:use_month_numbers => true %> 到
+		<%=date_select :search, :last_login_at ,:use_month_numbers => true %>
+        <input type="submit" value="查询"/>
+    </fieldset>
+	<% end %>
+	
+	<% form_tag({:action=>:cc_report_tags_count},{:target=>'_blank' }) do %>
+    <fieldset>
+        <legend>
+            话题量统计表
+        </legend>
+        <label for="username">
+            查询日期:
+        </label>
+        <%=date_select :search, :created_at ,:use_month_numbers => true %> 到
+		<%=date_select :search, :last_login_at ,:use_month_numbers => true %>
+        <input type="submit" value="查询"/>
+    </fieldset>
+	<% end %>
+	
+	<% form_tag({:action=>:cc_report_users_tree},{:target=>'_blank' }) do %>
+    <fieldset>
+        <legend>
+            用户邀请链
+        </legend>
+        <label for="username">
+            用户名:
+        </label>
+        <%=text_field :search, :name,{:value=>@user.name} %>
+        <input type="submit" value="查询"/>
+    </fieldset>
+	<% end %>
+	
+	<% form_tag({:action=>:cc_report_search_users},{:target=>'_blank' }) do %>
+    <fieldset>
+        <legend>
+            用户行为表
+        </legend>
+        <label >
+            关键字： 
+        </label>
+		 <%= text_field :search_user, :name, :style=>'width:80px;' %>
+		  <label >
+            所在行业： 
+        </label>
+		 <%=select :search_user, :industry_id, Industry.find(:all).collect {|p| [ p.name, p.id ] }, {:prompt=>'所在行业'} %>
+		 
+		 <br/>
+		 <label >
+		 年龄段： 
+		  </label>
+		  <%=select :search_user, :birthyear, APP_CONFIG['time_birthyears'].split('|').collect {|p| [ "#{p}后", p.to_i ] }, {:prompt=>'年代'} %>
+         <label >
+		 孩子年龄段： 
+		  </label>
+		   <%=select :search_user, :kid_age, Age.find(:all).collect {|p| [ p.name, p.id ] }, {:prompt=>'宝贝年龄'} %>
+		   
+		 <br/>
+		 <label >
+            所在地区： 
+        </label>
+        <%=select :search_user, :province_id, Province.find(:all).collect {|p| [ p.name, p.id ] }, {:prompt=>'省/直辖市'} %>
+                <span id="cities_span"></span>
+                <%= observe_field("search_user_province_id",:url => { :action => 'get_cities',:controller=>'ajax',:model=>'search_user' },:before=>'show_loadding("cities_span")',:update => 'cities_span',:with => "'model=search_user&city_id=#{@search_user.city_id}&id='+$('#search_user_province_id').val()") %>
+                <script>show_loadding("cities_span");
+                    $("#cities_span").load("/ajax/get_cities?" + "model=search_user&city_id=<%=@search_user.city_id%>&id=" + $("#search_user_province_id").val())
+					
+                </script>
+        <input type="submit" value="查询"/>
+    </fieldset>
+	<% end %>
+	
+</div>

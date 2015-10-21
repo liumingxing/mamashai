@@ -1,0 +1,24 @@
+ <div id="middle">
+	<div id="css_mainbody">
+		<h1 class="title"><%= @email.blank? ? "" : @email.subject.blank? ? "" : "邮件：#{@email.subject}--"%>收件人邮件地址列表<%= "--#{flash[:notice]}" unless flash[:notice].blank? %></h1>
+		<table class="grid">
+	        <tbody>
+	            <tr>
+	                <th>
+	                    邮件地址
+	                </th>
+	            </tr>
+				<% for user in @users %>
+	            <tr height="35">
+	            	<td>
+	            		<%= user.email.blank? ? "" : user.email -%>
+	            	</td>
+	            </tr>
+				<% end%>
+	        </tbody>
+	    </table>
+		<div class="book_page">
+			<%=will_paginate @users %>
+		</div>
+	</div>
+</div>

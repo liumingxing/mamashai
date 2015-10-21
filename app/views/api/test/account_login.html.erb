@@ -1,0 +1,29 @@
+<h1>login 登录接口</h1><%= link_to "返回到列表", "/api/test" %>
+<pre>
+  [路径]: account/login
+  [HTTP请求方式]: POST
+  [URL]: http://your.api.domain/account/login.json
+  [是否需要登录]： false
+
+参数
+
+    * source 申请应用时分配的AppKey，调用接口时候代表应用的唯一身份。
+    * email 登录邮箱
+    * password 密码
+
+示例
+
+  curl -u "username:password" -d "email=xxx&password=xxx"
+  "http://your.api.domain/account/login.json?source=appkey"
+
+注意
+
+  * 登录成功，返回用户信息，失败则返回error
+</pre>
+<hr/>
+<%= form_tag "/api/account/login.json" ,{:method=>:post} do %>
+  source: <%= text_field_tag "source" %><br/>
+  email: <%= text_field_tag "email" %><br/>
+  password: <%= password_field_tag "password" %><br/>
+  <%= submit_tag "提交"%>
+<% end -%>

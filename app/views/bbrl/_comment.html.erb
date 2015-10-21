@@ -1,0 +1,6 @@
+<a href="<%= user_url(comment.user) %>" target="_blank"><img src="http://www.mamashai.com<%= comment.user.logo.thumb30%>" /><font><%= comment.user.name %></font></a>
+<div class="fr">
+	<%= refer_time(comment.created_at)%>
+</div>
+<br />
+<%= comment.content %>

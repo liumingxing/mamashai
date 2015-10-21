@@ -1,0 +1,171 @@
+<div class="nav_rm">
+	<% for age in Age.find(:all)%>
+	<a href="/bang?age_id=<%= age.id %>" <%= 'id="nav_li_in"' if params[:age_id].to_i == age.id%>><%= age.name %></a>
+	<% end %>
+</div>
+<div class="wt_index_ad" style="margin: 10px 0px;">
+	<div id="slider">
+		<%= adv_link("L#{params[:age_id]}", 2) %>
+	</div>
+	<%= javascript_include_tag 'jquery.slider.min.js' %>
+	<script type="text/javascript">
+				$(function() {
+					$('#slider').slider({
+						width : 960,
+						height : 92
+					});
+				});
+	</script>
+</div>
+<div class="sharp mt5">
+	<div class="content">
+		<div class="cjy_left">
+			<h3><%= @age.name %>资源免费下载</h3>
+
+			<div class="fl">
+				<div class="navigate_tab" id="n">
+					<ul class="class1">
+						<li <%=raw 'class="current"' if !params[:c_id] %>>
+								<a href="<%= url_for :age_id=>params[:age_id], :anchor=>'n' %>">全部</a>
+						</li>
+						<% for category in @categories %>
+							<li <%= 'class="current"' if params[:c_id].to_i == category.id%>>
+								<a href="<%= url_for :age_id=>params[:age_id], :c_id=>category.id, :anchor=>'n' %>"><%= category.name %></a>
+							</li>
+						<% end %>
+					</ul>
+					<div class="class2">
+						<ul>
+							<ul class="s_tab" style="margin: 6px 0px;">
+								<li>
+										排序：
+								</li>
+								<li class="s_tab_left<%= "_in" if params[:order].blank?%>">
+									<a href="<%= url_for :age_id=>params[:age_id], :c_id=>params[:c_id], :anchor=>'n' %>">最新</a>
+								</li>
+								<li class="s_tab_right<%= "_in" if params[:order] == "users_count" %>">
+									<a href="<%= url_for :age_id=>params[:age_id], :c_id=>params[:c_id], :order=>"users_count", :anchor=>'n'%>">最热</a>
+								</li>
+							</ul>
+						</ul>
+						<div class="fr" style="margin: 6px; line-height: 30px; margin-right: 20px;">
+							<a href="/mms_tools">全部</a>
+						</div>
+						<div class="clear"></div>
+					</div>
+				</div>
+				<div class="cjy_yczl_li mt20">
+					<ul>
+						<% for tool in @tools[0, 3]%>
+						<li>
+								<a target="_blank" href="/mms_tools/show/<%= tool.id %>"><img src="<%= tool.logo.thumb99 %>"/></a> 
+								<h5><a target="_blank" href="/mms_tools/show/<%= tool.id %>"><%= tool.name %></a></h5> 
+								已下载<span class="red"><%= tool.users_count %></span>次
+						</li>
+						<% end if @tools[0, 3]%>
+					</ul>
+					<div class="cjy_yczl_line"></div>
+					<ul>
+						<% for tool in @tools[3, 3]%>
+						<li>
+							<a  target="_blank" href="/mms_tools/show/<%= tool.id %>"><img src="<%= tool.logo.thumb99 %>"/></a> 
+							<h5><a  target="_blank" href="/mms_tools/show/<%= tool.id %>"><%= tool.name %></a></h5> 
+							已下载<span class="red"><%= tool.users_count %></span>次
+						</li>
+						<% end if @tools[3, 3]%>
+					</ul>
+				</div>
+			</div>
+			<div class="clear"></div>
+			<DIV id=con style="margin-top: 30px;">
+				<h3 class="fl"><%= @age.id < 3 ? @age.name : @age.name + "宝宝" %>记录</h3>
+				
+				<div class="fr">
+					<a href="/bbrl/mobile"><img src="/images/cjy_wyx.jpg"/></a>
+				</div>
+				<div class="clear"></div>
+				<DIV id="chanel_content">
+					<% for post in @posts %>
+							<%= render :partial=>"/share/post", :locals=>{:post=>post} %>
+					<% end %>
+					<%= will_paginate @posts %>
+				</DIV>
+				
+			</DIV>
+
+		</div>
+		<!--cjy_left-->
+		<div class="cjy_right">
+			<div class="bdxq_li">
+				<% if @kind == "孕期" %>
+					<span class="title">孕期全程日历下载</span>
+				<% elsif @kind == "0到3" %>
+					<span class="title">0到3岁宝宝成长日历下载</span>
+				<% else %>
+					<span class="title">宝宝日历下载</span>
+				<% end %>
+
+				<div>
+					<div style="text-align: center;">
+						<div style="padding: 10px 0;">
+							<% if @kind == "孕期" %>
+								<a href="https://itunes.apple.com/cn/app/yun-qi-quan-cheng-jian-ce/id479480717?ls=1&mt=8" target="_blank">
+									<img src="/images/bbrl/button3.png" />
+								</a>
+							<% elsif @kind == "0到3" %>
+								<a href="https://itunes.apple.com/cn/app/0-3sui-bao-bao-cheng-zhang/id485234591?ls=1&mt=8" target="_blank">
+									<img src="/images/bbrl/button3.png" />
+								</a>
+							<% else %>
+							<a href="https://itunes.apple.com/cn/app/bao-bao-ri-li-huai-yun-yu/id499828643?ls=1&mt=8" target="_blank">
+								<img src="/images/bbrl/button3.png" />
+							</a>
+							<% end %>
+						</div>
+						<div style="padding: 10px 0;">
+							<a href="http://www.mamashai.com/downloads/babycalendar.apk" target="_blank"><img src="/images/bbrl/button4.png" /></a>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="bdxq_li">
+				<span class="title"><%= @age.name %>宝典</span>
+				<a href="articles" style="line-height: 30px;" class="fr">全部</a>
+				<div class="clear"></div>
+				<% for article in @relate_articles %>
+					<li style="margin:4px 0px;">
+						<div class="fl" style="margin-right: 6px;"><img src="<%= article.logo%>" style="width:50px; height: 50px;"/></div>
+						<div style="line-height:140%; height: 30px; overflow: hidden;"><a href="/articles/article/<%= article.id %>"><%= truncate article.title, :length=>11, :omission =>"" %></a></div>
+						<div>浏览：<span class="red"><%= article.view_count %></span></div>
+					</li>
+					<div class="clear"></div>
+				<% end %>
+			</div>
+			
+			<div class="bdxq_li">
+				<span class="title"><%= @age.name %>相关话题</span>
+				<ul>
+					<% for topic in @relate_topics %>
+					<li>
+						<a href="/topic/<%= topic.short_tag_name %>"><%= topic.short_tag_name %> <font>(<%= topic.total_count %>)</font> </a>
+					</li>
+					<% end %>
+				</ul>
+			</div>
+
+			<%= render :partial=>"/share/taobao_adv_right" %>
+		</div>
+		<!--cjy_right-->
+	</div>
+	<div><img src="/images/sharp_bottom.jpg" />
+	</div>
+</div>
+
+<script src="/javascripts/FancyZoom.js" language="JavaScript" type="text/javascript"></script>
+<script src="/javascripts/FancyZoomHTML.js" language="JavaScript" type="text/javascript"></script>
+<script>
+	$(document).ready(function() {
+		setupZoom();
+	});	
+</script>

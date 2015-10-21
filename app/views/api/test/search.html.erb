@@ -1,0 +1,27 @@
+<h1>search 返回与关键字相匹配的微博。</h1><%= link_to "返回到列表", "/api/test" %>
+<pre>
+  [路径]: search
+  [HTTP请求方式]: GET
+  [URL]: http://your.api.domain/search.json
+  [是否需要登录]： false
+
+参数
+
+    * q 搜索的关键字。必须进行URL Encode(必选)
+    * count 指定每页返回的记录条数。默认值10
+    * page 页码,默认是1。
+
+示例
+
+  curl -u "username:password"
+  "http://your.api.domain/search.json?source=appkey&q=%E5%A6%88%E5%A6%88%E6%99%92"
+</pre>
+<hr/>
+<%= form_tag "/api/search.json" ,{:method=>:get} do %>
+  <%= render :partial => '/api/test/login' %>
+  source: <%= text_field_tag "source" %><br/>
+  q: <%= text_field_tag "q" %><br/>
+  count: <%= text_field_tag "count" %><br/>
+  page: <%= text_field_tag "page" %><br/>
+  <%= submit_tag "提交"%>
+<% end -%>

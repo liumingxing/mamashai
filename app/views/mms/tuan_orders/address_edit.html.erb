@@ -1,0 +1,92 @@
+<div id="middle">
+    <div id="css_mainbody">
+        <h1 class="title">订单管理<span style="float:right;"><%=link_to "返回定单详情", "/mms/tuan_orders/show/#{@order.id}" %> | <%=link_to "返回列表", "/mms/tuan_orders/index" %></span></h1>
+        <div class="menu_bar">
+            <div class="menu">
+            </div>
+        </div>
+		<% form_tag :action => :address_update, :id => @order.id do %>
+        <div class="order_number">
+            <table class="grid_order" border="1">
+                <tbody>
+                    <tr height="35">
+                        <td class="td01">
+                            收货人姓名： 
+                        </td>
+                        <td>
+                            <%= text_field_tag "receiver_name", @order.receiver_name, {:required=>"required"} %>
+                        </td>
+                    </tr>
+                    <tr height="35">
+                        <td class="td01">
+                            地址：
+                        </td>
+                        <td>
+                            <span id="province" style="width:200px;"><%= select :info, :receiver_province_id , Province.all.collect {|p| [ p.name, p.id.to_s ] }, {:selected => @order.info[:receiver_province_id]}, {:style => "width:120px;float:left;"}%></span>
+                            <span id="city" style="width:200px;"><%= select :info, :city_id, City.find_all_by_province_id(@order.info[:receiver_province_id].to_i).collect {|p| [ p.name, p.id.to_s ] }, {:selected => @order.info[:city_id]}, {:style => "width:120px;float:left;"}%></span>
+							<span id="address"><%= text_field_tag "receiver_address", @order.receiver_address, {:required=>"required"}%></span>
+                        </td>
+                    </tr>
+                    <tr height="35">
+                        <td class="td01">
+                            邮政编码：
+                        </td>
+                        <td>
+                            <%= text_field "info[receiver_post_code]", {}, {:required=>"required", :value => @order.info[:receiver_post_code]} %>
+                        </td>
+                    </tr>
+                    <tr height="35">
+                        <td class="td01">
+                            手机：
+                        </td>
+                        <td>
+                            <%= text_field_tag "receiver_mobile", @order.receiver_mobile,{:required=>"required"} %>
+                        </td>
+                    </tr>
+                    <tr height="35">
+                        <td class="td01">
+                            固定电话：
+                        </td>
+                        <td>
+                        	<% phone = @order.info.fetch(:phone,'').split('-')%>
+                            <%= text_field_tag "info[phone][0]", phone.fetch(0,''),:class=>"bb_title_input", :style=>"width: 60px;" %>-<%= text_field_tag "info[phone][1]", phone.fetch(1,''), :class=>"bb_title_input", :style=>"width: 100px;" %>-<%= text_field_tag "info[phone][2]", phone.fetch(2,''), :class=>"bb_title_input", :style=>"width: 60px;" %>
+                        </td>
+                    </tr>
+                    <tr height="35">
+                        <td class="td01">
+                            电子邮件：
+                        </td>
+                        <td>
+                            <%= text_field "info[email]", {}, {:required=>"required", :value => @order.info[:email]} %>
+                        </td>
+                    </tr>
+                    <tr height="35">
+                        <td class="td01">
+                            订单备注：
+                        </td>
+                        <td>
+                            <%= text_field "info[memo]", {}, { :value => @order.info[:memo]} %>
+                        </td>
+                    </tr>
+                    <tr height="35">
+                        <td class="td01">
+                            修改订单信息备注：
+                        </td>
+                        <td>
+                            <%= text_field "note", {}, { :value => @order.note, :name => "note", :required=>"required" } %>
+                        </td>
+                    </tr>
+					<tr height="35">
+                        <td class="td01">
+                            
+                        </td>
+                        <td>
+                            <%= submit_tag "修改" %>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+		<% end %>
+    </div>
+</div>

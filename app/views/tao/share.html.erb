@@ -1,0 +1,31 @@
+<%= form_tag({:controller=>"tao", :action=>"make_share", :id=>params[:id]}, {:remote=>true, :updater=>"update", :id=>'form'}) do %>
+<script>
+$("#form").bind("ajax:complete", function(xhr, status){
+	$('#p_<%=params[:id]%>').prepend(request)
+})
+</script>
+<div id='update'></div>
+<div class="wt_bb_img">
+	<img src="<%= @product.pic_url %>_310x310.jpg"/>
+	<div class="clear"></div>
+	<%= @product.name %><font>&yen;<%= @product.price %></font>
+</div>
+<div class="wt_bb_right ml10">
+	我认为它:
+	<input name="anquan" type="checkbox" value="1" />
+	安全
+	<input name="shiyong" type="checkbox" value="1" />
+	实用
+	<br />
+	点评几句，为别的爸爸妈妈做个参考吧 	<textarea class="wt_zs_textarea" name="content" cols="" rows=""></textarea>
+	<div class="wt_bb_fx">
+		<!--
+		分享到：
+		<input name="" type="image" src="/images/login_method_v3_01.png" /> &nbsp;
+		<input name="" type="image" src="/images/login_method_v3_07.png" />
+		&nbsp;&nbsp;
+		-->
+		<%= submit_tag "确定", :class=>"button2"%>
+	</div>
+</div>
+<% end %>

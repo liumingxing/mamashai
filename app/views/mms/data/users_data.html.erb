@@ -1,0 +1,202 @@
+<div id="middle">
+    <div id="css_mainbody">
+        <h1 class="title"><%=@title%></h1>	
+		<div style="margin:20px 0px 0px 20px;"> 
+		   总用户数 <b id='users_count'><%= link_to '获取', {:action=>"users_count"}, {:remote=>"true", :updater=>"users_count"} %></b> 个， 总微博量 <b id="posts_count"><%= link_to '获取', {:action=>"posts_count"}, {:remote=>"true", :updater=>"posts_count"} %></b> 个。<br/>
+		   
+		   今日注册用户  <b><%=User.count(:all,:conditions=>['tp>=0 and created_at>?',Date.today])%></b> 个，
+		   <% users = User.find_by_sql("select count(0) as c, `from` from users where tp >= 0 and created_at > '#{Date.today}' group by `from`")%>
+		   其中<% for user in users %>
+		   	 <%= user.from == "baby_calendar" ? "新浪微博" : user.from||'未知'%>: <%= user['c']%>
+		   <% end %>
+		   <% first = Post.find(:first, :conditions=>["created_at > ?", Date.today], :order=>"id")%>
+		   今日记录用户数  <b><%=Post.find(:all, :select=>"id", :conditions=>['is_hide<>1 and id>?',first.id], :group=>"user_id").size%></b> 人，
+		   微博量  <b><%=Post.count(:all,:conditions=>['is_hide<>1 and id>?',first.id])%></b> 个，
+		   图片  <b><%=Post.count(:all,:conditions=>['is_hide<>1 and id>? and logo is not null',first.id])%></b> 个，
+		   视频  <b><%=Post.count(:all,:conditions=>["is_hide<>1 and id>? and `from`='video'",first.id])%></b> 个，
+		   亲子城市  <b><%=Post.count(:all,:conditions=>["is_hide<>1 and id>? and `from`='dianping'",first.id])%></b> 个，
+		   关注数 <b><%= FollowUser.count(:all, :conditions=>["follow_user_id <> 431 and created_at > ?", Date.today]) %></b>，
+		   礼物数 <b><%= GiftGet.count(:all, :conditions=>["created_at > ?", Date.today]) %></b>，
+		   今日评论量 <b><%= Comment.count(:all, :conditions=>["created_at > ?", Date.today]) %></b>个，
+		   24小时内登录用户  <b><%=User.count(:all,:conditions=>['tp>=0 and last_login_at>?', Time.new.ago(1.days)])%></b> 个。<br/>
+		    昨日注册用户  <b><%=User.count(:all,:conditions=>['tp>=0 and created_at>? and created_at<?',Date.today-1,Date.today])%></b> 个，
+		    <% users = User.find_by_sql("select count(0) as c, `from` from users where tp >= 0 and created_at > '#{Date.today-1}' and created_at < '#{Date.today}' group by `from`")%>
+		   其中<% for user in users %>
+		   	 <%= user.from == "baby_calendar" ? "新浪微博" : user.from||'未知'%>: <%= user['c']%>
+		   <% end %>
+		   <% second = Post.find(:first, :conditions=>["created_at > ?", Date.today-1], :order=>"id")%>
+			昨日记录用户数  <b><%=Post.find(:all, :select=>"id", :conditions=>['is_hide<>1 and id>? and id<?',second.id, first.id], :group=>"user_id").size%></b> 人，
+			微博量  <b><%=Post.count(:all,:conditions=>['is_hide<>1 and id>? and id<?',second.id, first.id])%></b> 个，
+			图片  <b><%=Post.count(:all,:conditions=>['is_hide<>1 and id>? and id<? and logo is not null',second.id, first.id])%></b> 个，
+			视频  <b><%=Post.count(:all,:conditions=>["is_hide<>1 and id>? and id<? and `from`='video'",second.id, first.id])%></b> 个，
+			亲子城市  <b><%=Post.count(:all,:conditions=>["is_hide<>1 and id>? and id<? and `from`='dianping'",second.id, first.id])%></b> 个，
+		    关注数  <b><%= FollowUser.count(:all, :conditions=>["follow_user_id <> 431 and created_at > ? and created_at < ?", Date.today-1, Date.today]) %></b>，
+		    礼物数  <b><%= GiftGet.count(:all, :conditions=>["created_at > ? and created_at < ?", Date.today-1, Date.today]) %></b>，
+		    评论量 <b><%= Comment.count(:all, :conditions=>["created_at > ? and created_at < ?", Date.today-1, Date.today])%></b>个，
+		    48小时内登录用户  <b><%=User.count(:all,:conditions=>['tp>=0 and last_login_at>?', Time.new.ago(2.days)])%></b> 个。 
+		    7天内登录用户  <b><%=User.count(:all,:conditions=>['tp>=0 and last_login_at>?', Time.new.ago(7.days)])%></b> 个。 
+		
+		
+			
+		</div>
+		
+		<div class="settings_content">
+			<fieldset>
+		        <legend>
+		            新增人数统计
+		        </legend>
+				<div id="graph_user"></div>
+			    <%= link_to "主站", :t=>"主站"%> |
+				<%= link_to "ipad", :t=>"ipad"%> |
+				<%= link_to "iphone", :t=>"iphone"%> |
+				<%= link_to "android", :t=>"android"%> |
+				<%= link_to "qq", :t=>"qq"%> |
+				<%= link_to "孕周", :t=>"孕周"%> |
+				<%= link_to "生男生女", :t=>"生男生女"%> |
+				<%= link_to "新浪微博", :t=>"新浪微博"%> |
+				<%= link_to "新浪微博辣妈日报应用", :t=>"新浪微博辣妈日报应用"%> |
+			</fieldset>
+		</div>
+		
+		<div class="settings_content">
+			<fieldset>
+		        <legend>
+		            手机接口调用次数统计
+		        </legend>
+				<div id="graph"></div>
+				<div>
+					<span>昨日此时: <%= Tongji.count(:conditions=>"url like '/api/%' and created_at > '#{(Date.today-1).to_s(:db)}' and created_at < '#{Time.new.ago(1.days).to_s(:db)}'")%></span>
+				</div>
+		    </fieldset>
+		</div>
+			
+		<div class="settings_content">
+			<% form_tag({:action=>"cc_report_new_users"},{:target=>'_blank' }) do %>
+		    <fieldset>
+		        <legend>
+		            新增注册用户统计
+		        </legend>
+		        <%= render :partial=>"new_users"%>
+		        <input type="submit" value="查询"/>
+		    </fieldset>
+			<% end %>
+		</div>
+		<div class="settings_content">
+			<% form_tag({:action=>"cc_report_login_users"},{:target=>'_blank' }) do %>
+		    <fieldset>
+		        <legend>
+		                    登录已注册用户统计
+		        </legend>
+		        <%= render :partial=>"unlogin_users"%>
+		        <input type="submit" value="查询"/>
+		    </fieldset>
+			<% end %>
+		</div>	
+    </div>
+    <div class="clear"></div>
+</div>
+
+<style type="text/css">
+	fieldset {
+		border:1px solid #D1D1D1;
+		color:#333333;
+		line-height:220%;
+		margin:20px;
+		padding:10px;
+	}
+	legend {
+		background:none repeat scroll 0 0 #FFFFFF;
+		color:#666666;
+		font-weight:800;
+	}
+	
+	#graph_user img {display:none;}
+	#graph img {display:none;}
+</style>
+
+<script src="/javascripts/jscharts3.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+	var myChart = new JSChart('graph_user', 'line');
+	myChart.setFontFamily("微软雅黑");
+	myChart.setTitle('新增用户曲线图');
+	<% axis = []%>
+	
+	<% max = 0%>
+	<% 20.downto(0) do |i| %>
+		<% if params[:t] %>
+			<% count = User.count(:conditions=>"`from` = '#{params[:t]}' and created_at > '#{Time.new.ago(i.days).strftime("%Y-%m-%d")}' and created_at <= '#{Time.new.ago((i-1).days).strftime("%Y-%m-%d")}'")%>
+		<% else %>
+			<% count = User.count(:conditions=>"created_at > '#{Time.new.ago(i.days).strftime("%Y-%m-%d")}' and created_at <= '#{Time.new.ago((i-1).days).strftime("%Y-%m-%d")}'")%>
+		<% end %>
+		<% axis << "[#{21-i}, #{count}]" %>
+		<% max = count if count > max%>
+		myChart.setTooltip([<%=21-i%>, '<%= Time.new.ago(i.days).strftime("%Y-%m-%d")%> 人数:<%= count %>']);
+	<% end %>
+	
+	myChart.setDataArray([<%= axis.join(',')%>], 'pink');
+	myChart.setAxisPaddingBottom(10);
+	myChart.setTextPaddingBottom(5);
+	myChart.setAxisValuesNumberY(5);
+	
+	myChart.setAxisNameX('');
+	myChart.setAxisNameY('');
+	myChart.setIntervalStartY(0);
+	myChart.setIntervalEndY(<%=max/100 * 100 + 100%>);
+	myChart.setShowXValues(false);
+	myChart.setAxisValuesNumberX(5);
+	myChart.setTitleColor('#454545');
+	myChart.setAxisValuesColor('#454545');
+	myChart.setLineColor('#F7A93D', 'yellow');
+	myChart.setLineColor('#BBBBBB', 'gray');
+	myChart.setLineColor('#FE3B9B', 'pink');
+	
+	myChart.setFlagColor('#9D16FC');
+	myChart.setFlagRadius(2);
+	myChart.setSize(800, 300);
+	
+	myChart.setAxisValuesFontSize(9); 
+	myChart.draw();
+	
+</script>
+
+
+<script type="text/javascript">
+	var myChart = new JSChart('graph', 'line');
+	myChart.setFontFamily("微软雅黑");
+	myChart.setTitle('手机接口调用统计');
+	<% axis = []%>
+	
+	<% max = 0%>
+	<% 20.downto(0) do |i| %>
+		<% count = Apicall.find_by_sql("select sum(`count`) as count from apicalls where occur = '#{Time.new.ago(i.days).strftime("%Y-%m-%d")}'")[0]["count"].to_i%>
+		<% axis << "[#{21-i}, #{count}]" %>
+		<% max = count if count > max%>
+		myChart.setTooltip([<%=21-i%>, '<%= Time.new.ago(i.days).strftime("%Y-%m-%d")%> 次数:<%= count %>']);
+	<% end %>
+	
+	myChart.setDataArray([<%= axis.join(',')%>], 'pink');
+	myChart.setAxisPaddingBottom(10);
+	myChart.setTextPaddingBottom(5);
+	myChart.setAxisValuesNumberY(5);
+	
+	myChart.setAxisNameX('');
+	myChart.setAxisNameY('');
+	myChart.setIntervalStartY(0);
+	myChart.setIntervalEndY(<%=max/100 * 100 + 100%>);
+	myChart.setShowXValues(false);
+	myChart.setAxisValuesNumberX(5);
+	myChart.setTitleColor('#454545');
+	myChart.setAxisValuesColor('#454545');
+	myChart.setLineColor('#F7A93D', 'yellow');
+	myChart.setLineColor('#BBBBBB', 'gray');
+	myChart.setLineColor('#FE3B9B', 'pink');
+	
+	myChart.setFlagColor('#9D16FC');
+	myChart.setFlagRadius(2);
+	myChart.setSize(800, 300);
+	
+	myChart.setAxisValuesFontSize(9); 
+	myChart.draw();
+	
+</script>

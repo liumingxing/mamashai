@@ -1,0 +1,55 @@
+<div class="comments01">
+    <div class="comments01_bg1">
+    </div>
+    <div class="comments01_bg2">
+        <% if @post.angle_comments_count > 0 %>
+        <div class="look">
+            共有<span class="number"><%=@post.angle_comments_count %></span>条评论
+        </div>
+        <% end %>
+        <% for comment in AngleComment.find(:all,:limit=>10,:conditions=>['angle_post_id=?',@post.id],:include=>[:user],:order=>'id desc') %>
+        <div id="angle_comment_<%=comment.id%>" class="comments_reply">
+            <div class="comments_my">
+                <span class="pic"><%=logo_tag(comment.user,{:version=>'thumb30',:url=>user_url(comment.user)}) %></span>
+                <span class="com_content"><a href="<%=user_url(comment.user)%>"><%=comment.user.name %></a>：<%=post_content comment.content %><span class="time">(<%=refer_time comment.created_at %>)</span></span>
+                <div class="clear">
+                </div>
+            </div>
+            <div class="reply">
+                <% if @user and comment.user_id == @user.id %>
+                <a href="javascript:void(0);" onclick="MMS.tools.delete_item('/ajax/delete_angle_comment/<%=comment.id%>','angle_comment_');">删除</a>
+                | <% end %>
+                <a href="javascript:void(0);" onclick="add_reply_to_comment('<%=@post.id%>','<%=comment.user.name%>');">回复</a>
+            </div>
+        </div>
+        <% end %>
+        <% if @post.angle_comments_count > 10 %>
+        <div class="look look_after">
+            后面还有<span class="number"><%=@post.angle_comments_count-10 %></span>条<%=comment_or_answer(@post) %>，<a href="/post/<%=@post.id%>">看看你关注的人<%=comment_or_answer(@post) %>了什么?</a>
+        </div>
+        <% end %>
+        <% form_remote_tag :url => {:action => :create_angle_comment, :id =>@post.id}, :loading => "",:complete=>'', :update => "post_expand_#{@post.id}" do %>
+        <div class="login_input">
+            <span class="left"><%= text_area :comment, :content,{:id=>"comment_content_#{@post.id}",:onfocus=>"updateStatusTextContent(this)",:onkeyup=>"updateStatusTextContent(this)"} %>
+            </span>
+            <span class="right">
+                <button class="button_submit_s" type="submit" onmouseover="this.className='button_submit_s button_submit_s_hover';" onmouseout="this.className='button_submit_s';">
+                    评论 
+                </button>
+            </span>
+            <div class="clear">
+            </div>
+        </div>
+        <%=error_message_on :comment,:content %>
+        <% end %>
+    </div>
+    <div class="comments01_bg3">
+    </div>
+</div>
+<div class="clear">
+</div>
+<% if params[:hide_box] %>
+<script>
+    hide_box();
+</script>
+<% end %>

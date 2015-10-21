@@ -1,0 +1,183 @@
+<div style="text-align:center;" class="green">
+    <%= flash[:notice] %>
+</div>
+<%= javascript_include_tag :ckeditor %>
+<table border="1" class="grid_mce" cellpadding="2">
+    <tr>
+        <td class="td01">
+            图书名称：
+        </td>
+        <td>
+            <%= f.text_field :book_name %>
+        </td>
+    </tr>
+    <tr>
+        <td class="td01">
+            图书URL：
+        </td>
+        <td>
+            <%= f.text_field :book_site %>
+        </td>
+    </tr>
+    <tr>
+        <td class="td01">
+            作者：
+        </td>
+        <td>
+            <%= f.text_field :book_author %>
+        </td>
+    </tr>
+
+    <tr>
+        <td class="td01">
+            作家类别：
+        </td>
+        <td>
+        <%= f.radio_button("author_type", "zz", :checked => "checked") %>作者
+        <br/>
+        <%= f.radio_button("author_type", "yz") %>译者
+        </td>
+    </tr>
+
+    <tr>
+        <td class="td01">
+            相关图书：
+        </td>
+        <td>
+          <%= f.select "translator_id", @authors %>
+
+        </td>
+    </tr>
+    <tr>
+        <td class="td01">
+            出版社：
+        </td>
+        <td>
+            <%= f.text_field :publishing_house %>
+        </td>
+    </tr>
+
+    <tr>
+        <td class="td01">
+            装订：
+        </td>
+        <td>
+            包装：<%= f.text_field :paperback %><br> 页数：<%= f.text_field :book_pages %> 页
+        </td>
+    </tr>
+    <tr>
+        <td class="td01">
+            从书：
+        </td>
+        <td>
+          <%= f.select "series_book_ids", Book.all(:conditions =>["state = ?","已发布"] ,:order => "id desc").collect{|book|[book.book_name, book.id]}, { :include_blank => true }%>
+        </td>
+    </tr>
+    <tr>
+        <td class="td01">
+            网上商城：
+        </td>
+        <td>
+          <% @malls.each_with_index do |mall,index|  %>
+            <%@url = ""%>
+            <%  @book_malls.to_a.find{|book_mall| @url = book_mall if  book_mall.gou_site_id== mall.id}   %>
+           <%=index + 1%>.<%= mall.name%> <%= text_field_tag("book_malls_#{mall.id}",(@url.book_mall_url unless @url.blank?))%> 排序:<%= text_field_tag "book_malls_order_number_#{mall.id}",(@url.order_number unless @url.blank?)%><br>
+          <% end %>
+
+        </td>
+    </tr>
+
+    <tr>
+        <td class="td01">
+            联合推荐：
+        </td>
+        <td>
+          <%
+          lines = Array.new(4)
+          if @book.unite_recommend
+            lines[0..(@book.unite_recommend.split("$").size-1)] = @book.unite_recommend.split("$")
+          end
+          %>
+          <% lines.each_with_index do |line,index|  %>
+          <%=index + 1%>.<%= text_field_tag("book_unite_recommend_#{index}",line)%> <br>
+          <% end %>
+        </td>
+    </tr>
+
+    <tr>
+        <td class="td01">
+            图书活动：
+        </td>
+        <td>
+          <%
+          book_actives = Array.new(5)
+          if @book.book_active
+            book_actives[0..(@book.book_active.split("$").size-1)] = @book.book_active.split("$")
+          end
+          %>
+          <% book_actives.each_with_index do |active,index|  %>
+          <%=index + 1%>.名称：<%= text_field_tag("book_active_name_#{index}",(active.split("#")[0] if active)) %>  网址：<%= text_field_tag("book_active_url_#{index}",(active.split("#")[1] if active))%><br>
+          <% end %>
+        </td>
+    </tr>
+
+    <tr>
+        <td class="td01">
+            <%= f.label :logo,"封面：" %>
+        </td>
+        <td>
+            <%=upload_column_field :book, :logo %>
+            <%= f.error_message_on  :logo %>
+        </td>
+    </tr>
+    <tr>
+        <td class="td01">
+            图书摘要：
+        </td>
+        <td>
+            <%= f.text_area :book_summary %>
+        </td>
+    </tr>
+     <tr>
+        <td class="td01">
+            作者简介：
+        </td>
+        <td>
+            <%= f.text_area :author_summary %>
+        </td>
+    </tr>
+    <tr>
+        <td class="td01">
+            媒体观点：
+        </td>
+        <td>
+            <%= f.text_area :media_view %>
+        </td>
+    </tr>
+
+    <tr>
+        <td class="td01" valign="top">
+            图书内容：
+        </td>
+        <td>
+            <%#= ckeditor_textarea :article_content, :content, :toolbar=>'Full', :width=>'90%', :height => '500px' %>
+        	<%= text_area :book_content, :content,{:id=>'post_content',:class=>'required',:style=>"height:500px;widht:90%"} %>
+		</td>
+    </tr>
+	<tr>
+		<td class="td01" valign="top">相关话题：</td>
+		<td><%= f.text_field :tag_names%>可以录入多个话题,不同话题之间请用空格隔开。如: 奶粉 牛奶</td>
+	</tr>
+	<tr>
+		<td class="td01" valign="top">相关群组：</td>
+		<td><%= f.text_field :my_subjects%>可以录入多个群组,不同群组之间请用空格隔开。如: 男孩手册 女孩手册</td>
+	</tr>
+    <tr>
+        <td></td>
+        <td>
+            <%= f.submit '保存' %> | <%= link_to "返回", :action => :index%>
+        </td>
+    </tr>
+</table>
+
+<%= tiny_mce_js %>

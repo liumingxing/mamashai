@@ -1,0 +1,78 @@
+<div id="middle">
+    <div id="css_mainbody">
+        <h1 class="title">妈妈晒团购-信息管理-新建团购信息<span style="float: right; margin-right: 10px;"><%= link_to '返回列表', '/mms/mms_tuans/index' %>
+            </span></h1>
+        <% form_for @message_post,:url=>{:action=>:send_product_action,:id=>@tuan_id} do |f| %>
+		<fieldset>
+            <legend>
+                将发送的用户(<%=@users.count%>)
+            </legend>
+            <div class="line_item">
+            	 <span class="content" style="padding: 0 30px">
+                	<b><%= @users.map{|user| user.name}.join(', ')%></b>
+                </span>
+                
+            </div>
+        </fieldset>
+        <fieldset>
+            <legend>
+                请输入发送内容：
+            </legend>
+            <div class="line_item">
+                <span class="content" style="padding: 0 30px">
+                	<%= error_message_on @message_post,:content%>
+                	<%= f.text_area :content, :rows => 10, :cols => 100 %>
+					<%= hidden_field_tag 'user_names',@users.map(&:name).join(';') %>
+					<%= hidden_field_tag 'order_ids',@order_ids %>
+                </span>
+            </div>
+        </fieldset>
+        <div class="submit">
+            <span class="left"><input type="submit" name="submit" value="提交"></span><span class="right"><%= link_to '返回', '/mms/mms_tuans' %>
+            </span>
+        </div>
+        <% end %>
+    </div>
+    <div class="clear">
+    </div>
+</div>
+<style type="text/css">
+    fieldset {
+        border: 1px solid #D1D1D1;
+        color: #333333;
+        line-height: 220%;
+        margin: 20px;
+        padding: 10px;
+    }
+    
+    legend {
+        background: none repeat scroll 0 0 #FFFFFF;
+        color: #666666;
+        font-weight: 800;
+    }
+    
+    fieldset div.line_item {
+        display: block;
+        width: 100%;
+    }
+    
+    .line_item .title {
+        margin-left: 30px;
+        font-weight: bolder;
+        width: 150px;
+        float: left;
+    }
+    
+    .line_item .content {
+        float: left;
+    }
+    
+    div.submit {
+        margin: 20px;
+        text-align: center;
+    }
+    
+    div.submit span {
+        margin: 0 20px;
+    }
+</style>

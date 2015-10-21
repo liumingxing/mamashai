@@ -1,0 +1,281 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+		<title>宝宝身高预测 - 妈妈晒 - 妈妈爸爸们的网络社区</title>
+		<style type="text/css">
+		* {
+			padding:0px;
+			margin:0px;
+		}
+		a {
+			text-decoration:none;
+		}
+		a img {
+			border:0px;
+		}
+		p {
+		  text-indent:5mm;
+		}
+		td img {
+			display: block;
+		}
+		.STYLE1 {
+			color: #666666;
+			font-size: 14px;
+			line-height: 22px;
+		}
+		.STYLE2 {
+			font-size: 16px;
+			font-weight: bold;
+			color: #DA5295;
+		}
+		.STYLE3 {
+			font-size: 12px;
+			color: #999999;
+		}
+		.STYLE4 {
+			font-size: 14px;
+			font-weight: bold;
+			color: #FFFFFF;
+		}
+		.STYLE5 {
+			font-size: 15px; 
+			font-weight: bold; 
+			color: #666666; 
+			font-family: "微软雅黑";
+		}
+		.STYLE6 {
+			font-size: 15px; 
+			font-weight: bold; 
+			color: #DA5295; 
+			font-family: "微软雅黑";
+		}
+		.STYLE7 {
+			font-size: 15px; 
+			font-weight: bold; 
+			color: #000ccc; 
+			font-family: "微软雅黑";
+		}
+		</style>
+	</head>
+
+	<body bgcolor="#ffffff">
+		<div align='center'>
+			<table width="538" height="51" border="0" cellpadding="0" cellspacing="0" background="images/top2.gif">
+			  <tr>
+			    <td width="16">
+			    	
+			    </td>
+			    <td width="97">
+			    	<a href="http://www.mamashai.com/index/bang">
+			    		<img name="a_r1_c4" src="images/top1.png" border="0" id="a_r1_c4" alt="" />
+			    	</a>
+			    </td>
+			    <td width="355">
+			    	<div align="center">
+			    		<span style="color:white; font-size: 15px; font-weight: bold;">宝宝身高预测（0-3岁）</span>
+			    	</div>
+			    </td>
+			    <td width="140">
+			    	<a style="color: white; text-decoration: underline;font-size: 12px;" href="http://www.mamashai.com/index/bang?step=2" target="_blank">0-3岁资源免费下载</a>
+			    </td>
+			  </tr>
+			</table>
+			<table width="538" border="0" cellpadding="0" cellspacing="0" background="images/a_r10_c1.gif">
+			  <tr>
+			    <td>
+			    	<img name="a_r9_c1" src="images/a_r9_c1.gif" width="538" height="9" border="0" id="a_r9_c1" alt="" />
+			    </td>
+			  </tr>
+			  <tr>
+			    <td background="images/a_r10_c1.gif" style="padding-left: 20px;">
+			    	<table width="95%" height="26" border="0" align="center" cellpadding="0" cellspacing="0" class="STYLE1">
+			    		<tr>
+					        <td align="left" valign="middle">
+					        	爸爸的身高
+								<input type="text" id="txt_male" style="width:50px;"/> 厘米
+					        </td>
+							<td align="left">
+								妈妈的身高
+								<input type="text" id="txt_female" style="width:50px;"/> 厘米
+								
+							</td>
+							<td align="right" rowspan="2" style="padding-right:25px;">
+								<a href="javascript:void(0);" onclick="getHei();">
+									<img src="images/d_r2_c3.gif" />
+								</a>
+							</td>
+					      </tr>
+						  <tr>
+						  	<td align="left">
+						  		宝宝的性别
+								<select id="select_baby_sex" style="width:50px;">
+									<option id="option_male" value="male">男</option>
+									<option id="option_female" value="female">女</option>
+								</select>
+						  	</td>
+							<td></td>
+						  </tr>
+			    	</table>		      
+			    </td>
+			  </tr>
+			  <tr>
+			    <td valign="bottom">
+			    	<img name="a_r12_c1" src="images/a_r12_c1.gif" width="538" height="9" border="0" id="a_r12_c1" alt="" />
+			    </td>
+			  </tr>
+			</table>
+			<table width="538" border="0" cellpadding="0" cellspacing="0" background="images/a_r10_c1.gif" id="table_main">
+			  <tr>
+			    <td><img name="a_r9_c1" src="images/a_r9_c1.gif" width="538" height="9" border="0" id="a_r9_c1" alt="" /></td>
+			  </tr>
+			  <tr>
+			  	<td style="padding-left:15px; padding-right:15px;">
+			  		<table width="500" height="50" border="0" style="border-style:dotted;">
+			  			<tr border="0">
+			  				<td align="left" valign="middle" id="td_result">
+			  					<p>
+			  						<span id="span_baby_height" style="display:none; line-height: 200%; border-bottom: 1px dashed #999;" class="STYLE7"></span> 
+			  					</p>
+								<div style="font-size: 13px; line-height: 200%;">
+								遗传对身高影响很大，据此，子女成人身高可以用下列公式预测： <br/>
+儿子成年身高=[(父身高+母身高)/2]×1.08<br/>
+女儿成年身高=(父身高×0.923+母身高)/2<br/>
+								</div>
+			  				</td>
+			  			</tr>
+			  		</table>
+			  	</td>
+			  </tr>
+			  <tr>
+			    <td valign="bottom">
+			    	<img name="a_r12_c1" src="images/a_r12_c1.gif" width="538" height="9" border="0" id="a_r12_c1" alt="" />
+			    </td>
+			  </tr>
+			</table>
+			<table width="538" border="0" cellpadding="0" cellspacing="0" background="images/a_r10_c1.gif">
+			  <tr>
+			    <td>
+			    	<img name="a_r9_c1" src="images/a_r9_c1.gif" width="538" height="9" border="0" id="a_r9_c1" alt="" />
+			    </td>
+			  </tr>
+			  <tr>
+			    <td background="images/a_r10_c1.gif">
+			    	<table width="95%" height="26" border="0" align="center" cellpadding="0" cellspacing="0">
+			    		<tr>
+					        <td align="left">
+					        	<p class="STYLE3">
+					        		提示：以上内容来自<a href='http://www.mamashai.com/ebook/baby_0dao3?from=baidu_shengao' target="_blank">《0-3岁宝宝生长发育监测》</a>，仅供参考。
+					        	</p>
+					        </td>
+					      </tr>
+			    	</table>		      
+			    </td>
+			  </tr>
+			  <tr>
+			    <td valign="bottom">
+			    	<img name="a_r12_c1" src="images/a_r12_c1.gif" width="538" height="9" border="0" id="a_r12_c1" alt="" />
+			    </td>
+			  </tr>
+			</table>
+		</div>
+		<script type="text/javascript">
+		
+		function getHei() {
+			var fHeig = document.getElementById("txt_male").value;
+			var mHeig = document.getElementById("txt_female").value;
+			if (fHeig=="")
+			{
+				alert("父亲身高栏处请输入数字");
+				return;
+			}
+			
+			if (mHeig=="")
+			{
+				alert("母亲身高栏处请输入数字");
+				return;
+			}
+			sex = document.getElementById("select_baby_sex").value;
+			var baby_height = 0;
+			if(isNaN(fHeig))
+			{
+				alert("父亲身高栏处请输入数字");
+				document.getElementById("txt_male").focus();
+			}
+			else if (isNaN(mHeig))
+			{
+				alert("母亲身高栏处请输入数字");
+				document.getElementById("txt_female").focus();
+			}
+			else
+			{
+				if (sex == "male")
+				{
+					baby_height = ( parseInt(fHeig) + parseInt(mHeig) ) * 1.08 / 2 ;
+					//alert("(" + fHeig +"+"+mHeig+")* 1.08 / 2");
+				}
+				else
+				{
+					//alert(11);
+					baby_height = (parseInt(fHeig) * 0.923 + parseInt(mHeig)) / 2 ;
+				}
+			    document.getElementById("span_baby_height").innerHTML = "<span class='STYLE5'>宝宝可能的身高：</span>" + formatnumber(baby_height,2) + "厘米"
+
+				document.getElementById("span_baby_height").style.display = "block";
+			}
+		}
+		
+		function setKeyup(obj){
+			input = document.getElementById(obj).value;
+			if (isNaN(input))
+			{
+				alert("请输入数字");
+				return false;
+			}
+		}
+		function formatnumber(value,num)    //直接去尾
+		　　{
+		　　var a,b,c,i
+		　　a = value.toString();
+		　　b = a.indexOf('.');
+		　　c = a.length;
+		　　if (num==0)
+		　　{
+		　　if (b!=-1)
+		　　a = a.substring(0,b);
+		　　}
+		　　else
+		　　{
+		　　if (b==-1)
+		　　{
+		　　a = a + ".";
+		　　for (i=1;i<=num;i++)
+		　　a = a + "0";
+		　　}
+		　　else
+		　　{
+		　　a = a.substring(0,b+num+1);
+		　　for (i=c;i<=b+num;i++)
+		　　a = a + "0";
+		　　}
+		　　}
+		　　return a
+		　　}
+
+		</script>
+		<script src="http://app.baidu.com/static/appstore/monitor.st"></script>
+		<script>
+		     baidu.app.autoHeight();
+		     baidu.app.setHeight(245);
+		</script>
+		<div style="display:none;">
+			<script type="text/javascript">
+var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3F2f4856497854ce3df66f8b40863365d9' type='text/javascript'%3E%3C/script%3E"));
+</script>
+		</div>
+	</body>
+</html>

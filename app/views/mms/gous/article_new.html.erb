@@ -1,0 +1,10 @@
+<div id="middle">
+    <div id="css_mainbody">
+        <h1 class="title">新建<%= @title %><span style="float: right; margin-right: 10px;"><%= link_to '返回', :action => :articles, :brand_id => @brand.id %></span></h1>
+        <% form_for(:article, :url => {:action => :article_create},  :html=>{:multipart=>true} ) do |f| %>
+        <%=render :partial=>'/mms/article/article_form', :locals => {:f => f} %>
+		<% end %>
+        <div class="book_page">
+        </div>
+    </div>
+</div>

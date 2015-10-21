@@ -1,0 +1,42 @@
+    <div id="middle">
+        <div id="css_mainbody">
+            <h1 class="title">管理员权限</h1>
+            <table class="grid">
+            	<form action="/mms/mms_users/create" method="post">
+                    <tr>
+                        <td width="25%">用户名</td>
+                        <td><%= @user.username %></td>
+                    </tr>
+                    <tr>
+                        <td>密码</td>
+                        <td><%= @user.password %></td>
+                    </tr>
+                    <tr>
+                        <td>身份</td>
+                        <td><%= @user.power %></td>
+                    </tr>
+                    <tr>
+                        <td>权限</td>
+                        <td>
+                        	<% @power.keys.each do |key| %>
+								<b><%= key %></b><br />
+								<% if @power[key].class.to_s=="Hash" %>
+									<% @power[key].keys.reverse.each do |k| %>
+										<%= k %>:
+										<% @power[key][k].keys.each do |t| %>
+											<%= t %>
+										<% end %>
+										<br />
+									<% end %><br />
+								<% else %>
+									<%= @power[key] %><br />
+								<% end %>
+							<% end %>
+                        	<%#= @power %>
+						</td>
+                    </tr>
+				</form>
+            </table>
+        </div>
+        <div class="clear"></div>
+    </div>

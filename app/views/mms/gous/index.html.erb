@@ -1,0 +1,122 @@
+<div id="middle">
+    <div id="css_mainbody">
+        <h1 class="title"><%= {nil=>"导购商品", "na"=>"免费拿", "tao"=>"快乐淘"}[params[:tp]]%>
+		<span style="float: right; margin-right: 10px;">
+			<%= link_to '添加商品', "/mms/gous/new?tp=#{params[:tp]}"%>
+        	<%= link_to '排序', "/mms/gous/sort_na" if params[:tp] == "na"%>
+		</span></h1>
+        <div style="text-align:center;" class="green">
+            <%= flash[:notice] %>
+        </div>
+        <div id="page_count">
+            <span style="float:right;">共有<b class="blue"><%=h @gous.total_entries %></b>条记录</span>
+        </div>
+        <% form_tag "/mms/gous/search", {:method => "get"} do %>
+        <div>
+            搜索：<%= text_field_tag "keyword",@keyword %><%= submit_tag "查询" %>
+        </div>
+        <% end %>
+        <div class="clear">
+        </div>
+        <table class="grid">
+            <tr>
+                <th width="5%">
+                    序号
+                </th>
+                <th width="10%">
+                    名称
+                </th>
+                <th width="5%">
+                    点击数
+                </th>
+				<th width="5%">
+                    价格
+                </th>
+                <th width="10%">
+                    规格
+                </th>
+                <th width="10%">
+                    商品分类名称
+                </th>
+				<th width="10%">
+                    商品品牌名称
+                </th>
+				<th width="10%">
+                    创建时间
+                </th>
+				<th width="10%">
+                    修改时间
+                </th>
+				<th width="5%">
+                    发布人
+                </th>
+				<% if params[:tp] == "na" %>
+				<th>
+                    供应商后台
+                </th>
+				<% end %>
+                <th width="10%">
+                    操作
+                </th>
+            </tr>
+            <% if @gous.blank? %>
+            <tr>
+                <td colspan=10>
+                    <b>暂无记录</b>
+                </td>
+            </tr>
+            <% else %>
+            <% @gous.each_with_index do |gou,index| %>
+            <tr>
+                <td>
+                    <%=(index+1).to_s %>
+                </td>
+                <td>
+                    <%= link_to gou.name, "/gou/show/#{gou.id}", {:target => "_blank", :style => "color:#329BCB;"} %>
+                </td>
+                <td>
+                    <%= gou.click_count %>
+                </td>
+				<td>
+                    <%= gou.price %>
+                </td>
+                <td>
+                    <%=gou.standard %>
+                </td>
+                <td>
+                    <%=gou.cate %>
+                </td>
+                <td>
+                    <%= gou.brand%>
+                </td>
+				<td>
+                    <%=gou.created_at.strftime("%Y-%m-%d %H:%M:%S") %>
+                </td>
+                <td>
+                    <%=gou.updated_at.strftime("%Y-%m-%d %H:%M:%S") %>
+                </td>
+				<td>
+                    <%= gou.user.name if gou.user %>
+                </td>
+				<% if params[:tp] == "na" %>
+				<td>
+                    <%= link_to("查看", "/na/backend/#{gou.id}", :target=>"_blank") %>
+                </td>
+				<% end %>
+                <td>
+                	<%= mms_recommand('gou', gou.id) %>
+                    <%= link_to '修改', "/mms/gous/edit/#{h gou.id}", {:style => "color:#329BCB;"} %>
+                    <%= link_to '删除', "/mms/gous/destroy/#{h gou.id}", {:confirm => '确认删除吗？', :method => :delete, :style => "color:#329BCB;"} %>
+					<%= link_to '设置', "/mms/gous/mfn/#{gou.id}", {:style => "color:#329BCB;"} if gou.tp == "na"%>
+                </td>
+            </tr>
+            <% end %>
+            <%end %>
+        </table>
+        <div class="book_page">
+            <%=will_paginate @gous %>
+        </div>
+    </div>
+    <div class="clear">
+    </div>
+</div>

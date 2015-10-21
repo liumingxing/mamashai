@@ -1,0 +1,143 @@
+
+<% if @category && @category.is_parent && @category.parent || @category && @category.parent && @category.parent.parent %>
+  <div class="nav_rm">
+    <a href="<%= url_for :action=>"yun", :id=>@category.parent.id, :age=>params[:age] %>">返回</a>
+  </div>
+<% end %>
+
+<div class="sharp mt5">
+  <% if @category && @category.is_parent && @category.parent && @category.parent.parent %>
+    <div class="wt_bb">
+      <h2><%= @category.name %></h2>
+    </div>
+    <div class="clear"></div>
+    <div class="wt_bb">
+      <div class="wt_bb_li2">
+        <ul>
+          <% for child in @category.children %>
+            <% next if params[:age] && child.age && !child.age.include?(params[:age])%>
+            <li>
+              <A class="<%= 'current' if child.id.to_s == params[:id]%>" href="<%= url_for :id=>child.id, :age=>params[:age]%>"><%= child.name %></A>
+            </li>
+          <% end %>
+        </ul>
+      </div>
+    </div>
+  <% elsif @category && !@category.is_parent && @category.parent && @category.parent.parent && @category.parent.parent.parent%>
+    <div class="wt_bb">
+      <h2><%= @category.parent.name %></h2>
+    </div>
+    <div class="clear"></div>
+    <div class="wt_bb">
+      <div class="wt_bb_li2">
+        <ul>
+          <% for child in @category.parent.children %>
+            <% next if params[:age] && child.age && !child.age.include?(params[:age])%>
+            <li>
+              <A class="<%= 'current' if child.id.to_s == params[:id]%>" href="<%= url_for :id=>child.id, :age=>params[:age]%>"><%= child.name %></A>
+            </li>
+          <% end %>
+        </ul>
+      </div>
+    </div>
+  <% else %>
+    <div class="wt_bb">
+      <% @root.children.each_with_index{|category, i| %>
+        <% next if category.code == "-1" %>
+        <div class="wt_bb_li">
+          <p>
+            <a href="<%= url_for :age=>params[:age], :id=>category.id, :anchor=>"c" %>" onmouseout="MM_swapImgRestore()" onmouseover="MM_swapImage('image_<%= i %>','','/images/tao/yc_<%= i %>_in.png',1)">
+              <img src="/images/tao/yc_<%= i  %><%= "_in" if @category && @category.id == category.id || @category && @category.parent.id == category.id %>.png" border="0" id="image_<%= i %>"/>
+            </a>
+          </p>
+          <ul style="overflow:hidden">
+            <% for child in category.children %>
+              <li style="white-space: nowrap">
+                <a  class="<%= 'current' if child.id.to_s == params[:id]%>" href="<%= url_for :id=>child.id %>"><%= child.name %></a>
+                <div style="clear:both"></div>
+              </li>
+            <% end %>
+          </ul>
+        </div>
+      <% } %>
+    </div>
+  <% end %>
+
+  <div>
+    <img src="/images/sharp_bottom.jpg" />
+  </div>
+</div>
+
+<!--
+<div class="wt_bb_fl mt20">
+  <ul class="wt_tab ml15">
+    <li>
+      排序:
+    </li>
+    <li class="wt_tab_left_in">
+      最新
+    </li>
+    <li class="wt_tab_right">
+      最热
+    </li>
+    <li>
+      评价:
+    </li>
+    <li class="wt_tab_left_in">
+      安全
+    </li>
+    <li class="wt_tab_cen">
+      安全
+    </li>
+    <li class="wt_tab_right">
+      最热
+    </li>
+    <li>
+      价格:
+    </li>
+    <li class="wt_tab_left_in">
+      全部
+    </li>
+    <li class="wt_tab_cen">
+      50
+    </li>
+    <li class="wt_tab_cen">
+      100
+    </li>
+    <li class="wt_tab_cen">
+      200
+    </li>
+    <li class="wt_tab_right">
+      200以上
+    </li>
+  </ul>
+</div>
+-->
+
+<%= render :partial=>"product_flows", :locals=>{:products=>@products} %>
+<div class="clear"></div>
+<%= will_paginate @products %>
+
+<script>
+  function MM_swapImgRestore() { //v3.0
+    var i,x,a=document.MM_sr; for(i=0;a&&i<a.length&&(x=a[i])&&x.oSrc;i++) x.src=x.oSrc;
+  }
+  function MM_preloadImages() { //v3.0
+    var d=document; if(d.images){ if(!d.MM_p) d.MM_p=new Array();
+      var i,j=d.MM_p.length,a=MM_preloadImages.arguments; for(i=0; i<a.length; i++)
+        if (a[i].indexOf("#")!=0){ d.MM_p[j]=new Image; d.MM_p[j++].src=a[i];}}
+    }
+    function MM_findObj(n, d) { //v4.01
+      var p,i,x;  if(!d) d=document; if((p=n.indexOf("?"))>0&&parent.frames.length) {
+        d=parent.frames[n.substring(p+1)].document; n=n.substring(0,p);}
+      if(!(x=d[n])&&d.all) x=d.all[n]; for (i=0;!x&&i<d.forms.length;i++) x=d.forms[i][n];
+      for(i=0;!x&&d.layers&&i<d.layers.length;i++) x=MM_findObj(n,d.layers[i].document);
+      if(!x && d.getElementById) x=d.getElementById(n); return x;
+    }
+  
+    function MM_swapImage() { //v3.0
+      var i,j=0,x,a=MM_swapImage.arguments; document.MM_sr=new Array; for(i=0;i<(a.length-2);i+=3)
+        if ((x=MM_findObj(a[i]))!=null){document.MM_sr[j++]=x; if(!x.oSrc) x.oSrc=x.src; x.src=a[i+2];}
+    }
+</script>
+

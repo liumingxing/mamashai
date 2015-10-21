@@ -1,0 +1,2 @@
+module WeekTagsHelper
+end

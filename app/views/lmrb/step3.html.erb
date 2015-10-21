@@ -1,0 +1,63 @@
+<div class="nav_rm">
+	<a href="/lmrb">辣妈日报首页</a>>><a href="">制作</a>
+</div>
+<div class="sharp color1 mt5">
+	<div class="content">
+		<form action="step4" method="get">
+		<div class="cjy_left"><img src="/images/lmrb_zz_sczp_out.jpg" /><img src="/images/lmrb_zz_dtzk.jpg" /><img src="/images/lmrb_zz_dtjl_in.jpg" /><img src="/images/lmrb_zz_xgmb.jpg" /><img src="/images/lmrb_zz_yl.jpg" />
+			<div id="lmrb_zz" class="mt20">
+				<div class="lmrb_zz3 ml55">
+					<li class="lmrb_zz3_1">
+						<%= text_field_tag :kaixin, "这是在干嘛呢？"%>
+					</li>
+					<% for t in %w(玩的正high 吃得正欢 摆个POSE！ 人五人六) %>
+						<li class="lmrb_zz3_out">
+							<a href="javascript:void(0)" onclick="kaixin.value = '<%= t %>'"><%= t %></a>
+						</li>
+					<% end %>
+					<li class="lmrb_zz3_1">
+						<%= text_field_tag :guanxin, "表情？"%>
+					</li>
+					<% for t in %w(萌！ 憨！ 囧！ 槑！) %>
+						<li class="lmrb_zz3_out">
+							<a href="javascript:void(0)" onclick="guanxin.value = '<%= t %>'"><%= t %></a>
+						</li>
+					<% end %>
+				</div>
+				<div class="lmrb_zz3 ml55">
+					<li class="lmrb_zz3_1">
+						<%= text_field_tag :naoxin, "这是在哪啊？"%>
+					</li>
+					<% for t in %w(家里宅着呢 小区里 著名景点 不能告诉你) %>
+						<li class="lmrb_zz3_out">
+							<a href="javascript:void(0)" onclick="naoxin.value = '<%= t %>'"><%= t %></a>
+						</li>
+					<% end %>
+					<li class="lmrb_zz3_1">
+						<%= text_field_tag :qushi, "小情绪？"%>
+					</li>
+					<% for t in %w(心里美：） 快点长大吧！ 爱你没商量 我……无语了) %>
+						<li class="lmrb_zz3_out">
+							<a href="javascript:void(0)" onclick="qushi.value = '<%= t %>'"><%= t %></a>
+						</li>
+					<% end %>
+				</div>
+			</div>
+		</div>
+
+		<!--cjy_left-->
+		<div class="cjy_right">
+			<div id="lmrb_right">
+				<a href="javascript:void(0)" onclick="history.back()"><img src="/images/lmrb_zz_fh.jpg" width="110" height="36" /></a>
+				<input type="image" src="/images/lmrb_qrxyb.jpg" style="margin-top:20px;"/>
+			</div>
+			<div class="lmrb_zz3_tex">
+				可以直接选择选项中的文字，也可以自己原创
+			</div>
+		</div>
+		</form>
+		<!--cjy_right-->
+	</div>
+	<div></div>
+	<!--box1-->
+</div>

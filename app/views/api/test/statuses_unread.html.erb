@@ -1,0 +1,28 @@
+<h1>unread 获取当前用户未读消息数  </h1><%= link_to "返回到列表", "/api/test" %>
+<pre>
+  [路径]：statuses/unread
+  [HTTP请求方式]: GET
+  [URL]: http://your.api.domain/statuses/unread.json
+  [是否需要登录]: true
+
+参数
+    * source 申请应用时分配的AppKey，调用接口时候代表应用的唯一身份。
+
+示例
+  curl -u "username:password"
+  "http://your.api.domain/statuses/unread.json?source=appkey"
+  
+注意
+  获取当前用户Web主站未读消息数，包括：
+    * 最新提到“我”的微博消息数, 对应字段: mentions
+    * 新评论数, 对应字段: comments
+    * 新私信数, 对应字段: dm
+    * 新粉丝数, 对应字段: followers
+  此接口对应的清零接口为 statuses/reset_count
+</pre>
+<hr/>
+<%= form_tag "/api/statuses/unread.json" ,{:method=>:get} do %>
+  <%= render :partial => '/api/test/login' %>
+  source: <%= text_field_tag "source" %><br/>
+  <%= submit_tag "提交"%>
+<% end -%>

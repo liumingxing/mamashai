@@ -1,0 +1,7 @@
+<% form_for(:instance, @instance, :url => {:action => :update_state, :controller => :ajax}) do |f| %>
+<%= f.select( 'state', @instance.state_events.collect{|e| [e, e]}, {}, {:name => "instance[event]"}) %>
+<%= f.hidden_field("class")%>
+<%= f.hidden_field("id")%>
+<%= hidden_field("instance", "origin_url", :value => @origin_url)%>
+<%= submit_tag( "执行")%>
+<% end %>

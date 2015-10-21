@@ -1,0 +1,36 @@
+<h1>申请列表</h1>
+
+<%= form_tag :action=>"search" do %>
+  用户名搜索：<%= text_field_tag :name %>
+  <%= submit_tag "搜索"%>
+<% end %>
+
+<table class="list" border="1">
+  <tr class="head">
+    <th>昵称</th>
+    <th>手机型号</th>
+    <th>appstore昵称</th>
+    <th>给晒豆数</th>
+    <th>提交时间</th>
+    <th>给豆时间</th>
+    <th colspan=3>operate</th>
+  </tr>
+  
+<% for apple_comment in @apple_comments %>
+  <% next if !apple_comment.user %>
+  <tr>
+    <td><%= apple_comment.user.name %></td>
+    <td><%= apple_comment.user.remark %></td>
+    <td><%=h begin URI.decode(apple_comment.name) rescue '' end%></td>
+    <td><%=h apple_comment.score %></td>
+    <td><%=h apple_comment.created_at.to_s(:db) %></td>
+    <td><%=h apple_comment.updated_at.to_s(:db) %></td>
+    
+    <td><%= link_to '给豆', :action => 'make_score', :id => apple_comment, :page=>params[:page] %></td>
+    <td><%= link_to '删除', { :action => 'destroy', :id => apple_comment }, :confirm => '确认删除吗?', :method => :post %></td>
+  </tr>
+<% end %>
+</table>
+
+
+<%= will_paginate @apple_comments %>

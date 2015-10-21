@@ -1,0 +1,79 @@
+<div id="middle">
+    <div id="css_mainbody">
+        <h1 class="title">用户列表</h1>	
+		<div style="margin:20px 0px 0px 20px;"> 
+			<table class="list" border="1">
+				<tr>
+					<th>用户名</th>
+					<th>注册日期</th>
+					<!--
+					<th>最后登录日期</th>
+				-->
+					<th>记录数</th>
+					<th>关注数</th>
+					<th>粉丝数</th>
+					<th>晒豆数</th>
+					<th>终端型号</th>
+					<th>手机</th>
+					<th>快递地址</th>
+					<th>电子邮件</th>
+					<th>性别</th>
+					<th>年龄段</th>
+					<th>学历</th>
+					<th>职业</th>
+					<th>育儿现状</th>
+					<th>孩子年龄</th>
+					<th>分娩机构</th>
+					<th>分娩方式</th>
+					<th>喂养方式</th>
+					<th>家庭住房</th>
+					<th>家庭月收入</th>
+					<th>分娩花费</th>
+					<th>每月育儿花费</th>
+					<th>每月网购花费</th>
+				</tr>
+				<% for user in @users %>
+					<% order = DdhOrder.find_by_user_id(user.id) %>
+					<% inv = Investigate.find_by_user_id(user.id) %>
+					<tr>
+						<td><%= link_user(user) %>/ <%= user.mms_level %></td>
+						<td><%= user.created_at.to_date.to_s %></td>
+						<!--
+						<td><%= user.last_login_at.to_date.to_s if user.last_login_at %></td>
+					-->
+						<td><%= user.posts_count %></td>
+						<td><%= user.follow_users_count %></td>
+						<td><%= user.fans_users_count %></td>
+						<td><%= user.score %></td>
+						<td><%= user.remark %></td>
+						<td><%= order.mobile if order %></td>
+						<td><%= order.address if order %></td>
+						<td><%= inv.s23 if inv %></td>
+						<td><%= inv.s1 if inv %></td>
+						<td><%= inv.s2 if inv %></td>
+						<td><%= inv.s5 if inv %></td>
+						<td><%= inv.s6 if inv %></td>
+						<td><%= inv.s3 if inv %></td>
+						<td><%= inv.s4 if inv %></td>
+						<td><%= inv.s7 if inv %></td>
+						<td><%= inv.s8 if inv %></td>
+						<td><%= inv.s9 if inv %></td>
+						<td><%= inv.s18 if inv %></td>
+						<td><%= inv.s19 if inv %></td>
+						<td><%= inv.s20 if inv %></td>
+						<td><%= inv.s21 if inv %></td>
+						<td><%= inv.s22 if inv %></td>
+					</tr>
+				<% end %>
+			</table>
+			
+			<div class="pagination">
+				<% if params[:page] && params[:page].to_i != 1 %>
+					<%= link_to "上一页", :action=>"users", :page=>params[:page].to_i - 1 %>
+				<% end %>
+
+				<%= link_to "下一页", :action=>"users", :page=>params[:page].to_i + 1 %>
+			</div>
+		</div>
+	</div>
+</div>

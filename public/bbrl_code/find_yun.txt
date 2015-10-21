@@ -1,0 +1,124 @@
+
+		var tableview = Titanium.UI.createTableView({top: 0, 
+											style : Titanium.UI.iPhone.TableViewStyle.GROUPED,
+											backgroundColor: '#e8e8e8',
+											rowBackgroundColor : 'white',
+											separatorColor : "#ccc"});
+		if (!Ti.App.is_android){
+				var search = Titanium.UI.createButton({
+					systemButton:Titanium.UI.iPhone.SystemButton.SEARCH,
+				});
+				search.addEventListener("click", function(e){
+					show_window("search", {
+						title: "搜索"
+					});
+				});
+				
+				win.setRightNavButton(search);
+		}
+		else{
+			var row = Ti.UI.createTableViewRow({height: __l(48), 
+												backgroundColor: 'white',
+												selectedBackgroundColor : '#E8E8E8'
+			});
+			
+			var search = Titanium.UI.createSearchBar({
+				top: __l(4),
+				left: __l(8),
+				width: Ti.App.platform_width - __l(16),
+				height: __l(40),
+				hintText: "搜索记录、用户或宝典",
+				showCancel: false
+			});
+			
+			search.softKeyboardOnFocus = Titanium.UI.Android.SOFT_KEYBOARD_HIDE_ON_FOCUS;
+				
+			search.addEventListener("click", function(e){
+				show_window("search", {
+					title: "搜索"
+				});
+			});
+			row.add(search);
+			tableview.appendRow(row);
+			
+			(Ti.App.find_win||win).addEventListener("focus", function(e){
+				search.focus(); 
+			})
+		}
+			
+		function make_common_row(logo, title, desc, url){
+			var row = Ti.UI.createTableViewRow({height: __l(48), 
+												backgroundColor: 'white',
+												selectedBackgroundColor : '#E8E8E8',
+												hasChild : Ti.App.is_android ? false : true
+			});
+			
+			var logo_image = Ti.UI.createImageView({
+				width: __l(30),
+				height: __l(30),
+				left: __l(20),
+				top: __l(10),
+				bottom: __l(10),
+				touchEnabled: false,
+				image: logo
+			});
+			
+			var title_label = Ti.UI.createLabel({
+				text: title,
+				font: {fontSize: __l(15)},
+				color: "black",
+				left: __l(70),
+				top: __l(8),
+				touchEnabled: false,
+				height: __l(18)
+			});
+			
+			var desc_label = Ti.UI.createLabel({
+				text: desc,
+				font: {fontSize: __l(10)},
+				color: "gray",
+				left: __l(70),
+				top: __l(28),
+				touchEnabled: false,
+				height: __l(18)
+			});
+			
+			row.add(logo_image);
+			row.add(title_label);
+			row.add(desc_label);
+			
+			row.addEventListener("click", function(e){
+				if (url.indexOf("http") >= 0){
+					cache_http_call(url, title, function(e){
+						eval(e.responseText);
+					});
+				}
+				else{
+					show_window(url, {
+						title: title
+					});
+				}
+			});
+			return row;
+		}
+
+		
+		tableview.appendRow(make_common_row("/images/find/baodian.png", "育儿宝典", "学习怎样做一个好妈妈", Ti.App.mamashai + "/bbrl_code/recent_articles.txt"));
+		
+		var row = make_common_row("http://www.mamashai.com/images/bbrl/c_10.png", "视频课堂", "大量视频资料供您学习", Ti.App.mamashai + "/bbrl_code/video.txt")
+		row.add(Ti.UI.createLabel({
+			top: __l(10),
+			height: __l(15),
+			left: __l(140),
+			color: "red",
+			font: {fontSize: __l(12)},
+			text: "(new)"
+		}))
+		tableview.appendRow(row);
+		tableview.appendRow(make_common_row("/images/find/ddh.png", "免费派礼", "每周上架新礼物，统统免费", Ti.App.mamashai + "/api/statuses/ddh_code?osname=" + Ti.App.osname + "&osversion=" + Ti.App.osversion + "&appversion=" + Titanium.App.version));
+		tableview.appendRow(make_common_row("/images/find/topic.png", "父母话题", "辣妈们关注的话题", 'topic'));
+		tableview.appendRow(make_common_row("/images/find/city.png", "亲子城市", "了解适合带宝宝去的地方", Ti.App.mamashai + "/api/statuses/qinzi?osname=" + Ti.App.osname + "&osversion=" + Ti.App.osversion + "&appversion=" + Titanium.App.version));
+		tableview.appendRow(make_common_row("/images/find/xxb.png", "星星榜", "聚焦达人妈妈宝宝", "xxb"));
+		tableview.appendRow(make_common_row("/images/find/wdy.png", "微电影", "上传一些照片，制作属于您的微电影", "album"));
+		
+		(Ti.App.find_win||win).add(tableview);

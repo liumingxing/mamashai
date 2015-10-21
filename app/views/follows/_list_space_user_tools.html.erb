@@ -1,0 +1,10 @@
+<ul class="shine_local">
+    <li id="follow_user_<%=user.id%>">
+        <% if @user.id != user.id %>
+        <% if @user.has_follow?(user.id) %>
+        <img src="/images/icons/follow_success.gif"/><% else %>
+        <%= link_to(APP_CONFIG['add_follow'],{:action =>:create_follow_user,:controller=>:ajax,:id=>user.id},{:update => "follow_user_#{user.id}", :remote=>true, :class=>'button_link'} ) %>
+        <% end %>
+        <% end %>
+    </li>
+</ul>

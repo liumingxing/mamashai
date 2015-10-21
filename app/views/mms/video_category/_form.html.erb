@@ -1,0 +1,41 @@
+
+    <tr>
+        <td>
+            名称
+        </td>
+        <td>
+            <%= text_field "video", "name"%>
+            <%= error_message_on :video, :name %>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            图片
+        </td>
+        <td>
+            <%= upload_column_field :video, :logo %>
+            <%= error_message_on :video, :logo %>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            父类目
+        </td>
+        <td>
+            <%= select :video, :parent_video_category, VideoCategory.all.collect{|c| [c.name, c.id]}, :include_blank=>"请选择父类"%>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            序号
+        </td>
+        <td>
+            <%= text_field "video", "position"%>
+            <%= error_message_on :video, :position %>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2">
+            <input type="submit" name="submit" value="提交">
+        </td>
+    </tr>

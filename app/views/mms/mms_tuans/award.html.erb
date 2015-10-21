@@ -1,0 +1,21 @@
+<table>
+    <tr>
+        <td>
+            序号
+        </td>
+        <td>
+            email
+        </td>
+    </tr>
+    <% @orders.each_with_index do |order,index| %>
+    <% user = order.user %>
+    <tr>
+        <td>
+            <%=index+1 %>
+        </td>
+        <td>
+            <%=user.email %>
+        </td>
+    </tr>
+    <% end %>
+</table>

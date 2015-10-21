@@ -1,0 +1,62 @@
+<%= error_messages_for 'week_tag' %>
+
+<style>
+	.error {color: red;}
+</style>
+
+<table class="ft" border="1">
+<!--[form:week_tag]-->
+<tr>
+	<td>话题短名称</td>
+	<td><%= text_field 'week_tag', 'short_tag_name' %>
+	<span id='tip1'></span>
+	</td>
+</tr>
+<tr>
+	<td>话题摘要</td>
+	<td><%= text_field 'week_tag', 'summary'  %>
+	<span id='tip2'></span>
+	</td>
+</tr>
+
+<tr>
+	<td>详细描述</td>
+	<td><%= text_area 'week_tag', 'description'  %>
+	<span id='tip3'></span>
+	</td>
+</tr>
+
+<tr>
+	<td>Logo</td>
+	<td><%= upload_column_field 'week_tag', 'logo'  %></td>
+</tr>
+
+<tr>
+	<td>隐藏</td>
+	<td><%= check_box 'week_tag', 'hide'%></td>
+</tr>
+
+<!--[eoform:week_tag]-->
+
+</table>
+
+<script>
+$('#week_tag_short_tag_name').change(function(){
+	$('#tip1').text(getStringBytes($('#week_tag_short_tag_name').val()))
+	if (getStringBytes($('#week_tag_short_tag_name').val()) > 8){
+		$('#tip1').addClass('error')
+	}	
+})
+$('#week_tag_summary').change(function(){
+	$('#tip2').text(getStringBytes($('#week_tag_summary').val()))	
+	if (getStringBytes($('#week_tag_summary').val()) > 20){
+		$('#tip2').addClass('error')
+	}	
+})
+$('#week_tag_description').change(function(){
+	$('#tip3').text(getStringBytes($('#week_tag_description').val()))
+	if (getStringBytes($('#week_tag_description').val()) > 95){
+		$('#tip3').addClass('error')
+	}	
+})
+</script>

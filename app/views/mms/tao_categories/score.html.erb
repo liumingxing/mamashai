@@ -1,0 +1,28 @@
+<%= form_tag( {:action=>"make_score"}, {:remote=>true, :updater=>"updater"} ) do %>
+  <span>请输入淘宝昵称：</span><%= text_field_tag "nick", params[:nick] %>
+  <span>请输入购买金额: </span><%= text_field_tag "price", params[:price] %>
+  <%= submit_tag '确定', :class=>"submit" %>
+<% end %>
+
+<div id="updater" style="margin: 10px; color: red;">
+</div>
+
+<table class="list" border="1">
+  <tr class="head">
+    <th>昵称</th>
+    <th>淘宝昵称</th>
+    <th>给豆数</th>
+    <th>创建时间</th>
+  </tr>
+  <% for event in @events %>
+  <tr>
+  	<td><%= event.user.name %></td>
+    <% taobao = UserTaobao.find_by_user_id(event.user_id) %>
+    <td><%= taobao.taobao_nick if taobao %></td>
+  	<td><%= event.score %></td>
+  	<td><%= event.created_at.to_s(:db) %></td>
+  </tr>
+  <% end %>
+</table>
+
+<%= will_paginate @events%>

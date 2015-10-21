@@ -1,0 +1,46 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta property="wb:webmaster" content="a3d20eb561df1cb6" />
+    <meta property="qc:admins" content="15405420776515130116375722247572145" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title><%= "#{@title} - " if @title.present? %>妈妈晒-怀孕育儿记录成长分享商品的平台</title>
+    <%= render :partial=>'/layouts/meta' %>
+    <%= stylesheet_link_tag 'css','style','style(more)', '/javascripts/artDialog5.0/skins/default.css'%>
+    <%= javascript_include_tag "jquery-1.7.1.min.js", "rails.js", "application.js", 'artDialog5.0/jquery.artDialog.min.js' %>
+
+  </head>
+  <body>
+    <div id="J_ToTop" style="position: fixed;right: 40px;top:400px;display: none;z-index: 9999"><a href="javascript:;"><span style="position: relative;margin-top: 0px;margin-left:12px;">顶部</span></a><div style="background:url(/images/totop.png) no-repeat;width: 50px;height: 70px;cursor: pointer"></div></div>
+    <%= render :partial=>"/layouts/header" %>
+    <div id="main">
+      <%= yield %>
+      <%= render :partial=>"/layouts/footer" %>
+    </div>
+    <!--main-->
+    <!--[if IE 6]>
+		<script type="text/javascript" src="/javascripts/pngIE-min.js"></script>
+		<script type="text/javascript">DD_belatedPNG.fix('*')</script>
+		<![endif]-->
+    
+    <script type="text/javascript">
+      var ToTop = $('#J_ToTop');
+      var Win = $(window);
+      ToTop.bind('click', function () { $('html,body').animate({ scrollTop: '0px' }, 500); return false; });
+      Win.scroll(function () {
+        if (Win.scrollTop() > 100) {
+          ToTop.fadeIn(1500);
+        } else {
+          ToTop.fadeOut(1500);
+        }
+      });
+    </script>
+  </body>
+  <% if flash[:notice] %>
+    <script>
+      $(document).ready(function() {
+        $.dialog({content: '<%= flash[:notice]%>'}).hideTitle().time(3000)
+      })
+    </script>
+  <% end %>
+</html>

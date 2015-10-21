@@ -1,0 +1,49 @@
+<div class="sharp color1 mt5">
+  <div class="content">
+    <div class="cjy_left">
+      <div id="bdxq_text" style="color:#636563">
+        <h4><%= @chapter.title %></h4>
+        <h5>作者：<%= @chapter.user.name %> &nbsp;  栏目：<%= @chapter.column_book.name %> &nbsp; 发布：<%= @chapter.created_at.to_s(:db)%></h5>
+        <%= raw @chapter.content %>
+      </div>
+      <div class="clear"></div>
+      <DIV>
+         <% if @user %>
+		    <%=render :partial=>'/share/post_tools', :locals => {:post => @chapter.post, :init=>'open'} if @chapter.post%>
+		  <% else %>
+		    <%=render :partial=>'/share/notlogin_post_tools', :locals => {:post => @chapter.post} if @chapter.post%>
+		  <% end %>
+      </DIV>
+      
+    </div>
+    <!--cjy_left-->
+    <div class="cjy_right">
+      <span class="red title">作者其他专栏</span>
+      <div class="zl_dz">  
+        <ul class="relate_column">
+          <% for chapter in @chapter.recent(5)%>
+			<li>
+				·《<%= link_to chapter.title, {:action=>"show", :id=>chapter.id}, {:title=>chapter.title} %>》
+			</li>
+		  <% end %>
+        </ul>
+       </div>
+      <div class="zl_dz">
+              <table width="100%" border="0" cellspacing="0" cellpadding="0">
+            <tr>
+                  <th>热心读者</th>
+                  <td align="right"></td>
+                </tr>
+          </table>
+          <ul>
+	          <% for reader in @hot_readers %>
+	          	<% next if !reader.visitor %>
+				<%=render :partial=>'/share/user2',:locals=>{:user_item=>reader.visitor} %>
+			  <% end %>
+          </ul>
+      </div>
+      <%= render :partial=>"/share/taobao_adv_right" %>
+    </div>
+    <!--cjy_right--> 
+</div><div><img src="/images/sharp_bottom.jpg" /></div>
+</div>

@@ -1,0 +1,98 @@
+<div class="layer" id="layer_apply">
+    <div class="layer_title">
+        <span class="title">报名：<%=@event.name %></span>
+        <span class="more"><a href="javascript:void(0);" onclick="MMS.tools.hidedialog();"><img src="/images/layer/del_06.gif"></a></span>
+    </div>
+    <div class="layer_content">
+        
+<form  action="/ajax_event/create_event_user/<%=@event.id %>"> 
+        <br/>
+        <table class="grid">
+            <tbody>
+                <tr height="40">
+                    <td class="t01" width="100">
+                        参加人数<span class="gray">(必填)</span>：
+                    </td>
+                    <td class="t02">
+                        <%=text_field :event_user, :join_num, :style=>'width:90px;', :class=>'required onlynumber' %>人
+                        <div>
+                            <div class="formError" ></div>
+                        </div>
+                    </td>
+                </tr>
+				<tr height="40">
+                    <td class="t01" width="100">
+                        真实姓名<span class="gray">(必填)</span>：
+                    </td>
+                    <td class="t02">
+                        <%=text_field :event_user, :real_name, :class=>'required ' %> 
+                        <div>
+                            <div class="formError"></div>
+                        </div>
+                    </td>
+                </tr>
+                <tr height="40">
+                    <td class="t01" width="100">
+                        Email<span class="gray">(必填)</span>：
+                    </td>
+                    <td class="t02">
+                        <%=text_field :event_user, :email, :class=>'required email' %>
+                        <div>
+                            <div class="formError"></div>
+                        </div>
+                    </td>
+                </tr>
+                <tr height="40">
+                    <td class="t01" width="100">
+                    	 手机：
+                    </td>
+                    <td class="t02">
+                        <%=text_field :event_user, :mobile, :class=>'mobilePhoneNumber' %>
+                        <div>
+                            <div class="formError"></div>
+                        </div>
+                    </td>
+                </tr>
+				<tr height="40">
+                    <td class="t01" width="100">
+                        所在地区：
+                    </td>
+                    <td class="t02">
+                        <%=text_field :event_user, :city %>
+                        <div>
+                            <div class="formError"></div>
+                        </div>
+                    </td>
+                </tr>
+                <tr height="20">
+                    <td class="t01" width="100">
+                    </td>
+                    <td class="t02">
+                        (Email，真实姓名和手机仅活动组织者可见哦。)
+                    </td>
+                </tr>
+				<tr height="40">
+                    <td class="t01" width="100">
+                    	 备注：
+                    </td>
+                    <td class="t02">
+                        <%=text_area :event_user, :remark, :style=>'width:230px;height:90px;' %>
+                        <div>
+                            <%=error_message_on :event_user,:remark %>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <ul class="layer_botton">
+            <li>
+                <button class="button_submit_s" id="signup_button" type="button" onmouseover="this.className='button_submit_s button_submit_s_hover';" onmouseout="this.className='button_submit_s';">
+                    报名 
+                </button>
+            </li>
+            <div class="clear">
+            </div>
+        </ul>
+        </form>
+    </div>
+</div>

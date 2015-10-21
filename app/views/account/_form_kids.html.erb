@@ -1,0 +1,152 @@
+<% if params[:action] == 'add_user_kid' and @user_kid2.present? %>
+<div class="infor_content_one">
+	<a href="#">老二</a>
+</div>
+<% end %>
+<% if params[:action] == 'add_user_kid' and @user_kid3.present? %>
+<div class="infor_content_one">
+	<a href="#">老三</a>
+</div>
+<% end %>
+<div class="infor_content_two">
+	<table>
+		<tbody>
+			<tr>
+				<td width="160px" align="right"> <% unless user_kid.gender %> <font>*</font> <% end %>
+				性 别： </td>
+				<td width="220px"> 
+					<%= radio_button user_kid_obj, :gender, 'w' %>&nbsp;&nbsp;女孩&nbsp;&nbsp;&nbsp;&nbsp;<%= radio_button user_kid_obj, :gender, 'm' %>&nbsp;&nbsp;男孩 
+				</td>
+				<td>
+					<%= error_message_on user_kid_obj,:gender1 %>
+				</td>
+			</tr>
+			<tr>
+				<td align="right"> <% unless user_kid.birthday %> <font>*</font> <% end %>
+				出生年月： </td>
+				<td class="t02"> <%= date_select user_kid_obj, :birthday, {:use_month_numbers => true, :start_year=>1995, :end_year=>Date.today.year + 1,
+				:prompt=>{:year=>APP_CONFIG['time_label_y'],:month=>APP_CONFIG['time_label_m'], :day=>APP_CONFIG['time_label_d']}}, {:class=>"required"} %>
+				<br/>
+				</td>
+				<td><%= error_message_on user_kid_obj, :birthday %></td>
+			</tr>
+			<tr>
+				<td align="right"><font>*</font> 昵  称： </td>
+				<td> 
+					<%= text_field user_kid_obj, :name, :class=>'dl_input5' %>
+				</td>
+				<td>
+					<%= error_message_on user_kid_obj,:name %>
+				</td>
+			</tr>
+			<tr>
+				<td align="right"> 一句话描述： </td>
+				<td class="t02"> <%= text_area user_kid_obj, :content, :class=>'default_input',:style=>'width:250px;height:80px;' %>
+				<%= error_message_on user_kid_obj,:content %> </td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+
+<% if  @user_kid1.present? && !@user_kid2.present? %>
+<div class="infor_content_one infor_content_one01" id="user_kid_2_button">
+	<%= link_to('还有老二呢', {:action => :add_user_kid, :user_kid => "2"}, {:updater => "user_kid_2", :remote=>true, :id=>"link_1"}) %>
+	<script>
+	$("#link_1").bind("ajax:complete", function(xhr, status){
+			$('#user_kid_2_button').hide();
+		})
+	</script>
+</div>
+<% end %>
+
+<% if  @user_kid2.present? && !@user_kid3.present? && user_kid_obj == 'user_kid2'%>
+<div class="infor_content_one infor_content_one01" id="user_kid_3_button">
+	<%= link_to('还有老三呢', {:action => :add_user_kid, :user_kid => "3"}, {:update => "user_kid_3", :remote=>true, :id=>"link_2"}) %>
+	<script>
+	$("#link_2").bind("ajax:complete", function(xhr, status){
+			$('#user_kid_3_button').hide();
+		})
+	</script>
+</div>
+<% end %>
+
+
+<script type="text/javascript">
+	$("#btn_submit").click(function(){
+		var check_ok = false;
+		//alert(111);
+		if ($("#user_kid_1").html() != "")
+		{
+			if ($("#user_kid1_birthday_1i").val() == "" && $("#user_kid1_birthday_2i").val() == "" && $("#user_kid1_birthday_3i").val() == "")
+			{
+				alert("请您填写宝宝生日。");
+				check_ok = false;
+				//return false;
+			}	
+			else if ($("#user_kid1_name").val() == "")
+			{
+				alert("请填写宝宝的昵称");
+				check_ok = false;
+				//return false;
+			}
+			else
+			{
+				check_ok = true;
+				//return false;
+			}
+		}
+		if ($("#user_kid_2").html().trim().length > 0)
+		{
+			if ($("#user_kid2_birthday_1i").val() == "" && $("#user_kid2_birthday_2i").val() == "" && $("#user_kid2_birthday_3i").val() == "")
+			{
+				alert("请您填写老二的生日。");
+				//alert("1111" + check_ok);
+				check_ok = false;
+				//alert("222" + check_ok);
+				//return false;
+			}	
+			else if ($("#user_kid2_name").val() == "")
+			{
+				alert("请填写老二的昵称");
+				check_ok = false;
+				
+				//return false;
+			}
+			else
+			{			
+				check_ok = true;
+				//return false;
+			}
+		}
+		
+		if ($("#user_kid_3").html().trim().length > 0)
+		{
+
+			if ($("#user_kid3_birthday_1i").val() == "" && $("#user_kid3_birthday_2i").val() == "" && $("#user_kid3_birthday_3i").val() == "")
+			{
+				alert("请您填写老三的生日。");
+				check_ok = false;
+				//return false;
+			}	
+			else if ($("#user_kid3_name").val() == "")
+			{
+				alert("请填写老三的昵称");
+				check_ok = false;
+				//return false;
+			}
+			else
+			{
+				check_ok = true;
+				//return false;
+			}
+		}
+		if (check_ok == true)
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	});
+</script>

@@ -1,0 +1,182 @@
+<html>
+<head>
+	<meta property="qc:admins" content="15405420776515130116375722247572145" />
+	<meta name="viewport" content="user-scalable=yes,width=640px" />
+	<title>宝宝日历下载</title>
+	<link href="/javascripts/tinyslider2/style.css" rel="stylesheet" type="text/css" />
+    <script src="/javascripts/tinyslider2/script.js" type="text/javascript"></script>
+	<style>
+		* {padding: 0px; margin: 0px; font-size: 15px;}
+		body {background-color: #448A9B; font-family: "微软雅黑"; text-align:center}
+		div#main {width: 640px; margin: 0px auto; text-align: left;}
+		div.clear {clear: both;}
+		img {border: 0px;}
+		div#head {background-color: #303030; padding: 6px; color: #CCCCCC;}
+		div#head div#logo {text-align: center; float: left; width: 25%;}
+		div#head div#logo img {width: 120px; height: 120px;}
+		div#head div#logo p {font-size: 30px; color: #E02882; line-height: 40px; font-weight: bold; margin: 0px;}
+		div#head div#slogan {float:left; width: 50%;}
+		div#head div#slogan p {font-size: 26px; margin: 0px;}
+		div#head div#slogan p.p1 {font-size: 40px; font-weight: bold;}
+		div#head div#slogan p.p2 {font-size: 24px;}
+		div#head div#slogan p.p3 img {float: left; margin-top: 2px;}
+		div#head div#slogan p.p3 span{margin-left: 8px; font-size: 20px;}
+		div#head div#downloads {float: left; width: 24%; text-align: center;}
+		div#head div#downloads a img {width: 120px; margin-top: 40px;}
+		div.section {font-size: 22px; color: white; padding: 10px 14px; background-color: #666666;}
+		div#adv {background-color: #FDF0F5}
+		div#adv div#title div#left {float: left;}
+		div#adv div#title div#left img {width: 120px;}
+		div#adv div#title p {margin: 0px;}
+		div#adv div#title p#t1 {padding-top: 14px; padding: 10px 0px;}
+		div#adv div#title p#t2 span.num {font-size:20px; color: gray;}
+		div#adv div#title p{font-size: 32px; line-height: 40px; color: #DE1B7D; text-align: right; margin-right: 40px; font-family: "微软雅黑"; font-weight: bold;}
+		div#adv div#content div#logo {float: left; width: 40%;}
+		div#adv div#content div#logo img {width: 100%;}
+		div#adv div#content div#introduce {padding-left: 8px; float: right; width: 58%; padding-top: 60px;}
+		div#adv div#content div#introduce p {line-height: 40px; font-size: 22px;}
+		div#adv div#content div#introduce p.title {font-weight: bold; font-size: 28px;}
+		div#adv div#content div#introduce p.line2 {font-size: 18px; color: gray;}
+		div#detail {background-color: white; text-align: center;}
+		div#detail div#wrapper {text-align: center;}
+		div#detail div#wrapper ul#pagination{display:none;}
+		div##prize img {margin: 0px; padding: 0px;}
+	</style>
+</head>
+<body>
+	<div id="main">
+		<div id="head">
+			<div id='logo'>
+				<img src='/images/advs/mobile/logo.png'/>
+			</div>
+			<div id="slogan">
+				<p class="p1">
+					宝宝日历
+				</p>
+				<p class="p2">孕期到12岁全程监测记录</p>
+				<p class="p3"><img src="/images/advs/mobile/xing.png"/> <span>明星育儿应用</span></p>
+			</div>
+			<div id="downloads">
+				<% if request.env['HTTP_USER_AGENT'].to_s.downcase.include?('iphone') || request.env['HTTP_USER_AGENT'].to_s.downcase.include?('ipad')%>
+					<a href="http://www.mamashai.com/index/ipa" target="_blank"><img src="/images/advs/mobile/hd_r2_c4.png"/></a>
+				<% elsif request.env['HTTP_USER_AGENT'].to_s.downcase.include?('android') %>
+					<a href="http://www.mamashai.com/index/apk"><img src="/images/advs/mobile/hd_r2_c4.png"/></a>
+				<% else %>
+					<a href="http://www.mamashai.com/mobile/bbrl"><img src="/images/advs/mobile/hd_r2_c4.png"/></a>
+				<% end %>
+			</div>
+			<div class="clear"></div>
+		</div>
+		<div class="section">
+			下载赢超级大奖！ 11月12日0:00~12月12日23:59
+		</div>
+		<div id="adv">
+			<div id='title'>
+				<div id="left">
+					<img src="/images/advs/mobile/hd_r4_c1.jpg"/>
+				</div>
+				<p id="t1">
+					德国进口Kiddy奇蒂宝宝推车！
+				</p>
+				<p id="t2">
+					全球顶级品牌！<span class="num">（3台）</span>
+				</p>
+				<div class="clear"></div>
+			</div>
+			<div id="content">
+				<div id="logo">
+					<a href="http://t.cn/zRTpywk" target="_blank"><img src="/images/advs/mobile/hd_r5_c1.jpg"></a>
+				</div>
+				<div id="introduce">
+					<p class='title'>如何获奖？</p>
+					<p class='line'>1、下载并登录宝宝日历APP</p>
+					<p class='line'>2、在“免费派礼”频道报名参加</p>
+					<p class='line'>3、12月16日应用内通知获奖</p>	
+					<p class="line2">客服QQ：1170979903</p>
+				</div>
+				<div class="clear"></div>
+			</div>
+		</div>
+		<div class="section">
+			奖品：德国Kiddy奇蒂 婴儿四轮手推车伞车童车
+		</div>
+		<div id="prize">
+			<img src="/images/advs/mobile/hd_r7_c1.jpg" /><img src="/images/advs/mobile/hd_r8_c1.jpg" /><img src="/images/advs/mobile/hd_r9_c1.jpg" /><img src="/images/advs/mobile/hd_r10_c1.jpg" /><img src="/images/advs/mobile/hd_r11_c1.jpg" /><img src="/images/advs/mobile/hd_r12_c1.jpg" /><img src="/images/advs/mobile/hd_r13_c1.jpg" /><img src="/images/advs/mobile/hd_r14_c1.jpg" /><img src="/images/advs/mobile/hd_r15_c1.jpg" />
+		</div>
+		<div class="section">
+			备受各位孕妈妈和辣妈们的喜爱，有何秘诀？！
+		</div>
+		<div id="detail">
+			<div id="wrapper">
+				<div class="sliderbutton" id="slideleft" onclick="slideshow.move(-1)"></div>
+				<div id="slider">
+					<ul>
+						<li><img src="/images/advs/mobile/1.png" width="558" height="351"/></li>
+						<li><img src="/images/advs/mobile/2.png" width="558" height="351"/></li>
+						<li><img src="/images/advs/mobile/3.png" width="558" height="351"/></li>
+						<li><img src="/images/advs/mobile/4.png" width="558" height="351"/></li>
+						<li><img src="/images/advs/mobile/5.png" width="558" height="351"/></li>
+					</ul>
+				</div>
+				<div class="sliderbutton" id="slideright" onclick="slideshow.move(1)"></div>
+				<ul id="pagination" class="pagination">
+					<li onclick="slideshow.pos(0)"></li>
+					<li onclick="slideshow.pos(1)"></li>
+					<li onclick="slideshow.pos(2)"></li>
+					<li onclick="slideshow.pos(3)"></li>
+					<li onclick="slideshow.pos(4)"></li>
+				</ul>
+				<div class="clear"></div>
+		    </div>
+		</div>
+		<div id="head">
+			<div id='logo'>
+				<img src='/images/advs/mobile/logo.png'/>
+			</div>
+			<div id="slogan">
+				<p class="p1" style="margin-top: 10px;">
+					下载手机端
+				</p>
+				<p class="p2"> </p>
+				<p class="p3">参加抽大奖活动</p>
+			</div>
+			<div id="downloads">
+				<% if request.env['HTTP_USER_AGENT'].to_s.downcase.include?('iphone') || request.env['HTTP_USER_AGENT'].to_s.downcase.include?('ipad')%>
+					<a href="http://www.mamashai.com/index/ipa" target="_blank"><img src="/images/advs/mobile/hd_r2_c4.png"/></a>
+				<% elsif request.env['HTTP_USER_AGENT'].to_s.downcase.include?('android') %>
+					<a href="http://www.mamashai.com/index/apk"><img src="/images/advs/mobile/hd_r2_c4.png"/></a>
+				<% else %>
+					<a href="http://www.mamashai.com/mobile/bbrl"><img src="/images/advs/mobile/hd_r2_c4.png"/></a>
+				<% end %>
+			</div>
+			<div class="clear"></div>
+		</div>
+	</div>
+	<script type="text/javascript">
+        var slideshow=new TINY.slider.slide('slideshow',{
+			id:'slider',
+			auto:4,
+			resume:false,
+			vertical:false,
+			navid:'pagination',
+			activeclass:'current',
+			position:0,
+			rewind:false,
+			elastic:true,
+			left:'slideleft',
+			right:'slideright'
+		});
+        <% if flash[:notice] %>
+        	alert("<%= flash[:notice] %>");
+        <% end %>
+    </script>
+</body>
+</html>
+
+<div style="display:none">
+	<script type="text/javascript">
+var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3Fb62084ced4b6982bc50286972cbf6fce' type='text/javascript'%3E%3C/script%3E"));
+</script>
+
+</div>

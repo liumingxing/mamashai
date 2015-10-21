@@ -1,0 +1,36 @@
+<h1>预产期每周提示</h1>
+
+<table class="list" border="1">
+  <tr class="head">
+    <th>孕周</th>
+    <th>胎儿发育</th>
+    <th>身体变化</th>
+    <th>孕期营养</th>
+    <th>养护贴士</th>
+    <th>孕妈课堂</th>
+    <th>图片注释</th>
+    <th colspan=3>操作</th>
+  </tr>
+  
+<% for weeks in @weeks %>
+  <tr>
+    <td><%= weeks.id %></td>
+    <td><%= weeks.field1 %></td>
+    <td><%= weeks.field2 %></td>
+    <td><%= weeks.field3 %></td>
+    <td><%= weeks.field5 %></td>
+    <td><%= weeks.field6 %></td>
+    <td><%= weeks.field4 %></td>
+    
+    <td><%= link_to '修改', :action => 'edit', :id => weeks %></td>
+    <td><%= link_to '删除', { :action => 'destroy', :id => weeks }, :confirm => '确认删除吗?', :method => :post %></td>
+  </tr>
+<% end %>
+</table>
+
+
+<%= will_paginate @weeks %>
+
+<br />
+
+<%= link_to '添加孕周', :action => 'new' %>

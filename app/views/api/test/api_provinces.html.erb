@@ -1,0 +1,33 @@
+<h1>省份城市编码表</h1><%= link_to "返回到列表", "/api/test" %>
+<br/>
+由于微博接口用户province, city字段设置及返回都是ID，API调用方需要显示时转换成对应文字,转换关系如下
+<pre>
+    [路径]:provinces
+    [HTTP请求方式]: GET
+    [URL]: http://your.api.domain/provinces.json
+    [是否需要登录]： false
+  
+  示例
+    curl "http://your.api.domain/provinces.json"
+</pre>
+<%= link_to "测试provinces接口", "/api/provinces.json" %>
+<hr/>
+<h2>转换关系</h2>
+<table border="1" cellspacing="0" cellpadding="1">
+    <tr>
+        <th width="50">编码</th>
+        <th width="150">省份</th>
+        <th width="700">城市(编码)</th>
+    </tr>
+    <% @provinces.each do |province| %>
+    <tr>
+        <td align="center"><%= province.id %></td>
+        <td align="center"><%= province.name %></td>
+        <td>
+        	<% province.cities.each do |city| %>
+        		<%= city.id %>=>"<%= city.name %>"，
+        	<% end -%>
+        </td>
+    </tr>
+    <% end %>
+</table>

@@ -1,0 +1,82 @@
+ <div id="middle">
+	<div id="css_mainbody">
+		<h1 class="title">修改邮件<%= "--#{flash[:notice]}" unless flash[:notice].blank? %><span style="float: right; margin-right: 10px;"><a href="/mms/email/index">返回</a></span></h1>
+		<% form_for :email, @email, :url => { :action => "update", :id => @email.id }, :html => {:id => "email"} do |f| %>
+		<table class="email_new">
+			<%= render :partial => 'form', :locals=>{:f=>f} %>
+			<tr>
+				<td>&nbsp;</td>
+				<td class="column_button"><input type="button" value="预览" id="preview"/></td>				
+				<td class="column_button"><% unless @email.blank? %><% if @email.state != "wait" and @email.state != "send" and @email.state != "pause" %><input type="submit" value="保存" /><% end %><% end %>
+				<% if @email.blank? %><input type="submit" value="保存" /><% end %></td>
+				<td class="column_button">
+					<% unless @email.blank? %>
+					<% if !@email.state.blank? and (@email.state != "wait" and @email.state != "send") %><%= button_to_function "发送", "if (confirm('您确定要发送邮件吗?')) send_email()" -%><% end %>
+					<% if !@email.state.blank? and (@email.state != "draft" and @email.state != "pause" and @email.state != "stop" and @email.state != "finish") %><%= button_to_function "暂停发送", "if (confirm('您确定要暂停发送邮件吗?')) pause()" -%><% end %>
+					<% if !@email.state.blank? and (@email.state != "draft" and @email.state != "stop" and @email.state != "finish") %><%= button_to_function "停止发送", "if (confirm('您确定要停止发送邮件吗?')) stop()" -%><% end %>
+					<% end %>
+				</td>
+				<td class="column_button"><% unless @email.blank? %><%= button_to_function "测试发送", "if (confirm('您确定要发送测试邮件吗?')) send_test_email()" -%><% end %></td>
+			</tr>
+		</table>
+		<% end %>
+	</div>
+</div>
+<style type="text/css">
+	.email_new  {
+	border:1px solid #DDDDDD;
+	border-collapse:collapse;
+	empty-cells:show;
+	margin:10px auto;
+	width:98%;
+	}
+	.email_new td {
+		border:1px solid #DDDDDD;
+		color:#666666;
+		font-size:12px;
+		height:30px;
+		line-height:30px;
+		padding-left:10px;
+		text-align:center;
+	}
+	.email_new td.column_1 {
+		width:11%;
+		text-align:right;
+	}
+	.email_new td.column_2 {
+		align:left;
+		text-align:left;
+	}
+	.email_new td.column_button {
+		text-align:center;
+	}
+</style>
+<% unless @email.blank? %>
+<script type="text/javascript">
+	function update_address(){
+		var flag = $('#email_flag').val();
+		update_address_url = "/mms/email/update_address?id=<%= @email.blank? ? '' : @email.id %>&flag=" + flag;
+		window.location.href=update_address_url;
+	}
+	$('#show_address').click(function(){
+		var ignore_email_type = $('#email_ignore_email_type').val();
+		show_address_url = "/mms/email/show_address/<%= @email.id unless @email.blank? -%>?ignore_email_type=" + ignore_email_type;
+		window.open(show_address_url)
+	});
+	$('#preview').click(function(){
+		window.open("/mms/email/preview/<%= @email.id unless @email.blank? -%>")
+	});
+	function send_email(){
+		window.location.href="/mms/email/send_email?id=<%= @email.blank? ? '' : @email.id %>";
+	}
+	function pause(){
+		window.location.href="/mms/email/pause?id=<%= @email.blank? ? '' : @email.id %>";
+	}
+	function stop(){
+		window.location.href="/mms/email/stop?id=<%= @email.blank? ? '' : @email.id %>";
+	}
+	function send_test_email(){
+		window.location.href="/mms/email/send_email_now?id=<%= @email.blank? ? '' : @email.id %>";
+	}
+</script>
+<% end %>

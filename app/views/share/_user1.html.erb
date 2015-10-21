@@ -1,0 +1,28 @@
+<li class="user1">
+	<%= logo_tag(user_item,{:version=>'thumb48', :url=>user_url(user_item)}) %>
+	<div class="username">
+		<%= link_user user_item%>
+	</div>
+	<div>
+		<% if user_item.first_kid %>
+		<%= APP_CONFIG["kid_#{user_item.first_kid.gender}"] %><%= user_item.first_kid.age %>
+		<% else %>
+		没有孩子
+		<% end %>
+	</div>
+	<% if @user %>
+		<% if user_item.id == @user.id %>
+		我
+		<% else %>
+			<% if FollowUser.find(:first, :conditions=>"user_id = #{@user.id} and follow_user_id = #{user_item.id}")%>
+				<img src="/images/icons/follow_success.gif"/>
+			<% else %> 
+				<span class="concern" id="follow_hot_user_<%= user_item.id%>">
+					<%= link_to "关注#{{'m'=>'他', 'w'=>'她', 'un'=>'她'}[user_item.gender]}", {:controller=>"ajax", :action=>"create_follow_user", :id=>user_item.id}, {:updater=>"follow_hot_user_#{user_item.id}", :remote=>true, :id=>"user_#{user_item.id}"}%>
+				</span>
+			<% end %>
+		<% end %>
+	<% else %>
+	<span class="concern" ><a href="/account/signup/<%= user_item.id%>"><%= APP_CONFIG["focus_him_#{user_item.gender}"]%></a></span>
+	<% end %>
+</li>

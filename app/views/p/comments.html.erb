@@ -1,0 +1,53 @@
+<div class="sharp">
+	<div class="app">
+		<div class="logo">
+			<img src="/images/p/b7.png"/>
+		</div>
+		<p class="title">宝宝日历<span>苹果Appstore明星应用</span></p>
+		<div class="title2">
+			<div class="star1">
+				<img src="/images/p/star.png"/>
+			</div>
+			<span class="comments_count">842份评论</span>
+		</div>
+		<div class="clear"></div>
+	</div>
+
+	<div class="app">
+		<div class="logo">
+			<img src="/images/p/b8.png"/>
+		</div>
+		<p class="title">孕期全程监测日历<span>苹果Appstore医疗前10名</span></p>
+		<div class="title2">
+			<div class="star1">
+				<img src="/images/p/star.png"/>
+			</div>
+			<span class="comments_count">903份评论</span>
+		</div>
+		<div class="clear"></div>
+	</div>
+
+	<div class="app">
+		<div class="logo">
+			<img src="/images/p/b9.png"/>
+		</div>
+		<p class="title">0-3岁宝宝成长日历<span>苹果Appstore医疗前15名</span></p>
+		<div class="title2">
+			<div class="star1">
+				<img src="/images/p/star.png"/>
+			</div>
+			<span class="comments_count">543份评论</span>
+		</div>
+		<div class="clear"></div>
+	</div>
+
+	<p class="comments_title">用户评论</p>
+
+	<% for comment in @comments %>
+	<div class="app_comment">
+		<p class="title"><%= comment.title %><img src="/images/p/star.png"/></p>
+		<p class="user">评论人：<%= comment.name %> - <%= comment.occur.year %>年<%= comment.occur.month %>月<%= comment.occur.mday %>日</p>
+		<p class="content"><%= comment.content %></p>
+	</div>
+	<% end %>
+</div>

@@ -1,0 +1,4 @@
+<% last_user = User.find(:first, :order=>"id desc") %>
+<% for user in User.not_hide.normal.all(:limit=>6,:conditions=>["users.age_id=? and users.id<>? and id > #{rand(last_user.id)}",@user.age_id,@user.id]) %>
+    <%=render :partial=>'sidebar/side_user',:locals=>{:user_item=>user, :tp=>"same_age"} %>
+<% end %>

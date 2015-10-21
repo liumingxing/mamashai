@@ -1,0 +1,153 @@
+<div class="sharp mt20">
+	<div class="content">
+		<div class="cjy_left">
+			<div id="zl">
+				<img src="/images/zl_top.png" />
+				<div id="main_photo3">
+					<img src="http://www.mamashai.com<%= @author.user.logo.thumb140%>"/>
+					<div class="clear"></div>
+					<b><%= @author.user.name %>的专栏</b>
+				</div>
+				
+				<div class="zl_gz">
+					<ul>
+						<li>
+							<%= ColumnBook.count(:conditions=>"user_id = #{@author.user.id}")%> <h4>栏目</h4>
+						</li>
+						<li><img src="/images/gz_li.jpg"/>
+						</li>
+						<li>
+							<%= ColumnChapter.published.count(:conditions=>"user_id = #{@author.user.id}")%> <h4>文章</h4>
+						</li>
+					</ul>
+				</div>
+			</div>
+			<div class="clear"></div>
+			<div id='chanel_content'>
+				<div class="fr">
+					<a class="button_link" href="/column/new_chapter">写专栏</a>
+			</div>
+			
+			<div class="navigate_tab" style="width: 700px;" id="n">
+					<ul class="class1">
+						<li <%=raw 'class="current"' if !params[:tp] || params[:tp] == 'chapter'%>><a href="/column/space_author/<%= @author.user_id %>?tp=chapter">专栏文章</a></li>
+						<li <%=raw 'class="current"' if params[:tp] == "column"%>><a href="/column/space_author/<%= @author.user_id %>?tp=column">专栏栏目</a></li>
+					</ul>
+			</div>
+		
+			
+		<div class="column_list">
+			<% if params[:tp] == "column"%>
+				<% if @books.size == 0%>
+					该作者目前没有开辟专栏...
+				<% end %>
+
+				<% for book in @books%>
+				<div class="book">
+					<div class="title">
+						<div class="title_name">
+							<div style="float:left">
+								<%= link_to "《#{book.name}》", :column_id => book.id, :tp=>"chapter" %>
+								<span class="gray"><%= book.created_at.strftime("%Y-%m-%d %H:%M")%></span>
+							</div>
+							<div class="detail">
+								<% if @user && @user.id.to_s == params[:id] %>
+									<a href="#?" onclick="show_url_box('/column/edit/<%= book.id %>', '修改栏目')">编辑</a>
+									<%= link_to "删除", "/column/destroy/#{book.id}", :confirm=>"删除栏目后将不可恢复，确定要删除吗？"%>
+									&nbsp;&nbsp;&nbsp;&nbsp;
+								<% end %>
+
+								文章:<span class="orange"><%= book.chapter_count %></span>
+								评论:<span class="orange"><%= book.comment_count %></span>
+
+							</div>
+						</div>
+						<div class="clear"></div>
+						<span style="margin-left: 50px; padding-top: 6px; font-size: 13px;">
+							专栏简介：<%= book.desc %>
+						</span>
+					</div>
+
+					<div class="clear"></div>
+				</div>
+				<% end %>
+			<% else %>
+				<% if @chapters.size == 0%>
+					该专栏目前没有文章...
+				<% end %>
+				<% @chapters.each_with_index{|chapter, index|%>
+				<div class="chapter">
+					<div class="title">
+						<div class="title_name">文章<%= index + 1%>: 
+							<% if chapter.draft %>
+								<span style="color:red">草稿</span>
+							<% end %>
+							<%= link_to "《#{chapter.title}》", :action=>"show", :id => chapter.id %> <span class="gray"><%= chapter.updated_at.strftime("%Y-%m-%d %H:%M")%></span></div>
+						<div>
+							<div style="float:left;">
+								<span style="margin-left: 50px;">栏目：</span><%= link_to "《#{chapter.column_book.name}》", :column_id => chapter.column_book.id, :tp=>'chapter'%>
+							</div>
+							<div class="function" style="float: right;">
+									<% if @user && @user.id.to_s == params[:id] %>
+									<a href="/column/new_chapter/<%=@user.id%>?chapter_id=<%= chapter.id%>">修改</a> |
+									<%= link_to "删除", "/column/destroy_chapter?chapter_id=#{chapter.id}", :confirm=>"删除文章后将不可恢复，确定要删除吗？"%>
+									<% end %>
+									浏览:<span class='orange'><%= chapter.visited_times%></span>
+									鼓掌:<span class='orange'><%= Clap.count_of('post', chapter.post.id) if chapter.post%></span>
+									评论:<span class='orange'><%= chapter.post.comments_count if chapter.post%></span>
+							</div>
+						</div>
+					</div>
+
+					<div class="clear"></div>
+				</div>
+				<% } %>
+				<%= will_paginate @chapters%>
+			<% end %>
+		</div>
+	</div>
+		</div>
+		<!--cjy_left-->
+		<div class="cjy_right">
+			<div id="zl_ad">
+				<% advs = Advertisement.get("f", 2)%>
+				<% advs.each_with_index {|adv, index| %>
+				<a href="<%= adv.url %>" target="_blank"><img src="<%= adv.logo %>"></a><br/>
+				<% } %>	
+			</div>
+			<span class="title">简介 </span>
+			<div class="cjy_ts">
+				<%= @author.desc %>
+			</div>
+			<div class="cjy_ts">
+				<span class="title">统计 </span>
+			</div>
+			<div class="zl_tj">
+				<ul>
+					<li><img src="/images/icon_05_01.jpg" /><%= @author.count_of('visits') %>
+					</li>
+					<li><img src="/images/icon_05_02.jpg" /><%= @author.count_of('comments') %>
+					</li>
+					<li><img src="/images/icon_05_03.jpg" /><%= @author.count_of('fowards') %>
+					</li>
+					<!--
+					<li><img src="/images/icon_05_04.jpg" /><%= @author.count_of('favorites') %>
+					</li>
+					-->
+				</ul>
+			</div>
+			<div class="zl_dz">
+				<span class="title">读者 </span>
+				<ul>
+					<% for visitor in @hot_readers %>
+						<% next if !visitor.visitor %>
+						<%=render :partial=>'/share/user2',:locals=>{:user_item=>visitor.visitor} %>
+					<% end %>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<!--cjy_right-->
+	<div><img src="/images/sharp_bottom.jpg" />
+	</div>
+</div>

@@ -1,0 +1,29 @@
+<div id="middle">
+    <div id="css_mainbody">
+        <h1 class="title">
+        	百度APP应用列表<%= "--#{flash[:notice]}" unless flash[:notice].blank? %>
+			<span style="float: right; margin-right: 10px;">
+				<%= link_to '新增百度APP应用', :action => :new %>
+			</span>
+        </h1>
+        <br/>
+        <% form_remote_tag :url => {:action => :find}, :update => "div_search_result" do %>
+        <table>
+            <tbody>
+                <tr>
+                    <td width="10%" align="right">百度APP应用搜索：</td>
+                    <td width="20%"><%= text_field :search, :title -%></td>
+                    <td width="10%"><%= button_to "搜索", :action => :find %></td>
+                    <td></td>
+                </tr>
+            </tbody>
+        </table>
+        <% end %>
+        <div id="div_search_result">
+        	<%= render :partial => "search_result" %>
+        </div>
+		<div class="book_page">
+		    <%=will_paginate @baiduapp %>
+		</div>
+    </div>
+</div>

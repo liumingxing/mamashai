@@ -1,0 +1,27 @@
+ <div id="middle">
+	<div id="css_mainbody">
+		<h1 class="title">新建广告统计<%= "--#{flash[:notice]}" unless flash[:notice].blank? %></h1>
+		<% form_for(:keyword_signup, :url => {:action => :create}) do |f| %>
+		<table class="grid">
+	        <tbody>
+	        	<tr>
+	        		<td>
+	        			名称：
+	        		</td>
+					<td style="a">
+	        			<%= f.text_field(:name)%>
+	        		</td>
+	        	</tr>
+				<tr>
+	        		<td>
+	        			
+	        		</td>
+					<td>
+	        			<%= submit_tag "保存"%>
+	        		</td>
+	        	</tr>
+	        </tbody>
+	    </table>
+		<% end %>
+	</div>
+</div>

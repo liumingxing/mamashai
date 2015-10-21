@@ -1,0 +1,450 @@
+function GouCart(attr){
+	var win = Ti.UI.createWindow(attr);
+
+	Ti.App.db.execute('CREATE TABLE IF NOT EXISTS cart (id int, name varchar(200), logo varchar(200), price float, o_price float, count int, yunfee float, kd char(20), category_id int, count_fixed int default 0, created_at char(50), end_at char(50))');
+	
+	function refresh_cart(){
+		clear_window(win);
+
+		//购物车6小时过期
+		var now = new Date();
+		Ti.App.db.execute("delete from cart where created_at<?", now.getTime() - 1000 * 3600 * 6)
+
+		var row_data = []
+		var record = Ti.App.db.execute('SELECT * FROM cart');
+		if (!record.isValidRow()){
+			win.add(Ti.UI.createImageView({
+				image: "/images/gou/gwc_empty.png",
+				top: __l(40),
+				left: (Ti.App.platform_width - __l(140))/2,
+				right: __l(100),
+				hires: true,
+				width: __l(140),
+				height: __l(140)
+			}))
+
+			win.add(Ti.UI.createLabel({
+				left: __l(10),
+				right: __l(10),
+				top: __l(220),
+				font: {fontSize: __l(18)},
+				color: "#333",
+				text: "主人，购物车还是空空的哦！",
+				textAlign: "center"
+			}))
+
+			win.add(Ti.UI.createLabel({
+				left: __l(10),
+				right: __l(10),
+				top: __l(250),
+				font: {fontSize: __l(13)},
+				color: "#ccc",
+				text: "快去选购心仪的宝贝吧",
+				textAlign: "center"
+			}))
+			if (!Ti.App.is_android)
+				win.setRightNavButton(null);
+			return;
+		}
+
+		if (!Ti.App.is_android)
+			win.setRightNavButton(right);
+			
+		while (record.isValidRow()){
+			var row = Ti.UI.createTableViewRow({
+				selectedBackgroundColor: "#eee",
+				id: record.fieldByName("id"),
+				name: record.fieldByName("name"),
+				logo: record.fieldByName("logo"),
+				price: record.fieldByName("price"),
+				o_price: record.fieldByName("o_price"),
+				kd: record.fieldByName("kd")
+			})
+
+			var CheckBox = require("lib/checkbox").CheckBox
+			var check = new CheckBox({
+				top: __l(16),
+				height: __l(40),
+				width: __l(40),
+				left: __l(2)
+			})
+			Ti.App.is_android ? check.view.value = true : check.setCheck()
+			row.check_box = check;
+			check.view.addEventListener("click", function(e){
+				calc_price();
+			})
+
+			var wrapper = Ti.UI.createView({
+				left: __l(34),
+				right: 0,
+				bottom: 0,
+				top: 0,
+				height: Ti.UI.SIZE,
+				id: record.fieldByName("id"),
+				row: row
+			})
+
+			wrapper.addEventListener("longpress", function(e){
+				if (!e.source.id)
+					return;
+
+				var alert_dialog = Titanium.UI.createAlertDialog({
+					title : '提示',
+					message : '确定要从购物车移除此商品吗？',
+					buttonNames : ['取消', '确定'],
+					cancel : 0
+				});
+				alert_dialog.addEventListener("click", function(e1){
+					if (e1.index == 1){
+						Ti.App.db.execute('delete from cart where id = ?', e.source.id);
+						tableview.deleteRow(e.source.row);
+						show_notice("移除成功")
+					}
+				});
+				alert_dialog.show();
+			})
+			var logo_wrapper = Ti.UI.createView({
+				width: __l(46),
+				height: __l(46),
+				top: __l(10),
+				bottom: __l(10),
+				left: __l(10),
+				borderWidth: 1,
+				borderColor: "#ccc",
+				id: record.fieldByName("id")
+			})
+			logo_wrapper.addEventListener("click", function(e){
+				cache_http_call(Ti.App.mamashai + "/bbrl_code/gou_detail.txt", "gou_detail", function(e1){
+					var DetailWin = eval(e1.responseText);
+					var win = new DetailWin({
+						title: "商品详情",
+						id: e.source.id,
+						backButtonTitle: "",
+						backgroundColor: "white"
+					})
+					Ti.App.currentTabGroup.activeTab.open(win, {
+						animated : true
+					});
+				})
+			})
+			logo_wrapper.add(Ti.UI.createImageView({
+				left: __l(2),
+				top: __l(2),
+				right: __l(2),
+				bottom: __l(2),
+				hires : true,
+				image: Ti.App.aliyun + record.fieldByName("logo"),
+				touchEnabled: false
+			}))
+			wrapper.add(logo_wrapper);
+			wrapper.add(Ti.UI.createLabel({
+				text: record.fieldByName("name"),
+				font: {fontSize: __l(13)},
+				color: "#666",
+				left: __l(68),
+				right: __l(70),
+				top: __l(10),
+				height: Ti.UI.SIZE,
+				bottom: __l(10),
+				touchEnabled: false
+			}))
+			wrapper.add(Ti.UI.createLabel({
+				right : __l(10),
+				top: __l(10),
+				font: {fontSize: __l(14), fontWeight: "bold"},
+				color: Ti.App.bar_color,
+				text: "￥" + record.fieldByName("price").toFixed(2),
+				touchEnabled: false
+			}))
+			var count_wrapper = Ti.UI.createView({
+				top: __l(34),
+				right: __l(10),
+				height: Ti.App.is_android ? __l(32) : __l(26),
+				width: Ti.App.is_android ? __l(54) : __l(26),
+				backgroundColor: "white",
+				borderWidth: Ti.App.is_android ? 0 : 1,
+				borderRadius: __l(4),
+				borderColor: "#ccc",
+				id: record.fieldByName("id"),
+				count: record.fieldByName("count"),
+				kd: record.fieldByName("kd")
+			})
+			row.count_wrapper = count_wrapper;
+			
+			if (Ti.App.is_android){
+				var picker = Ti.UI.createPicker({
+					left: 0,
+					right: 0,
+					top: 0,
+					bottom: 0,
+					id: record.fieldByName("id"),
+					count_wrapper: count_wrapper
+				});
+				var data = [];
+				for(var i=parseInt(record.fieldByName("kd")); i<11; i++){
+					if (parseInt(record.fieldByName("kd")) == 2 && i % 2 == 1){
+						continue;
+					}
+					data.push(Ti.UI.createPickerRow({title: i, custom_item: i}));
+				}
+				picker.add(data);
+				picker.setSelectedRow(0, record.fieldByName("count")-parseInt(record.fieldByName("kd")), true);
+				picker.addEventListener('change',function(e){
+					e.source.count_wrapper.count = e.row.custom_item;
+					Ti.App.db.execute('update cart set count = ? where id = ?', e.row.custom_item, e.source.id);
+					calc_price();
+				})
+				count_wrapper.add(picker);
+			}
+			else{
+				var count_label = Ti.UI.createLabel({
+					text: record.fieldByName("count"),
+					left: 0,
+					right: 0,
+					top: 0,
+					bottom: 0,
+					textAlign: "center",
+					touchEnabled: false,
+					font: {fontSize: __l(14)},
+					color: "#333"
+				})
+				count_wrapper.label = count_label;
+				count_wrapper.add(count_label);
+
+				count_wrapper.addEventListener("click", function(e){
+					var ios_picker = Titanium.UI.createPicker({
+						selectionIndicator : true,
+						top: __l(20),
+						left: __l(2),
+						right: __l(2),
+						height: __l(120),
+						bottom: __l(2),
+						height: Ti.UI.FILL,
+						font: {fontSize: __l(16)},
+						v: e.source.count
+					});
+					ios_picker.addEventListener('change',function(e1){
+						ios_picker.v = e1.row.custom_item;
+					})
+					var ios_data = []
+					for(var i=parseInt(e.source.kd); i<11; i++){
+						var row = Ti.UI.createPickerRow({custom_item: i, height: __l(30)});
+						var label = Ti.UI.createLabel({
+							text: i,
+							font:{fontSize: __l(14)},
+							color: "#333",
+							width: 'auto',
+							height: __l(24)
+						});
+						row.add(label)
+						ios_data.push(row)
+						if (parseInt(e.source.kd) == 2){
+							i += 1
+						}
+					}
+					ios_picker.add(ios_data);
+					if (parseInt(e.source.kd) == 2){
+						ios_picker.setSelectedRow(0, (e.source.count-parseInt(e.source.kd))/2, true);
+					}
+					else{
+						ios_picker.setSelectedRow(0, e.source.count-parseInt(e.source.kd), true);
+					}
+					
+					var PickerView = require('lib/picker_view')
+					var picker_view = PickerView.create_picker_view(ios_picker, function(){
+						e.source.label.text = ios_picker.v;
+						e.source.count = ios_picker.v
+						Ti.App.db.execute('update cart set count = ? where id = ?', e.source.count, e.source.id);
+						calc_price();
+					})
+					win.add(picker_view)
+					picker_view.animate(PickerView.picker_slide_in);
+				})
+			}
+			
+			wrapper.add(count_wrapper)
+			row.add(check.view)
+			row.add(wrapper)
+			row_data.push(row);
+
+			record.next();
+		}
+		record.close();
+
+		var tableview = Ti.UI.createTableView({
+			top: 0,
+			bottom: __l(80),
+			data: row_data
+		})
+		win.add(tableview);
+
+		var js = Ti.UI.createView({
+			height: __l(80),
+			bottom: 0,
+			backgroundColor: "#eee",
+			left: 0,
+			right: 0
+		})
+		var CheckBox = require("lib/checkbox").CheckBox
+		var check_all = new CheckBox({
+			top: __l(20),
+			height: __l(40),
+			width: __l(40),
+			left: __l(2)
+		})
+		check_all.view.addEventListener("click", function(e){
+			if (!tableview.data || tableview.data.length == 0)
+				return;
+
+			for(var i=0; i<tableview.data[0].rows.length; i++){
+				var row = tableview.data[0].rows[i];
+				if (Ti.App.is_android){
+					row.check_box.view.value = check_all.view.value
+				}
+				else{
+					check_all.view.value ? row.check_box.setCheck() : row.check_box.setUncheck()
+				}
+			}
+			calc_price();
+		})
+
+		Ti.App.is_android ? check_all.view.value = true : check_all.setCheck()
+		var label = Ti.UI.createLabel({
+			left: __l(38),
+			top: Ti.App.is_android ? __l(30) : __l(32),
+			text: "全选",
+			font: {fontSize: __l(14)},
+			color: "#333"
+		})
+		js.add(check_all.view);
+		js.add(label);
+
+		//重新计算总价
+		function calc_price(){
+			var total_price = 0;
+			var total_o_price = 0;
+			if (tableview.data && tableview.data.length > 0){
+				for(var i=0; i<tableview.data[0].rows.length; i++){
+					var row = tableview.data[0].rows[i];
+					if (row.check_box.view.value){
+						row.count = row.count_wrapper.count;
+						total_price += row.count_wrapper.count * row.price
+						total_o_price += row.count_wrapper.count * row.o_price
+					}
+				}
+			}
+			
+			price_label.text = "总计：￥" + total_price.toFixed(2);
+			save_label.text = "为您节省：￥" + (total_o_price-total_price).toFixed(2);
+
+			price_label.value = total_price;
+		}
+
+		var price_label = Ti.UI.createLabel({
+			left: __l(76),
+			top: __l(20),
+			font: {fontSize: __l(16), fontWeight: "bold"},
+			color: Ti.App.bar_color,
+			text: "总计：￥100.00",
+			value: 100
+		})
+		var save_label = Ti.UI.createLabel({
+			left: __l(76),
+			top: __l(44),
+			font: {fontSize: __l(12)},
+			color: "#999",
+			text: "为您节省：￥50.00",
+			value: 50
+		})
+		js.add(price_label)
+		js.add(save_label)
+		
+		var js_btn = Ti.UI.createButton({
+			color: 'white',
+			backgroundColor: "#DA1D71",
+			backgroundSelectedColor: "#CA0D61",
+			width: __l(100),
+			height: __l(40),
+			right: __l(10),
+			top: __l(20),
+			font: {fontSize: __l(14)},
+			borderRadius: __l(4),
+			title: "结 算"
+		})
+		js_btn.addEventListener("click", function(e){
+			if (!check_login()){
+				to_login();
+				return;
+			}
+
+			cache_http_call(Ti.App.mamashai + "/bbrl_code/gou_order.txt", "cache_gou_order", function(e){
+				var json = {details: []};		//传给结算窗体的参数
+
+				var total_price = 0;
+				var total_o_price = 0;
+				if (tableview.data && tableview.data.length > 0){
+					for(var i=0; i<tableview.data[0].rows.length; i++){
+						var row = tableview.data[0].rows[i];
+						if (row.check_box.view.value){
+							json.details.push({
+								product_id : row.id,
+								price 	: row.price,
+								o_price : row.o_price,
+								count 	: row.count_wrapper.count,
+								sum 	: row.count_wrapper.count * row.price,
+								name 	: row.name,
+								logo 	: row.logo
+							})
+							total_price += row.count_wrapper.count * row.price
+							total_o_price += row.count_wrapper.count * row.o_price
+						}
+					}
+				}
+				json.price = total_price
+				json.o_price = total_o_price
+				
+				var OrderWin = eval(e.responseText);
+				var win = new OrderWin({
+					title: "结算",
+					backButtonTitle: "",
+					backgroundColor: "white",
+					json: json
+				})
+				if (!Ti.App.is_android)
+					win.hideTabBar();
+				Ti.App.currentTabGroup.activeTab.open(win, {
+					animated : true
+				});
+			})
+		})
+		js.add(js_btn);
+		win.add(js)
+		
+		calc_price();
+	}
+
+	Ti.App.addEventListener("refresh_cart", refresh_cart)
+	win.addEventListener("close", function(e){
+		Ti.App.removeEventListener("refresh_cart", refresh_cart)
+	})
+
+	pre(win);
+	var right = Ti.UI.createButton({
+		title: "清空"
+	})
+	right.addEventListener("click", function(e){
+		Ti.App.db.execute("delete from cart");
+		Ti.App.fireEvent("refresh_cart")
+	})
+	if (!Ti.App.is_android)
+		win.setRightNavButton(right);
+	add_default_action_bar2(win, win.title, "清空", function(e){
+		right.fireEvent("click");
+	})
+
+	refresh_cart();
+
+	return win;
+}
+
+module.exports = GouCart;

@@ -1,0 +1,62 @@
+<div class="sharp mt5">
+	<div class="content">
+		<div class="cjy_left">
+			<% if @users.size > 0 %>
+			<div class='search_result'>
+				搜到“<span class='red'><%= params[:id] %></span>”相关的人<%= @users.total_entries %>位
+			</div>
+			
+			<DIV id="chanel_content">
+				<ul class="shine_list">
+		        	<% user_ids = [] %>
+		            <% for user in @users %>
+					<li class="list">
+		                <%=render :partial=>'/follows/list_user',:locals => {:user => user} %>
+		                <ul class="shine_local">
+		                	<% if !@user || user.id != @user.id %>
+	                        <li id="fans_user_<%=user.id%>">
+	                            <% if @user && @user.has_follow?(user.id) %>
+	                            <img src="/images/icons/follow_success.gif"/><% else %>
+	                            <%= link_to(APP_CONFIG['add_follow'], {:action =>:create_follow_user,:controller=>:ajax,:id=>user.id},{:remote=>true, :updater => "fans_user_#{user.id}", :class=>'button_link'}) %>
+	                            <% end %>
+	                        </li>
+	                        <% end %>
+	                    </ul>
+		                <div class="clear">
+		                </div>
+		            </li>
+		            <% end %>
+		        </ul>
+				<div class="clear"></div>
+				<%= will_paginate @users %>
+			</DIV>
+			<% else %>
+				<div class='search_result'>
+					没有搜到“<span class='red'><%= params[:id] %></span>”相关的人
+				</div>
+			<% end %>
+		</div>
+		<div class="cjy_right">
+			<div class="right_list">
+				<h2>日历达人</h2>
+				<ul>
+					<% for vip in BbrlVip.find(:all, :conditions=>"") %>
+						<%= render :partial=>"/share/user2", :locals=>{:user_item=>vip.user}%>
+					<% end %>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<!--cjy_right-->
+	<div><img src="/images/sharp_bottom.jpg" />
+	</div>
+</div>
+
+
+<script src="/javascripts/FancyZoom.js" language="JavaScript" type="text/javascript"></script>
+<script src="/javascripts/FancyZoomHTML.js" language="JavaScript" type="text/javascript"></script>
+<script>
+	$(document).ready(function() {
+		setupZoom();
+	});	
+</script>

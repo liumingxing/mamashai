@@ -1,0 +1,19 @@
+<div class="user_tools">
+    
+    <span class="tools"> 
+		浏览 <span class='number'>(<%= article.view_count || 0 %>)</span> 
+		<% if @user%>
+			<%= link_to(image_tag("/images/icon_10.jpg"), {:controller=>"ajax", :action=>"clap", :tp=>'article', :id=>article}, {:updater=>"claps_count_#{article.id}", :remote=>true}) %> <span class='number' id='claps_count_<%=article.id%>'>(<%= article.good_count%>)</span> 
+		<% else %>
+			鼓掌 <span class='number' id='claps_count_<%=article.id%>'>(<%= article.good_count%>)</span> 
+		<% end %>
+		
+        <a href="javascript:void(0);" onclick="show_post_expand('list_article_comments','<%=article.id%>');"><img src="/images/icon_12.jpg"></a> <%if article.article_comments.size>0 %><span class="number">(<%=article.article_comments.size %>)</span><%end %>
+ 		
+	</span>
+    <div class="clear">
+    </div>
+</div>
+
+<div id="post_expand_<%=article.id%>" style="display:none;">
+</div>

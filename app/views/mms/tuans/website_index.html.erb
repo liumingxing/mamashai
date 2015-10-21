@@ -1,0 +1,70 @@
+<div id="middle">
+    <div id="css_mainbody">
+        <h1 class="title">团购网站管理
+			<span style="float: right; margin-right: 10px;">
+		        <%= link_to '添加新的团购网站', '/mms/tuans/website_new' %>
+		    </span>
+		</h1>
+		<div style="text-align:center;" class="green"><%= flash[:notice]%></div>
+		<div id="page_count">
+			<span style="float:right;">
+				共有
+				<b class="blue">
+					<%=h @tuan_websites.size%>
+				</b>
+				条记录
+			</span>
+		</div>
+		<% form_tag "/mms/tuans/website_search", {:method => "get"} do %>
+        <div>
+            搜索：<%= text_field_tag "keyword" %><%= submit_tag "查询" %>
+        </div>
+        <% end %>
+		<div class="clear"></div>
+        <table class="grid">
+        	<tr>
+        		<th width="5%">序号</th>
+			    <th width="15%">网站名称</th>
+			    <th width="20%">网站url</th>
+				<th width="10%">认证状态</th>
+				<th width="10%">开团日</th>
+			    <th width="20%">评价/热购指数/团购总数</th>
+			    <th width="10%">抓取信息</th>
+				<th width="10%">操作</th>
+			  </tr>
+           <% if @tuan_websites.size == 0 %>
+				<tr>
+					<td colspan=7>
+						<b>暂无记录</b>
+					</td>
+				</tr>
+			<% else %>
+				<% @tuan_websites.each_with_index do |website,index| %>
+				  <tr>
+				  	<td><%=(index+1).to_s%></td>
+				    <td><%=h website.name %></td>
+					<td><%= link_to website.url,website.url,:target=>'_blank' %></td>
+					<td><%= {0=>'未认证',1=>'普通认证',2=>'推荐认证',-1=>'封锁'}[website.tp] %></td>
+				    <td><%=h website.open_at.blank? ? '暂无信息' : website.open_at.strftime("%Y年%m月%d日") %></td>
+					<td><%=h website.average_rate%>/<%=h website.average_hot_count%>/<%=h website.tuans_count%></td>
+				    <td>
+						<% if website.can_catch%>
+							<%= link_to '测试抓取', "/mms/tuans/test_catch/#{h website.id}",:target=>'_blank' %>
+							<%= link_to '参数清空', "/mms/tuans/clear_catch/#{h website.id}", :confirm => '确认清空参数吗？' %>
+						<% end %>
+							<%= link_to '参数设置', "/mms/tuans/set_catch_config/#{h website.id}" %>
+					</td>
+				    <td>
+				    	<%= link_to '修改', "/mms/tuans/website_edit/#{h website.id}" %>
+				    	<%= link_to '删除', "/mms/tuans/website_destroy/#{h website.id}", :confirm => '确认删除吗？', :method => :delete %>
+					</td>
+				  </tr>
+				<% end %>
+			<%end%>
+        </table>
+		<div class="paginate">
+			<%= will_paginate @tuan_websites %>
+		</div>
+    </div>
+    <div class="clear"></div>
+</div>

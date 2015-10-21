@@ -1,0 +1,38 @@
+<h1>show 返回两个用户关注关系的详细情况</h1><%= link_to "返回到列表", "/api/test" %>
+<pre>
+  [路径]: friendships/show
+  [HTTP请求方式]: GET
+  [URL]: http://your.api.domain/friendships/show.json
+  [是否需要登录]： true
+
+参数
+
+    * source 申请应用时分配的AppKey，调用接口时候代表应用的唯一身份。
+    * source_id 源用户UID, 如果为空， 则使用当前用户ID
+    * target_id 要判断的目标用户ID （必填）
+
+示例
+
+  curl -u "username:password"
+  "http://your.api.domain/friendships/show.json?source=appkey&source_id=7702&target_id=7701"
+
+注意
+
+  如果用户已登录，此接口将自动使用当前用户ID作为source_id。但是可强制指定source_id来查询关注关系。
+  如果源用户或目的用户不存在，则返回error
+
+返回json字段
+
+    * id 用户ID
+    * name 用户昵称
+    * following 关注
+    * followed_by 被关注
+</pre>
+<hr/>
+<%= form_tag "/api/friendships/show.json" ,{:method=>:get} do %>
+  <%= render :partial => '/api/test/login' %>
+  source: <%= text_field_tag "source" %><br/>
+  source_id: <%= text_field_tag "source_id" %><br/>
+  target_id: <%= text_field_tag "target_id" %><br/>
+  <%= submit_tag "提交"%>
+<% end -%>

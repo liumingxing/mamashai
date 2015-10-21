@@ -1,0 +1,15 @@
+<div id="middle">
+        <div id="css_mainbody">
+            <h1 class="title">资源库分类管理
+				<span style="float: right; margin-right: 10px;">
+			        <%= link_to '返回列表', :action=>"index" %>
+			    </span>
+			</h1>
+			<table style="width: 1000px; padding-left: 50px;">
+				<%= form_for @category,:url=>"/mms/tool_categories/update/#{@category.id}" do |f| %>
+	            	<%= render :partial => 'form', :locals=>{:f=>f}%>
+				<% end %>
+			</table>
+        </div>
+        <div class="clear"></div>
+    </div>

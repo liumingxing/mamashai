@@ -1,0 +1,14 @@
+<% if @sys_link %>
+<script>
+	$('#link_result_<%=@sys_link.id%>').get(0).innerHTML = '<span class="picture" id="link_tool_<%=@sys_link.id%>" style="display:none;">'+
+	'<a href="#" onclick="new Ajax.Updater(\'link_result_<%=@sys_link.id%>\', \'/ajax/add_user_link/<%=@sys_link.id%>\', {asynchronous:true, evalScripts:true}); return false;"><img src="/images/index_nav/icons_02.gif"></a>'
+	+'</span>';
+
+</script>
+<% end %>
+<script>
+    new Ajax.Updater('link_<%=@link_category.id%>_1', '/ajax/get_category_user_links/<%=@link_category.id%>', {
+        asynchronous: true,
+        evalScripts: true
+    });
+</script>

@@ -1,0 +1,201 @@
+<h1>
+  <span style="float:right">
+    <%= form_tag({:action=>"search"},{:method=>"get"}) do %>
+      <%= text_field_tag :name, params[:name]%>
+      <%= submit_tag "查找"%>
+      &nbsp;&nbsp;
+    <% end %>
+  </span>
+</h1>
+
+<%= form_tag({:action=>"delete_products", :id=>params[:id], :page=>params[:page]},{:method=>"post"}) do %>
+<table class="list" border="1" width="100%" id="product_list">
+  <tr class="head">
+    <th><a onclick="select_all()" href="javascript:void(0)">全选</a></th>
+    <th>ID</th>
+    <th width="150px">商品名称</th>
+    <th>logo</th>
+    <th>品类</th>
+    <th>价格</th>
+    <th>类别</th>
+    <th>下线</th>
+    <th colspan=7>操作</th>
+  </tr>
+
+  <% for product in @products %>
+    <tr>
+      <td width="30px"><input id="p_<%= product.id %>" name="p[]" value="<%= product.id %>" type="checkbox"/></td>
+      <td width="30px"><a href="/tao/show/<%= product.id %>" target="_blank"><%= product.id %></a></td>
+      <td>
+        <a href="<%=h product.url_mobile %>" target="_blank"><%=h product.name %></a>
+      </td>
+      <td><img src='<%=product.pic_url%>_310x310.jpg' style="width:200px;"/></td>
+      <td><%= TaoCategory.find(product.category_id).name if product.category_id %>(<%= product.category_id %>)</td>
+      <td><%=h product.price %></td>
+      <td><%= product.tao_ages.map{|a| a.desc}.join(',')%></td>
+
+      <td><%= '下线' if product.cancel%></td>
+
+      <td><%= link_to '修改', {:action=>'edit', :id=>product}%></td>
+      <td>
+      	<%= link_to '删除', { :action => 'destroy', :id => product, :page => params[:page] }, :confirm => '确认删除吗?', :method => :post %>
+      </td>
+      <td>
+        <% if product.position %>
+          <%= link_to "取消置顶", :action=>"cancel_top", :id=>product.id, :page=>params[:page] %>
+        <% else %>
+          <%= link_to "置顶", :action=>"set_top", :id=>product.id, :page=>params[:page] %>
+        <% end %>
+        <br/>
+      </td>
+    </tr>
+  <% end %>
+</table>
+<%= submit_tag "删除"%>
+<% end %>
+
+<%= will_paginate @products %>
+
+<script type="text/javascript">
+  function select_all() {
+    jQuery("#product_list input[type=checkbox]").each(function(){
+      jQuery(this).attr("checked", true);
+    })
+    return false;
+  }
+
+  function delete_age(id) {
+    if(confirm("确定要清空年龄段吗？")) {
+      jQuery.ajax({
+        url: "/mms/taobaoproducts/delete_age",
+        type: "post",
+        data: {"id" : id},
+        success: function(res) {
+          alert(res);
+          window.location = window.location.href;
+        },
+        error: function() {
+          alert("服务器错误，请联系管理员");
+        }
+      })
+    }
+  }
+
+  function recommend_index(id) {
+    if(confirm("确定要推荐该商品吗？")) {
+      jQuery.ajax({
+        url: "/mms/taobaoproducts/recommend_index",
+        type: "post",
+        data: {"id" : id},
+        success: function(res) {
+          alert(res);
+          window.location = window.location.href;
+        },
+        error: function() {
+          alert("服务器错误，请联系管理员");
+        }
+      })
+    }
+  }
+
+  function cancle_recommend_index(id) {
+    if(confirm("确定要取消推荐该商品吗？")) {
+      jQuery.ajax({
+        url: "/mms/taobaoproducts/cancle_recommend_index",
+        type: "post",
+        data: {"id" : id},
+        success: function(res) {
+          alert(res);
+          window.location = window.location.href;
+        },
+        error: function() {
+          alert("服务器错误，请联系管理员");
+        }
+      })
+    }
+  }
+
+  function set_top(id) {
+    jQuery.ajax({
+        url: "/mms/taoproducts/set_top",
+        type: "post",
+        data: {"id" : id},
+        success: function(res) {
+          alert(res);
+          window.location = window.location.href;
+        },
+        error: function() {
+          alert("服务器错误，请联系管理员");
+        }
+    })
+  }
+
+  function cancle_top(id) {
+    if(confirm("确定要取消置顶该商品吗？")) {
+      jQuery.ajax({
+        url: "/mms/taobaoproducts/cancle_top",
+        type: "post",
+        data: {"id" : id},
+        success: function(res) {
+          alert(res);
+          window.location = window.location.href;
+        },
+        error: function() {
+          alert("服务器错误，请联系管理员");
+        }
+      })
+    }
+  }
+
+  function change_age(id, name) {
+    var age = jQuery("#product_" + id).val();
+    if(age == "" || age == undefined) {
+      alert("请选择年龄段");
+      return false;
+    }
+    if(confirm("确定要给产品 " + name + " 设置年龄段吗？")) {
+      jQuery.ajax({
+        url: "/mms/taobaoproducts/set_age",
+        type: "post",
+        data: {"id" : id, "age" : age},
+        success: function(res) {
+          alert(res);
+          window.location = window.location.href;
+
+        },
+        error: function() {
+          alert("服务器错误，请联系管理员");
+        }
+      })
+    }
+  }
+
+  function change_ages() {
+    var age = jQuery("#product_ages").val();
+    if(age == "" || age == undefined) {
+      alert("请选择年龄段");
+      return false;
+    }
+    var ids = "";
+    jQuery("#product_list input[type=checkbox]").each(function(){
+      if(jQuery(this).attr("checked") != undefined) {
+        ids += jQuery(this).val() + ",";
+      }
+    })
+    if(confirm("确定要给选中的产品批量设置年龄段吗？")) {
+      jQuery.ajax({
+        url: "/mms/taobaoproducts/set_ages",
+        type: "post",
+        data: {"id": ids, "age" : age},
+        success: function(res) {
+          alert(res);
+          window.location = window.location.href;
+
+        },
+        error: function() {
+          alert("服务器错误，请联系管理员");
+        }
+      })
+    }
+  }
+</script>

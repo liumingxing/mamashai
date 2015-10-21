@@ -1,0 +1,159 @@
+<style>
+	* {font-size: 15px;}
+	div.clear {clear: both;}
+	div#post {margin: 8px;}
+	div#user {border-bottom: 1px solid #ccc;}
+	div#post div#user div#logo {float:left; margin-right: 10px;}
+	div#user_name {margin: 8px;}
+	p#user_name_1, p#user_name_2 {line-height: 24px;}
+	span#user_name_refer {float: right; font-size: 14px;}
+	div#content {padding: 10px; font-size: 16px; line-height: 24px;}
+	div#picture img {width: 200px; margin: 4px;}
+	div#forward div.forward {background-color: #eee; padding: 16px; border-radius: 10px; line-height: 22px; font-size: 14px; margin-bottom: 10px;}
+	div#forward div.forward div.logo img {width: 200px; margin: 6px;}
+
+	.WB_arrow span{
+		position: relative;
+		top: 8px;
+		margin-left: 40px;
+		color: #eee;
+	}
+	div#comments div.comment {margin: 4px; border-top: 1px solid #ccc; padding: 8px 0px 0px 4px;}
+	div#comments div.comment div.comment_logo {float: left; margin-right: 6px;}
+	div#comments div.comment div.comment_logo img {width: 36px;}
+	div#comments div.comment div.top span {float: right; font-size: 14px;}
+	div#comments div.comment div.content {line-height: 22px; color: #3E3E3E}
+
+		div.clear {clear: both;}
+		div#download p.desc {text-align: left; line-height: 30px; margin: 8px 0px;}
+		div#head {background-color: #999; padding: 6px; color: #FFF;}
+		div#head div#logo {text-align: center; float: left; width: 25%;}
+		div#head div#logo img {width: 60px; height: 60px;}
+		div#head div#logo p {font-size: 15px; color: #E02882; line-height: 20px; font-weight: bold; margin: 0px;}
+		div#head div#slogan {float:left; width: 50%;}
+		div#head div#slogan p {font-size: 13px; margin: 0px; line-height: 1.4;}
+		div#head div#slogan p.p1 {font-size: 20px; font-weight: bold;}
+		div#head div#slogan p.p2 {font-size: 12px;}
+		div#head div#slogan p.p3 img {float: left; margin-top: 2px; width: 80px;}
+		div#head div#slogan p.p3 span{margin-left: 8px; font-size: 10px;}
+		div#head div#downloads {float: left; width: 24%; text-align: center;}
+		div#head div#downloads a img {width: 70px; margin-top: 15px;}
+
+		div#picture {width: 90%;}
+		div#picture img.square {width: 28%;}
+</style>
+
+<div id="head">
+			<div id='logo'>
+				<img src='/images/advs/mobile/logo.png'/>
+			</div>
+			<div id="slogan">
+				<p class="p1">
+					宝宝日历
+				</p>
+				<p class="p2">孕期到12岁全程监测记录</p>
+				<p class="p3"><img src="/images/advs/mobile/xing.png"/> <span>明星育儿应用</span></p>
+			</div>
+			<div id="downloads">
+				<a href="http://www.mamashai.com/bbrl/download" target="_blank"><img src="/images/advs/mobile/hd_r2_c4.png" /></a>
+			</div>
+			<div class="clear"></div>
+</div>
+<div id="post">
+	<div id="user">
+		<div id="logo">
+			<img src="http://www.mamashai.com<%= @post.user.logo.thumb48.url %>" />
+		</div>
+		<div id="user_name">
+			<p id="user_name_1">
+				<%= @post.user.name %>
+				<span id='user_name_refer'>
+					<% if @post.created_at.hour == 0 && @post.created_at.min == 0 && @post.created_at.sec == 0 %>
+	                	补记<%= @post.created_at.strftime("%Y年%m月%d日")%>
+	            	<% else %>
+	                	<%=refer_time(@post.created_at) %> 
+	            	<% end %>
+				</span>
+			</p>
+			<p id="user_name_2">
+				<%= kid_age(@post.user, @post.created_at) %>
+			</p>
+		</div>
+	</div>
+	<div id="content">
+		<%= post_http_content(@post.content) %>
+	</div>
+	<% if @post.logo %>
+		<% if @post.from == "video" && @post.video %>
+			<% if @post.video.url %>
+				<video src="<%= @post.video.url %>" width="310" height="200" controls="controls">对不起，您的浏览器不支持视频播放</video>
+			<% else %>
+				<video src="http://www.mamashai.com<%= @post.video.path.url %>" width="310" height="200" controls="controls">对不起，您的浏览器不支持视频播放</video>
+			<% end %>
+		<% else %>
+			<div id="picture">
+				<% if @post.post_logos && @post.post_logos.length > 1 %>
+					<% for post_logo in @post.post_logos %>
+						<a href="http://www.mamashai.com<%= post_logo.logo.url %>""><img class="square" src="http://www.mamashai.com<%= post_logo.logo.thumb200.url %>"/></a>
+					<% end %>
+				<% else %>
+					<a href="http://www.mamashai.com<%= @post.logo.url %>""><img src="http://www.mamashai.com<%= @post.logo.thumb400.url %>"/></a>
+				<% end %>
+			</div>
+		<% end %>
+	<% end %>
+	<% if @post.forward_post %>
+	<div id="forward">
+		<div class="WB_arrow">
+			<span class="S_bg1_c">◆</span>
+		</div>
+		<div class="forward">
+			<%= post_http_content(@post.forward_post.content) %>
+			<% if @post.forward_post.logo %>
+			<div class="logo">
+				<img src="<%= @post.forward_post.logo.thumb400 %>" />
+			</div>
+			<% end %>
+		</div>
+	</div>
+	<% end %>
+	<div id="comments">
+		<% for comment in @post.comments.reverse %>
+		<div class="comment">
+			<div class="comment_logo">
+				<img src="http://www.mamashai.com<%= comment.user.logo.thumb48 %>" %>
+			</div>
+			<div class="top">
+				<%= comment.user.name %>
+				<span><%=refer_time(comment.created_at) %> </span>
+			</div>
+			<div class="content">
+				<%= face_content(comment.content) %>
+			</div>
+		</div>
+		<div class="clear"></div>
+		<% end %>
+	</div>
+	<div id="download">
+		<p class="desc">
+				====关于宝宝日历==== <br/>
+				宝宝日历是时下最受欢迎的明星育儿应用：最真实的记录+最真诚的分享=最棒的育儿社区！
+		</p>
+	</div>
+</div>
+<div id="head">
+			<div id='logo'>
+				<img src='/images/advs/mobile/logo.png'/>
+			</div>
+			<div id="slogan">
+				<p class="p1">
+					宝宝日历
+				</p>
+				<p class="p2">孕期到12岁全程监测记录</p>
+				<p class="p3"><img src="/images/advs/mobile/xing.png"/> <span>明星育儿应用</span></p>
+			</div>
+			<div id="downloads">
+				<a href="http://www.mamashai.com/bbrl/download" target="_blank"><img src="/images/advs/mobile/hd_r2_c4.png" /></a>
+			</div>
+			<div class="clear"></div>
+</div>

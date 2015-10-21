@@ -1,0 +1,76 @@
+<h1>豆豆换申请</h1>
+
+<%= form_tag({:action=>"list"}, {:method=>"get"}) do %>
+  用户名：<%= text_field_tag :name, params[:name] %>
+  用户ID：<%= text_field_tag :user_id, params[:user_id] %>
+  <%= select_tag :ddh_id, options_for_select([' -- 全部 -- ', ''] + Ddh.all(:order=>"id desc").collect{|d| [d.title + (d.score>0 ? ' -- 兑换' : ' -- 试用'), d.id.to_s]}, params[:ddh_id]) %>
+  <%= submit_tag "过滤" %>
+  <%= link_to "批量导入快递单", :action=>"batch_input" %>
+<% end %>
+
+<% if params[:ddh_id] && params[:ddh_id].size > 0 && Ddh.find(params[:ddh_id]).score == 0%>
+   <%= link_to "通知兑换申请失败", :action=>"notify_fail", :id=>params[:ddh_id] %>
+<% end %>
+
+<%= form_tag(:action => 'batch_update', :ddh_id=>params[:ddh_id], :page=>params[:page], :order=>params[:order]) do %>
+<table class="list" border="1" style="width:98%">
+  <tr class="head">
+    <th>选择</th>
+    <th>兑换商品</th>
+    <th>用户名</th>
+    <th>总豆豆数</th>
+    <th><%= link_to "总记录数", :ddh_id=>params[:ddh_id], :page=>params[:page], :order=>"users.posts_count desc" %></th>
+    <th>总粉丝数</th>
+    <th>总关注数</th>
+    <th>名字</th>
+    <th>手机号</th>
+    <th>地址</th>
+    <th>邮编</th>
+    <th>快递单号</th>
+    <th>备注</th>
+    <th><%= link_to "状态", :ddh_id=>params[:ddh_id], :page=>params[:page], :order=>"ddh_orders.status" %></th>
+    <th><%= link_to "注册时间", :ddh_id=>params[:ddh_id], :page=>params[:page], :order=>"users.created_at  desc" %></th>
+    <th>申请时间</th>    
+    <th>发货时间</th>
+    <th colspan=3>操作</th>
+  </tr>
+
+  <% for ddh_order in @ddh_orders %>
+  <% next if !ddh_order.user %>
+    <tr>
+      <td><input id="p_<%= ddh_order.id %>" name="p[]" value="<%= ddh_order.id %>" type="checkbox"/></td>
+      <td><%=h ddh_order.ddh.title %></td>
+      <td>
+        <a target="_blank" href='<%= user_url(ddh_order.user)%>'><%= ddh_order.user.name %></a> （<%= ddh_order.user.id %>）
+        <% orders = DdhOrder.all(:conditions=>["created_at > '#{Time.new.ago(30.days).to_s(:db)}' and user_id = ? and ddh_id <> ?", ddh_order.user.id, ddh_order.ddh_id], :order=>"id desc") %>
+        <% for order in orders %>
+          <div>
+            <span><%= order.ddh.title %></span>
+          </div>
+        <% end %>
+      </td>
+      <td><%=h ddh_order.user.score %></td>
+      <td><%=h ddh_order.user.posts_count %></td>
+      <td><%=h ddh_order.user.fans_users_count %></td>
+      <td><%=h ddh_order.user.follow_users_count %></td>
+      <td><%=h ddh_order.name %></td>
+      <td><%=h ddh_order.mobile %></td>
+      <td><%=h ddh_order.address %></td>
+      <td><%=h ddh_order.code %></td>
+      <td><%=h ddh_order.kd_sn %></td>
+      <td><%=h ddh_order.remark %></td>
+      <td><%=h ddh_order.status %></td>
+      <td><%=h ddh_order.user.created_at.to_date.to_s %></td>
+      <td><%=h ddh_order.created_at.to_s(:db) %></td>
+      <td><%=h ddh_order.sent_at.to_s(:db) if ddh_order.sent_at%></td>
+      <td><%= link_to '处理', :action => 'edit', :id => ddh_order, :page=>params[:page], :ddh_id=>params[:ddh_id], :order=>params[:order] %></td>
+      <td><%= link_to '删除', { :action => 'destroy', :id => ddh_order }, :confirm => '确认删除吗?', :method => :post %></td>
+    </tr>
+  <% end %>
+</table>
+<%= select_tag 'status', options_for_select(%w(等待审核 申请未成功 已通过审核 等待发货 已发货).map{|m| [m, m]}) %>
+<%= submit_tag "批量设置" %>
+<% end %>
+
+
+<%= will_paginate @ddh_orders %>

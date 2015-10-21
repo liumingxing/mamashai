@@ -1,0 +1,26 @@
+<div class="layer" id="layer_turn">
+    <div class="layer_content">
+        <div class="layer_artich">
+            原文： <%=h @tuan.content %>
+        </div>
+		<div class="layer_artich">
+            链接： <%= @tuan.url %>
+        </div>
+		<% form_remote_tag :url=>{:controller=>"ajax", :action=>"create_forward_tuan", :id=>"forward_tuan_form"}, :success=>"alert('转晒成功！');hide_box();" do%>
+		    <div class="layer_box_text" >
+	           <%= text_area :post, :content,:id=>'forward_tuan_content' %>
+			   <%= hidden_field :post, :tuan_id, :value=>@tuan.id%>
+				<div>
+	                <%=error_message_on :post,:content %>
+	            </div>
+	        </div>
+	        <div class="layer_comments">
+	            说明：转晒的时候说点什么吧，长度不能超过210字。
+	        </div>
+			<div class="submit_div" style="margin: 6px; text-align:center;">
+				<%= submit_tag "转晒", :id=>"submit_button", :class=>"button_submit_s", :onmouseover=>"this.className='button_submit_s button_submit_s_hover';", :onmouseout=>"this.className='button_submit_s';"%>
+				<button onclick="hide_box();return false;" class="button_submit_s" onmouseover="this.className='button_submit_s button_submit_s_hover';" onmouseout="this.className='button_submit_s';">取消</button>
+			</div>
+		<% end %>
+    </div>
+</div>

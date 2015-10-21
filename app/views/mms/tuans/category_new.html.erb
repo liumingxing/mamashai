@@ -1,0 +1,15 @@
+<div id="middle">
+    <div id="css_mainbody">
+        <h1 class="title">团购导航-分类管理-新建团购导航分类
+			<span style="float: right; margin-right: 10px;">
+		        <%= link_to '返回列表', '/mms/tuans/category_index' %>
+		    </span>
+		</h1>
+        <table style="width: 1000px; padding-left: 50px;">
+        	<% form_for @tuan_category,:url => { :action => "category_create" }, :html=>{:multipart=>true} do |f| %>
+				<%= render :partial => 'form_category', :locals=>{:f=>f}%>
+			<% end %>
+        </table>
+    </div>
+    <div class="clear"></div>
+</div>

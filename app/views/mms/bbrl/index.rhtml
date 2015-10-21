@@ -1,0 +1,29 @@
+<div id="middle">
+    <div id="css_mainbody">
+        <h1 class="title">
+        	宝宝日历用户列表<%= "--#{flash[:notice]}" unless flash[:notice].blank? %>
+        </h1>
+        <br/>
+        <table class="grid">
+            <tbody>
+                <tr>
+                    <th>评论昵称</th>
+                    <th>用户姓名</th>
+                    <th>地址</th>
+                    <th>邮编</th>
+                    <th>手机号</th>
+                </tr>
+                <% @bbrl_users.each do |user| %>
+                <tr>
+                    <td><%= user.app_id %></td>
+                    <td><%= user.name %></td>
+                    <td><%= user.address%></td>
+                    <td><%= user.youbian %></td>
+                    <td><%= user.mobile %></td>
+                </tr>
+                <% end %>
+            </tbody>
+        </table>
+		    <%=will_paginate @bbrl_users %>
+    </div>
+</div>

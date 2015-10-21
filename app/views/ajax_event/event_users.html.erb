@@ -1,0 +1,43 @@
+<div class="event_share">
+    <div class="user_all">
+        共<%=@event_users.length %>个用户
+    </div>
+	<% @event_users.each_with_index do |event_user,i| %>
+	<% user = event_user.user %>
+    <div class="post_all_enroll">
+        <span class="number"><%=i+1%></span>
+        <span class="pic"><%=logo_tag(user,{:version=>'thumb30',:url=>user_url(user)}) %></span>
+		   <span class="addr"><%=link_user(user) %>
+            <br/>
+             <%=user.province.name if user.province %>
+			 <%=user.city.name if user.city %>
+        </span>
+        <span class="name"> <%=event_user.join_num %>人参加</span>
+        <span class="remark"> <% if event_user.note.present?%> 
+						    <span class="red">取消原因：<%=event_user.note%></span>
+						 <% else %>
+						     备注： <%=h event_user.remark %>
+						 <% end %></span>
+        <span class="status">
+        	
+			<% if @user %>
+            <% if user.id == @user.id %>
+                                我
+			<% else %>
+			<% follow_user_ids = @user.follow_user_ids %>
+            <% if follow_user_ids.include?(user.id) %>
+            <img src="/images/icons/follow_success.gif"/><% else %>
+            <span class="concern" id="follow_hot_user_<%=user.id%>">
+            	<%= link_to_remote(APP_CONFIG["focus_him_#{user.gender}"], :update => "follow_hot_user_#{user.id}", :url => {:action =>:create_follow_user,:controller=>:ajax,:id=>user.id},:html=>{:class=>"button_link"}) %></span>
+            <% end %>
+            <% end %>
+		<% else %>
+		<span class="concern" ><a href="/account/signup/<%=user.id%>"><%=APP_CONFIG["focus_him_#{user.gender}"]%></a></span>
+		<% end %>
+		
+			</span>
+        <div class="clear">
+        </div>
+    </div>
+    <% end %>
+</div>

@@ -1,0 +1,21 @@
+<% is_check = false if is_check.blank? %>
+
+<div class="login_end01_content">
+	<% if users.blank? %>
+	<div class="follow_null">暂时没有这样的用户</div>
+	<% end %>
+    <% for user in users %>
+    <div class="picture">
+        <div class="pic">
+            <%=logo_tag(user,{:version=>'thumb48',:url=>user_url(user),:blank=>true}) %>
+        </div>
+        <div class="name">
+            <a href="<%=user_url(user)%>" target="_blank"><%=user.name %></a>
+        </div>
+        <div class="concern">
+            <%=check_box :follows, user.id,  {:class => "default_checkbox" ,:checked => is_check} %>
+            加关注
+        </div>
+    </div>
+    <% end %>
+</div>

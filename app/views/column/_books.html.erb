@@ -1,0 +1,65 @@
+<div class="column_list">
+	<% if params[:tp] == "column"%>
+	<% if @books.size == 0%>
+	该作者目前没有开辟专栏...
+	<% end %>
+
+	<% for book in @books%>
+	<div class="book">
+		<div class="title">
+			<div class="title_name">
+				<div style="float:left">
+					<%= link_to "《#{book.name}》", :action=>"space", :id => @author.user.id, :column_id => book.id %>
+					<span class="gray"><%= book.created_at.strftime("%Y-%m-%d %H:%M")%></span>
+				</div>
+				<div class="detail">
+					<% if @user && @user.id.to_s == params[:id] %>
+					<a href="#?" onclick="show_url_box('/column/edit/<%= book.id %>', '修改栏目')">编辑</a>
+					<%= link_to "删除", "/column/destroy/#{book.id}", :confirm=>"删除栏目后将不可恢复，确定要删除吗？"%>
+					&nbsp;&nbsp;&nbsp;&nbsp;
+					<% end %>
+
+					文章：<span class="orange"><%= book.chapter_count %></span>&nbsp;&nbsp;&nbsp;
+					评论：<span class="orange"><%= book.comment_count %></span>
+
+				</div>
+			</div>
+			<div class="clear"></div>
+			<span style="margin-left: 50px; padding-top: 6px; font-size: 13px;"> 专栏简介：<%= book.desc %> </span>
+		</div>
+
+		<div class="clear"></div>
+	</div>
+	<% end %>
+	<% else %>
+	<% if @chapters.size == 0%>
+	该专栏目前没有文章...
+	<% end %>
+	<% @chapters.each_with_index{|chapter, index|%>
+	<div class="chapter">
+		<div class="title">
+			<div class="title_name">
+				文章<%= index + 1%>： <%= link_to "《#{chapter.title}》", :action=>"view", :id=>@author.id, :chapter_id => chapter.id %> <span class="gray"><%= chapter.updated_at.strftime("%Y-%m-%d %H:%M")%></span>
+			</div>
+			<div>
+				<div style="float:left;">
+					<span style="margin-left: 50px;">栏目：</span><%= link_to "《#{chapter.column_book.name}》", :action=>"space", :column_id => chapter.column_book.id%>
+				</div>
+				<div class="function" style="float: right;">
+					<% if @user && @user.id.to_s == params[:id] %>
+					<a href="/column/new_chapter/<%= @user.id%>?chapter_id=<%= chapter.id%>">修改</a> |
+					<%= link_to "删除", "/column/destroy_chapter?chapter_id=#{chapter.id}", :confirm=>"删除文章后将不可恢复，确定要删除吗？"%>
+					<% end %>
+					浏览:<span class='orange'><%= chapter.visited_times%></span>
+					鼓掌:<span class='orange'><%= Clap.count_of('post', chapter.post.id) if chapter.post%></span>
+					评论:<span class='orange'><%= chapter.post.comments_count if chapter.post%></span>
+				</div>
+			</div>
+		</div>
+
+		<div class="clear"></div>
+	</div>
+	<% } %>
+	<%= will_paginate @chapters%>
+	<% end %>
+</div>

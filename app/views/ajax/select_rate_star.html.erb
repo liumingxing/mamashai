@@ -1,0 +1,4 @@
+ <%=post_rate_tag(@post,false)%>
+ <script>
+ 	$('rate_stars_<%=@post.id%>').innerHTML = '我的评价是：<%=APP_CONFIG["post_rate_labels"].split('|')[@post_rate.rate-1] %>';
+ </script>

@@ -1,0 +1,43 @@
+<h1>成长指南广告位</h1>
+
+
+<table class="list" border="1">
+  <tr class="head">
+    <th>代码</th>
+    <th>iphone/ipad图片</th>
+    <th>类型</th>
+    <th>url</th>
+    <th>执行代码</th>
+    <th>客户代码</th>
+    <th>状态</th>
+    <th colspan=3>操作</th>
+  </tr>
+  
+<% for calendar_tip_adv in @calendar_tip_advs %>
+  <tr>
+    <td><%=h calendar_tip_adv.code %></td>
+    <td>
+    <img src='<%=h calendar_tip_adv.logo_iphone.try(:thumb) %>' style="width: 200px"/>
+    <div>&nbsp;</div>
+    <img src='<%=h calendar_tip_adv.logo_ipad.try(:thumb) %>' style="width: 200px"/></td>
+    <td><%= {1=>'应用内弹出网页', 2=>'执行代码', 3=>'浏览网页', 4=>'应用外弹出网页'}[calendar_tip_adv.tp] %></td>
+    <td style="width: 400px"><%=h truncate(calendar_tip_adv.url, :length=>200) %></td>
+    <td><%=h truncate(calendar_tip_adv.text, :length=>200) %></td>
+    <td>
+        <% if calendar_tip_adv.client.to_s.size > 0 %>
+        <a target="_blank" href="/index/flurry_tongji/<%=calendar_tip_adv.client %>"><%=calendar_tip_adv.client %></a>
+        <a target="_blank" href="/index/flurry_tongji/<%=calendar_tip_adv.client %>?full=true">内部</a>
+        <% end %>
+    </td>
+    <td><%=h calendar_tip_adv.status %></td>
+    <td>
+        <%= link_to '修改', :action => 'edit', :id => calendar_tip_adv %> |
+        <%= link_to '统计', :action => 'tongji', :id => calendar_tip_adv %>
+    </td>
+  </tr>
+<% end %>
+</table>
+
+<%= will_paginate @calendar_tip_advs %>
+
+<%= link_to '新建', :action => 'new' %>

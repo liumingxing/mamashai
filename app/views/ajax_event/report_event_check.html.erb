@@ -1,0 +1,100 @@
+<style>
+    #mainbody #chanel_content .event_content .user_pic_event {
+        overflow: hidden;
+        font-size: 12px;
+    }
+    
+    #mainbody #chanel_content .event_content .grid {
+        width: 98%;
+        vertical-align: center;
+        border-collapse: collapse;
+        empty-cells: show;
+        margin: 5px auto;
+        border: 1px solid #ccc;
+    }
+    
+    #mainbody #chanel_content .event_content .grid th {
+        font-size: 12px;
+        height: 25px;
+        background: #EAEAEA;
+        color: #666;
+        text-align: center;
+        border: 1px solid #ccc;
+        font-weight: normal;
+    }
+    
+    #mainbody #chanel_content .event_content .grid td {
+        text-align: center;
+        height: 35px;
+        border: 1px solid #ccc;
+        word-WRAP: break-word;
+        font-family: Arial;
+        line-height: 180%;
+        color: #666;
+    }
+</style>
+<div class="event_share">
+	<div style="margin:5px 0px 0px 10px;font-size:12px;">
+		 <a href="javascript:void(0);" onclick="show_event_expand('<%=@event.post_id%>','<%=@event.id%>','report_event_users',this);">报名管理</a> |
+		 <a href="javascript:void(0);" onclick="show_event_expand('<%=@event.post_id%>','<%=@event.id%>','report_event_pays',this);">缴费管理</a> |
+		 <a href="javascript:void(0);" style="color:#666;font-weight:bold;" onclick="show_event_expand('<%=@event.post_id%>','<%=@event.id%>','report_event_check',this);">对账单</a>
+	</div>
+    <div class="user_all">
+        共<%=@event_pays.length%>个记录
+    </div>
+    <div class="user_pic_event">
+        <table class="grid">
+            <tbody>
+                <tr>
+                    <th width="40px">
+                        序号 
+                    </th>
+                    <th width="85px">
+                        代缴人 
+                    </th>
+                    <th width="85px">
+                       金额（元）
+                    </th>
+					<th width="80px">
+                        人数（人）
+                    </th>
+                    <th width="200px">
+                     缴费名单
+                    </th>
+					<th width="80px">
+                    缴费日期
+                    </th>
+					<th width="50px">
+                       操作 
+                    </th>
+                    
+                </tr>
+				<% total_pay_money = 0%>
+				<% total_pay_users_count = 0%>
+				<% @event_pays.each_with_index do |event_pay,i| %>
+				<% total_pay_money += event_pay.pay_money %>
+				<% total_pay_users_count += event_pay.pay_users_count %>
+				<tr>
+					<td><%=i+1%></td>
+					<td><%=event_pay.user.name%></td>
+					<td><%=event_pay.pay_money%></td>
+					<td><%=event_pay.pay_users_count%></td>
+					<td><%=event_pay.pay_names%></td>
+					<td><%=date_en event_pay.created_at %></td>
+					<td>
+						<% if event_pay.status == 'confirm' %>
+						已核对
+						<% else %>
+						<%= link_to_remote('确认', :update => "event_expand_#{@event.post_id}", :url => {:action =>:confirm_event_pay,:controller=>:ajax_event,:id=>event_pay.id}) %>
+                        <% end %>
+					</td>
+				</tr>
+				<% end %>
+				<tr>
+					<td>总计</td>
+					<td colspan="5" style="text-align:left;padding-left:10px;">缴费<%=total_pay_users_count%>人  共<%=total_pay_money%>元</td> 
+				</tr>
+            </tbody>
+        </table>
+    </div>
+</div>

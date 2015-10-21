@@ -1,0 +1,30 @@
+<div class="comments01">
+    <div class="comments01_bg1">
+    </div>
+    <div class="comments01_bg2">
+        <% if @tuan.tuan_comments_count > 0 %>
+        <div class="look">
+            共有<span class="number"><%=@tuan.tuan_comments_count %></span>条评论
+        </div>
+        <% end %>
+        <% for comment in TuanComment.find(:all,:limit=>10,:conditions=>['tuan_id=?',@tuan.id],:include=>[:user],:order=>'id desc') %>
+         <%=render :partial=>'/tuan/comment_content',:locals=>{:comment=>comment}%>
+        <% end %>
+        <% if @tuan.tuan_comments_count > 10 %>
+        <div class="look look_after">
+            后面还有<span class="number"><%=@tuan.tuan_comments_count-10 %></span>条评论
+        </div>
+        <% end %>
+		<% if @user.blank? %>
+		<div class="mms_notlogin" >只有登录用户可以进行评论!  <%= link_to "登录", "/tuan/signup" %>|<%= link_to "注册", "/tuan/signup" %></div>
+		<% else %>
+		<form method="post" callback="load_comments" auto_remote="post" action="/ajax/create_tuan_comment/<%=@tuan.id%>">
+        	<%=render :partial=>'/tuan/form_comment'%>
+		</form>
+		<% end %>
+    </div>
+    <div class="comments01_bg3">
+    </div>
+</div>
+<div class="clear">
+</div>

@@ -1,0 +1,20 @@
+
+<table class="form_table" >
+    <tbody>
+        <tr height="25">
+            <td class="t06" width="10">
+            </td>
+            <td class="t02">
+                <%=check_box :notify_ignores, 'email_message',  {:checked => !@user_profile.notify_ignores.split('|').include?('email_message') } %>&nbsp;有私信时给我发邮件提醒
+            </td>
+        </tr>
+        <tr height="25">
+            <td class="t01" width="10">
+            </td>
+            <td class="t02">
+                <%=check_box :notify_ignores, 'email_gift',  {:checked => !@user_profile.notify_ignores.split('|').include?('email_gift') } %>&nbsp;有礼物时给我发邮件提醒
+            </td>
+        </tr>
+    </tbody>
+</table>
+

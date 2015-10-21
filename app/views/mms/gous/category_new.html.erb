@@ -1,0 +1,11 @@
+<div id="middle">
+    <div id="css_mainbody">
+        <h1 class="title">导购平台-商品分类-创建信息<span style="float: right; margin-right: 10px;"><%= link_to '返回列表', '/mms/gous/category_index' %>
+            </span></h1>
+        <% form_for @category,:url => { :action => "category_create" } do |f| %>
+        <%= render :partial => 'category_form', :locals=>{:f=>f} %>
+        <% end %>
+    </div>
+    <div class="clear">
+    </div>
+</div>

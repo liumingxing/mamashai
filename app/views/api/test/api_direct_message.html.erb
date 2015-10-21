@@ -1,0 +1,13 @@
+<h1>Direct message</h1><%= link_to "返回到列表", "/api/test" %><br/>
+私信说明：会返回私信的内容及发送者，接受者的用户资料（不包括微博信息） 
+<hr/>
+<h2>字段说明</h2>
+<pre>
+  * id: 私信ID
+  * text: 私信内容
+  * user_id：发送人UID
+  * message_user_id: 接受人UID
+  * created_at: 发送时间
+  * user: 发送人信息，参考user说明
+  * message_user: 接受人信息，参考user说明
+</pre> 

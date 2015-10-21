@@ -1,0 +1,17 @@
+<% sum = 0 %>
+<% for group in @user.fans_groups %>
+<div class="rank_item" onmouseover="this.className='rank_current'" onmouseout="this.className='rank_item'">
+    <span class="name">·<a href="/home/by_fans_group?group_id=<%=group.id %>" ><%=group.name %></a><span class="gray">(<%=group.users_count%>)</span></span>
+    <span class="changes"><a href="/users/<%=@user.id%>/fans/group_by_group?group=<%=group.id%>">查看</a></span>
+</div>
+<% sum += group.users_count %>
+<% end %>
+<div class="rank_item" onmouseover="this.className='rank_current'" onmouseout="this.className='rank_item'">
+    <span class="name">·<a href="/home/by_fans_group" >未分组</a><span class="gray">(<%=@user.fans_users_count - sum%>)</span></span>
+    <span class="changes"><a href="/users/<%=@user.id%>/fans/group_by_group">查看</a></span>
+</div>
+<div class="packet">
+    <a href="/users/<%=@user.id%>/fans/group_by_group" class="new_packet">管理分组</a>
+</div>
+<div class="clear">
+</div>

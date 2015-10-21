@@ -1,0 +1,17 @@
+<% if @user %>
+	<% if !FollowUser.find(:first, :conditions=>"user_id=#{@user.id} and follow_user_id = #{user.id}")%>
+		<span id="follow_hot_user_<%=user.id%>">
+			<%= link_to image_tag("/images/lmrb_ad_gz.jpg"), {:controller=>"ajax", :action=>"create_follow_user2", :id=>user}, {:id=>"_follow_#{user.id}", :remote=>true} %>
+		</span>
+		<script>
+			$("#_follow_<%= user.id%>").bind("ajax:complete", function(xhr, status){
+				$("#follow_hot_user_<%=@user.id%>").empty()
+				$("#follow_hot_user_<%=@user.id%>").append(status.responseText)
+			})
+		</script>
+	<% else %>
+		<img src="/images/ygz.png" />
+	<% end %>
+<% else %>
+	<a href="/account/login"><img src="/images/lmrb_ad_gz.jpg" /></a>
+<% end %>

@@ -1,0 +1,28 @@
+<%= form_tag({:action => 'set_right', :id=>params[:id]}, {:onsubmit => "return myform_onsubmit()"}) do %>	   
+    <script>
+     var data={"-1_0":"text:设定权限;hint:设定权限",
+         <% @menus.each do |m| %>
+               "<%=m.parent_id||0%>_<%=m.id%>":"text:<%=m.text%>;",
+        <% end%>
+        "-100":"100"}
+    </script>
+        
+    <%= render :partial => "share/tree", :locals => {:array=>@menu_ids, :usecheckbox => true, :expandlevel => 3} %>
+   
+    <br/>
+    &nbsp;&nbsp;<%= submit_tag " 保存 "%> | <%= link_to "返回", "/mms/users/index"%>
+<% end %>
+
+<script>
+function myform_onsubmit()
+{
+    var ids = GetCheckBox(trade);
+    if (ids.length ==0) {
+         alert("请至少选择一项");
+         return false;
+    } else {
+         ids = ids.replace(", 0, ", "0, ");
+    }
+    $("#checked_values").val(ids);
+}
+</script>

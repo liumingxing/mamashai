@@ -1,0 +1,33 @@
+<%= error_messages_for 'advertisement_logo' %>
+
+<table class="ft" border="1">
+<!--[form:advertisement_logo]-->
+<tr>
+	<td>图片 <%= @advertisement.size if @advertisement %></td>
+	<td><%= upload_column_field 'advertisement_logo', 'logo'  %></td>
+</tr>
+
+<tr>
+	<td>链接url</td>
+	<td><%= text_field 'advertisement_logo', 'url'  %></td>
+</tr>
+
+<tr>
+	<td>鼠标提示</td>
+	<td><%= text_field 'advertisement_logo', 'title'  %></td>
+</tr>
+
+<tr>
+	<td>状态</td>
+	<td>
+		<%= select "advertisement_logo", 'status', [['上线', 'online'], ['下线', 'offline']] %>
+	</td>
+</tr>
+
+<tr>
+	<td>备注</td>
+	<td><%= text_field 'advertisement_logo', 'remark'  %></td>
+</tr>
+<!--[eoform:advertisement_logo]-->
+
+</table>

@@ -1,0 +1,24 @@
+<div id="middle">
+    <div id="css_mainbody">
+        <h1 class="title">晒豆明细</h1>
+        <table class="grid">
+            <tbody>
+                <tr>
+                    <th>总数</th>
+                    <th>变化数</th>
+                    <th>操作</th>
+                    <th>时间</th>
+                </tr>
+                <% @events.each do |event| %>
+                <tr>
+                    <td><%= event.total_score %></td>
+                    <td><%= event.score %></td>
+                    <td><%= event.event_description %></td>
+                    <td><%= event.created_at.to_s(:db) %></td>
+                </tr>
+                <% end %>
+            </tbody>
+        </table>
+        <%= will_paginate @events %>
+    </div>
+</div>

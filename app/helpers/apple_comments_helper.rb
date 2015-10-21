@@ -1,0 +1,2 @@
+module AppleCommentsHelper
+end

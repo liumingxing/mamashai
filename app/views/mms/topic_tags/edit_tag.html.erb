@@ -1,0 +1,8 @@
+<div id="middle">
+    <div id="css_mainbody">
+	<h1 class="title"><%=@age_tag.age.name%> -- <%= @age_tag.tag.name%> <span> <%= link_to "返回", :action=> :list_tags, :id => @age_tag.age_id%></span></h1>
+    <%= form_for(:age_tag, :url => {:action => :update_tag,:id=>@age_tag},  :html=>{:multipart=>true} ) do |f| %>
+        <%=render :partial=>'tag_form', :locals => {:f => f} %>
+    <% end %>
+	</div>
+</div>

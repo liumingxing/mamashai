@@ -1,0 +1,28 @@
+<div class="user_pic">
+    <%=logo_tag(user,{:version=>'thumb48',:url=>user_url(user)}) %>
+</div>
+<div class="shine_content">
+    <div class="follow_user">
+        <%=link_user(user) %>
+		<% if @is_me %>
+        <span class="circle" id="nick_name_<%=user.id%>"><% if user.nick_name.present? %>(<%=user.nick_name %>)<% end %></span>
+        <span class="circle" id="group_<%=user.id%>"><% if user.remark.present? %>(<a href="/users/<%=@space_user.id%>/follows/group_by_group?group=<%=user.follows_group_id%>"><%=user.remark %></a>)<% end %></span>
+        <% end %>
+		<% user_kid = user.first_kid %>
+        <% if user_kid %>
+        <span style="color:#999;"><%=APP_CONFIG["kid_#{user_kid.gender}"] %><%=user_kid.name %><%=detail_age_for_birthday(user_kid.birthday) %></span>
+        <% else %>
+        <span style="color:#999;">没有孩子</span>
+        <% end %>
+    </div>
+    <div class="user_local<%=' user_local02' if user.gender=='w'%>">
+        <%="#{user.province.name}, " if user.province %><%=user.city.name if user.city %>&nbsp; 粉丝<span class="font"><%=user.fans_users_count %></span>人
+    </div>
+    <div style="margin: 4px 0px;">
+        <% last_post = user.last_post %>
+        <% if last_post %>
+        <a href="/post/<%=last_post.id%>"><%=truncate(last_post.content,:length =>40) %></a>
+        (<%=refer_time last_post.created_at %>) 
+		<% end %>
+    </div>
+</div>

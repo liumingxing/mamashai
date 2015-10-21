@@ -1,0 +1,16 @@
+<div class="mms_sns_panel">
+    <div class="mms_panel_title">
+        <span class="title title_gift">礼物</span>
+    </div>
+    <%=render :partial=>'/gifts/nav' %>
+    <div class="mms_panel_content">
+        <% form_tag({:action=>'create_gift_get'}) do %>
+        <%= render :partial=>'form_gift_get' %>
+        <div id="submit_area" class="ifnull">
+            <button class="button_submit" type="submit" onmouseover="this.className='button_submit button_submit_hover';" onmouseout="this.className='button_submit';">
+                赠送
+            </button>
+        </div>
+        <% end %>
+    </div>
+</div>

@@ -1,0 +1,10 @@
+<div id="middle">
+    <div id="css_mainbody">
+        <h1 class="title">修改<%= @title %><span style="float: right; margin-right: 10px;"><%= link_to '返回', :action => :articles, :brand_id => @article.gou_brand_article_id || @article.gou_brand_story_id %></span></h1>
+        <% form_for(:article, :url => {:action => :article_update, :id => @article},  :html=>{:multipart=>true} ) do |f| %>
+        <%=render :partial=>'/mms/article/article_form', :locals => {:f => f} %>
+		<% end %>
+        <div class="book_page">
+        </div>
+    </div>
+</div>

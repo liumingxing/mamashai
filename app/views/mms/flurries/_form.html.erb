@@ -1,0 +1,47 @@
+<%= error_messages_for 'ddh' %>
+
+<table class="ft" border="1">
+<!--[form:ddh]-->
+<tr>
+	<td>日期</td>
+	<td><%= date_select 'tongji', 'day', {:use_month_numbers => true}  %></td>
+</tr>
+
+<tr>
+	<td>总激活下载用户</td>
+	<td><%= text_field 'tongji', 'a1'  %></td>
+</tr>
+
+<tr>
+	<td>当天新增用户</td>
+	<td><%= text_field 'tongji', 'a2'  %></td>
+</tr>
+
+<tr>
+	<td>当天活跃用户</td>
+	<td><%= text_field 'tongji', 'a3'  %></td>
+</tr>
+
+<tr>
+	<td>当天运行数</td>
+	<td><%= text_field 'tongji', 'a4'  %></td>
+</tr>
+
+<tr>
+	<td>当天人均运行数</td>
+	<td><%= text_field 'tongji', 'a5'  %></td>
+</tr>
+
+<tr>
+	<td>当天人均在线时长</td>
+	<td><%= text_field 'tongji', 'a6'  %></td>
+</tr>
+
+<tr>
+	<td>次日留存率</td>
+	<td><%= text_field 'tongji', 'a7'  %></td>
+</tr>
+
+<!--[eoform:ddh]-->
+
+</table>

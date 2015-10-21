@@ -1,0 +1,27 @@
+<style>
+	h1 {margin: 20px 0px;}
+</style>
+<h1>流量统计</h1>
+<table class="list" border="1">
+	<tr>
+		<th>ID号</th>
+		<th>IP</th>
+		<th>浏览器</th>
+		<th>浏览时间</th>
+		<!--
+		<th>展示次数(PV)</th>
+		<th>覆盖用户数(UV)</th>
+	-->
+	</tr>
+	<% for tongji in @tongjis %>
+		<tr>
+			<td><%= tongji.id %></td>
+			<td><%= tongji.ip %></td>
+			<td width="600px"><%= tongji.agent %></td>
+			<td><%= tongji.created_at.to_s(:db) %></td>
+		</tr>
+	<% end %>
+</table>
+<div style="text-align: center">
+	<%= will_paginate @tongjis %>
+</div>

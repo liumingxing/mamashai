@@ -1,0 +1,41 @@
+<div id="middle">
+    <div id="css_mainbody">
+        <h1 class="title">发送站内私信</h1>			
+		<div class="menu_bar">
+			<div class="settings_content">
+			    <%=render :partial=>'/settings/success_pmt' if params[:success] %>
+			    <div class="findfriends">
+			        <%= form_tag({:action=>:send_sys_messages}) do %>
+			        <div class="invite_fin">
+			           <input name="is_sys" id="is_sys" value="true" onclick="jQuery('#message_users').toggle();" <%if @is_sys%>checked="checked"<%end%>type="checkbox"/> 发送给所有用户
+					   <span id="message_users" <%if @is_sys%> style="display:none;"<%end%>>
+			            <br/>
+						请输入群发用户名，多个用户名用分号(;)隔开。
+						<%= link_to '导入天使妈爸', '/mms/messages/messages_import_vip_user'%>
+						<br/>
+			           <%= text_area :message_post, :user_name %><br/>
+					   <%=error_message_on :message_post,:user_name %>
+					   </span>
+			            <br/>
+			            请输入消息正文，正文小于300字。
+						 <br/>
+						<%= text_area :message_post, :content,:style=>'height:180px;' %><br/>
+					   <%=error_message_on :message_post,:content %>
+			            <br/>
+						
+			        </div>
+			        <div class="invite_fin_area">
+			            <button class="button_submit_s" type="submit" onmouseover="this.className='button_submit_s button_submit_s_hover';" onmouseout="this.className='button_submit_s';">
+			                发送
+			            </button>
+			        </div>
+			        <% end %>
+			    </div>
+			</div>
+		</div>
+    </div>
+    <div class="clear"></div>
+</div>
+
+
+<link type="text/css" rel="stylesheet" media="screen" href="/stylesheets/settings.css" />

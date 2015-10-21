@@ -1,0 +1,23 @@
+<div id="middle">
+    <div id="css_mainbody">
+        <h1 class="title">添加专栏作者
+			<span style="float:right;margin-right:10px;">
+		        <a href="/mms/column" title="返回列表">返回列表</a>
+		    </span>
+		</h1>			
+		<%= form_tag({:action=>:create}) do %>
+		    <table class="grid">
+		    <tbody>
+		        <tr height="40">
+		            <td>请输入电子邮件:</td>
+					<td><%= text_field_tag :email%></td>
+				</tr>
+			</tbody>
+			</table>	
+		    <div id="submit_area" class="ifnull"> 
+		      <button class="button_submit" type="submit" onmouseover="this.className='button_submit button_submit_hover';" onmouseout="this.className='button_submit';" >保存</button>
+		    </div>
+		<% end %>
+    </div>
+    <div class="clear"></div>
+</div>

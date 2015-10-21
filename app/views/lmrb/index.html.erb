@@ -1,0 +1,73 @@
+<div id=AdLayer><A href="/lmrb/step1"><IMG src="/images/lmrb_gd.png"></A></div>
+
+<div id="lmrb_box1" class="mt5 box4">
+  <div class="lmrb_left">
+    <div id="lmrb_tit">
+      <ul>
+        <li id="lmrb_tit_select">
+          <a href="" style="color:#FFF">辣妈之星</a>
+        </li>
+      </ul>
+    </div>
+    <div class="lmrb_left">
+      <ul>
+        <% for post in @star_posts %>
+          <li>
+            <div class="box4_li">
+              <a href="/post/<%= post.id %>#tmsd"><img src="http://www.mamashai.com<%= post.logo.thumb400 %>" width="205px" height="284px"/></a>
+              <table border="0" cellspacing="0" cellpadding="0">
+                <tr>
+                  <td>辣妈：<%= post.user.name %> </td>
+                  <td rowspan="2" align='right'>
+                    <%= render :partial=>'/share/follow_icon', :locals=>{:user=>post.user}%>
+                  </td>
+                </tr>
+                <tr>
+                  <td><%= post.user.first_kid.name if post.user.first_kid %>
+                    <%= detail_age_for_birthday(post.user.first_kid.birthday) if post.user.first_kid%>
+                  </td>
+                </tr>
+              </table>
+            </div>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+  <div class="lmrb_right">
+    <h3>辣妈日报客户端下载</h3>
+    <div style="text-align: center;">
+      <a href="https://itunes.apple.com/cn/app/la-ma-ri-bao-ma-ma-bao-bao/id464568504?ls=1&mt=8" target="_blank"><img width="104" src="/images/lmrb_xz_iphone.jpg" /></a>
+      <a href="http://as.baidu.com/a/item?docid=807941&pre=web_am_se"><img width="109" src="/images/lmrb_xz_android.jpg" /></a>
+    </div>
+    <div class="lmrb_right_li">
+      <ul>
+        <% for post in @recent_posts %>
+          <li>
+            <% if post.user && post.user.logo %>
+            <img src="http://www.mamashai.com<%= post.user.logo.thumb48 %>"/><span><%= post.user.name %></span>
+            <span class="desc"><%= refer_time(post.created_at)%> 制作了辣妈日报</span>
+            <% end %>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+    <%= render :partial=>"/share/taobao_adv_right" %>
+  </div>
+</div>
+
+<%= render :partial=>"/share/post_flows", :locals=>{:post=>@posts} %>
+<div class="clear"></div>
+<%= will_paginate @posts %>
+
+<script type="text/javascript">
+  var n=4;
+  var obj=document.getElementById("AdLayer");
+  if(!obj){return false;}
+  var x=2;
+  var fe=$("#AdLayer");
+  window.onscroll=function(){
+    obj.style.top=(document.body.scrollTop||document.documentElement.scrollTop)+n+'px';
+    x=(document.body.scrollTop||document.documentElement.scrollTop)+n;
+  };
+</script>

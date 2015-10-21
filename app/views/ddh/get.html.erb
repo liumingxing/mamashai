@@ -1,0 +1,59 @@
+<div class='topdiv'>
+	亲，即日起兑换仅在手机版进行，这里只展示礼物详情：）
+</div>
+<!-- 
+<div class="topdiv">
+	<%= form_tag({:controller=>"ddh", :action=>"get_action", :id=>@ddh.id},{:update=>"ddh_update",:remote=>true})  do %>
+	<div id='ddh_update'></div>
+	<table  border="0" cellspacing="0" cellpadding="0">
+		<tr>
+			<td align='right'><font>*</font>真实姓名：</td>
+			<td>
+				<%= text_field :ddh_order, :name, :size=>25, :class=>"input2"%>
+			</td>
+		</tr>
+		<tr>
+			<td align='right'><font>*</font>联系手机：</td>
+			<td>
+				<%= text_field :ddh_order, :mobile, :size=>25, :class=>"input2"%>
+			</td>
+		</tr>
+		<tr>
+			<td align='right'><font>*</font>收货地址：</td>
+			<td>
+				<%= text_field :ddh_order, :address, :class=>"input2", :style=>"width:350px"%>
+			</td>
+		</tr>
+		<tr>
+			<td align='right'>备注：</td>
+			<td>
+				<%= text_field :ddh_order, :remark, :class=>"input2", :style=>"width:230px"%>
+			(如颜色/尺码/型号等)
+			</td>
+		</tr>
+		<tr>
+			<td colspan=2>
+			<div>
+				<div style="margin: 10px;">
+					<a href="javascript:void(0)" onclick='$("#make_post").val(1);$("#ddh_post").show(); $(this).hide()'>同时发一条记录</a>
+				</div>
+				<div id='ddh_post' style="margin: 10px 0px; display:none;">
+					<div style="float:left; margin-right: 10px;">
+						<img src='<%= @ddh.logo.thumb50 %>'/>
+					</div>
+					<div style="float:left;">
+						<%= hidden_field_tag :make_post, 0%>
+						<textarea name='content' class='input2' style="height:60px; width: 360px;">我参加了妈妈晒的豆豆换，用<%= @ddh.score%>个晒豆兑换了<%= @ddh.title %>，大家都来看看吧。</textarea>
+					</div>
+				</div>
+			</div>
+			</td>
+
+		</tr>
+		<tr>
+			<td colspan=2 align='center'><%= submit_tag "提交申请", :class=>"button2" %></td>
+		</tr>
+	</table>
+	<% end %>
+</div>
+-->

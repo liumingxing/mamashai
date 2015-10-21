@@ -1,0 +1,16 @@
+<div id="middle">
+    <div id="css_mainbody">
+        <h1 class="title">修改数据
+			<span style="float: right; margin-right: 10px;">
+		        <%= link_to '返回列表', :action=>"index" %>
+		    </span>
+		</h1>
+        <table style="width: 1000px; padding-left: 50px;">
+        	<%= form_tag :action=>"update", :id=>params[:id], :tp=>params[:tp] do  %>
+				<%= render :partial => 'form' %>
+				<%= submit_tag "提交" %>
+			<% end %>
+        </table>
+    </div>
+    <div class="clear"></div>
+</div>

@@ -1,0 +1,48 @@
+<div id="middle">
+    <div id="css_mainbody">
+        <h1 class="title">编辑资讯栏目<%= "--#{flash[:notice]}" unless flash[:notice].blank? %></h1>
+        <%= form_for(@article_category, :url => {:action => :category_update, :id => @article_category}) do |f| %>
+        <table class="article">
+            <%= render :partial => "category_form", :locals => {:f => f} %>
+            <tr>
+                <td class="column_1">
+                </td>
+                <td class="column_2">
+                    <%= f.submit '修 改' %>
+                    　｜　<%= link_to '查看', :action => :category_show, :id => @article_category %>　｜　<%= link_to '返回', :action => :category %>
+                </td>
+            </tr>
+        </table>
+        <% end %>
+    </div>
+</div>
+
+<style>
+    .article {
+        border: 1px solid #DDDDDD;
+        border-collapse: collapse;
+        empty-cells: show;
+        margin: 10px auto;
+        width: 98%;
+    }
+    
+    .article td {
+        border: 1px solid #DDDDDD;
+        color: #666666;
+        font-size: 12px;
+        height: 30px;
+        line-height: 30px;
+        padding-left: 10px;
+        text-align: center;
+    }
+    
+    .article td.column_1 {
+        width: 11%;
+        text-align: right;
+    }
+    
+    .article td.column_2 {
+        align: left;
+        text-align: left;
+    }
+</style>

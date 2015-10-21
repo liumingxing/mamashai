@@ -1,0 +1,68 @@
+<div class="sharp">
+	<div class="gift_menu">
+		<ul>
+			<li class="no_border"><a class="current" href="/p/gift">免费礼物</a></li>
+			<li><a href="/p/show_gift">用户晒礼</a></li>
+		</ul>
+		<div class="clear"></div>
+	</div>
+	<div class="gifts">
+		<% for ddh in @ddhs %>
+			<div class="gift">
+				<div class="logo">
+					<a id='ddhlogo_<%= ddh.id %>' href="javascript:show_download('ddhlogo_<%= ddh.id %>')"><img src="http://www.mamashai.com<%= ddh.logo.thumb260 %>" class="ddh_logo"/></a>
+					<div class="status">
+						<% if Date.today < ddh.begin_at %>
+							<img src="/images/p/ddh_2.png"/>
+						<% elsif Date.today > ddh.end_at%>
+							<img src="/images/p/ddh_3.png"/>
+						<% else %>
+							<img src="/images/p/ddh_1.png"/>
+						<% end %>
+					</div>
+				</div>
+				<div class="info">
+					<p class="name"><a id='ddh_<%= ddh.id %>' href="javascript:show_download('ddh_<%= ddh.id %>')"><%= ddh.title %></a></p>
+					<div>价值：<span class="red">￥<%= ddh.price %></span></div>
+					<div>数量：<span class="red"><%= ddh.count %></span> <span class="remain">剩余：</span><span class="red"><%= ddh.remain %></span></div>
+					<div class="gray">开始时间：<%= ddh.begin_at.to_s %></div>
+					<div class="gray">结束时间：<%= ddh.end_at.to_s %></div>
+					<div class="gray">
+						<% if ddh.score > 5 %>
+							兑换，需要晒豆<span class="red"> <%= ddh.score %> </span>颗
+						<% else %>
+							试用（无需晒豆，需要审核<%= "，记录数需要#{ddh.require_posts_count}" if ddh.require_posts_count.to_i > 0 %>）
+						<% end %>
+					</div>
+				</div>
+				<div class="clear"></div>
+			</div>
+		<% end %>
+	</div>
+	<%= will_paginate @ddhs, {:class=>"will_pagination"}%>
+</div>
+
+<div id="download_wrapper" style="display:none">
+	<ul id="download" class="download clearfix">
+    <li><a href="/index/ipa"><img src="/images/p/a1.png"/><p>iPhone版下载</p></a></li>
+    <li><a href="/index/apk"><img src="/images/p/a2.png"/><p>Android版下载</p></a></li>
+  </ul>
+</div>
+
+<script type="text/javascript" src="/javascripts/jquery-1.7.1.min.js"></script>
+<script type="text/javascript" src="/javascripts/artDialog5.0/artDialog.min.js"></script>
+<link href="/javascripts/artDialog5.0/skins/default.css" rel="stylesheet" type="text/css" />
+
+<script>
+function show_download(follow_id){
+	var dialog = art.dialog({
+				id: 'dialog' + follow_id,
+				title: "亲，需要用手机端才能查看更多信息",
+				content: document.getElementById('download_wrapper'),
+				follow: document.getElementById(follow_id),
+				ok: function(){
+					return true;
+				}
+	});
+}
+</script>

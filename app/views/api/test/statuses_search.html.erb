@@ -1,0 +1,37 @@
+<h1>statuses/search 返回与指定的一个或多个条件相匹配的微博。</h1><%= link_to "返回到列表", "/api/test" %>
+<pre>
+  [路径]: statuses/search
+  [HTTP请求方式]: GET
+  [URL]: http://your.api.domain/statuses/search.json
+  [是否需要登录]： false
+
+参数
+
+    * q 搜索的关键字。必须进行URL Encode
+    * count 指定每页返回的记录条数。默认值10
+    * page 页码,默认是1。
+    * post_tp 微博类型，空为全部，original原创，groups群组, picture图片，video视频，blog博客. 返回指定类型的微博信息内容。
+    * post_age_id 年龄段, 1:没有孩子, 2:孕期, 3:0-1岁, 4:1-2岁, 5:2-3岁, 6:3-5岁, 7:5-7岁, 8:7-9岁, 9:9-12岁, 10:12-15岁, 11:15-18岁, 12:18岁以上
+    * user_id 微博作者的用户ID。
+    * starttime 开始时间，Unix时间戳
+    * endtime 结束时间，Unix时间戳
+
+示例
+
+  curl -u "username:password"
+  "http://your.api.domain/statuses/search.json?source=appkey&q=%E5%A6%88%E5%A6%88%E6%99%92"
+</pre>
+<hr/>
+<%= form_tag "/api/statuses/search.json" ,{:method=>:get} do %>
+  <%= render :partial => '/api/test/login' %>
+  source: <%= text_field_tag "source" %><br/>
+  q: <%= text_field_tag "q" %><br/>
+  count: <%= text_field_tag "count" %><br/>
+  page: <%= text_field_tag "page" %><br/>
+  post_tp: <%= text_field_tag "post_tp" %><br/>
+  post_age_id: <%= text_field_tag "post_age_id" %><br/>
+  user_id: <%= text_field_tag "user_id" %><br/>
+  starttime: <%= text_field_tag "starttime" %><br/>
+  endtime: <%= text_field_tag "endtime" %><br/>
+  <%= submit_tag "提交"%>
+<% end -%>

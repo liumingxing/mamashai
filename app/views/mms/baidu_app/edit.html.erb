@@ -1,0 +1,8 @@
+<div id="middle">
+    <div id="css_mainbody">
+        <h1 class="title">编辑百度APP应用<span style="float: right; margin-right: 10px;"><%= link_to '返回', :action => :index %></span></h1>
+        <% form_for(:baiduapp, :url => {:action => :update, :id => @ebook}, :html=>{:multipart=>true}) do |f| %>
+        <%=render :partial=>'baiduapp_form', :locals => {:f => f}%>
+        <% end %>
+    </div>
+</div>

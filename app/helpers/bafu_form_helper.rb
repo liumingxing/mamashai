@@ -1,0 +1,2 @@
+module BafuFormHelper
+end

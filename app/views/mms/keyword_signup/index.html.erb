@@ -1,0 +1,78 @@
+ <div id="middle">
+	<div id="css_mainbody">
+		<h1 class="title">广告统计管理<%= "--#{flash[:notice]}" unless flash[:notice].blank? %></h1>
+		<%= button_to "新建", :action => "new" %>
+		<table class="grid">
+	        <tbody>
+	            <tr>
+	                <th>
+	                    id
+	                </th>
+	                <th>
+	                    名称
+	                </th>
+	                <th >
+	                    点击次数
+	                </th>
+					<th>
+	                    注册用户数
+	                </th>
+	                <th>
+	                    编辑
+	                </th>
+					<th>
+	                    删除
+	                </th>
+					<th >
+	                    点击次数清0
+	                </th>
+					<th>
+	                    注册用户数清0
+	                </th>
+	            </tr>
+				<% for keyword_signup in @keyword_signups %>
+	            <tr>
+	                <td >
+	                    <%= h keyword_signup.id %>
+	                </td>
+	                <td >
+	                    <%= h keyword_signup.name %>
+	                </td>
+	                <td >
+	                    <%= h keyword_signup.hits_count %>
+	                </td>
+	                <td >
+	                    <%= h keyword_signup.signups_count %>
+	                </td>
+	                <td >
+	                    <%= link_to '编辑', :action => :edit, :id => keyword_signup %>
+	                </td>
+	                <td >
+	                    <%= link_to '删除', :action => :destroy, :id => keyword_signup %>
+	                </td>
+					<td>
+						<%= button_to_function "点击次数清0", "if (confirm('您确定将点击次数清０吗?')) update_hits_count(#{keyword_signup.id.to_s})" -%>
+					</td>
+					<td>
+						<%= button_to_function "注册用户数清0", "if (confirm('您确定将注册用户数清0吗?')) update_signups_count(#{keyword_signup.id.to_s})" -%>
+					</td>
+	            </tr>
+				<% end%>
+	        </tbody>
+	    </table>
+		<div class="book_page">
+			<%=will_paginate @keyword_signups %>
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+	function update_hits_count(id){
+		update_address_url = "/mms/keyword_signup/update_hits_count?id="+id
+		window.location.href=update_address_url;
+	}
+	
+	function update_signups_count(id){
+		update_address_url = "/mms/keyword_signup/update_signups_count?id="+id
+		window.location.href=update_address_url;
+	}
+</script>

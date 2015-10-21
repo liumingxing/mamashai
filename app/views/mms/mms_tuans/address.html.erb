@@ -1,0 +1,18 @@
+<div id="middle">
+    <div id="css_mainbody">
+        <h1 class="title">妈妈晒团购-信息管理-获奖用户信息查询
+			<span style="float: right; margin-right: 10px;">
+		        <%= link_to '返回列表', '/mms/mms_tuans/index' %>
+		    </span>
+		</h1>
+		<% form_tag "/mms/mms_tuans/address_action" do  %>
+			<div style="padding:10px;font-size:14px;">请输入获奖名单（每行一个名字）</div>
+			<div style="width:580px;">
+				<%= hidden_field_tag "tuan_id",params[:id]%>
+				<div style="margin:20px;"><%= text_area_tag "names", nil, :rows => 15, :cols => 50%></div>
+				<div style="float:right;"><%=submit_tag "提交"%></div>
+			</div>
+		<% end %>
+    </div>
+    <div class="clear"></div>
+</div>

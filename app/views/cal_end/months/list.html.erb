@@ -1,0 +1,25 @@
+<table class="list" border="1" width="98%">
+  <tr class="head">
+    <th>月龄</th>
+    <th>distance</th>
+    <th>功能</th>
+    <th colspan=3>操作</th>
+  </tr>
+  
+<% for month in @months %>
+  <tr>
+    <td><%=h month.distance_human %></td>
+    <td><%= month.distance %></td>
+    <td><%=h month.functions %></td>
+    <td><%= link_to '修改', :action => 'edit', :id => month, :page=>params[:page] %></td>
+    <td><%= link_to '删除', { :action => 'destroy', :id => month }, :confirm => '确认删除吗?', :method => :post %></td>
+  </tr>
+<% end %>
+</table>
+
+
+<%= will_paginate @months %>
+
+<br />
+
+<%= link_to '添加', :action => 'new' %>

@@ -1,0 +1,132 @@
+<div class="nav_rm">
+  <a href="/tao/<%= @back.to_s + "/" + @product.category_id.to_s %>">返回</a>
+</div>
+<div class="sharp color1 mt5">
+  <div class="content">
+    <div class="cjy_left">
+      <div id="sp_xq">
+        <div id="sp_xq_ad">
+          <table border="0" cellspacing="0" cellpadding="0" class="tab_bg1" id="sp_tx">
+            <tr>
+              <td>
+                <a href="<%= @product.url %>" target="_blank"><img src="<%= @product.pic_url %>_310x310.jpg"  /></a>
+              </td>
+            </tr>
+          </table>
+        </div>
+        <div id="sp_xq_dis">
+          <h4><%= @product.name %></h4>
+          <div id="sp_buy">
+            <div id="sp_xq_price">
+              <ul>
+                <li>
+                  &yen;<%= @product.price %>
+                </li>
+                <li>
+                  <a href="<%= @product.url %>" target="_blank">去购买</a>
+                </li>
+              </ul>
+
+              <div class="fr">
+              	<% if @user %>
+                	<%= link_to_remote "<img src='/images/icon_10.jpg'/> <span id='clap_count'>(#{@product.claps_count})</span>", :url=>{:controller=>"ajax", :action=>"clap", :tp=>'taobao', :id=>@product}, :complete=>"$('#clap_count').html(request.responseText);" %>
+                <% else %>
+                	<a href="/account/signup?origin_url=/tao/show/<%= @product.id %>"><img src='/images/icon_10.jpg'/></a>
+                <% end %>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="clear"></div>
+        <div class="fr">
+					（为其他父母做个参考吧）<a href="javascript:void(0)" onclick="show_url_box('/tao/share/<%= @product.id %>?from=show', '我用过')"><img src="/images/sp_wyg.png" /></a>
+        </div>
+        <dl id="sp_bm">
+          <dd>
+            <%= @product.comments.size %>位妈爸用过它
+          </dd>
+          <dt>
+            <%= @shiyong_count %>人认为 <span>实用</span> <%= @anquan_count %>人认为 <span>安全</span>
+          </dt>
+        </dl>
+        <div class="clear"></div>
+        <div id="chanel_content">
+          <% for comment in @comments %>
+            <div class="user_content">
+              <div class="article_content">
+                <div class="user_pic">
+                  <% if comment.user %>
+                    <a href="<%= user_url(comment.user) %>"><img src="<%= comment.user.logo.thumb48 %>" width=48 height=48/></a>
+                  <% else %>
+                    <a href="javascript:void(0)"><img src="/images/login/logo/<%= comment.user_logo %>.jpg" width=48 height=48/></a>
+                  <% end %>
+                </div>
+                <div class="user_article">
+                  <div class="article_info">
+                    <div class="orgtxt">
+                      <% if comment.user %>
+                        <%=link_user(comment.user) %>
+                        <div class='kid_desc'>
+                          <%=refer_time(comment.created_at) %> <%= kid_age(comment.user) %>
+                          <img src="/images/weibo/wotao.png"/>
+                        </div>
+                      <% else %>
+                        <a href="javascript:void(0)"><%= comment.user_name %></a>
+                        <div class='kid_desc'>
+                          <%=refer_time(comment.created_at) %>
+                          <img src="/images/weibo/wotao.png"/>
+                        </div>
+                      <% end %>
+                      <div class="clear"></div>
+                      <%=post_content(comment.content) %>
+                    </div>
+                  </div>
+                </div>
+                <div class="clear"></div>
+              </div>
+            </div>
+          <% end %>
+
+          <%= will_paginate @comments %>
+        </div>
+
+        <dl id="sp_bm">
+          <dd>
+            <%= @claps.size>0 ? "#{@claps.size}位" : "还没有" %>妈爸喜欢它
+          </dd>
+          <dt></dt>
+        </dl>
+        <div class="sp_box">
+          <ul id="boxcotent">
+            <% for clap in @claps %>
+              <li>
+                <a href="<%= user_url clap.user %>"><img src="<%= clap.user.logo.thumb48%>"/></a>
+              </li>
+            <% end %>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <!--cjy_left-->
+    <div class="cjy_right">
+      <dl>
+        <dd>
+					同阶段需要买？
+        </dd>
+      </dl>
+      <div class="sp_li1">
+        <ul>
+          <% for category in @relative_categories%>
+            <li>
+              <a href="/tao/<%= @yun_root_children_ids.include?(category.id) ? 'yun' : 'baby' %>/<%= category.id %>"><%= category.name %></a>
+            </li>
+          <% end %>
+        </ul>
+      </div>
+    </div>
+    <!--cjy_right-->
+  </div>
+  <div><img src="/images/sharp_bottom.jpg" />
+  </div>
+  <!--box1-->
+</div>

@@ -1,0 +1,114 @@
+<div id="middle">
+    <div id="css_mainbody">
+        <h1 class="title">查看用户积分<span style="float: right; margin-right: 10px;"><%= link_to '返回', :action => :index %>
+            </span></h1>
+        <div style="text-align:center;" class="green">
+            <%= flash[:notice] %>
+        </div>
+        <div class="clear">
+        </div>
+        <% form_tag :action => :search do %>
+        <table class="grid_order" border="1">
+            <tr>
+                <td class="td01">
+                    查看用户积分：
+                </td>
+                <td>
+                    <%= text_field_tag :keyword, {},{:size => 30, :value => @keyword} %>
+                    <%= submit_tag '查看' %>　注：用户Email或昵称
+                </td>
+            </tr>
+        </table>
+        <% end %>
+        <table class="grid">
+            <tr>
+                <th>
+                    积分日期
+                </th>
+                <th>
+                    积分来源
+                </th>
+                <th>
+                    单项积分
+                </th>
+                <th>
+                    总积分
+                </th>
+                <th>
+                    操作
+                </th>
+            </tr>
+            <% if @score_events.blank? %>
+            <tr>
+                <td colspan="5">
+                    暂无积分记录……
+                </td>
+            </tr>
+            <% else %>
+            <% @score_events.each_with_index do |score_event, index| %>
+            <tr>
+                <td>
+                    <%= score_event.created_at.strftime("%Y-%m-%d %H:%M:%S") %>
+                </td>
+                <td>
+                    <% score_profile = ScoreProfile.first(:conditions => ['event = ? ', score_event.event]) %>
+                    <%= score_profile.description unless score_profile.blank? %>
+                    <% if score_event.user_name %>
+                    <a href="/friends/find_user/<%=score_event.user_name%>" target="_blank">@<%=score_event.user_name %></a>
+                    <% end %>
+                </td>
+                <td>
+                    <%=score_event.score %>分
+                </td>
+                <td>
+                    <%=score_event.total_score %>分
+                </td>
+				<td>
+					<% if index == 0 %>
+                    <%= link_to '删除', "/mms/scores/destroy/#{score_event.id}", :confirm => '您确定要删除吗？' %>
+					<% end %>
+                </td>
+            </tr>
+            <% end %>
+            <% end %>
+        </table>
+        <%= will_paginate @score_events unless @score_events.blank? %>
+        <table class="grid">
+            <tr>
+                <th>
+                    日期
+                </th>
+                <th>
+                    Log
+                </th>
+                <th>
+                    操作人
+                </th>
+            </tr>
+            <% if @score_event_logs.blank? %>
+            <tr>
+                <td colspan="5">
+                    暂无积分操作日制……
+                </td>
+            </tr>
+            <% else %>
+            <% @score_event_logs.each do |score_event_log| %>
+            <tr>
+                <td>
+                    <%= score_event_log.created_at.strftime("%Y-%m-%d %H:%M:%S") %>
+                </td>
+                <td>
+                    <%= score_event_log.log %>
+                </td>
+                <td>
+                    <%= score_event_log.operator_name %>
+                </td>
+            </tr>
+            <% end %>
+            <% end %>
+        </table>
+        <%= will_paginate @score_event_logs unless @score_event_logs.blank? %>
+    </div>
+    <div class="clear">
+    </div>
+</div>

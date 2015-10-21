@@ -1,0 +1,155 @@
+function About(attr){
+	Ti.include("public.js");
+
+	var win = Ti.UI.createWindow(attr);
+	if (!Ti.App.is_android) {
+		win.hideTabBar();
+	}
+	pre(win)
+
+	var logo = Ti.UI.createImageView({
+		image : './images/gybbrl@2x.png',
+		width : __l(93),
+		height : __l(92),
+		hires : true,
+		top : __l(20),
+		//left : __l(111)
+	});
+	
+	var tip1 = Ti.UI.createLabel({
+		text : '宝宝日历',
+		color : '#EA609E',
+		font : {
+			fontSize : __l(30),
+			fontWeight : 'bold'
+		},
+		height : __l(40),
+		top : __l(120),
+		left : 0,
+		right : 0,
+		textAlign : 'center'
+	});
+	
+	var tip2 = Ti.UI.createLabel({
+		text : 'V ' + Titanium.App.version,
+		color : '#999999',
+		font : {
+			fontSize : __l(20),
+			fontWeight : 'bold'
+		},
+		height : __l(40),
+		top : __l(156),
+		left : 0,
+		right : 0,
+		textAlign : 'center'
+	});
+	tip2.addEventListener("longpress", function(e){
+		if (check_login()){
+			http_call("http://www.mamashai.com/api/admin/identify?" + account_str(), function(e){
+				if (e.responseText == "yes"){
+					show_alert("提示", "认证成功！")
+					Ti.App.Properties.setString("is_mms_admin", "true");
+				}
+				else{
+					show_alert("提示", e.responseText)
+				}
+			})
+		}
+	})
+	
+	win.add(logo)
+	win.add(tip1);
+	win.add(tip2);
+
+	var tableview = Titanium.UI.createTableView({
+		style:Titanium.UI.iPhone.TableViewStyle.GROUPED,
+		separatorColor : "#ccc",
+		backgroundColor : 'transparent',
+		rowBackgroundColor : 'white',
+		top : Ti.App.is_android ? __l(240) : __l(200),
+		scrollable: false,
+		bottom: __l(0)
+	});
+	
+	group_tableview(tableview)
+	
+	function add_a_row(text, callback) {
+			var row = Ti.UI.createTableViewRow({
+				height : Ti.UI.SIZE,
+				//height: __l(20),
+				hasChild : false,
+				selectedBackgroundColor: "#E8E8E8",
+				callback: callback
+			});
+			
+			var label = Ti.UI.createLabel({
+				top : __l(11),
+				bottom : __l(11),
+				left : __l(20),
+				height : __l(18),
+				width: Ti.UI.SIZE,
+				font : {
+					fontSize : __l(15)
+				},
+				color: "#333",
+				text : text,
+				touchEnabled : false
+			});
+			row.label = label;
+			row.add(label)
+			
+			row.addEventListener("click", function(e){
+				e.source.callback(e)
+			})
+			return row;
+	}
+	
+	tableview.appendRow(add_a_row("妈妈晒用户协议", function(e){
+		var w = Ti.UI.createWindow({title: "", backButtonTitle: !Ti.App.is_android && Ti.App.osversion < "7.0" ? '返回' : ''})
+        var web = Ti.UI.createWebView({url: "http://www.mamashai.com/html/agreement.html",
+                        top: 0,
+                        right: 0,
+                        left: 0,
+                        bottom:0})
+        w.add(web)
+        add_default_action_bar(w, w.title, true)
+        pre(w)
+        Ti.App.currentTabGroup.activeTab.open(w, {
+            animated : true
+        });
+	}))
+	tableview.appendRow(add_a_row("妈妈晒合作商城使用协议", function(e){
+		var w = Ti.UI.createWindow({title: "", backButtonTitle: !Ti.App.is_android && Ti.App.osversion < "7.0" ? '返回' : ''})
+        var web = Ti.UI.createWebView({url: "http://www.mamashai.com/html/agreement_daigou.html",
+                        top: 0,
+                        right: 0,
+                        left: 0,
+                        bottom:0})
+        w.add(web)
+        add_default_action_bar(w, w.title, true)
+        pre(w)
+        Ti.App.currentTabGroup.activeTab.open(w, {
+            animated : true
+        });
+	}))
+
+	
+	//win.add(tableview);
+	
+	add_default_action_bar(win, win.title, true)
+	
+	logEvent('about');
+
+	//if (user_id() == "270"){
+	//	var text = log.helll(1);
+	//}
+	
+	Ti.App.currentTabGroup.activeTab.open(win, {
+		animated : true
+	});
+}
+
+About({title : "关于",
+		backButtonTitle : !Ti.App.is_android && Ti.App.osversion < "7.0" ? '返回' : '',
+		backgroundColor : 'white'
+})

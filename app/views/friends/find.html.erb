@@ -1,0 +1,41 @@
+<div class="css_search_find">
+    <div id="css_search_container">
+        <div class="mainbody">
+            
+            <% if @is_no_search or @users.blank? %>
+            <div class="css_tips">
+                <h1>很抱歉，没有找到任何相关用户</h1>
+                <p>
+                    换个词试试看或者换个方式<a href="/friends">找找感兴趣的人</a>
+                </p>
+                <div class="css_sea_dd1">
+                    <a href="/pub/ranks">去大晒台看看排行榜</a>
+                </div>
+            </div>
+            <% else %>
+            <ul class="shine_list">
+                <% for user in @users %>
+                <li class="list">
+                    <%=render :partial=>'/home/list_user',:locals => {:user_item => user} %>
+                    <ul class="shine_local">
+                        <li id="fans_user_<%=user.id%>">
+                            <% if @user && @user.has_follow?(user.id) %>
+                            <img src="/images/icons/follow_success.gif"/><% else %>
+                            <%= link_to_remote(APP_CONFIG['add_follow'],{:update => "fans_user_#{user.id}", :url => {:action =>:create_follow_user,:controller=>:ajax,:id=>user.id}},{:class=>'button_link'} ) %>
+                            <% end %>
+                        </li>
+                    </ul>
+                    <div class="clear">
+                    </div>
+                </li>
+                <% end %>
+            </ul>
+            <%=will_paginate @users %>
+            <% end %>
+            <div class="clear">
+            </div>
+        </div>
+    </div>
+    <div class="clear">
+    </div>
+</div>

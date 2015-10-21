@@ -1,0 +1,64 @@
+
+indexer
+{
+}
+
+searchd
+{
+  listen = 127.0.0.1:9306:mysql41
+  log = /Users/liumingxing/Documents/Titanium/mamashai/log/development.searchd.log
+  query_log = /Users/liumingxing/Documents/Titanium/mamashai/log/development.searchd.query.log
+  pid_file = /Users/liumingxing/Documents/Titanium/mamashai/log/development.sphinx.pid
+  workers = threads
+  binlog_path = /Users/liumingxing/Documents/Titanium/mamashai/tmp/binlog/development
+}
+
+source article_core_0
+{
+  sql_query_pre = SET NAMES utf8
+}
+
+index article_core
+{
+  type = rt
+  path = /Users/liumingxing/Documents/Titanium/mamashai/db/sphinx/development/article_core
+  docinfo = extern
+  charset_type = utf-8
+  rt_field = sphinx_internal_class_name
+  rt_field = title_
+  rt_attr_uint = sphinx_internal_id
+  rt_attr_uint = sphinx_deleted
+  rt_attr_string = sphinx_internal_class
+  rt_attr_string = title__sort
+  charset_table = 0..9, A..Z->a..z, _, a..z, U+410..U+42F->U+430..U+44F, U+430..U+44F
+  ngram_len = 1
+  ngram_chars  = U+3000..U+2FA1F
+}
+
+index post_core
+{
+  type = rt
+  path = /Users/liumingxing/Documents/Titanium/mamashai/db/sphinx/development/post_core
+  docinfo = extern
+  charset_type = utf-8
+  rt_field = sphinx_internal_class_name
+  rt_field = content_
+  rt_attr_uint = sphinx_internal_id
+  rt_attr_uint = sphinx_deleted
+  rt_attr_string = sphinx_internal_class
+  rt_attr_string = content__sort
+}
+
+index user_core
+{
+  type = rt
+  path = /Users/liumingxing/Documents/Titanium/mamashai/db/sphinx/development/user_core
+  docinfo = extern
+  charset_type = utf-8
+  rt_field = sphinx_internal_class_name
+  rt_field = remark
+  rt_attr_uint = sphinx_internal_id
+  rt_attr_uint = sphinx_deleted
+  rt_attr_string = sphinx_internal_class
+  rt_attr_string = remark_sort
+}

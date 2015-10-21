@@ -1,0 +1,85 @@
+<div id="middle">
+    <div id="css_mainbody">
+
+        <%= form_tag("/mms/apn_devices", :method=>"get") do %>
+            年龄段：
+            <% for age in Age.find(:all, :order=>"id")%>
+                <%= check_box_tag "age[]", age.id, params[:age] && params[:age].include?(age.id.to_s) %><%= age.name %>
+            <% end %>
+            </br>
+            用户名：<%= text_field_tag :name, params[:name] %>
+            <%= submit_tag "查找"%>
+        <% end %>
+
+        <table class="grid" border="1">
+          <tr class="head">
+            <th>用户</th>
+            <th>宝宝</th>
+            <th>软件</th>
+            <th>注册时间</th>
+            <th>上次登录</th>
+            <th>记录数</th>
+            <th>最新记录时间</th>
+            <th>已发推送</th>
+            <th>最新推送时间</th>
+            <th>推送</th>
+          </tr>
+          
+        <% for apn_device in @apn_devices %>
+          <% next if !apn_device.user %>
+          <tr>
+            <td style="text-align: left;">
+                <a href="<%= user_url(apn_device.user)%>" target="_blank"><img src="<%= apn_device.user.logo.thumb48.url %>" /></a></br>
+                <%=h apn_device.user.name %>
+                （<%= {'m'=>'爸爸', 'w'=>'妈妈', 'un'=>'不定', nil=>'不定'}[apn_device.user.gender] %>）
+            </td>
+            <td width="120px"><%= kid_age(apn_device.user) %></td>
+            <td><%= {1=>"宝宝日历", 2=>"孕期日历", 3=>"0-3成长日历"}[apn_device.tp] %></td>
+            <td><%= apn_device.user.created_at.strftime("%Y-%m-%d")%></td>
+            <td><%= apn_device.user.last_login_at.to_s(:db) if apn_device.user.last_login_at %></td>
+            <td><%=h apn_device.user.posts_count %></td>
+            <td><%= apn_device.user.last_post.created_at.to_s(:db) if apn_device.user.last_post %></td>
+            <% if apn_device.user_id %>
+                <% count = ApnMessage.count(:conditions=>"user_id = #{apn_device.user_id} and tp=#{apn_device.tp}")%>
+            <% else %>
+                <% count = 0 %>
+            <% end %>
+            <td><%= link_to_if count > 0, count, {:action=>"messages", :id=>apn_device.user_id} %></td>
+            <td><%= apn_device.last_message.created_at.to_s(:db) if apn_device.last_message %></td>
+            <td><a href="javascript:void(0)" onclick="push('<%= apn_device.user.name %>', <%= apn_device.user_id %>)">推送</a></td>
+         </tr>
+        <% end %>
+        </table>
+
+
+        <%= will_paginate @apn_devices %>
+    </div>
+    <div style="display:none;" id='send_wrapper'>
+        <%= form_tag({:action=>"push"}, {:update=>"updater", :remote=>true}) do%>
+            <%= hidden_field_tag :user_id, "" %>
+            <%= text_area_tag :text, "", {:rows=>4, :cols=>60} %>
+            <div style="text-align: center; margin: 10px;">
+                <%= submit_tag "发送" %>
+            </div>
+            <div id="updater">
+            </div>
+        <% end %>
+    </div>
+</div>
+
+<script>
+var dialog = null;
+function push(name, user_id){
+    $('#notice').hide();
+    $("#user_id").val(user_id)
+    dialog = $.dialog({
+        id: 1,
+        title: '给 ' + name + " 发推送",
+        content: document.getElementById('send_wrapper'),
+    });
+}
+
+function push_success(){
+    dialog.title("推送成功").time(2000);
+}
+</script>

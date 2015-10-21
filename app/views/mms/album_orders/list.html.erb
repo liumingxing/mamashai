@@ -1,0 +1,50 @@
+<h1>订单列表</h1>
+<%= link_to "全部", :action=>"list" %> |
+<%= link_to "已付款", :action=>"list", :status=>"已付款" %> |
+<%= link_to "未付款", :action=>"list", :status=>"未付款" %> |
+<%= link_to "已打印", :action=>"list", :status=>"已打印" %> |
+<%= link_to "已发货", :action=>"list", :status=>"已发货" %> |
+<table class="list" border="1">
+  <tr class="head">
+    <th>ID号</th>
+    <th>成书ID</th>
+    <th>书名</th>
+    <th>用户昵称</th>
+    <th>联系人</th>
+    <th>状态</th>
+    <th>数量</th>
+    <th>价格</th>
+    <th>收件信息</th>
+    <th>下单时间</th>
+    <th>成书最后修改时间</th>
+    <th colspan=3>操作</th>
+  </tr>
+  
+<% for album_order in @album_orders %>
+  <tr>
+    <td><%=h album_order.id %></td>
+    <td><%=h album_order.book_id %></td>
+    <td><%=h album_order.book.name %></td>
+    <td><%=h album_order.user.name %></td>
+    <td><%=h album_order.linkname %></td>
+    <td><%=h album_order.status %></td>
+    <td><%=h album_order.book_count %></td>
+    <td><%=h album_order.price %></td>
+    <td><%=h album_order.address %> 邮编：<%=h album_order.postcode %> 电话：<%=h album_order.telephone %></td>
+    <td><%=h album_order.created_at.to_s(:db) %></td>
+    <td><%=h album_order.book.updated_at.to_s(:db) %></td>
+    <td><%= link_to '修改', :action => 'edit', :id => album_order %></td>
+    <td>
+        <%= link_to '生成PDF', :action => 'create_pdf', :id => album_order %>
+        <% if File.exist?(::Rails.root.to_s + "/public/upload/album_orders/#{album_order.book.created_at.to_date.to_s(:db)}/#{album_order.book.id}.pdf") %>
+            <a href="/upload/album_orders/<%=album_order.book.created_at.to_date.to_s(:db)%>/<%= album_order.book.id %>.pdf">下载PDF</a>
+        <% end %>
+    </td>
+    <td><%= link_to '删除', { :action => 'destroy', :id => album_order }, :confirm => '确认删除吗?', :method => :post %></td>
+  </tr>
+<% end %>
+</table>
+
+
+<%= will_paginate @album_orders %>
+

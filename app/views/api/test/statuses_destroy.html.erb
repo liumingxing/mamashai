@@ -1,0 +1,25 @@
+<h1>destroy 删除一条微博信息</h1><%= link_to "返回到列表", "/api/test" %>
+<pre>
+  [路径]:statuses/destroy/:id
+  [HTTP请求方式]: DELETE/POST
+  [URL]: http://your.api.domain/statuses/destroy/:id.json
+  [是否需要登录]： true
+
+参数
+    * source 申请应用时分配的AppKey，调用接口时候代表应用的唯一身份。
+    * :id 要删除的微博消息ID
+
+示例
+  curl -u "username:password" -X DELETE
+  "http://your.api.domain/statuses/destroy/11011.json?source=appkey"
+  
+注意
+  如果id不存在或者id对应的微博不存在，将返回404错误
+</pre>
+<hr/>
+<%= form_tag "/api/statuses/destroy.json", {:id=>"form"} do %>
+  <%= render :partial => '/api/test/login' %>
+  source: <%= text_field_tag "source" %><br/>
+  id: <%= text_field_tag "id", nil, :onkeyup=>"document.getElementById('form').action='/api/statuses/destroy/'+this.value+'.json';"%><br/>
+  <%= submit_tag "提交"%>
+<% end -%>

@@ -1,0 +1,8 @@
+ 
+<% if params[:id].blank? %>
+<select name="eproduct_tag_id" id="eproduct_eproduct_tag_id" value="0" truevalue="0">
+    <option value="">二级分类</option>
+</select>
+<% else %>
+<%=select(:eproduct, :eproduct_tag_id, EproductCategory.find(params[:id]).eproduct_tags.collect {|p| [ p.name, p.id ] }, {:selected=>params[:eproduct_tag_id].to_i,:prompt=>'二级分类'} ) %>
+<% end %>

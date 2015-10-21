@@ -1,0 +1,30 @@
+<% forward_post = post.forward_post %>
+<% forward_user = post.forward_user %> 
+
+<% if forward_post %>
+  <div class="comments">
+    <div class="comments_bg1">
+      <div class="clear">
+      </div>
+    </div>
+    <style type="text/css">
+      .comments_bg2 a {
+        font-size: 12px;
+      }
+    </style>
+    <div class="comments_bg2">
+      <a style="font-size: 12px;" href="<%=user_url(forward_user)%>">@<%=forward_user.name if forward_user %></a>
+      <span><% if post.long_post_id.present? %><a style="font-size: 12px;" href="/post/<%=post.id%>"><%=h post.title %></a><%end%><%=post_content(forward_post.content) %><%if post.long_post_id %><a style="font-size: 12px;" href="/post/<%=post.id%>">查看全文</a>
+        <%end %></span>
+      <%=post_blog_url(forward_post) if forward_post.blog_url %>
+      <span class="option2"><a style="font-size: 12px;" href="/post/<%=forward_post.id%>">原文转发 (<%=forward_post.forward_posts_count %>)</a> |<a style="font-size: 12px;" href="/post/<%=forward_post.id%>">原文<%=comment_or_answer(forward_post) %> (<%=forward_post.comments_count %>)</a></span>
+      <%=render :partial=>'/share/post_content_logo',:locals=>{:post => forward_post,:id_post=>post} if forward_post.logo %>
+      <%=render :partial=>'/share/post_content_video',:locals=>{:post => forward_post} if forward_post.video_url %>
+      
+    </div>
+    <div class="comments_bg3">
+      <div class="clear">
+      </div>
+    </div>
+  </div>
+<% end %>

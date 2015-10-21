@@ -1,0 +1,20 @@
+<html>
+<meta name="viewport" content="user-scalable=yes,width=320px" />
+<body>
+<script>
+function get_token_and_secret()
+{
+	return '{"token": "<%= @token %>", "secret": "<%= @secret %>", "expire_at": <%= @expire%>,"user": <%= @user.to_json.html_safe %>}'
+}
+
+</script>
+<% if params[:from_android] && params[:from_android].to_s.size > 0 %>
+<a id="link" href="/account/blank?token=<%= @token %>&expire_at=<%= @expire%>&user_name=<%= @user.name%>&user_id=<%= @user.id %>&email=<%= @user.email%>&logo=<%= @user.logo%>" style="font-size: 30px">验证成功</a>
+<script>
+    var evt = document.createEvent("MouseEvents");
+	evt.initEvent("click", true, true);
+	document.getElementById('link').dispatchEvent(evt)
+</script>
+<% end %>
+</body>
+</html>

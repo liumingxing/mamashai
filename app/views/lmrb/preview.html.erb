@@ -1,0 +1,123 @@
+<div class="nav_rm">
+	<a href="/lmrb">辣妈日报首页</a>>><a href="">制作</a>
+</div>
+<div class="sharp color1 mt5">
+	<div class="content">
+		<div class="cjy_left">
+			<img src="/images/lmrb_zz_sczp_out.jpg" />
+			<img src="/images/lmrb_zz_dtzk.jpg" />
+			<img src="/images/lmrb_zz_dtjl.jpg" />
+			<img src="/images/lmrb_zz_xgmb.jpg" />
+			<img src="/images/lmrb_zz_yl_in.jpg" />
+
+			<div id="lmrb_zz" class="mt20">
+				<div class="lmrb_zz5">
+					<img id="preview_pic" src="<%= @diary.pic_path %>"/>
+				</div>
+			</div>
+		</div>
+
+		<!--cjy_left-->
+		<div class="cjy_right">
+			<div id="lmrb_right">
+				<a href="javascript:void(0)" onclick="history.back();"><img src="/images/lmrb_zz_fh.jpg" width="110" height="36" /></a>
+				<a href="javascript:void(0)" onclick="copy_image();"><img src="/images/lmrb_zz5_03.jpg" /></a>
+				<a href="javascript:void(0)" onclick="share();"><img src="/images/lmrb_zz5_05.jpg" /></a>
+				<a href="/lmrb/step1"><img src="/images/zlbg_zzyg.jpg"/></a>
+			</div>
+			<div class="lmrb_zz3_tex">
+				制作完成！
+				<br />
+				可复制后发到QQ、MSN
+				<br />
+				可分享到新浪微博和腾讯微博中
+			</div>
+		</div>
+	</div>
+</div>
+<img src="/images/sharp_bottom.jpg" />
+
+<div id="share" style="display:none; width: 460px;">
+	<%= form_tag({:action=>"create_post", :id=>@diary}, {:remote=>true, :updater=>"share_hide", :id=>"form_post"}) do %>
+	<div style="float:left; margin-right: 16px; padding-top: 20px;">
+		<img src="<%= @diary.pic_path.thumb100 %>"/>
+	</div>
+	<div style="float:right;">
+		<div style="text-align: right; margin: 4px;">
+			您还可以输入 <span id="share_text_num" style="font-size: 14px;">140</span> 个字
+		</div>
+		<textarea onkeyup="text_change()" style="width:340px; height: 80px; font-size: 14px;" name="content" id="share_content">#辣妈日报#今天我的辣妈日报出品了！<%= @diary.kaixin %>，<%= @diary.guanxin %>，<%= @diary.naoxin %>，<%= @diary.qushi %></textarea>
+		<div>
+			<div style="float:left; margin-right: 20px;">
+				<%= submit_tag "发布", :class=>"button2" %>
+			</div>
+			
+			<div style="float:right;padding-top: 20px;">
+				<div style="float:left; margin-top:2px;">分享到：</div>
+				<a href="javascript:void(0)" onclick="sns_share('sina_weibo_id', 'img_sina')"><img id='img_sina' src="/images/login_method_v3_01.png" select="/images/login_method_v3_01.png" unselect="/images/login_method_v3_01_hui.png"/></a>
+				&nbsp;
+				<a href="javascript:void(0)" onclick="sns_share('tencent_weibo_id', 'img_tencent')"><img id='img_tencent' src="/images/login_method_v3_07.png" select="/images/login_method_v3_07.png" unselect="/images/login_method_v3_07_hui.png"/></a>
+			</div>
+			<div class="clear"></div>
+		</div>
+	</div>
+	<%= hidden_field_tag :sina_weibo_id, '0' %>
+	<%= hidden_field_tag :tencent_weibo_id, '0' %>
+	<% end %>
+
+	<script>
+	$("#form_post").bind("ajax:complete", function(xhr, status){
+		share_dialog.content('分享成功').time(2000)
+	})
+	</script>
+	<div id="share_hide" style="display:none;"></div>
+</div>
+<script>
+	function text_change(){
+		var text = $('#share_content').val();
+		if (text.length > 140){
+			text = text[0, 140]
+		}
+		$('#share_text_num').text(140 - text.length)
+	}
+	text_change();
+	
+	function sns_share(weibo_id, img_id){
+		var img = $("#" + img_id)
+		if (img.attr("src") == img.attr("select")){
+			img.attr("src", img.attr("unselect"))
+			$("#" + weibo_id).val(-1)
+		} 
+		else{
+			img.attr("src", img.attr("select"))
+			$("#" + weibo_id).val(0)
+		}
+	}
+</script>
+
+
+<script>
+	var share_dialog = null;
+	function share(){
+		share_dialog = $.artDialog({
+			title : "分享",
+		    content: document.getElementById('share'),
+		    id: 'share_dlg'
+		}).lock();
+	}
+	function copy_image() {
+		var img = document.getElementById('preview_pic');
+		if(img.tagName != 'IMG')
+			return;
+		if( typeof img.contentEditable == 'undefined' || !document.body.createControlRange) {
+			alert('抱歉您的浏览器不支持直接复制图片，请在图片上点击右键“复制”');
+		} else {
+			var ctrl = document.body.createControlRange();
+			img.contentEditable = true;
+			ctrl.addElement(img);
+			ctrl.execCommand('Copy');
+			img.contentEditable = false;
+			alert('图片复制成功\n\n直接在QQ聊天窗口粘贴（Ctrl+V）即可');
+		}
+	}
+</script>

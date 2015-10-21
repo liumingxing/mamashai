@@ -1,0 +1,35 @@
+<h1>广告位管理</h1>
+
+<table class="list" border="1" width="98%%">
+  <tr class="head">
+    <th>名称</th>
+    <th>代码</th>
+    <th>尺寸</th>
+    <th>轮播数量</th>
+    <th colspan=3>操作</th>
+  </tr>
+  
+<% for advertisement in @advertisements %>
+  <tr>
+    <td><%=h advertisement.name %></td>
+    <td><%=h advertisement.code %></td>
+    <td><%=h advertisement.size %></td>
+    <td><%=h advertisement.num %></td>
+    
+    <td>
+    	<%= link_to '广告管理', :controller=>"advertisement_logos", :action => 'list', :id => advertisement %>
+    </td>
+    <td>
+    	<%= link_to '修改', :action => 'edit', :id => advertisement %>
+    	<%= link_to '删除', { :action => 'destroy', :id => advertisement }, :confirm => '确认删除吗?', :method => :post %>
+    </td>
+  </tr>
+<% end %>
+</table>
+
+
+<%= will_paginate @advertisements %>
+
+<br />
+
+<%= link_to '新建广告', :action => 'new' %>

@@ -1,0 +1,299 @@
+function GouList(attr){
+	var win = Ti.UI.createWindow(attr);
+
+	var url_pre = Ti.App.mamashai + '/api/gou/products_of?category_id=' + win.id;
+	if (win.id == 0)
+		url_pre += "&title=" + win.title;
+
+	if (win.gou_url)
+		url_pre = win.gou_url;
+
+	var container = Ti.UI.createScrollView({
+		contentHeight : 'auto',
+		contentWidth: Ti.App.platform_width,
+		showVerticalScrollIndicator : true,
+		left : 0,
+		width : Ti.App.platform_width,
+		bottom : 0,
+		top : 0,
+		layout: 'vertical'
+	})
+
+	if (Ti.App.is_android){
+			var ypos = 0;
+			var intervalIsRunning = false;
+			var yposPrevious = 0;
+			container.addEventListener('scroll', function(e) {
+			    ypos = e.y;
+			    if (!intervalIsRunning) {
+			        intervalIsRunning = true;
+			        var i = setInterval(function() {
+			            if (yposPrevious != ypos) {
+			                yposPrevious = ypos; 
+			            } else {
+			                clearInterval(i);
+			                intervalIsRunning = false;
+			                
+			                container.fireEvent("scrollEnd", {}) 
+			            }
+			        }, 500);
+			    }
+			 
+			});
+	}
+	
+	win.add(container);
+
+	container.addEventListener("scrollEnd", function(e){
+		if (xhr.finished)
+			return;
+
+		var height = wrapper.rect.height;
+		
+		if (height - Ti.App.platform_height - container.contentOffset.y < __l(150)){
+			xhr.open('GET', url_pre + "&page=" + xhr.page)
+			
+			actInd.show()
+
+			xhr.send();
+		}
+	})
+
+	var loading_wrapper = Ti.UI.createView({
+		top: 0,
+		left: 0,
+		right: 0,
+		width: Ti.App.platform_width,
+		height: __l(60)
+	})
+	var actInd = Titanium.UI.createActivityIndicator({
+		style : !Ti.App.is_android ? Titanium.UI.iPhone.ActivityIndicatorStyle.DARK : Titanium.UI.ActivityIndicatorStyle.BIG,
+		top : __l(8),
+		bottom: __l(8),
+		height : __l(30)
+	});
+	loading_wrapper.add(actInd)
+
+	var xhr = Ti.Network.createHTTPClient()
+	xhr.timeout = Ti.App.timeout
+	xhr.onerror = function() {
+		actInd.hide()
+		show_timeout_dlg(xhr, url_pre);
+	}
+	xhr.onload = function() {
+		actInd.hide()
+
+		var json = JSON.parse(this.responseText)
+
+		if (json.length == 0 && win.gou_url && wrapper.children == 0){
+				win.remove(container);
+
+				win.add(Ti.UI.createImageView({
+					image: "/images/gou/shoucang_empty.png",
+					top: __l(40),
+					left: (Ti.App.platform_width - __l(140))/2,
+					right: __l(100),
+					hires: true,
+					width: __l(140),
+					height: __l(140)
+				}))
+
+				win.add(Ti.UI.createLabel({
+					left: __l(10),
+					right: __l(10),
+					top: __l(220),
+					font: {fontSize: __l(18)},
+					color: "#333",
+					text: "主人，您还没收藏商品呢！",
+					textAlign: "center"
+				}))
+
+				win.add(Ti.UI.createLabel({
+					left: __l(10),
+					right: __l(10),
+					top: __l(250),
+					font: {fontSize: __l(13)},
+					color: "#ccc",
+					text: "快去充实收藏夹吧",
+					textAlign: "center"
+				}))
+
+			return;
+		}
+
+		if (this.responseText == "null" || this.responseText == "[]"){
+			xhr.finished = true;
+			if (!container.empty){
+					var empty_label = Ti.UI.createLabel({
+						left: 0,
+						right: 0,
+						width: Ti.App.platform_width,
+						height: __l(40),
+						font: {
+							fontSize: __l(14)
+						},
+						color: "#999",
+						text: "没有更多了",
+						textAlign: "center"
+					})
+					container.add(empty_label)
+					container.empty = empty_label
+			}
+			container.remove(loading_wrapper);
+			actInd.hide()
+			return;
+		}
+		
+		if (!json)
+			return;
+
+		var w = Ti.UI.createView({
+			height: Ti.UI.SIZE,
+			left: 0,
+			top: 0,
+			right: 0,
+			layout: 'horizontal'
+		})
+		for(var i=0; i<json.length; i++){
+			var width = __l(150);
+			var blank = (Ti.App.platform_width - 2*width - 2)/3
+			var product_json = json[i]
+			var product_wrapper = Ti.UI.createView({
+				left: blank,
+				right: 0,
+				top: __l(6),
+				height: __l(206),
+				width: width,
+			})
+					
+			var pic_border = Ti.UI.createView({
+				top: 0,
+				left: 0,
+				right: 0,
+				width: width,
+				height: width,
+				borderWidth: 1,
+				borderColor: "#ddd",
+			})
+					
+			var picture = Ti.UI.createImageView({
+				top: __l(6),
+				left: __l(6),
+				right: __l(6),
+				bottom: __l(6),
+				width: width - __l(12),
+				height: width - __l(12),
+				hires: true,
+				image: Ti.App.aliyun + (Ti.App.platform_width > __l(320) ? product_json.logo_thumb400 : product_json.logo_thumb200),
+				id: product_json.id,
+				defaultImage : './images/bj.png',
+				json: product_json
+			})
+			picture.addEventListener("click", function(e){
+				cache_http_call(Ti.App.mamashai + "/bbrl_code/gou_detail.txt", "cache_gou_detail", function(e1){
+					var DetailWin = eval(e1.responseText);
+					var win = new DetailWin({
+						title: "商品详情",
+						id: e.source.json.id,
+						backButtonTitle: "",
+						backgroundColor: "white"
+					})
+					Ti.App.currentTabGroup.activeTab.open(win, {
+						animated : true
+					});
+				})
+			})
+			pic_border.add(picture)
+
+			if (product_json.is_baokuan){
+				pic_border.add(Ti.UI.createImageView({
+					top: 0,
+					right: 0,
+					width: __l(40),
+					height: __l(40),
+					image: "/images/gou/bao.png"
+				}))
+			}
+			product_wrapper.add(pic_border)
+					
+			var name = Ti.UI.createLabel({
+				font:{fontSize:__l(13)},
+				text: product_json.name,
+				color:'#2C2C2C',
+				textAlign:'left',
+				top : __l(152),
+				height : __l(32),
+				left: 0,
+				right: 0,
+				zIndex: 20
+			});
+			product_wrapper.add(name)
+
+			var price = Ti.UI.createLabel({
+				font:{fontSize:__l(14)},
+				text: "￥" + parseFloat(product_json.price).toFixed(2),
+				color: Ti.App.bar_color,
+				textAlign: 'left',
+				top : __l(186),
+				left: 0
+			});
+			product_wrapper.add(price)
+
+			var o_price = Ti.UI.createLabel({
+				font:{fontSize:__l(10)},
+				text: "￥" + parseFloat(product_json.o_price).toFixed(2),
+				color: "#ccc",
+				textAlign: 'center',
+				top : __l(190),
+				left: __l(64)
+			});
+			product_wrapper.add(o_price)
+
+			var line = Ti.UI.createView({
+				backgroundColor : "#ccc",
+				top : Ti.App.is_android ? __l(198) : __l(196),
+				left : __l(64),
+				width: product_json.o_price >= 100 ? __l(43) : __l(35),
+				height : 1,
+			});
+			product_wrapper.add(line)
+
+			product_wrapper.add(Ti.UI.createLabel({
+				color: "#999",
+				borderRadius: __l(4),
+				borderWidth: __l(1),
+				borderColor: "#ccc",
+				font: {fontSize: __l(11)},
+				text: parseInt(product_json.price*10/product_json.o_price) + "折",
+				right: 0,
+				textAlign: "center",
+				width: __l(26),
+				top: __l(189)
+			}))
+
+			w.add(product_wrapper)
+		}
+		container.add(w);
+
+		container.remove(loading_wrapper);
+		actInd.hide()
+
+		setTimeout(function(e){
+			container.add(loading_wrapper);
+			actInd.hide();
+		}, 500)
+		xhr.page += 1
+	}
+	
+	xhr.page = 1
+	xhr.open('GET', url_pre + "&page=" + xhr.page)
+	xhr.send();
+
+	pre(win)
+
+	add_default_action_bar(win, win.title, true)
+
+	return win;
+}
+
+module.exports = GouList;

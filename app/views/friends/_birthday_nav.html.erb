@@ -1,0 +1,24 @@
+<div class="post_navigate_tab" id='n'>
+    <ul class="class1">
+        <li <%=raw 'class="current"' if params[:tp]=='all' || !params[:tp] %>>
+            <a href="<%=url_for(:tp=>'all', :anchor=>'n')%>">全部</a>
+        </li>
+		<li <%=raw 'class="current"' if params[:tp]=='friend' %>>
+            <a class="last" href="<%=url_for(:tp=>'friend', :anchor=>'n')%>">好友</a>
+        </li>
+    </ul>
+    <div class="class2">
+        <ul>
+            <li <%=raw 'class="current"' if params[:day]=='today' || !params[:day] %>>
+                <a href="<%= url_for(:day=>'today', :tp=>params[:tp], :anchor=>'n')%>">今天</a>
+            </li>
+            <li <%=raw 'class="current"' if params[:day]=='week1' %>>
+                <a href="<%= url_for(:day=>'week1', :tp=>params[:tp], :anchor=>'n')%>">本周</a>
+            </li>
+            <li <%=raw 'class="current"' if params[:day]=='week2' %>>
+                <a href="<%= url_for(:day=>'week2', :tp=>params[:tp], :anchor=>'n')%>">下周</a>
+            </li>
+        </ul>
+		<div class="clear"></div>
+    </div>
+</div>

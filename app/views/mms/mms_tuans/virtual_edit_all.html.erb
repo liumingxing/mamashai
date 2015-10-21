@@ -1,0 +1,60 @@
+<div id="middle">
+    <div id="css_mainbody">
+        <h1 class="title">妈妈晒团购-虚拟产品管理-批量更改<span style="float: right; margin-right: 10px;"><%= link_to '返回列表', "/mms/mms_tuans/virtual_index/#{@tuan.id}" %>
+            </span></h1>
+        <% form_for :virtual_product, @product,:url=>{:action => "virtual_update_all",:id=>@tuan.id}  do |f| %>
+        <%=render :partial=>"form_virtual_product",:locals=>{:f=>f} %>
+        <div class="submit">
+            <span class="left"><input type="submit" name="submit" value="提交"></span><span class="right"><%= link_to '返回', "/mms/mms_tuans/virtual_index/#{@product.tuan_id}" %>
+            </span>
+        </div>
+        <% end %>
+    </div>
+    <div class="clear">
+    </div>
+</div>
+<style type="text/css">
+    fieldset {
+        border: 1px solid #D1D1D1;
+        color: #333333;
+        line-height: 220%;
+        margin: 20px;
+        padding: 10px;
+    }
+    
+    legend {
+        background: none repeat scroll 0 0 #FFFFFF;
+        color: #666666;
+        font-weight: 800;
+    }
+    
+    fieldset div.line_item {
+        height: 30px;
+        display: block;
+        width: 100%;
+    }
+    
+    .line_item .title {
+        margin-left: 30px;
+        font-weight: bolder;
+        width: 150px;
+        float: left;
+    }
+    
+    .line_item .content {
+        float: left;
+    }
+    
+    div.submit {
+        margin: 20px;
+        text-align: center;
+    }
+    
+    div.submit span {
+        margin: 0 20px;
+    }
+    
+    #line_item_end_time {
+        display: none;
+    }
+</style>

@@ -1,0 +1,171 @@
+<div class="nav_rm">
+	<a href="/lmrb">辣妈日报首页</a>>><a href="">制作</a>
+</div>
+<div class="sharp color1 mt5">
+	<div class="content">
+		<form action="step3" method="get" onsubmit="return check_state_form();">
+		<div class="cjy_left"><img src="/images/lmrb_zz_sczp_out.jpg" /><img src="/images/lmrb_zz_dtzk_in.jpg" /><img src="/images/lmrb_zz_dtjl.jpg" /><img src="/images/lmrb_zz_xgmb.jpg" /><img src="/images/lmrb_zz_yl.jpg" />
+			<div id="lmrb_zz" class="mt20">
+				<div class="lmrb_xz stat_group_weather">
+					<input type="hidden" class="stat_id" name="weather" value="-1"/>
+					<ul>
+						<li>
+							<font>天 &nbsp;&nbsp;&nbsp;气：</font>
+						</li>
+						<li value=0>
+							<a href="javascript:void(0)"><img src="/images/lmrb_11.png"/></a>
+							<br />
+							阳光灿烂
+						</li>
+						<li value=1>
+							<a href="javascript:void(0)"><img src="/images/lmrb_22.png"/></a>
+							<br />
+							下雪
+						</li>
+						<li value=2>
+							<a href="javascript:void(0)"><img src="/images/lmrb_33.png"/></a>
+							<br />
+							下雨啦
+						</li>
+						<li value=3>
+							<a href="javascript:void(0)"><img src="/images/lmrb_44.png"/></a>
+							<br />
+							多云呢
+						</li>
+					</ul>
+				</div>
+				<div class="lmrb_xz stat_group_mood">
+					<input type="hidden" class="stat_id" name="mood" value="-1"/>
+					<ul>
+						<li>
+							<font>宝宝状态：</font>
+						</li>
+						<li value=0>
+							<a href="javascript:void(0)"><img src="/images/lmrb_zz3_01.png"/></a>
+							<br />
+							开心
+						</li>
+						<li value=1>
+							<a href="javascript:void(0)"><img src="/images/lmrb_zz3_03.png"/></a>
+							<br />
+							调皮
+						</li>
+						<li value=2>
+							<a href="javascript:void(0)"><img src="/images/lmrb_zz3_05.png"/></a>
+							<br />
+							郁闷
+						</li>
+						<li value=3>
+							<a href="javascript:void(0)"><img src="/images/lmrb_zz3_07.png"/></a>
+							<br />
+							酷
+						</li>
+					</ul>
+				</div>
+				<div class="lmrb_xz stat_group_state">
+					<input type="hidden" class="stat_id" name="state" value="-1"/>
+					<ul>
+						<li>
+							<font>心 &nbsp;&nbsp;&nbsp;情：</font>
+						</li>
+						<li value=0>
+							<a href="javascript:void(0)"><img src="/images/lmrb_zz3_12.png"/></a>
+							<br />
+							乖
+						</li>
+						<li value=1>
+							<a href="javascript:void(0)"><img src="/images/lmrb_zz3_13.png"/></a>
+							<br />
+							淘气
+						</li>
+						<li value=2>
+							<a href="javascript:void(0)"><img src="/images/lmrb_zz3_14.png"/></a>
+							<br />
+							长大了
+						</li>
+						<li value=3>
+							<a href="javascript:void(0)"><img src="/images/lmrb_zz3_15.png"/></a>
+							<br />
+							抓狂
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+
+		<!--cjy_left-->
+		<div class="cjy_right">
+			<div id="lmrb_right">
+				<a href="/lmrb/step1"><img src="/images/lmrb_zz_fh.jpg" /></a>
+				<input type="image" src="/images/lmrb_qrxyb.jpg" style="margin-top: 20px;"/>
+			</div>
+		</div>
+		</form>
+		<!--cjy_right-->
+	</div>
+	<div></div>
+	<!--box1-->
+</div>
+
+<script type="text/javascript">
+	var lmrb_xz_bg = document.createElement('img');
+	lmrb_xz_bg.src = "/images/lmrb_xz_bg.png";
+	lmrb_xz_bg.style.display = 'none';
+	lmrb_xz_bg.style.position = 'absolute';
+	lmrb_xz_bg.style.zIndex = 9999;
+	lmrb_xz_bg.style.cursor = 'pointer';
+	lmrb_xz_bg.className = 'lmrb_xz_bg';
+
+	$(function() {
+		$('.lmrb_xz li').bind('click', function() {
+			if($(this).find('.lmrb_xz_bg').size()) {
+				removeLmrb(this);
+			} else {
+				addLmrb(this);
+			}
+
+			$(this).closest(".lmrb_xz").children("input").val($(this).attr('value'))
+		});
+
+	});
+
+	function addLmrb(li) {
+		$(li).parent().children('li').each(function(i, n) {
+			removeLmrb(n);
+		});
+
+		var position = $(li).position();
+		var _lmrb_xz_bg = $(lmrb_xz_bg).clone();
+
+		$(li).append(_lmrb_xz_bg);
+		$(_lmrb_xz_bg).css({
+			left : position.left + 28,
+			top : position.top
+		});
+		$(_lmrb_xz_bg).show();
+	}
+
+	function removeLmrb(li) {
+		$(li).find('.lmrb_xz_bg').remove();
+	}
+	
+	function check_state_form(){    
+		    if ($('.stat_group_weather input').val() == "-1") {
+                alert('请选择今日天气');
+                return false;
+            }
+            
+            if ($('.stat_group_mood input').val() == "-1") {
+                alert('请选择今日心情');
+                return false;
+            }
+            
+            if ($('.stat_group_state input').val() == "-1") {
+                alert('请选择今日宝贝状态');
+                return false;
+            }
+            
+            return true;
+        };
+</script>
+

@@ -1,0 +1,60 @@
+<div class="nav_rm">
+	<a href="/column">专栏首页</a>>><a href="">专栏作者</a>
+</div>
+<div class="sharp mt5">
+	<div class="content">
+		<div class="cjy_left">
+			<div class="zl_px">
+				<ul class="s_tab">
+					<li>
+						排序：
+					</li>
+					<li class="s_tab_left<%= '_in' if params[:o] == 'created_at'%>">
+						<a href="<%= url_for :c=>params[:c], :o=>'created_at'%>">最新</a>
+					</li>
+					<li class="s_tab_right<%= '_in' if params[:o] == 'chapters'%>">
+						<a href="<%= url_for :c=>params[:c], :o=>'chapters'%>">最热</a>
+					</li>
+				</ul>
+			</div>
+			<div class="clear"></div>
+			<div class="navigate_tab" style="width: 700px;" id="n">
+					<ul class="class1">
+						<li <%=raw 'class="current"' if !params[:c]%>><a href="/column/author">全部</a></li>
+						<% for category in ColumnCategory.find(:all) %>
+							<li <%= 'class="current"' if params[:c] == category.id.to_s %>> <a href="/column/author?c=<%= category.id %>"><%= category.name %></a></li>
+						<% end %>
+					</ul>
+			</div>
+		        
+			<div class="zlzz">
+				<ul>
+				<% for author in @authors %>
+					<%= render :partial=>"/share/user1_column", :locals=>{:user_item=>author.user}%>
+				<% end %>
+		       </ul>
+			</div>
+		</div>
+		<!--cjy_left-->
+		<div class="cjy_right">
+
+			<dl>
+				<dd>
+					名家出版
+				</dd>
+
+			</dl>
+			<% for book in EbookTopic.find(:all, :conditions=>"id in (31,33,35,10,18,16)")%>
+			<div class="cjy_ts">
+				<a href="<%= book.ebook_url%>" target="_blank"><img src="<%= book.ebook_abstruct_images_1%>" style="width:74px"/></a>
+				<h5><a href="<%= book.ebook_url%>" target="_blank"><%= book.ebook_title %></a></h5>
+				<%= truncate book.ebook_abstruct, :length=>80%>
+			</div>
+			<% end %>
+
+		</div>
+		<!--cjy_right-->
+	</div>
+	<div><img src="/images/sharp_bottom.jpg" />
+	</div>
+</div>

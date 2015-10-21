@@ -1,0 +1,87 @@
+<div class="list_comments" id="post_expand_88265" style="">
+    <div class="comments01">
+        <div class="comments01_bg1">
+        </div>
+        <div class="comments01_bg2">
+            <div class="look">
+                共有<span class="number"><%= @article.article_comments_count %></span>条评论
+            </div>
+            <% for comment in @article.article_comments %>
+            <div class="comments_reply" id="comment_<%= comment.id %>">
+                <div class="comments_my">
+                    <span class="pic"><%= logo_tag(comment.user, {:version => "thumb30"}) %></span>
+                    <span class="com_content"><%= link_user(comment.user) %>：<%=post_content comment.content %><span class="time">(<%=refer_time comment.created_at %>)</span></span>
+                    <div class="clear">
+                    </div>
+                </div>
+                <div class="reply">
+                    <% if @user%>
+                    <% if @user.tp == 10 or @user.tp == 4 %>
+                    <a href="javascript:void(0);" onclick="show_confirm_box('确定删除吗', '/ajax/delete_article_comment/<%=comment.id%>', function(){$('#comment_<%= comment.id%>').fadeOut();}, this);">删除</a>| 
+                    <% end %>
+
+                    <a href="javascript:void(0);" onclick="add_reply_to_comment('<%=@article.id%>','<%=comment.user.name%>');">回复</a>
+                    <% end %>
+                </div>
+            </div>
+            <% end %>
+			<%= form_tag({:action => :create_article_comment, :id =>@article.id}, {:remote=>true, :id=>"form_#{@article.id}", :update => "post_expand_#{@article.id}"}) do %>
+            <div class="login_input">
+                <span class="left"><%= text_area :comment, :content,{:id=>"comment_content_#{@article.id}",:onfocus=>"updateStatusTextContent(this)",:onkeyup=>"updateStatusTextContent(this)"} %>
+                </span>
+                <span class="right">
+                    <button class="button_submit_s" type="submit" onmouseover="this.className='button_submit_s button_submit_s_hover';" onmouseout="this.className='button_submit_s';">
+                        评论 
+                    </button>
+                </span>
+                <div class="clear">
+                </div>
+            </div>
+            
+            <div class="one" style="margin-top: 5px;">
+                <input type="checkbox" name="is_copy_post">&nbsp;同时转发一条微博 
+            </div>
+        
+            <% end if @user%>
+            <script>
+            $("#form_<%= @article.id%>").bind("ajax:complete", function(xhr, status){
+                $('#post_expand_<%=@article.id%>').show('slow')
+            })
+            $("#form_<%= @article.id%>").bind("ajax:beforeSend", function(xhr, status){
+                $('#post_expand_<%=@article.id%>').hide('slow')
+            })
+            </script>
+        </div>
+        <div class="comments01_bg3">
+        </div>
+    </div>
+    <div class="clear">
+    </div>
+</div>
+
+<script>
+    function add_reply_to_comment(id, name){
+        document.getElementById('comment_content_' + id).value = '回复@' + name + ':';
+        document.getElementById('comment_content_' + id).focus();
+    }
+    
+    function updateTextContent(obj){
+        var len_max = 210;
+        var str = obj.value;
+        var len = getStringBytes(str);
+        if (len > len_max) {
+            obj.value = str.substr(0, len_max);
+        }
+    }
+    
+    function getStringBytes(value){
+        if (value == null) 
+            return 0;
+        
+        var len = 0;
+        for (var i = 0; i < value.length; i++) {
+            len++;
+        }
+        return len;
+    }
+</script>

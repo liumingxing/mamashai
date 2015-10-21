@@ -1,0 +1,9 @@
+<h1>Editing apn_device</h1>
+
+<%= form_tag :action => 'update', :id => @apn_device do %>
+  <%= render :partial => 'form' %>
+  <%= submit_tag 'Edit' %>
+<% end %>
+
+<%= link_to 'Show', :action => 'show', :id => @apn_device %> |
+<%= link_to 'Back', :action => 'list' %>

@@ -1,0 +1,74 @@
+<div id="middle">
+    <div id="css_mainbody">
+        <h1 class="title">红包管理</h1>
+        <table class="grid">
+            <tbody>
+                <tr>
+                    <th>
+                        用户名
+                    </th>
+                    <th>
+                        额度
+                    </th>
+                    <th>
+                        支付宝
+                    </th>
+                    <th>
+                        现有晒豆
+                    </th>
+                    <th>
+                        花费晒豆
+                    </th>
+                    <th>
+                        状态
+                    </th>
+                    <th>
+                        请求时间
+                    </th>
+                    <th>
+                        更新时间
+                    </th>
+                    <th>操作</th>
+                </tr>
+                <% for packet in @packets %>
+                <tr>
+                    <td>
+                        <%=link_user(packet.user) %>
+                    </td>
+                    <td>
+                        <%= packet.tp %>
+                    </td>
+                    <td>
+                        <%= packet.zhifubao %>
+                    </td>
+                    <td>
+                        <%= packet.user.score %>
+                    </td>
+                    <td>
+                        <%= packet.score %>
+                    </td>
+                    <td>
+                        <% if packet.status == "成功" %>
+                            <span style="color: red"><%= packet.status %></span>
+                        <% else %>
+                            <%= packet.status %>
+                        <% end %>
+                    </td>
+                    <td>
+                        <%= packet.created_at.to_s(:db) %>
+                    </td>
+                    <td>
+                        <%= packet.updated_at.to_s(:db) %>
+                    </td>
+                    <td>
+                        <%= link_to "扣豆", :action=>"packet_succ", :id=>packet.id, :page=>params[:page] %>
+                    </td>
+                </tr>
+                <% end %>
+            </tbody>
+        </table>
+        <%=will_paginate @packets %>
+    </div>
+    <div class="clear">
+    </div>
+</div>

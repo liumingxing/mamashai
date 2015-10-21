@@ -1,0 +1,73 @@
+<table class="grid_order" border="1">
+    <tr>
+        <td class="td01">
+            编号：
+        </td>
+        <td>
+            <%= f.text_field :code %><%= error_message_on :supplier, :code %>
+        </td>
+    </tr>
+    <tr>
+        <td class="td01">
+            名称：
+        </td>
+        <td>
+            <%= f.text_field :name %><%= error_message_on :supplier, :name %>
+        </td>
+    </tr>
+    <tr>
+        <td class="td01">
+            密码：
+        </td>
+        <td>
+            <%= f.text_field :password %><%= error_message_on :supplier, :password %>
+        </td>
+    </tr>
+    <tr>
+        <td class="td01">
+            地址：
+        </td>
+        <td>
+            <%= f.text_field :address %><%= error_message_on :supplier, :address %>
+        </td>
+    </tr>
+    <tr>
+        <td class="td01">
+            电话：
+        </td>
+        <td>
+            <%= f.text_field :phone %><%= error_message_on :supplier, :phone %>
+        </td>
+    </tr>
+    <tr>
+        <td class="td01">
+            手机：
+        </td>
+        <td>
+            <%= f.text_field :mobile %><%= error_message_on :supplier, :mobile %>
+        </td>
+    </tr>
+    <tr>
+        <td class="td01">
+            Email
+        </td>
+        <td>
+            <%= f.text_field :email %><%= error_message_on :supplier, :email %>
+        </td>
+    </tr>
+    <tr>
+        <td class="td01">
+            联系人：
+        </td>
+        <td>
+            <%= f.text_field :contacter %><%= error_message_on :supplier, :contacter %>
+        </td>
+    </tr>
+    <tr>
+        <td class="td01">
+        </td>
+        <td colspan="2">
+            <input type="submit" name="submit" value="保存">
+        </td>
+    </tr>
+</table>

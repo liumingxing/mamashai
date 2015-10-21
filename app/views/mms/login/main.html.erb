@@ -1,0 +1,111 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+	<title>妈妈晒后台管理系统</title>
+	<link type="image/x-icon" href="http://www.mamashai.com/favicon.ico?1010" rel="shortcut icon">
+	<%= stylesheet_link_tag 'all', 'admin' %>
+	<%= stylesheet_link_tag 'xtree' %>
+	<%= javascript_include_tag 'xmlextras' %>
+	<%= javascript_include_tag 'xtree' %>
+	<%= javascript_include_tag 'xloadtree' %>
+</head>
+<style>
+	.clsTreeDiv
+{
+    BORDER-RIGHT: thin groove;
+    BORDER-TOP: thin groove;
+    OVERFLOW: auto;
+    BORDER-LEFT: thin groove;
+    WIDTH: 100%;
+    BORDER-BOTTOM: thin groove;
+    HEIGHT: 100%
+}
+</style>
+<body style="height:100%">
+    <div id="head">
+    	<div class="top_menu">
+    		<% if session[:mms_user] %>			
+    		登录为<a href="/mms/login/main"><%= session[:mms_user] %></a>
+    		<a href="/mms/login/my" target="content">我的账号</a><a href="/mms/login/logout">退出</a>
+			<% end %>			
+    	</div>
+        <div class="logo">妈妈晒后台管理系统</div>
+    </div>
+
+	<table id="mainframe" style="padding:0pt 0pt 0pt 0pt;" width='100%' height='500px'>
+	    <tr height="100%">
+	        <td id='treebody' width="200px" valign='top' height=100%>
+	            <div id='unittree' height=100% class='clsTreeDiv'>
+	            <SCRIPT type=text/javascript>
+	                <% for root in @roots %>
+	                <% p root %>
+	                <% p root.children %>
+	                    <% next if root.hide == 1%>
+	                    <%src = "/mms/menu/getchildnode_action/#{root.id}"%>
+	                    <%src = "" if root.children.length == 0%>
+	                    <%action = "#{root.url}"%>
+	                    <%action = "" if !root.url || root.url==''%>
+	                    <%
+	                    text = root.text
+	                    text = instance_eval(root.text) if root.text.index('"')  || root.text.index("'")
+	                    url = src
+	                    url =  instance_eval(url) if url.index('"') || url.index("'") 
+	                    %>
+	                    var tree<%=root.id%> = new WebFXLoadTree('<%=text%>', '<%=url%>', '<%=action%>');     
+	                    tree<%=root.id%>.icon = "/img/icon_9.png";
+	                    tree<%=root.id%>.openIcon = "/img/icon_9.png"; 
+	                    tree<%=root.id%>.setBehavior('classic');
+	                    tree<%=root.id%>.target = 'content';
+	                    document.write(tree<%=root.id%>);
+	                <% end%>
+	            </script>
+	            </div>
+	        </td>
+	        <td style="background:url('/img/backgroundBody.png') repeat-x" valign=middle align=center width=4 height=100% rowspan=2 >
+	            <div id=openPic style="display:none"><a href="javaScript:openTree()"><img src="/img/jiantou2.jpg" width=6 height=23 border=0></a></div>
+	            <div id=closePic><a href="javaScript:closeTree()"><img src="/img/jiantou1.jpg" width=6 height=23 border=0></a></div>
+	        </td>
+	        <td valign='top' height=100%>
+	         <iframe SCROLLING="auto" height="100%" width="100%" frameborder="0"  id="content" name="content" ></iframe>
+	        </td>
+	        <script type="text/javascript">
+	          <% if params[:to_url] && params[:to_url].size > 0  %>
+	            content.location = '<%=h params[:to_url]%>';
+	          <% else%>
+	            //content.location = '/main/welcome';
+	          <% end%>
+	        </script>
+	    </tr>
+	  </table> 
+	    </td>
+	   </tr>
+	 </table>
+    <div id="foot">
+        <div id="foot1"> <span class="infor">Copyright &copy; 北京恩典世纪网络科技有限责任公司 版权所有 2009-2014,  All Rights Reserved　<a target="_blank" href="http://www.miibeian.gov.cn/">京ICP备10009132号</a><img src="/images/icons/biaoshi.gif"></span> </div>
+    </div>
+</body>
+</html>
+
+ <script>
+var treeState='on';
+function closeTree()
+{
+	treebody.style.display="none";
+	//Effect.Fade('treebody');
+	closePic.style.display="none";
+	openPic.style.display="block";
+	treeState = "off";
+}
+function openTree()
+{
+	treebody.style.display="block";
+	//Effect.Appear('treebody');
+	closePic.style.display="block";
+	openPic.style.display="none";
+	//document.all("leftmenu").width=180;
+	//document.all("mainzb").width=790;
+	//mainzb.zbTitle.openTree.style.display="none";
+	treeState = "on";
+}
+</script>

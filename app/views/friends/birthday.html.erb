@@ -1,0 +1,39 @@
+<div class="main_left">
+    <div id="mainbody">
+        <h1>生日</h1>
+        <div id='chanel_content'>
+        	<%= render :partial=>"birthday_nav"%>
+            <div class="mygift_title">
+                最近要过生日的妈爸
+            </div>
+			<% if @mama_users.size == 0%>没有<% end %>
+			<% for user in @mama_users%>
+				<li class="list_birthday_user">
+		            <%=render :partial=>'list_user',:locals => {:user => user, :tp=>"mama"} %> 
+		            <div class="clear">
+		            </div>
+		        </li>
+			<% end %>
+			<div class="mygift_title">
+                最近要过生日的宝宝
+            </div>
+			<% if @kid_users.size == 0%>没有<% end %>
+			<% for user in @kid_users%>
+				<li class="list_birthday_user">
+		            <%=render :partial=>'list_user',:locals => {:user => user, :tp=>"kid"} %> 
+		            <div class="clear">
+		            </div>
+		        </li>
+			<% end %>
+        </div>
+    </div>
+</div>
+<div class="main_right">
+    <%= render :partial=>'/friends/sidebar_birthday' %>
+</div>
+
+
+
+
+   
+    

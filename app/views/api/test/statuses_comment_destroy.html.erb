@@ -1,0 +1,29 @@
+<h1>comment_destroy 删除评论</h1><%= link_to "返回到列表", "/api/test" %>
+<pre>
+  [路径]：statuses/comment_destroy/:id
+  [HTTP请求方式]: POST/DELETE
+  [URL]: http://your.api.domain/statuses/statuses/comment_destroy/:id.json
+  [是否需要登录]: true
+
+参数
+
+    * source：申请应用时分配的AppKey，调用接口时候代表应用的唯一身份。 (必选)
+    * :id： 欲删除的评论ID (必选)
+
+示例
+
+  curl -u "username:password" -X DELETE
+  "http://your.api.domain/statuses/comment_destroy/1122333.json?source=appkey"
+
+注意
+
+    * 如果传入的评论ID不在登录用户的comments_by_me列表中，则返回400错误
+    * 只能删除登录用户自己发布的评论，不可以删除其他人的评论。
+</pre>
+<hr/>
+<%= form_tag "/api/statuses/comment_destroy.json", {:id=>"form"} do %>
+  <%= render :partial => '/api/test/login' %>
+  source: <%= text_field_tag "source" %><br/>
+  id: <%= text_field_tag "id", nil, :onkeyup=>"document.getElementById('form').action='/api/statuses/comment_destroy/'+this.value+'.json';"%><br/>
+  <%= submit_tag "提交"%>
+<% end -%>

@@ -1,0 +1,100 @@
+<tr>
+    <td><%= f.label :title,"团购主题：" %></td>
+    <td>
+    	<%= f.text_field :title %>
+		<%= f.error_message_on  :title %>
+	</td>
+</tr>
+<tr>
+    <td><%= f.label :tuan_website_id,"团购网站：" %></td>
+    <td>
+		<%= f.select :tuan_website_id, TuanWebsite.all.collect{|tc| [tc.name,tc.id]}%>
+		<%= f.error_message_on :tuan_website_id %>
+	</td>
+</tr>
+<tr>
+    <td><%= f.label :url,"团购商品url链接：" %></td>
+    <td>
+    	<%= f.text_field :url %>
+		<%= f.error_message_on  :url %>
+	</td>
+</tr>
+<tr>
+    <td><%= f.label :content,"团购内容说明：" %></td>
+    <td>
+    	<%= f.text_area :content, :cols=>40, :rows=>5%>
+		<%= f.error_message_on  :content %>
+	</td>
+</tr>
+<tr>
+    <td><%= f.label :address,"团购地区：" %></td>
+    <td>
+    	<%= f.text_field :address, :size=>50 %>
+		<%= f.error_message_on  :address %>
+	</td>
+</tr>
+<tr>
+    <td><%= f.label :person_amount,"团购人数：" %></td>
+    <td>
+    	<%= f.text_field :person_amount, :size=>50 %>
+		<%= f.error_message_on  :person_amount %>
+	</td>
+</tr>
+<tr>
+    <td><%= f.label :begin_time,"开始时间：" %></td>
+    <td>
+		<%= f.datetime_select :begin_time, :use_month_numbers => true, :include_seconds => true%>
+		<%= f.error_message_on  :begin_time %>
+	</td>
+</tr>
+<tr>
+    <td><%= f.label :end_time, "结束时间："%></td>
+    <td>
+		<%= f.datetime_select :end_time, :use_month_numbers => true, :include_seconds => true%>
+		<%= f.error_message_on  :end_time %>
+	</td>
+</tr>
+<tr>
+    <td><%= f.label :origin_price,"原价：" %></td>
+    <td>
+    	<%= f.text_field :origin_price %>
+		<%= f.error_message_on  :origin_price %>
+	</td>
+</tr>
+<tr>
+    <td><%= f.label :current_price,"现价：" %></td>
+    <td>
+    	<%= f.text_field :current_price %>
+		<%= f.error_message_on :current_price %>
+	</td>
+</tr>
+<tr>
+    <td>折扣：</td>
+    <td>
+		<%= f.text_field :discount, :class=>"red", :readonly=>true %>
+		<%= f.error_message_on :discount %>
+	</td>
+</tr>
+<tr>
+    <td>节省：</td>
+    <td>
+		<%= f.text_field :save_money, :class=>"red", :readonly=>true %>
+		<%= f.error_message_on :save_money %>
+	</td>
+</tr>
+<tr>
+    <td colspan="2">&nbsp;
+	</td>
+</tr>
+<tr>
+    <td colspan="2">
+    	<input type="submit" name="submit" value="提交">
+		<%= link_to '返回', '/mms/tuans'%>
+	</td>
+</tr>
+
+<style type="text/css">
+	td{
+		height:30px;
+	}
+</style>

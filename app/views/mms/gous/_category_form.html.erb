@@ -1,0 +1,93 @@
+
+<fieldset>
+    <legend>
+        分类信息
+    </legend>
+	<div class="line_item">
+        <span class="title"><%= f.label :name,"分类名称：" %>
+        </span>
+        <span class="content"><%= f.text_field :name, :size=>50,:required=>"required" %>
+            <%= f.error_message_on :name %>
+        </span>
+    </div>
+    <div class="line_item">
+        <span class="title"><%= f.label :parent_id,"上级分类：" %>
+        </span>
+        <span class="content">
+        	<%= f.select :parent_id, nested_set_options(::GouCategory, @category) {|i| "#{'--' * i.level} #{i.name}" },{:include_blank=>"请选择所属分类"}%>
+            <%= f.error_message_on :parent_id %>
+        </span>
+    </div>
+	<div class="line_item">
+        <span class="title"><%= f.label :brand_item,"关联分类:" %>
+        </span>
+        <span class="content"><%= f.text_field :brand_item, :size=>50 %>(请以“|”分割)
+            <%= f.error_message_on :brand_item %>
+        </span>
+    </div>
+
+</fieldset>
+<fieldset>
+    <legend>
+        评价选项
+    </legend>
+	<% (1..5).each do |index|%>
+		<div class="line_item">
+		<%= f.error_message_on :label %>
+        <span class="title"><%= f.label :label,"评价选项"+index.to_s+"：" %>
+        </span>
+        <span class="content">
+        	<%= text_field_tag "gou_category[label][#{index}]",@category.try(:label).try(:[],index.to_s)%>	
+        </span>
+    </div>
+	<% end %>
+</fieldset>
+
+<div class="submit">
+	<span class="left">
+    	<input type="submit" name="submit" value="提交">
+	</span>
+	<span class="right">
+		<%= link_to '返回', '/mms/gous/category_index' %>
+	</span>
+</div>
+<style type="text/css">
+    fieldset {
+        border: 1px solid #D1D1D1;
+        color: #333333;
+        line-height: 220%;
+        margin: 20px;
+        padding: 10px;
+    }
+    
+    legend {
+        background: none repeat scroll 0 0 #FFFFFF;
+        color: #666666;
+        font-weight: 800;
+    }
+    
+    fieldset div.line_item {
+        height: 30px;
+        display: block;
+		width:100%;
+    }
+    
+    .line_item .title {
+        margin-left: 30px;
+        font-weight: bolder;
+        width: 150px;
+        float: left;
+    }
+    
+    .line_item .content {
+        float: left;
+    }
+	div.submit{
+		margin:20px;
+		text-align:center;
+	}
+	div.submit span{
+		margin:0 20px;
+	}
+</style>
+

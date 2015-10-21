@@ -1,0 +1,27 @@
+<h1>苹果用户好评</h1>
+
+<%= link_to "新增", :action=>"new"%>
+<table class="list" border="1">
+  <tr class="head">
+    <th>标题</th>
+    <th>作者</th>
+    <th>评论时间</th>
+    <th>内容</th>
+    <th>修改时间</th>
+    <th>操作</th>
+  </tr>
+  
+<% for apple_good in @apple_goods %>
+  <tr>
+    <td><%= apple_good.title %></td>
+    <td><%= apple_good.name %></td>
+    <td><%= apple_good.occur.to_s(:db) %></td>
+    <td><%= apple_good.content %></td>
+    <td><%= apple_good.created_at.to_s(:db) %></td>
+    <td><%= link_to '修改', :action=>"edit", :id=>apple_good %></td>
+  </tr>
+<% end %>
+</table>
+
+<%= will_paginate @apple_goods %>
+

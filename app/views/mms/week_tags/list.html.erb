@@ -1,0 +1,40 @@
+<div id="middle">
+    <div id="css_mainbody">
+        
+    <h1 class="title">话题类别<span style="float:right;margin-right: 10px;"><%= link_to "添加", :action=>'new'%></span></h1>
+    
+    <table class="grid">
+      <tr class="head">
+        <th>logo</th>
+        <th>话题名称</th>
+        <th>短话题名称</th>
+        <th>周参与数量</th>
+        <th>总参与数量</th>
+        <th>创建时间</th>
+        <th colspan=3>操作</th>
+      </tr>
+      
+    <% for week_tag in @week_tags %>
+      <tr <%= 'style="background-color:pink"' if week_tag.current %>>
+        <td>
+            <% if week_tag.logo %>
+                <img src="<%=h week_tag.logo.thumb90 %>" border=0/>
+            <% end %>
+        </td>
+        <td><%=h week_tag.summary %></td>
+        <td><%=h week_tag.short_tag_name %></td>
+        <td><%=h week_tag.week_count %></td>
+        <td><%=h week_tag.total_count %></td>
+        <td><%=h week_tag.created_at.to_s(:db) %></td>
+        <td><%= link_to '设为本周热点', :action => 'make_current', :id => week_tag if !week_tag.current%></td>
+        <td><%= link_to '修改', :action => 'edit', :id => week_tag %></td>
+        <td><%= link_to '删除', { :action => 'destroy', :id => week_tag }, :confirm => '确定删除吗?', :method => :post %></td>
+      </tr>
+    <% end %>
+    </table>
+
+    <%= will_paginate @week_tags %>
+
+
+    </div>
+</div>

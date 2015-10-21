@@ -1,0 +1,54 @@
+<div id="middle">
+    <div id="css_mainbody">
+        <h1 class="title">用户分析</h1>	
+		<div class="settings_content">
+			<% form_tag({:action=>"cc_report_vip_users"},{:target=>'_blank' }) do %>
+		    <fieldset>
+		        <legend>
+		            天使妈爸一览表
+		        </legend>
+		        <%= render :partial=>"vip_users"%>
+		        <input type="submit" value="查询"/>
+		    </fieldset>
+			<% end %>
+		</div>
+		<div class="settings_content">
+			<% form_tag({:action=>"cc_report_users_tree"},{:target=>'_blank' }) do %>
+		    <fieldset>
+		        <legend>
+		            用户邀请链
+		        </legend>
+		        <%= render :partial=>"users_tree"%>
+		        <input type="submit" value="查询"/>
+		    </fieldset>
+			<% end %>
+		</div>	
+		<div class="settings_content">
+			<% form_tag({:action=>"cc_report_search_users"},{:target=>'_blank' }) do %>
+		    <fieldset>
+		        <legend>
+		            用户行为表
+		        </legend>
+		        <%= render :partial=>"search_users"%>
+		        <input type="submit" value="查询"/>
+		    </fieldset>
+			<% end %>
+		</div>	
+    </div>
+    <div class="clear"></div>
+</div>
+
+<style type="text/css">
+	fieldset {
+		border:1px solid #D1D1D1;
+		color:#333333;
+		line-height:220%;
+		margin:20px;
+		padding:10px;
+	}
+	legend {
+		background:none repeat scroll 0 0 #FFFFFF;
+		color:#666666;
+		font-weight:800;
+	}
+</style>

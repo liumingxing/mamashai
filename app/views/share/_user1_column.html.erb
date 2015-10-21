@@ -1,0 +1,24 @@
+<li class="user1">
+	<a href="/column/space/<%= user_item.id %>"><img src="<%= user_item.logo.thumb48 %>" width=48 height=48/></a>
+	<div class="username">
+		<%= link_user user_item%>
+	</div>
+	<div>
+		<% if user_item.first_kid %>
+		<%= APP_CONFIG["kid_#{user_item.first_kid.gender}"] %><%= user_item.first_kid.age %>
+		<% else %>
+		没有孩子
+		<% end %>
+	</div>
+	<% if @user %>
+	<% if user_item.id == @user.id %>
+	我
+	<% else %>
+	<% if @user.has_follow?(user_item.id) %>
+	<img src="/images/icons/follow_success.gif"/><% else %> <span class="concern" id="follow_hot_user_<%= user_item.id%>"><%= link_to(APP_CONFIG["focus_him_#{user_item.gender}"]||"她", {:action =>:create_follow_user,:controller=>:ajax,:id=>user_item.id}, {:remote=>true, :updater => "follow_hot_user_#{user_item.id}", }) %></span>
+	<% end %>
+	<% end %>
+	<% else %>
+	<span class="concern" ><a href="/account/signup/<%= user_item.id%>"><%= APP_CONFIG["focus_him_#{user_item.gender}"]%></a></span>
+	<% end %>
+</li>

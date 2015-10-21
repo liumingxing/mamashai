@@ -1,0 +1,25 @@
+<div class="post_picture" id="post_logo_<%=id_post.id%>" <%=' style="display:none;"' if (params[:action]=='pictures') && params[:size]!='small'  %> >
+  <% if post.post_logos && post.post_logos.length > 1 %>
+    <% for post_logo in post.post_logos %>
+    <a href="<%= post_logo.logo.thumb400 %>" class="logo">
+      <img style="width: 100px; height: 100px;" src="<%= post_logo.logo.thumb200 %>" border="0" alt="" class="photo imgbig" />
+    </a>
+    <% end %>
+  <% else %>
+  <a href="<%= post.logo.thumb400 %>" class="logo">
+    <img src="<%= controller.controller_name == "space" && controller.action_name == "post" ? post.logo.thumb400 : post.logo.thumb120 %>" border="0" alt="" class="photo imgbig" />
+  </a>
+  <% end %>
+
+  <% if post.from == "wotao" %>
+    <div class="wotao_info">
+      <h2><a href="/tao/show/<%= post.from_id %>"><%= post.wotao.name if post.wotao %></a></h2>
+
+      <div class="wyg">
+        <h4>¥<%= (post.wotao.price*10).to_i/10 if post.wotao %></h4>
+        <a href="javascript:void(0)" onclick="show_url_box('/tao/share/<%= post.from_id %>', '我用过')"><img src="/images/wt_yg.png"/></a>
+      </div>
+    </div>
+  <% end %>
+</div>
+<div class="clear"></div>

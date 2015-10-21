@@ -1,0 +1,5 @@
+<%=simple_format(h(@event.summary))%>
+<script>
+    $('#event_summary_<%=@event.id%>').show();
+    $('#event_summary_edit_<%=@event.id%>').hide();
+</script>

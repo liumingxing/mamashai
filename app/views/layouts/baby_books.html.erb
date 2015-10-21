@@ -1,0 +1,83 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>个性书 - 妈妈晒 - 妈妈爸爸们的网络社区</title>
+    <META NAME="keywords" CONTENT="微博客，即时网络，未准，怀孕，1岁，2岁，3岁，4岁，5岁，6岁，幼儿园，小学生，初中生，高中生，育儿，育儿信息，育儿话题，育儿活动，育儿商品，育儿经，育儿分享，育儿网，育儿社区，育儿平台，健康，教育，导购，积分"/>
+    <META NAME="description" CONTENT="妈妈晒是一个定位独特价值鲜明的育儿网站。其核心价值是解决妈妈爸爸的信息分享问题，搭建一个育儿类即时分享平台和基于分享的导购平台，从而快捷获得需要的信息、同类的朋友和信任的商品！妈妈爸爸可以在妈妈晒上面：晒宝贝、晒经验、晒心情、晒活动、晒商品，同时也即时分享所关注的人的信息，结交感兴趣的人，关注感兴趣的话题，收藏有价值的信息，并通过口碑来购买信任的商品。"/>
+    <link rel="shortcut icon" href="http://www.mamashai.com/favicon.ico?1010" type="image/x-icon" />
+    <%= stylesheet_link_tag 'all','lightbox','head_nav','mms_books' %>
+    <%= stylesheet_link_tag '/javascripts/js_ui_stylesheets/smoothness/jquery-ui-1.8.1.custom.min.css' %>
+    <%= javascript_include_tag "controllers/jquery1.4.2" %>
+    <%= javascript_include_tag "src/application" %>
+    <%= javascript_include_tag "controllers/mms" %>
+    <%= javascript_include_tag "jquery-1.7.1.min.js" %>
+    <%= include_action_js %>
+    <!--[if IE 6]>
+<script type="text/javascript" src="/javascripts/png-min.js" ></script>
+<script type="text/javascript" >
+DD_belatedPNG.fix('div.bb_page_logo1,div.bb_page_logo2,div.bb_page_logo3,div.bb_page_logo4,div.bb_page_logo5');
+DD_belatedPNG.fix('div.bb_page_text1,div.bb_page_text2,div.bb_page_text3,div.bb_page_text4,div.bb_page_text5');
+DD_belatedPNG.fix('a.logo,div.make_new_books');
+</script>
+<![endif]-->
+  </head>
+  <body>
+    <%= render :partial=>"/layouts/top_nav"%>
+    <%= render :partial=>"/baby_books/header"%>
+
+    <div id="middle">
+      <%= yield %>
+      <div class="clear">
+      </div>
+    </div>
+    <style type="text/css">
+      .box7 {
+        padding:20px 0 20px 30px;
+        line-height:20px;
+        background:url(/images/book_bg.jpg) no-repeat; float:left; width:960px;
+      }
+      .box7_list {
+        width:85px;
+        float:left;
+
+      }
+
+      .box7_main{ width:930px; float:left; background:url(/images/logo1.jpg) center top no-repeat}
+      .box7_main h5{padding:0 0 0 8px}
+
+      .mt20 {
+        margin-top:20px;
+      }
+      .box7_main{ width:930px; float:left; background:url(/images/logo1.jpg) center top no-repeat}
+      .box7_main h5{padding:0 0 0 8px}
+      .box7_list {
+        width:85px;
+        float:left;
+
+      }
+      .box7_list h5 {
+        font-family:"微软雅黑";
+        font-size:14px;
+        font-weight:bold;
+        color:#ea609e;
+        margin:0px;
+        margin-bottom:7px;
+      }
+      .box7 li {
+        list-style:none;
+        background:url(/images/mybox_list.jpg) left no-repeat;
+        padding-left:8px;
+        color:#777777;
+      }
+      .ml15 {
+        margin-left:15px;
+        display:inline
+      }
+      .ml250{ margin-left:250px; display:inline}
+    </style>
+    <%= render :partial=>'/layouts/footer' %>
+  </body>
+</html>
+
+<%=render :partial=>'/layouts/trace' %>

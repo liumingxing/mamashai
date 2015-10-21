@@ -1,0 +1,132 @@
+Api 测试列表(版本日期：2011年2月13日 10:00)<%= link_to "版本更新记录", "/api/test/history" %>
+<div class="content">
+  <h2>获取下行数据集(timeline)接口</h2>
+  <ul>
+    <li><%= link_to "statuses/public_timeline", "/api/test/statuses_public_timeline" %> 获取最新的公共微博消息</li>
+    <li><%= link_to "statuses/user_timeline", "/api/test/statuses_user_timeline" %> 返回用户最新发表的微博消息列表</li>
+    <li><%= link_to "statuses/friends_timeline", "/api/test/statuses_friends_timeline" %> 获取当前登录用户及其所关注用户的最新微博消息 (别名: statuses/home_timeline) </li>
+    <li><%= link_to "statuses/mentions", "/api/test/statuses_mentions" %> 获取@当前用户的微博列表 </li>
+    <li><%= link_to "statuses/comments_timeline", "/api/test/statuses_comments_timeline" %> 获取当前用户发出的评论 </li>
+    <li><%= link_to "statuses/comments_by_me", "/api/test/statuses_comments_by_me" %> 获取当前用户发出的评论 </li>
+    <li><%= link_to "statuses/comments_to_me", "/api/test/statuses_comments_to_me" %> 获取当前用户收到的评论 </li>
+    <li><%= link_to "statuses/comments", "/api/test/statuses_comments" %> 根据微博消息ID返回某条微博消息的评论列表 </li>
+    <li><%= link_to "statuses/unread", "/api/test/statuses_unread" %> 获取当前用户未读消息数 </li>
+    <li><%= link_to "statuses/reset_count ", "/api/test/statuses_reset_count" %> 未读消息数清零接口 </li>
+  </ul>
+  <h2>微博访问接口</h2>
+  <ul>
+    <li><%= link_to "statuses/show/:id", "/api/test/statuses_show" %> 根据ID获取单条微博信息内容 </li>
+    <li><%= link_to "statuses/update", "/api/test/statuses_update" %> 发布一条微博信息</li>
+    <li><%= link_to "statuses/upload", "/api/test/statuses_upload" %> 上传图片并发布一条微博信息</li>
+    <li><%= link_to "statuses/destroy/:id", "/api/test/statuses_destroy" %> 删除一条微博信息</li>
+    <li><%= link_to "statuses/repost", "/api/test/statuses_repost" %> 转发一条微博消息(转晒)</li>
+    <li><%= link_to "statuses/comment", "/api/test/statuses_comment" %> 对一条微博信息进行评论</li>
+    <li><%= link_to "statuses/reply", "/api/test/statuses_reply" %> 对一条微博信息进行评论</li>
+    <li><%= link_to "statuses/comment_destroy/:id", "/api/test/statuses_comment_destroy" %> 删除评论</li>
+  </ul>
+  <h2>用户接口</h2>
+  <ul>
+    <li><%= link_to "users/show/:id", "/api/test/users_show" %> 根据用户ID获取用户资料（授权用户） </li>
+    <li><%= link_to "statuses/friends", "/api/test/statuses_friends" %> 获取用户关注列表及每个关注用户最新一条微博 </li>
+    <li><%= link_to "statuses/followers", "/api/test/statuses_followers" %> 获取用户粉丝列表及及每个粉丝用户最新一条微博  </li>
+  </ul>
+  <h2>关注接口</h2>
+  <ul>
+    <li><%= link_to "friendships/show", "/api/test/friendships_show" %> 获取两个用户关系的详细情况 </li>
+    <li><%= link_to "friendships/create", "/api/test/friendships_create" %> 关注某用户 </li>
+    <li><%= link_to "friendships/destroy", "/api/test/friendships_destroy" %> 取消对某用户的关注。</li>
+  </ul>
+  <h2>帐号接口</h2>
+  <ul>
+    <li><%= link_to "account/login", "/api/test/account_login" %> 登录接口  </li>
+    <li><%= link_to "account/signup", "/api/test/account_signup" %> 注册接口(PPT中未做要求)</li>
+    <li><%= link_to "account/sina", "/api/test/account_sina" %> 绑定新浪</li>
+    <li><%= link_to "account/update_profile_image", "/api/test/account_update_profile_image" %> 更改头像 </li>
+    <li><%= link_to "account/update_profile", "/api/test/account_update_profile" %> 更改资料  </li>
+  </ul>
+  <h2>私信接口</h2>
+  <ul>
+    <li><%= link_to "direct_messages", "/api/test/direct_messages_index" %> 获取当前用户最新私信主题列表 </li>
+    <li><%= link_to "direct_messages/messages", "/api/test/direct_messages_messages" %> 获取当前用户某一主题下私信列表 </li>
+    <li><%= link_to "direct_messages/new", "/api/test/direct_messages_new" %> 发送私信 </li>
+    <li><%= link_to "direct_messages/destroy", "/api/test/direct_messages_destroy" %> 删除私信 </li>
+
+  </ul>
+  <h2>话题接口</h2>
+  <ul>
+  	<li><%= link_to "trends", "/api/test/trends_index" %> 获取某人的话题 </li>
+    <li><%= link_to "trends/statuses", "/api/test/trends_statuses" %> 获取某一话题下的微博 </li>
+    <li><%= link_to "trends/follow", "/api/test/trends_follow" %> 关注某一个话题 </li>
+    <li><%= link_to "trends/destroy", "/api/test/trends_destroy" %> 取消对某话题的关注 </li>
+  </ul>
+  <h2>收藏接口</h2>
+  <ul>
+    <li><%= link_to "favorites", "/api/test/favorites_index" %> 获取当前用户的收藏列表(PPT中未做要求) </li>
+    <li><%= link_to "favorites/create", "/api/test/favorites_create" %> 添加收藏 </li>
+    <li><%= link_to "favorites/destroy", "/api/test/favorites_destroy" %> 删除当前用户收藏的微博信息 </li>
+  </ul>
+  <h2>用户搜索</h2>  
+  <ul>
+    <li><%= link_to "users/search", "/api/test/users_search" %> 搜索微博用户 </li>
+  </ul>
+  <h2>微博搜索</h2>  
+  <ul>
+    <li><%= link_to "search", "/api/test/search" %> 搜索微博文章 </li>
+    <li><%= link_to "statuses/search", "/api/test/statuses_search" %> 搜索微博(多条件组合) </li>
+  </ul>
+  <h2>资讯接口</h2>  
+  <ul>
+    <li><%= link_to "articles", "/api/test/articles_index" %> 获取资讯列表 </li>
+    <li><%= link_to "articles/show", "/api/test/articles_show" %> 查看单条资讯 </li>
+  </ul>
+  <h2>问答接口</h2>  
+  <ul>
+  	<li><%= link_to "asks", "/api/test/asks_index" %> 问答列表接口 </li>
+    <li><%= link_to "asks/update", "/api/test/asks_update" %> 发表问答(含上传图片)接口 </li>
+    <li><%= link_to "asks/my", "/api/test/asks_my" %> 我的问答列表接口 </li>
+    <li><%= link_to "asks/follow", "/api/test/asks_follow" %> 我关注的问答列表接口 </li>
+    <li><%= link_to "asks/show", "/api/test/asks_show" %> 根据问答ID，获取单个问答的详细信息接口 </li>
+    <li><%= link_to "asks/answer", "/api/test/asks_answer" %> 根据问答ID，发表回答接口(PPT中未做要求) </li>
+    <li><%= link_to "asks/answers", "/api/test/asks_answers" %> 根据问题ID，得到答案列表</li>
+  </ul>
+  <h2>推荐APP接口</h2>  
+  <ul>
+  	<li><%= link_to "apps", "/api/test/apps_index" %> 获取推荐应用列表 </li>
+    <li><%= link_to "apps/show/:id", "/api/test/apps_show" %> 通过id查看单个推荐应用 </li>
+    <li><%= link_to "apps/download/:id", "/api/test/apps_download" %> 通过id下载单个推荐应用 </li>
+  </ul>
+  <h2>MBook接口</h2>  
+  <ul>
+  	<li><%= link_to "mbook/list", "/api/test/mbook_list" %> 获取mbook </li>
+    <li><%= link_to "mbook/upload", "/api/test/mbook_upload" %> 提交一本mbook </li>
+    <li><%= link_to "mbook/upload_page", "/api/test/mbook_upload_page" %> 上传某页中的图片 </li>
+  </ul>
+  <h2>API字段说明</h2>
+  <ul>
+    <li><%= link_to "status", "/api/test/api_status" %> 微博信息内容 </li>
+    <li><%= link_to "user", "/api/test/api_user" %> 用户资料信息 </li>
+    <li><%= link_to "user_kid", "/api/test/api_user_kid" %> 用户资料信息 </li>
+    <li><%= link_to "comment", "/api/test/api_comment" %> 评论信息 </li>
+    <li><%= link_to "direct_message", "/api/test/api_direct_message" %> 私信信息 </li>
+    <li><%= link_to "article", "/api/test/api_article" %> 资讯信息(PPT中未做要求) </li>
+    <li><%= link_to "age", "/api/test/api_ages" %> 年龄表 </li>
+    <li><%= link_to "app", "/api/test/api_app" %> 推荐APP信息(PPT中未做要求) </li>
+    <li><%= link_to "provinces", "/api/test/api_provinces" %> 省份城市编码表(PPT中未做要求)</li>
+  </ul>
+</div>
+<style type="text/css" media="screen">
+	h2{
+	  background: none repeat scroll 0 0 #E2EEF6;
+    border: medium none;
+    font-size: 14px;
+    font-weight: bold;
+    line-height: 37px;
+    margin: 18px 0 0;
+    padding: 0 0 0 13px;
+	}
+	
+	.content{
+	  border-left:1px solid #CCCCCC;
+	  border-right:1px solid #CCCCCC;
+	}
+</style>

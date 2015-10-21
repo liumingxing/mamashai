@@ -1,0 +1,7 @@
+<%= select params[:name], "category_id_2", @category.children.collect{|c| [c.name, c.id]}, {:include_blank=>true}, {:id=>"select_level2"} %>
+<script>
+$("#select_level2").change(function(){
+	$('#level3').load('/categories/level3_of/' + $('#select_level2').val() + "?name=<%= params[:name]%>");
+})
+//
+</script>

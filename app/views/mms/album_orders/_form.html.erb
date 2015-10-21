@@ -1,0 +1,23 @@
+<%= error_messages_for 'album_order' %>
+
+<table class="ft" border="1">
+<!--[form:album_order]-->
+<tr>
+	<td>状态</td>
+	<td><%= select 'album_order', 'status', %w(未付款 已付款 已打印 已发货 已收货).collect{|p| [p, p]}  %></td>
+</tr>
+
+<tr>
+	<td>快递单号</td>
+	<td><%= text_field 'album_order', 'kd'  %></td>
+</tr>
+
+<tr>
+	<td>备注</td>
+	<td><%= text_field 'album_order', 'memo'  %></td>
+</tr>
+
+
+<!--[eoform:album_order]-->
+
+</table>

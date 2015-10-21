@@ -1,0 +1,9 @@
+<DIV id="chanel_content">
+	<%= render :partial=>"nav_notice" %>
+				
+	<% for post in @posts %>
+		<div class="clear"></div>
+		<%= render :partial=>"/share/post", :locals=>{:post=>post} %>
+	<% end %>
+	<%= will_paginate @reminds %>
+</DIV>

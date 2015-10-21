@@ -1,0 +1,166 @@
+<h2>版本更新记录</h2><%= link_to "返回到列表", "/api/test" %>
+<div class="history">
+  <h3>2011年2月13日</h3>
+  <pre>
+  1、添加账户接口：
+      * account/signup 注册接口
+  2、添加问答接口：
+      * ask/answer 根据问答ID，发表回答接口
+  3、添加账户接口：
+      * account/sina 绑定sina微博
+  4、添加功能:
+      * 用户从妈妈晒发表微博同时向sina微博发布
+      * 添加定期执行的从sina微博同步到妈妈晒的rake,执行语句: rake mamashai:update_weibos 
+  </pre>
+  <h3>2011年2月9日</h3>
+  <pre>
+  1、添加账户接口：
+      * account/login 登录
+  </pre>
+  <h3>2011年2月6日</h3>
+  <pre>
+  1、添加资讯接口：
+      * articles 获取资讯列表
+      * articles/show 查看单条资讯
+  2、添加问答搜索：
+      * asks 问答列表接口
+      * asks/update 发表问答(含上传图片)接口
+      * asks/my 我的问答列表接口
+      * asks/follow 我关注的问答列表接口
+      * asks/show 根据问答ID，获取单个问答的详细信息接口
+  3、推荐APP接口
+      * apps 获取推荐应用列表
+      * apps/show/:id 通过id查看单个推荐应用
+      * apps/download/:id 通过id下载单个推荐应用
+  4、添加API字段说明:
+      * article 资讯信息 <%= link_to "查看", "/api/test/api_article" %>
+      * age 年龄表 <%= link_to "查看", "/api/test/api_ages" %>
+      * app 推荐APP信息 <%= link_to "查看", "/api/test/api_app" %> 
+  </pre>
+  <h3>2011年2月5日</h3>
+  <pre>
+  1、添加用户搜索：
+      * users/search 搜索微博用户
+  2、添加微博搜索：
+      * search 搜索微博文章
+      * statuses/search 搜索微博(多条件组合)
+  3、添加微博访问接口：
+      * statuses/reply 对一条微博信息进行评论
+  4、添加话题接口：
+      * trends 获取某人的话题
+      * trends/statuses 获取某一话题下的微博
+      * trends/follow 关注某一个话题
+      * trends/destroy 取消对某话题的关注
+  5、添加API字段说明:
+      * provinces 省份城市编码表 <%= link_to "查看", "/api/test/api_provinces" %>
+  6、优化程序
+      * 调整api演示表单返回结果后缀，统一用户验证模板
+      * 优化搜索用户效率
+  </pre>
+  <h3>2011年2月1日</h3>
+  <pre>
+  1、添加帐号接口：
+      * account/update_profile_image 更改头像
+      * account/update_profile 更改资料
+  2、添加私信接口：
+      * direct_messages 获取当前用户最新私信列表 
+      * direct_messages/new 发送一条私信
+  3、添加API字段说明:
+      * direct_message 微博信息 <%= link_to "查看", "/api/test/api_direct_message" %>
+  </pre>
+  <h3>2011年1月26日</h3>
+  <pre>
+  1、添加获取下行数据集(timeline)接口：
+      * statuses/comments_timeline 获取当前用户发出的评论
+  2、添加用户接口：
+      * statuses/followers 获取用户粉丝列表及及每个粉丝用户最新一条微博
+  3、用户输出json字段添加最后一条微博信息： status
+  </pre>
+  <h3>2011年1月25日</h3>
+  <pre>
+  1、添加关注接口：
+      * friendships/create 关注某用户
+      * friendships/destroy 取消关注 
+      * friendships/show 获取两个用户关系的详细情况 
+  </pre>
+  <h3>2011年1月22日</h3>
+  <pre>
+  1、添加收藏接口：
+      * favorites 获取当前用户的收藏列表
+      * favorites/create 添加收藏
+      * favorites/destroy 删除当前用户收藏的微博信息
+  2、添加用户接口:
+      * statuses/friends 获取用户关注列表及每个关注用户最新一条微博
+  </pre>
+  <h3>2011年1月21日</h3>
+  <pre>
+  1、添加获取下行数据集(timeline)接口：
+      * statuses/comments 根据微博消息ID返回某条微博消息的评论列表
+      * statuses/unread 获取当前用户未读消息数
+      * statuses/reset_count 未读消息数清零接口 
+  </pre>
+  <h3>2011年1月20日</h3>
+  <pre>
+  1、添加获取下行数据集(timeline)接口：
+      * statuses/comments_by_me 获取当前用户发出的评论
+      * statuses/comments_to_me 获取当前用户收到的评论
+  2、添加API字段说明:
+      * comment 评论信息 <%= link_to "查看", "/api/test/api_comment" %>
+  </pre>
+  <h3>2011年1月19日</h3>
+  <pre>
+  1、添加统一的异常处理，如果发生错误，则统一返回null
+  2、添加获取下行数据集(timeline)接口：
+      * statuses/statuses_mentions 获取@当前用户的微博列表
+  3、用户城市、省份字段调整为city_name和province_name
+  </pre>
+  <h3>2011年1月18日</h3>
+  <pre>
+  1、添加基本css样式
+  2、添加版本更新记录
+  3、添加获取下行数据集(timeline)接口：
+      * statuses/public_timeline 获取最新的公共微博消息
+      * statuses/user_timeline 返回用户最新发表的微博消息列表
+      * statuses/friends_timeline 获取当前登录用户及其所关注用户的最新微博消息 (别名: statuses/home_timeline)
+  4、修改 status、user json输出的字段
+  5、添加API字段说明:
+      * status 微博信息内容 <%= link_to "查看", "/api/test/api_status" %>
+      * user 用户资料信息 <%= link_to "查看", "/api/test/api_user" %>
+  </pre>
+  <h3>2011年1月17日</h3>
+  <pre>
+  1、添加用户接口:
+      * users/show/:id 根据用户ID获取用户资料（授权用户）
+  2、为现有接口添加基于页面表单的测试方式:
+      * 添加基于 form 的测试页面<%= link_to "/api/test", "/api/test"%> 
+  3、架设测试服务器：<%= link_to "http://test.mamashai.com", "http://test.mamashai.com" %>
+      * 使用前请修改本地hosts文件，将 test.mamashai.com 指向ip：220.194.44.104
+  </pre>
+  <h3>2011年1月16日</h3>
+  <pre>
+  添加基于curl测试的微博接口:
+      * statuses/show/:id 根据ID获取单条微博信息内容
+      * statuses/update 发布一条微博信息
+      * statuses/upload 上传图片并发布一条微博信息
+      * statuses/destroy/:id 删除一条微博信息
+      * statuses/repost 转发一条微博消息(转晒)
+      * statuses/comment 对一条微博信息进行评论
+      * statuses/comment_destroy/:id 删除评论
+  </pre>
+</div>
+<style type="text/css" media="screen">
+  h3{
+    background-color: #EEEEEE;
+    border: medium none;
+    font-size: 14px;
+    font-weight: bold;
+    line-height: 37px;
+    margin: 18px 0 0;
+    padding: 0 0 0 13px;
+  }
+  
+  .history{
+    border-left:1px solid #CCCCCC;
+    border-right:1px solid #CCCCCC;
+  }
+</style>

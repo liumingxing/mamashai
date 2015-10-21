@@ -1,0 +1,22 @@
+<div class="smiles_post">
+            <div class="smiles_content">
+                <ul class="smile_face">
+                    <% for face in Dir.entries("public/images/face") %>
+                    <% next if !face.index("png")%>
+					<li onmouseover="this.className='current'" onmouseout="this.className=''" title="<%= face.split('.')[0] %>" onclick="insert_face('[<%= face.split('.')[0] %>]')">
+                        <a href="javascript:void(0)"><img src="/images/face/<%= face %>"/></a>
+                    </li>
+					<% end %>
+                    <div class="clear">
+                    </div>
+                </ul>
+                <div class="clear">
+                </div>
+            </div>
+</div>
+		
+<!--[if IE 6]>
+    <script type="text/javascript">
+    DD_belatedPNG.fix('div.smiles_top,div.smiles_content,div.smiles_bottom');
+    </script>
+<![endif]-->

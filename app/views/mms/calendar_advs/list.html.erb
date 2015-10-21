@@ -1,0 +1,43 @@
+<h1>半屏广告</h1>
+
+<table class="list" border="1">
+  <tr class="head">
+    <th>名称</th>
+    <th>logo</th>
+    <th>类别</th>
+    <th width="200px">图片，网页url，或点击代码</th>
+    <th width="200px">code</th>
+    <th>客户代码</th>
+    <th>状态</th>
+    <th>排序</th>
+    <th colspan=3>操作</th>
+  </tr>
+  
+<% for calendar_advs in @calendar_advs %>
+  <tr>
+    <td><%=h calendar_advs.name %></td>
+    <td><img style="width:200px; height: 100px;" src='<%= calendar_advs.logo.try(:thumb280) %>'/></td>
+    <td><%= {1=>'新弹出', 2=>'应用内弹出', 3=>'执行代码', 4=>'网页'}[calendar_advs.tp] %></td>
+    <td><%=h truncate(calendar_advs.url, :length=>200) %></td>
+    <td><%=h truncate(calendar_advs.code, :length=>200) %></td>
+    <td>
+        <% if calendar_advs.client.to_s.size > 0 %>
+        <a target="_blank" href="/index/flurry_tongji/<%=calendar_advs.client %>"><%=calendar_advs.client %></a>
+        <a target="_blank" href="/index/flurry_tongji/<%=calendar_advs.client %>?full=true">内部</a>
+        <% end %>
+    </td>
+    <td><%=h calendar_advs.status %></td>
+    <td><%= calendar_advs.position %></td>
+    <td>
+        <%= link_to '修改', :action => 'edit', :id => calendar_advs %> |
+        <%= link_to '统计', :action => 'tongji', :id => calendar_advs %></td>
+  </tr>
+<% end %>
+</table>
+
+
+<%= will_paginate @calendar_advs %>
+
+<br />
+
+<%= link_to '新建', :action => 'new' %>

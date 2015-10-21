@@ -1,0 +1,88 @@
+<style>
+	div.weibo_tip{width: 800px; margin: 0px auto; font-size: 16px; font-weight:bold; color: #333; padding: 20px 0px;}
+	div.open_sys{width: 800px; margin: 0px auto; padding: 10px 0px 20px 0px; border-bottom: 1px dashed #999; font-size: 13px; margin-bottom: 10px;}
+	div.open_sys div.icon {float: left; margin-right: 20px;}
+</style>
+<div class="sharp">
+	<div class="content2">
+		<h1>设置</h1>
+		<div class="navigate_tab" id="n">
+			<%= render :partial=>'nav' %>
+			<div class="class2">
+				<%= render :partial=>'success_pmt' if params[:success] %>
+				
+				<div class="weibo_tip">绑定帐号可以把我在这里晒的，同步给更多好友</div>
+				<div class="open_sys">
+					<div class="icon">
+						<img src="/images/setting_weibo_sina.png"/>
+					</div>
+					<div class="desc">
+						<% @user_weibo = UserWeibo.find(:first, :conditions=>"user_id = #{@user.id} and tp = 1") %>
+						<% if !@user_weibo %>
+							<div class="c1">我的新浪微博 (未绑定，尚不能同步)</div>
+							<div class="c2"><%= link_to "去绑定", "/account/login_from_weibo?origin_url=/settings/weibo", :class=>"button3"%></div>
+						<% elsif @user_weibo.expire_at && @user_weibo.expire_at < Time.new.to_i%>
+							<div class="c1">绑定的新浪微博已过期</div>
+							<div class="c2"><%= link_to "去绑定", "/account/login_from_weibo?origin_url=/settings/weibo" %></div>
+						<% else %>
+							<div class="c1">我已绑定新浪微博帐号</div>
+							<div class="c2"><%= link_to"取消绑定", "/settings/update_weibo?tp=cancel", :confirm=>"确定要取消与新浪微博的绑定吗？"%></div>
+						<% end %>
+					</div>
+				</div>
+				
+				<div class="open_sys">
+					<div class="icon">
+						<img src="/images/setting_weibo_qq.png"/>
+					</div>
+					<div class="desc">
+						<% @user_weibo = UserQzone.find(:first, :conditions=>"user_id = #{@user.id} and tp = 1") %>
+						<% if !@user_weibo %>
+							<div class="c1">我的QQ空间 (未绑定，尚不能同步)</div>
+							<div class="c2"><%= link_to "去绑定", "/account/login_from_qq2?origin_url=/settings/weibo", :class=>"button3"%></div>
+						<% else %>
+							<div class="c1">我已绑定QQ空间帐号</div>
+							<div class="c2"><%= link_to"取消绑定", "/settings/update_qzone?tp=cancel", :confirm=>"确定要取消与QQ空间账号的绑定吗？"%></div>
+						<% end %>
+					</div>
+				</div>
+
+				<div class="open_sys">
+					<div class="icon">
+						<img src="/images/setting_weibo_tencent.png"/>
+					</div>
+					<div class="desc">
+						<% @user_weibo = UserQq.find(:first, :conditions=>"user_id = #{@user.id} and tp = 2") %>
+						<% if !@user_weibo %>
+							<div class="c1">我的腾讯微博 (未绑定，尚不能同步)</div>
+							<div class="c2"><%= link_to "去绑定", "/account/login_from_qq?origin_url=/settings/weibo", :class=>"button3"%></div>
+						<% else %>
+							<div class="c1">我已绑定腾讯微博帐号</div>
+							<div class="c2"><%= link_to"取消绑定", "/settings/update_tencent_weibo?tp=cancel", :confirm=>"确定要取消与腾讯微博的绑定吗？"%></div>
+						<% end %>
+					</div>
+				</div>
+				
+				<div class="open_sys">
+					<div class="icon">
+						<img src="/images/setting_weibo_taobao.png"/>
+					</div>
+					<div class="desc">
+						<% @user_weibo = UserTaobao.find(:first, :conditions=>"user_id = #{@user.id} and tp = 2") %>
+						<% if !@user_weibo %>
+							<div class="c1">我的淘宝帐号</div>
+							<div class="c2"><%= link_to "去绑定", "/account/login_from_taobao?origin_url=/settings/weibo", :class=>"button3"%></div>
+						<% else %>
+							<div class="c1">我已绑定淘宝帐号</div>
+							<div class="c2"><%= link_to"取消绑定", "/settings/update_taobao?tp=cancel", :confirm=>"确定要取消与淘宝帐号的绑定吗？"%></div>
+						<% end %>
+					</div>
+				</div>
+				
+			</div>
+		</div>
+	</div>
+	<div><img src="/images/sharp_bottom.jpg" /></div>
+</div>
+
+<div class="clear"></div>

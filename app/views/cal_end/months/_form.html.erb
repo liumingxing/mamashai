@@ -1,0 +1,21 @@
+<%= error_messages_for 'month' %>
+
+<table class="list" border="1" width="98%">
+<!--[form:month]-->
+<tr>
+	<td>月份</td>
+	<td><%= text_field 'month', 'distance'  %></td>
+</tr>
+
+<tr>
+	<td>功能</td>
+	<td>
+		<% for f in %w(闪光时刻 宝宝发育 营养贴士 快乐淘 表情心绪 才艺本领 宝宝语录 事件活动)%>
+			<%= check_box_tag "functions[]", f, @month.functions.to_s.include?(f)%><%= f%>
+		<% end %>
+	</td>
+</tr>
+
+<!--[eoform:month]-->
+
+</table>

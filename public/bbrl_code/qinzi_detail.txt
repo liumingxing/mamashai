@@ -1,0 +1,862 @@
+function DetailWindow(attr){
+	Ti.include("public.js");
+			
+	var dianping_appkey = "32976344";
+	var dianping_secret = "cdb4a7a5ff514ec3b699d5fde142d9b7";
+			
+	function make_sign(param){
+		// 对参数名进行字典排序  
+		var array = new Array();  
+		for(var key in param)  
+		{  
+			if (key != "sign")
+		    	array.push(key);  
+		}  
+		array.sort();  
+		   
+		// 拼接有序的参数名-值串  
+		var paramArray = new Array();  
+		paramArray.push(dianping_appkey);  
+		for(var index in array)  
+		{  
+		  var key = array[index];  
+		  paramArray.push(key + param[key]);  
+		}  
+		paramArray.push(dianping_secret);  
+		   
+		var shaSource = paramArray.join(""); 
+		var sign = Titanium.Utils.sha1(shaSource).toUpperCase();
+		return sign;
+	}
+	
+			
+			var detail_win = Ti.UI.createWindow(attr);
+			var json = detail_win.json;
+			
+			//生成详情页
+			var logo = Ti.UI.createImageView({
+				image: json.s_photo_url,
+				width: __l(111),
+				height: __l(80),
+				left: __l(10),
+				top: __l(10),
+				hires: true
+			});
+			detail_win.add(logo);
+
+			var name = Ti.UI.createLabel({
+				font: {fontSize: __l(16), fontWeight: 'bold'},
+				left: __l(131),
+				right: __l(10),
+				top: __l(8),
+				text: json.name + (json.branch_name ? "（" + json.branch_name+ "）" : "")
+			});
+			detail_win.add(name);
+
+			var rate = Ti.UI.createImageView({
+				image: json.rating_img_url,
+				width: __l(90),
+				height: __l(15),
+				left: __l(131),
+				top: __l(52),
+				hires: true
+			});
+			detail_win.add(rate);
+
+			var price = Ti.UI.createLabel({
+				text: "人均：￥" + json.avg_price,
+				top: __l(72),
+				left: __l(131),
+				font: {fontSize: __l(13)},
+				touchEnabled: false,
+				color: "#ccc"
+			});
+			detail_win.add(price)
+
+			var wrapper = Ti.UI.createView({
+				top: __l(110),
+				left: 0,
+				right: 0,
+			})
+			detail_win.add(wrapper);
+
+			var detail_table = Ti.UI.createTableView({
+				top: 0,
+				left: 0,
+				right: 0
+			})
+			if (!Ti.App.is_android){
+				detail_table.style = Titanium.UI.iPhone.TableViewStyle.PLAIN
+			}
+			var row1 = Ti.UI.createTableViewRow({
+				height: __l(50),
+				selectedBackgroundColor: "#E8E8E8",
+				hasChild: true
+			})
+			row1.add(Ti.UI.createImageView({
+				image: "/images/poi.png",
+				width: __l(22),
+				height: __l(22),
+				left: __l(10),
+				hires: true,
+				touchEnabled: false
+			}));
+			row1.add(Ti.UI.createLabel({
+				text: json.city + json.address,
+				font: {fontSize: __l(16)},
+				left: __l(40),
+				color: "#333",
+				touchEnabled: false
+			}))
+			row1.addEventListener("click", function(e){
+				var location_win = Titanium.UI.createWindow({
+						title: json.name,
+						backButtonTitle: !Ti.App.is_android && Ti.App.osversion < "7.0" ? '返回' : '',
+						backgroundColor: 'white'
+				});
+				var web = Ti.UI.createWebView({
+						left: 0,
+						top: 0,
+						right: 0,
+						bottom: 0,
+						url: "http://api.map.baidu.com/marker?location=" + json.latitude + "," + json.longitude + "&title=" + json.name + "&content=" + json.address + "&output=html"
+				});
+				location_win.add(web);
+				pre(location_win)
+				add_default_action_bar(location_win, location_win.title, true)
+				Ti.App.currentTabGroup.activeTab.open(location_win, {
+					animated : true
+				});
+
+			})
+			detail_table.appendRow(row1)
+
+			var row2 = Ti.UI.createTableViewRow({
+				height: __l(50),
+				selectedBackgroundColor: "#E8E8E8",
+				hasChild: true
+			})
+			row2.add(Ti.UI.createImageView({
+				image: "/images/tel.png",
+				width: __l(22),
+				height: __l(20),
+				left: __l(10),
+				hires: true,
+				touchEnabled: false
+			}));
+			row2.add(Ti.UI.createLabel({
+				text: json.telephone,
+				font: {fontSize: __l(16)},
+				left: __l(40),
+				color: "#333",
+				touchEnabled: false
+			}))
+			row2.addEventListener("click", function(e){
+				if (Ti.App.is_android){
+					Titanium.Platform.openURL('tel:'+json.telephone);
+				}
+				else{
+					var optionsDialogOpts = {
+						options: [json.telephone, '取消'],
+						cancel: 1
+					};
+					
+					var dialog = Titanium.UI.createOptionDialog(optionsDialogOpts);
+					dialog.addEventListener("click", function(e){
+						if (e.index == 0)
+							Titanium.Platform.openURL('tel:'+json.telephone);
+					})
+					dialog.show();
+				}
+				
+			})
+			if (json.telephone && json.telephone.length > 0)
+				detail_table.appendRow(row2)
+			
+			wrapper.add(detail_table)
+
+			//获得妈妈晒的点评
+			http_call(Ti.App.mamashai + "/api/statuses/get_bbrl_poi_comments?business_id=" + json.business_id, function(e2){
+				var bbrl_comments_json = JSON.parse(e2.responseText);
+				for(var k=0; k<bbrl_comments_json.length; k++){
+					var bbrl_json = bbrl_comments_json[k];
+
+					var comment_row = Ti.UI.createTableViewRow({
+							className: 'comment2',
+							selectedBackgroundColor: "#E8E8E8",
+							height: Ti.UI.SIZE
+					})
+
+					var user_logo = Ti.UI.createImageView({
+						top : __l(8),
+						left : __l(8),
+						width : Titanium.Platform.osname == 'ipad' ? 50 : __l(30),
+						height : Titanium.Platform.osname == 'ipad' ? 50 : __l(30),
+						defaultImage : "/images/default.gif",
+						hires : true,
+						id: bbrl_json.user.id,
+						json: bbrl_json.user,
+						image: "http://www.mamashai.com" + encodeURI(bbrl_json.user.logo_url_thumb48)
+					});
+					user_logo.addEventListener("click", function(e){
+						var UserWin = require('/user')
+						var win = new UserWin({
+							title : e.source.json.name,
+							backgroundColor : '#fff',
+							id : e.source.id,
+							backButtonTitle : !Ti.App.is_android && Ti.App.osversion < "7.0" ? '返回' : ''
+						})
+						pre(win)
+						
+						Ti.App.currentTabGroup.activeTab.open(win, {
+							animated : true
+						});
+					})
+					comment_row.add(user_logo)
+					
+					var top_section = Ti.UI.createView({
+						height : Ti.UI.SIZE,
+						left : Titanium.Platform.osname == 'ipad' ? 76 : __l(46),
+						top : 0,
+						right : 0,
+						touchEnabled : false
+					});
+
+					var user = Ti.UI.createLabel({
+						top : Ti.App.is_android ? __l(3) : __l(6),
+						left : 0,
+						height : Titanium.Platform.osname == 'ipad' ? 19 : __l(17),
+						width: __l(200),
+						font : {
+							fontSize : Titanium.Platform.osname == 'ipad' ? 19 : __l(14)
+						},
+						text : bbrl_json.user && bbrl_json.user.name && bbrl_json.user.name.length > 0 ? bbrl_json.user.name : "没名字",
+						color: "#333",
+						touchEnabled : false
+					});
+
+					if (Ti.App.is_android){
+						user.height += 7
+					}
+					
+					var kid_json = bbrl_json.user.user_kids[0]
+					var refer = Ti.UI.createLabel({
+						top : Titanium.Platform.osname == 'ipad' ? 38 : __l(24),
+						left : 0,
+						right : 6,
+						textAlign : 'left',
+						height : Titanium.Platform.osname == 'ipad' ? 18 : __l(18),
+						font : {
+							fontSize : Titanium.Platform.osname == 'ipad' ? 16 : __l(13)
+						},
+						color : "gray",
+						text : referMinute(bbrl_json.created_at) + " " + kid_desc(kid_json, bbrl_json.created_at),
+						touchEnabled : false
+					});
+					
+					top_section.add(user);
+					top_section.add(refer)
+					comment_row.add(top_section)
+
+					var content_wrapper = Ti.UI.createView({
+						top: __l(36),
+						layout: "vertical",
+						left: 0,
+						right: 0,
+						height: Ti.UI.SIZE
+					})
+
+					var wrapper3 = Ti.UI.createView({
+						left: 0,
+						top: 0,
+						height: Ti.UI.SIZE,
+						right: 0,
+					})
+					content_wrapper.add(wrapper3)
+					wrapper3.add(Ti.UI.createLabel({
+							text: "星级：",
+							font: {fontSize: __l(13)},
+							left: __l(10),
+							right: __l(10),
+							top: __l(8),
+							height: Ti.UI.SIZE,
+							bottom: __l(4),
+							color: "#999",
+							touchEnabled: false
+						}))
+					wrapper3.add(Ti.UI.createImageView({
+							right: __l(130),
+							left: __l(50),
+							top: __l(10),
+							image: "http://i1.dpfile.com/s/i/app/api/16_" + bbrl_json.rate + "star.png",
+							height: __l(10),
+							width: __l(60),
+							touchEnabled: false
+					}))
+
+					if (bbrl_json.qinzi){
+						var wrapper4 = Ti.UI.createView({
+							left: 0,
+							top: 0,
+							height: Ti.UI.SIZE,
+							right: 0,
+						})
+						content_wrapper.add(wrapper4)
+						wrapper4.add(Ti.UI.createLabel({
+							text: "亲子设施：",
+							font: {fontSize: __l(13)},
+							left: __l(10),
+							right: __l(10),
+							top: __l(0),
+							height: Ti.UI.SIZE,
+							bottom: __l(4),
+							color: "#999",
+							touchEnabled: false
+						}))
+						wrapper4.add(Ti.UI.createLabel({
+							text: bbrl_json.qinzi.replace(/^,/, "").replace(",", "，"),
+							font: {fontSize: __l(13)},
+							left: __l(70),
+							right: __l(10),
+							top: __l(0),
+							height: Ti.UI.SIZE,
+							bottom: __l(4),
+							color: "#999",
+							touchEnabled: false
+						}))
+					}
+					
+					if (bbrl_json.shiyi){
+						content_wrapper.add(Ti.UI.createLabel({
+							text: "适宜宝宝：" + bbrl_json.shiyi.replace(/^,/, "").replace(",", "，"),
+							font: {fontSize: __l(13)},
+							left: __l(10),
+							right: __l(10),
+							top: __l(0),
+							height: Ti.UI.SIZE,
+							bottom: __l(4),
+							color: "#999",
+							touchEnabled: false
+						}))
+					}
+
+					if (bbrl_json.qx){
+						content_wrapper.add(Ti.UI.createLabel({
+							text: "宝宝情绪：" + bbrl_json.qx.replace(/^,/, "").replace(",", "，"),
+							font: {fontSize: __l(13)},
+							left: __l(10),
+							right: __l(10),
+							top: __l(0),
+							height: Ti.UI.SIZE,
+							bottom: __l(4),
+							color: "#999",
+							touchEnabled: false
+						}))
+					}
+					
+					content_wrapper.add(Ti.UI.createLabel({
+							text: bbrl_json.content,
+							font: {fontSize: __l(14)},
+							left: __l(10),
+							right: __l(10),
+							top: __l(0),
+							height: Ti.UI.SIZE,
+							bottom: __l(10),
+							color: "#333",
+							touchEnabled: false
+					}))
+					comment_row.add(content_wrapper)
+						
+					detail_table.appendRow(comment_row)
+				}
+
+				var param = {};  
+				param["business_id"]= json.business_id;  
+				param["platform"]	= "2";
+				param["sign"]		= make_sign(param);
+				
+				var url = "http://api.dianping.com/v1/review/get_recent_reviews?appkey=" + dianping_appkey;
+				var array = new Array();  
+				for(var key in param)  
+				{  
+				    url += "&" + key + "=" + param[key];
+				}
+				http_call(url, function(e1){
+					var c_json = JSON.parse(e1.responseText);
+					if (c_json.status != "OK" || c_json.count < 1)
+						return;
+
+					for(var i=0; i<c_json.reviews.length; i++){
+						var comment_row = Ti.UI.createTableViewRow({
+							className: 'comment',
+							selectedBackgroundColor: "#E8E8E8",
+							height: Ti.UI.SIZE
+						})
+						comment_row.add(Ti.UI.createLabel({
+							text: c_json.reviews[i].user_nickname,
+							font: {fontSize: __l(15)},
+							left: __l(10),
+							top: __l(10),
+							color: "#333",
+							touchEnabled: false
+						}))
+						comment_row.add(Ti.UI.createImageView({
+							right: __l(130),
+							top: __l(15),
+							image: c_json.reviews[i].rating_s_img_url,
+							height: __l(10),
+							width: __l(60),
+							touchEnabled: false
+						}))
+						comment_row.add(Ti.UI.createLabel({
+							text: c_json.reviews[i].created_time,
+							font: {fontSize: __l(14)},
+							right: __l(10),
+							color: "#ccc",
+							top: __l(10),
+							touchEnabled: false
+						}))
+						comment_row.add(Ti.UI.createLabel({
+							text: c_json.reviews[i].text_excerpt,
+							font: {fontSize: __l(14)},
+							left: __l(10),
+							right: __l(10),
+							top: __l(30),
+							height: Ti.UI.SIZE,
+							bottom: __l(10),
+							color: "#333",
+							touchEnabled: false
+						}))
+						
+						detail_table.appendRow(comment_row)
+					}
+
+					
+					var more_row = Ti.UI.createTableViewRow({
+							height: Ti.UI.SIZE
+						})
+						more_row.add(Ti.UI.createLabel({
+							text: "更多点评",
+							font: {fontSize: __l(18)},
+							left: __l(100),
+							right: __l(100),
+							height: Ti.UI.SIZE,
+							top: __l(16),
+							selectedBackgroundColor: "#E8E8E8",
+							bottom: __l(16),
+							textAlign: 'center',
+							touchEnabled: false
+						}))
+						more_row.addEventListener("click", function(e){
+							var more_win = Titanium.UI.createWindow({
+								title: "更多点评",
+								backButtonTitle: !Ti.App.is_android && Ti.App.osversion < "7.0" ? '返回' : '',
+								backgroundColor: 'white'
+							});
+							var web = Ti.UI.createWebView({
+								left: 0,
+								top: 0,
+								right: 0,
+								bottom: 0,
+								url: c_json.additional_info.more_reviews_url
+							});
+							more_win.add(web);
+							pre(more_win)
+							add_default_action_bar(more_win, more_win.title, true)
+							Ti.App.currentTabGroup.activeTab.open(more_win, {
+								animated : true
+							});
+						})
+						if (c_json.additional_info && c_json.additional_info.more_reviews_url)
+							detail_table.appendRow(more_row)
+				})
+			})
+
+			var fav = Ti.UI.createButton({
+				title : detail_win.fav ? '取消收藏' : '收藏',
+				right: __l(10),
+				top: __l(68),
+				width: __l(70),
+				height: __l(20),
+				font: {fontSize: __l(10)}
+			})
+			fav.addEventListener("click", function(e){
+				if (!check_login()){
+					to_login();
+					return;
+				}
+
+				var xhr = Ti.Network.createHTTPClient()
+				xhr.timeout = Ti.App.timeout
+				xhr.onerror = function(e) {}
+				xhr.onload = function(){
+					if (this.responseText == "ok"){
+						show_notice("收藏成功")
+					}
+					else if (this.responseText == "cancel"){
+						show_notice("取消收藏成功")
+						
+						require('/lib/mamashai_db').db.delete_one_json("favourites1_post", user_id())
+					}
+				}
+				var url = Ti.App.mamashai + "/api/statuses/favourite/" + json.business_id + "?tp=dianping&" + account_str();
+				xhr.open("POST", url)
+				xhr.send({
+					json: JSON.stringify(json)
+				})
+			})
+			pre_btn(fav)
+			detail_win.add(fav);
+
+			var right = Ti.UI.createButton({
+				title: '点评'
+			})
+			right.addEventListener("click", function(e){
+				if (!check_login()){
+					to_login();
+					return;
+				}
+
+						var comment_win = Titanium.UI.createWindow({
+							title: "点评",
+							backButtonTitle: !Ti.App.is_android && Ti.App.osversion < "7.0" ? '返回' : '',
+							backgroundColor: 'white',
+							json: detail_win.json,
+							rate_star: 0,
+							comment_win: 5,
+							shiyi: "",
+							qx: ""
+						});
+
+						var wrapper = Ti.UI.createScrollView({
+							left: 0,
+							top: 0,
+							right: 0,
+							bottom: 0,
+							contentHeight: 'auto',
+							layout: 'vertical'
+						})
+						comment_win.add(wrapper)
+
+						var star_wrapper = Ti.UI.createView({
+							top: 0,
+							height: Ti.UI.SIZE
+						})
+						wrapper.add(star_wrapper)
+						star_wrapper.add(Ti.UI.createLabel({
+							text: "星级",
+							font: {fontSize: __l(18), fontWeight: 'bold'},
+							top: __l(10),
+							left: __l(14),
+							color: "#333"
+						}))
+
+						var star_wrapper1 = Ti.UI.createView({
+							layout: 'horizontal',
+							left: __l(100),
+							top: __l(8),
+							height: __l(24),
+							right: __l(10)
+						});
+						star_wrapper.add(star_wrapper1);
+						for(var i=1; i<=5; i++){
+							var star = Ti.UI.createImageView({
+								left : 0,
+								right: __l(10),
+								width: __l(24),
+								height: __l(24),
+								image: Ti.App.mamashai + "/images/qinzi/star2.png",
+								hires: true,
+								index: i
+							})
+							star.addEventListener("click", function(e){
+								var index = e.source.index;
+								for(var j=0; j<5; j++){
+									if (j<index){
+										star_wrapper1.children[j].image = Ti.App.mamashai + "/images/qinzi/star1.png"
+									}
+									else
+										star_wrapper1.children[j].image = Ti.App.mamashai + "/images/qinzi/star2.png"
+								}
+								comment_win.rate_star = index
+							})
+							star_wrapper1.add(star)
+						}
+
+						var qinzi_wrapper = Ti.UI.createView({
+							top: 0,
+							height: Ti.UI.SIZE
+						})
+						wrapper.add(qinzi_wrapper)
+
+						qinzi_wrapper.add(Ti.UI.createLabel({
+							text: "亲子设施",
+							font: {fontSize: __l(18), fontWeight: 'bold'},
+							top: __l(6),
+							left: __l(14),
+							color: "#333"
+						}))
+						var qinzi_wrapper1 = Ti.UI.createView({
+							layout: 'horizontal',
+							left: __l(98),
+							top: __l(6),
+							height: Ti.UI.SIZE,
+							right: __l(10)
+						});
+						qinzi_wrapper.add(qinzi_wrapper1);
+
+						var names = "儿童餐椅,儿童餐饮,儿童游乐场,宝宝玩具,儿童床,儿童游泳池,哺乳室,儿童马桶,无亲子设施".split(",")
+						Ti.API.log(names)
+						for(var i=0; i<names.length; i++){
+							var img = Ti.UI.createImageView({
+								top: 0,
+								left: 0,
+								right: __l(10), 
+								bottom: __l(4),
+								width: i == names.length - 1 ? __l(190) : __l(90),
+								height: __l(23),
+								index: i+1,
+								image: Ti.App.mamashai + "/images/qinzi/a" + (i+1) + ".png",
+								checked: false
+							})
+							img.addEventListener("click", function(e){
+								e.source.checked = !e.source.checked
+								if (e.source.checked){
+									e.source.image = Ti.App.mamashai + "/images/qinzi/b" + e.source.index + ".png"
+								}
+								else{
+									e.source.image = Ti.App.mamashai + "/images/qinzi/a" + e.source.index + ".png"
+								}
+
+								comment_win.qinzi = ""
+								for(var k=0; k<qinzi_wrapper1.children.length; k++){
+									if (qinzi_wrapper1.children[k].checked){
+										comment_win.qinzi += "," + names[k]
+									}
+								}
+							})
+							qinzi_wrapper1.add(img)
+						}
+
+
+						var shiyi_wrapper = Ti.UI.createView({
+							top: 0,
+							height: Ti.UI.SIZE
+						})
+						wrapper.add(shiyi_wrapper)
+
+						shiyi_wrapper.add(Ti.UI.createLabel({
+							text: "适宜宝宝",
+							font: {fontSize: __l(18), fontWeight: 'bold'},
+							top: __l(6),
+							left: __l(14),
+							color: "#333"
+						}))
+						var shiyi_wrapper1 = Ti.UI.createView({
+							layout: 'horizontal',
+							left: __l(98),
+							top: __l(6),
+							height: Ti.UI.SIZE,
+							right: __l(10)
+						});
+						shiyi_wrapper.add(shiyi_wrapper1);
+						var vs1 = ["0~3岁", "3~6岁", "6岁以上", "孕期", "不适宜宝宝"];
+						for(var j=0; j<vs1.length; j++){
+							var img = Ti.UI.createImageView({
+								top: 0,
+								left: 0,
+								right: __l(10), 
+								bottom: __l(4),
+								width: j == vs1.length - 1 ? __l(190) : __l(90),
+								height: __l(23),
+								index: j+10,
+								image: Ti.App.mamashai + "/images/qinzi/a" + (j+10) + ".png",
+								checked: false
+							})
+							img.addEventListener("click", function(e){
+								e.source.checked = !e.source.checked
+								if (e.source.checked){
+									e.source.image = Ti.App.mamashai + "/images/qinzi/b" + e.source.index + ".png"
+								}
+								else{
+									e.source.image = Ti.App.mamashai + "/images/qinzi/a" + e.source.index + ".png"
+								}
+
+								comment_win.shiyi = ""
+								for(var k=0; k<vs1.length; k++){
+									if (shiyi_wrapper1.children[k].checked){
+										comment_win.shiyi += "," + vs1[k]
+									}
+								}
+							})
+							shiyi_wrapper1.add(img)
+						}
+
+						var qx_wrapper = Ti.UI.createView({
+							top: 0,
+							height: Ti.UI.SIZE
+						})
+						wrapper.add(qx_wrapper)
+
+						qx_wrapper.add(Ti.UI.createLabel({
+							text: "宝宝情绪",
+							font: {fontSize: __l(18), fontWeight: 'bold'},
+							top: __l(6),
+							left: __l(14),
+							color: "#333"
+						}))
+						var qx_wrapper1 = Ti.UI.createView({
+							layout: 'horizontal',
+							left: __l(98),
+							top: __l(6),
+							height: Ti.UI.SIZE,
+							right: __l(10)
+						});
+						qx_wrapper.add(qx_wrapper1);
+						var vs = ["开心", "安静", "活跃", "留恋", "哭闹", "烦躁"];
+						for(var j=0; j<vs.length; j++){
+							var img = Ti.UI.createImageView({
+								top: 0,
+								left: 0,
+								right: __l(10), 
+								bottom: __l(4),
+								width: __l(90),
+								height: __l(23),
+								index: j+15,
+								image: Ti.App.mamashai + "/images/qinzi/a" + (j+15) + ".png",
+								checked: false
+							})
+							img.addEventListener("click", function(e){
+								e.source.checked = !e.source.checked
+								if (e.source.checked){
+									e.source.image = Ti.App.mamashai + "/images/qinzi/b" + e.source.index + ".png"
+								}
+								else{
+									e.source.image = Ti.App.mamashai + "/images/qinzi/a" + e.source.index + ".png"
+								}
+
+								comment_win.qx = ""
+								for(var k=0; k<vs.length; k++){
+									if (qx_wrapper1.children[k].checked){
+										comment_win.qx += "," + vs[k]
+									}
+								}
+							})
+
+							qx_wrapper1.add(img)
+						}
+
+						var textarea = Titanium.UI.createTextArea({
+							hintText : "评论不得少于10个字哦",
+							value : "#亲子城市-" + detail_win.json.city + "#我去了" + detail_win.json.name + "，",
+							height : __l(100),
+							left : __l(16),
+							right : __l(16),
+							top : __l(8),
+							textAlign : 'left',
+							borderWidth : 1,
+							borderColor : '#ccc',
+							borderRadius : __l(0),
+							backgroundColor : 'transparent',
+							returnKeyType: Titanium.UI.RETURNKEY_DONE,
+							font : {
+								fontSize : __l(15)
+							}
+						});
+						textarea.addEventListener("change", function(e) {
+							if(textarea.value.length > 140)
+								textarea.value = textarea.value.substr(0, 140)
+							title.text = 140 - textarea.value.length;
+						})
+						
+						var title = Ti.UI.createLabel({
+							right : __l(24),
+							top: __l(2),
+							textAlign : "right",
+							height : 'auto',
+							color: '#999',
+							font : {
+								fontSize : __l(12)
+							},
+							text : "140"
+						});
+						wrapper.add(textarea)
+						wrapper.add(title)
+						textarea.fireEvent("change");
+
+						var done = Ti.UI.createButton({
+							title : "发布"
+						})
+						done.addEventListener("click", function(e){
+							if (comment_win.rate_star == 0){
+								show_alert("提示", "亲，请选择星级！");
+								return;
+							}
+							if (!comment_win.qinzi || comment_win.qinzi.length == 0){
+								show_alert("提示", "亲，请选择亲子设施！");
+								return;
+							}
+							if (!comment_win.shiyi || comment_win.shiyi.length == 0){
+								show_alert("提示", "亲，请选择适宜宝宝！");
+								return;
+							}
+							if (!comment_win.qx || comment_win.qx.length == 0){
+								show_alert("提示", "亲，请选择宝宝情绪！");
+								return;
+							}
+							if (textarea.value.length < 30){
+								show_alert("提示", "亲，点评至少要超过30个字哦！");
+								return;
+							}
+
+							var xhr = Ti.Network.createHTTPClient()
+							xhr.timeout = Ti.App.timeout
+							xhr.onerror = function(e) {}
+							xhr.onload = function(){
+								hide_loading();
+								if (this.responseText == "OK"){
+									comment_win.close();
+									show_alert("提示", "亲，点评成功！")
+								}
+								else{
+									show_alert("提示", this.responseText)
+								}
+							}
+							var url = Ti.App.mamashai + "/api/statuses/share_poi?" + account_str()
+							xhr.open("POST", url)
+							xhr.send({
+								rate: comment_win.rate_star,
+								content: textarea.value,
+								json: JSON.stringify(comment_win.json),
+								qinzi: comment_win.qinzi,
+								shiyi: comment_win.shiyi,
+								qx: comment_win.qx
+							})
+							show_loading("正在提交")
+						})
+						if (!Ti.App.is_android)
+							comment_win.setRightNavButton(done)
+						
+						pre(comment_win)
+						add_default_action_bar2(comment_win, comment_win.title, "发布", function(e){
+							done.fireEvent("click")
+						})
+						Ti.App.currentTabGroup.activeTab.open(comment_win, {
+							animated : true
+						});
+
+					
+			})
+			if (!Ti.App.is_android)
+				detail_win.setRightNavButton(right);
+
+			pre(detail_win)
+			add_default_action_bar2(detail_win, detail_win.title, "点评", function(e){
+				right.fireEvent("click")
+			});
+
+			logEvent("qinzi_detail");
+			return detail_win;
+}
+
+module.exports = DetailWindow;

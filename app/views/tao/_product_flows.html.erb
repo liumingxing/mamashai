@@ -1,0 +1,51 @@
+<div class="jnc_box4">
+	<div class="jnc_box4_li">
+		<% @products.each_with_index{|product, index| %>
+		<% next if index % 4 != 0 %>
+		<%= render :partial=>"product_flow", :locals=>{:product=>product} %>
+		<% } %>
+	</div>
+	<div class="jnc_box4_li ml15">
+		<% @products.each_with_index{|product, index| %>
+		<% next if index % 4 != 1 %>
+		<%= render :partial=>"product_flow", :locals=>{:product=>product} %>
+		<% } %>
+	</div>
+	<div class="jnc_box4_li ml15">
+		<% @products.each_with_index{|product, index| %>
+		<% next if index % 4 != 2 %>
+		<%= render :partial=>"product_flow", :locals=>{:product=>product} %>
+		<% } %>
+	</div>
+	<div class="jnc_box4_li ml15">
+		<% @products.each_with_index{|product, index| %>
+		<% next if index % 4 != 3 %>
+		<%= render :partial=>"product_flow", :locals=>{:product=>product} %>
+		<% } %>
+	</div>
+</div>
+
+<script>
+$(document).ready(function(){
+	$('li.mainlevel2').hover(function(){
+		$(this).css('z-index','1');
+		$(this).find('ul').css('display','block');
+	},function(){
+		$(this).css('z-index','0');
+		$(this).find('ul').css('display','none');
+	});
+	
+	$('.showtip').click(function(){
+		$('.wt_bb_zs').css('display','none');
+		$(this).parents('ul').find('.wt_bb_zs').css('display','block');
+		return false;
+	});
+	$('.hidetip').click(function(){
+		$(this).parents('ul').find('.wt_bb_zs').css('display','none');
+		return false;
+	});
+	$(".jnc_box4_li3_textarea").click(function(){
+		$(this).next('.jnc_box4_li3_input').show();
+	});
+});
+</script>

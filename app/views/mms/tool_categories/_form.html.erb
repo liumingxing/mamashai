@@ -1,0 +1,17 @@
+<tr>
+    <td><%= f.label :name,"名称：" %></td>
+    <td>
+    	<%= f.text_field :name, :size=>50 %>
+		<%= f.error_message_on  :name %>
+	</td>
+</tr>
+<tr>
+    <td colspan="2">&nbsp;
+	</td>
+</tr>
+<tr>
+    <td colspan="2">
+    	<input type="submit" name="submit" value="提交">
+		<%= link_to '返回', :action=>"index"%>
+	</td>
+</tr>

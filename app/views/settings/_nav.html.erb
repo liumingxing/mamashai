@@ -1,0 +1,20 @@
+<ul class="class1">
+		<li <%=raw ' class="current"' if params[:action].index('profile') %>>
+	        <a title="完善个人信息，以便大家了解我哦。个人资料和宝贝资料全部完善，可获10个积分。" href="/settings/profile">个人资料</a>
+	    </li>
+	    <li <%=raw ' class="current"' if params[:action].index('password') %>>
+	        <a title="重新设置我的登录密码" href="/settings/password">修改密码</a>
+	    </li>
+	    <li<%=raw ' class="current"' if params[:action].index('notify') %>>
+	        <a title="用邮件提醒我新的评论、私信和礼物。" href="/settings/notify">邮件提醒</a>
+	    </li>
+	    <li <%=raw ' class="current"' if params[:action].index('skin') %>>
+	        <a title="随心选择一个我喜欢的模板！" href="/settings/skin">个性头图</a>
+	    </li>
+	    <li <%=raw ' class="current"' if params[:action].index('domain') %>>
+	        <a title="快点抢注属于我的个性域名哦，一经抢注，不可更改哦" href="/settings/domain">个性域名</a>
+	    </li>
+	    <li <%=raw ' class="current"' if params[:action].index('weibo') %>>
+	        <a title="设置与新浪微博，腾讯微博或淘宝帐号的关联" href="/settings/weibo">帐号绑定</a>
+	    </li>
+</ul>

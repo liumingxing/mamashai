@@ -1,0 +1,29 @@
+<h1>update_profile_image 更新用户头像</h1><%= link_to "返回到列表", "/api/test" %>
+<pre>
+  [路径]: account/update_profile_image
+  [HTTP请求方式]: POST
+  [URL]: http://your.api.domain/account/update_profile_image.json
+  [是否需要登录]： true
+
+参数
+
+    * source 申请应用时分配的AppKey，调用接口时候代表应用的唯一身份。
+    * image 必须为小于700K的有效的GIF, JPG图片. 如果图片大于500像素将按比例缩放。 (必选)
+
+示例
+
+  curl -u "username:password" -H 'Expect:' -F image=@'test2.jpg;type=image/jpeg'
+  "http://your.api.domain/account/update_profile_image.json?source=appkey"
+
+注意
+
+  采用multipart/form-data编码方式提交，可以参考：
+  Form-based File Upload in HTML: <%= link_to "www.ietf.org/rfc/rfc1867.txt", "http://www.ietf.org/rfc/rfc1867.txt" %>
+</pre>
+<hr/>
+<%= form_tag "/api/account/update_profile_image.json" ,{:method=>:post,:multipart=>true} do %>
+  <%= render :partial => '/api/test/login' %>
+  source: <%= text_field_tag "source" %><br/>
+  image: <%= file_field_tag "image" %><br/>
+  <%= submit_tag "提交"%>
+<% end -%>

@@ -1,0 +1,50 @@
+<div id="middle">
+    <div id="css_mainbody">
+        <h1 class="title">本周超值管理
+		<span style="float: right; margin-right: 10px;">
+			<%= link_to '新添本周超值', :action=>:chaozhi_new %>
+        </span>
+		</h1>
+        <table class="grid">
+            <thead>
+                <tr>
+                    <th>
+                        编码
+                    </th>
+                    <th>
+                        名称
+                    </th>
+                    <th>
+                        主图
+                    </th>
+                    <th>
+                        开始时间
+                    </th>
+                    <th>
+                        结束时间
+                    </th>
+                    <th colspan=2>
+						操作
+					</th>
+                </tr>
+            </thead>
+            <% for chaozhi in @chaozhis %>
+                <tr>
+                    <td><%= chaozhi.product.code %></td>
+                    <td><%= chaozhi.product.name %></td>
+                    <td>
+                    <% if chaozhi.product.logo %>
+                    <img src="<%= chaozhi.product.logo.thumb200 %>" border=0 width="200px"/>
+                    <% end %>
+                    </td>
+                    <td><%= chaozhi.begin_at.to_s(:db)%></td>
+                    <td><%= chaozhi.stop_at.to_s(:db)%></td>
+                    <td>
+                        <%= link_to "修改", :action=>"chaozhi_edit", :id=>chaozhi %>
+                        <%= link_to "删除", :action=>"chaozhi_delete", :id=>chaozhi %>
+                    </td>
+                </tr>
+            <% end %>
+        </table>
+    </div>
+</div>

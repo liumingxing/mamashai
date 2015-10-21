@@ -1,0 +1,28 @@
+<h1>show 根据用户ID获取用户资料（授权用户） </h1><%= link_to "返回到列表", "/api/test" %>
+<pre>
+按用户ID或昵称返回用户资料以及用户的最新发布的一条微博消息。
+
+  [路径]: users/show
+  [HTTP请求方式]: GET
+  [URL]: http://your.api.domain/users/show/:id.json
+  [是否需要登录]： true
+
+参数
+
+    * source 申请应用时分配的AppKey，调用接口时候代表应用的唯一身份。
+    * :id 用户id
+
+示例
+
+  curl -u "username:password"
+  "http://your.api.domain/users/show/:id.json?source=appkey"
+
+
+</pre>
+<hr/>
+<%= form_tag "/api/users/show.json" ,{:method=>:get} do %>
+  <%= render :partial => '/api/test/login' %>
+  source: <%= text_field_tag "source" %><br/>
+  id: <%= text_field_tag "id" %><br/>
+  <%= submit_tag "提交"%>
+<% end -%>

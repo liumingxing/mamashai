@@ -1,0 +1,40 @@
+<%= error_messages_for 'chengzhang' %>
+
+<table class="ft" border="1">
+
+<tr>
+	<td>序号</td>
+	<td><%= text_field 'chengzhang', 'month', :readonly=>'readonly'  %></td>
+</tr>
+
+<tr>
+	<td>发育指标</td>
+	<td><%= text_area 'chengzhang', 'fayu' , :rows=>10, :cols=>90 %></td>
+</tr>
+
+<tr>
+	<td>营养指南</td>
+	<td><%= text_area 'chengzhang', 'yingyang', :rows=>10, :cols=>90  %></td>
+</tr>
+
+<tr>
+	<td>亲子游戏</td>
+	<td><%= text_area 'chengzhang', 'qinzi', :rows=>10, :cols=>90  %></td>
+</tr>
+
+<tr>
+	<td>注意事项</td>
+	<td><%= text_area 'chengzhang', 'zhuyi', :rows=>10, :cols=>90  %></td>
+</tr>
+
+<tr>
+	<td>儿童教养</td>
+	<td><%= text_area 'chengzhang', 'jiaoyang', :rows=>10, :cols=>90  %></td>
+</tr>
+
+<tr>
+	<td>智力开发</td>
+	<td><%= text_area 'chengzhang', 'zhili', :rows=>10, :cols=>90  %></td>
+</tr>
+
+</table>

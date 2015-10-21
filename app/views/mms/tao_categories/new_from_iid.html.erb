@@ -1,0 +1,7 @@
+<%= form_tag :action=>"add_product" do %>
+  淘宝商品ID：<%= text_field_tag "iid" %>
+  <%= submit_tag '添加', :class=>"submit" %>
+<% end %>
+<div>
+	<%= flash[:notice] %>
+</div>

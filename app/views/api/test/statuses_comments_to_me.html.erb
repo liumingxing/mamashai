@@ -1,0 +1,26 @@
+<h1>comments_to_me 获取当前用户发出的评论</h1><%= link_to "返回到列表", "/api/test" %>
+<pre>
+  [路径]：statuses/comments_to_me
+  [HTTP请求方式]: GET
+  [URL]: http://your.api.domain/statuses/comments_to_me.json?source=appkey&count=5&page=2
+  [是否需要登录]: true
+
+参数
+
+    * source 申请应用时分配的AppKey，调用接口时候代表应用的唯一身份。
+    * count 指定每页返回的记录条数。默认值10
+    * page 页码,默认是1。
+
+示例
+
+  curl -u "username:password"
+  "http://your.api.domain/statuses/comments_to_me.json?source=appkey&count=5&page=2"
+</pre>
+<hr/>
+<%= form_tag "/api/statuses/comments_to_me.json" ,{:method=>:get} do %>
+  <%= render :partial => '/api/test/login' %>
+  source: <%= text_field_tag "source" %><br/>
+  count: <%= text_field_tag "count" %><br/>
+  page: <%= text_field_tag "page" %><br/>
+  <%= submit_tag "提交"%>
+<% end -%>

@@ -1,0 +1,35 @@
+<style>
+    * {font-size: 14px;}
+</style>
+<div id="middle_content">
+    <div class="account_content">
+        <div class="login_end">
+            <div class="email_text_ok">
+                验证邮件已发送到您的邮箱：<b style="color:#7F5C5C"><%=@user_signup.email %></b>
+                <br/>
+                自动生成的用户名：<b style="color:#7F5C5C"><%=@user_signup.name %></b>
+                <a href="/account/wizard_info" target="_blank">修改用户名</a>
+                <br/>
+                自动生成的登录密码：<b style="color:#7F5C5C"><%=params[:p] %></b>
+                <a href="/settings/password" target="_blank">修改密码</a>
+                <br/>
+            </div>
+            <div class="login_title011">
+            </div>
+            <div class="mms_email_content" style="margin-top: 20px;">
+                <div class="email02">
+                    <span class="c1">还没有收到确认邮件？</span>1 请登录您的邮箱，向 cc.mamashai@gmail.com 写一封任意内容的邮件以验证你的注册邮箱。
+                    <br/>
+                    　正常情况30分钟内内可以获得验证。
+                    <br/>
+                    2 尝试到广告邮件、垃圾邮件目录里找找看。
+                    <br/>
+                    3 或者试试<a href="/account/resend_signup_email/<%=@user_signup.id%>">重发验证邮件</a>吧。 
+                </div>
+                <div class="mms_info_text">
+                    妈妈晒是一个新型育儿类微博网站，注册妈妈晒，就可以随时随地跟同类型父母交流，分享育儿心得！
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,73 @@
+<div id="middle">
+    <div id="css_mainbody">
+        <h1 class="title">新建供应商信息<span style="float: right; margin-right: 10px;"><%= link_to '返回', '/mms/suppliers' %></span></h1>
+        <table class="grid_order" border="1">
+            <tr>
+                <td class="td01" width="200px">
+                    编号：
+                </td>
+                <td>
+                    <%= @supplier.code %>
+                </td>
+            </tr>
+            <tr>
+                <td class="td01">
+                    名称：
+                </td>
+                <td>
+                    <%= @supplier.name %>
+                </td>
+            </tr>
+            <tr>
+                <td class="td01">
+                    密码：
+                </td>
+                <td>
+                    <%= @supplier.password %>
+                </td>
+            </tr>
+            <tr>
+                <td class="td01">
+                    地址：
+                </td>
+                <td>
+                    <%= @supplier.address %>
+                </td>
+            </tr>
+            <tr>
+                <td class="td01">
+                    电话：
+                </td>
+                <td>
+                    <%= @supplier.phone %>
+                </td>
+            </tr>
+            <tr>
+                <td class="td01">
+                    手机：
+                </td>
+                <td>
+                    <%= @supplier.mobile %>
+                </td>
+            </tr>
+            <tr>
+                <td class="td01">
+                    Email
+                </td>
+                <td>
+                    <%= @supplier.email %>
+                </td>
+            </tr>
+            <tr>
+                <td class="td01">
+                    联系人：
+                </td>
+                <td>
+                    <%= @supplier.contacter %>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="clear">
+    </div>
+</div>

@@ -1,0 +1,51 @@
+<div id="middle">
+    <div id="css_mainbody">
+        <h1 class="title">礼物管理
+			<span style="float:right;margin-right:10px;">
+		        <a href="/mms/gifts/new_gift">新建礼物</a>
+		    </span>
+		</h1>			
+		<table class="grid">
+	        <tbody>
+	            <tr>
+	                <th>
+	                    礼物图片
+	                </th>
+	                <th >
+	                    礼物名称
+	                </th>
+					<th>
+	                    积分
+	                </th>
+	                <th>
+	                    修改
+	                </th>
+	                <th>
+	                    删除
+	                </th>
+	            </tr>
+	            <% for gift in @gifts %>
+	            <tr height="80">
+	                <td >
+	                    <%=logo_tag(gift) %>
+	                </td>
+	                <td >
+	                    <%=gift.name %>
+	                </td>
+					<td >
+	                    <%=gift.score %> 分
+	                </td>
+	                <td>
+	                    <a href="/mms/gifts/edit_gift/<%=gift.id%>">修改</a>
+	                </td>
+	                <td>
+	                    <a href="/mms/gifts/delete_gift/<%=gift.id%>">删除</a>
+	                </td>
+	            </tr>
+	            <% end %>
+	        </tbody>
+	    </table>
+			<%= will_paginate @gifts %>
+    </div>
+    <div class="clear"></div>
+</div>

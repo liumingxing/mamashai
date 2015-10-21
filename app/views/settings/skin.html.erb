@@ -1,0 +1,103 @@
+<style>
+	.wenzi {
+		font-size: 14px;
+		padding: 20px 6px;
+	}
+	.wenzi input {
+		width: 300px;
+		height: 22px;
+		border: #DDD solid 1px;
+	}
+	.thumbs .thumb {
+		position: relative;
+		float: left;
+		width: 270px;
+		margin: 10px 6px;
+		text-align: center;
+		border: 2px solid white;
+		padding: 2px;
+	}
+	.thumbs .thumb img {
+		width: 270px;
+	}
+	.thumbs .thumb p {
+		font-size: 14px;
+		background-color: #bbb;
+		color: white;
+		padding: 4px;
+	}
+	.thumbs .current {
+		padding: 2px;
+		border: 2px solid #EA609E;
+	}
+	.thumbs .current p {
+		background-color: #ea609e;
+	}
+	#fileWrapper, #fileWrapper input {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 270px;
+		height: 110px;
+	}
+	#fileWrapper input {
+		opacity: 0;
+		filter: alpha(opacity=0);
+	}
+</style>
+
+<div class="sharp">
+	<div class="content2">
+		<h1>设置</h1>
+		<div class="navigate_tab" id="n">
+			<%= render :partial=>'nav' %>
+			<div class="class2">
+				<%= render :partial=>'success_pmt' if params[:success] %>
+				<%= form_tag({:action=>"upload_skin"}, {:multipart=>true, :id=>"form" }) do %>
+				<%= hidden_field_tag :skin, nil %>
+				<!--
+				<div class="wenzi">
+					<%= text_field_tag :wenzi, @user.user_profile.content %>
+					
+					头图上的文字，20字以内
+				</div>
+				-->
+				<div class="thumbs">
+					<% 1.upto(5) do |i|%>
+					<div class="thumb" index=<%= i %>>
+						<img src="/images/headlogo/<%= i %>_thumb.jpg"/>
+						<p>
+							风格<%= {1=>'一', 2=>'二', 3=>'三', 4=>'四', 5=>'五'}[i]%>
+						</p>
+					</div>
+					<% end %>
+					<div class="thumb">
+                                          <a> <% if @user['my_skin'].to_s.size > 0 &&  @user.my_skin %> <img src="<%= @user.my_skin.thumb812 %>"/> <% else %> <img src="/images/headlogo/upload.gif"/> <% end %> </a> <span id="fileWrapper"><%= upload_column_field :user, :my_skin, :onchange=>"$('#form').submit();", :style => "width:270px;margin-left:-100px;" %></span>
+						<p>
+							上传自定义个性头图 <span style="font-size:12px;">(小于2M)</span>
+						</p>
+					</div>
+
+				</div>
+				<div class="clear"></div>
+				<div style="text-align: center">
+					<%= submit_tag "保存", :class=>"button2"%>
+				</div>
+				<% end %>
+				<div class="clear"></div>
+			</div>
+		</div>
+	</div>
+	<div><img src="/images/sharp_bottom.jpg" /></div>
+</div>
+<div class="clear"></div>
+
+<script>
+	$(document).ready(function() {
+		$(".thumbs .thumb").click(function() {
+			$(".thumbs .current").removeClass("current")
+			$(this).addClass("current")
+			$("#skin").val($(this).attr("index"))
+		})
+	})
+</script>

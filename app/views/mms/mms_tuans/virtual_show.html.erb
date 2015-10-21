@@ -1,0 +1,139 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>妈妈晒团购- 妈妈晒</title>
+        <META NAME="keywords" CONTENT="妈妈晒活动 微博客，即时网络，未准，怀孕，1岁，2岁，3岁，4岁，5岁，6岁，幼儿园，小学生，初中生，高中生，育儿，育儿信息，育儿话题，育儿活动，育儿商品，育儿经，育儿分享，育儿网，育儿社区，育儿平台，健康，教育，导购，积分"/>
+        <META NAME="description" CONTENT="妈妈晒活动  妈妈晒是一个以微博客为形式的新型育儿网站。其核心价值是解决妈妈爸爸的信息分享问题，搭建一个育儿类即时分享平台和基于分享的导购平台，一起分享一起成长！妈妈爸爸可以：晒宝贝、晒经验、晒问题、晒地点、晒活动、晒商品，同时结交感兴趣的人，关注感兴趣的话题，收藏有价值的信息，并通过口碑来购买信任的商品。"/>
+        <link rel="shortcut icon" href="http://www.mamashai.com/favicon.ico" type="image/x-icon" />
+        <link href="/stylesheets/all.css?1278402909" media="screen" rel="stylesheet" type="text/css" />
+        <link href="/stylesheets/lightbox.css?1278294313" media="screen" rel="stylesheet" type="text/css" />
+        <link href="/stylesheets/head_nav.css?1278402909" media="screen" rel="stylesheet" type="text/css" />
+        <link href="/stylesheets/tuan.css?1278403387" media="screen" rel="stylesheet" type="text/css" />
+    </head>
+    <script language="javascript">
+        
+        function doPrint(){
+        
+            bdhtml = window.document.body.innerHTML;
+            
+            sprnstr = "<!--startprint-->";
+            
+            eprnstr = "<!--endprint-->";
+            
+            prnhtml = bdhtml.substr(bdhtml.indexOf(sprnstr) + 17);
+            
+            prnhtml = prnhtml.substring(0, prnhtml.indexOf(eprnstr));
+            
+            window.document.body.innerHTML = prnhtml;
+            
+            window.print();
+            
+            window.document.body.innerHTML = prnhtml + "<div style=\"width:660px; margin:20px auto 0; text-align:center;\"><a href=\"javascript:window.location=window.location;\">刷新页面</a> <a href=\javascript:void(0);\" onClick=\"doPrint()\">打印优惠券</a></div>";
+            
+        }
+    </script>
+    <body>
+        <div id="mmt_ecard">
+            <div id="econ">
+                <!--top -->
+                <div id="etop">
+                    <div id="logo">
+                        <%=link_to image_tag("/images/tuan/coupon_tpl_logo.jpg"),"/home"%>
+                    </div>
+                    <div id="welcome">
+                        祝您消费愉快！
+                    </div>
+                </div>
+                <!--endtop -->
+                <div id="teamtitle">
+                    <%=@product.name %>
+                </div>
+                <!--main -->
+                <div id="main">
+                    <div id="mleft">
+                        <div id="name">
+                            贵宾
+                        </div>
+                        <div id="relname">
+                            收货人姓名（手机）
+                        </div>
+                        <div id="name">
+                            有效期
+                        </div>
+                        <div id="relname">
+                            截止至：<%=@product.end_time||"#{@product.limit_time}日内" %>
+                        </div>
+                        <div id="name">
+                            商家信息
+                        </div>
+                        <div id="relname">
+                            地址：<%=@product.address %><br/>
+                        </div>
+						<div id="relname">
+							电话：<%=@product.shop_phone %>
+						</div>
+                    </div>
+                    <!--right -->
+                    <div id="mright">
+                        <div id="name">
+                            提示
+                        </div>
+                        <div id="notice">
+                            <p>
+                                <span style="font-family: Arial;display:block;">
+									<%=@product.info%>
+                                </span>
+                                活动截止时间为<%=@product.end_time||"#{@product.limit_time}日内" %>
+                            </p>
+                        </div>
+                        <div id="name">
+                            如何使用妈妈团劵
+                        </div>
+                        <div id="notice">
+                            <ul>
+                                <li>
+                                    1、本券仅在妈妈团此次活动有效
+                                </li>
+                                <li>
+                                    2、打印本券（券上有唯一消费码）
+                                </li>
+                                <li>
+                                    3、持券在有效期内到商家消费
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="clear">
+                    </div>
+                </div>
+				
+				<div id="coupon">
+                        	<% tp = @product.tp%>
+                            <p>
+                                券号:<%=tp == 0 ? @product.code : @product.generate_random_code(1111)%>
+                            </p>
+                            <% if @product.password.present?%>
+                            <p>
+                                密码:<%=@product.password %>
+                            </p>
+                            <% end %>
+							<% if tp==2%>
+                            <p>
+                                密码:
+								<%=@product.generate_random_password(1111,2222)%>
+                            </p>
+                            <% end %>
+                        </div>
+                <!--endmain -->
+                <div id="server">
+                    商家电话：<%=@product.shop_phone%> 地址：<%=@product.address%>
+                </div>
+            </div>
+        </div>
+        <div id="mmt_print_foot">
+            <a href="javascript:window.location=window.location;">刷新页面</a>
+            <a onclick="doPrint()" href="javascript:void(0);">打印优惠券</a>
+        </div>
+    </body>
+</html>

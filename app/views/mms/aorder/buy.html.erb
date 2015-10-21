@@ -1,0 +1,57 @@
+<div id="middle">
+    <div id="css_mainbody">
+        <h1 class="title">采购单
+		</h1>
+        <div>
+            <%= form_tag :action=>"buy" do %>
+              <%= radio_button_tag :naifen, "1", !params[:naifen] || params[:naifen] == "1" %> 奶粉
+              <%= radio_button_tag :naifen, "2", params[:naifen] == "2" %> 非奶粉<br/>
+            选择日期(显示的前一天24小时内的订单合计，比如选择28日，则显示27日的合计)：<%= select_date @date, {:use_month_numbers=>true}%>
+            <%= submit_tag "查询" %>
+            <% end %>
+        </div>
+        <%= form_tag :action=>"set_buy_price" do %>
+        <table class="grid">
+            <thead>
+                <tr>
+                    <th>
+                        序号
+                    </th>
+                    <th>
+                        商品编码
+                    </th>
+                    <th>
+                        数量
+                    </th>
+                    <th>
+                        品牌
+                    </th>
+                    <th>
+                        商品名称
+                    </th>
+                    <th>
+                        英文名称
+                    </th>
+                    <th>
+                        采购价
+                    </th>
+                </tr>
+            </thead>
+            <% @reports.each_with_index{|report, index| %>
+                <tr>
+                    <td><%= index + 1 %></td>
+                    <td><%= report.code %></td>
+                    <td><%= report.count %></td>
+                    <td><%= report.brand %></td>
+                    <td style="width:300px"><%= report.product_name %></td>
+                    <td><%= report.product_name_eng %></td>
+                    <td><%= text_field_tag "report_price[#{report.id}]", report.price_market_aus, {:style=>"width:90px;"} %></td>
+                </tr>
+            <% } %>
+        </table>
+        <div style="float:right; margin-top: 20px;">
+            <%= submit_tag "提交" %>
+        </div>
+        <% end %>
+    </div>
+</div>

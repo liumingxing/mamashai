@@ -1,0 +1,65 @@
+<div id="middle">
+    <div id="css_mainbody">
+        <h1 class="title">妈妈晒团购-邮费管理
+		<span style="float: right; margin-right: 10px;"><%= link_to '附加邮费管理', '/mms/mms_tuans/over_weight_index' %></span>
+		</h1>
+		<div style="margin: 20px 50px; border-bottom: 1px solid rgb(225, 225, 225); padding-bottom: 15px;font-size:13px;">
+		    <% @provinces.each do |province|%>
+				<a<%=' class="current"' if @province and @province.id==province.id%> href="/mms/mms_tuans/cities/<%=province.id%>"><%=province.name%></a>
+			<% end %>
+		</div>
+        <div style="text-align:center;" class="green">
+            <%= flash[:notice] %>
+        </div>
+        <div id="page_count">
+            <span style="float:right;"><%=link_to "统一修改本省邮费","/mms/mms_tuans/province/#{@province.id}" %>  共有<b class="blue"><%=h @cities.size %></b>条记录</span>
+        </div>
+        <table class="grid">
+            <tr>
+                <th width="5%">
+                    序号
+                </th>
+                <th width="20%">
+                    城市
+                </th>
+                <th width="20%">
+                    邮费
+                </th>
+                <th width="10%">
+                    操作
+                </th>
+            </tr>
+            <% if @cities.blank? %>
+	            <tr>
+	                <td colspan=4>
+	                    <b>暂无记录</b>
+	                </td>
+	            </tr>
+            <% else %>
+	            <% @cities.each_with_index do |city,index| %>
+		            <tr>
+		                <td>
+		                    <%=(index+1).to_s %>
+		                </td>
+		                <td>
+		                    <%= city.name%>
+		                </td>
+		                <td>
+		                    <%= city.fright_fee %>
+		                </td>
+		                <td>
+		                    <%= link_to '修改', "/mms/mms_tuans/city_edit/#{city.id}" %>
+		                </td>
+		            </tr>
+	            <% end %>
+            <%end %>
+        </table>
+    </div>
+    <div class="clear">
+    </div>
+</div>
+<style type="text/css">
+	a.current{
+		color:#FF9900;
+	}
+</style>

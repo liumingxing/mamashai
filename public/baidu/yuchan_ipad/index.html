@@ -1,0 +1,163 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+<meta name="Keywords" content="预产期计算，怀孕，预产期计算器，预产期，孕期" />
+<meta name="Description" content="提供预产期时间计算，提供孕期指南" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+
+<title>预产期计算器</title>
+<link rel="stylesheet" type="text/css" href="css/index.css" />
+</head> 
+
+<body onload="page_load()">
+<div class="box">
+<div class="input_form" id="input_form"> 
+    <div>
+        <p>请输入末次月经到来时间：</p>
+        <select id='year' name="year" id="input1">
+        </select>
+        <span>年</span>
+        <select id='month' name="month" id="input2">
+                    <option value=1>1</option>
+                    <option value=2>2</option>
+                    <option value=3>3</option>
+                    <option value=4>4</option>
+                    <option value=5>5</option>
+                    <option value=6>6</option>
+                    <option value=7>7</option>
+                    <option value=8>8</option>
+                    <option value=9>9</option>
+                    <option value=10>10</option>
+                    <option value=11>11</option>
+                    <option value=12>12</option>
+        </select>
+        <span>月</span>
+        <select id='day' name="day" id="input20">
+                    <option value=1>1</option>
+                    <option value=2>2</option>
+                    <option value=3>3</option>
+                    <option value=4>4</option>
+                    <option value=5>5</option>
+                    <option value=6>6</option>
+                    <option value=7>7</option>
+                    <option value=8>8</option>
+                    <option value=9>9</option>
+                    <option value=10>10</option>
+                    <option value=11>11</option>
+                    <option value=12>12</option>
+                    <option value=13>13</option>
+                    <option value=14>14</option>
+                    <option value=15>15</option>
+                    <option value=16>16</option>
+                    <option value=17>17</option>
+                    <option value=18>18</option>
+                    <option value=19>19</option>
+                    <option value=20>20</option>
+                    <option value=21>21</option>
+                    <option value=22>22</option>
+                    <option value=23>23</option>
+                    <option value=24>24</option>
+                    <option value=25>25</option>
+                    <option value=26>26</option>
+                    <option value=27>27</option>
+                    <option value=28>28</option>
+                    <option value=29>29</option>
+                    <option value=30>30</option>
+                    <option value=31>31</option>
+                </select>
+        <span>日，周期</span>
+        <select id='mweek' name="mweek" id="input3">
+                    <option value=26>26</option>
+                    <option value=27>27</option>
+                    <option value=28 selected=true>28</option>
+                    <option value=29>29</option>
+                    <option value=30>30</option>
+                </select>
+        <span>天</span>
+        <p class='submit'>
+            <span class='calc'><a href="javascript:void(0)" onclick="return Datejudgment()">计算</a></span>
+        </p>
+    </div>
+    
+    <div class="clear"></div>
+</div>
+<div class='nav' id='nav'>
+   <span class="button"><a href="javascript:void(0)" onclick='back()'>&nbsp;返回</a></span>
+   <span>计算结果</span>
+   <span class="right" style="width:55px;">&nbsp;&nbsp;&nbsp;&nbsp;</span>
+</div>
+<div class='content' id='content'>
+    <div class="result_form">
+        <div>
+            <span>准妈妈，您的预产期是</span>
+            <span id='yuchana' class='yuchan_field'> </span>
+            <span>年</span>
+            <span id='yuchanb' class='yuchan_field'> </span>
+            <span>月</span>
+            <span id='yuchanc' class='yuchan_field'> </span>
+            <span>日</span>
+        </div>
+        <div>
+            <span>现为孕</span>
+            <span id='yuchan2' class='yuchan_field'> </span>
+            <span>周</span>
+            <span id='ji' class='yuchan_field'> </span>
+            <span>天，距宝宝出生</span>
+            <span id='countDown' class='yuchan_field'> </span>
+            <span>天</span>
+        </div>
+    </div>    
+
+    <div class="content_menu">
+        <a class="menu" id="menu0" href="javascript:void(0)" onclick='menu0()'>胎儿图像</a>
+        <a class="menu" id="menu1" href="javascript:void(0)" onclick='menu1()'>胎儿发育</a>
+        <a class="menu" id="menu2" href="javascript:void(0)" onclick='menu2()'>身体变化</a>
+        <a class="menu" id="menu3" href="javascript:void(0)" onclick='menu3()'>孕期营养</a>
+    </div>
+    <div class="content_text">
+            <div class="content_font" id="content_font">
+                
+            </div>
+            <div class="content_zhou">
+                <a id='pre_week' href="javascript:void(0)" onclick="Lastweek()" hidefocus="true">上一周</a>
+                <a id='next_week' href="javascript:void(0)" onclick="Nextweek()"  hidefocus="true">下一周</a>
+            </div>
+            <div style="text-align: center; margin-top: 12px;">
+                <a target="_blank" href="http://www.mamashai.com/bbrl/mobile?yunpad"><img src="http://www.mamashai.com/images/advs/mobile/adv.jpg"/></a>
+            </div>
+    </div>
+</div>
+<div style="text-align:left; line-height: 28px; font-size: 14px; padding-left: 6px; padding-bottom: 6px;">
+        <a style="color: white;" href="https://itunes.apple.com/cn/app/bao-bao-ri-li-huai-yun-yu/id499828643?ls=1&mt=8" target="_blank"><img src="./images/appicon.png" style="float: left; height: 26px;">&nbsp;孕期到6岁的贴心日历——宝宝日历</a>
+</div>
+</div>
+</body>
+<script language="javascript" src="js/index.js"></script>
+<script language="javascript" src="http://m.baidu.com/static/ala/webapp/api.js"></script>
+
+<div style="display:none">
+  <script type="text/javascript">
+var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3Fb62084ced4b6982bc50286972cbf6fce' type='text/javascript'%3E%3C/script%3E"));
+</script>
+</div>
+
+</html>
+<script>
+function page_load(){
+    var now = new Date();
+    var varItem = new Option(now.getFullYear(), now.getFullYear()); 
+    $('year').options.add(varItem); 
+    varItem = new Option(now.getFullYear()-1, now.getFullYear()-1);
+    $('year').options.add(varItem); 
+
+    healthtime();
+
+    var resize = baidu.webapp.resize();
+    resize.start($('input_form').offsetHeight + 40);
+}
+</script>
+

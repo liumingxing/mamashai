@@ -1,0 +1,54 @@
+<div id="middle">
+    <div id="css_mainbody">
+        <h1 class="title">运营数据</h1>	
+		<div style="margin:20px 0px 0px 20px;"> 
+			<table class="list" border="1" style="width:98%">
+				<tr>
+					<th>日期</th>
+					<th>总注册用户</th>
+					<th>API调用</th>
+					<th>有记录新用户</th>
+					<th>登录用户数</th>
+					<th>新增用户</th>
+					<th>记录用户数</th>
+					<th>记录数</th>
+					<th>图片</th>
+					<th>视频</th>
+					<th>关注</th>
+					<th>礼物</th>
+					<th>评论</th>
+					<th>发放晒豆</th>
+					<th>兑换晒豆</th>
+					<th>上传照片书</th>
+					<th>上传素材</th>
+					<th>视频课堂</th>
+					<th>推送终端</th>
+				</tr>
+				<% for tongji in @tongjis %>
+					<tr>
+						<td align="right"><%= tongji.day %></td>
+						<td align="right"><%= tongji.a1 %></td>
+						<td align="right"><%= tongji.a18 %></td>
+						<td align="right"><%= tongji.a19 %></td>
+						<td align="right"><%= tongji.a2 %></td>
+						<td align="right"><%= tongji.a3 %></td>
+						<td align="right"><%= tongji.a6 %></td>
+						<td align="right"><%= tongji.a7 %></td>
+						<td align="right"><%= tongji.a8 %></td>
+						<td align="right"><%= tongji.a9 %></td>
+						<td align="right"><%= tongji.a11 %></td>
+						<td align="right"><%= tongji.a12 %></td>
+						<td align="right"><%= tongji.a13 %></td>
+						<td align="right"><%= tongji.a14 %></td>
+						<td align="right"><%= tongji.a15 %></td>
+						<td align="right"><%= tongji.a16 %></td>
+						<td align="right"><%= tongji.a17 %></td>
+						<td align="right"><%= tongji.a20 %></td>
+						<td align="right"><%= tongji.a21 %></td>
+					</tr>
+				<% end %>
+			</table>
+			<%= will_paginate @tongjis %>
+		</div>
+	</div>
+</div>

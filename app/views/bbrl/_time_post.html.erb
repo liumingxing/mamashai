@@ -1,0 +1,41 @@
+<% for post in posts %>
+    <% next if post.forward_post_id %>
+    <div class="post">
+        <div class="refer">
+            <img src="/images/time.png"/>
+            <%= post.created_at.strftime("%Y年%m月%d日")%>
+            <span class="age">
+                <% if post.kid_id %>
+                    <% kid = UserKid.find_by_id(post.kid_id) %>
+                    <%= kid.name.to_s + detail_age_for_birthday(kid.birthday, post.created_at) if kid %>
+                <% else %>
+                    <% if kids.size > 0 %>
+                        <%= kids.first.name + detail_age_for_birthday(kids.first.birthday, post.created_at) %>
+                    <% end %>
+                <% end %>
+            </span>
+        </div>
+        <% if post.logo %>
+            <% if post.from == "video" && post.video %>
+                <% if post.video.url %>
+                    <video src="<%= post.video.url %>" width="100%" controls="controls">对不起，您的浏览器不支持视频播放</video>
+                <% else %>
+                    <video src="http://www.mamashai.com<%= post.video.path.url %>" width="100%" controls="controls">对不起，您的浏览器不支持视频播放</video>
+                <% end %>
+            <% else %>
+                <% if post.post_logos && post.post_logos.length > 1 %>
+                    <div class="logo_square">
+                    <% for post_logo in post.post_logos %>
+                        <img src="http://www.mamashai.com<%= post_logo.logo.thumb200 %>" />
+                    <% end %>
+                    </div>
+                <% else %>
+                    <div class="logo">
+                        <img src="http://www.mamashai.com<%= post.logo.thumb400 %>" />
+                    </div>
+                <% end %>
+            <% end %>
+        <% end %>
+        <div class="content"><%= post.content %></div>
+    </div>
+<% end %>

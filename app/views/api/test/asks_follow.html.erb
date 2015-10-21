@@ -1,0 +1,31 @@
+<h1>asks/follow 获取当前用户的关注的问答列表。 </h1><%= link_to "返回到列表", "/api/test" %>
+<pre>
+  [路径]: asks/follow
+  [HTTP请求方式]: GET
+  [URL]: http://your.api.domain/asks/follow.json
+  [是否需要登录]： true
+
+参数
+
+    * source 申请应用时分配的AppKey，调用接口时候代表应用的唯一身份。
+    * age_id 年龄段id
+    * tag_id 话题id
+    * tp 类型, yes为已解决, no为未解决, 空为全部
+    * count 指定每页返回的记录条数。默认值10
+    * page 页码,默认是1。
+
+示例
+
+  curl "http://your.api.domain/asks/follow.json?source=appkey"
+</pre>
+<hr/>
+<%= form_tag "/api/asks/follow.json" ,{:method=>:get} do %>
+  <%= render :partial => '/api/test/login' %>
+  source: <%= text_field_tag "source" %><br/>
+  age_id: <%= text_field_tag "age_id" %><br/>
+  tag_id: <%= text_field_tag "tag_id" %><br/>
+  tp: <%= text_field_tag "tp" %><br/>
+  count: <%= text_field_tag "count" %><br/>
+  page: <%= text_field_tag "page" %><br/>
+  <%= submit_tag "提交"%>
+<% end -%>

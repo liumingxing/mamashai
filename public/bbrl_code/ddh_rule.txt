@@ -1,0 +1,955 @@
+function Ddh_history(){
+	Ti.include("public.js")
+	if (!check_login()){
+		to_login();
+		return;
+	}
+
+	var win = Titanium.UI.createWindow({
+			title : "我的晒豆",
+			backgroundColor : '#fff',
+			backButtonTitle : !Ti.App.is_android && Ti.App.osversion < "7.0" ? '返回' : ''
+	});
+
+	var my_score = 0;
+
+			var record = require('/lib/mamashai_db').db.select_one_json("user_profile", user_id())
+			if (!record.blank && !win.score) {
+				var json2 = JSON.parse(record.json)
+				my_score = json2.score;
+
+				function rule_click(e){
+						Ddh_rule()
+				}
+
+				if (Ti.App.is_android){
+					add_default_action_bar2(win, win.title, "晒豆规则", function(e){
+						rule_click(e);
+					})
+				}
+				else{
+					var score_button = Ti.UI.createButton({
+						title: '晒豆规则'
+					})
+					score_button.addEventListener("click", rule_click)
+					win.setRightNavButton(score_button)	
+				}
+				
+				//要更新晒豆数
+				var xhr = Ti.Network.createHTTPClient()
+				xhr.timeout = Ti.App.timeout
+				xhr.onerror = function() {
+				}
+				xhr.onload = function() {
+						require('lib/mamashai_db').db.insert_json("user_profile", json2.id, this.responseText)
+						var json3 = JSON.parse(this.responseText)
+						my_score = json3.score;
+						label1.text = "我有" + my_score + "个晒豆"
+
+				}
+				xhr.url = Ti.App.mamashai + "/api/users/show/" + json2.id + "?" + account_str()
+				xhr.open("GET", xhr.url)
+				xhr.send();
+			}
+	
+	var tableview = Titanium.UI.createTableView({
+		//style : Titanium.UI.iPhone.TableViewStyle.GROUPED,
+		backgroundColor : 'transparent',
+		rowBackgroundColor : 'white',
+		scrollble : false,
+		top : 0,
+		left : 0
+	});
+
+	var score_row = Ti.UI.createTableViewRow({
+		height : 'auto',
+		selectionStyle : 'NONE',
+		className : 'history'
+	})
+				
+	var label1 = Ti.UI.createLabel({
+		text : "我有" + my_score + "个晒豆",
+		font : {
+			fontSize : __l(20)
+		},
+		textAlign: "center",
+		color : '#333',
+		height : Ti.UI.SIZE,
+		top : __l(10),
+		bottom: __l(10),
+		left: __l(10),
+		right: __l(10)
+	});
+	score_row.add(label1);
+	tableview.appendRow(score_row)
+
+	win.add(tableview)
+	
+	var get_more_row = Ti.UI.createTableViewRow({
+		height : Ti.UI.SIZE,
+		selectedBackgroundColor : '#eee',
+		tag : 'get_more',
+		textAlign: "center",
+		name: 'get_more'
+	});
+	
+	var get_more_row_center = Ti.UI.createView({
+		top : 0,
+		bottom : 0,
+		width : __l(160),
+		height : __l(64),
+		touchEnabled: false
+	})
+	
+	var get_more_title = Ti.UI.createLabel({
+				top : __l(18),
+				bottom : __l(12),
+				left : __l(26),
+				right : __l(10),
+				textAlign : 'left',
+				height : Ti.UI.SIZE,
+				font : {
+					fontSize : __l(22)
+				},
+				color: "#999",
+				touchEnabled: false,
+				text : '获得更多...'
+	});
+	var navActInd = Titanium.UI.createActivityIndicator({
+			left: __l(0),
+			top: __l(24),
+			width: __l(20),
+			height: __l(20),
+			style: Ti.App.is_android ? Titanium.UI.ActivityIndicatorStyle.BIG_DARK : Titanium.UI.iPhone.ActivityIndicatorStyle.DARK
+	});
+	
+	get_more_row_center.add(navActInd);
+
+	get_more_row.navActInd = navActInd;
+	get_more_row_center.add(get_more_title)
+	get_more_row.add(get_more_row_center);
+	
+	get_more_row.addEventListener("click", function(e){
+		navActInd.show()
+		xhr.open('GET', Ti.App.mamashai + '/api/statuses/ddh_history?page=' + page + "&" + account_str())
+		xhr.send()
+	});
+
+	page = 1
+	var xhr = Ti.Network.createHTTPClient()
+	xhr.timeout = Ti.App.timeout
+	xhr.onerror = function() {
+			show_timeout_dlg(xhr, Ti.App.mamashai + '/api/statuses/ddh_history?' + account_str());
+	}
+	xhr.onload = function() {
+			var json = JSON.parse(this.responseText)
+	
+			for(var i=0; i<json.length; i++){
+				var row = Ti.UI.createTableViewRow({
+					height : 'auto',
+					selectionStyle : 'NONE',
+					className : 'history'
+				})
+				
+				var label1 = Ti.UI.createLabel({
+					text : json[i].created_at.substr(0, 10),
+					font : {
+						fontSize : __l(12)
+					},
+					color : '#333',
+					height : __l(15),
+					top : __l(10),
+					bottom: __l(10),
+					left: __l(10)
+				});
+				
+				var label2 = Ti.UI.createLabel({
+					text : json[i].event_description,
+					font : {
+						fontSize : __l(12)
+					},
+					color : '#333',
+					height : __l(15),
+					top : __l(30),
+					bottom: __l(10),
+					left: __l(10),
+					right: __l(40)
+				});
+				
+				var label3 = Ti.UI.createLabel({
+					text : json[i].total_score + " (" + (json[i].score > 0 ? '+' + json[i].score : json[i].score) + ")",
+					font : {
+						fontSize : __l(15)
+					},
+					color : '#333',
+					height : __l(24),
+					top : __l(14),
+					bottom: __l(10),
+					right: __l(10),
+					textAlign: 'right'
+				});
+				row.add(label1)
+				row.add(label2)
+				row.add(label3)
+				tableview.appendRow(row)
+			}
+
+			setTimeout(function(){
+				var index = tableview.getIndexByName('get_more');
+				if (index > 0)
+					tableview.deleteRow(index);
+
+				if (json.length > 0){
+					page += 1
+				
+					if (json.length > 0){
+						navActInd.hide();
+						tableview.appendRow(get_more_row)
+					}
+				}
+				hide_loading();
+			}, 200)
+			
+	}
+	
+	xhr.open('GET', Ti.App.mamashai + '/api/statuses/ddh_history?' + account_str())
+	xhr.send();
+	show_loading(); 
+	
+	logEvent('ddh_history');
+
+	pre(win)
+
+	if (!Ti.App.is_android) {
+		win.hideTabBar();
+	}
+	
+	
+	Ti.App.currentTabGroup.activeTab.open(win, {
+		animated : true
+	});
+}
+
+function Ddh_rule(){
+	var win = Titanium.UI.createWindow({
+			title : "如何拿晒豆",
+			backgroundColor : '#fff',
+			backButtonTitle : !Ti.App.is_android && Ti.App.osversion < "7.0" ? '返回' : ''
+	});
+	var right = Ti.UI.createButton({title: "排行榜"})
+	right.addEventListener("click", function(e){
+		var win = Titanium.UI.createWindow({
+			title : "晒豆排行榜",
+			backgroundColor : '#fff',
+			backButtonTitle : !Ti.App.is_android && Ti.App.osversion < "7.0" ? '返回' : ''
+		});
+
+		var tableview = Titanium.UI.createTableView({
+			//style : Titanium.UI.iPhone.TableViewStyle.GROUPED,
+			backgroundColor : 'transparent',
+			rowBackgroundColor : 'white',
+			scrollble : false,
+			top : 0,
+			left : 0
+		});
+		win.add(tableview)
+
+		var get_more_row = Ti.UI.createTableViewRow({
+			height : Ti.UI.SIZE,
+			selectedBackgroundColor : '#eee',
+			tag : 'get_more',
+			textAlign: "center",
+			name: 'get_more'
+		});
+		
+		var get_more_row_center = Ti.UI.createView({
+			top : 0,
+			bottom : 0,
+			width : __l(160),
+			height : __l(54),
+			touchEnabled: false
+		})
+		
+		var get_more_title = Ti.UI.createLabel({
+					top : __l(12),
+					bottom : __l(8),
+					left : __l(26),
+					right : __l(10),
+					textAlign : 'center',
+					height : __l(34),
+					font : {
+						fontSize : __l(20)
+					},
+					color: "#999",
+					touchEnabled: false,
+					text : '获得更多...'
+		});
+		var navActInd = Titanium.UI.createActivityIndicator({
+				left: __l(0),
+				top: __l(18),
+				width: __l(20),
+				height: __l(20),
+				style: Ti.App.is_android ? Titanium.UI.ActivityIndicatorStyle.BIG_DARK : Titanium.UI.iPhone.ActivityIndicatorStyle.DARK
+		});
+		
+		get_more_row_center.add(navActInd);
+
+		get_more_row.navActInd = navActInd;
+		get_more_row_center.add(get_more_title)
+		get_more_row.add(get_more_row_center);
+		
+		get_more_row.addEventListener("click", function(e){
+			navActInd.show()
+			xhr.open('GET', Ti.App.mamashai + '/api/users/high_score_users?page=' + page + "&" + account_str())
+			xhr.send()
+		});
+
+		page = 1
+		index = 1
+
+		var xhr = Ti.Network.createHTTPClient()
+		xhr.timeout = Ti.App.timeout
+		xhr.onerror = function() {
+			show_timeout_dlg(xhr, Ti.App.mamashai + '/api/users/high_score_users?' + account_str());
+		}
+		xhr.onload = function(){
+			var json = JSON.parse(this.responseText)
+	
+			for(var i=0; i<json.length; i++){
+				var row = Ti.UI.createTableViewRow({
+					height : 'auto',
+					selectionStyle : 'NONE',
+					className : 'history'
+				})
+
+				var sn = Ti.UI.createLabel({
+					text : index,
+					font : {
+						fontSize : __l(16)
+					},
+					textAlign: 'center',
+					backgroundColor: '#eee',
+					color : '#333',
+					height: __l(48),
+					top : __l(0),
+					left: __l(0),
+					width: __l(36)
+				});
+				index += 1
+
+				var user_logo = Ti.UI.createImageView({
+					top : __l(4),
+					bottom : __l(4),
+					left : __l(46),
+					width : __l(40),
+					height : __l(40),
+					defaultImage : "/images/default.gif",
+					hires : true,
+					image : Ti.App.aliyun + encodeURI(json[i].logo_url_thumb140),
+					id: json[i].id,
+					name: json[i].name
+				});
+				user_logo.addEventListener("click", function(e){
+					show_window("user", {
+						id: e.source.id, 
+						title: e.source.name
+					});
+				})
+
+				var label1 = Ti.UI.createLabel({
+					text : json[i].name,
+					font : {
+						fontSize : __l(13)
+					},
+					color : '#333',
+					height : __l(48),
+					top : __l(0),
+					left:  __l(96)
+				});
+				var score = Ti.UI.createLabel({
+					text : json[i].score,
+					font : {
+						fontSize : __l(16),
+						fontWeight: "bold"
+					},
+					color: "orange",
+					textAlign: "right",
+					height : __l(48),
+					top : __l(0),
+					right:  __l(10)
+				});
+				row.add(sn)
+				row.add(user_logo)
+				row.add(label1)
+				row.add(score)
+				tableview.appendRow(row)
+			}
+			
+			setTimeout(function(){
+					var index = tableview.getIndexByName('get_more');
+					if (index > 0)
+						tableview.deleteRow(index);
+
+					if (json.length > 0){
+						page += 1
+					
+						if (json.length > 0 && page <= 5){
+							navActInd.hide();
+							tableview.appendRow(get_more_row)
+						}
+					}
+					hide_loading();
+			}, 200)
+		}
+		xhr.open('GET', Ti.App.mamashai + '/api/users/high_score_users?page=' + page + "&" + account_str())
+		xhr.send();
+		
+		add_default_action_bar(win, win.title, true)
+		pre(win)
+	
+		Ti.App.currentTabGroup.activeTab.open(win, {
+			animated : true
+		});
+	})
+	if (!Ti.App.is_android)
+		win.setRightNavButton(right);
+	
+	var tableview = Titanium.UI.createTableView({
+		//style: Titanium.UI.iPhone.TableViewStyle.PLAIN,
+		style : Titanium.UI.iPhone.TableViewStyle.GROUPED,
+		backgroundColor : 'transparent',
+		rowBackgroundColor : 'white',
+		scrollble : false,
+		separatorColor : "#ccc",
+		top : 0,
+		left : 0
+	});
+
+	var section1 = Ti.UI.createTableViewSection();
+	
+	//本周热点
+	var rule1 = Ti.UI.createTableViewRow({
+		height : 'auto',
+		selectionStyle : 'NONE'
+	});
+	
+	//记录宝宝成长
+	var rule2 = Ti.UI.createTableViewRow({
+		height : 'auto',
+		selectionStyle : 'NONE'
+	});
+	
+	//评论他人记录
+	var rule3 = Ti.UI.createTableViewRow({
+		height : 'auto',
+		selectionStyle : 'NONE'
+	});
+	
+	//照片书
+	var rule5 = Ti.UI.createTableViewRow({
+		height : 'auto',
+		selectionStyle : 'NONE'
+	});
+	
+	//分享内容到微信
+	var rule7 = Ti.UI.createTableViewRow({
+		height : 'auto',
+		selectionStyle : 'NONE'
+	});
+
+	//邀请好友
+	var rule8 = Ti.UI.createTableViewRow({
+		height : 'auto',
+		selectionStyle : 'NONE'
+	});
+
+	//贴心购
+	var rule9 = Ti.UI.createTableViewRow({
+		height : 'auto',
+		selectionStyle : 'NONE'
+	});
+
+	//直邮购物并评论
+	var rule10 = Ti.UI.createTableViewRow({
+		height : 'auto',
+		selectionStyle : 'NONE'
+	});
+	
+	var tip3 = Ti.UI.createLabel({
+				text : "参与当前热点话题\n每话题1豆，上限1豆，多于15字",
+				font : {
+					fontSize : __l(11)
+				},
+				color : '#999',
+				height : __l(30),
+				top : __l(10),
+				bottom: __l(10),
+				right : __l(10),
+				textAlign : 'right'
+	});
+	rule1.add(tip3)
+	var xhr = Ti.Network.createHTTPClient()
+	xhr.timeout = Ti.App.timeout
+	xhr.onerror = function() {
+			show_timeout_dlg(xhr, Ti.App.mamashai + "/api/statuses/the_hot_topic");
+	}
+	xhr.onload = function() {
+			var json = JSON.parse(this.responseText)
+			
+			var button = Ti.UI.createButton({
+				title :  "  " + json[0].short_tag_name +  "  ",
+				font : {
+					fontSize : __l(14)
+				},
+				height : __l(30),
+				width : Ti.UI.SIZE,
+				top : __l(10),
+				bottom: __l(10),
+				left : __l(10),
+			});
+			pre_btn(button)	
+			button.addEventListener("click", function(e){
+				var win = show_window('topic_detail', {
+					title : json[0].short_tag_name,
+					tag: json[0].tag_name,
+					notice: "参与本话题可赢晒豆哦",
+					json: json[0]
+				});
+			})
+			
+			rule1.add(button)
+	}
+	
+	xhr.open('GET', Ti.App.mamashai + '/api/statuses/the_hot_topic')
+	xhr.send();
+	
+	var label2 = Ti.UI.createButton({
+		title : "记录宝宝成长",
+		font : {
+			fontSize : __l(14)
+		},
+		height : __l(30),
+		width: __l(110),
+		top : __l(10),
+		bottom: __l(10),
+		left : __l(10),
+	});
+	pre_btn(label2)
+	label2.addEventListener("click", function(e){
+		var Weibo = require('weibo')
+		var win = new Weibo({
+			title : "社区广场",
+			backgroundColor : '#fff',
+			backButtonTitle : !Ti.App.is_android && Ti.App.osversion < "7.0" ? '返回' : ''
+		});
+		
+		pre(win)
+	
+		Ti.App.currentTabGroup.activeTab.open(win, {
+			animated : true
+		});
+	})
+	var tip2 = Ti.UI.createLabel({
+		text : "含图片，1次1个豆，每天上限4个豆\n同步到新浪或腾讯微博1次1个豆，\n每天上限1个豆",
+		font : {
+			fontSize : __l(11)
+		},
+		color : '#999',
+		height : Ti.UI.SIZE,
+		width: __l(200),
+		top : __l(10),
+		right : __l(10),
+		textAlign : 'right'
+	});
+	rule2.add(label2)
+	rule2.add(tip2)
+	
+	var label3 = Ti.UI.createButton({
+		title : "评论他人记录",
+		font : {
+			fontSize : __l(14)
+		},
+		height : __l(30),
+		width: __l(110),
+		top : __l(10),
+		bottom: __l(10),
+		left : __l(10)
+	});
+	pre_btn(label3)
+	label3.addEventListener("click", function(e){
+		var Weibo = require('weibo')
+		var win = new Weibo({
+			title : "社区广场",
+			backgroundColor : '#fff',
+			backButtonTitle : !Ti.App.is_android && Ti.App.osversion < "7.0" ? '返回' : ''
+		});
+		
+		pre(win)
+	
+		Ti.App.currentTabGroup.activeTab.open(win, {
+			animated : true
+		});
+	})
+	var tip3 = Ti.UI.createLabel({
+		text : "5次1个豆，每天上限3个豆\n须5个字以上",
+		font : {
+			fontSize : __l(11)
+		},
+		color : '#999',
+		height : Ti.UI.SIZE,
+		top : __l(10),
+		right : __l(10),
+		textAlign : 'right'
+	});
+	rule3.add(label3)
+	rule3.add(tip3)
+	
+	
+	//////////////////////
+	var label5 = Ti.UI.createButton({
+		title : "分享微电影",
+		font : {
+			fontSize : __l(14)
+		},
+		height : __l(30),
+		width: __l(110),
+		top : __l(10),
+		bottom: __l(10),
+		left : __l(10)
+	});
+	pre_btn(label5)
+	label5.addEventListener("click", function(e){
+		var win = Titanium.UI.createWindow({
+			title : '照片书',
+			url : 'album.js',
+			backButtonTitle : !Ti.App.is_android && Ti.App.osversion < "7.0" ? '返回' : ''
+		});
+		pre(win);
+	
+		Ti.App.currentTabGroup.activeTab.open(win, {
+			animated : true
+		});
+	});
+	var tip5 = Ti.UI.createLabel({
+		text : "到展厅1次1个豆，每天上限1个豆",
+		font : {
+			fontSize : __l(11)
+		},
+		color : '#999',
+		height : __l(30),
+		width: __l(200),
+		top : __l(10),
+		right : __l(10),
+		textAlign : 'right'
+	});
+	
+	rule5.add(label5)
+	rule5.add(tip5)
+	
+	var tip3 = Ti.UI.createLabel({
+		text : "分享记录、宝典到微信朋友圈\n1个内容1个豆，每天上限2个豆",
+		font : {
+			fontSize : __l(11)
+		},
+		color : '#999',
+		height : __l(30),
+		width: __l(200),
+		top : __l(10),
+		right : __l(10),
+		textAlign : 'right'
+	});
+	
+	var label3 = Ti.UI.createButton({
+		title : "分享到微信",
+		font : {
+			fontSize : __l(14)
+		},
+		height : __l(30),
+		width: __l(110),
+		top : __l(10),
+		bottom: __l(10),
+		left : __l(10)
+	});
+	pre_btn(label3)
+	label3.addEventListener("click", function(e){
+		cache_http_call(Ti.App.mamashai + "/bbrl_code/recent_articles2.txt", "code_recent_article2", function(e){
+			eval(e.responseText)
+		})
+
+		return
+
+		var Article = require('recent_article')
+		var win = new Article({
+			title : "宝典",
+			backgroundColor : '#fff',
+			backButtonTitle : !Ti.App.is_android && Ti.App.osversion < "7.0" ? '返回' : ''
+		});
+		
+		pre(win)
+	
+		Ti.App.currentTabGroup.activeTab.open(win, {
+			animated : true
+		});
+	});
+	rule7.add(label3)
+	rule7.add(tip3)
+	
+
+	var tip8 = Ti.UI.createLabel({
+		text : "成功邀请1人10个豆\n被邀请者须登录并写邀请人昵称",
+		font : {
+			fontSize : __l(11)
+		},
+		color : '#999',
+		height : __l(30),
+		width: __l(200),
+		top : __l(10),
+		right : __l(10),
+		textAlign : 'right'
+	});
+	
+	var label8 = Ti.UI.createButton({
+		title : "邀请好友",
+		font : {
+			fontSize : __l(14)
+		},
+		height : __l(30),
+		width: __l(110),
+		top : __l(10),
+		bottom: __l(10),
+		left : __l(10)
+	});
+	pre_btn(label8)
+	label8.addEventListener("click", function(e){
+		cache_http_call(Ti.App.mamashai + "/bbrl_code/invite_user2.txt", "invite_user3", function(e){
+			eval(e.responseText);
+		});
+	});
+	rule8.add(label8)
+	rule8.add(tip8)
+
+	var label9 = Ti.UI.createButton({
+		title : "在贴心购消费",
+		font : {
+			fontSize : __l(14)
+		},
+		height : __l(30),
+		width: __l(110),
+		top : __l(10),
+		bottom: __l(10),
+		left : __l(10)
+	});
+	pre_btn(label9)
+	label9.addEventListener("click", function(e){
+		var url = Ti.App.mamashai + "/api/statuses/gou_pinzhi?osname=" + Ti.App.osname + "&osversion=" + Ti.App.osversion + "&appversion=" + Titanium.App.version;
+		http_call(url, function(e){
+			eval(e.responseText);
+		});
+	});
+	var tip9 = Ti.UI.createLabel({
+		text : "每10元送2个豆，无上限\n妈妈晒用户专享店铺，边购边赚豆",
+		font : {
+			fontSize : __l(11)
+		},
+		color : '#999',
+		height : __l(30),
+		width: __l(200),
+		top : __l(10),
+		right : __l(10),
+		textAlign : 'right'
+	});
+	rule9.add(label9)
+	rule9.add(tip9)
+
+	var label_rule = Ti.UI.createLabel({
+		text : "兑换说明：\n1、收货地址：兑换前务必完善收货地址，地址不清晰不予发货。\n2、兑换时间：每周兑换1次，每周五晚上24：00准时开始。\n3、礼物递送：每周二统一递送上周礼物。\n4、海外用户：如兑换请提供国内收货地址。\n5、晒豆时限：每年7月1日前用完，过期清除70%。\n6、对于采用多个账号同时攒豆换礼的行为，妈妈晒将拒绝发货",
+		color: "#999",
+		font : {
+			fontSize : __l(13)
+		},
+		height : Ti.UI.SIZE,
+		//height : __l(46),
+		top : __l(50),
+		bottom: __l(10),
+		left : __l(14),
+		textAlign : 'left'
+	});
+	rule9.add(label_rule)
+
+
+	//直邮购物
+	var label10 = Ti.UI.createButton({
+		title : "直邮商品评价",
+		font : {
+			fontSize : __l(14)
+		},
+		height : __l(30),
+		width: __l(110),
+		top : __l(10),
+		bottom: __l(10),
+		left : __l(10)
+	});
+	pre_btn(label10)
+	label10.addEventListener("click", function(e){
+		if (Ti.App.id == 'com.mamashai.babycalendar' && Ti.App.version < '3.3.3' || Ti.App.id == 'com.mamashai.yunfree' && Ti.App.version < '3.4.2' || Ti.App.id == 'com.mamashai.yufree' && Ti.App.version < '4.8.2'){
+			show_alert("提示", "亲，您的当前版本不够，请先升级！");
+			return;
+		}
+
+		cache_http_call(Ti.App.mamashai + "/bbrl_code/gou.txt", "澳洲直采直邮", function(e){
+			eval(e.responseText);
+		});
+	});
+	var tip10 = Ti.UI.createLabel({
+		text : "1次10个豆\n在直邮商城购物收货后给予评价",
+		font : {
+			fontSize : __l(11)
+		},
+		color : '#999',
+		height : __l(30),
+		width: __l(200),
+		top : __l(10),
+		right : __l(10),
+		textAlign : 'right'
+	});
+	rule10.add(label10)
+	rule10.add(tip10)
+
+	section1.add(rule1);
+	section1.add(rule2);
+	section1.add(rule7);
+	section1.add(rule3);
+	section1.add(rule8);
+
+
+	var header2 = Ti.UI.createView({
+		left: 0,
+		right: 0,
+		width: Ti.App.platform_width,
+		height: __l(40),
+		backgroundColor: "white"
+	});
+	var section2 = Ti.UI.createTableViewSection({headerView: header2});
+
+	header2.add(Ti.UI.createLabel({
+		left: __l(10),
+		text: "晒豆能干啥？",
+		height: Ti.UI.SIZE,
+		font : {
+			fontSize : __l(15)
+		},
+		color : '#666',
+		height: __l(40),
+	}))
+
+	var introduce_row = Ti.UI.createTableViewRow({
+		height: 'auto',
+		selectionStyle : 'NONE'
+	})
+	introduce_row.add(Ti.UI.createLabel({
+		text : "晒豆换礼物：每周上百好礼，晒豆兑换惊喜多多！\n晒豆所兑礼物，签收前请务必开箱验货，如有破损或货物不符请拒收，一经签收，概不退换，晒豆不补不退。如拒收礼物，经核实确系破损或不符将返还晒豆。",
+		font : {
+			fontSize : __l(13)
+		},
+		color : '#999',
+		height: Ti.UI.SIZE,
+		top : __l(16),
+		bottom: __l(16),
+		left : __l(10),
+		right: __l(10),
+		textAlign : 'left'
+	}))
+	section2.add(introduce_row);
+
+	var header3 = Ti.UI.createView({
+		left: 0,
+		right: 0,
+		width: Ti.App.platform_width,
+		height: __l(40),
+		backgroundColor: "white"
+	});
+	var section3 = Ti.UI.createTableViewSection({headerView: header3});
+
+	header3.add(Ti.UI.createLabel({
+		left: __l(10),
+		text: "扣豆规则：",
+		height: Ti.UI.SIZE,
+		font : {
+			fontSize : __l(15)
+		},
+		color : '#666',
+		height: __l(40),
+	}))
+	var kou_button = Ti.UI.createButton({
+	  title: '举报',
+	  font: {fontSize: __l(11)},
+	  right: __l(15),
+	  height: __l(30),
+	  bottom: __l(16),
+	  top: Ti.App.is_android ? __l(5) : __l(0),
+	  width: __l(46)
+	})
+	kou_button.addEventListener("click", function(e){
+	  	var optionsDialogOpts = {
+			options : "频发垃圾内容,频发重复内容,频发广告,频发空白内容,发布违规违法内容,取消".split(","),
+			cancel : 5
+		};
+		var dialog = Titanium.UI.createOptionDialog(optionsDialogOpts);
+		dialog.addEventListener('click', function(e) {
+			if (e.index < 5){
+				show_window("write_message.js", {
+					title : "写私信",
+					name : '妈妈晒',
+					text : "管理员你好，我举报有人" + optionsDialogOpts.options[e.index] + "，用户名是",
+				})
+			}
+		})
+		dialog.show()
+	})
+	pre_btn(kou_button)
+	header3.add(kou_button)
+
+	var kou_row = Ti.UI.createTableViewRow({
+		height: 'auto',
+		selectionStyle : 'NONE',
+		header: "扣豆规则："
+	})
+	var kou_tip = Ti.UI.createLabel({
+		text : "1）发布混豆记录：发布影响社区氛围的混豆记录，管理员有权删除记录，每删1条扣2豆。严重者可清除所有晒豆并封号处理。\n2）发布违规广告：发布广告内容影响社区氛围，管理员有权清除所有晒豆，并封号处理。\n3）干扰社区秩序：发布攻击性争议性信息干扰社区秩序，管理员有权清除所有晒豆，并封号处理。",
+		font : {
+			fontSize : __l(13)
+		},
+		color : '#999',
+		height: Ti.UI.SIZE,
+		top : __l(16),
+		bottom: __l(16),
+		left : __l(10),
+		right: __l(10),
+		textAlign : 'left'
+	});
+	
+	kou_row.add(kou_tip)
+	section3.add(kou_row)
+
+	tableview.data = [section1, section2, section3]
+	
+	win.add(tableview)
+	
+	logEvent('ddh_rules');
+	
+	add_default_action_bar2(win, win.title, "排行榜", function(e){
+		right.fireEvent("click")
+	})
+
+	pre(win)
+	
+	if (!Ti.App.is_android) {
+		win.hideTabBar();
+	}
+
+	Ti.App.currentTabGroup.activeTab.open(win, {
+		animated : true
+	});
+}
+
+Ddh_history()

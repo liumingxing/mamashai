@@ -1,0 +1,97 @@
+<div id="middle">
+    <div id="css_mainbody">
+        <h1 class="title">用户管理</h1>
+        <%= form_tag({:action=>'list_users'},:method=>"get") do %>
+        用户名：<%= text_field_tag :keyword %>
+		ID：<%= text_field_tag :id %>
+        <%= submit_tag "搜索" %>
+        <% end %>
+        <%=render :partial=>'/settings/success_pmt' if params[:success] %>
+        <%=flash[:mms_user] %>
+        <table class="grid">
+            <tbody>
+                <tr>
+                    <th>
+                        用户名
+                    </th>
+                    <th>
+                        终端信息
+                    </th>
+                    <th>
+                        邮箱
+                    </th>
+                    <th>
+                        记录
+                    </th>
+                    <th>
+                        关注/粉丝
+                    </th>
+                    <th>
+                        晒豆
+                    </th>
+                    <th>
+                        管理
+                    </th>
+                </tr>
+                <% for user in @users %>
+                <tr height="35">
+                    <td>
+                        <%=link_user(user) %>
+                    </td>
+                    <td>
+                        <%=user.remark %>
+                    </td>
+                    <td>
+                        <%= user.email %>/<%= user.from %>
+                        <div>
+                            <a onclick="$('#email<%= user.id%>').toggle();" href="javascript:void(0)">重置</a>
+                            <div style="display:none;" id="email<%= user.id %>">
+                                <%= form_tag :action=>"set_email", :id=>user do %>
+                                    <%= text_field_tag :email %>
+                                    <%= submit_tag "提交" %>
+                                <% end %>
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                        <%=user.posts_count %>
+                    </td>
+                    <td>
+                        <%=user.follow_users_count %>/<%=user.fans_users_count %>
+                    </td>
+                    <td>
+                        <%=user.score %>
+                    </td>
+                    <td>
+                        <%= link_to "返豆", :action=>"make_score", :id=>user.id %>
+                        <%= link_to "进入星星榜黑名单(3)", {:action=>"block_star", :id=>user.id}, :confirm=>"确定要进入星星榜黑名单？" %>
+
+                        <%= link_to "进入私有黑名单(2)", {:action=>"block_public", :id=>user.id}, :confirm=>"确定要进入私有黑名单？" %>
+
+                        <%= link_to "进入记录黑名单(1)", {:action=>"block", :id=>user.id}, :confirm=>"确定要进入黑名单？" %>
+
+                        <% mms_user = @mms_users.select{|mms_user| mms_user.username==user.email} %>
+                        <%= link_to "重置密码", {:action=>"reset_password", :id=>user.id}, :confirm=>"确定要重置密码么？" %>
+                        <%= link_to "删除" ,{:action=>"delete_user",:id=>user.id},:confirm => "你确定要删除#{user.name}这个用户吗?"%>
+                        
+                        <%=link_to '隐藏',{:action=>'hide_user',:id=>user.id},:confirm => "你确定要隐藏吗?", :method => :delete %>
+
+                        <% if !mms_user.present? %>
+                        <%= link_to "设为管理员", :action=>"set_admin", :id=>user.id%>
+                        <% end %>
+                    </td>
+                </tr>
+                <% end %>
+            </tbody>
+        </table>
+        <%=will_paginate @users %>
+    </div>
+    <div class="clear">
+    </div>
+</div>
+
+<style type="text/css">
+    .right {
+        float: right;
+    }
+</style>

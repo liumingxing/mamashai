@@ -1,0 +1,16 @@
+<div id="middle">
+    <div id="css_mainbody">
+        <h1 class="title">礼物管理-新建礼物
+			<span style="float:right;margin-right:10px;">
+		        <a href="/mms/gifts/list_gifts">返回列表</a>
+		    </span>
+		</h1>			
+		<%= form_tag({:action=>:create_gift},{:multipart=>true }) do %>
+		    <%= render :partial=>'form_gift' %>
+		    <div id="submit_area" class="ifnull"> 
+		      <button class="button_submit" type="submit" onmouseover="this.className='button_submit button_submit_hover';" onmouseout="this.className='button_submit';" >保存</button>
+		    </div>
+		<% end %>
+    </div>
+    <div class="clear"></div>
+</div>

@@ -1,0 +1,44 @@
+<style>
+	form table td {padding-top: 20px}
+</style>
+<div class="sharp mt5">
+	<div id="dl">
+		<div id="dl_left">
+			<h1>完善资料</h1>
+			<div id="zc_bz"><img src="/images/zc_wszl_in.jpg"/><img src="/images/zc_sctx_out.jpg"/><img src="/images/zc_zgz_out.jpg"/>
+			</div>
+			<div class="clear"></div>
+			<div class="ml55">
+				<%= form_tag({:action=>'wizard_info_action'},{:id=>'user_complete_id'}) do %>
+				<%= render :partial=>"/settings/form_user"%>
+				
+				<div style="margin: 20px; text-align: center;">
+					<%= submit_tag "下一步", :class=>"button2"%>
+				</div>
+			
+				<% end %>
+			</div>
+			
+			
+		</div>
+		<div id="dl_right">
+			<div id="zc_ws">
+				<li>
+					为什么完善资料？
+				</li>
+				<li>
+					.方便你记录宝宝成长
+				</li>
+				<li>
+					.让大家更好地认识你
+				</li>
+				<li>
+					.便于我们为此推荐育儿资讯
+				</li>
+			</div>
+		</div>
+	</div>
+	<!--登录内容-->
+	<div><img src="/images/sharp_bottom.jpg" />
+	</div>
+</div>

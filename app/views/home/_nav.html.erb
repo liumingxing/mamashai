@@ -1,0 +1,16 @@
+<div class="navigate_tab" id="n">
+		<ul class="class1">
+			<li <%=raw  'class="current"' if params[:from] == "my" || !params[:from] %>>
+				<a href="<%= url_for :action=>"index",:from=>"my", :anchor=>'n' %>">我的</a>
+			</li>
+			<li <%=raw  'class="current"' if params[:from] == "same_age" %>>
+				<a href="<%= url_for :action=>"index",:from=>"same_age", :anchor=>'n' %>">同龄</a>
+			</li>
+			<li <%=raw  'class="current"' if params[:from] == "follow" %>>
+				<a href="<%= url_for :action=>"index",:from=>"follow", :anchor=>'n' %>">关注</a>
+			</li>
+			<li <%=raw  'class="current"' if params[:from] == "like" %>>
+				<a href="<%= url_for :action=>"index",:from=>"like", :anchor=>'n' %>">我喜欢的</a>
+			</li>
+		</ul>
+</div>

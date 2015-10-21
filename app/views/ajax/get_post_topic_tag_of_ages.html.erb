@@ -1,0 +1,10 @@
+<%
+new_tags = []
+@age_tags.each_with_index do |age_tag, index|
+  #new_tags << "<span class='rand_cloud_size_#{index}'>#{link_to age_tag.short_tag_name.blank? ? age_tag.tag.name : age_tag.short_tag_name,:controller => :topic, :id => age_tag.tag.name, :age_id => age_tag.age_id}</span>"
+  new_tags << "<span><a href='/topic/#{age_tag.tag.name}?age_id=#{age_tag.age_id}'>#{age_tag.short_tag_name.blank? ? age_tag.tag.name : age_tag.short_tag_name}</a></span>"
+end
+%>
+<% new_tags.sort{|a,b| rand(10)<=>rand(10)}.each do | new_tag | %>
+<%= new_tag%>
+<% end %>

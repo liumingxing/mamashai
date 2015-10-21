@@ -1,0 +1,35 @@
+<div class="jnc_box4">
+	<div class="jnc_box4_li">
+		<% @posts.each_with_index{|post, index| %>
+			<% next if index % 4 != 0 %>
+			<%= render :partial=>"/share/post_flow", :locals=>{:post=>post} %>
+		<% } %>
+	</div>
+	<div class="jnc_box4_li ml15">
+		<% @posts.each_with_index{|post, index| %>
+			<% next if index % 4 != 1 %>
+			<%= render :partial=>"/share/post_flow", :locals=>{:post=>post} %>
+		<% } %>
+	</div>
+	<div class="jnc_box4_li ml15">
+		<% @posts.each_with_index{|post, index| %>
+			<% next if index % 4 != 2 %>
+			<%= render :partial=>"/share/post_flow", :locals=>{:post=>post} %>
+		<% } %>	
+	</div>
+	<div class="jnc_box4_li ml15">
+		<% @posts.each_with_index{|post, index| %>
+			<% next if index % 4 != 3 %>
+			<%= render :partial=>"/share/post_flow", :locals=>{:post=>post} %>
+		<% } %>
+	</div>
+</div>
+
+<script>
+	//menu
+	$(document).ready(function() {
+		$(".jnc_box4_li3_textarea").focus(function() {
+			$(this).next('.jnc_box4_li3_input').show();
+		});
+	}); 
+</script>

@@ -1,0 +1,32 @@
+    <div id="middle">
+        <div id="css_mainbody">
+            <h1 class="title">城市管理 —— <%= @province.name %></h1>
+			
+			<%= form_tag :action=>"update_cities", :id=>@province do %>
+            <table class="grid">
+                <thead>
+                    <tr>
+                    	<th>名称</th>
+						<th>拼音</th>
+                        <th>区号</th>
+						<th>操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+					<% for city in @cities %>
+						<tr>
+							<td><%= city.name %></td>
+							<td><%= text_field_tag "pinyin[#{city.id}]", city.pinyin %></td>
+                            <td><%= text_field_tag "city[#{city.id}]", city.post_code %></td>
+							<td><%= link_to "修改", :action=>"edit_city", :id=>city %></td>
+						</tr>
+					<% end %>	
+                </tbody>
+            </table>
+            <%= submit_tag "保存修改" %>
+            <% end %>
+        </div>
+        <%= will_paginate @cities %>
+        <div class="clear"></div>
+    </div>
+	

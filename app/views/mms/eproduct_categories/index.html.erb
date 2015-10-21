@@ -1,0 +1,90 @@
+<div id="middle">
+    <div id="css_mainbody">
+        <h1 class="title">导购平台-商品分类
+			<span style="float: right; margin-right: 10px;">
+				<%= link_to '添加分类', '/mms/eproduct_categories/new' %>
+        	</span>
+		</h1>
+		<div style="margin: 20px 50px; border-bottom: 1px solid rgb(225, 225, 225); padding-bottom: 15px;font-size:13px;">
+			<a href="/mms/eproduct_categories/index?level=0">一级分类</a>
+			<a href="/mms/eproduct_categories/index">全部</a>
+		</div>
+        <div style="text-align:center;" class="green">
+            <%= flash[:notice] %>
+        </div>
+        <div id="page_count">
+            <span style="float:right;">共有<b class="blue"><%=h @categories.total_entries %></b>条记录</span>
+        </div>
+        <% form_tag "/mms/eproduct_categories/search", {:method => "get"} do %>
+	        <div>
+	            搜索：<%= text_field_tag "keyword",@keyword %><%= submit_tag "查询" %>
+	        </div>
+        <% end %>
+        <div class="clear">
+        </div>
+        <table class="grid">
+            <tr>
+                <th width="5%">
+                    序号
+                </th>
+				<th width="10%">
+                    名称
+                </th>
+				<th width="10%">
+                    上级分类
+                </th>
+				<th width="5%">
+                    商品数目
+                </th>
+				<th width="10%">
+                    创建时间
+                </th>
+				<th width="10%">
+                    最后修改
+                </th>
+                <th width="10%">
+                    操作
+                </th>
+            </tr>
+            <% if @categories.blank? %>
+	            <tr>
+	                <td colspan=9>
+	                    <b>暂无记录</b>
+	                </td>
+	            </tr>
+            <% else %>
+	            <% @categories.each_with_index do |category,index| %>
+		            <tr>
+		                <td>
+		                    <%=(index+1).to_s %>
+		                </td>
+		                <td>
+		                    <%=category.name %>
+		                </td>
+						<td>
+		                    <%=category.parent.blank? ? '无' : category.parent.name %>
+		                </td>
+						<td>
+		                    <%=category.eproducts_count||0%>
+		                </td>
+						<td>
+		                    <%= category.created_at.strftime("%Y年%m月%d日 %H时%M分%S秒") %>
+		                </td>
+						<td>
+		                    <%= category.updated_at.strftime("%Y年%m月%d日 %H时%M分%S秒") %>
+		                </td>
+		                <td>
+		                    <%= link_to '修改', "/mms/eproduct_categories/edit/#{h category.id}" %>
+		                    <%= link_to '删除', "/mms/eproduct_categories/destroy/#{h category.id}", :confirm => '确认删除吗？', :method => :delete %>
+		                </td>
+		            </tr>
+	            <% end %>
+            <%end %>
+        </table>
+        <div class="book_page">
+            <%=will_paginate @categories %>
+        </div>
+    </div>
+    <div class="clear">
+    </div>
+</div>

@@ -1,0 +1,30 @@
+<html>
+  <head>
+	  <title>淘宝导购项目内容管理系统</title>
+	  <%= stylesheet_link_tag 'scaffold' %>
+    <style>
+      a { text-decoration:none;}
+    </style>
+  </head>
+  <body>
+    <div class="login_content">
+      <table class="login" style="line-height:30px;">
+        <tr>
+          <td>请选择</td>
+          <% if check_right("操作员管理")%> 
+          <td><a href="/admins/list">操作员管理</a></td>
+          <% end %>
+        </tr>
+        <tr>
+          <td><a href="/categories/index"><h2>宝宝帮管理</h2></a></td>
+        </tr>
+        <tr>
+          <td><a href="/links/index"><h2>Tmall专题管理</h2></a></td>
+        </tr>
+		<tr>
+          <td><a href="/qinzi_apps/index"><h2>淘宝亲子</h2></a></td>
+        </tr>
+      </table>
+    </div>
+  </body>
+</html>

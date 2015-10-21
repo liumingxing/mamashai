@@ -1,0 +1,19 @@
+<div class="login_input">
+    <span class="left"><%= text_area :comment, :content,{:id=>"comment_content_#{@post.id}",:onfocus=>"updateStatusTextContent(this)",:onkeyup=>"updateStatusTextContent(this)"} %>
+    </span>
+    <span class="right">
+        <button class="button_submit_s" type="submit" onmouseover="this.className='button_submit_s button_submit_s_hover';" onmouseout="this.className='button_submit_s';">
+           <%=comment_or_answer(@post) %>
+        </button>
+    </span>
+    <div class="clear">
+    </div>
+</div>
+<% if flash[:comment_error].blank? %>
+	<%=error_message_on :comment,:content %>
+<% else %>
+	<%=content_tag :div, flash[:comment_error], :class=>"formError"%>
+<% end %>
+<div class="one" style="margin-top:5px;">
+    <input name="is_copy_post" type="checkbox"/>&nbsp;同时发一条微博
+</div>

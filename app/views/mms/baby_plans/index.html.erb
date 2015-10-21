@@ -1,0 +1,65 @@
+<div id="middle">
+    <div id="css_mainbody">
+        <h1 class="title">宝贝计划话题管理</h1>
+        <div style="margin:10px 5px 5px 5px ;text-align:right;">
+            <a href="/mms/baby_plans/new">新建话题</a>
+        </div>
+        <table class="grid">
+            <thead>
+                <tr>
+                    <th width="8%">
+                        序号
+                    </th>
+                    <th width="15%">
+                        备选话题
+                    </th>
+                    <th width="10%">
+                        选中话题
+                    </th>
+                    <th width="20%">
+                        征集时间
+                    </th>
+                    <th width="10%">
+                        播出时间
+                    </th>
+                    <th width="15%">
+                        嘉宾
+                    </th>
+                    <th width="15%">
+                        管理
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <% for baby_plan in @baby_plans %>
+                <tr>
+                    <td>
+                        <%= baby_plan.id %>
+                    </td>
+                    <td>
+                        <%= baby_plan.tags %>
+                    </td>
+                    <td>
+                        <%= baby_plan.tag %>
+                    </td>
+                    <td>
+                        <%=date_cn baby_plan.begin_at %>到 <%=date_cn baby_plan.end_at %>
+                    </td>
+                    <td>
+                        <%= date_time(baby_plan.start_at) %>
+                    </td>
+                    <td>
+                        <%= baby_plan.user_name  %>
+                    </td>
+                    <td>
+                        <a href="/mms/baby_plans/edit/<%= baby_plan.id %>" class="delete">编辑</a>
+                    </td>
+                </tr>
+                <% end %>
+            </tbody>
+        </table>
+        <%= will_paginate @baby_plans %>
+    </div>
+    <div class="clear">
+    </div>
+</div>

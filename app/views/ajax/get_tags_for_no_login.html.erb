@@ -1,0 +1,3 @@
+<% @hot_topics.each do | age_tag | %>
+  <span>[<a href="/topic?id=<%= age_tag.tag.name %>&age_id=<%= age_tag.age_id%>"><%= age_tag.short_tag_name.blank? ? age_tag.tag.name : age_tag.short_tag_name %></a>]</span>
+<% end %>

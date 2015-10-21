@@ -1,0 +1,38 @@
+<tr>
+    <td class="column_1">
+        名称：
+    </td>
+    <td class="column_2">
+        <%= f.text_field :name %>
+    </td>
+</tr>
+<tr>
+    <td class="column_1">
+        父分类：
+    </td>
+    <td class="column_2">
+        <%= f.select :parent_id, ArticleCategory.find(:all, :conditions=>"parent_id is null or parent_id = 0").collect{|c| [c.name, c.id]}, :include_blank=>"选择父分类" %>
+    </td>
+</tr>
+<tr>
+    <td class="column_1">
+        栏目描述：
+    </td>
+    <td class="column_2">
+        <%= f.text_area :description, :cols => 50, :rows => 20 %>
+    </td>
+</tr>
+<tr>
+    <td class="column_1">
+        类型：
+    </td>
+    <td class="column_2">
+        <%= f.radio_button("tp", "0", :checked => "checked") %>资讯
+        <br/>
+        <%= f.radio_button("tp", "-1") %>团购获奖公告
+		<br/>
+        <%= f.radio_button("tp", "1") %>导购品牌资讯
+		<br/>
+        <%= f.radio_button("tp", "2") %>导购品牌故事
+    </td>
+</tr>

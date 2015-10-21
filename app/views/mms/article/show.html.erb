@@ -1,0 +1,80 @@
+<div id="middle">
+    <div id="css_mainbody">
+        <h1 class="title"><%= @article.article_category.name %></h1>
+        <table class="grid_order"  border="1">
+            <tr>
+                <td class="td01">
+                    栏目名称：
+                </td>
+                <td>
+                    <%=h @article.article_category.present? ? @article.article_category.name : '' %>
+                </td>
+            </tr>
+            <tr>
+                <td class="td01">
+                    资讯名称：
+                </td>
+                <td>
+                    <%=h @article.title %>
+                </td>
+            </tr>
+			<tr>
+                <td class="td01">
+                    作者：
+                </td>
+                <td>
+                    <%= h @article.author %>
+                </td>
+            </tr>
+			<tr>
+                <td class="td01">
+                    来源：
+                </td>
+                <td>
+                    <%= h @article.origin_url %>
+                </td>
+            </tr>
+			<tr>
+                <td class="td01">
+                    作者：
+                </td>
+                <td>
+                    <%= h @article.author %>
+                </td>
+            </tr>
+            <tr>
+                <td class="td01">
+                    发表时间：
+                </td>
+                <td>
+                    <%= @article.created_at.strftime("%y-%m-%d %H:%M:%S") %>
+                </td>
+            </tr>
+			<tr>
+                <td class="td01">
+                    正文：
+                </td>
+                <td>
+
+                </td>
+            </tr>
+            <tr>
+                <td class="td01">
+
+                </td>
+                <td>
+                    <%= @article.article_content.content %>
+                </td>
+            </tr>
+			<tr>
+                <td class="td01">
+                </td>
+                <td>
+                    <%= link_to '编辑', :action => :edit, :id => @article %> | <%= link_to '返回', :action => :index%>
+                </td>
+            </tr>
+        </table>
+        <div class="book_page">
+        </div>
+    </div>
+</div>

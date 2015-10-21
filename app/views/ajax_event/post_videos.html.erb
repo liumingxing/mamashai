@@ -1,0 +1,19 @@
+<div class="event_share">
+    <div class="events_pic">
+        <div class="edit_pic">
+            <span class="format"><% if @post.video_url.present? %><a href="<%=post_video_url(@post)%>" target="_blank">查看原视频</a><%end%></span>
+            <span class="cancel"></span>
+        </div>
+        <div class="videos">
+            <div style="margin:3px 0px;">
+			   <% if @post.video_url.present? %>
+                <embed src="<%=@post.video_url.url%>" wmode="transparent" quality="high" width="300" height="250" align="middle" allowScriptAccess="sameDomain" type="application/x-shockwave-flash">
+                </embed>
+				<% else %>
+				没有视频
+				<% end %>
+            </div>
+			<br/><br/>
+        </div>
+    </div>
+</div>

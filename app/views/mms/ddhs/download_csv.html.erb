@@ -1,0 +1,39 @@
+<table class="list" border="1" style="width:98%">
+  <tr class="head">
+    <th>ID</th>
+    <th>用户名</th>
+    <th>用户ID</th>
+    <th>总豆豆数</th>
+    <th><%= link_to "总记录数", :ddh_id=>params[:ddh_id], :page=>params[:page], :order=>"users.posts_count desc" %></th>
+    <th>总粉丝数</th>
+    <th>总关注数</th>
+    <th>名字</th>
+    <th>孩子年龄</th>
+    <th>邮编</th>
+    <th>手机</th>
+    <th>地址</th>
+    <th>备注</th>
+    <th><%= link_to "状态", :ddh_id=>params[:ddh_id], :page=>params[:page], :order=>"ddh_orders.status" %></th>
+    <th>申请时间</th>
+  </tr>
+
+  <% for ddh_order in @orders %>
+    <tr>
+      <td><%= ddh_order.id %></td>
+      <td><a target="_blank" href='<%= user_url(ddh_order.user)%>'><%= ddh_order.user.name %></a></td>
+      <td><%=h ddh_order.user.id %></td>
+      <td><%=h ddh_order.user.score %></td>
+      <td><%=h ddh_order.user.posts_count %></td>
+      <td><%=h ddh_order.user.fans_users_count %></td>
+      <td><%=h ddh_order.user.follow_users_count %></td>
+      <td><%=h ddh_order.name %></td>
+      <td><%=h ddh_order.user.first_kid && ddh_order.user.first_kid.birthday ? ddh_order.user.first_kid.name.to_s + detail_age_for_birthday(ddh_order.user.first_kid.birthday)  : '未填孩子信息'%></td>
+      <td><%=h ddh_order.code %></td>
+      <td><%=h ddh_order.mobile %></td>
+      <td><%=h ddh_order.address %></td>
+      <td><%=h ddh_order.remark %></td>
+      <td><%=h ddh_order.status %></td>
+      <td><%=h ddh_order.created_at.to_s(:db) %></td>
+    </tr>
+  <% end %>
+</table>

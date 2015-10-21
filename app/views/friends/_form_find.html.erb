@@ -1,0 +1,73 @@
+<table class="grid">
+    <tbody>
+        <tr height="35">
+            <td class="t01" width="90">
+                关键字： 
+            </td>
+            <td class="t02">
+                <%= text_field :search_user, :name, :class=>'default_input' %>
+            </td>
+        </tr>
+        <tr height="35">
+            <td class="t01" width="90">
+                年龄段： 
+            </td>
+            <td class="t02">
+                <%=select :search_user, :birthyear, APP_CONFIG['time_birthyears'].split('|').collect {|p| [ "#{p}后", p.to_i ] }, {:prompt=>'年代'} %>
+            </td>
+        </tr>
+        <tr height="35">
+            <td class="t01" width="90">
+                所在地区： 
+            </td>
+            <td class="t02">
+                <%=select :search_user, :province_id, Province.find(:all).collect {|p| [ p.name, p.id ] }, {:prompt=>'省/直辖市'} %>
+                <span id="cities_span"></span>
+                <script>
+                	jQuery("#search_user_province_id").change(function(){
+						show_loadding("cities_span");
+						jQuery("#cities_span").load("/ajax/get_cities?model=search_user&city_id=<%=@search_user.city_id%>&id=" + jQuery("#search_user_province_id").val())
+					})
+					
+                	show_loadding("cities_span");
+                    jQuery("#cities_span").load("/ajax/get_cities?" + "model=search_user&city_id=<%=@search_user.city_id%>&id=" + jQuery("#search_user_province_id").val())
+                </script>
+            </td>
+        </tr>
+        <tr height="35">
+            <td class="t01" width="90">
+                所在行业： 
+            </td>
+            <td class="t02">
+                <%=select :search_user, :industry_id, Industry.find(:all).collect {|p| [ p.name, p.id ] }, {:prompt=>'所在行业'} %>
+            </td>
+        </tr>
+        <tr height="35">
+            <td class="t01" width="90">
+                宝贝年龄段： 
+            </td>
+            <td class="t02">
+                <%=select :search_user, :kid_age, Age.find(:all).collect {|p| [ p.name, p.id ] }, {:prompt=>'宝贝年龄'} %>
+            </td>
+        </tr>
+        <tr height="35">
+            <td class="t01" width="90">
+                宝贝星座： 
+            </td>
+            <td class="t02">
+                <%=select :search_user, :kid_star, [1,2,3,4,5,6,7,8,9,10,11,12].collect {|p| [ APP_CONFIG["kid_star_#{p}"]+APP_CONFIG['kid_star_postfix'], p ] }, {:prompt=>'星座'} %>
+            </td>
+        </tr>
+        <tr height="35">
+            <td class="t01" width="80">
+            </td>
+            <td class="t03">
+                <div id="submit_area">
+                    <button class="button_submit_s" type="submit" onmouseover="this.className='button_submit_s button_submit_s_hover';" onmouseout="this.className='button_submit_s';">
+                        搜索
+                    </button>
+                </div>
+            </td>
+        </tr>
+    </tbody>
+</table>

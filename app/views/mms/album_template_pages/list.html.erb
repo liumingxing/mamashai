@@ -1,0 +1,61 @@
+
+<div id="middle">
+    <div id="css_mainbody">
+        <h1 class="title">照片书模板管理
+            <span style="float: right; margin-right: 10px;">
+                <%= link_to '新增', :action => 'new', :id=>params[:id] %>
+            </span>
+        </h1>
+        <div>
+            <% AlbumTemplate.find(:all).collect {|template| %>
+                <%= link_to template.name, :action=>"list", :id=>template %>
+            <% } %>
+        </div>
+
+        <%= form_tag({:action => 'update_position', :id=>params[:id]}) do %>
+        <%= submit_tag "提交排序" %>
+        <table class="grid" border="1">
+          <tr class="head">
+            <th>模板</th>
+            <th>图片</th>
+            <th>文件名</th>
+            <th>状态</th>
+            <th>排序</th>
+            <th>最后更新时间</th>
+            <th colspan=3>操作</th>
+          </tr>
+          
+        <% for album_template_page in @album_template_pages %>
+          <tr>
+            <td><%= album_template_page.album_template.name if album_template_page.album_template %></td>
+            <td><img src="<%=h album_template_page.logo_phone.thumb400 %>" style="width:100px; height: 100px"/></td>
+            <td><%=h album_template_page['logo_phone'] %></td>
+            <td><%=h album_template_page.status %></td>
+            <td><%= text_field_tag "p_#{album_template_page.id}", album_template_page.position, {:style=>"width:40px;"}%></td>
+            <td><%=h album_template_page.updated_at.to_s(:db) %></td>
+            
+            <td><%= link_to '修改', :action => 'edit', :id => album_template_page %></td>
+            <td><%= link_to '删除', { :action => 'destroy', :id => album_template_page }, :confirm => 'Are you sure?', :method => :post %></td>
+          </tr>
+        <% end %>
+        </table>
+        <% end %>
+
+
+        <%= will_paginate @album_template_pages %>
+
+        <div style="margin: 10px;">
+            <% form_tag({:action => 'update_logo', :id=>params[:id]}, :multipart=>true) do %>
+              <%= upload_column_field 'album_template', 'logo'  %>
+              <%= submit_tag "上传封面" %>
+            <% end %>
+        </div>
+        <% if @album_template.logo %>
+        <div style="margin: 10px;">
+            <img src="<%= @album_template.logo.thumb300 %>" />
+        </div>
+        <% end %>
+    </div> 
+</div>
+
+

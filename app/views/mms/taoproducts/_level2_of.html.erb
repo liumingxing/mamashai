@@ -1,0 +1,7 @@
+<%= select "product", "category_id_2", @category.children.collect{|c| [c.name, c.id]}, :include_blank=>true %>
+<script>
+$("#product_category_id_2").change(function(){
+	$('#level3').load('/products/level3_of/' + $('#product_category_id_2').val());
+})
+//
+</script>

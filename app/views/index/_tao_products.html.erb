@@ -1,0 +1,43 @@
+<% cache :controller=>"index", :action=>"index", :category=>category_id do %>
+
+  <% category = TaoCategory.find(category_id)%>
+  <%# children = TaobaoProduct.find(:all, :limit=>8, :order=>"id desc", :conditions=>"category_id in (#{category.leaf_ids.join(',')})") %>
+  <% children = category.children[0, 6] %>
+  <% next if !children[1].logo_product %>
+  <table width="200" border="0" cellspacing="0" cellpadding="0">
+    <tr>
+      <td><a title="<%= children[1].name %>" href="/tao/baby/<%= children[1].id %>"><img src="<%= children[1].logo_product.pic_url %>_60x60.jpg" /></a></td>
+      <td colspan="2" rowspan="2"><a title="<%= children[0].name %>" href="/tao/baby/<%= children[0].id %>"><img src="<%= children[0].logo_product.pic_url%>_310x310.jpg" style="width:132px; height: 132px;"/></a></td>
+    </tr>
+    <tr>
+      <td><a title="<%= children[2].name %>" href="/tao/show/<%= children[2].id %>"><img src="<%= children[2].logo_product.pic_url%>_60x60.jpg" /></a></td>
+    </tr>
+    <tr>
+      <td>
+        <% if children[3].logo_product %>
+          <a title="<%= children[3].name %>" href="/tao/show/<%= children[3].id %>"><img src="<%= children[3].logo_product.pic_url%>_60x60.jpg" /></a>
+        <% end %>
+      </td>
+      <td>
+          <% if children[4].logo_product %>
+            <a title="<%= children[4].name %>" href="/tao/show/<%= children[4].id %>"><img src="<%= children[4].logo_product.pic_url%>_60x60.jpg" /></a>
+          <% end %>
+      </td>
+      <td>
+        <% if children[5].logo_product %>
+        <a title="<%= children[5].name %>" href="/tao/show/<%= children[5].id %>"><img src="<%= children[5].logo_product.pic_url%>_60x60.jpg" /></a>
+        <% end %>
+      </td>
+    </tr>
+  </table>
+  <div class="qt_qd_li">
+    <div class="qt_qd_li_left">
+      <%= name %>
+    </div>
+    <div class="qt_qd_li_right">
+      <% for child in category.children[0, 10] %>
+        <a href="/tao/yun/<%= child.id %>"><%= child.name %></a>
+      <% end %>
+    </div>
+  </div>
+<% end %>

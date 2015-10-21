@@ -1,0 +1,30 @@
+<h1>reset_count 未读消息数清零接口  </h1><%= link_to "返回到列表", "/api/test" %>
+<pre>
+  [路径]:statuses/reset_count
+  [HTTP请求方式]: POST
+  [URL]: http://your.api.domain/statuses/reset_count.json
+  [是否需要登录]： true
+
+参数
+
+    * source 申请应用时分配的AppKey，调用接口时候代表应用的唯一身份。
+    * type 清零的计数类别有：1. 评论数comments，2. @me数mentions，3. 私信数dm，4. 关注数followers，tp为空，则全部清零
+
+示例
+
+  curl -u "username:password" -d "type=1"
+  "http://your.api.domain/statuses/reset_count.json?source=appkey"
+
+注意
+
+  将当前登录用户的某种新消息的未读数为0。可以清零的计数类别有：1. 评论数comments，2. @me数mentions，3. 私信数dm，4. 关注数followers
+  如果tp为空，则全部清零
+  如果清零成功返回 ok，失败返回 error
+</pre>
+<hr/>
+<%= form_tag "/api/statuses/reset_count.json" do %>
+  <%= render :partial => '/api/test/login' %>
+  source: <%= text_field_tag "source" %><br/>
+  type: <%= text_field_tag "type" %><br/>
+  <%= submit_tag "提交"%>
+<% end -%>

@@ -1,0 +1,18 @@
+<h1>Status</h1><%= link_to "返回到列表", "/api/test" %><br/>
+微博信息内容，显示微博列表时会附带上微博的作者和转发的微博
+<hr/>
+<h2>字段说明</h2>
+<pre>
+    * id: 晒品ID
+    * created_at: 创建时间
+    * content: 微博(晒品)内容
+    * comments_count: 评论数目
+    * favorite_posts_count: 收藏数目
+    * forward_posts_count: 转晒数目 
+    * logo_url: 图片
+    * logo_url_thumb120: 120x120缩略图
+    * logo_url_thumb400: 400x400缩略图,实际大小为395x395
+    * user: 作者信息
+    * subject_id: 群组ID
+    * forward_post_id: 转发的微博ID，如果不是转发，则为null
+</pre> 

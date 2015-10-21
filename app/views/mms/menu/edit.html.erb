@@ -1,0 +1,19 @@
+<%=link_to '新建子节点', {:action=>'new', :parent=>@menu}, {:remote=>true, :update=>"update_form", :id=>"new_link"}%>
+&nbsp;&nbsp;
+
+<%=link_to '调整子节点顺序', {:action=>'reorder', :id=>@menu} if @menu.children.size > 0%>
+<%= form_tag({:action=>"update", :id=>@menu}, {:remote=>true, :update=>"form_update", :id=>"update_form"}) do%>
+  <%= render :partial => 'form' %>
+  <%= submit_tag '保存', :class=>"submit" %>&nbsp; | &nbsp;
+  <%= link_to "分配权限", :action=>"user", :id=>@menu %> &nbsp; | &nbsp;
+  <%= link_to '删除', {:action=>"destroy", :id=>@menu}, {:update=>"editdiv", :remote=>true, :id=>"delete_link", :confirm=>"确定删除该节点吗？"}%>
+<% end %>
+
+<br/><br/>
+<div id='form_update'>
+
+</div>
+
+<script>
+
+</script>

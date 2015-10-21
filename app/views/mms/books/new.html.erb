@@ -1,0 +1,10 @@
+<div id="middle">
+    <div id="css_mainbody">
+        <h1 class="title">新增图书<span style="float: right; margin-right: 10px;"><%= link_to '返回', :action => :index %></span></h1>
+        <% form_for(:book, :url => {:action => :create},  :html=>{:multipart=>true} ) do |f| %>
+        <%=render :partial=>'book_form', :locals => {:f => f} %>
+		<% end %>
+        <div class="book_page">
+        </div>
+    </div>
+</div>

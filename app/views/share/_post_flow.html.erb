@@ -1,0 +1,71 @@
+<div class="flow">
+	<div class=" jnc_box4_li3 mt20">
+		<ul id="lmrb_box2">
+			<li class="mainlevel <%= post.from if !post.logo %>">
+				<% if post.logo %>
+					<a href="/post/<%= post.id %>"><img width="210px" src="http://www.mamashai.com<%= post.logo.thumb400 %>"/></a>
+						<%= post.content %>
+				<% else %>
+					<a class="wenzi" href="/post/<%= post.id %>"><%= post.content %></a>
+				<% end %>
+				</a>
+			</li>
+		</ul>
+
+		<div class="jnc_box4_text">
+			<table width="100%" border="0">
+				<tr>
+					<td style="width:33%;"><%= post_clap(post)%> </td>
+					<td style="width:33%;">
+						<% if @user%>
+							<a id='forward_post_<%= post.id %>' href="javascript:void(0);" onclick="forwardshine('<%=post.id%>', document.getElementById('forward_post_<%= post.id %>'));">
+								<img src="/images/icon_11.jpg">
+							</a>
+						<% else %>
+							<a id='forward_post_<%= post.id %>' href="/account/signup/<%= post.user.id %>?origin_url=<%= request.env['REQUEST_URI']%>">
+								<img src="/images/icon_11.jpg">
+							</a>
+						<% end %>
+						<% if post.forward_posts_count>0 %> &nbsp;<span class="number">(<%=post.forward_posts_count %>)</span><%end %>
+					</td>
+					<td style="width:33%;">
+						<a href="/post/<%= post.id %>" onclick=""><img src="/images/icon_12.jpg"></a> 
+						<%if post.comments_count>0 %> &nbsp;<span class="number">(<%=post.comments_count %>)</span><%end %>
+					</td>
+				</tr>
+			</table>
+			<ul>
+				<li>
+					<% if post.user && post.user.logo %>
+					<a href="<%= user_url(post.user) %>"><img src="<%= post.user.logo.thumb30 %>"></a><a href="<%= user_url(post.user) %>"><font><%= post.user.name %></font></a>
+					<% end %>
+					<div class="fr"><%= refer_time(post.created_at)%></div>
+					<br />
+					<%= kid_age post.user %>
+				</li>
+			</ul>
+		</div>
+	</div>
+	<div class="lmrb_gr_li">
+		<ul>
+			<% for comment in post.comments %>
+			<li>
+				<a href="<%= user_url(comment.user) %>" target="_blank"><img src="http://www.mamashai.com<%= comment.user.logo.thumb30%>" /><font><%= comment.user.name %></font></a>
+				<div class="fr"><%= refer_time(comment.created_at)%></div>
+				<br />
+				<%=h comment.content %>
+			</li>
+			<% end %>
+			<% if @user %>
+			<li id="f_<%= post.id %>">
+				<%= form_tag({:controller=>"bbrl", :action=>"create_comment", :id=>post.id}, {:remote=>true, :updater=>"f_#{post.id}"}) do %>
+				<img src="<%= @user.logo.thumb30 %>" />
+				<TEXTAREA name='content' class="jnc_box4_li3_textarea" onBlur="if(this.innerHTML==''){this.innerHTML='(添加评论)您还能添加140字';this.style.color='#999'}" style="COLOR: #999" onFocus="if(this.innerHTML=='(添加评论)您还能添加140字'){this.innerHTML='';this.style.color='#000'}">(添加评论)您还能添加140字</TEXTAREA>
+				<input class="jnc_box4_li3_input" name="" type="image" src="/images/lmrb_pl.jpg" onclick="$('#f_<%= post.id%> .jnc_box4_li3_input').hide()"/>
+				<% end %>
+			</li>
+			<% end %>
+		</ul>
+		
+	</div><img src="/images/lmrb_bg_1_01.jpg" width="229" height="6" />
+</div>

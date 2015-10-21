@@ -1,0 +1,128 @@
+<div id="middle">
+    <div id="css_mainbody">
+        <h1 class="title">优惠券管理
+			<span style="float: right; margin-right: 10px;">
+				<%= link_to "优惠券生成", :action => "coupons_generate"%>
+			</span>
+		</h1>
+        <div class="menu_bar">
+            <span class="info"><b>当前数据：</b> 共有<b class="blue"><%=h @coupons.total_entries %></b>条数据</span>
+        	<table>
+        		<tr>
+					<td>
+        				<% form_tag :action => "search" do %>
+						搜索：<%= text_field_tag "keyword", {}, {:size => 20} %>
+						<%= submit_tag "查询" %>
+						<% end %>
+        			</td>
+        		</tr> 	
+			</table>
+        </div>
+        <table class="grid">
+            <thead>
+                <tr>
+                    <th width="10%">
+                        优惠券号
+                    </th>
+                    <th width="10%">
+                        金额
+                    </th>
+                    <th width="15%">
+                        使用期限
+                    </th>
+                    <th width="10%">
+                        状态
+                    </th>
+                    <th width="10%">
+                        需要积分
+                    </th>
+                    <th width="10%">
+                        优惠券类型
+                    </th>
+                    <th width="10%">
+                       用户名
+                    </th>
+					<th width="15%">
+                        创建时间
+                    </th>
+					<th>
+                        操作
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <% if @coupons.size == 0 %>
+                <tr>
+                    <td colspan=9>
+                        <b>暂无相关记录。</b>
+                    </td>
+                </tr>
+                <% else %>
+                <% @coupons.each do |coupon| %>
+                <tr>
+                	<td>
+                		<%= h coupon.sid %>
+                	</td>
+                	<td>
+                		<%= h coupon.money %>
+                	</td>
+                	<td>
+                		<%= h coupon.limit_time.strftime("%Y年%m月%d日") %>
+                	</td>
+                	<td>
+                		<%= h coupon.state %>
+                	</td>
+                	<td>
+                		<%= h coupon.score %>
+                	</td>
+                	<td>
+                		<%= h coupon.tp %>
+                	</td>
+                	<td>
+                		<%= h coupon.user.name %>
+                	</td>
+                	<td>
+                		<%= h coupon.created_at.strftime("%Y年%m月%d日") %>
+                	</td>
+                	<td>
+                		<%= link_to "查看", :action => :show, :id => coupon.id %>
+                	</td>
+                </tr>
+                <% end %>
+                <% end %>
+            </tbody>
+        </table>
+        <%= will_paginate @coupons %>
+    </div>
+    <div class="clear">
+    </div>
+  </div>
+</div>
+<style type="text/css">
+  div.menu_bar {
+  line-height: 30px;
+  padding-left: 50px;
+  }
+  
+  .menu_bar .menu {
+  float: left;
+  width: 70%;
+  }
+  
+  div.menu_bar a:hover {
+  color: #FF9900;
+  text-decoration: none;
+  }
+  
+  div.menu_bar a.current {
+  color: #FF9900;
+  }
+  
+  span.info {
+  width: 30%;
+  float: right;
+  line-height: 14px;
+  text-align: right;
+  margin-top: 5px;
+  }
+</style>

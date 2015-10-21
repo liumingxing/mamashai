@@ -1,0 +1,32 @@
+<%= render :partial=>"/friends/friend_nav" %>
+
+	<div class="mms_messages_new">
+        <%=render :partial=>'users_nav' if @is_me %>
+        <ul class="shine_list">
+            <% user_ids = [] %>
+            <% for fans in @fans %>
+            <% user_ids << fans.id %>
+            <li class="list">
+                <%=render :partial=>'list_user',:locals => {:user => fans} %>
+                <% if @is_me %>
+                <%=render :partial=>'list_user_tools',:locals => {:user => fans} %>
+                <% else %>
+                <%=render :partial=>'list_space_user_tools',:locals => {:user => fans} %>
+                <% end %>
+                <div class="clear">
+                </div>
+            </li>
+            <% end %>
+        </ul>
+        <% if @fans.blank? %>
+        <div class="ifnull">
+            没有粉丝
+        </div>
+        <% else %>
+        <% end %>
+        <div class="clear">
+        </div>
+    </div>
+    <%=will_paginate @fans %>
+    <div class="clear">
+    </div>

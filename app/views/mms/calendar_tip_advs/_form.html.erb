@@ -1,0 +1,52 @@
+<%= error_messages_for 'calendar_tip_adv' %>
+
+<table class="ft" border="1">
+<!--[form:calendar_tip_adv]-->
+<tr>
+	<td>代码</td>
+	<td><%= select 'calendar_tip_adv', 'code', [['yun', 'yun'], ['0_3', '0_3'], ['3_6', '3_6'], ['宝典', 'article'], ['购放心', 'gou']]  %></td>
+</tr>
+
+<tr>
+	<td>iphone图标</td>
+	<td><%= upload_column_field 'calendar_tip_adv', 'logo_iphone'  %> 640*100</td>
+</tr>
+
+<tr>
+	<td>ipad图标</td>
+	<td><%= upload_column_field 'calendar_tip_adv', 'logo_ipad'  %> 728*90</td>
+</tr>
+
+<tr>
+	<td>类型</td>
+	<td><%= select 'calendar_tip_adv', 'tp', [['应用内弹出网页', 1], ['执行代码', 2], ['显示网页', 3], ['应用外弹出网页', 4]]%></td>
+</tr>
+
+<tr>
+	<td>网址(或点击后执行的代码)</td>
+	<td><%= text_area 'calendar_tip_adv', 'url', :rows=>5  %></td>
+</tr>
+
+<tr>
+	<td>执行代码</td>
+	<td><%= text_area 'calendar_tip_adv', 'text', :rows=>5  %></td>
+</tr>
+
+<tr>
+	<td>平台</td>
+	<td><%= text_field 'calendar_tip_adv', 'only' %> (iphone/android/或不填)</td>
+</tr>
+
+<tr>
+	<td>客户代码</td>
+	<td><%= text_field 'calendar_tip_adv', 'client'  %></td>
+</tr>
+
+<tr>
+	<td>Status</td>
+	<td><%= select 'calendar_tip_adv', 'status', %w(online offline).map{|m| [m, m]}%></td>
+</tr>
+
+<!--[eoform:calendar_tip_adv]-->
+
+</table>

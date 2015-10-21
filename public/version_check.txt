@@ -1,0 +1,44 @@
+function update_dailog(title, text, url){
+	if (Ti.App.version < title){	
+			var alert_dialog = Titanium.UI.createAlertDialog({
+				title : text,
+				message : text,
+				buttonNames : ['取消', '下载'],
+				cancel : 0
+			});
+			alert_dialog.addEventListener("click", function(e) {
+				if (e.index == 1){
+					Ti.Platform.openURL(url)
+					logEvent('update_from_alert1');
+				}
+			})
+			alert_dialog.show()
+	}
+	else{
+		show_alert("提示", "已经是最新版本");
+	}
+}
+
+
+if (Ti.App.is_android){		//安卓
+	if (Ti.App.id == "com.mamashai.babycalendar"){
+		update_dailog("3.0.5", "有新版本可下载", "market://details?id=com.mamashai.babycalendar")
+	}
+	else if (Ti.App.id == "com.mamashai.yunfree"){
+		update_dailog("3.1.5", "有新版本可下载", "market://details?id=com.mamashai.yunfree")
+	}
+	else if (Ti.App.id == "com.mamashai.yufree"){
+		update_dailog("4.5.5", "有新版本可下载", "market://details?id=com.mamashai.yufree")
+	}
+}
+else{			//苹果
+	if (Ti.App.id == "com.mamashai.babycalendar"){
+		update_dailog("3.0.4", "有新版本可下载", "http://itunes.apple.com/cn/app/bao-bao-ri-li/id499828643?ls=1&mt=8")
+	}
+	else if (Ti.App.id == "com.mamashai.yunfree"){
+		update_dailog("3.1.4", "有新版本可下载", "http://itunes.apple.com/cn/app/bao-bao-ri-li/id499828643?ls=1&mt=8")
+	}
+	else if (Ti.App.id == "com.mamashai.yufree"){
+		update_dailog("4.5.4", "有新版本可下载", "http://itunes.apple.com/cn/app/bao-bao-ri-li/id499828643?ls=1&mt=8")
+	}
+}

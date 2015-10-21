@@ -1,0 +1,23 @@
+<%= error_messages_for 'woyongguo' %>
+
+<table class="ft" border="1">
+<!--[form:woyongguo]-->
+<tr>
+	<td>名称</td>
+	<td><%= text_field 'woyongguo', 'name'  %></td>
+</tr>
+
+<tr>
+	<td>logo</td>
+	<td><%= upload_column_field 'woyongguo', 'logo'  %></td>
+</tr>
+
+<tr>
+	<td>描述</td>
+	<td><%= text_area 'woyongguo', 'desc'  %></td>
+</tr>
+
+
+<!--[eoform:woyongguo]-->
+
+</table>

@@ -1,0 +1,34 @@
+
+<% if event_user.tp==1%>
+审核通过 
+<% elsif event_user.tp==-1%>
+已拒绝
+<% elsif event_user.tp==-2%>
+已取消报名
+<% else %>
+申请中
+<% end %>
+
+<br/>
+
+<% if @event.user_id == @user.id %>
+
+<% if event_user.tp==1 or event_user.tp==-1 %>
+<%= link_to_remote('取消', :update => "event_user_button_#{event_user.id}", :url => {:action =>:cancel_event_user,:controller=>:ajax_event,:id=>event_user.id}) %>
+<% end %>
+
+<% if event_user.tp==0 %>
+<%= link_to_remote('通过', :update => "event_user_button_#{event_user.id}", :url => {:action =>:approval_event_user,:controller=>:ajax_event,:id=>event_user.id}) %>
+<%= link_to_remote('拒绝', :update => "event_user_button_#{event_user.id}", :url => {:action =>:refuse_event_user,:controller=>:ajax_event,:id=>event_user.id}) %>
+<% end %>
+
+<% else %>
+
+<% if event_user.user_id == @user.id and event_user.tp >= 0 %>
+<a href="javascript:void(0);" onclick="show_event_box('new_event_quit/<%=event_user.id%>');">取消报名</a>
+<% end %>
+
+<% end %>
+ 
+ <script>hide_box();</script>
+

@@ -1,0 +1,48 @@
+<div class="user_pic">
+	<% if tp == "mama" %>
+    	<%=logo_tag(user,{:version=>'thumb48',:url=>user_url(user)}) %>
+	<% else %>
+		<%=logo_tag(user.first_kid,{:version=>'thumb75',:url=>user_url(user),:blank=>true}) %>
+	<% end %>
+</div>
+<div class="shine_content_birthday">
+    <div class="follow_user">
+        <% if tp == "mama"%>
+			<%=link_user(user) %>
+			<% user_kid = user.first_kid %>
+	        <% if user_kid %>
+	        <span style="color:#999;"><%=APP_CONFIG["kid_#{user_kid.gender}"] %><%=user_kid.name %><%=detail_age_for_birthday(user_kid.birthday) %></span>
+	        <% else %>
+	        <span style="color:#999;">没有孩子</span>
+	        <% end %>
+		<% else %>
+			<a href="/user/<%= user.encrypt_user_id%>"><%= user.first_kid.name||"还没起名" %></a>
+		<% end %>
+    </div>
+    <div class="user_local<%=' user_local02' if user.gender=='w'%>">
+        <%="#{user.province.name}, " if user.province %><%=user.city.name if user.city %>&nbsp; 粉丝<span class="font"><%=user.fans_users_count %></span>人
+    </div>
+	<% if user.birthday %>
+		<div>生日：<%=user.birthday.strftime("%m月%d日")%></div>
+	<% end %>
+    <div class="content">
+        <% last_post = user.last_post %>
+        <% if last_post %>
+        <a href="/post/<%=last_post.id%>"><%=truncate(last_post.content,:length =>40) %></a>
+        (<%=refer_time last_post.created_at %>) 
+		<% end %>
+    </div>
+</div>
+<ul class="shine_local_birthday">
+    <% if !@user.follow_users.include?(user) %>
+	<li id="add_follow_user_<%=user.id%>">
+        <%= link_to_remote(APP_CONFIG['add_follow'], {:update => "add_follow_user_#{user.id}", :url => {:action =>:create_follow_user,:controller=>:ajax,:id=>user.id}},{:class=>'button_link'}) %>
+    </li>
+    <% end %>
+    <li>
+        <a class="button_link" href="javascript:void(0);" onclick="MMS.tools.sendletter('/ajax/new_message/<%=user.id%>');">发私信</a>
+    </li>
+    <li>
+        <a class="button_link" href="/gifts/give_gifts/<%=user.id%>">赠送礼物</a>
+    </li>
+</ul>

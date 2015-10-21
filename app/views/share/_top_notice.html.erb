@@ -1,0 +1,29 @@
+<div class="tips" id="top_tips">
+    <span class="tips_content">
+    	<% if @user and @user.unread_invited_count > 0 %>
+    	 恭喜你成功邀请并辅导了
+		 <% events = ScoreEvent.find(:all,:limit=>@user.unread_invited_count,:conditions=>['user_name is not null and user_id=?',@user.id],:order=>'id desc') %>
+		 <% events.each do |event| %> <a href="/friends/find_user/<%=event.user_name%>" target="_blank">@<%=event.user_name%></a><% end %>，获得<%= score = ScoreProfile.first(:conditions => ['event = ?', "invite_user"]).try(:score)%> <%= @user.unread_invited_count*score if score %>个积分！
+		 <a href="/scores/records">查看积分</a> 
+    	<% end %>
+    	<% if @user.unread_comments_count > 0 %>有<%=@user.unread_comments_count %>条新评论，<a href="/home/comments">查看评论</a>
+        <br/>
+        <%end %>
+        <% if @user.unread_fans_count > 0 %>有<%=@user.unread_fans_count %>个新粉丝，<a href="/users/<%=@user.id%>/fans">查看粉丝</a>
+        <br/>
+        <%end %>
+        <% if @user.unread_messages_count > 0 %>有<%=@user.unread_messages_count %>条新私信，<a href="/home/messages">查看私信</a>
+        <br/>
+        <%end %>
+        <% if @user.unread_gifts_count > 0 %>收到<%=@user.unread_gifts_count %>个新礼物，<a href="/gifts">查看礼物</a>
+        <br/>
+        <%end %>
+        <% if @user.unread_atme_count > 0 %>有<%=@user.unread_atme_count %>个微博提到我，<a href="/home/atme">提到我的</a>
+        <br/>
+        <%end %>
+        <% if @user.unread_favorites_count > 0 %>有<%=@user.unread_favorites_count %>个微博被收藏，<a href="/home/like">查看收藏</a>
+        <br/>
+        <%end %>
+    </span>
+    <div class="clear"></div>
+</div>

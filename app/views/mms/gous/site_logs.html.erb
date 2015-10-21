@@ -1,0 +1,109 @@
+<div id="middle">
+    <div id="css_mainbody">
+        <h1 class="title">导购平台-商品-创建信息<span style="float: right; margin-right: 10px;"><%= link_to '返回列表', '/mms/gous/index' %>
+            </span></h1>
+        <fieldset>
+            <legend>
+                跳转记录
+            </legend>
+            <div class="line_item">
+                一共有<%=@logs.total_entries%>条跳转记录(暂时只支持红孩子)
+            </div>
+        </fieldset>
+		<table class="grid">
+            <tr>
+                <th width="5%">
+                    序号
+                </th>
+                <th width="10%">
+                    用户名
+                </th>
+				<th width="5%">
+                    网站名称
+                </th>
+				<th width="5%">
+                    商品id
+                </th>
+                <th width="20%">
+                    URl地址(全)
+                </th>
+                <th width="10%">
+                    创建时间
+                </th>
+            </tr>
+            <% if @logs.blank? %>
+            <tr>
+                <td colspan=6>
+                    <b>暂无记录</b>
+                </td>
+            </tr>
+            <% else %>
+            <% @logs.each_with_index do |log,index| %>
+            <tr>
+                <td>
+                    <%=(index+1).to_s %>
+                </td>
+                <td>
+                    <%= log.user_name||'用户未登录' %>
+                </td>
+				<td>
+                    <%= log.gou_site_name %>
+                </td>
+				<td>
+                    <%= log.gou_id %>
+                </td>
+                <td>
+                    <%= log.url %>
+                </td>
+                <td>
+                    <%=log.created_at.strftime("%Y-%m-%d %H:%M:%S") %>
+                </td>
+            </tr>
+            <% end %>
+            <%end %>
+        </table>
+		<%= will_paginate @logs%>
+		
+    </div>
+    <div class="clear">
+    </div>
+</div>
+<style type="text/css">
+    fieldset {
+        border: 1px solid #D1D1D1;
+        color: #333333;
+        line-height: 220%;
+        margin: 20px;
+        padding: 10px;
+    }
+    
+    legend {
+        background: none repeat scroll 0 0 #FFFFFF;
+        color: #666666;
+        font-weight: 800;
+    }
+    
+    fieldset div.line_item {
+        height: 30px;
+        display: block;
+		width:100%;
+    }
+    
+    .line_item .title {
+        margin-left: 30px;
+        font-weight: bolder;
+        width: 150px;
+        float: left;
+    }
+    
+    .line_item .content {
+        float: left;
+    }
+	div.submit{
+		margin:20px;
+		text-align:center;
+	}
+	div.submit span{
+		margin:0 20px;
+	}
+</style>

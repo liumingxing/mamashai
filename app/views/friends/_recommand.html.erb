@@ -1,0 +1,16 @@
+<div id="css_search_container">
+        <div class="vibranay_user">
+            <div class="vibranay_title">
+            </div>
+            <% for user in User.not_hide.normal.all(:limit=>20,:conditions=>['users.id <> ? and last_login_at > ? and posts_count > 50',@user.id,Date.today - 3],:select=>'users.id,users.name,users.logo,users.tp,users.first_kid_id, users.gender,users.domain',:order=>'rand()') %>
+            <%=render :partial=>'sidebar/side_user',:locals=>{:user_item=>user, :tp=>"a"} %>
+            <% end %>
+        </div>
+        <div class="vibranay_user">
+            <div class="vibranay_title vibranay_title_1">
+            </div>
+             <% for user in User.not_hide.normal.all(:limit=>20,:conditions=>['users.id <> ? and created_at > ? and posts_count > 5',@user.id,Date.today - 30],:select=>'users.id,users.name,users.logo,users.tp,users.first_kid_id, users.gender,users.domain',:order=>'rand()') %>
+            <%=render :partial=>'sidebar/side_user',:locals=>{:user_item=>user, :tp=>"a"} %>
+            <% end %>
+        </div>
+</div>

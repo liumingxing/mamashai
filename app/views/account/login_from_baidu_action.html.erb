@@ -1,0 +1,16 @@
+<script>
+function get_token_and_secret()
+{
+	return '{"token": "<%= @token %>", "secret": "<%= @secret %>", "expire_at": <%= @expire%>,"user": <%= @user.to_json %>}'
+}
+
+</script>
+
+<a href="/account/blank?token=<%= @token %>&expire_at=<%= @expire%>&user_name=<%= @user.name%>&user_id=<%= @user.id %>&email=<%= @user.email%>&logo=<%= @user.logo%>" style="font-size: 20px" id='link'>验证成功</a>
+
+<script>
+    //document.getElementById('link').fireEvent('click')
+    var evt = document.createEvent("MouseEvents");
+	evt.initEvent("click", true, true);
+	document.getElementById('link').dispatchEvent(evt)
+</script>

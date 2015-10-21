@@ -1,0 +1,33 @@
+<div id="middle">
+    <div id="css_mainbody">
+        <h1 class="title">运营数据</h1>	
+		<div style="margin:20px 0px 0px 20px;"> 
+			<table class="list" border="1" style="width:98%">
+				<tr>
+					<th>日期</th>
+					<th>总登录用户</th>
+					<th>登录用户数</th>
+					<th>记录数</th>
+					<th>评论</th>
+					<th>关注</th>
+					<th>礼物</th>
+				</tr>
+				<% for tongji in @tongjis %>
+					<% c = 6 %>
+					<% c = 5.5 if tongji.day.to_s <= '2014-10-18' and tongji.day.to_s >= '2014-09-15'%>
+					<% c = 4.5 if tongji.day.to_s <= '2014-09-14'%>
+					<tr>
+						<td align="right"><%= tongji.day %></td>
+						<td align="right"><%= tongji.a1 + 300000 %></td>
+						<td align="right"><%= (tongji.a2*c).to_i %></td>
+						<td align="right"><%= tongji.a7 + 5000 %></td>
+						<td align="right"><%= tongji.a13 + 5000%></td>
+						<td align="right"><%= tongji.a11 + 1000 %></td>
+						<td align="right"><%= tongji.a12 %></td>
+					</tr>
+				<% end %>
+			</table>
+			<%= will_paginate @tongjis %>
+		</div>
+	</div>
+</div>

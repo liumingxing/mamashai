@@ -1,0 +1,553 @@
+function PostAlbum(attr){
+	Ti.include("public.js");
+	var Mamashai = require("lib/mamashai_ui");
+	var win = Titanium.UI.createWindow(attr);
+	
+	if (!Ti.App.is_android){
+			win.title = '';
+			var tab_title = Titanium.UI.iOS.createTabbedBar({
+				labels : user_id() == win.id ? ['时光轴', '列表', '日历'] : ['时光轴', '列表'],
+				index : win.index || 0,
+				style : Titanium.UI.iPhone.SystemButtonStyle.BAR,
+				backgroundColor : Ti.App.bar_color,
+				width : __l(180),
+				height : 30
+			});
+		
+			tab_title.addEventListener("click", function(e) {
+				win.tab_click(e.index);
+			});
+			
+			setTimeout(function(){
+				win.setTitleControl(tab_title);
+			}, 400);
+		}
+		else{
+			if (Ti.Platform.Android.API_LEVEL >= 11){
+				var arr = [{
+			           		title: '时光轴',
+			           		selected: win.index == 0 || !win.index ? true : false,
+			           		click: function(){
+			           			win.tab_click(0);
+			           		}
+			           },
+			           {
+			           		title: '列表',
+			           		selected: win.index == 1 ? true : false,
+			           		click: function(){
+			           			win.tab_click(1);
+			           		}
+			           }
+			    ];
+			    if (user_id() == win.id){
+			    	arr.push({
+			           		title: '日历',
+			           		selected: win.index == 2 ? true : false,
+			           		click: function(){
+			           			win.tab_click(2);
+			           		}
+			       });
+			    }
+				add_tab_to_actionbar(win, win.title, arr);
+			}
+			else{
+				var ActionBarView = require('ActionBarView');
+				var tabs = [
+						{
+							text : '  ',
+							id : 'back',
+							isBack : true,
+							no_sep: true,
+							align : 'center',
+							__width: __l(45),
+						},
+						{
+							text : '时光轴',
+							id : "0",
+							selected: win.index == 0 || !win.index ? true : false,
+							__width: (Ti.App.platform_width - __l(50))/(user_id() == win.id ? 3 : 2),
+						},
+						{
+							text : '列表',
+							id : "1",
+							selected: win.index == 1 ? true : false,
+							__width: (Ti.App.platform_width - __l(50))/(user_id() == win.id ? 3 : 2),
+						}
+					]
+					
+				if (user_id() == win.id){
+					tabs.push({
+							text : '日历',
+							id : "2",
+							selected: win.index == 2 ? true : false,
+							__width: (Ti.App.platform_width - __l(50))/(user_id() == win.id ? 3 : 2),
+					});
+				}
+				var actionBar = new ActionBarView({
+				tabs : tabs
+				});
+				
+				actionBar.addEventListener(
+					'ActionBar.NavigationTab:Click',
+					function(e){
+						if (e.tabId == 'back')
+							win.close();
+						else
+							win.tab_click(parseInt(e.tabId));
+					}
+				);
+				
+				add_action_bar(win, actionBar);
+			}
+		}
+		
+	win.addEventListener("open", function(e){
+		function tab_click(index){
+			if (index < 0 && index > 2)
+				return;
+			if (win.wrapper)
+				win.remove(win.wrapper);
+			
+			if (index == 0){
+				index_0();
+			}
+			else if (index == 2){
+				index_1();
+			}
+			else if (index == 1){
+				index_2();
+			}
+		}
+		win.tab_click = tab_click;
+		
+		function index_0(){
+			var web = Ti.UI.createWebView({
+				url: Ti.App.mamashai + "/bbrl/time/" + win.id + "?user_id=" + user_id()
+			});
+			web.top = Ti.App.android_offset;
+			if (Ti.App.is_android)
+				web.pluginState = Titanium.UI.Android.WEBVIEW_PLUGINS_ON;
+			web.addEventListener("beforeload", function(e){
+				if (e.url.indexOf("shareweixin") > 0){
+					var optionsDialogOpts = {
+						options: ['分享给微信好友', '发到微信朋友圈', '取消'],
+						cancel: 2
+					};
+					
+					var dialog = Titanium.UI.createOptionDialog(optionsDialogOpts);
+					dialog.addEventListener('click',function(e)
+					{
+						if (e.index == 0){												//发给微信好友
+							http_call(Ti.App.mamashai + "/api/users/show/" + win.id + "?" + account_str(), function(e){
+								var json = JSON.parse(e.responseText)
+								var kid_name = "宝贝"
+								if (json.user_kids.length == 1){
+									kid_name =  json.user_kids[json.user_kids.length-1].name
+								}
+								var tiwechat = require('com.mamashai.tiwechat');
+								tiwechat.exampleProp = Ti.App.wechat_key;
+								tiwechat.shareSession(kid_name + "的时光轴", kid_name + "的时光轴", "http://www.mamashai.com/bbrl/time/" + win.id, "http://www.mamashai.com" + json.logo_url_thumb48);
+								logEvent('weixin_session');
+							});
+						}
+						else if (e.index == 1){											//分享微信朋友圈
+							http_call(Ti.App.mamashai + "/api/users/show/" + win.id + "?" + account_str(), function(e){
+								var json = JSON.parse(e.responseText)
+								var kid_name = "宝贝"
+								if (json.user_kids.length == 1){
+									kid_name =  json.user_kids[json.user_kids.length-1].name
+								}
+								var tiwechat = require('com.mamashai.tiwechat');
+								tiwechat.exampleProp = Ti.App.wechat_key;
+								tiwechat.shareTimeline(kid_name + "的时光轴", kid_name + "的时光轴", "http://www.mamashai.com/bbrl/time/" + win.id, "http://www.mamashai.com" + json.logo_url_thumb48);
+								logEvent('weixin_timeline');
+								if (!Ti.App.is_android)
+									show_notice("成功分享到微信朋友圈");
+									
+								var url = Ti.App.mamashai + "/api/statuses/make_weixin_score?" + account_str();
+								var xhr = Ti.Network.createHTTPClient();
+								xhr.timeout = Ti.App.timeout;
+								xhr.open("POST", url);
+								xhr.send();
+							});
+						}
+					});
+					dialog.show();
+				}
+			});
+			win.add(web);
+			win.wrapper = web;
+		}
+		
+		function index_1(){
+			var wrapper = Ti.UI.createView({
+				left: 0,
+				top: 0,
+				right: 0,
+				bottom: 0,
+			});
+			wrapper.top = Ti.App.android_offset;
+			win.add(wrapper);
+			win.wrapper = wrapper;
+			var kid = null;
+			var record = require('/lib/mamashai_db').db.select_one_json("user_profile", user_id())
+			if (!record.blank){
+				var json = JSON.parse(record.json)
+				kid = json.user_kids[0];
+			}
+			
+			var tableview = Ti.UI.createTableView({
+				top: 0,
+				bottom: 0,
+				left: 0,
+				width: Ti.App.platform_width
+			})
+			var null_row = Ti.UI.createTableViewRow({height: Ti.UI.SIZE});
+			var aLabel = Ti.UI.createLabel({
+				text : '今天没有记录',
+				font : {fontSize: __l(14)},
+				height : __l(20),
+				width : Ti.UI.SIZE,
+				top : __l(20),
+				bottom: __l(10),
+				left : __l(20),
+				color: "#333",
+				textAlign : 'center'
+			});
+			null_row.add(aLabel);
+			
+			var aButton = Ti.UI.createButton({
+				title : '去记录',
+				height : __l(35),
+				width : __l(100),
+				top : __l(15),
+				bottom: __l(15),
+				right: __l(10),
+				font : {fontSize: __l(16)}
+			});
+			pre_btn(aButton);
+			
+			aButton.addEventListener('click', function() {
+				show_window("write_post", {
+					title : '补记',
+					text : '',
+					kind : 'wenzi',
+					from : 'wenzi',
+					today_str : filter_date
+				});
+			});
+			null_row.add(aButton);
+			
+			var future_row = Ti.UI.createTableViewRow({height: Ti.UI.SIZE});
+			var bLabel = Ti.UI.createLabel({
+				text : '这一天还未来到，无法记录',
+				font : {fontSize:__l(14)},
+				height : __l(20),
+				width : Ti.UI.SIZE,
+				top : __l(10),
+				bottom: __l(10),
+				left : __l(20),
+				textAlign : 'center'
+			});
+			future_row.add(bLabel);
+			
+			tableview.top = 0;
+			wrapper.add(tableview);
+			var pulled = false;
+			var contentOffset = 0;
+			tableview.addEventListener('scroll', function(e) {
+				if (Ti.App.is_android)
+					return;
+					
+				contentOffset = e.contentOffset.y;
+			});
+			
+			tableview.addEventListener('dragEnd', function(e) {
+				if (Ti.App.is_android){
+					return;
+				}
+				
+				if(!pulled && contentOffset <= __l(-100.0)) {
+					tableview.setContentInsets({
+						top : Titanium.Platform.osname == 'ipad' ? 592 : 270
+					}, {
+						animated : true
+					});
+					pulled = true;
+					contentOffset = 0;
+				} else if(pulled && contentOffset > __l(-200) && contentOffset < __l(160)) {
+					tableview.setContentInsets({
+						top : 0
+					}, {
+						animated : true
+					});
+					tableview.scrollToTop();
+					pulled = false;
+					contentOffset = 0;
+				}
+			});
+			var json = new Array();
+			var filter_date = "";
+			tableview.filter_date = filter_date;
+			function show_date(e) {
+				var year = e.date.split('-')[0];
+				var month = parseInt(e.date.split('-')[1], 10);
+				var day = parseInt(e.date.split('-')[2], 10);
+		
+				if(month < 10) {
+					month = "0" + parseInt(month);
+				}
+		
+				if(parseInt(day) < 10)
+					day = "0" + parseInt(day)
+				var str = year + "-" + month + "-" + day;
+				filter_date = str
+				filter()
+			}
+			Ti.App.addEventListener('show_date', show_date);
+			
+			//点击日历上某一天显示tableview的记录
+			function filter() {
+				if (kid){
+					aLabel.text = kid.name + detail_age_for_birthday(kid.birthday, filter_date);
+				}
+		
+				tableview.data = [];
+				
+				var xhr = Ti.Network.createHTTPClient()
+				xhr.timeout = Ti.App.timeout
+				xhr.onerror = function(){}
+				xhr.onload = function(){
+						if (this.responseText == "null"){
+							if (filter_date < date_str(new Date())){
+								tableview.appendRow(null_row)
+							}
+							else if (filter_date > date_str(new Date())){
+								tableview.appendRow(future_row)
+							}
+						}
+						else{
+							var json = JSON.parse(this.responseText);
+							for(var i = 0; i < json.length && i<100; i++) {
+									var row = Mamashai.ui.make_weibo_row(json[i])
+									tableview.appendRow(row);
+							}
+							require('lib/mamashai_db').db.insert_json("calendar_posts" + user_id(), filter_date, this.responseText)
+						}
+				}	
+				
+				var max = filter_date + " 23:59:59";
+				var min = filter_date + " 0:0:0" 
+				var url = Ti.App.mamashai + "/api/statuses/user_timeline.json?1=1&count=" + Mamashai.ui.receive_count + "&cond=posts.created_at>='" + min + "' and posts.created_at<='" + max + "'&" + account_str(); 
+				var record = require('/lib/mamashai_db').db.select_one_json("calendar_posts" + user_id(), filter_date)
+				if (record.blank){
+					xhr.open("GET", url)
+					xhr.send()
+				}
+				else{
+					var json = JSON.parse(record.json)
+					for(var i = 0; i < json.length && i<100; i++) {
+						var row = Mamashai.ui.make_weibo_row(json[i])
+						tableview.appendRow(row);
+					}
+				}
+				
+				tableview.filter_date = filter_date;
+			}
+		
+			//用户的所有记录
+			var container = Ti.UI.createView({
+				height : Ti.UI.SIZE,
+				backgroundColor : "white",
+				textAlign: "center"
+			});
+			var calView = Ti.UI.createWebView({
+				url : Titanium.Platform.osname == 'ipad' ? 'calendar/index_ipad.html' : 'calendar/index.html',
+				height : Titanium.Platform.osname == 'ipad' ? 592 : 270,
+				left: 0,
+				right: 0
+			});
+			
+			if (!Ti.App.is_android){
+				container.add(calView)
+				tableview.headerPullView = container;
+				calView.bottom = 0;
+			}
+			else{
+				calView.top = 0;
+				
+				calView.url = "calendar/index_android.html";
+				calView.height = __l(294);
+				tableview.top = __l(294);
+				
+				wrapper.add(calView)
+			}
+			
+			show_loading();
+			calView.addEventListener("load", function() {
+				hide_loading();
+				calView.show();
+				if (!Ti.App.is_android){
+					tableview.setContentInsets({
+						top : Titanium.Platform.osname == 'ipad' ? 592 : 270
+					}, {
+						animated : true
+					});
+				}
+				
+				pulled = false;
+		
+				var dot_xhr = Ti.Network.createHTTPClient()
+				dot_xhr.timeout = Ti.App.timeout
+				dot_xhr.onerror = function(){
+						hide_loading();
+						//show_notice("网络连接失败")
+						var record = require('/lib/mamashai_db').db.select_one_json('red_dot' + user_id(), '0')
+						if (!record.blank){
+							Ti.App.fireEvent('set_select', {
+								str : record.json
+							});
+						}
+						else{
+							show_notice("网络连接失败")
+						}
+				}
+				dot_xhr.onload = function(){
+						var json = JSON.parse(this.responseText);
+						
+						Ti.App.fireEvent('set_select', {
+							str : json.dates
+						});
+						
+						hide_loading();
+						
+						Ti.App.fireEvent("show_date", {date: date_str(new Date())})
+						
+						require('lib/mamashai_db').db.insert_json('red_dot' + user_id(), '0', json.dates)
+				}
+				var url = Ti.App.mamashai + "/api/statuses/user_dot_dates.json?" + account_str();
+				dot_xhr.open("GET", url)
+				dot_xhr.send()
+			})
+			//从json抽取created_at组合字符串
+			function post_json_to_str(json) {
+				var result = new Array();
+		
+				if(!json)
+					return "";
+		
+				for(var i = 0; i < json.length; i++) {
+					if(!json[i].created_at)
+						continue;
+		
+					result.push(json[i].created_at.substr(0, 10))
+				}
+				return result.join(",");
+			}
+			
+			function delete_post(e) {
+				Mamashai.ui.delete_weibo_from_tableview(tableview, e.id);
+			}
+			Titanium.App.addEventListener('delete_post', delete_post);
+			
+			function update_post(e) {
+				if (!Ti.App.is_android)		//安卓下会崩溃
+				{
+					Mamashai.ui.update_weibo_from_tableview(tableview, e.id, e.comment_count, e.forward_count)
+				}
+			}
+			Titanium.App.addEventListener('update_post', update_post);
+			
+			win.addEventListener("close", function(e){
+				Ti.App.removeEventListener('show_date', show_date);
+				Ti.App.removeEventListener('delete_post', delete_post);
+				Ti.App.removeEventListener('update_post', update_post);
+			});
+		
+			tableview.addEventListener("click", function(e) {
+				if (!e.rowData.id)
+					return;
+					
+				if (e.source.image && e.source.image.length > 0){
+						return;
+				}
+					
+			    if (e.rowData.from == 'album_book'){
+			    	var xhr = Ti.Network.createHTTPClient()
+					xhr.timeout = Ti.App.timeout
+					xhr.onerror = function(e) {
+							hide_loading()
+							show_notice("获取照片书失败")
+					}
+					xhr.onload = function() {
+							hide_loading()
+							var json = JSON.parse(this.responseText)
+							var AlbumMv = require('album_mv')
+							var win = new AlbumMv({
+									title : json.name,
+									backgroundColor : '#78A1A7',
+									json : json,
+									id : json.id,
+									backButtonTitle: !Ti.App.is_android && Ti.App.osversion < "7.0" ? '返回' : ''
+							});
+									
+							Ti.App.currentTabGroup.activeTab.open(win, {
+								animated : true
+							});
+					}
+					var url = Ti.App.mamashai + "/api/mbook/album_book.json?id=" + e.rowData.from_id;
+					xhr.open("GET", url)
+					xhr.send()
+					show_loading()
+					return;
+				}
+				
+				var win = Titanium.UI.createWindow({
+					title : "记录详情",
+					json : e.rowData.json,
+					id : e.rowData.id,
+					backgroundColor : 'white',
+					from : e.rowData.from,
+					path : e.rowData.path,
+					seconds : e.rowData.seconds
+				});
+				pre(win)
+				Mamashai.ui.make_post_win(win)
+				
+				if (!Ti.App.is_android)
+					win.hideTabBar();
+				if(e.rowData.from == 'column') {
+					win.id = e.rowData.from_id;
+				}
+		
+				win.backButtonTitle = !Ti.App.is_android && Ti.App.osversion < "7.0" ? '返回' : '';
+				Ti.App.currentTabGroup.activeTab.open(win, {
+					animated : true
+				});
+			})
+			
+		}
+		
+		function index_2(){
+			var tableview = Mamashai.ui.make_weibo_tableview("my_" + win.id, Ti.App.mamashai + "/api/statuses/user_timeline.json?id=" + win.id, user_id(), "posts");
+			tableview.top = Ti.App.android_offset;
+			tableview.bottom = 0;
+			var v = make_tableview_pull(tableview);
+			win.add(v);
+			tableview.send();
+			win.wrapper = v;
+		}
+		
+		if (win.index)
+			tab_click(win.index)
+		else
+			tab_click(0)
+		
+		
+		logEvent('post_album');
+	});
+	
+	return win;
+}
+
+module.exports = PostAlbum;

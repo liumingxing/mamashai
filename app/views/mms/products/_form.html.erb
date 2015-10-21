@@ -1,0 +1,59 @@
+
+<%= f.error_messages %>
+
+<table style="width:800px;padding-left:50px;">
+  <tr>
+  	<td width="15%">
+  		<%= f.label :code,"商品编号："%>
+  	</td>
+	<td>
+		<%= f.text_field :code, :size => 40 %>
+	</td>
+  </tr>
+  <tr>
+  	<td><%= f.label :name,"商品名称："%></td>
+	<td><%= f.text_field :name, :size => 40 %></td>
+  </tr> 
+  <tr>
+  	<td><%= f.label :size,"页数："%> </td>
+  	<td><%= f.text_field :size, :size => 40 %>页</td>
+  </tr>
+  <tr>
+  	<td><%= f.label :price,"原价："%></td>
+	<td><%= f.text_field :price, :size => 40 %>元</td>
+  <tr>
+  	<td><%= f.label :preferential, "折扣价："%></td>
+  	<td><%= f.text_field :preferential, :size => 40 %>元</td>
+  </tr>
+  <tr>
+  	<td><%= f.label :cost, "成本价："%></td>
+	<td><%= f.text_field :cost, :size => 40 %>元</td>
+  </tr>
+  <tr>
+  	<td><%= f.label :intro, "商品简介："%></td>
+	<td><%= f.text_area :intro, :cols => 40, :rows => 6%></td>
+  </tr>
+  <tr>
+  	<td><%= f.label :desc, "商品详情："%></td>
+	<td><%= f.text_area :desc, :cols => 40, :rows => 6%></td>
+  </tr>
+  <tr>
+  	<td><%= f.label :requirement, "制作要求："%></td>
+	<td><%= f.text_area :requirement, :cols => 40, :rows => 6%></td>
+  </tr>
+  <tr style="height:auto;line-height:100px; "></td>
+  	<td><%=f.label :thumb, "产品缩略图："%></td>
+	<td>
+		<% unless @product.thumb.blank? %>
+			<%= image_tag @product.thumb%><br/>
+		<% end %>
+		<%=f.text_field 'thumb' %> <b>此处添加图片的url路径</b>
+	</td>
+  </tr>
+  <tr style="height:100px;">							
+  	<td colspan=2 style="text-align:center;">
+  		<%=f.submit "确定"%>
+		<input type="button" value="返回" onclick="window.history.go(-1);" />
+	</td>
+  </tr>
+</table>

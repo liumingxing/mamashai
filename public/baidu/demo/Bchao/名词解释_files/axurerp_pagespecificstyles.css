@@ -1,0 +1,450 @@
+body {
+    margin: 0px;
+}
+
+div {
+    background-repeat: no-repeat;
+}
+
+.raw_image {
+    width: 100%;
+    height: 100%;
+}
+
+.preload {
+    display: none;
+}
+div.main_container {
+}
+
+.form_sketch {
+    border-color: transparent;
+    background-color: transparent;
+}
+
+.u0_original {
+    background-image: url('../名词解释_files/u0_original.png');
+}
+
+.u0_container {
+    position:absolute;
+    left:10px;
+    top:46px;
+    width:541px;
+    height:314px;
+}
+
+#u0_img {
+    position:absolute;
+    left:-3px;
+    top:-3px;
+    width:547px;
+    height:320px;
+}
+
+.u1 {
+    position:absolute;
+    left:2px;
+    top:149px;
+    width:537px;
+    height:16px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u0 {
+    position:absolute;
+    left:10px;
+    top:46px;
+    width:541px;
+    height:314px
+}
+
+.u2_original {
+    background-image: url('../名词解释_files/u2_original.png');
+}
+
+.u2_container {
+    position:absolute;
+    left:10px;
+    top:10px;
+    width:542px;
+    height:36px;
+}
+
+#u2_img {
+    position:absolute;
+    left:0px;
+    top:0px;
+    width:542px;
+    height:36px;
+}
+
+.u3 {
+    position:absolute;
+    left:2px;
+    top:10px;
+    width:538px;
+    height:16px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u2 {
+    position:absolute;
+    left:10px;
+    top:10px;
+    width:542px;
+    height:36px
+}
+
+.u4 {
+    position:absolute;
+    left:241px;
+    top:22px;
+    width:80px;
+    height:13px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u5_original {
+    background-image: url('../名词解释_files/u5_original.png');
+}
+
+.u5_container {
+    position:absolute;
+    left:10px;
+    top:56px;
+    width:540px;
+    height:34px;
+}
+
+#u5_img {
+    position:absolute;
+    left:-3px;
+    top:-3px;
+    width:546px;
+    height:40px;
+}
+
+.u6 {
+    position:absolute;
+    left:2px;
+    top:9px;
+    width:536px;
+    height:16px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u5 {
+    position:absolute;
+    left:10px;
+    top:56px;
+    width:540px;
+    height:34px
+}
+
+.u8_original {
+    background-image: url('../名词解释_files/u8_original.png');
+}
+
+.u8_container {
+    position:absolute;
+    left:0px;
+    top:0px;
+    width:128px;
+    height:38px;
+}
+
+#u8_img {
+    position:absolute;
+    left:0px;
+    top:0px;
+    width:128px;
+    height:38px;
+}
+
+.u9 {
+    position:absolute;
+    left:2px;
+    top:11px;
+    width:124px;
+    height:16px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u8 {
+    position:absolute;
+    left:0px;
+    top:0px;
+    width:128px;
+    height:38px
+}
+
+.u10_text {
+    position:absolute;
+    left:92px;
+    top:65px;
+    width:90px;
+    height:14px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u10 {
+    position:absolute;
+    left:92px;
+    top:65px;
+    width:90px;
+    height:14px
+}
+
+.u11_text {
+    position:absolute;
+    left:223px;
+    top:65px;
+    width:97px;
+    height:14px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u11 {
+    position:absolute;
+    left:223px;
+    top:65px;
+    width:97px;
+    height:14px
+}
+
+.u12 {
+    position:absolute;
+    left:40px;
+    top:102px;
+    width:482px;
+    height:39px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u13 {
+    position:absolute;
+    left:41px;
+    top:178px;
+    width:180px;
+    height:22px;
+    ;
+    ;
+    ;
+    font-family:'Arial';
+    font-size: 13px;
+    color:#000000;
+    font-style:normal;
+    font-weight:normal;
+    text-decoration:none;
+    
+}
+
+.u14_original {
+    background-image: url('../名词解释_files/u14_original.png');
+}
+
+.u14_container {
+    position:absolute;
+    left:240px;
+    top:178px;
+    width:70px;
+    height:22px;
+}
+
+#u14_img {
+    position:absolute;
+    left:-3px;
+    top:-3px;
+    width:76px;
+    height:28px;
+}
+
+.u15 {
+    position:absolute;
+    left:2px;
+    top:5px;
+    width:66px;
+    height:12px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u14 {
+    position:absolute;
+    left:240px;
+    top:178px;
+    width:70px;
+    height:22px
+}
+
+.u17_original {
+    background-image: url('../名词解释_files/u17_original.png');
+}
+
+.u17_container {
+    position:absolute;
+    left:0px;
+    top:0px;
+    width:480px;
+    height:130px;
+}
+
+#u17_img {
+    position:absolute;
+    left:-3px;
+    top:-3px;
+    width:486px;
+    height:136px;
+}
+
+.u18 {
+    position:absolute;
+    left:2px;
+    top:58px;
+    width:476px;
+    height:13px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u17 {
+    position:absolute;
+    left:0px;
+    top:0px;
+    width:480px;
+    height:130px
+}
+
+.u19_original {
+    background-image: url('../名词解释_files/u17_original.png');
+}
+
+.u19_container {
+    position:absolute;
+    left:0px;
+    top:0px;
+    width:480px;
+    height:130px;
+}
+
+#u19_img {
+    position:absolute;
+    left:-3px;
+    top:-3px;
+    width:486px;
+    height:136px;
+}
+
+.u20 {
+    position:absolute;
+    left:2px;
+    top:58px;
+    width:476px;
+    height:15px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u19 {
+    position:absolute;
+    left:0px;
+    top:0px;
+    width:480px;
+    height:130px
+}
+
+.u21_original {
+    background-image: url('../名词解释_files/u17_original.png');
+}
+
+.u21_container {
+    position:absolute;
+    left:0px;
+    top:0px;
+    width:480px;
+    height:130px;
+}
+
+#u21_img {
+    position:absolute;
+    left:-3px;
+    top:-3px;
+    width:486px;
+    height:136px;
+}
+
+.u22 {
+    position:absolute;
+    left:2px;
+    top:58px;
+    width:476px;
+    height:15px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u21 {
+    position:absolute;
+    left:0px;
+    top:0px;
+    width:480px;
+    height:130px
+}
+

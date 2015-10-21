@@ -1,0 +1,55 @@
+<!--[form:menu]-->
+
+<table height=200px>
+  <% if @menu && @menu.id%>
+  <tr><td>ID:</td><td><%=@menu.id%></td></tr>
+  <% end %>
+  <tr>
+    <td>
+        <label for="menu_text">名&nbsp;&nbsp;&nbsp;称：</label>
+    </td>
+    <td>
+        <%= text_field 'menu', 'text'  %>
+    </td>
+  </tr>
+  <tr>
+    <td>
+        <label for="menu_controller_name">URL：</label>
+    </td>
+    <td>
+        <%= text_field 'menu', 'url'  %>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    <label for="menu_edit_right">父节点：</label>
+    </td>
+    <td>
+    <%=select("menu", "parent_id", Mms::Menu.find(:all).collect {|p| [ "#{p.text} ( #{p.id} )", p.id ] }, { :include_blank => true })%>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    <label for="menu_edit_right">隐藏：</label>
+    </td>
+    <td>
+<%=select("menu", "hide", [['是', 1], ['否', 0]], { :include_blank => true })%>
+
+    <%= check_box "menu", "blank"%>新窗口打开
+   </td>
+  </tr>
+</table>
+<script>
+function show_right_tree(id)
+{
+    window.open("/right/show_rights/", null, "toolbar=no,menubar=no,directories=no,status=no,left=200,top=80,width=500,height=400,scrollbars=1,resizable=no");
+}
+
+function after_select_right(id, name)
+{
+    $("#list_right_name").val(name);   
+    $("#menu_list_right").val(id);   
+}
+</script>
+<!--[eoform:menu]-->
+

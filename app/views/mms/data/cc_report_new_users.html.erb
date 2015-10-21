@@ -1,0 +1,118 @@
+<h3><%=date_cn @date1%>到<%=date_cn @date2%> 注册新用户表</h3>
+<table class="grid">
+    <tbody>
+        <tr>
+        	<th>
+                序号
+            </th>
+            <th>
+                用户名
+            </th>
+            <th>
+                注册时间
+            </th>
+			<th>
+                性别
+            </th>
+            <th>
+                地区
+            </th>
+            <th>
+                年龄段
+            </th>
+            <th>
+                孩子年龄段
+            </th>
+            <th>
+                行业
+            </th>
+			 <th>
+                关注
+            </th>
+            <th>
+                粉丝
+            </th>
+            <th>
+                微博
+            </th>
+			 <th>
+                头像
+            </th>
+            <th>
+                资料
+            </th>
+            <th>
+                手机
+            </th>
+            <th>
+                域名
+            </th>
+			<th>
+                博客
+            </th>
+			<% if @mms_user%>
+			<th>
+                邀请人
+            </th>
+			<% end %>
+        </tr>
+		<% i = 1 %>
+        <% for user in @users %>
+        <tr height="35">
+        	<td>
+                <%=i %>
+            </td>
+            <td>
+                <%=link_user(user) %>
+            </td>
+            <td>
+                <%=date_time user.created_at %>
+            </td>
+			<td>
+				<%=APP_CONFIG["gender_label_#{user.gender}"] %>
+			</td>
+            <td>
+                <%=user.province.name if user.province %> <%=user.city.name if user.city%>
+            </td>
+            <td>
+                <%=user.birthyear %>后
+            </td>
+            <td>
+               <%=user.age.name if user.age %>
+            </td>
+            <td>
+                <%=user.industry.name if user.industry %>
+            </td>
+			 <td>
+                <%=user.follow_users_count %>
+            </td>
+            <td>
+               <%=user.fans_users_count %>
+            </td>
+            <td>
+                <%=user.posts_count %>
+            </td>
+            <td>
+                <%=true_or_false(!user.logo.blank?) %>
+            </td>
+            <td>
+				 <%=true_or_false(user.user_profile && UserProfile.is_finish_profile(user,user.user_profile)) %>
+            </td>
+			<td>
+                <%=true_or_false(!user.mobile.blank?) %>
+            </td>
+			<td>
+                <%=true_or_false(!user.domain.blank?) %>
+            </td>
+			<td>
+                <%=true_or_false(!user.user_blogs.blank?) %>
+            </td>
+			<td><%=link_user(user.invite_user) if user.invite_user %></td>
+        </tr>
+		<% i+=1 %>
+        <% end %>
+    </tbody>
+</table>
+<div class="summary">
+	总计：<%=@users.length%>个新注册会员
+</div>

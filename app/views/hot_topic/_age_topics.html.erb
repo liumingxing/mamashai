@@ -1,0 +1,10 @@
+<div class="ht">
+	<h4><%= title %></h4>
+	<div class="ht_li">
+		<ul>
+			<% AgeTag.all(:conditions => ["tp = ? and is_index_hot = ? and age_id in (?)", 0, 1, age_id],:order => "updated_at desc",:limit=>12).each  do |age_tag|%>
+        		<li><a href="/topic/<%= age_tag.short_tag_name%>"><%= age_tag.short_tag_name %> <font>(<%= age_tag.total_count%>)</font></a></li>
+        	<% end %>
+		</ul>
+	</div>
+</div>

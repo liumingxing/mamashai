@@ -1,0 +1,46 @@
+<table class="grid_order"  border="1">
+    <tr>
+        <td class="td01" width="300px">
+            名称：
+        </td>
+        <td>
+            <%= f.text_field :name, :size=>50,:required=>"required" %>
+            <%= f.error_message_on :name %>
+        </td>
+    </tr>
+	<tr>
+        <td class="td01">
+            图片：
+        </td>
+        <td>
+            <%= upload_column_field :gou_site, :logo %>
+            <%= f.error_message_on :logo %>
+        </td>
+    </tr>
+    <tr>
+        <td class="td01">
+            URL地址：
+        </td>
+        <td>
+            <%= f.text_field :url, :size=>50,:required=>"required" %>
+            <%= f.error_message_on :url %>
+        </td>
+    </tr>
+    <tr>
+        <td class="td01">
+            开始时间：
+        </td>
+        <td>
+            <%= f.datetime_select :open_at, :use_month_numbers => true, :include_seconds => true%>
+            <%= f.error_message_on :open_at %>
+        </td>
+    </tr>
+    <tr>
+        <td class="td01">
+        </td>
+        <td>
+        	<input type="submit" name="submit" value="提交">
+			<%= link_to '返回', '/mms/gous/site_index', {:style => "color:#329BCB;"} %>
+        </td>
+    </tr>
+</table>

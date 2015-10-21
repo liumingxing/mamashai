@@ -1,0 +1,210 @@
+<div class="gifts_panel">
+    <div class="mms_panel_title">
+        <span class="title title_settings">设置</span>
+    </div>
+    <%=render :partial=>'nav' %>
+    <div class="mms_panel_content">
+        <%=render :partial=>'success_pmt' if params[:success] %>
+        <% if @user_kids.blank? %>
+        <div class="babyinfor" id="user_kid_1_button">
+            <div class="end">
+                您可以在这里随时完善您的宝宝资料.
+            </div>
+            <div class="pbutton">
+                <a href="javascript:void(0);" onclick="show_kid_form(1);">添加宝宝</a>
+            </div>
+        </div>
+        <% end %>
+        <style type="text/css">
+            .error {
+                border: 3px solid #FF0000;
+            }
+            
+            .tooltip {
+                position: absolute;
+                background-color: #cfc;
+                padding: 4px;
+                border: 2px solid #9c9;
+                border-radius: 4px;
+                -webkit-border-radius: 4px;
+                -moz-border-radius: 4px;
+            }
+        </style>
+        <%= javascript_include_tag 'validation' %>
+        <%= form_tag({:action=>:update_kids},{:multipart=>true,:id=>"kids_form_id" }) do %>
+		<% if @user_kids.blank? %>
+		<% unless @user_kid1.blank? %>
+		<div class="infor_content" id="user_kid_1" style="display:none;">
+            <div class="infor_content_one">
+                <a href="#">老大</a>
+            </div>
+            <%= render :partial=>'form_kids',:locals=>{:user_kid=>@user_kid1,:user_kid_obj=>'user_kid1'} %>
+			<% if @user_kid2.blank? %>
+			<div class="infor_content_one infor_content_one01" id="user_kid_2_button">
+			    <%= link_to_remote('还有老二呢', :update => "user_kid_2", :url => {:action => :add_user_kid, :controller=> :settings, :user_kid => "2"}, :success => "$('#user_kid_2_button').hide();") %>
+			</div>
+			<% end %>
+        </div>
+		<% end %>
+        <div class="infor_content" id="user_kid_2">
+        </div>
+        <div class="infor_content" id="user_kid_3">
+        </div>
+        <div class="save01" id="user_kids_button" style="display:none;">
+            <button class="button_submit" type="submit" onmouseover="this.className='button_submit button_submit_hover';" onmouseout="this.className='button_submit';">
+                保存
+            </button>
+        </div>
+		<% else %>
+		<% unless @user_kid1.blank? %>
+		<div class="infor_content" id="user_kid_1">
+            <div class="infor_content_one">
+                <a href="#">老大</a>
+            </div>
+            <%= render :partial=>'form_kids',:locals=>{:user_kid=>@user_kid1,:user_kid_obj=>'user_kid1'} %>
+			<% if @user_kid2.blank? %>
+			<div class="infor_content_one infor_content_one01" id="user_kid_2_button">
+			    <%= link_to_remote('还有老二呢', :update => "user_kid_2", :url => {:action => :add_user_kid, :controller=> :settings, :user_kid => "2"}, :success => "$('#user_kid_2_button').hide();") %>
+			</div>
+			<% end %>
+        </div>
+		<% end %>
+        <div class="infor_content" id="user_kid_2">
+			<% unless @user_kid2.blank? %>
+            <div class="infor_content_one">
+                <a href="#">老二</a>
+            </div>
+            <%= render :partial=>'form_kids',:locals=>{:user_kid=>@user_kid2,:user_kid_obj=>'user_kid2'} %>
+			<% if @user_kid3.blank? %>
+			<div class="infor_content_one infor_content_one01" id="user_kid_3_button">
+			    <%= link_to_remote('还有老三呢', :update => "user_kid_3", :url => {:action => :add_user_kid, :controller=> :settings, :user_kid => "3"}, :success => "$('#user_kid_3_button').hide();") %>
+			</div>
+			<% end %>
+			<% end %>
+        </div>
+        <div class="infor_content" id="user_kid_3">
+			<% unless @user_kid3.blank? %>
+            <div class="infor_content_one">
+                <a href="#">老三</a>
+            </div>
+            <%= render :partial=>'form_kids',:locals=>{:user_kid=>@user_kid3,:user_kid_obj=>'user_kid3'} %>
+			<% end %>
+        </div>
+        <div class="save01" id="user_kids_button">
+            <button class="button_submit" type="submit" onmouseover="this.className='button_submit button_submit_hover';" onmouseout="this.className='button_submit';" id="btn_submit">
+                保存
+            </button>
+        </div>
+		<% end %>
+        <% end %>
+    </div>
+</div>
+<script>
+    new Validation('kids_form_id', {
+        length_100: {
+            errmessage: '您的输入超过了100个字符',
+            test: function(obj){
+                return !obj.value || obj.value.length <= 100;
+            }
+        }
+    
+    });
+	
+</script>
+<script type="text/javascript">
+	$("#btn_submit").click(function(){
+		var check_ok = false;
+		//alert(111);
+		if ($("#user_kid_1").html() != "")
+		{
+			if ($("#user_kid1_birthday_1i").val() == "" && $("#user_kid1_birthday_2i").val() == "" && $("#user_kid1_birthday_3i").val() == "")
+			{
+				alert("请您填写宝宝生日。");
+				check_ok = false;
+				//return false;
+			}	
+			else if ($("#user_kid1_name").val() == "")
+			{
+				alert("请填写宝宝的昵称");
+				check_ok = false;
+				//return false;
+			}
+			else if ($("#user_kid1_education").val() == "")
+			{
+				alert("请填写宝宝的教育状况。");
+				check_ok = false;
+				//return false;
+			}
+			else
+			{
+				check_ok = true;
+				//return false;
+			}
+		}
+		if ($("#user_kid_2").html().trim().length > 0)
+		{
+			if ($("#user_kid2_birthday_1i").val() == "" && $("#user_kid2_birthday_2i").val() == "" && $("#user_kid2_birthday_3i").val() == "")
+			{
+				alert("请您填写老二的生日。");
+				//alert("1111" + check_ok);
+				check_ok = false;
+				//alert("222" + check_ok);
+				//return false;
+			}	
+			else if ($("#user_kid2_name").val() == "")
+			{
+				alert("请填写老二的昵称");
+				check_ok = false;
+				
+				//return false;
+			}
+			else if ($("#user_kid2_education").val() == "")
+			{
+				alert("请填写老二的教育状况。");
+				check_ok = false;
+				//return false;
+			}
+			else
+			{			
+				check_ok = true;
+				//return false;
+			}
+		}
+		
+		if ($("#user_kid_3").html().trim().length > 0)
+		{
+
+			if ($("#user_kid3_birthday_1i").val() == "" && $("#user_kid3_birthday_2i").val() == "" && $("#user_kid3_birthday_3i").val() == "")
+			{
+				alert("请您填写老三的生日。");
+				check_ok = false;
+				//return false;
+			}	
+			else if ($("#user_kid3_name").val() == "")
+			{
+				alert("请填写老三的昵称");
+				check_ok = false;
+				//return false;
+			}
+			else if ($("#user_kid3_education").val() == "")
+			{
+				alert("请填写老三的教育状况。");
+				check_ok = false;
+				//return false;
+			}
+			else
+			{
+				check_ok = true;
+				//return false;
+			}
+		}
+		if (check_ok == true)
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	});
+</script>

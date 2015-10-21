@@ -1,0 +1,2 @@
+module Mms::ScoresHelper
+end

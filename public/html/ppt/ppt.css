@@ -1,0 +1,36 @@
+
+body { background:#F5D3EB;}
+#wapper {width:1000px;margin:0px auto;}
+
+#head {_height:100px;min-height:100px;}
+
+#head .head_nav { background:url(/images/about/nav.gif) repeat-x;height:38px;margin-bottom:20px;}
+#head .head_nav .nav01 {float:left; background:url(/images/about/about.gif) no-repeat;width:153px;height:38px;}
+#head .head_nav .nav02 {float:left;width:835px;}
+#head .head_nav .nav02 .index { background:url(/images/about/icon_10.gif) 0px 10px no-repeat;line-height:38px;padding-left:20px;hieght:38px;float:right;}
+#head .head_nav .nav02 .index a {color:#861E1F;}
+#head .head_nav .nav03 {float:right;background:url(/images/about/nav02.gif) top right no-repeat;width:7px;height:38px;}
+#head .head_nav .nav_post {background:url(/images/post_new/nav.gif) no-repeat;}
+#head .head_nav .nav01_books {background:url(/images/ads/ppt/books.gif) no-repeat;}
+
+
+.post_new { background:url(/images/post_new/content.jpg) repeat-y;}
+.post_new_top { background:url(/images/post_new/top.jpg) no-repeat;height:11px;overflow:hidden;}
+.post_new_content {height:599px;width:967px;margin:15px auto; position:relative;}
+.post_new_content .post_button { position:absolute; z-index:100;left:385px;bottom:40px;}
+.post_new_content .post_button a.back {margin-left:25px; display:block;float:left;}
+.post_new_content .post_button a.up { display:block;float:left;}
+.post_new_bottom { background:url(/images/post_new/bottom.jpg) no-repeat;height:7px;overflow:hidden;}
+
+.post_button_11 {width:200px;margin:0px auto 10px;}
+.post_button_11 a {margin-right:10px;}
+
+
+
+
+
+
+
+
+
+

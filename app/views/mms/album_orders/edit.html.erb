@@ -1,0 +1,7 @@
+<h1>修改订单</h1>
+
+<%= form_tag :action => 'update', :id => @album_order do %>
+  <%= render :partial => 'form' %>
+  <%= submit_tag '保存' %> | <%= link_to '返回', :action => 'list' %>
+<% end %>
+

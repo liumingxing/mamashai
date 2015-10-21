@@ -1,0 +1,38 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>无标题文档</title>
+<script src="/dev/javascripts/jquery-1.4.2.min.js?1270717973" type="text/javascript"></script>
+</head>
+<style>
+#box {
+	position:relative;
+	width:100px;
+	height:100px;
+	border:1px solid #0050d0;
+	background:#96e555;
+	cursor:pointer;
+}
+</style>
+<script type="text/javascript">
+ $(function(){
+						$("#box").click (function(){
+									$(this).animate({opacity: "0.9", left: "+=500"}, 1200)
+												.animate({opacity: "0.9", top: "+=500",}, "slow")
+												.animate({opacity: "9", left: "0",}, "slow")
+												.animate({opacity: "9",top: "0"}, "fast")
+												.slideDown("slow")
+												return false;
+									
+									
+		});
+						
+  });
+</script>
+<body>
+<div  style="width:600px;height:600px;border:1px solid #ccc;margin:auto;">
+    <div id="box"></div>
+</div>
+</body>
+</html>

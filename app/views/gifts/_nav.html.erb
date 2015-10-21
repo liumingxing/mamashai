@@ -1,0 +1,16 @@
+<div class="navigate_tab" id='n'>
+	<ul class="class1">
+		<li <%=raw  ' class="current"' if params[:action]=='index' %>>
+			<a href="<%= url_for :action=>"index", :anchor=>'n' %>">收到的礼物</a>
+		</li>
+		<li <%=raw  ' class="current"' if params[:action] =='sent' %>>
+			<a href="<%= url_for :action=>"sent", :anchor=>'n' %>">送出的礼物</a>
+		</li>
+		<% if @user && @user.id == @space_user.id %>
+		<li <%=raw  ' class="current"' if params[:action] =='new' %>>
+			<a href="<%= url_for :action=>"new", :anchor=>'n' %>">送礼</a>
+		</li>
+		<% end %>
+	</ul>
+</div>
+<div style="clear: both"></div>

@@ -1,0 +1,36 @@
+<% form_remote_tag :url => {:action =>:set_best_follows}, :update => "sidebar_follow_users",:html=>{:id=>'sidebar_follows_form'} do %>
+<div class="search_user">
+    <ul class="user">
+        <li<%=' class="current"' if params[:id]=='0' %>>
+            <a href="javascript:void(0)" onclick="get_sidebar_follows(0)">全部</a>
+        </li>
+        <% for group in @groups %>
+        <li class="line">
+        </li>
+        <li<%=' class="current"' if params[:id]==group.id.to_s %>>
+            <a href="javascript:void(0)" onclick="get_sidebar_follows(<%=group.id%>)"><%=group.name %></a>
+        </li>
+        <% end %>
+    </ul>
+    <ul class="tags_concern">
+        <% for follow in @follows %>
+        <li>
+            <%=check_box :follow_ids, follow.id,  {:checked => @best_follow_ids.include?(follow.id) } %>&nbsp;<%=follow.name_str %>
+        </li>
+        <% end %>
+    </ul>
+    <div class="layer_pag">
+        <span class="title">&lt; <a href="javascript:void(0)" onclick="get_sidebar_page_follows(<%=params[:id]%>,<%=@follows.previous_page%>)">上一页</a></span>
+        <span class="more"><a href="javascript:void(0)" onclick="get_sidebar_page_follows(<%=params[:id]%>,<%=@follows.next_page%>)">下一页</a>&gt;</span>
+    </div>
+    <ul class="layer_botton">
+        <li>
+            <button class="button_submit_s" type="submit" onmouseover="this.className='button_submit_s button_submit_s_hover';" onmouseout="this.className='button_submit_s';">
+                关注 
+            </button>
+        </li>
+        <div class="clear">
+        </div>
+    </ul>
+</div>
+<% end %>

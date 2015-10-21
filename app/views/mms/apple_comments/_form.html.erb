@@ -1,0 +1,26 @@
+<%= error_messages_for 'apple_comment' %>
+
+<table class="ft" border="1">
+<!--[form:apple_comment]-->
+<tr>
+	<td>Name</td>
+	<td><%= text_field 'apple_comment', 'name'  %></td>
+</tr>
+
+<tr>
+	<td>Score</td>
+	<td><%= text_field 'apple_comment', 'score'  %></td>
+</tr>
+
+<tr>
+	<td>Created at</td>
+	<td><%= datetime_select 'apple_comment', 'created_at'  %></td>
+</tr>
+
+<tr>
+	<td>Updated at</td>
+	<td><%= datetime_select 'apple_comment', 'updated_at'  %></td>
+</tr>
+<!--[eoform:apple_comment]-->
+
+</table>

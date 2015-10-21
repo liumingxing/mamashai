@@ -1,0 +1,43 @@
+
+<div class="layer" id="layer_turn">
+    <div class="layer_title">
+        <span class="title">推荐话题</span>
+        <span class="more"><a href="javascript:void(0);" onclick="MMS.tools.hidedialog();"><img src="/images/layer/del_06.gif"></a></span>
+    </div>
+    <div class="layer_content">
+
+        <div class="layer_box">
+            还可以输入<span id="forward_text_left" class="size">210</span>个汉字
+        </div>
+		<% form_remote_tag :url => {:action => :create_forward_hot_topic,:the_tag_id=>@tag.id} do %>
+	        <div class="layer_box_text" >
+	           <%= text_area :post, :content,{:id=>'forward_post_content',:onpropertychange=>"updateStatusTextCharCounter(this,'forward_text_left')",:oninput=>"updateStatusTextCharCounter(this,'forward_text_left')"} %>
+	           <%= hidden_field_tag 'from', "topic"%>
+				<div>
+	                <%=error_message_on :post,:content %>
+	            </div>
+	        </div>
+	        <div class="layer_comments">
+	            说明：推荐的时候说点什么吧，长度不能超过210字。
+	        </div>
+	        <ul class="layer_botton">
+	            <li>
+	                <button class="button_submit_s"  id="forward_shine_button" type="button" onmouseover="this.className='button_submit_s button_submit_s_hover';" onmouseout="this.className='button_submit_s';">
+	                        推荐
+	                </button>
+	            </li>
+	            <li>
+	                <button class="button_submit_s" type="button" onclick="MMS.tools.hidedialog();" onmouseover="this.className='button_submit_s button_submit_s_hover';" onmouseout="this.className='button_submit_s';">
+	                        取消
+	                </button>
+	            </li>
+	            <div class="clear">
+	            </div>
+	        </ul>
+		<% end %>
+    </div>
+</div>
+<script>
+	$('#forward_post_content').focus();
+    //reset_box(432, 332);
+</script>

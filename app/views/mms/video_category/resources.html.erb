@@ -1,0 +1,46 @@
+<div id="middle">
+    <div id="css_mainbody">
+        <h1 class="title"><%= @category.name %>
+		<span style="float: right; margin-right: 10px;">
+			<%= link_to "返回", :action=>"index" %> |
+            <%= link_to '新添视频', :action=>:new_resource, :id=>params[:id] %>
+        </span>
+		</h1>
+        <table class="grid">
+            <thead>
+                <tr>
+                    <th>
+                        名称
+                    </th>
+                    <th>
+                        logo
+                    </th>
+                    <th>浏览次数</th>
+                    <th>
+                        加入时间
+                    </th>
+                    <th colspan=2>
+						操作
+					</th>
+                </tr>
+            </thead>
+            <% for resource in @resources %>
+			<tr>
+				<td><a href="<%= resource.page_url %>" target="_blank"><%= resource.name %></a></td>
+				<td>
+                    <% if resource.logo %>
+                    <img src="<%= resource.logo.thumb160.url %>" />
+                    <% end %>
+                </td>
+                <td><%= resource.visit_count %></td>
+				<td><%= resource.created_at.to_s(:db) %></td>
+                <td><%= link_to "修改", :action=>"edit_resource", :id=>resource %></td>
+                <td><%= link_to "删除", :action=>"delete_resource", :id=>resource %></td>
+			</tr>
+			<% end %>
+        </table>
+        <%= will_paginate @resources %>
+    </div>
+    <div class="clear">
+    </div>
+</div>

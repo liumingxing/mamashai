@@ -1,0 +1,91 @@
+			<%= javascript_include_tag "My97DatePicker/WdatePicker.js" %>
+			<div class="upload_votes">
+			  <div id="create_vote">
+				<% form_remote_tag :update=>"update_vote", :url=>{:controller=>"ajax", :action=>"create_vote"}, :html=>{:onsubmit=>"if($.trim($('#vote_title').val()) == ''){alert('请填写投票标题');return false;} if (filled_option_count<2) {alert('请至少填写2个选项'); return false;}"} do%>
+				<table>
+					<tr><td width="60px" valign="top">投票标题：</td>
+						<td><%= text_field "vote", "title", :class=>"vote_input1"%><br/>
+						<a href="javascript:void()" onclick="$('#vote_desc').toggle();">添加投票说明</a>
+						<div id='vote_desc' style="display:none">
+							<%= text_area "vote", "desc"%>
+						</div>
+						</td>
+					</tr>
+					<tr><td valign='top'>投票选项：</td>
+						<td id='new_vote_options'>
+							<%= text_field_tag "option[1]", "", :class=>"vote_input1 vote_o", :onblur=>"check_c()"%>
+							<%= text_field_tag "option[2]", "", :class=>"vote_input1 vote_o", :onblur=>"check_c()"%>
+							<%= text_field_tag "option[3]", "", :class=>"vote_input1 vote_o", :onblur=>"check_c()"%>
+							<%= text_field_tag "option[4]", "", :class=>"vote_input1 vote_o", :onblur=>"check_c()"%>
+							<%= text_field_tag "option[5]", "", :class=>"vote_input1 vote_o", :onblur=>"check_c()"%>
+							<%= text_field_tag "option[6]", "", :class=>"vote_input1 vote_o", :onblur=>"check_c()"%>
+						</td>
+					</tr>
+					<tr><td></td><td valign='middle'><img src="/images/icons/chart_bar_add.png"> <a href="javascript:add_option()">添加选项</a></td></tr>
+					<tr><td>投票方式：</td><td>
+						<select id='election_mode' name='vote[tp]'>
+							<option value='1'>单选</option>
+						</select>
+						</td>
+					</tr>
+					<tr><td valign='top'>有效天数：</td>
+					<td>
+						<%= text_field_tag "days", "90", :class=>"vote_input2"%><br/>
+					
+					</td></tr>
+					<tr>
+						<td><a href="#?" onclick="$('#select_vote').show(); $('#create_vote').hide();">我的投票库</a></td>
+						<td align='center'>
+						<%= submit_tag "发起", :id=>"submit_button", :class=>"button_submit_s", :onmouseover=>"this.className='button_submit_s button_submit_s_hover';", :onmouseout=>"this.className='button_submit_s';"%>
+					</td></tr>
+				</table>
+				<% end %>
+			  </div>
+			  <div id="select_vote" style="display:none;">
+			  	 <% form_remote_tag :update=>"update_vote", :url=>{:controller=>"ajax", :action=>"select_vote"} do%>	
+					<table>
+					<tr><td colspan=2>下面是你发起的投票，你可以选择一个投票添加到微博</td></tr>
+					<% for vote in @votes %>
+						<tr><td colspan=2><%= radio_button_tag "vote_id",  vote.id %> <%= vote.title %></td></tr>
+					<% end %>
+						<tr><td width="60px"><a href="#?" onclick="$('#select_vote').hide(); $('#create_vote').show();">创建新投票</a></td>
+						<td align="center">
+							<%= submit_tag "发起", :id=>"submit_button", :class=>"button_submit_s", :onmouseover=>"this.className='button_submit_s button_submit_s_hover';", :onmouseout=>"this.className='button_submit_s';"%>
+						</td></tr>
+					</table>
+				 <% end %>
+			  </div>
+			</div>
+			<script>
+				var orig_count = 0;
+				var option_count = 6;
+				var filled_option_count = 0;
+				function add_option()
+				{
+					for(var i=0; i<=2; i++)
+					{
+						option_count += 1;
+						str = "<input class='vote_input1  vote_o' onblur='check_c()' name='option[" + option_count + "]'/>"
+						$("#new_vote_options").append(str)
+					}
+				}
+				
+				function check_c()
+				{
+					var count = 0
+					$.each($(".vote_o"), function(i, obj){
+						if ($.trim(obj.value) != "")
+							count += 1
+					})
+					filled_option_count = count;
+					if (orig_count != count) {
+						str = "<option value='1'>单选</option>";
+						for(var i=2; i<=count; i++)
+						{
+							str += "<option value='" + i + "'>最多选" + i + "个</option>"
+						}
+						$("#election_mode").html(str);
+						orig_count = option_count;
+					}
+				}
+			</script>

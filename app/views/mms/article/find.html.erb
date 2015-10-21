@@ -1,0 +1,95 @@
+<div id="middle">
+  <div id="css_mainbody">
+    <h1 class="title">文章搜索结果:<%= "--#{flash[:notice]}" unless flash[:notice].blank? %></h1>
+    <br/>
+    <% form_tag :action => :find do%>
+      <table>
+        <tbody>
+          <tr>
+            <td width="10%" align="right">
+              文章搜索：
+            </td>
+            <td width="20%">
+              <%= text_field :search, :title -%>
+            </td>
+            <td width="10%">
+              <%= button_to "搜索", :action => :find %>
+            </td>
+            <td>
+
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    <% end %>
+    <br/>
+    <hr/>
+    <table class="grid">
+      <tbody>
+        <tr>
+          <th>
+            栏目名称
+          </th>
+          <th>
+            资讯名称
+          </th>
+          <th>
+            作者
+          </th>
+          <th>
+            来源
+          </th>
+          <th>
+            状态
+          </th>
+          <th>
+            操作
+          </th>
+          <th>
+            查看
+          </th>
+          <th>
+            编辑
+          </th>
+          <th>
+            删除
+          </th>
+        </tr>
+        <% @articles.each do |article| %>
+          <tr>
+            <td>
+              <%=h article.article_category.present? ? article.article_category.name : '' %>
+            </td>
+            <td>
+              <a target="blank" href="/pub/article/<%= article.id %>"><%=h article.title %></a>
+            </td>
+            <td>
+              <%=h article.author %>
+            </td>
+            <td>
+              <%=h article.origin_url %>
+            </td>
+            <td>
+              <%= article.state == "已发布" ? "已发布" : "未发布" %>
+            </td>
+            <td>
+              <%= link_to '发布', :action => :publish, :id => article %>　｜　<%= link_to '取消发布', :action => :unpublish, :id => article %>
+            </td>
+            <td>
+              <%= link_to '查看', :action => :show, :id => article %>
+            </td>
+            <td>
+              <%= link_to '编辑', :action => :edit, :id => article %>
+            </td>
+            <td>
+              <%= link_to '删除', :action => :destroy, :id => article, :method => :delete %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+    <div class="book_page">
+      <%=will_paginate @articles %>
+    </div>
+  </div>
+</div>

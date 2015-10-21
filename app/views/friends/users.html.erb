@@ -1,0 +1,35 @@
+<div class="settings_content">
+    <div class="settings_title">
+        用户搜索
+    </div>
+    <% form_tag({:action=>'find_search'},{:method => :get}) do %>
+    <%= render :partial=>'form_find2' %>
+      <div id="submit_area" style="text-align:center;margin-bottom:0px;">
+                    <button class="button_submit_s" type="submit" onmouseover="this.className='button_submit_s button_submit_s_hover';" onmouseout="this.className='button_submit_s';">
+                        搜索
+                    </button>
+                </div><% end %>
+    <div class="all_user">
+        一共找到 <span class="red"><%=@users.total_entries %></span>
+        位用户
+    </div>
+    <ul class="shine_list"> 
+        <% for user in @users %>
+        <li class="list">
+            <%=render :partial=>'/home/list_user',:locals => {:user_item => user} %>
+            <ul class="shine_local">
+                <li id="fans_user_<%=user.id%>">
+                	<% if @user && @user.has_follow?(user.id) %>
+					<img src="/images/icons/follow_success.gif"/>
+					<% else %>
+                    <%= link_to_remote(APP_CONFIG['add_follow'],{:update => "fans_user_#{user.id}", :url => {:action =>:create_follow_user,:controller=>:ajax,:id=>user.id}},{:class=>'button_link'} ) %>
+                    <% end %> 
+			    </li>
+            </ul>
+            <div class="clear">
+            </div>
+        </li>
+        <% end %>
+    </ul>
+    <%=will_paginate @users %>
+</div>

@@ -1,0 +1,56 @@
+<div class="user_content" id="post_wapper_<%= post.id%>">
+	<div class="article_content">
+		<div class="user_pic">
+			<%= logo_tag(post.user,{:version=>'thumb48',:url=>user_url(post.user)}) %>
+		</div>
+		<div class="user_article">
+			<div class="article_info" style="width:640px;">
+				<div class="orgtxt">
+			        <%=link_user(post.user) if post.user %>
+			        <div class='kid_desc'>
+			        	<%=refer_time(post.created_at) %> <%= kid_age(post.user) if post.user %>
+			        	<% if %w(bbyulu biaoqing caiyi fayu shanguang shijian tupian wenzi wenda wotao yingyang zaojiao column).include?(post.from) %>
+			        		<img src="/images/weibo/<%= post.from %>.png"/>
+			        	<% end %>	
+			        	<% if post.from.to_s.index('lama') == 0 %>
+			        		<img src="/images/weibo/lmrb.png"/>
+			        	<% end %>
+			        </div>  
+			        <div class="clear"></div>
+					<% if post.from == 'column' && post.column_chapter%>
+						<a href="/column/show/<%= post.from_id%>">《<%= post.column_chapter.title%>》</a>
+					<% end %>
+					
+			        <% if @tag %>
+			        	<%=highlight(post_content(post.content),@tag.name) %>
+					<% elsif @tags %>
+						<%=highlight(post_content(post.content), @tags) %>
+			        <% else %> 
+			        
+			        <% if post.long_post %>
+			        	<%= post.long_post.content %>
+			        <% else %>
+						<%=post_content(post.content) %>
+					<% end %>
+					<%end %>
+					<% if post.from == 'column' %>
+						<a href="/column/show/<%= post.from_id%>">查看全文</a>
+					<% end %>
+					
+			        <%=post_blog_url(post) if post.blog_url %>
+			    </div>
+			</div>
+			<%=render :partial=>'/share/post_content_vote', :locals=>{:post => post} if post.from == 'vote'%>
+			<%=render :partial=>'/share/post_content_logo',:locals=>{:post => post,:id_post=>post} if post.logo %>
+			<%=render :partial=>'/share/post_content_video',:locals=>{:post => post} if post.video_url %>
+			<%=render :partial=>'/share/post_content_forward_post',:locals=>{:post => post} %>
+
+		</div>
+		<div class="clear"></div>
+	</div>
+	<%= render :partial=>'/share/post_tools', :locals => {:post => post} %>
+</div>
+
+<script>
+	show_post_expand('list_comments','<%=post.id%>');
+</script>

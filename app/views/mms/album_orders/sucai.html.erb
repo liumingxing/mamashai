@@ -1,0 +1,17 @@
+<table class="list" border="1">
+  <tr class="head">
+    <th>截图</th>
+    <th colspan=3>操作</th>
+  </tr>
+  
+<% for page in @book_json['pages'] %>
+  <% next if !page['picture'].index('album_page')%>
+  <tr>
+    <td><img style="width:200px; " src='http://www.mamashai.com<%= page['picture'] %>'/></td>
+    <td>
+    	<%= link_to '逆90', :action => 'rotate', :id=>params[:id], :path=>URI.encode(page['picture']), :degree=>90 %> |
+    	<%= link_to '顺90', :action => 'rotate', :id=>params[:id], :path=>URI.encode(page['picture']) , :degree=>270 %>
+    </td>
+  </tr>
+<% end %>
+</table>

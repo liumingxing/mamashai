@@ -1,0 +1,178 @@
+<style type="text/css">
+	 .error {
+        border: 3px solid #FF0000;
+    }
+    
+    .tooltip {
+        position: absolute;
+        background-color: #cfc;
+        padding: 4px;
+        border: 2px solid #9c9;
+        border-radius: 4px;
+        -webkit-border-radius: 4px;
+        -moz-border-radius: 4px;
+    }
+</style>
+<div class="profile_content">
+    <div class="profile_content_table">
+        <table class="grid">
+            <tbody>
+                <tr height="40">
+                    <td class="title2" colspan="2">
+                        基本信息
+                    </td>
+                </tr>
+                <tr height="40">
+                    <td class="t01" width="100">
+                        <span class="red">*</span>
+                        昵  称： 
+                    </td>
+                    <td class="t02">
+                        <%=text_field :user, :name,:class=>'default_input required length_10' %>
+                        <%=error_message_on :user,:name %>
+                    </td>
+                </tr>
+                <tr height="40">
+                    <td class="t01" width="100">
+                        <span class="red">*</span>
+                        居住地： 
+                    </td>
+                    <td class="t02">
+                        <%=select :user, :province_id, Province.find(:all).collect {|p| [ p.name, p.id ] }, {:prompt=>'省/直辖市'} %>
+                        <span id="cities_span"></span>
+                        <%= observe_field("user_province_id",:url => { :action => 'get_cities',:controller=>'ajax' },:before=>'show_loadding("cities_span")',:update => 'cities_span',:with => "'model=user&city_id=@user.city_id&id='+value") %>
+                        <script>show_loadding("cities_span");
+                            $("#cities_span").load("/ajax/get_cities?" + "model=user&city_id=<%=@user.city_id%>&id=" + $("#user_province_id").val())
+						</script>
+                        <%=error_message_on :user,:province_id %>
+                        <%=error_message_on :user,:city_id %>
+                    </td>
+                </tr>
+				<tr height="40">
+                    <td class="t01" width="100">
+                        <span class="red">*</span>
+                        性 别： 
+                    </td>
+                    <td class="t02">
+                        <%=radio_button :user, :gender, 'w' %>
+                        <label>
+                            女
+                        </label>
+                        &nbsp;&nbsp;&nbsp;&nbsp;<%=radio_button :user, :gender, 'm' %>
+                        <label>
+                            男
+                        </label>
+                        <%=error_message_on :user,:gender %>
+                    </td>
+                </tr>
+                <tr height="40">
+                    <td class="t01" width="100">
+                        <span class="red">*</span>
+                        生 日： 
+                    </td>
+                    <td class="t02">
+                        <%=select :user, :birthyear, APP_CONFIG['time_birthyears'].split('|').collect {|p| [ "#{p}后", p.to_i ] }, {:prompt=>'年代'} %>
+                        <%= date_select :user, :birthday ,:use_month_numbers => true,:start_year=>2000, :prompt=>{:month=>APP_CONFIG['time_label_m'],:day=>APP_CONFIG['time_label_d']} %>
+                        <%=error_message_on :user,:birthyear %><%=error_message_on :user,:birthday %>
+                    </td>
+                </tr>
+                <tr height="40">
+                    <td class="title2" colspan="2">
+                        联系信息
+                    </td>
+                </tr>
+                <% if @user.email.index('@') %>
+				<tr height="40">
+                    <td class="t01" width="100">
+                        邮 箱：
+                    </td>
+                    <td class="t02">
+                        <% if @user.user_weibo%>
+							<%= text_field :user, :email, :class=>'default_input required length_10'%>
+						<% else %>
+							<%= text_field :user, :email, :class=>'disable_input',:disabled=>'disabled' %>
+                        <% end %>
+						<%=check_box :pub_infos, 'email', {:class => "default_checkbox" ,:checked=>@user_profile.is_pub_info('email') } %>&nbsp;<span class="gray">公开</span>
+                    </td>
+                </tr>
+				<% end %>
+                <tr height="40">
+                    <td class="t01" width="100">
+                        Q Q：
+                    </td>
+                    <td class="t02">
+                        <%= text_field :user, :qq, :class=>'default_input onlyNumber' %>
+                        <%=check_box :pub_infos, 'qq', {:class => "default_checkbox",:checked=>@user_profile.is_pub_info('qq') } %>&nbsp;<span class="gray">公开</span>
+                    </td>
+                </tr>
+                <tr height="40">
+                    <td class="t01" width="100">
+                        MSN： 
+                    </td>
+                    <td class="t02">
+                        <%= text_field :user, :msn, :class=>'default_input email' %>
+                        <%=check_box :pub_infos, 'msn', {:class => "default_checkbox",:checked=>@user_profile.is_pub_info('msn') } %>&nbsp;<span class="gray">公开</span>
+                    </td>
+                </tr>
+                <tr height="40">
+                    <td class="title2" colspan="2">
+                        其他信息
+                    </td>
+                </tr>
+                <tr height="40">
+                    <td class="t01" width="100">
+                        行 业： 
+                    </td>
+                    <td class="t02">
+                        <%=select :user, :industry_id, Industry.find(:all).collect {|p| [ p.name, p.id ] }, {:prompt=>'===请选择==='} %>
+                    </td>
+                </tr>
+                <tr height="40">
+                    <td class="t01" width="100">
+                        单 位： 
+                    </td>
+                    <td class="t02">
+                        <%= text_field :user, :company, :class=>'default_input',:style=>'width:80px;' %>
+                  职 务： <%= text_field :user, :job_title, :class=>'default_input',:style=>'width:110px;' %>
+                    </td>
+                </tr>
+                <tr height="40">
+                    <td class="t01" width="100">
+                        毕业院校： 
+                    </td>
+                    <td class="t02">
+                        <%= text_field :user_profile, :school, :class=>'default_input' %>
+                    </td>
+                </tr>
+                <tr height="40">
+                    <td class="t01" width="100">育儿宣言： 
+                    </td>
+                    <td class="t02">
+                        <%= text_area :user_profile, :content, :class=>'default_input',:style=>'width:200px;height:50px;' %>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="profile_content_picture">
+        <div class="pic">
+           <%= logo_tag(@user,{:version=>'thumb48',:url=>'/settings/logo'}) %>
+        </div>
+        <div class="pic_title">
+            <a href="/settings/logo">修改头像</a>
+        </div>
+    </div>
+</div>
+<%= javascript_include_tag 'validation' %>
+<script>
+	new Validation('user_settingform_id',{
+		length_100:{
+		errmessage:'您的输入超过了100个字符',
+		test:function(obj){
+			return !obj.value || obj.value.length<=100;
+		}
+	}
+	
+	});
+	
+</script>

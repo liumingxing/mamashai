@@ -1,0 +1,11 @@
+<div style="width: <%= @claps.size > 0 ? 400: 130%>px;">
+	<% if @claps.size > 0 %>
+	<ul>
+		<% for clap in @claps %>
+			<%= render :partial=>"/share/user1", :locals=>{:user_item=>clap.user}%>
+		<% end %>
+	</ul>
+	<% else %>
+		<span style="font-size: 14px;">还没有人表示喜欢</span>
+	<% end %>
+</div>

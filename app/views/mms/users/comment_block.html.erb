@@ -1,0 +1,40 @@
+    <div id="middle">
+        <div id="css_mainbody">
+            <h1 class="title">评论黑名单</h1>
+            <div style="margin:20px;">
+            	<%= form_tag :action=>"add_comment_block", :id=>@user do %>
+            		用户名1：<%= text_field_tag "user_name1" %>
+            		用户名2：<%= text_field_tag "user_name2" %>
+            		<input type="submit" name="submit" value="添加">
+            	<% end %>
+            </div>
+            <table class="grid">
+                <thead>
+                    <tr>
+                        <th>用户id1</th>
+                        <th>用户名1</th>
+						<th>用户id2</th>
+                        <th>用户名2</th>
+                        <th>创建时间</th>
+                        <th>管理</th>
+                    </tr>
+                </thead>
+                <tbody>
+                	<% for block in @blocks %>
+                    <tr>
+                        <td><%= block.user_id1 %></td>
+                        <td><%= link_user(::User.find(block.user_id1))%></td>
+                        <td><%= block.user_id2 %></td>
+                        <td><%= link_user(::User.find(block.user_id2))%></td>
+                        <td><%= block.created_at.strftime("%Y-%m-%d %H:%M") %></td>
+                        <td>
+                        	<%= link_to "删除", {:action=>"delete_comment_block", :id=>block.id}, :confirm => "确认要删除吗？", :class => "delete" %>
+						</td>
+                    </tr>
+					<% end %>
+                </tbody>
+            </table>
+			<%= will_paginate @blocks %>
+        </div>
+        <div class="clear"></div>
+    </div>

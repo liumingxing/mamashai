@@ -1,0 +1,44 @@
+<div id="middle">
+    <div id="css_mainbody">
+        <h1 class="title">今日星星榜</h1>
+        <br/>
+       <table class="grid">
+            <tbody>
+                <tr>
+                    <th width="40%">头衔</th>
+                    <th width="40%">昵称</th>
+                    <th width="20%">操作</th>
+                </tr>
+                <% @stars.each do |star| %>
+                <tr>
+                    <td><%= {"bbrl"=>"日历之星", "tupian"=>"图片之星", "moban"=>"画报之星", "birth_30"=>"满月之星", "birth_100"=>"百天之星", "birth_365"=>"周岁之星"}[star.tp]%></td>
+                    <td><%=link_user(star.user) %></td>
+                    <td><a href="javascript:void(0)" onclick="replace('<%= star.user.name%>', <%= star.id%>)">替换</a></td>
+                </tr>
+                <% end %>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div style="display:none;" id='send_wrapper'>
+        <%= form_tag({:action=>"replace"}, {:updater=>"updater", :remote=>true}) do%>
+            <%= hidden_field_tag :star_id, "" %>
+            <%= text_field_tag :name, ""%><%= submit_tag "替换", {:style=>"margin-left: 20px;"} %>
+            <div id="updater" style="margin: 10px;">
+            </div>
+        <% end %>
+</div>
+
+<script>
+var dialog = null;
+function replace(name, star_id){
+    $('#notice').hide();
+    $("#star_id").val(star_id)
+    dialog = $.dialog({
+        id: 1,
+        title: '把 ' + name + " 替换成",
+        content: document.getElementById('send_wrapper'),
+    });
+}
+</script>

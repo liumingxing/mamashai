@@ -1,0 +1,30 @@
+    <tr>
+        <td class="td01">
+            商品编码
+        </td>
+        <td>
+            <%= select "chaozhi", "a_product_id", AProduct.all.map{|c| [c.code, c.id]} %>
+        </td>
+    </tr>
+    <tr>
+        <td class="td01">
+            开始时间
+        </td>
+        <td>
+            <%= datetime_select "chaozhi", "begin_at", {:use_month_numbers=>true} %>
+        </td>
+    </tr>
+    <tr>
+        <td class="td01">
+            结束时间
+        </td>
+        <td>
+            <%= datetime_select "chaozhi", "stop_at", {:use_month_numbers=>true} %>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2" style="padding: 10px; text-align: center">
+            <input type="submit" name="submit" value="提交">
+        </td>
+    </tr>
+    </script>

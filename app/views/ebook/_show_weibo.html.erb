@@ -1,0 +1,43 @@
+<div id="show_weibo">
+	<div class="navigate_tab" id='n'>
+		<ul class="class1">
+			<% search_content = params[:search_post][:content] if params[:search_post]%>
+			<li <%=raw 'class="current"' if params[:from]=='all' || !params[:from] %>>
+				<%= link_to "全部", {:action => "show_weibo", :controller => 'ebook', :from => 'all', :ebook_id => @ebook_topic.id}, {:updater => 'show_weibo', :remote=>true} %>
+			</li>
+			<li <%=raw 'class="current"' if params[:from]=='author' %>>
+				<%= link_to "作者的", {:action => "show_weibo", :controller => 'ebook', :from => 'author', :ebook_id => @ebook_topic.id}, {:updater => 'show_weibo', :remote=>true} %>
+			</li>
+			<li <%=raw 'class="current"' if params[:from]=='follow' %> <%= 'style="display:none"' unless @user %>>
+				<%= link_to "我关注的", {:action => "show_weibo", :controller => 'ebook', :from => 'follow', :ebook_id => @ebook_topic.id}, {:updater => 'show_weibo', :remote=>true} %>
+			</li>
+			<li <%=raw 'class="current"' if params[:from]=='my' %> <%= 'style="display:none"' unless @user %>>
+				<%= link_to "我参与的", {:action => "show_weibo", :controller => 'ebook', :from => 'my', :ebook_id => @ebook_topic.id}, {:updater => 'show_weibo', :remote=>true} %>
+			</li>
+		</ul>
+	</div>
+	<% for post in @posts %>
+			<%= render :partial=>"/share/post", :locals=>{:post=>post} %>
+	<% end %>
+	<% if @posts.blank? %>
+    <div class="ifnull">
+        目前还没有相关内容
+    </div>
+    <% else %>
+	<div id='div_mask' style='display:none;' align='center'>
+		<%= image_tag("icons/loading.gif", :border => 0) %>
+	</div>
+    <div class="clear" style='height:6px;'>&nbsp;</div>
+	<div align='center'>
+		<% unless @posts_show_count.to_i == @posts_count.to_i %>
+		<%= link_to image_tag("/images/ebook/show_more_weibo.png", :border=>0), {:action => "show_weibo", :controller => "ebook", :posts_show_count => 10, :from => params[:from], :ebook_id => @ebook_topic, :topic => params[:topic]}, {:updater => "show_weibo", :loading => "$('#div_mask').show()", :success => "$('#div_mask').hide()", :remote=>true} %>
+		<% end %>
+	</div>
+	<div class="ftop">
+        <a href="javascript:void(0);" onclick="window.scrollTo(0,0)">返回顶部</a>
+    </div>
+    <% end %>
+	<div class="clear">
+    </div>
+    
+</div>

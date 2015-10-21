@@ -1,0 +1,87 @@
+<div style="margin-top:-10px;">
+	<%= render :partial=>"/share/taobao_adv_top" %>
+</div>
+
+
+<div class="sharp mt20">
+	<div class="content box6">
+		<h3>孕产<font>商品清单</font><a href="/tao/yun"><img src="/images/lmrb_all.jpg"/></a></h3>
+		<div class="box6_li">
+			<%= render :partial=>"/index/tao_products", :locals=>{:category_id=>1317, :name=>"营养"}%>
+		</div>
+		<div class="box6_li">
+			<%= render :partial=>"/index/tao_products", :locals=>{:category_id=>1311, :name=>"服饰"}%>
+		</div>
+		<div class="box6_li">
+			<%= render :partial=>"/index/tao_products", :locals=>{:category_id=>1315, :name=>"护肤"}%>
+		</div>
+		<div class="box6_li">
+			<%= render :partial=>"/index/tao_products", :locals=>{:category_id=>1313, :name=>"用品"}%>
+		</div>
+	</div>
+	<div><img src="/images/sharp_bottom.jpg" />
+	</div>
+</div>
+
+<div class="sharp mt20">
+	<div class="content box6">
+		<h3>宝宝<font>商品清单</font><a href="/tao/baby"><img src="/images/lmrb_all.jpg"/></a></h3>
+		<div class="box6_li">
+			<%= render :partial=>"/index/tao_products", :locals=>{:category_id=>11, :name=>"营养"}%>
+		</div>
+		<div class="box6_li">
+			<%= render :partial=>"/index/tao_products", :locals=>{:category_id=>13, :name=>"扮靓"}%>
+		</div>
+		<div class="box6_li">
+			<%= render :partial=>"/index/tao_products", :locals=>{:category_id=>15, :name=>"用品"}%>
+		</div>
+		<div class="box6_li">
+			<%= render :partial=>"/index/tao_products", :locals=>{:category_id=>17, :name=>"益智"}%>
+		</div>
+	</div>
+	<div><img src="/images/sharp_bottom.jpg" />
+	</div>
+</div>
+
+<div class="sharp mt20">
+  <div class="content">
+    <div class="cjy_left">
+      <h2>妈爸们推荐的商品</h2>
+      
+      <DIV id="chanel_content">
+        <% for post in @posts %>
+          <%= render :partial=>"/share/post", :locals=>{:post=>post} %>
+        <% end %>
+        <%= will_paginate @posts %>
+      </DIV>
+    </div>
+    <div class="cjy_right">
+      <div class="zl_dz">
+        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+          <tr>
+            <th>日历达人</th>
+            <td align="right">&nbsp;</td>
+          </tr>
+        </table>
+        <ul>
+          <% for vip in BbrlVip.find(:all) %>
+            <%= render :partial=>"/share/user1", :locals=>{:user_item => vip.user} %>
+          <% end %>
+          
+        </ul>
+      </div>
+    </div>
+  </div>
+  <!--cjy_right-->
+  <div><img src="/images/sharp_bottom.jpg" />
+  </div>
+</div>
+
+
+<script src="/javascripts/FancyZoom.js" language="JavaScript" type="text/javascript"></script>
+<script src="/javascripts/FancyZoomHTML.js" language="JavaScript" type="text/javascript"></script>
+<script>
+	$(function(){
+		setupZoom();
+	})
+</script>

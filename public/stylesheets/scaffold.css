@@ -1,0 +1,129 @@
+*{margin:0; padding:0;}
+
+body { background-color: #fff; color: #333; padding: 8px; min-height: 700px;}
+
+body, p, ol, ul, td {
+  font-family: verdana, arial, helvetica, sans-serif;
+  font-size:   13px;
+}
+
+pre {
+  background-color: #eee;
+  padding: 10px;
+  font-size: 11px;
+}
+
+a { color: #000; }
+a:visited { color: #666; }
+
+.fieldWithErrors {
+  padding: 2px;
+  background-color: red;
+  display: table;
+}
+
+#errorExplanation {
+  width: 400px;
+  border: 2px solid red;
+  padding: 7px;
+  padding-bottom: 12px;
+  margin-bottom: 20px;
+  background-color: #f0f0f0;
+}
+
+#errorExplanation h2 {
+  text-align: left;
+  font-weight: bold;
+  padding: 5px 5px 5px 15px;
+  font-size: 12px;
+  margin: -7px;
+  background-color: #c00;
+  color: #fff;
+}
+
+#errorExplanation p {
+  color: #333;
+  margin-bottom: 0;
+  padding: 5px;
+}
+
+#errorExplanation ul li {
+  font-size: 12px;
+  list-style: square;
+}
+
+div.uploadStatus {
+  margin: 5px;
+}
+
+div.progressBar {
+  margin: 5px;
+}
+
+div.progressBar div.border {
+  background-color: #fff;
+  border: 1px solid grey;
+  width: 100%;
+}
+
+div.progressBar div.background {
+  background-color: #333;
+  height: 18px;
+  width: 0%;
+}
+
+table.list, table.ft {
+	BORDER-COLLAPSE: collapse;
+	font-size: 12px;
+	margin: 2px;
+}
+
+table.list tr, table.ft tr{
+	height: 22px;
+}
+
+table.list td, table.ft td {
+    padding: 2px 4px 2px 4px;
+	word-break:break-all;
+}
+
+tr.head{
+	height: 22px;
+}
+
+div.formError {
+	color: red;
+	font-weight: bold;
+}
+
+
+#wapper {width:100%;overflow:hidden;}
+
+#head { background:#507AAA;overflow:hidden;}
+#head .top_menu {height:25px;line-height:25px; background:#2C4056;color:#fff; text-align:right;}
+#head .top_menu a {color:#fff;margin-right:15px;}
+#head .logo {font-size:26px;color:#fff;font-weight:bold; font-family:黑体;height:65px;line-height:65px;padding-left:20px;}
+
+#middle {overflow:hidden;}
+
+h1 span {font-size: 13px; font-weight: normal;}
+
+
+.pagination {padding:8px 3px 15px 3px;margin: 3px; height: 20px; text-align:center;overflow:hidden; font-family:Arial; font-size: 12px;} 
+.pagination a { padding: 2px 5px 2px 5px;  margin:2px; border:1px solid #999; text-decoration:none; color:#666;}
+.pagination a:hover, .pagination a:active {color:#900;}
+.pagination span.current { padding: 2px 5px 2px 5px; margin:2px;font-weight: bold;color: #666;}
+.pagination span.disabled {  padding: 2px 5px 2px 5px;margin:2px;border:1px solid #ccc;color: #d1d1d1;}
+.pagination span.pagenext a{ background:url(/images/icons/pagenext.jpg) repeat-x;color:#666;}
+.pagination span.pagenext a:hover, .pagination a:active{ background:url(/images/icons/pagenext.jpg) repeat-x;color:#006699;}
+
+
+.login_content {width:400px;height:160px;border:2px solid #FDBF3B; background:#FFEBC1;margin:50px auto 300px;}
+.login_content .login { width:98%;margin:20px auto 0px; border-collapse:collapse; empty-cells:show;}
+.login_content .login td {vertical-align:center; text-align:left;font-size:12px;color:#666;padding-left:10px;}
+.login_content .login td.t01 { text-align:right;width:80px;font-weight:bold;height:30px;line-height:30px;}
+.login_content .login td.t01 a { font-weight:normal;}
+.login_content .login td.t02 {height:30px;line-height:30px;}
+.login_content .login td.t02 .post_name {width:260px;height:18px;line-height:18px;font-size:12px;}
+.login_content .login td.t03 { text-align:right;padding-right:40px;}
+.login_content .login td.t03 input {height:25px;width:50px;}

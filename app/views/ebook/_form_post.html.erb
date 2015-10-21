@@ -1,0 +1,72 @@
+<style type="text/css">
+    .tooltip {
+        position: absolute;
+        background-color: #cfc;
+        padding: 4px;
+        border: 2px solid #9c9;
+        border-radius: 4px;
+        -webkit-border-radius: 4px;
+        -moz-border-radius: 4px;
+    }
+</style>
+<div id="box_content">
+    <%=render :partial=>'/ebook/form_post_tags' %>
+    <div class="clear"></div>
+
+    <% if params[:error] == "true" %>
+		<div class="post_error"><%= flash[:error] %></div>
+	<% end %>
+
+    <div class="hot_topic_message_box">
+      
+      <div>
+        <div style="background:url(/images/ebook/shai_text_area.gif)  no-repeat; height:55px;width:620px;float:left;margin-top:8px;">
+          <%= text_area :post, :content,{:onmouseover=>'show_ddrivetip(this)',:onfocus=>"updateStatusTextCharCounter(this,'post_text_left')",:onkeyup=>"updateStatusTextCharCounter(this,'post_text_left')",:class=>'topic_required required length_210', :style => "border: 0 none;color: #666666;display: inline;height: 45px;margin-left: 11px;margin-top: 5px;overflow: hidden;width: 600px;padding:0;font-size:13px;"} %>
+
+        </div>
+        <div style="background:url(/images/ebook/submit-2_r2_c5.jpg)  no-repeat; float:left;width:73px; height: 60px;">
+          <input value="" onclick="if(!check_post_form()) return false;"  type="image" src="/images/ebook/submit-2_r2_c5.jpg" hidefocus="true"/>
+          <input value="hot_topic" type="hidden" name="go_back_url">
+          <input value="<%=@topic_content%>" type="hidden" name="hot_topic_content">
+        </div>
+      </div>
+        
+        <div class="Baskinbox_link">
+            <div class="Baskinbox_link_left">
+					<div style="float: right;">
+						<span class="text_remain" style="width: 110px; color: #666;">
+				        还可以输入<span id="post_text_left" class="size" style="float: none; font-size: 16px; line-height: 100%;">140</span>字
+				        </span>
+					</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function insert_post_tag(){
+        var tag_name = '自定义话题';
+        //$('post_content').value = '[' + tag_name + ']' + $('post_content').value.replace(/\[(.+?)\]/, '');
+        jQuery('#post_content').val('[' + tag_name + ']' + jQuery('#post_content').val().replace(/\[(.+?)\]/, ''));
+        searchKeyWords(tag_name, jQuery('#post_content').get(0));
+    }
+    
+    new Validation("home_post_form", {
+        length_210: {
+            errmessage: '您的输入超过了210个字符',
+            test: function(obj){
+                return !obj.value || obj.value.length <= 210;
+            }
+        }
+    });
+</script>
+<style type="text/css">
+.Baskinbox_link{ height:23px;}
+.Baskinbox_link_left {
+    display: inline;
+    float: left;
+    height: 23px;
+    margin-left: 0px;
+    position: relative;
+}
+</style>

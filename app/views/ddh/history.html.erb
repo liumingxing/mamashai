@@ -1,0 +1,25 @@
+<style>
+	table.history td { padding: 4px 18px;}
+	table.history th {text-align: center;}
+</style>
+<table class="history" cellspacing="2" cellpadding="2">
+	<tr>
+		<th>时间</th>
+		<th>事件</th>
+		<th>晒豆变动</th>
+		<th>总晒豆</th>
+	</tr>
+	<% for event in @events %>
+	<tr>
+		<td><%= event.created_at.to_s(:db) %></td>
+		<td><%= event.event_description %></td>
+		<td><%= '+' if event.score > 0%><%= event.score %></td>
+		<td><%= event.total_score %></td>
+	</tr>
+	<% end %>
+	<% if @events.size == 0%>
+	<tr>
+		<td colspan=4>还没有晒豆事件</td>
+	</tr>
+	<% end %>
+</table>

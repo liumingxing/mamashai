@@ -1,0 +1,6 @@
+<script>
+	hide_box();
+	$('#post_content').text("我发起了一个投票【<%=@vote.title%>】,大家快来投票吧！");
+	$("#post_from").val("vote");
+	$("#post_from_id").val("<%= @vote.id %>");
+</script>

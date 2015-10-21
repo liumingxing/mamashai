@@ -1,0 +1,109 @@
+﻿@charset "utf-8";
+/* CSS Document */
+body,p,ul,li,img,dl,dd,dt,table,tr,td,input{ margin:0px; padding:0px;}
+ul li{ list-style:none;}
+.l{ float:left;}
+.r{ float:right;}
+img{ border:none;}
+
+
+
+
+.a1_01{ width:540px; height:66px; background:#FFFCDB; margin:0 auto; border-bottom:1px solid #9EBDC2;}
+.a1_02{padding:23px 0 0 12px; width:47px; height:23px;}
+.a1_03{padding:23px 0 0 139px; width:114px; height:21px;}
+.a1_04{padding:10px 0 0 93px; width:114px; height:41px;}
+.a1_04_1{padding:10px 0 0 93px; width:114px; height:41px;}
+* html .a1_04_1{padding:10px 0 0 63px; width:114px; height:41px;}
+.a1_05{ width:540px; height:auto; margin:0 auto; background:#EBF3F5;}
+.a1_05_1{ width:540px; height:auto; margin:0 auto; background:#EBF3F5;}
+* html .a1_05_1{ width:516px; height:auto; margin:0 auto; background:#EBF3F5;}
+.a1_06{ width:188px; height:24px; font-size:14px; color:#484848;padding:24px 0 0 68px;}
+.a1_06_1{ width:188px; height:24px; font-size:14px; color:#484848;padding-left:0px;}
+* html .a1_06_1{ width:188px; height:24px; font-size:14px; color:#484848;padding-left:25px;}
+.a1_07{ width:540px; height:21px; margin-top:18px;}
+.a1_08{padding:3px 0 0 20px; width:14px; height:13px;}
+.a1_09{ font-size:14px; color:#484848;}
+.a1_10{ width:50px; height:14px; font-size:12px; color:#EB5F9C; margin-left:5px; line-height:22px;}
+.a1_10 a{ text-decoration:none; color:#EA609E;}
+.a1_10 a:hover{ text-decoration:underline;}
+.a1_11{ width:504px; height:54px; background:url(../images_zhibiao/a8.jpg) repeat-x;clear:both; margin:20px auto 0; border-top:1px solid #B9D8DD;}
+.a1_11_li{ float:left; font-size:14px; display:block; width:90px; height:54px; line-height:45px; text-align:center; padding:0 4px 0 5px;}
+ * html .a1_11_li{ float:left; font-size:14px; display:block; width:85px; height:54px; line-height:45px; text-align:center; padding:0 4px 0 5px;}
+.a1_11_li a{ text-decoration:none; color:#5D5D5D;}
+.a1_11_li:hover{ background:url(../images_zhibiao/a7.jpg) no-repeat; text-align:center;}
+.a1_11_li2{float:left; font-size:14px; display:block; width:90px; height:54px; line-height:45px; text-align:center; padding:0 4px 0 5px; background:url(../images_zhibiao/a7.jpg) no-repeat; text-align:center;}
+ * html .a1_11_li2{float:left; font-size:14px; display:block; width:85px; height:54px; line-height:45px; text-align:center; padding:0 4px 0 5px; background:url(../images_zhibiao/a7.jpg) no-repeat; text-align:center;}
+.a1_11_li2 a{ text-decoration:none; color:#5D5D5D;}
+.a1_12{ width:507px; height:1px; overflow:hidden; background:#BAD7DD; margin:0 auto 18px;}
+/*.aa a:hover{ background:url(../images_zhibiao/13.jpg) no-repeat;}*/
+
+
+
+.left_02{ width:500px; height:auto;border-bottom:1px dashed #B6BBBE;margin:0 auto;}
+.left_03{ height:34px; width:500px;}
+.left_04{padding-top:10px; margin-left:9px;}
+.left_04 a{ font-size:14px; color:#000; text-decoration:none; float:left;}
+.left_05{ width:476px; }
+.left_05 li { display:block; width:100px;float:left; text-align:center; padding:0 8px 0 8px;}
+.left_05 li a{ font-size:12px; line-height:28px; color:#666; text-decoration:none; }
+.left_05 li a:hover{ text-decoration:underline; color:#F06199;}
+.left_05 li a:active{ display:block; padding:0 5px 0 5px; text-decoration:none;background:#FF82A8; color:#FFF;}
+
+
+
+
+.b_01{width:330px; height:89x;  margin:0px 0 0 129px; padding-top:35px;}
+.b_01 td{ font-size:14px; color:#00000;}
+.text1{ width:222px; height:32px; background:url(../images_zhibiao/b1.jpg) no-repeat; border:none; line-height:32px; padding-left:10px; color:#E75F9D;}
+.b_02{ width:176px; height:47px; margin:42px 0 0 173px;}
+
+
+
+
+
+.c_01{ width:226px; height:233px; background:url(../images_zhibiao/c1.jpg) no-repeat;}
+.c-02{ width:224px; height:26px;padding-top:11px;}
+.c_04{ width:224px; height:29px;}
+.c_04 li{ float:left; line-height:29px; font-size:14px; font-family:"微软雅黑"; padding:0 9px 0 9px;}
+.c_05{ width:224px; height:150px;}
+.c_05 li{ float:left; line-height:29px; font-size:12px; font-family:"微软雅黑"; display:block; width:32px; text-align:center; margin-top:3px;}
+.c_05 li a{ color:#BCBCBC; text-decoration:none;}
+
+
+
+.d_01{ width:510px; height:255px;}
+.d_02{ width:510px; height:26px;}
+.d_02_1{ width:510px; height:27px;}
+* html .d_02_1{ width:510px; height:26px;margin-top:-4px;}
+.d_03{ width:510px; height:228px;}
+ * html .d_03{ width:510px; height:248px;margin-top:-10px;}
+.d_04{ width:19px; height:228px;}
+.d_05{ width:463px; height:292px;background-color:white;}
+ * html .d_05{ width:443px; height:292px;background-color:white;}
+.d_06{ width:19px; height:228px;}
+.d_07{ width:100%; height:auto; margin:0px 0 0 20px; clear:both; font-size:14px; color:#999999; padding-top:20px;}
+.d_08{ width:352px; height:150px; margin:10px 0 0 40px;}
+.d_09{ width:208px; height:17px; clear:both; margin:0px auto 0px; padding-top:20px;}
+* html .d_09{ width:208px; height:17px; clear:both; margin:0px auto 0px; padding-top:0px;}
+.d_09_1{ width:208px; height:17px; clear:both; margin:0px auto 0px; padding-top:45px;}
+* html .d_09_1{ width:208px; height:17px; clear:both; margin:0px auto 0px; padding-top:10px;}
+
+.tz {padding:10px 10px 0 0;line-height:20px; font-size:14px; color:#999999; width:400px; height:150px;}
+
+.padding_left_168 {
+   padding-left:198px;
+ }
+
+
+.a1_11_li_122{ float:left; font-size:14px; display:block; width:120px; height:54px; line-height:45px; text-align:center; padding:0 4px 0 3px;}
+.a1_11_li_122 a{ text-decoration:none; color:#5D5D5D;}
+.a1_11_li_122:hover{ background:url(../images_zhibiao/122.png) no-repeat; text-align:center;}
+.a1_11_li2_122{float:left; font-size:14px; display:block; width:120px; height:54px; line-height:45px; text-align:center; padding:0 4px 0 3px; background:url(../images_zhibiao/122.png) no-repeat; text-align:center;}
+.a1_11_li2_122 a{ text-decoration:none; color:#5D5D5D;}
+
+.a1_11_li_132{ float:left; font-size:14px; display:block; width:130px; height:54px; line-height:45px; text-align:center; padding:0 4px 0 3px;}
+.a1_11_li_132 a{ text-decoration:none; color:#5D5D5D;}
+.a1_11_li_132:hover{ background:url(../images_zhibiao/132.png) no-repeat; text-align:center;}
+.a1_11_li2_132{float:left; font-size:14px; display:block; width:130px; height:54px; line-height:45px; text-align:center; padding:0 4px 0 3px; background:url(../images_zhibiao/132.png) no-repeat; text-align:center;}
+.a1_11_li2_132 a{ text-decoration:none; color:#5D5D5D;}

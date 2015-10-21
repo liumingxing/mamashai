@@ -1,0 +1,86 @@
+  <div id="middle">
+        <div id="css_mainbody">
+            <h1 class="title">资源库内容管理
+				<span style="float: right; margin-right: 10px;">
+			        <%= link_to '添加新的资源', :action=>"new" %>
+			    </span>
+			</h1>
+			<div style="margin: 20px 50px; border-bottom: 1px solid rgb(225, 225, 225); padding-bottom: 15px;font-size:13px;">
+		    <% @categories.each do |category|%>
+				<a<%=' class="current"' if @category and @category.id==category.id%> href="/mms/tools/index/<%=category.id%>"><%=category.name%></a>
+			<% end %>
+			<a<%=' class="current"' if @category.blank?%> href="/mms/tools/index">所有</a>
+		</div>
+			<div style="text-align:center;" class="green"><%= flash[:notice]%></div>
+			<div id="page_count">
+				<span style="float:right;">
+					共有
+					<b class="blue">
+						<%=h @tools.total_entries%>
+					</b>
+					条记录
+				</span>
+			</div>
+			<div class="clear"></div>
+            <table class="grid">
+            	<tr>
+            		<th width="5%">序号</th>
+				    <th width="20%">名称</th>
+					<th width="10%">资源分类</th>
+					<th width="5%">年龄段</th>
+					<th width="5%">下载积分</th>
+					<th width="5%">下载次数</th>
+					<th width="10%">关联团购</th>
+				    <th width="8%">图片</th>
+				    <th width="8%">下载资源</th>
+				    <th width="10%">创建时间</th>
+					<th width="10%">最后修改</th>
+					<th width="10%">操作</th>
+				  </tr>
+               <% if @tools.size == 0 %>
+					<tr>
+						<td colspan=8>
+							<b>暂无记录</b>
+						</td>
+					</tr>
+				<% else %>
+					<% @tools.each_with_index do |tool,index| %>
+					  <tr>
+					  	<td><%=(index+1).to_s%></td>
+					    <td><%=link_to tool.name,"/mms_tools/show/#{tool.id}",:target=>"_blank" %></td>
+						<td><%=h tool.mms_tool_category.present? ? tool.mms_tool_category.name : '暂无分类'%></td>
+						<td><%= Age.find(tool.step_id).name %></td>
+						<td><%=h tool.score %></td>
+						<td><%= tool.users_count%></td>
+						<td>
+							<% if tool.tuan_id %>
+								<%=link_to "查看团购","/tuan/mama/#{tool.tuan_id}",:target=>"_blank",:style=>"color:red;"%> <%=tool.tuan_id%>
+							<% else %>
+								暂无信息
+							<% end %>
+						</td>
+					    <td>
+					    	<%=link_to '查看图片',tool.logo.url,:target=>"_blank"%>
+						</td>
+					    <td>
+					    	<%=link_to '查看资源',tool.pdf.url,:target=>"_blank" if tool.pdf%>
+						</td>
+					    <td><%=h (tool.created_at.blank?)? '暂无信息' : tool.created_at.strftime("%Y年%m月%d日") %></td>
+						<td><%=h (tool.updated_at.blank?)? '暂无信息' : tool.updated_at.strftime("%Y年%m月%d日") %></td>
+					    <td>
+					    	<%= link_to '修改', :action=>"edit", :id=>tool %>
+					    	<%= link_to '删除', {:action=>"destroy", :id=>tool}, :confirm => '确认删除吗？'%>
+						</td>
+					  </tr>
+					<% end %>
+				<%end%>
+            </table>
+			<%=will_paginate @tools %>
+        </div>
+        <div class="clear"></div>
+    </div>
+<style type="text/css">
+	a.current{
+		color:#FF9900;
+	}
+</style>

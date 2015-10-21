@@ -1,0 +1,31 @@
+<div class="sharp">
+	<div class="content">
+		<h1>设置</h1>
+		<div class="navigate_tab" id="n">
+			<%= render :partial=>'nav' %>
+			<div class="class2">
+				<%= render :partial=>'success_pmt' if params[:success] %>
+				<% if params[:cropper].blank? %>
+				<% for user_kid in @user_kids %>
+				<%= form_tag({:action=>'update_kid_logo',:id=>user_kid.id},{:multipart=>true }) do %>
+				<%= render :partial=>'form_kid_logo',:locals=>{:user_kid=>user_kid} %>
+				<div style="margin: 20px; text-align: center;">
+					<%= submit_tag "上传", :class=>"button2"%>
+				</div>
+				<% end %>
+				<% end %>
+				<% else %>
+				<% form_tag({:action=>:update_kid_logo_cropper,:id=>@user_kid.id}) do %>
+				<%= render :partial=>'form_kid_logo_cropper' %>
+				<div style="margin: 20px; text-align: center;">
+					<%= submit_tag "保存", :class=>"button2"%>
+				</div>
+				<% end %>
+				<% end %>
+			</div>
+		</div>
+		<img src="/images/sharp_bottom.jpg" />
+	</div>
+</div>
+
+<div class="clear"></div>

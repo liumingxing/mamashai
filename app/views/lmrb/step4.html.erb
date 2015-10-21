@@ -1,0 +1,305 @@
+<style>
+  #tpl_preview{
+	    position: absolute;
+	    left: 0;
+	    top: 0;
+	    width: 346px;
+	    height: 480px;
+  }
+  .left_template .left_template_right { width:17px; height:26px; float:right; margin-top:80px;}
+  .left_preview { width:707px; height:32px; line-height:32px; float:left; margin-top:12px; margin-left:8px; background:#f9e0f8; color:#ea5f9d; font-size:14px; font-weight:bold; text-align:left;}
+  .left_previewimg { width:630px; height:479px;float:left; margin-left:20px; _margin-left:33px; margin-top:20px;}
+  .left_previewimg .left_previewing_da { width:346px; height:480px; float:left;}
+  .left_previewimg .left_previewing_xiao { width:238px; height:403px; float:left; margin-left:43px;margin-top:10px;}
+  .left_previewimg .left_previewing_xiao .left_previewing_xiao_img { width:224px; margin:0 auto;}
+  .left_previewimg .left_previewing_xiao .left_previewing_xiao_img img{ border: 1px solid silver; }
+  .left_previewimg .left_previewing_xiao .left_previewing_xiao_zhuan { width:238px; height:22px; margin-top:23px;}
+  .left_previewimg .left_previewing_xiao .left_previewing_xiao_zhuan a { color:#0081cb;}
+  .left_previewimg .left_previewing_xiao .left_previewing_xiao_zhuan a:hover { color:#0081cb; text-decoration:none;}
+  .left_previewimg .left_previewing_xiao .left_previewing_xiao_zhuan .span1 { float:left;}
+  .left_previewimg .left_previewing_xiao .left_previewing_xiao_zhuan .span2 { float:right;}
+  .left_previewimg .left_previewing_xiao .left_previewing_xiao_button { width:84px; height:30px; margin:16px auto 0px;}
+  .left_new_bu { width:732px; height:65px; background:url(/images/left_new_bu_bj.jpg); margin-top:51px; margin-left:5px; _margin-left:2px; float:left;}
+  .left_new_bu .left_new_bu_s{ width:79px; height:65px; float:left; margin-left:158px; _margin-left:80px;}
+  .left_new_bu .left_new_bu_x { width:180px; height:40px; float:left; margin-left:209px; _margin-left:250px; margin-top:10px;}/* CSS Document */
+
+  .downlink6 ul li.checked img {border: 1px solid #008800;}	
+</style>
+
+<%= stylesheet_link_tag '/javascripts/cropper/imgareaselect-default' %>
+<%= javascript_include_tag 'jquery.imgareaselect.pack.js' %>
+<script type="text/javascript">
+        
+        var uploadHtml = '';
+        var isUploaded = false;
+        
+        var currentWidth = 346;
+        var currentHeight = 480;
+        
+        function preview(img, selection){
+			if (!selection.width || !selection.height) 
+                return;
+            
+			var scaleX = currentWidth / selection.width;
+            var scaleY = currentHeight / selection.height;
+            
+            $('#preview').css({
+                width: Math.round(scaleX * img.width),
+                height: Math.round(scaleY * img.height),
+                marginLeft: -Math.round(scaleX * selection.x1),
+                marginTop: -Math.round(scaleY * selection.y1)
+            });
+            
+            $('#x1').val(selection.x1);
+            $('#y1').val(selection.y1);
+            $('#x2').val(selection.x2);
+            $('#y2').val(selection.y2);
+            $('#w').val(selection.width);
+            $('#h').val(selection.height);
+            
+        };
+        
+        function check_preview_form(){
+            if ($('#w').val() == '0' || $('#h').val() == '0') {
+                alert('请选择上传图片/调整显示区域');
+                return false;
+            }
+            
+            return true;
+        }
+        
+        //向左滚动
+        function scroll_left(){
+            var offset = 151 * 4;
+            var $wrapper = $('#scroll_wrapper');
+            var $area = $('#scroll_area');
+            if ($area.is(':animated')) {
+                return false;
+            }
+            
+            var l = parseInt($area.css('left'));
+            if ($area.width() + l < $wrapper.width()) {
+            	return false;
+            }
+            $area.animate({
+                'left': l - offset
+            }, 'fast');
+        }
+        
+        //向右滚动
+        function scroll_right(){
+            var offset = 151 * 4;
+            var $wrapper = $('#scroll_wrapper');
+            var $area = $('#scroll_area');
+            if ($area.is(':animated')) {
+                return false;
+            }
+            
+            var l = parseInt($area.css('left'));
+			if (l >= -10) {
+                return false;
+            }
+            $area.animate({
+                'left': l + offset
+            }, {
+                durian: 'fast',
+                queue: true
+            });
+        }
+		
+		//选择模版类别
+		function filter(tp)
+		{
+			$("div.left_template_center_img2").hide();
+			$("div.left_template_center_img2[tp=" + tp + "]").show();
+			$("div.post_navigate_tab ul li").removeClass("current")
+			$("div.post_navigate_tab ul li[tp=" + tp + "]").addClass("current");
+			
+			$("#scroll_area").css({left: 0});
+			$("#scroll_area").width(122*$("div.left_template_center_img2[tp=" + tp + "]").length);
+		}
+        
+        $(document).ready(function(){
+            //上传
+            uploadHtml = $('#fileWrapper').html();
+            
+            //选模板
+            $('.left_template_center_img2').click(function(){
+            		var o = $(this);
+            	
+                	$('.downlink6 ul li').removeClass('checked');
+                    o.addClass('checked');
+                    //修改预览图片
+                    var imgSrc = "/images/templates/" + o.attr('tpl_id') + "_preview.png";
+					lomo = 0
+					
+					if ($("#lomo").attr("checked")==true || $("#lomo").attr("checked")=="checked")
+						lomo = 1;
+					
+					$.ajax({url: encodeURI("/lmrb/preview?ajax=true&kaixin=<%=params[:kaixin]%>&guanxin=<%=params[:guanxin]%>&naoxin=<%=params[:naoxin]%>&qushi=<%=params[:qushi]%>&model=")+o.attr('tpl_id') + "&lomo=" + lomo,
+							type: "GET", 
+							async: false, 
+							success: function(msg){ imgSrc = msg; }}
+					)
+					
+					
+                    $('#tpl_preview').attr('style', 'background: url(' + imgSrc + ');_filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src=\'' + imgSrc + '\', sizingMethod=\'scale\');_background-image: none;');
+                    $('#model').val(o.attr('tpl_id'));
+                    
+                    var x = o.attr('tpl_x');
+                    var y = o.attr('tpl_y');
+                    var w = o.attr('tpl_w');
+                    var h = o.attr('tpl_h');
+                    currentWidth = w;
+                    currentHeight = h;
+                    $('#preview_wrapper').css({
+                        'left': x + 'px',
+                        'top': y + 'px',
+                        'width': w,
+                        'height': h
+                    });
+                    
+					//预览
+                    var ias = $('#preview_src').imgAreaSelect({
+                        aspectRatio: w + ':' + h,
+                        handles: true,
+                        instance: true,
+                        onInit: preview,
+                        onSelectChange: preview,
+                        x1: x,
+                        y1: y,
+                        x2: x + w,
+                        y2: y + h
+                    });
+                    ias.setSelection(x, y, x + w, x + h);
+                    ias.setOptions({
+                        show: true
+                    });
+                    ias.update();
+            });
+            
+        });
+		
+		function preview_init()
+		{
+			//预览
+			var height_ratio = <%= @model_areas.first['height'] %> / <%= session[:pic_height] %>;
+			var width_ratio  = <%= @model_areas.first['width'] %> / 230;
+			var ratio = height_ratio;
+			if (width_ratio > height_ratio) 
+			{
+				ratio = width_ratio
+			}
+			
+            $('#preview_src').imgAreaSelect({
+                aspectRatio: '<%=@model_areas.first['width'].to_i%>:<%=@model_areas.first['height'].to_i%>',
+                handles: true,
+                onInit: preview,
+                onSelectChange: preview,
+                x1: <%=@model_areas.first['x']%>,
+                y1: <%=@model_areas.first['y']%>,
+                x2: parseInt(<%=(@model_areas.first['x'].to_i + @model_areas.first['width'].to_i)%>/ratio-1),
+                y2: parseInt(<%=(@model_areas.first['y'].to_i + @model_areas.first['height'].to_i)%>/ratio-1)
+            });  
+            
+           	$('.left_template_center_img2[tpl_id=<%= $picModelArea[0]['index'] %>]').click();	
+			            
+		}
+
+		window.onload = preview_init;
+</script>
+
+
+<div class="nav_rm">
+	<a href="">辣妈日报首页</a>>><a href="">制作</a>
+</div>
+<div class="sharp color1 mt5">
+	<div class="content">
+		<%= form_tag({:action=>"preview"},{:onsubmit=>"return check_preview_form()"}) do %>
+		<div class="cjy_left"><img src="/images/lmrb_zz_sczp_out.jpg" /><img src="/images/lmrb_zz_dtzk.jpg" /><img src="/images/lmrb_zz_dtjl.jpg" /><img src="/images/lmrb_zz_xgmb_in.jpg" /><img src="/images/lmrb_zz_yl.jpg" />
+			<div id="lmrb_zz" class="mt20">
+				<div id="downlink6">
+					<a href="#" class="prev6"></a>
+					<div class="downlink6">
+						<ul>
+							<% @model_areas.each_with_index {|area, index| %>
+							<li class="left_template_center_img2" tpl_id="<%= area['index'] %>" tp="<%= area['tp']%>" tpl_x="<%= area['x']%>" tpl_y="<%= area['y']%>" tpl_w="<%= area['width']%>" tpl_h="<%= area['height']%>">
+								<a href="javascript:void(0)"><img src="/images/templates/<%= area['index'] %>_small.jpg" /></a>
+							</li>
+							<% } %>
+						</ul>
+					</div>
+					<a href="#" class="next6"></a>
+				</div>
+				<div class="clear"></div>
+				<div class="left_previewimg">
+		            <div class="left_previewing_da" style="overflow: hidden; position: relative;">
+		                <div id="preview_wrapper" style="overflow: hidden; position: absolute;">
+		                    <img id="preview" src="<%= session[:pic] %>" />
+		                </div>
+		                <div id="tpl_preview" style="background: url(/images/templates/3_preview.png);_filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/images/templates/<%=@model_areas[0]['index']%>_preview.png', sizingMethod='scale');_background-image: none;">
+		                </div>
+		            </div>
+		            <div class="left_previewing_xiao">
+		                <div class="left_previewing_xiao_img">
+		                    <img id="preview_src" src="<%= session[:pic] %>" width="230" height="<%= session[:pic_height] %>"/>
+		                	<p style="margin-top: 10px; font-size: 14px; color:black;">
+								<%= check_box_tag 'lomo', '1', false, :onclick=>"$('.downlink6 ul li.checked').click();" %> 使用lomo效果
+							</p>
+						</div>
+		            </div>
+		        </div>
+		        <div class="left_new_bu">
+		            
+		            <input type="hidden" id="x1" name="x1" value="0"/>
+					<input type="hidden" id="y1" name="y1" value="0"/>
+					<input type="hidden" id="x2" name="x2" value="0"/>
+					<input type="hidden" id="y2" name="y2" value="0"/>
+					<input type="hidden" id="w" name="width" value="0"/>
+					<input type="hidden" id="h" name="height" value="0"/>
+					<input type="hidden" name="baseWidth" value="221" />
+					<input type="hidden" id="model" name="model" value="<%=@model_areas[0]['index']%>" />
+					<%= hidden_field_tag "kaixin", params[:kaixin] %>
+		            <%= hidden_field_tag "guanxin", params[:guanxin] %>
+		            <%= hidden_field_tag "naoxin", params[:naoxin] %>
+		            <%= hidden_field_tag "qushi", params[:qushi] %>
+		        </div>
+
+			</div>
+		</div>
+
+		<!--cjy_left-->
+		<div class="cjy_right">
+			<div id="lmrb_right">
+				<a href="javascript:void(0)" onclick="history.back();"><img src="/images/lmrb_zz_fh.jpg" width="110" height="36" /></a>
+				<input type="image" src="/images/lmrb_qrxyb.jpg" style="margin-top: 20px;"/>
+			</div>
+		</div>
+		<% end %>
+		<!--cjy_right-->
+	</div>
+	<div></div>
+	<!--box1-->
+</div>
+<img src="/images/sharp_bottom.jpg" />
+
+<script type="text/javascript" src="/javascripts/jcarousellite_1.0.1.js"></script>
+<script>
+	$(document).ready(function() {
+		$(".downlink6").jCarouselLite({
+			btnNext : ".next6",
+			btnPrev : ".prev6",
+			speed : 1000,
+			visible : 6
+		});
+	}); 
+	
+	function check_preview_form(){
+            if ($('#w').val() == '0' || $('#h').val() == '0') {
+                alert('请选择上传图片/调整显示区域');
+                return false;
+            }
+            
+            return true;
+    }
+</script>

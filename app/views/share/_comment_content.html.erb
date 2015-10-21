@@ -1,0 +1,23 @@
+<div class="comments_reply" id="comment_<%= comment.id %>">
+    <div class="comments_my">
+        <span class="pic"><%=logo_tag(comment.user,{:version=>'thumb30',:url=>user_url(comment.user)}) %></span>
+        <span class="com_content"><a href="<%=user_url(comment.user)%>"><%=comment.user.name %></a>：<%if comment.rate.present? %>评价<%=['2分（差）','4分（一般）','6分（还行）','8分（推荐）','10分（力荐）'][comment.rate-1]%>，<% end %><%= comment.user_id == 431 ? post_http_content(comment.content) : post_content(comment.content) %><span class="time">(<%=refer_time comment.created_at %>)</span></span>
+        <div class="clear">
+        </div>
+    </div>
+    <div class="reply">
+        
+        <% if @user and @post.score and @post.user_id == @user.id and @post.best_answer_id.blank? and comment.user_id != @user.id %>
+        <%= link_to_remote(APP_CONFIG['best_answer'], :update => "post_expand_#{@post.id}", :url => {:action =>:select_best_answer,:controller=>:ajax,:id=>comment.id}) %>| <% end %>
+            <% if @user and (comment.user_id == @user.id or @user.tp == 4 or @user.tp == 10) %>
+        		<% if params[:action]=='post' %>
+                <a href="/home/delete_post_comment/<%=comment.id%>">删除</a>|
+        		<% else %>
+        		<a href="javascript:void(0);" onclick="show_confirm_box('确定删除吗', '/ajax/delete_comment/<%=comment.id%>?post=<%=@post.id%>', function(){$('#comment_<%= comment.id%>').fadeOut();}, this);">删除</a>| 
+        	   <% end %>
+    		<% end %>
+    		<% if @user %>
+            <a href="javascript:void(0);" onclick="add_reply_to_comment('<%=@post.id%>','<%=comment.user.name%>');">回复</a>
+    		<% end %>
+    </div>
+</div>

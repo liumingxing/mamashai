@@ -1,0 +1,42 @@
+<%= form_tag({:controller=>"ajax", :action=>"create_message"},{:updater=> "new_message_div", :remote=>true}) do %>
+<table class="grid" id="">
+    <tbody>
+        <tr height="40">
+            <td class="t0" width="50">
+                内容： 
+            </td>
+            <td class="t02">
+                <%= text_area :message_post, :content, {:rows=>20, :cols=>40}%>
+				<div>
+                    <%=error_message_on :message_post,:content %>
+                </div>
+            </td>
+        </tr>
+        <tr height="40">
+            <td class="t01" width="50">
+                发给： 
+            </td>
+            <td class="t02">
+                <div class="title">
+                    <%= text_field :message_post, :user_name %>
+                    <div>
+                        <div class="formError" id="error_msg">
+                        	<%=error_message_on :message_post,:user_name %>
+                        </div>
+                    </div>
+                </div>
+                <div class="more">
+					<input src="/images/button/button04.gif" type="image" hidefocus="true">
+                </div>
+            </td>
+        </tr>
+        <tr height="30">
+            <td class="t01" width="50">
+            </td>
+            <td class="t02">
+                说明：私信只能发给粉丝，长度不能超过300字。
+            </td>
+        </tr>
+    </tbody>
+</table>
+<% end %>

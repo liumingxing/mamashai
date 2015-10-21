@@ -1,0 +1,18 @@
+<div class="user_tools">
+    <span class="time"><a href="/post/<%=post.id%>"><%=refer_time(post.created_at) %></a><% if post.forward_user %>
+        转自<a href="<%=user_url(post.forward_user)%>"><%=post.forward_user.name %></a><% elsif post.blog_url %>
+        来自<a href="/settings/blog">同步博客</a><% else %>
+        <%= post_from_txt(post)%><% end %>
+    </span>
+    <span class="tools"> 
+		<%= post_clap(post)%> |
+		<a href="/account/signup/<%=post.user_id%>">转晒</a>
+		<% if post.forward_posts_count>0 %><span class="number">(<%=post.forward_posts_count %>)</span><%end %> |
+	    <a href="/account/signup/<%=post.user_id%>">收藏</a><%if post.favorite_posts_count>0 %><span class="number">(<%=post.favorite_posts_count %>)</span><%end %> |
+		<a href="javascript:void(0);" onclick="show_post_expand('list_comments','<%=post.id%>');"><%=comment_or_answer(post) %></a><%if post.comments_count>0 %><span class="number">(<%=post.comments_count %>)</span><%end %>
+	</span>
+    <div class="clear">
+    </div>
+</div>
+<div id="post_expand_<%=post.id%>" style="display:none;">
+</div>

@@ -1,0 +1,27 @@
+<img src='<%=h @tip.logo_iphone.try(:thumb) %>' style="width: 200px"/> <br/>
+flurry统计：
+<%= @json['@eventName']%>
+<p>客户查看统计地址：http://www.mamashai.com/index/adv_tongji/<%= Base64.encode64(params[:id]).gsub("\n", "") %></p>
+<table class="list" border="1">
+	<tr>
+		<th>日期</th>
+		<th>点击次数(PV)</th>
+		<th>点击次数(UV)</th>
+		<th>展示次数(PV)</th>
+		<th>覆盖用户数(UV)</th>
+	</tr>
+	<% for day in @json["day"] %>
+		<tr>
+			<td><%= day['@date'] %></td>
+			<% json_click = nil %>
+			<% for click in @json_click['day']
+				json_click = click if click['@date'] == day["@date"]
+			end %>
+			
+			<td style="text-align:right"><%= json_click['@totalCount'] if json_click %></td>
+			<td style="text-align:right"><%= json_click['@uniqueUsers'] if json_click %></td>
+			<td style="text-align:right"><%= day['@totalCount'] %></td>
+			<td style="text-align:right"><%= day['@uniqueUsers'] %></td>
+		</tr>
+	<% end if @json['day'] %>
+</table>

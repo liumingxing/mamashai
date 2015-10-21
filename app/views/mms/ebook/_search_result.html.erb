@@ -1,0 +1,62 @@
+<table class="grid">
+	<tbody>
+        <tr>
+            <th>电子书名称</th>
+            <th>作者/编著</th>
+            <th>出 版 社</th>
+            <th>简介</th>
+            <th>所属年龄段</th>
+            <th>所属百度APP应用</th>
+            <th>是否发布</th>
+            <th>操作</th>
+            <th>编辑</th>
+            <th>删除</th>
+        </tr>
+        <% @ebooks.each do |book| %>
+        <tr>
+            <td>
+				<%=h book.ebook_title %>
+            </td>
+            <td>
+            	<%= h book.ebook_author %>
+            </td>
+            <td>
+            	<%= book.ebook_publishing_house %>
+            </td>
+            <td width="300px" align="left">
+            	<%= truncate(book.ebook_abstruct, :length=>50) %>
+            </td>
+            <td width="150">
+				<% unless book.age_id.blank? %>
+            	<% book.age_id.split(",").each do |age| %>
+				<%= Age.find(age).name unless age == "0" %>&nbsp;
+				<% end %>
+				<% end %>
+            </td>
+			<%#logo_tag(book,{:version=>'thumb99'}) if book.logo %>
+            <td width="200px" align="left">
+            	<% book.baidu_app.each_with_index do |app,index| %>
+				<%= app.app_name unless app.blank? %><%= "，" unless index + 1 == book.baidu_app.count %>
+				<% end %>
+            </td>
+
+            <td>
+                <% if book.ebook_status == "上线" %>
+                <img src="/images/icons/icons_01.png" alt="/images/icons/icons_01.png">
+				<% else %>
+                <img src="/images/icons/icon_25.gif" alt="/images/icons/icon_25.gif">
+				<% end %>
+            </td>
+            <td>
+                <% if book.ebook_status == "上线" %>
+                <%= link_to '下线', {:action => 'unpublish', :id => book}, {:style => "color:#329BCB;"} %>
+                <% else %>
+                <%= link_to '上线', {:action => 'publish', :id => book}, {:style => "color:#329BCB;"} %>
+                <% end %>
+            </td>
+            <td><%= link_to '编辑', {:action => :edit, :id => book}, {:style => "color:#329BCB;"} %></td>
+            <td><%= link_to '删除', {:action => :destroy, :id => book}, {:confirm => "您确定删除吗？", :method => :delete, :style => "color:#329BCB;"} %></td>
+        </tr>
+        <% end %>
+    </tbody>
+</table>

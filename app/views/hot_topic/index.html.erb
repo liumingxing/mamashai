@@ -1,0 +1,154 @@
+<style>
+	.text_sun_content {overflow:hidden;height:300px;margin-top:10px;}
+	.sun_text {overflow:hidden;width:690px;margin:0px auto 5px;border-bottom:1px dotted #ccc;}
+	.sun_text span.pic {float:left;width:50px; height:60px;text-align:center;}
+	.sun_text span.pic img {border:1px solid #ccc;padding:1px;}
+	.sun_text span.text {float:right;width:630px;color:#999;padding-bottom:5px;line-height:180%;}
+	.sun_text span.text  a.text {color:#666;}
+</style>
+
+<div class="sharp mt20">
+	<div class="content">
+		<div class="cjy_left">
+			<div id="ht_jrrd">
+					<h3>本周热点</h3><span class="sd">(参与本周热点话题赢晒豆)</span>
+					<div class="clear"></div>
+					<div id="ht_main">
+						<div id="ht_cen_hot_left">
+                                                  <% if @age_tag.logo %>
+							<a href="/topic/<%= @age_tag.short_tag_name %>">
+                                                          <img src="<%= @age_tag.logo.thumb90 %>"/>
+                                                        </a>
+                                                  <% end %>
+						</div>
+						<div id="ht_cen_hot_right">
+							<span class='dd'>
+								<a href="/topic/<%= @age_tag.short_tag_name %>"><%= @age_tag.summary %></a>
+							</span>
+							<span class="fr">
+									<% if @user %>
+									<a href="/topic/<%= @age_tag.short_tag_name %>">参与话题</a>
+									<% else %>
+									<a href="/account/signup?origin_url=/hot_topic">参与话题</a>
+									<% end %>
+							</span>
+							<div class="clear"></div>
+							<%= @age_tag.description %>
+						</div>
+					</div>
+					<div id="ht_table">
+						<DIV id="welcome_posts" class="text_sun_content">
+						<% for post in @relate_posts %>
+							<% user = post.user %>
+				            <div class="sun_text">
+				                <span class="pic"><%=logo_tag(user,{:version=>'thumb48',:url=>user_url(user)}) %>
+				                </span>
+				                <span class="text">
+				                    <p>
+				                        <%=link_user(user) %>：<%= post_content(post.content)%>
+				                        (<%=refer_time post.created_at %>)
+				                    </p>
+				                </span>
+				            </div>
+						<% end %>
+						</div>
+					</div>
+			</div>
+		</div>
+		<!--cjy_left-->
+		<div class="cjy_right">
+			<div>
+				<span class="title">参与话题如何拿晒豆</span>
+				<table>
+					<tr>
+						<td valign='top'>1、</td>
+						<td>只有参与“本周热点话题”才能拿晒豆哦。</td>
+					</tr>
+					<tr>
+						<td valign='top'>2、</td>
+						<td>要求：不少于15个字，内容与话题相关。</td>
+					</tr>
+					<tr>
+						<td valign='top'>3、</td>
+						<td>1次1个晒豆，每个话题上限2个晒豆。</td>
+					</tr>
+				</table>
+			</div>
+			<div>
+				<span class="title">本月豆豆换</span>
+				<% ddhs = Ddh.find(:all, :conditions=>"remain > 0 and end_at > '#{Date.today.to_s}'", :order=>"begin_at desc", :limit=>2) %>
+				<div  style="margin-top: 6px">
+			        <% for ddh in ddhs %>
+			          <div class="index_ddh">
+			            <p><a href="/ddh"><%= ddh.title %></a></p>
+			            <dl>
+			              <dd>晒豆:<b><%=ddh.score %></b>粒</dd>
+			              <dt>剩余<b><%= ddh.remain %></b>份</dt>
+			            </dl>
+			            <div class="index_ddh_w">
+			              &nbsp;<a href="/ddh" style="color:white;"><%= ddh.begin_at.strftime("%m月%d日")%>开换</a>
+			            </div>
+			          </div>
+			        <% end %>
+		    	</div>
+			</div>
+		</div>
+	</div>
+	<!--cjy_right-->
+	<div><img src="/images/sharp_bottom.jpg" />
+	</div>
+</div>
+
+<div class="sharp mt20">
+	<div class="cjy_left">
+		<div id="ht_jrrd">
+			<div class="ht">
+					<h4>往期热点</h4>
+					<% for age_tag in @latest_topics %>
+						<div class="ht_li" style="width:206px;">
+							<div class="ht_li_img"><a href="/topic/<%= age_tag.short_tag_name %>"><img src="http://www.mamashai.com<%= age_tag.logo.thumb90 %>" style="width:60px; height:60px"/></a>
+							</div>
+							<div class="ht_li_text">
+								<h5><a href="/topic/<%= age_tag.short_tag_name%>"><%= age_tag.short_tag_name %></a></h5>
+								<%= age_tag.summary %>
+							</div>
+						</div>
+					<% end %>
+			</div>
+	
+			
+			<% for age in Age.human_order %>
+				<%= render :partial=>"age_topics", :locals=>{:title=>age.name, :age_id=>age.id} %>
+			<% end %>
+		</div>
+	</div>
+	<div class="cjy_right" style="width:210px;">
+		<div style="margin-top: 20px;">
+			<span class="title" style="font-size: 15px;">宝宝日历话题</span>
+			<ul style="font-size:13px; line-height: 200%;">
+				<li><a href="/topic/才艺本领">才艺本领</a></li>
+				<li><a href="/topic/表情心绪">表情心绪</a></li>
+				<li><a href="/topic/宝宝语录">宝宝语录</a></li>
+				<li><a href="/topic/事件活动">事件活动</a></li>
+				<li><a href="/topic/宝宝日历照片书">宝宝日历照片书</a></li>
+			</ul>
+		</div>
+
+		<%= render :partial=>"/share/taobao_adv_right" %>
+	</div>
+	<div><img src="/images/sharp_bottom.jpg" /></div>
+</div>
+
+<script src="/javascripts/FancyZoom.js" language="JavaScript" type="text/javascript"></script>
+<script src="/javascripts/FancyZoomHTML.js" language="JavaScript" type="text/javascript"></script>
+<script>
+	$(document).ready(function() {
+		setupZoom();
+		 
+	    var loop_post = function(){
+	        var post = $('#welcome_posts .sun_text').last();
+	        post.remove().prependTo('#welcome_posts').hide().fadeIn();
+	    }
+	    setInterval(loop_post, 3000);
+	});	
+</script>

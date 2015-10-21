@@ -1,0 +1,31 @@
+<h1>User</h1><%= link_to "返回到列表", "/api/test" %><br/>
+用户资料信息，如查看用户资料或列表时，用户会包含最新status的子tag。
+<hr/>
+<h2>字段说明</h2>
+<pre>
+    * id: 用户ID
+    * name: 微博昵称
+    * email: 邮件
+    * gender: 性别,m--男，w--女,null--未知
+    * domain: 用户个性化URL
+    * score: 用户积分
+    * unread_fans_count: 未读新粉丝数目
+    * unread_comments_count: 未读新评论数目
+    * unread_atme_count: 关于我的微博未读数目
+    * unread_messages_count: 未读站内信数目
+    * last_post_id: 最后一次发表的微博
+    * fans_users_count: 粉丝数
+    * follow_users_count: 关注数
+    * user_kids_count: 孩子数
+    * posts_count: 微博数
+    * created_at: 创建时间
+    * description: 个人描述
+    * province_name: 省份
+    * city_name: 城市
+    * logo_url: 默认图片地址450x450
+    * logo_url_thumb140: 140x140 缩略图地址
+    * logo_url_thumb30: 30x30 缩略图地址
+    * logo_url_thumb48: 48x48 缩略图地址
+    * status: 最后一条微博信息
+    * user_kids: 孩子资料详见 UserKid Api说明
+</pre> 

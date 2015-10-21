@@ -1,0 +1,244 @@
+<div class="css_search_find">
+    <div class="find_title">
+        <span class="title">邀请好友关注我</span>
+        <span class="backs"><a href="/friends">返回</a></span>
+    </div>
+    <div id="css_search_container">
+        <div class="mainbody" id="registered">
+            <div class="mms_mail_top">
+                <div class="title_info">
+                    <% followed_amount = 0 %>
+                    <% for contact in @contacts %>
+                    <% user = User.find_by_email(contact.email)
+                    follow_user = FollowUser.find(:first, :conditions => {:user_id => @user.id, :follow_user_id => user.id}) unless user.blank?
+                    followed_amount += 1 if !follow_user.blank?
+                    follow_user = nil %>
+                    <% end %>
+                    <a class="bottom top" href="#" id="show_registered_follows">有<%= followed_amount %>人己经被你关注了</a>
+                </div>
+                <div class="mms_mail_user" id="registered_follows" style="display:none;">
+                    <ul class="user">
+                        <% unregistered_contacts = [] %>
+                        <% unfollow_users = [] %>
+                        <% for contact in @contacts %>
+                        <% user = User.find_by_email(contact.email)
+                        unregistered_contacts << contact if user.nil?
+                        follow_user = FollowUser.find(:first, :conditions => {:user_id => @user.id, :follow_user_id => user.id}) unless user.nil?
+                        unfollow_users << contact if follow_user.nil? and !user.nil? %>
+                        <% if !user.nil? and user.email != session[:account] and !follow_user.nil? %>
+                        <% follow_user = nil %>
+                        <li>
+                            <%=logo_tag(user,{:version=>'thumb30',:url=>"/settings/logo", :class => 'photo', :url => ''}) %><%=link_user(user) %>
+                        </li>
+                        <% end %>
+                        <% end %>
+                    </ul>
+                </div>
+            </div>
+			<div class="success" id="success" style="display:none;" ></div>
+			<div class="success mms_error_tp" id="error" style="display:none;"></div>
+            <!--mms_mail_top-->
+            <div class="mms_mail_content">
+                <ul class="f_email clearfix">
+                    <li class="li_1 bold">
+                        关注他们
+                    </li>
+                    <li class="li_0">
+                    </li>
+                    <li class="li_1_2">
+                        邀请他们加入
+                    </li>
+                </ul>
+                <div class="f_text">
+                    你<%= session[:type]=="msn" ? "MSN" : "邮箱" %>中的联系人已经有<em class="bold"><%= unfollow_users.length unless unfollow_users.blank? %></em>个加入微博了，关注他们吧。
+                </div>
+				<% form_tag(:action => :create_follow_user) do %>
+                <div class="f_emailbox">
+                    <table class="f_emailList">
+                        <tbody>
+                            <% i = 1 %>
+                            <% for contact in unfollow_users %>
+                            <% user = User.find_by_email(contact.email) %>
+                            <% if !user.nil? and user.email != session[:account] %>
+                            <tr>
+                                <td class="ts_01">
+                                	<%= check_box("follow", "frends", :name => "follow[frends][#{i}]", :checked => true, :id => "follow_registered_#{i}", :class => "registered_friends") -%>
+                                    <%= hidden_field_tag 'follow','user', :value => contact.email, :name => "follow[emails][#{i}]" -%>
+                                </td>
+                                <td class="ts_02">
+                                    <%=logo_tag(user,{:version=>'thumb30',:url=>"/settings/logo", :class => 'photo', :url => ''}) %>
+                                </td>
+                                <td class="ts_03">
+                                    <%=link_user(user) %>
+                                    <%= user.email -%>
+                                </td>
+                            </tr>
+                            <% i += 1 %>
+                            <% end %>
+                            <% end %>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="f_emailbottom">
+                    <input type="checkbox" name="" checked="checkbox" value="" id="registered_all">全选 
+                </div>
+                <div class="mib_btn">
+                    <button class="button_submit" type="submit" onmouseover="this.className='button_submit button_submit_hover';" onmouseout="this.className='button_submit';" id="follow_user">
+                        关注他们
+                    </button>
+                </div>
+				<% end %>
+                <div class="skip">
+                    <a href="javascript:void(0);" onclick="display_unregistered();"><span>邀请</span>&gt;&gt;</a>
+                </div>
+            </div>
+            <!--mms_mail_content-->
+            <div class="clear">
+            </div>
+        </div>
+        <div class="mainbody" id="unregistered" style="display:none;">
+            <div class="mms_mail_top">
+                <div class="title_info">
+                    <a class="bottom top" href="#" id="show_unregistered_follows">有<%= followed_amount %>人己经被你关注了</a>
+                </div>
+                <div class="mms_mail_user" id="unregistered_follows" style="display:none;">
+                    <ul class="user">
+                        <% for contact in @contacts %>
+                        <% user = User.find_by_email(contact.email)
+                        follow_user = FollowUser.find(:first, :conditions => {:user_id => @user.id, :follow_user_id => user.id}) unless user.nil? %>
+                        <% if !user.nil? and !follow_user.nil? %>
+                        <li>
+                            <%=logo_tag(user,{:version=>'thumb30',:url=>"/settings/logo", :class => 'photo', :url => ''}) %><%=link_user(user) %>
+                        </li>
+                        <% end %>
+                        <% end %>
+                    </ul>
+                </div>
+            </div>
+            <!--mms_mail_top-->
+            <div class="mms_mail_content">
+                <ul class="f_email clearfix">
+                    <li class="li_2_2 ">
+                        关注他们
+                    </li>
+                    <li class="li_0">
+                    </li>
+                    <li class="li_2 bold">
+                        邀请他们加入
+                    </li>
+                </ul>
+                <div class="f_text">
+                    还有<em class="bold"><%= unregistered_contacts.length unless unregistered_contacts.blank? %></em>个<%= session[:type]=="msn" ? "MSN" : "邮箱" %>联系人还没有加入微博，邀请他们加入吧。
+                </div>
+                <% form_tag({:action => :send_invite}) do %>
+                <div class="f_emailbox">
+                    <table class="f_emailList">
+                        <tbody>
+                            <% i = 1 %>
+                            <% for contact in unregistered_contacts %>
+                            <tr>
+                                <td class="ts_01">
+                                    <%= check_box("invite", "frends", :name => "invite[frends][#{i}]", :checked => true, :id => "invite_unregistered_#{i}", :class => "unregistered_friends") -%>
+                                    <%= hidden_field_tag 'invite','user', :value => contact.email, :name => "invite[emails][#{i}]" -%>
+                                </td>
+                                <td class="ts_03">
+                                    <%= contact.email -%>
+                                </td>
+                            </tr>
+                            <% i += 1 %>
+                            <% end %>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="f_emailbottom">
+                    <input type="checkbox" name="" checked="checkbox" value="" id="unregistered_all">全选 
+                </div>
+                <div class="mib_btn">
+                    <button class="button_submit" type="submit" onmouseover="this.className='button_submit button_submit_hover';" onmouseout="this.className='button_submit';">
+                        发送邀请
+                    </button>
+                </div>
+                <% end %>
+				<div class="skip">
+                    <a href="javascript:void(0);" onclick="display_registered();"><span>关注</span>&gt;&gt;</a>
+                </div>
+            </div>
+            <!--mms_mail_content-->
+            <div class="clear">
+            </div>
+        </div>
+        <%=render :partial=>'sidebar' %>
+        <div class="clear">
+        </div>
+    </div>
+    <div class="clear">
+    </div>
+</div>
+<script type="text/javascript">
+    function display_unregistered(){
+        jQuery("#registered").hide();
+        jQuery("#unregistered").show();
+    }
+    
+	function display_registered(){
+        jQuery("#registered").show();
+        jQuery("#unregistered").hide();
+    }
+	
+    jQuery("#registered_all").click(function(){
+        if (jQuery(this).attr("checked") == true) {
+            jQuery(".registered_friends").each(function(){
+                jQuery(this).attr("checked", true);
+            });
+        }
+        else {
+            jQuery(".registered_friends").each(function(){
+                jQuery(this).attr("checked", false);
+            });
+        }
+    });
+    jQuery("#unregistered_all").click(function(){
+        if (jQuery(this).attr("checked") == true) {
+            jQuery(".unregistered_friends").each(function(){
+                jQuery(this).attr("checked", true);
+            });
+        }
+        else {
+            jQuery(".unregistered_friends").each(function(){
+                jQuery(this).attr("checked", false);
+            });
+        }
+    });
+	
+	jQuery("#show_registered_follows").click(function(){
+		if(jQuery("#registered_follows").css("display") == "none"){
+			jQuery("#registered_follows").show();
+		}
+		else {
+			jQuery("#registered_follows").hide();
+		}
+	});
+	
+	jQuery("#show_unregistered_follows").click(function(){
+		if(jQuery("#unregistered_follows").css("display") == "none"){
+			jQuery("#unregistered_follows").show();
+		}
+		else {
+			jQuery("#unregistered_follows").hide();
+		}
+	});
+	
+    jQuery(document).ready(function(){
+		<% messages = flash[:notice].split("=>") unless flash[:notice].blank? %>
+		<% if !messages.blank? and messages[0].to_i==2 %>
+			jQuery("#success").html("<%= messages[1].to_s %>");
+			jQuery("#success").show(500);
+			jQuery("#success").hide(1000);
+		<% end %>
+		<% if !messages.blank? and messages[0].to_i==1%>
+			jQuery("#error").html("<%= messages[1].to_s %>");
+			jQuery("#error").show(500);
+			jQuery("#error").hide(1000);
+		<% end %>
+	});
+</script>

@@ -1,0 +1,53 @@
+<div class="article_info">
+	<div class="orgtxt">
+        <%=link_user(post.user) if post.user%>
+        <div class='kid_desc'>
+        	<% if post.created_at.hour == 0 && post.created_at.min == 0 && post.created_at.sec == 0 %>
+                补记<%= post.created_at.strftime("%Y年%m月%d日")%>
+            <% else %>
+                <%=refer_time(post.created_at) %> 
+            <% end %>
+            <%= kid_age(post.user, post.created_at) %>
+        	<% if %w(bbyulu biaoqing caiyi fayu shanguang shijian tupian wenzi wenda wotao yingyang zaojiao column jiance taotaole).include?(post.from) %>
+        		<img src="/images/weibo/<%= post.from %>.png"/>
+        	<% end %>	
+        	<% if post.from.to_s.index('lama') == 0 %>
+        		<img src="/images/weibo/lmrb.png"/>
+        	<% end %>
+        </div>  
+        <div class="clear"></div>
+        <% if post.from == "wotao" %>
+        	<% comment = TaobaoComment.find(:first, :conditions=>"post_id = #{post.id}") %>
+        	<% if comment && (comment.anquan || comment.shiyong) %>
+        	<div class="wt_anquan">
+        	我认为它 <% if comment.shiyong %><span>实用</span><% end %> <% if comment.anquan %><span>安全</span><% end %>
+        	</div>
+        	<% end %>
+        <% end %>
+		<% if post.from == 'column' && post.column_chapter%>
+			<a href="/column/show/<%= post.from_id%>">《<%= post.column_chapter.title%>》</a>
+		<% end %>
+        <% if post.from == 'article'%>
+            <a href="/articles/article/<%= post.from_id%>">《<%= post.article.title %>》</a>
+        <% end %>
+        <% if @tag %>
+        	<%=highlight(post.user_id == 431 ? post_http_content(post.content) : post_content(post.content), @tag.name) %>
+		<% elsif @tags %>
+			<%=highlight(post.user_id == 431 ? post_http_content(post.content) : post_content(post.content), @tags) %>
+        <% else %> 
+        
+		<%=post.user_id == 431 ? post_http_content(post.content) : post_content(post.content) %>
+		<%end %>
+		<% if post.from == 'column' %>
+			<a href="/column/show/<%= post.from_id%>">查看全文</a>
+		<% end %>
+		<% if post.long_post_id%>
+				<a href="/post/<%=post.id%>">查看全文</a>
+		<% end %>
+        <%=post_blog_url(post) if post.blog_url %>
+    </div>
+</div>
+<%=render :partial=>'/share/post_content_vote', :locals=>{:post => post} if post.from == 'vote'%>
+<%=render :partial=>'/share/post_content_logo',:locals=>{:post => post,:id_post=>post} if post.logo %>
+<%=render :partial=>'/share/post_content_video',:locals=>{:post => post} if post.video_url %>
+<%=render :partial=>'/share/post_content_forward_post',:locals=>{:post => post} %>

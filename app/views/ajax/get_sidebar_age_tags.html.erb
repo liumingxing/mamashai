@@ -1,0 +1,37 @@
+<% form_remote_tag :url => {:action =>:set_favorite_tags}, :loading => "",:complete=>'', :update => "sidebar_tags" do %>
+    
+<div class="search_user" >
+    <ul class="tags_concern_one">
+    	<% for tag in @tags %>
+        <li>
+            <table border="0" cellpadding="0" cellspacing="2">
+                <tbody>
+                    <tr>
+                        <td width="15">
+							<%=check_box :tag_ids, tag.id,  {:checked => @favorite_tag_ids.include?(tag.id) } %>
+                        </td>
+                        <td>
+                            <span>
+                                <label for="checkbox1">
+                                    <%=tag.name %>
+                                </label>
+                            </span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </li>
+		<% end %>
+    </ul>
+    <ul class="layer_botton">
+        <li>
+            <button class="button_submit_s" type="submit"  onmouseover="this.className='button_submit_s button_submit_s_hover';" onmouseout="this.className='button_submit_s';">
+                关注 
+            </button>
+        </li>
+        <div class="clear">
+        </div>
+    </ul>
+</div>
+
+<% end %>

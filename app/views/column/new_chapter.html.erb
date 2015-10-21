@@ -1,0 +1,56 @@
+<div class="sharp mt20">
+	<div class="content">
+		<h1>写专栏</h1>
+		<div id='chanel_content'>
+			<div class="mms_panel_content">
+				<%= form_tag :action=>"create_chapter", :chapter_id=>params[:chapter_id] do%>
+				<table style="width:400px">
+					<tr height="30px">
+						<td width="70px">专栏栏目：</td>
+						<td><span id="column_select_span"><%= select :chapter, :book_id, @user.column_books.collect{|c| [c.name, c.id]}, :include_blank=>"请选择栏目"%></select>
+							<%= error_message_on :chapter,:book_id %> <a href="javascript:;" onclick="show_url_box('/column/new', '创建栏目');">创建栏目</a> </td>
+					</tr>
+					<tr height="35px">
+						<td>标　　题：</td><td><%= text_field "chapter", "title", :style=>"width: 300px;"%> <%= error_message_on :chapter,:title %></td>
+					</tr>
+					<tr>
+						<td colspan=2> <%= text_area :chapter, :content,{:class=>'required',:style=>"height:500px;"} %>
+						<%= error_message_on :chapter,:content %> </td>
+					</tr>
+					<tr height="35px">
+						<td colspan=2><%= check_box_tag 'accept', 1, false, :onclick=>"if ($('#accept').get(0).checked) {$('#publish').removeAttr('disabled')} else {$('#publish').attr('disabled', 'disabled')}" %> 我已阅读并同意<a href="javascript:;" onclick="show_url_box('/column/protocal', '妈妈晒专栏作者协议', 650, 400)">《妈妈晒专栏作者协议》</a></td>
+					</tr>
+					<tr height="44px">
+						<td valign='top'>标　　签：</td><td valign='top'><%= text_field "chapter", "tag", :class=>"tags", :placeholder=>@chapter.tag%>
+						<div class="chapter_tag_gray">
+							用简洁的词语概括此文，中间用空格分开
+						</div></td>
+					</tr>
+					<tr height="60px">
+						<td align="center" colspan=2>
+						<button class="button_submit" onclick="javascript:set_publish_type('1')" type="submit" onmouseover="this.className='button_submit button_submit_hover';" onmouseout="this.className='button_submit';">
+							保存为草稿
+						</button>
+						<button id="publish" onclick="javascript:set_publish_type('0')"  disabled="disabled" class="button_submit" type="submit" onmouseover="this.className='button_submit button_submit_hover';" onmouseout="this.className='button_submit';">
+							发布
+						</button>
+						<input type="hidden" value="0" id="commit" name="commit">
+						</td>
+					</tr>
+				</table>
+				<% end %>
+
+				<%= tiny_mce_js %>
+			</div>
+		</div>
+	</div>
+	<div><img src="/images/sharp_bottom.jpg" />
+	</div>
+</div>
+<script type="text/javascript">
+	function set_publish_type(tp) {
+		var input = $('#commit');
+		input.attr("value", tp);
+		return true;
+	}
+</script>

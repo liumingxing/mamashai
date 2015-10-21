@@ -1,0 +1,364 @@
+function GouOrders(attr){
+	var win = Ti.UI.createWindow(attr);
+    var colors = {red: "red", green: "green"};
+
+    function fill_window(){
+		http_call(Ti.App.mamashai + "/api/gou/my_order?" + account_str(), function(e){
+			var json = JSON.parse(e.responseText);
+
+			clear_window(win);
+
+			if (json.length == 0){
+				win.add(Ti.UI.createImageView({
+					image: "/images/gou/dingdan_empty.png",
+					top: __l(40),
+					left: (Ti.App.platform_width - __l(140))/2,
+					right: __l(100),
+					hires: true,
+					width: __l(140),
+					height: __l(140)
+				}))
+
+				win.add(Ti.UI.createLabel({
+					left: __l(10),
+					right: __l(10),
+					top: __l(220),
+					font: {fontSize: __l(18)},
+					color: "#333",
+					text: "主人，您还没下单呢！",
+					textAlign: "center"
+				}))
+
+				win.add(Ti.UI.createLabel({
+					left: __l(10),
+					right: __l(10),
+					top: __l(250),
+					font: {fontSize: __l(13)},
+					color: "#ccc",
+					text: "放心又实惠，下手吧",
+					textAlign: "center"
+				}))
+			}
+			else{
+				var data = [];
+				var row = Ti.UI.createTableViewRow({
+					selectedBackgroundColor: "#eee",
+					height: __l(120),
+					hasChild: Ti.App.is_android ? false : true
+				})
+				
+				for(var i=0; i<json.length; i++){
+					var row = Ti.UI.createTableViewRow({
+						selectedBackgroundColor: "#eee",
+						height: Ti.UI.SIZE,
+						hasChild: Ti.App.is_android ? false : true,
+						json: json[i]
+					})
+					var wrapper = Ti.UI.createView({
+						top: 0,
+						left: 0,
+						right: 0,
+						bottom: 0,
+						height: Ti.UI.SIZE
+					})
+
+					row.add(wrapper)
+					
+					wrapper.add(Ti.UI.createLabel({
+						text: "订单号：" + json[i].id,
+						left: __l(10),
+						top: __l(10),
+						color: "#5A5B5E",
+						touchEnabled: false,
+						font: {fontSize: __l(13)}
+					}))
+					wrapper.add(Ti.UI.createLabel({
+						text: "下单时间：" + (json[i].created_at.substr(0, 10)),
+						right: Ti.App.is_android ? __l(10) : 0,
+						top: __l(10),
+						color: "#5A5B5E",
+						touchEnabled: false,
+						font: {fontSize: __l(13)}
+					}))
+					wrapper.add(Ti.UI.createLabel({
+						text: "订单金额：" + json[i].price.toFixed(2),
+						left: __l(10),
+						top: __l(34),
+						bottom: __l(10),
+						height: Ti.UI.SIZE,
+						color: "#5A5B5E",
+						touchEnabled: false,
+						font: {fontSize: __l(13)}
+					}))
+
+					var colors = {"待付款": "#5A5B5E", "待发货": "#F69A04", "已发货": "#8FBFC9", "已取消": "#CCCCCC"}
+					var status = Ti.UI.createLabel({
+						text: json[i].status,
+						right: Ti.App.is_android ? __l(10) : 0,
+						top: __l(34),
+						color: colors[json[i].status],
+						textAlign: "center",
+						width: __l(60),
+						touchEnabled: false,
+						font: {fontSize: __l(13)}
+					})
+					row.status = status;
+					wrapper.add(status)
+					
+					var c = Ti.UI.createView({
+						contentWidth : 'auto',
+						showHorizontalScrollIndicator : "true",
+						backgroundColor : 'transparent',
+						top: __l(60),
+						left: __l(10),
+						height: __l(40),
+						bottom: __l(10),
+						right: Ti.App.is_android ? __l(20) : 0,
+						touchEnabled: false,
+						layout: 'horizontal'
+					})
+					for(var j=0; j<json[i].details.length; j++){
+						c.add(Ti.UI.createImageView({
+							height: __l(40),
+							width: __l(40),
+							left: __l(0),
+							right: __l(10),
+							touchEnabled: false,
+							image: Ti.App.aliyun + json[i].details[j].logo
+						}))
+					}
+
+					wrapper.add(c)
+
+					var button_wrapper = Ti.UI.createView({
+						top: __l(110),
+						right: Ti.App.is_android ? __l(10) : __l(0),
+						height: Ti.UI.SIZE,
+						width: Ti.UI.SIZE,
+						layout: "horizontal"
+					})
+					if (json[i].status == "待付款"){
+						var button = Ti.UI.createButton({
+							title : "删除订单",
+							right: 0,
+							width: __l(70),
+							height: __l(28),
+							top: 0,
+							bottom: __l(10),
+							row: row,
+							json: json[i],
+							font: {fontSize: __l(12)}
+						})
+						button.addEventListener("click", function(e){
+							e.cancelBubble = true;
+							http_call(Ti.App.mamashai + "/api/gou/delete_order/" + e.source.json.id + "?" + account_str(), function(e1){
+								var json = JSON.parse(e1.responseText);
+								if (json.code == 0){
+									show_notice(json.desc);
+									tableview.deleteRow(e.source.row)
+								}
+							})
+						})
+						pre_btn(button);
+						button_wrapper.add(button)
+					}
+					if (json[i].status == "待发货" || json[i].status == "已发货"){
+						var button_progress = Ti.UI.createButton({
+							title : "查看进度",
+							right: __l(20),
+							width: __l(70),
+							height: __l(28),
+							top: 0,
+							bottom: __l(10),
+							json: json[i],
+							font: {fontSize: __l(12)}
+						})
+						button_progress.addEventListener("click", function(e1){
+							e1.cancelBubble = true;
+							cache_http_call(Ti.App.mamashai + "/bbrl_code/gou_progress.txt", "cache_gou_progress", function(e){
+								var ProgressWin = eval(e.responseText);
+								var win = new ProgressWin({
+									title: "查看进度",
+									backButtonTitle: "",
+									backgroundColor: "white",
+									json: e1.source.json
+								})
+								if (!Ti.App.is_android)
+									win.hideTabBar();
+								Ti.App.currentTabGroup.activeTab.open(win, {
+									animated : true
+								});
+							})
+						})
+
+						pre_btn(button_progress)
+						button_wrapper.add(button_progress)
+
+						var button = Ti.UI.createButton({
+							title : "确认收货",
+							right: 0,
+							width: __l(70),
+							height: __l(28),
+							top: 0,
+							bottom: __l(10),
+							json: json[i],
+							font: {fontSize: __l(12)}
+						})
+						button.addEventListener("click", function(e){
+							e.cancelBubble = true
+							http_call(Ti.App.mamashai + "/api/gou/receive_order/" + e.source.json.id + "?" + account_str(), function(e1){
+								var json = JSON.parse(e1.responseText);
+								if (json.code == 0){
+									show_notice(json.desc);
+									fill_window();
+								}
+							})
+						})
+						pre_btn(button)
+						button_wrapper.add(button)
+					}
+					if (false && json[i].status == "已发货"){
+						var button_flow = Ti.UI.createButton({
+							title : "查看物流",
+							right: __l(20),
+							width: __l(70),
+							height: __l(28),
+							top: 0,
+							bottom: __l(10),
+							json: json[i],
+							font: {fontSize: __l(12)}
+						})
+						button_flow.addEventListener("click", function(e){
+							e.cancelBubble = true
+							show_loading();
+							http_call(Ti.App.mamashai + "/api/gou/check_sn/" + e.source.json.sn + "?" + account_str(), function(e1){
+								hide_loading();
+								var win_flow = Ti.UI.createWindow({
+									title: "查看物流",
+									backgroundColor: "white",
+									backButtonTitle: ""
+								});
+
+								var web = Ti.UI.createWebView({
+									html : e1.responseText,
+									top : 0,
+									bottom: __l(60),
+									left: __l(0),
+									right: __l(0),
+								})
+								win_flow.add(web);
+
+								pre(win_flow);
+
+								add_default_action_bar(win_flow, win_flow.title, true)
+
+								Ti.App.currentTabGroup.activeTab.open(win_flow, {
+									animated : true
+								});
+							})
+						})
+						pre_btn(button_flow)
+						button_wrapper.add(button_flow)
+
+						var button = Ti.UI.createButton({
+							title : "确认收货",
+							right: 0,
+							width: __l(70),
+							height: __l(28),
+							top: 0,
+							bottom: __l(10),
+							json: json[i],
+							font: {fontSize: __l(12)}
+						})
+						button.addEventListener("click", function(e){
+							e.cancelBubble = true
+							http_call(Ti.App.mamashai + "/api/gou/receive_order/" + e.source.json.id + "?" + account_str(), function(e1){
+								var json = JSON.parse(e1.responseText);
+								if (json.code == 0){
+									show_notice(json.desc);
+									fill_window();
+								}
+							})
+						})
+						pre_btn(button)
+						button_wrapper.add(button)
+					}
+					if (json[i].status == "已收货"){
+						var button = Ti.UI.createButton({
+							title : "评价",
+							right: 0,
+							width: __l(70),
+							height: __l(28),
+							top: 0,
+							bottom: __l(10),
+							json: json[i],
+							font: {fontSize: __l(12)}
+						})
+						button.addEventListener("click", function(e){
+							e.cancelBubble = true
+							http_call(Ti.App.mamashai + "/bbrl_code/gou_comment.txt", function(e1){
+								var CommentWin = eval(e1.responseText);
+								var win = new CommentWin({
+									title: "评价",
+									backButtonTitle: "",
+									backgroundColor: "white",
+									json: e.source.json
+								})
+								Ti.App.currentTabGroup.activeTab.open(win, {
+									animated : true
+								});
+							})
+						})
+						pre_btn(button)
+						button_wrapper.add(button)
+					}
+					wrapper.add(button_wrapper)
+
+					data.push(row);
+				}
+				var tableview = Ti.UI.createTableView({
+					data: data
+				})
+				tableview.addEventListener("click", function(e1){
+					cache_http_call(Ti.App.mamashai + "/bbrl_code/gou_order.txt", "cache_gou_order", function(e){
+						var OrderWin = eval(e.responseText);
+						var win = new OrderWin({
+							title: "订单详情",
+							backButtonTitle: "",
+							backgroundColor: "white",
+							json: e1.rowData.json
+						})
+						if (!Ti.App.is_android)
+							win.hideTabBar();
+						Ti.App.currentTabGroup.activeTab.open(win, {
+							animated : true
+						});
+					})
+				})
+				
+				win.add(tableview);
+
+				function pay_finished(e){
+					for(var i=0; i<data.length; i++){
+						var row = data[i];
+						if (row.json.id == parseInt(e.trade_no)){
+							row.status.text = "待发货"
+						}
+					}
+				}
+				Ti.App.addEventListener("pay_success", pay_finished)
+				win.addEventListener("close", function(e){
+					Ti.App.removeEventListener("pay_success", pay_finished)
+				})
+				
+			}
+		})
+	}
+
+	fill_window();
+	pre(win);
+	add_default_action_bar(win, win.title, true)
+	return win;
+}
+
+module.exports = GouOrders;

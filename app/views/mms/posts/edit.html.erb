@@ -1,0 +1,29 @@
+    <div id="middle">
+        <div id="css_mainbody">
+            <h1 class="title">微博管理</h1>
+            <table class="grid">
+            	<form action="/mms/posts/update/<%= @post.id %>" method="post">
+	                <tr>
+	                    <td width="25%">ID</td>
+	                    <td><%= @post.id %></td>
+	                </tr>
+	                <tr>
+	                    <td>用户名</td>
+	                    <td><%= @post.user.name %></td>
+	                </tr>
+	                <tr>
+	                    <td>内容</td>
+	                    <td><textarea style="width:666px;height:200px;" name="post[content]"><%= @post.content %></textarea></td>
+	                </tr>
+	                <tr>
+	                    <td>创建时间</td>
+	                    <td><%= @post.created_at.strftime("%Y-%m-%d %H:%M") %></td>
+	                </tr>
+                    <tr>
+                        <td colspan="2"><input type="submit" name="submit" value="提交"></td>
+                    </tr>
+				</form>
+            </table>
+        </div>
+        <div class="clear"></div>
+    </div>

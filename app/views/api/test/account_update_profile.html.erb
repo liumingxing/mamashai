@@ -1,0 +1,38 @@
+<h1>update_profile 更新当前登录用户在新浪微博上的基本信息</h1><%= link_to "返回到列表", "/api/test" %>
+<pre>
+  [路径]: account/update_profile
+  [HTTP请求方式]: POST
+  [URL]: http://your.api.domain/account/update_profile.json
+  [是否需要登录]： true
+
+参数
+
+    * source 申请应用时分配的AppKey，调用接口时候代表应用的唯一身份。
+    * 下列参数必选其一，多选不限。
+    * name 昵称，不超过20个汉字
+    * gender 性别， m 表示男性，w 表示女性。
+    * province 省份代码，参考省份城市编码表
+    * city 城市代码，为空表示不指定具体城市。参考省份城市编码表
+    * description 个人描述。不超过160个汉字
+
+示例
+
+  curl -u "username:password" -d "gender=m&name=openapi"
+  "http://your.api.domain/account/update_profile.json?source=appkey"
+
+注意
+
+  * 提交成功后，只有参与提交的参数所对应的信息项会被更新。未参与提交的信息项将保持原值不变。
+  * 例如：只提交name和gender参数，则只对用户昵称和性别进行更新，用户的省份、城市以及个人描述保持原值不变
+</pre>
+<hr/>
+<%= form_tag "/api/account/update_profile.json" ,{:method=>:post} do %>
+  <%= render :partial => '/api/test/login' %>
+  source: <%= text_field_tag "source" %><br/>
+  name: <%= text_field_tag "name" %><br/>
+  gender: <%= text_field_tag "gender" %><br/>
+  province: <%= text_field_tag "province" %><br/>
+  city: <%= text_field_tag "city" %><br/>
+  description: <%= text_field_tag "description" %><br/>
+  <%= submit_tag "提交"%>
+<% end -%>

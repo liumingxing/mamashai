@@ -1,0 +1,38 @@
+<div class="week_desc"><%= (@week.month/12).to_s + '岁' if @week.month.to_i >= 12%><%= @week.month % 12%>月</div>
+
+<div class="yun_image">
+	<img src="/images/qing/yu/<%= params[:id].to_i %>.jpg"/>
+</div>
+
+<div class="yun_tip">
+	<div class="title"><span>发育指标</span></div>
+	<div class="content"><%= @week.fayu.gsub("\n", "<br/>").gsub(" ", "&nbsp").html_safe %></div>
+	<hr/>
+</div>
+
+<div class="yun_tip">
+	<div class="title"><span>营养指南</span></div>
+	<div class="content"><%= @week.yingyang.gsub("\n", "<br/>").gsub(" ", "&nbsp").html_safe %></div>
+	<hr/>
+</div>
+
+<div class="yun_tip">
+	<div class="title"><span>亲子游戏</span></div>
+	<div class="content"><%= @week.qinzi.gsub("\n", "<br/>").gsub(" ", "&nbsp").html_safe %></div>
+	<hr/>
+</div>
+
+<div class="yun_tip">
+	<div class="title"><span>注意事项</span></div>
+	<div class="content"><%= @week.zhuyi.gsub("\n", "<br/>").gsub(" ", "&nbsp").html_safe %></div>
+	<hr/>
+</div>
+
+<div class="page">
+	<% if params[:id].to_i > 1 %>
+    	<a href="/qing2/yu1/<%= params[:id].to_i - 1 %>" hidefocus="true">上个月</a>
+    <% end %>
+    <% if params[:id].to_i < 36 %>
+    	<a href="/qing2/yu1/<%= params[:id].to_i + 1 %>"  hidefocus="true">下个月</a>
+    <% end %>
+</div>

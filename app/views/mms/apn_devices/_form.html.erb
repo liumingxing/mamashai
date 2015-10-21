@@ -1,0 +1,36 @@
+<%= error_messages_for 'apn_device' %>
+
+<table class="ft" border="1">
+<!--[form:apn_device]-->
+<tr>
+	<td>Device token</td>
+	<td><%= text_field 'apn_device', 'device_token'  %></td>
+</tr>
+
+<tr>
+	<td>Active</td>
+	<td><select id="apn_device_active" name="apn_device[active]"><option value="false">False</option><option value="true" selected>True</option></select></td>
+</tr>
+
+<tr>
+	<td>Alias</td>
+	<td><%= text_field 'apn_device', 'alias'  %></td>
+</tr>
+
+<tr>
+	<td>Tp</td>
+	<td><%= text_field 'apn_device', 'tp'  %></td>
+</tr>
+
+<tr>
+	<td>Created at</td>
+	<td><%= datetime_select 'apn_device', 'created_at'  %></td>
+</tr>
+
+<tr>
+	<td>Updated at</td>
+	<td><%= datetime_select 'apn_device', 'updated_at'  %></td>
+</tr>
+<!--[eoform:apn_device]-->
+
+</table>

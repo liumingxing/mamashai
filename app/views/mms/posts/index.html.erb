@@ -1,0 +1,52 @@
+    <div id="middle">
+        <div id="css_mainbody">
+            <h1 class="title">微博管理</h1>
+			<div style="line-height:30px;padding-left:50px;">								
+				<% form_tag :action=>"search" do %>
+					<span>
+						<b>请选择时间范围：</b>
+						从
+						<%= select_date @start_date||Date::today, :prefix => 'start',:use_month_numbers=>true %>
+						到
+						<%= select_date @end_date||Date::today, :prefix => 'end', :use_month_numbers=>true %>
+					</span>
+					<span>
+						<b>| 关键字：</b>
+						<%= text_field_tag :search_key, @search_key%>
+					</span>
+						<%= submit_tag ">>"%>
+				<% end %>
+					
+			</div>
+            <table class="grid">
+                <thead>
+                    <tr>
+                        <th width="8%">序号</th>
+                        <th width="10%">用户</th>
+                        <th>内容</th>
+						<th width="5%">评论</th>
+                        <th width="15%">创建时间</th>
+                        <th width="15%">管理</th>
+                    </tr>
+                </thead>
+                <tbody>
+                	<% for post in @posts %>
+                    <tr>
+                        <td><%= post.id %></a></td>
+                        <td><%= link_user(post.user) %></a></td>
+                        <td><%= post.content.html_safe %></td>
+						 <td><%= post.comments_count %></td>
+                        <td><%= refer_time(post.created_at) %></td>
+                        <td>
+                        	<a href="/post/<%= post.id %>" target="_blank" class="delete">查看</a>
+                        	<a href="/mms/posts/edit/<%= post.id %>" class="delete">编辑</a>
+                        	<%= link_to "删除", {:controller => "mms/posts", :action => "destroy", :id => post.id}, {:method => "delete", :confirm => "确认要删除吗？", :class => "delete"} %>
+						</td>
+                    </tr>
+					<% end %>
+                </tbody>
+            </table>
+			<%= will_paginate @posts %>
+        </div>
+        <div class="clear"></div>
+    </div>

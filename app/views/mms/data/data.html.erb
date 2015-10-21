@@ -1,0 +1,32 @@
+<div id="middle">
+    <div id="css_mainbody">
+        <h1 class="title"><%=@title%></h1>	
+		<div class="settings_content">
+			<% form_tag({:action=>"cc_report_"+params[:action]},{:target=>'_blank' }) do %>
+		    <fieldset>
+		        <legend>
+		            <%=@title.split('-')[1]%>
+		        </legend>
+		        <%= render :partial=>params[:action]%>
+		        <input type="submit" value="查询"/>
+		    </fieldset>
+			<% end %>
+		</div>	
+    </div>
+    <div class="clear"></div>
+</div>
+
+<style type="text/css">
+	fieldset {
+		border:1px solid #D1D1D1;
+		color:#333333;
+		line-height:220%;
+		margin:20px;
+		padding:10px;
+	}
+	legend {
+		background:none repeat scroll 0 0 #FFFFFF;
+		color:#666666;
+		font-weight:800;
+	}
+</style>

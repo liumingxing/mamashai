@@ -1,0 +1,15 @@
+<div id="chanel_content">
+    <div class="navigate_tab" id='n'>
+        <ul class="class1">
+            <li<%=raw ' class="current"' if params[:controller]=='follows' and params[:tp]=='friends' %>>
+                <a href="/users/<%= @space_user.id %>/follows?tp=friends#n" title='我的好友'>我的好友</a>
+            </li>
+            <li<%=raw ' class="current"' if params[:controller]=='follows' && !params[:tp]%>>
+                <a href="/users/<%=@space_user.id%>/follows#n" title="我关注的人">我关注的人</a>
+            </li>
+            <li<%=raw ' class="current"' if params[:controller]=='fans' %>>
+                <a class="last" href="/users/<%=@space_user.id%>/fans#n" title="我的粉丝">我的粉丝</a>
+            </li>
+        </ul>
+    </div>
+</div>

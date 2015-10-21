@@ -1,0 +1,46 @@
+<h3><%=date_cn @date1%>到<%=date_cn @date2%> 微博量统计表</h3>
+<table class="grid">
+    <tbody>
+        <tr>
+        	<th>
+                序号
+            </th>
+            <th>
+                话题名称
+            </th>
+			<th>
+                话题分类
+            </th>
+            <th>
+                晒的次数
+            </th>
+        </tr>
+		<% i = 1 %>
+		<% @total_count = 0 %>
+        <% for tag in @tags %>
+        <tr height="35">
+        	<td>
+                <%=i %>
+            </td>
+            <td>
+               <%=tag.name %>
+            </td>
+			<td>
+				<% if tag.category %>
+                <%=tag.category.name %>
+				<% else %>
+				自由晒
+				<% end %>
+            </td>
+			<td>
+				<%=tag.posts_count %>
+			</td>
+        </tr>
+		<% i+=1 %>
+		<% @total_count += tag.posts_count %>
+        <% end %>
+    </tbody>
+</table>
+<div class="summary">
+	总计：<%=@tags.length%>个话题  <%=@total_count%>个微博
+</div>

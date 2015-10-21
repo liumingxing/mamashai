@@ -1,0 +1,76 @@
+<%= form_tag({:action=>"new_from_local", :id=>params[:id]}, {:method=>"GET"}) do %>
+	关键词：<%= text_field_tag :key, params[:key] %>
+    <% topic = TaoTopic.find(params[:id]) %>
+    <%= submit_tag "查询" %>
+    <br/>
+    <% for category in TaoCategory.all(:conditions=>"id in (#{topic.tao_ids})") %>
+        <%= link_to category.name, :action=>"new_from_local", :key=> params[:key], :cid=>category.id %>
+    <% end %>
+	
+<% end %>
+
+<div id="updater"></div>
+<%= form_tag({:action=>"create_from_local", :id=>params[:id]}, {:remote=>true, :id=>"form", :update=>"updater"})  do %>
+<table class="list" border="1" width="100%">
+    <tr>
+        <th>
+        	<%= check_box_tag "select_all", '', false, :onchange=>"if ($(this).is(':checked')){$('td input').attr('checked',true)} else {$('td input').attr('checked', false)}" %>
+        </th>
+        <th>
+            logo
+        </th>
+        <th>
+            名称
+        </th>
+        <th>
+            链接
+        </th>
+        <th>
+            价格
+        </th>
+        <th>
+            佣金
+        </th>
+        <th>
+            累计成交量
+        </th>
+    </tr>
+    <% for product in @products %>
+    <tr>
+        <td>
+        	<% if !TaoProduct.find_by_id_and_tao_topic_id(product.id, params[:id]) %>
+            <%= check_box_tag "ids[]", product.id %>
+            <% end %>
+        </td>
+        <td>
+            <a target="_blank" href="<%= product.url_mobile%>"><img src="<%= product.pic_url%>_310x310.jpg" height=120  width=120/></a>
+        </td>
+        <td>
+            <%= product.name %>
+        </td>
+        <td>
+            <%= product.short_url %>
+        </td>
+        <td>
+            <%= product.price %>
+        </td>
+        <td>
+            <%= product.commission %>
+        </td>
+        <td>
+            <%= product.volumn %>
+        </td>
+    </tr>
+    <% end %>
+</table>
+<div style="text-align: right; margin: 10px;">
+	<%= submit_tag "添加选中商品"%>
+</div>
+<% end %>
+<script>
+$("#form").bind("ajax:complete", function(xhr, status){
+    alert('添加成功');
+})
+</script>
+
+<%= will_paginate @products %>

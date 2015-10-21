@@ -1,0 +1,19 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+	<title>妈妈晒后台管理系统</title>
+	<link type="image/x-icon" href="http://www.mamashai.com/favicon.ico?1010" rel="shortcut icon">
+	<%= stylesheet_link_tag 'admin', 'xtree', 'scaffold' %>
+	<%= stylesheet_link_tag '/javascripts/artDialog5.0/skins/default' %>
+	<%= javascript_include_tag "jquery-1.7.1.min.js", "rails","application.js", 'artDialog5.0/jquery.artDialog.min.js' %>
+</head>
+<body>
+   <%= yield %>
+</body>
+<% if flash[:notice] %>
+<script>
+	$.dialog({content: "<%= flash[:notice]%>"}).hideTitle().time(4000)
+</script>
+<% end %>
+</html>

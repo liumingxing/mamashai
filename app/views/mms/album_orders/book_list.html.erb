@@ -1,0 +1,43 @@
+<h1>成书列表</h1>
+<table class="list" border="1">
+  <tr class="head">
+    <th>ID</th>
+    <th>截图</th>
+    <th>书名</th>
+    <th>用户昵称</th>
+    <th>创建时间</th>
+    <th colspan=3>操作</th>
+  </tr>
+  
+<% for book in @books %>
+  <tr>
+    <td><%= book.id %></td>
+    <td>
+      <% if book.logo1 %>
+      <img src="<%= book.logo1.thumb150 %>" />
+      <% end %>
+    </td>
+    <td><%=h book.name %></td>
+    <td><%=h book.user.name %></td>
+    <td><%=h book.created_at.to_s(:db) %></td>
+    <% if !book.recommand %>
+    	<td><%= link_to '推荐', :action => 'recommand', :id => book, :page=>params[:page] %></td>
+    <% else %>
+    	<td><%= link_to '取消推荐', :action => 'recommand', :id => book, :page=>params[:page] %></td>
+    <% end %>
+    <td><%= link_to '素材管理', :action => 'sucai', :id => book %></td>
+    
+    <td>
+      <%= link_to '生成PDF', :action => 'create_pdf_from_book', :id => book %>
+      <% if File.exist?(RAILS_ROOT + "/public/upload/album_orders/#{book.created_at.to_date.to_s(:db)}/#{book.id}.pdf") %>
+        <a href="/upload/album_orders/<%=book.created_at.to_date.to_s(:db)%>/<%= book.id %>.pdf">下载PDF</a>
+      <% end %>
+    </td>
+    
+  </tr>
+<% end %>
+</table>
+
+
+<%= will_paginate @books %>
+

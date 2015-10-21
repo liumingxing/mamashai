@@ -1,0 +1,34 @@
+<div id="middle">
+    <div id="css_mainbody">
+        <h1 class="title">推荐专栏作者
+			<span style="float:right;margin-right:10px;">
+		        <a href="/mms/column" title="返回列表">返回列表</a>
+		    </span>
+		</h1>			
+    <% form_tag ({:action=>"recommend_save",:id=>@author.id},{:multipart=>true}) do %>
+		    <table class="grid">
+		    <tbody>
+				<tr>
+					<td>
+						是否推荐:
+					</td>
+					<td>
+            <%=radio_button :author,:recommend,1%>是
+            <%=radio_button :author,:recommend,0%>否
+					</td>
+				</tr>
+        <tr>
+          <td>专栏图片:</td>
+          <td>
+			      <%=upload_column_field :author, :img %>
+          </td>
+        </tr>
+			</tbody>
+			</table>	
+		    <div id="submit_area" class="ifnull"> 
+		      <button class="button_submit" type="submit" onmouseover="this.className='button_submit button_submit_hover';" onmouseout="this.className='button_submit';" >保存</button>
+		    </div>
+  <% end %>
+    </div>
+    <div class="clear"></div>
+</div>

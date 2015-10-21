@@ -1,0 +1,63 @@
+<html>
+<head>
+	<meta name="viewport" content="user-scalable=yes,width=640px" />
+	<title>邀请用户排行榜</title>
+	<style>
+		* {margin: 0px; padding: 0px;}
+		body {text-align: center;}
+		table#rank_table {margin: 10 auto; width: 560px; border-collapse: collapse;}
+		table#rank_table th {padding: 18px; background-color: #ccc; font-size: 26px;}
+		div.rank {font-size: 16px; font-weight: bold; text-align: center; padding-top: 25px; width: 56px; height: 30px;}
+		div.ranka {background-image: url('/images/advs/invite_user/a.png'); background-repeat:no-repeat; color: #FF3300;}
+		div.rankb {background-image: url('/images/advs/invite_user/b.png');background-repeat:no-repeat; color: #FFCC00;}
+		div.rankc {background-image: url('/images/advs/invite_user/c.png');background-repeat:no-repeat;color: #cccccc;}
+		div.logo {margin: 4px; border: 1px solid #ccc; padding: 1px; width: 80px;}
+		div.logo img {width: 80px; height: 80px;}
+		div.name {font-size: 18px; margin: 4px;}
+		div.num {font-size: 26px;}
+
+		div.tip {text-align: left; font-size: 20px; color: #333; padding: 8px 16px; line-height: 130%;}
+		div.tip p {margin: 8px 0px;}
+		div.tip img {height: 26px;}
+		div.tip h2 {font-size: 22px;}
+
+		span.red {color: #EA609E;}
+	</style>
+</head>
+<body>
+	<div class="tip">
+		<p>感谢亲们的大力参与，活动热情一度超过我们预期！你们每个人都很棒，但排名总有前后之分，期望亲们发扬友谊第一比赛第二的优良传统，彼此祝福！<p>
+		<p>同时，活动中存在一些反复注册或虚假邀请的行为，为保证公正，系统将这部分邀请没有计入统计，但已经发放的晒豆就不收回了。今后这些邀请也不能给予晒豆，请予了解。</p>
+	</div>
+	
+	<div class="tip"><h2>活动结果：</h2></div>
+	<table id='rank_table' border=1 bordercolor="#ccc">
+		<tr>
+			<th>上榜等级</th>
+			<th>上榜人</th>
+		</tr>
+	<% @users.each_with_index{|user, index| %>
+		<tr>
+			<td align="center"><div class="rank rank<%= index < 3 ? 'a' : (index < 9 ? 'b' : index < 19 ? 'c' : '')%>"><%= index + 1 %></div></td>
+			<td align="center">
+				<div class='logo'><img src="http://www.mamashai.com<%= user.logo.thumb140 %>"/></div>
+				<div class="name"><%= user.name %></div>
+			</td>
+		</tr>
+	<% } %>
+	</table>
+	<div class="tip">
+		<h2>领奖方式：</h2>
+		<p>1、奖金领取：请上榜人加客服QQ1170979903，将您的姓名、银行账号、开户行、身份证号、手机号提交客服。
+请<span class='red'>5月23日</span>之前予以提交，以便及时发放。</p>
+		<p>2、妈咪包领取：请上榜人及时统计被邀请者的姓名、快递地址、手机号等，统一提交客服。请<span class='red'>6月15日</span>之前予以提交，之后统一发货。</p>
+</p>
+	</div>
+	<div class="tip">
+		<h2>奖品介绍：</h2>
+		<p><img src="/images/advs/invite_user/a.png"/> <span class='red'>辣后奖</span>3名（排名第1~3名）奖金2000元，被邀请者每人一个时尚妈咪包</p>
+		<p><img src="/images/advs/invite_user/b.png"/> <span class='red'>辣太奖</span>6名（排名第4~9名）奖金500元，被邀请者每人一个时尚妈咪包</p>
+		<p><img src="/images/advs/invite_user/c.png"/> <span class='red'>辣妈奖</span>10名（排名10~19名）奖金100元，被邀请者每人一个时尚妈咪包</p>
+	</div>
+</body>
+</html>

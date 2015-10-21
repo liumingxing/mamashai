@@ -1,0 +1,37 @@
+<div id="middle">
+    <div id="css_mainbody">
+    	<% mms_amount_event_hit = @event_refers[0].mms_amount_event_hit unless @event_refers.blank?%>
+        <h1 class="title">活动点击来源统计管理<%= "--#{flash[:notice]}" unless flash[:notice].blank? %> <%= "活动名称：#{mms_amount_event_hit.event_name }" unless mms_amount_event_hit.blank?  %></h1>
+        <table class="grid">
+            <tbody>
+                <tr>
+                    <th width="20%">
+                        活动URL
+                    </th>
+					<th width="20%">
+                        来源网址
+                    </th>
+                    <th width="10%">
+                        点击总次数
+                    </th>
+                </tr>
+                <% for event_refer in @event_refers %>
+                <tr>
+					<td>
+                        <%= h event_refer.link %>
+                    </td>
+                    <td style="align:left;">
+                        <%= h event_refer.http_refer %>
+                    </td>
+                    <td>
+                        <%= h event_refer.amount %>
+                    </td>
+                </tr>
+                <% end %>
+            </tbody>
+        </table>
+        <div class="book_page">
+            <%=will_paginate @event_refers %>
+        </div>
+    </div>
+</div>

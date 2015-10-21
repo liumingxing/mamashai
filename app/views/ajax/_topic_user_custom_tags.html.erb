@@ -1,0 +1,17 @@
+<% @user.tags.each do |tag|%>
+<span class="tag_cloud"><a href="/topic/<%= tag.name%>" target="_blank"><%= tag.name%></a></span>
+<% end %>
+
+
+<div class="clear"></div>
+<div class="frm_add_user_tags" style="display:none" id="frm_add_user_tag">
+<% form_tag("user_tags")  do%>
+  <table>
+    <tr>
+      <td><input type="text" value="" name="tag_name" class="user_tag_input"></td>
+      <td> <%= submit_to_remote 'update_btn', '保存', :url => { :action => 'create_user_tag' },
+      :update => { :success => "hot_tags", :failure => "frm_add_user_tag" },:html => {:class => "user_tag_btn"} %></td>
+    </tr>
+  </table>
+<% end %>
+</div>

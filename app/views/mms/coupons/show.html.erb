@@ -1,0 +1,94 @@
+<div id="middle">
+    <div id="css_mainbody">
+        <h1 class="title">优惠券详细信息<span style="float: right; margin-right: 10px;"><%= link_to "返回", :action => "index" %>
+            </span></h1>
+        <% form_for :coupon, @coupon, :url => {:action => "update"} do |f| %>
+        <table class="grid_order" border="1">
+            <tbody>
+                <tr>
+                    <td class="td01" width="20%">
+                        优惠券号：
+                    </td>
+                    <td>
+                        <%= h @coupon.sid||'无' %>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="td01" width="20%">
+                        金额：
+                    </td>
+                    <td>
+                        <%= h @coupon.money %>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="td01" width="20%">
+                        使用截止日期：
+                    </td>
+                    <td>
+                        <%= h @coupon.limit_time.strftime("%Y年%m月%d日") %>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="td01" width="20%">
+                        状态：
+                    </td>
+                    <td>
+                        <%= h @coupon.state_type %>
+                    </td>
+                </tr>
+				<tr>
+                    <td class="td01" width="20%">
+                        需要积分：
+                    </td>
+                    <td>
+                        <%= h @coupon.score %>
+                    </td>
+                </tr>
+				<tr>
+                    <td class="td01" width="20%">
+                        优惠券类型：
+                    </td>
+                    <td>
+                        <%= h @coupon.coupon_category.name %>
+                    </td>
+                </tr>
+				<tr>
+                    <td class="td01" width="20%">
+                        用户名：
+                    </td>
+                    <td>
+                        <%= h @coupon.user.name %>
+                    </td>
+                </tr>
+				<tr>
+                    <td class="td01" width="20%">
+                        创建时间：
+                    </td>
+                    <td>
+                        <%= h @coupon.created_at.strftime("%Y年%m月%d日 %H:%M:%S") %>
+                    </td>
+                </tr>
+				<tr>
+                    <td class="td01" width="20%">
+                        修改时间：
+                    </td>
+                    <td>
+                        <%= h @coupon.updated_at.strftime("%Y年%m月%d日 %H:%M:%S") %>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="td01" width="20%">
+                    </td>
+                    <td>
+						<%= link_to "返回",'/mms/coupons' %>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <% end %>
+    </div>
+    <div class="clear">
+    </div>
+</div>
+</div>

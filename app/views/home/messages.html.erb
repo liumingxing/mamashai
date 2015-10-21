@@ -1,0 +1,54 @@
+<div class="mms_messages_new">
+    <%= render :partial=>"nav_notice" %>
+    
+    <div class="messages_label" style="height:40px;">
+        <span class="title"></span>
+        <span class="more">
+        	<a href="javascript:void(0);" class="button3" onclick="show_url_box('/ajax/new_message', '发私信');">发私信</a>
+        </span>
+    </div>
+    <% for message_topic in @message_topics %>
+    <% user = message_topic.message_user %>
+    <% next if !user %>
+    <div class="comments_all">
+        <div class="comments_pic">
+            <%=logo_tag(user,{:version=>'thumb48',:url=>user_url(user)}) %>
+        </div>
+        <div class="comments_article">
+            <div class="article01">
+                <span class="from"><a href="<%=user_url(user)%>"><%=user.name %></a><%if message_topic.is_sys %>&nbsp;<img src="/images/index/logins_06.gif"/> ：[系统消息]&nbsp;<%else %> ：<%end %>
+                    <% if message_topic.last_message_post %>
+                    <%=mms_auto_link(message_topic.last_message_post.content,:html => {:target=>'_blank'}) %>(<%=date_time(message_topic.last_message_post.created_at) %>)<% end %>
+                </span><span class="dat"><% unless message_topic.is_sys %>
+                    <%=link_to image_tag('/images/del_06.gif'), {:action=>'delete_message_topic',:id=>message_topic.id},:confirm => "你确定要删除吗?", :method => :delete %>
+                    <% end %>
+                </span>
+                <div class="clear">
+                </div>
+            </div>
+            <div class="article02">
+                <a href="/home/message_topic/<%=message_topic.id%>">共<%=message_topic.message_posts_count %>条对话</a>
+                <% unless message_topic.is_sys %>
+                | <a href="javascript:void(0);" onclick="show_url_box('/ajax/new_message/<%=message_topic.message_user.id%>', '发私信', 460, 320);">回复</a>
+                <% end %>
+            </div>
+            <div class="clear">
+            </div>
+        </div>
+        <div class="clear">
+        </div>
+    </div>
+    <% end %>
+    <% if @message_topics.blank? %>
+    <div class="ifnull">
+        目前还没有任何私信
+    </div>
+    <% else %>
+    <div class="ftop">
+        <a href="javascript:void(0);" onclick="window.scrollTo(0,0)">返回顶部</a>
+    </div>
+    <% end %>
+</div>
+<%=will_paginate @message_topics %>
+<div class="clear">
+</div>

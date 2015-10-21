@@ -1,0 +1,7 @@
+<div class="gifts_panel">
+	    <%=render :partial=>'/gifts/nav' %>
+	    <% if @user && @user.id == @space_user.id %>
+	    <%= render :partial=>'gifts'%>
+		<br/>
+		<% end %>
+</div>

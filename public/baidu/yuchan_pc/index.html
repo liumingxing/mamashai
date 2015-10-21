@@ -1,0 +1,82 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>预产期计算器</title>
+<link rel="stylesheet" type="text/css" href="css/index.css" />
+
+<script src="http://app.baidu.com/static/appstore/monitor.st"></script>
+</head>
+
+<body onload="healthtime()">
+<div class="box">
+<div class="top">
+	<span><a href="http://www.mamashai.com" target="_blank"><img src="images/top_logo.jpg" /></a></span>
+    <span class="span1"><img src="images/top_title.jpg" /></span>
+</div>
+<FORM id=health name=health onSubmit="return Datejudgment()" method=get>
+<div class="content_form">
+	<div class="form_left">
+    	<div class="form_left1"><img src="images/form_left.jpg" /></div>
+        <div class="form_left2">
+        	<input name="year" id="input1" maxlength="4" />
+		  	<input name="month" id="input2" maxlength="2" />
+		  	<input name="day" id="input20" maxlength="2" />
+			<input name="mweek" id="input3" maxlength="2" value="28" />
+        </div>
+        <div class="form_left3"><img src="images/form_right.jpg" /></div>
+    </div>
+    <div class="form_right"><INPUT type="image" src="images/button.jpg" id="input4" name="button"  hidefocus="true" ></div>
+</div>
+<div class="content_results">
+	<div class="results_left1"><img src="images/results_left.jpg" /></div>
+    <div class="results_left2">
+    	<div class="content_top_jieguo">
+    	  <input name=yuchana id="inputa" readonly/>
+    	  <INPUT name=yuchanb id="inputb" readOnly />
+    	  <input name=yuchanc id="inputc" readonly/>
+    	</div>
+		<div class="content_top_jieguo2"><input name=yuchan2 id="inputd" readonly  /><input name="ji" id="tian" readonly /><input name="countDown" id="countDown" readonly  /></div>
+    </div>
+    <div class="results_left3"><img src="images/results_right.jpg" /></div>
+</div>
+</FORM>
+<div class="content_menu">
+	<div class="content_menu1" id="content_menu1"></div>
+    <div class="content_menu2" id="content_menu2"></div>
+    <div class="content_menu3" id="content_menu3"></div>
+    <div class="content_menu4" id="content_menu4"></div>
+  <div class="content_menu5">
+
+  </div>
+</div>
+<div class="content_jiao"></div>
+<div class="content_text">
+	<div class="content_text_left" id="content_text_left">
+    	<div class="content_font" id="content_font"></div>
+        <div class="content_zhou">
+        	<div class="content_zhou_syz"><a href="#" onclick="Lastweek()" hidefocus="true">上一周</a></Div>
+			<div class="content_zhou_xyz"><a href="#" onclick="Nextweek()"  hidefocus="true">下一周</a></div>
+        </div>
+    </div>
+    <div class="content_text_right" id="content_text_right">
+    	<div class="content_img" id="content_img"></div>
+        <div class="content_ts" id="content_ts"></div>
+    </div>
+    <div id='prize' class="hide">
+        
+    </div>
+</div>
+<div class="content_bottom"></div>
+  <div class="bottom"><p align="center">提示：以上内容来自<a href="http://www.mamashai.com/bbrl/mobile?baidu2" target="_blank">《宝宝日历》</a>，仅供参考。</p></div>
+</div>
+</body>
+<div style="display:none;">
+<script type="text/javascript">
+var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3Fb62084ced4b6982bc50286972cbf6fce' type='text/javascript'%3E%3C/script%3E"));
+</script>
+</div>
+</html>
+<script language="javascript" src="js/index.js"></script>
+<script language="javascript" src="js/FancyZoomHTML.js"></script> 

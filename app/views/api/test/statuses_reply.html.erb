@@ -1,0 +1,32 @@
+<h1>Comment 对一条微博信息进行评论</h1><%= link_to "返回到列表", "/api/test" %>
+<pre>
+    [路径]： statuses/reply
+    [HTTP请求方式]:  POST
+    [URL]: http://your.api.domain/statuses/reply.json
+    [是否需要登录]: true
+  参数
+    * source: 申请应用时分配的AppKey，调用接口时候代表应用的唯一身份。 (必选)
+    * :id: 要评论的微博消息ID (必选)
+    * comment: 评论内容。必须做URLEncode,信息内容不超过140个汉字。必须包含“回复@用户名:”(必选)
+    * is_copy_post: 是否同时发表到微博 0为不发布， 1为发布
+  示例
+
+  curl -u "username:password" -d "id=111904&comment=wahaha"
+  "http://your.api.domain/statuses/reply.json?source=appkey"
+
+  注意
+
+    * 请求必须用POST方式提交
+    * 如果id不存在，将返回400错误
+    * comment参数必须包含“回复@用户名:”
+
+</pre>
+<hr/>
+<%= form_tag "/api/statuses/reply.json" ,{:method=>:post} do %>
+  <%= render :partial => '/api/test/login' %>
+  source: <%= text_field_tag "source" %><br/>
+  id: <%= text_field_tag "id" %><br/>
+  comment: <%= text_field_tag "comment", "回复@用户名:xxx" %><br/>
+  is_copy_post: <%= text_field_tag "is_copy_post" %><br/>
+  <%= submit_tag "提交"%>
+<% end -%>

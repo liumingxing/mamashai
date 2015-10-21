@@ -1,0 +1,60 @@
+  <div id="middle">
+        <div id="css_mainbody">
+            <h1 class="title">活动管理
+				<span style="float: right; margin-right: 10px;">
+			        <%= link_to '添加新的活动', new_mms_event_path %>
+			    </span>
+			</h1>
+			<div style="text-align:center;" class="green"><%= flash[:notice]%></div>
+			<div id="page_count">
+				<span style="float:right;">
+					共有
+					<b class="blue">
+						<%=h @events.size%>
+					</b>
+					条记录
+				</span>
+			</div>
+			<div class="clear"></div>
+            <table class="grid">
+            	<tr>
+            		<th width="5%">序号</th>
+				    <th width="15%">活动名称</th>
+				    <th width="15%">Url</th>
+				    <th width="20%">图片路径(gif|jpg|png|jpeg)</th>
+					<th width="8%">数据库id</th>
+				    <th width="10%">开始时间</th>
+					<th width="10%">结束时间</th>
+					<th width="10%">操作</th>
+				  </tr>
+               <% if @events.size == 0 %>
+					<tr>
+						<td colspan=8>
+							<b>暂无记录</b>
+						</td>
+					</tr>
+				<% else %>
+					<% @events.each_with_index do |event,index| %>
+					  <tr>
+					  	<td><%=(index+1).to_s%></td>
+					    <td><%=h event.name %></td>
+					    <td>
+					    	<%=link_to event.url,event.url,:target=>"_blank"%>
+						</td>
+					    <td>
+					    	<%=link_to event.image_url,event.image_url,:target=>"_blank"%>
+						</td>
+						<td><%=h event.id %></td>
+					    <td><%=h (event.begin_time.blank?)? '暂无信息' : event.begin_time.strftime("%Y年%m月%d日") %></td>
+						<td><%=h (event.end_time.blank?)? '暂无信息' : event.end_time.strftime("%Y年%m月%d日") %></td>
+					    <td>
+					    	<%= link_to '修改', edit_mms_event_path(event) %>
+					    	<%= link_to '删除', event, :confirm => '确认删除吗？', :method => :delete %>
+						</td>
+					  </tr>
+					<% end %>
+				<%end%>
+            </table>
+        </div>
+        <div class="clear"></div>
+    </div>

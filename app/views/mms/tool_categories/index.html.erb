@@ -1,0 +1,68 @@
+<div id="middle">
+    <div id="css_mainbody">
+        <h1 class="title">资源库分类管理<span style="float: right; margin-right: 10px;"><%= link_to '添加分类', :action=>"new" %>
+            </span></h1>
+        <div style="text-align:center;" class="green">
+            <%= flash[:notice] %>
+        </div>
+        <div id="page_count">
+            <span style="float:right;">共有<b class="blue"><%=h @categories.count %></b>条记录</span>
+        </div>
+        <div class="clear">
+        </div>
+        <table class="grid">
+            <tr>
+                <th width="5%">
+                    序号
+                </th>
+                <th width="20%">
+                    名称
+                </th>
+                <th width="20%">
+                    资源数
+                </th>
+                <th width="10%">
+                    创建时间
+                </th>
+                <th width="10%">
+                    最后修改
+                </th>
+                <th width="10%">
+                    操作
+                </th>
+            </tr>
+            <% if @categories.blank? %>
+            <tr>
+                <td colspan=6>
+                    <b>暂无记录</b>
+                </td>
+            </tr>
+            <% end %>
+            <% @categories.each_with_index do |category,index| %>
+            <tr>
+                <td>
+                    <%=(index+1).to_s %>
+                </td>
+                <td>
+                    <%=h category.name %>
+                </td>
+                <td>
+                    <%=h category.mms_tools_count %>
+                </td>
+                <td>
+                    <%=h category.created_at.strftime("%Y年%m月%d日") %>
+                </td>
+                <td>
+                    <%=h category.updated_at.strftime("%Y年%m月%d日") %>
+                </td>
+                <td>
+                    <%= link_to '修改', :action=>"edit", :id=>category %>
+                    <%= link_to '删除', {:action=>"destroy", :id=>category}, :confirm => '确认删除吗？', :method => :delete %>
+                </td>
+            </tr>
+            <% end %>
+        </table>
+    </div>
+    <div class="clear">
+    </div>
+</div>

@@ -1,0 +1,55 @@
+<div id="middle">
+    <div id="css_mainbody">
+        <h1 class="title">妈妈晒团购-虚拟产品管理-新建虚拟产品<span style="float: right; margin-right: 10px;"><%= link_to '返回列表', "/mms/mms_tuans/virtual_index/#{@tuan.id}" %>|<%= link_to '返回团购列表', "/mms/mms_tuans" %>
+            </span></h1>
+        <% form_for :virtual_product, @product,:url=>{:action => "virtual_create",:id=>@tuan.id},:html=>{:id=>"virtual_product_new_form"} do |f| %>
+		<%=render :partial=>"form_virtual_product",:locals=>{:f=>f}%>
+        <fieldset>
+            <legend>
+                说明
+            </legend>
+			<div class="line_item">
+		        <span class="title">操作说明</span>
+		        <span class="content">
+		        	1、虚拟商品使用时间计算规则默认是: <span class="red">用户购买即时生效</span>+<span class="red">有效期天数</span> ，系统支持人工指定开始(结束)时间，可以酌情选择;<br/>
+		        	2、只有<span class="red">共用人数为1</span>时，才可以使用<b class="red">系统自动生成编码及密码</b>的功能;<br/>
+					3、系统目前只支持共用人数为<b class="red">1</b>和<b class="red">0</b>两种模式，默认是1，共用人数一旦提交，不能更改;<br/>
+					4、生成方式一旦选择，不能更改;<br/>
+					5、针对<span class="red">虚拟商品为下载或其他链接</span>的情况，请将共用人数设为0，生成方式选择使用商家提供的编码和密码,在商品编码和密码输入框中填写网址即可。<br/>
+		        </span>
+		    </div>
+        </fieldset>
+		
+		<fieldset>
+            <legend>
+                商品编码和密码<span class="red">*</span>
+            </legend>
+			<div class="line_item">
+		        <span class="title">生成方式<span class="red">*</span></span>
+		        <span class="content">
+		        	<%=f.radio_button :tp,0 %>使用商家提供的编码和密码
+					<span class="generate_type_radio">
+						<%=f.radio_button :tp,1 %>系统生成(只有编码无密码)
+						<%=f.radio_button :tp,2 %>系统生成(编码及密码)
+					</span>
+                </span>
+		    </div>
+            <div class="line_item" id="codes_item">
+                <span class="content" style="padding: 0 30px;width:800px;">
+					格式如下：
+					商品编码|商品密码
+					(每行一条数据，可多行)
+                </span>
+                <span class="content" style="padding: 0 30px;width:800px;"><%= text_area_tag "codes",@codes,:cols=>100,:rows=>10,:required=>"required",:placeholder=>"商品编码|商品密码\n商品编码|商品密码\n或者只有编码，没有密码：\n商品编码\n商品编码"%>
+                </span>
+            </div>
+        </fieldset>
+        <div class="submit">
+            <span class="left"><input type="submit" name="submit" value="提交"></span><span class="right"><%= link_to '返回', '/mms/mms_tuans' %>
+            </span>
+        </div>
+        <% end %>
+    </div>
+    <div class="clear">
+    </div>
+</div>

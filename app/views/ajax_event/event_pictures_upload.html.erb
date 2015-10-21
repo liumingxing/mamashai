@@ -1,0 +1,128 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>活动图片</title>
+        <META NAME="keywords" CONTENT="">
+        <META NAME="description" CONTENT="">
+        <link rel="shortcut icon" href="http://www.mamashai.com/favicon.ico?1010" type="image/x-icon" />
+        <link href="/stylesheets/all.css" media="screen" rel="stylesheet" type="text/css" />
+        <link href="/stylesheets/home.css" media="screen" rel="stylesheet" type="text/css" />
+        <script src="/javascripts/p.js" type="text/javascript">
+        </script>
+        <script src="/javascripts/a.js" type="text/javascript">
+        </script>
+        <%= stylesheet_link_tag  '/javascripts/swfupload/upload' %>
+        <% if RAILS_ENV == 'production' %>
+        <%= javascript_include_tag 'sw' %>
+        <% else %>
+        <script type="text/javascript" src="/javascripts/swfupload/swfupload.js">
+        </script>
+        <script type="text/javascript" src="/javascripts/swfupload/swfupload.queue.js">
+        </script>
+        <script type="text/javascript" src="/javascripts/swfupload/fileprogress.js">
+        </script>
+        <script type="text/javascript" src="/javascripts/swfupload/handlers.js">
+        </script>
+        <% end %>
+        <style>
+            .progressWrapper {
+                overflow: hidden;
+                width: 240px;
+            }
+        </style>
+    </head>
+    <body style="background:#FFF;text-align:center;">
+        <div class="event_share">
+            <div class="events_pic">
+                <div class="edit_pic">
+                    <span class="format">每个文件不超过2MB,支持JPG和PNG格式</span>
+                </div>
+                <div class="new_picture">
+                    <div style="margin:10px;">
+                        <span id="spanButtonPlaceholder"></span>
+                    </div>
+                    <div style="margin:10px;">
+                        <a id="btnCancel" onclick="cancelQueue(upload);" href="javascript:void(0)">取消上传</a>
+                    </div>
+                    <div style="margin:10px;" class="legend">
+                        按住CTRL键不放可选择多个文件，一次可上传20张
+                    </div>
+                    <div class="picture_all">
+                        <div class="fieldset flash" id="fsUploadProgress">
+                        </div>
+                    </div>
+                    <div class="clear">
+                    </div>
+                </div>
+                <script type="text/javascript">
+                    function init_post_upload_pics(event_id, uploadid, uploaduid){
+                        var upload;
+                        
+                        upload = new SWFUpload({
+                            upload_url: "/ajax_event/upload_pictures",
+                            post_params: {
+                                "event_id": event_id,
+                                "uploadid": uploadid,
+                                "uploaduid": uploaduid
+                            },
+                            
+                            file_size_limit: "5 MB",
+                            file_types: "*.jpg;*.png;*.gif;*.jpeg",
+                            file_types_description: "上传图片",
+                            file_upload_limit: "20",
+                            file_queue_limit: "0",
+                            
+                            file_dialog_start_handler: fileDialogStart,
+                            file_queued_handler: fileQueued,
+                            file_queue_error_handler: fileQueueError,
+                            file_dialog_complete_handler: complete_upload_pictures_complete, //fileDialogComplete,
+                            upload_start_handler: uploadStart,
+                            upload_progress_handler: uploadProgress,
+                            upload_error_handler: uploadError,
+                            upload_success_handler: uploadSuccess,
+                            upload_complete_handler: uploadComplete,
+                            queue_complete_handler: complete_upload_post_pictures,
+                            button_image_url: "/javascripts/swfupload/button.png",
+                            button_placeholder_id: "spanButtonPlaceholder",
+                            button_width: 101,
+                            button_height: 22,
+                            
+                            flash_url: "/javascripts/swfupload/swfupload.swf",
+                            
+                            
+                            custom_settings: {
+                                progressTarget: "fsUploadProgress",
+                                cancelButtonId: "btnCancel"
+                            },
+                            
+                            debug: false
+                        });
+                        
+                    }
+                    
+                    function complete_upload_pictures_complete(files_num, files_queue_num){
+                        try {
+                            if (this.getStats().files_queued > 0) {
+                                document.getElementById(this.customSettings.cancelButtonId).disabled = false;
+                            }
+                            this.startUpload();
+                        } 
+                        catch (ex) {
+                            this.debug(ex);
+                        }
+                    }
+                    
+                    function complete_upload_post_pictures(){
+                        parent.show_event_expand('<%=@event.post_id%>', '<%=@event.id%>', 'event_pictures', this);
+                    }
+                    
+                    window.onload = function(){
+                        init_post_upload_pics('<%=@event.id%>', '<%=@user.id%>', '<%=MamashaiTools::TextUtil.md5(@user.password)%>')
+                    };
+                </script>
+            </div>
+        </div>
+    </body>
+</html>
+<%=render :partial=>'/layouts/trace' %>

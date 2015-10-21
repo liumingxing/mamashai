@@ -1,0 +1,280 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>活动财务</title>
+        <META NAME="keywords" CONTENT="">
+        <META NAME="description" CONTENT="">
+        <link rel="shortcut icon" href="http://www.mamashai.com/favicon.ico?1010" type="image/x-icon" />
+        <link href="/stylesheets/all.css" media="screen" rel="stylesheet" type="text/css" />
+        <link href="/stylesheets/lightbox.css" media="screen" rel="stylesheet" type="text/css" />
+        <script src="/javascripts/p.js" type="text/javascript">
+        </script>
+    </head>
+    <body>
+        <div id="layer_event" class="layer">
+            <div class="layer_title">
+                <span class="title">填写活动财务汇报：</span>
+                <span class="more"><a onclick="parent.hide_box();" href="javascript:void(0);"><img src="/images/layer/del_06.gif"></a></span>
+            </div>
+            <div class="layer_content">
+                <div class="finance_content">
+                    <ul class="finance">
+                        <li>
+                            收费总额(元)：<span id="allPlanChargeId">0</span>
+                        </li>
+                        <li>
+                            实际支出(元)：
+                            <span id="allActualchargeId">
+                                0
+                            </span>
+                        </li>
+                        <li class="remain">
+                            盈余(元)：<span id="leftAchargeId" class="green">0</span>
+                        </li>
+                    </ul>
+                    <div class="fin_title">
+                        支出细则：
+                    </div>
+                    <table class="finance_money finance_money01">
+                        <tbody>
+                            <tr height="30">
+                                <th width="120" class="t01">
+                                    费用名称
+                                </th>
+                                <th width="80" class="t01">
+                                    预计费用<span class="normal">(元)</span>
+                                </th>
+                                <th width="80" class="t01">
+                                    实际费用<span class="normal">(元)</span>
+                                </th>
+                                <th width="100" class="t01">
+                                    操作
+                                </th>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="finance_all">
+                        <table class="finance_money">
+                            <tbody id="financeMoneyId">
+                                <tr height="30">
+                                    <td class="t01" colspan="4">
+                                        <div class="added">
+                                            <a id="financeAddId" href="javascript:void(0);">新增</a>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr height="30" id="addChargeTypeId" style="display: none;">
+                                    <td class="t02" colspan="4">
+                                        <div class="finance_name">
+                                            <span class="button"><input type="image" id="okId" src="/images/event/ok.gif"/></span>
+											<span class="input"><input type="text" placeholder="费用名称..." id="chargeId" size=""/></span>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="notes_title">
+                        备注：
+                    </div>
+                    <div class="notes_text">
+                        <textarea rows="20" name="post_fee[fee_remark]" id="message_post_content" cols="40"></textarea>
+                    </div>
+                    <ul class="layer_botton">
+                        <li>
+                            <table cellspacing="2" cellpadding="0" border="0">
+                                <tbody>
+                                    <tr>
+                                        <td width="15">
+                                            <input type="checkbox" id="is_unopen" />
+                                        </td>
+                                        <td width="40">
+                                            <span>
+                                                <label for="checkbox1">
+                                                    不公开
+                                                </label>
+                                            </span>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </li>
+                        <li>
+                            <button onclick="insert_fees_data();" type="button" onmouseout="this.className='button_submit_s';" onmouseover="this.className='button_submit_s button_submit_s_hover';" class="button_submit_s">
+                                确定 
+                            </button>
+                        </li>
+                        <div class="clear">
+                        </div>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <script type="text/javascript">
+            function insert_fees_data(){
+				var fee_names = document.getElementsByClassName('fee_name');
+				var fee1s = document.getElementsByClassName('plancharge');
+				var fee2s = document.getElementsByClassName('actualcharge');
+				var str = ''
+				for(var i=0;i<fee_names.length;i++){
+					str += '<input type="text" name="fee_name['+i+']" value="'+fee_names[i].innerHTML+'"/>';
+					str += '<input type="text" name="fee1['+i+']" value="'+fee1s[i].value+'"/>';
+					str += '<input type="text" name="fee2['+i+']" value="'+fee2s[i].value+'"/>';
+				}
+				str += '<input type="text" name="post_fee[fee_remark]" value="'+$('#message_post_content').val()+'"/>';
+				str += '<input type="text" name="post_fee[is_unopen]" value="'+$('#is_unopen').val()+'"/>';
+				parent.document.getElementById('event_fees_data').innerHTML = str;
+				parent.hide_box();
+			}
+            
+            if (!EventFinance) 
+                var EventFinance = {};
+            EventFinance = {
+                tableId: 'financeMoneyId',
+                tableBody: document.getElementById("financeMoneyId"),
+                addField: document.getElementById("addChargeTypeId"),//表格的第二行
+                chargeType: document.getElementById('chargeId'),//用于填写费用类型的输入框，
+                okButton: document.getElementById('okId'),//确定按钮
+                save: function(){//点击确定按钮
+                    //把要添加的费用追加到表格的末尾
+                    //var fa=document.getElementById("financeAddId");
+                    var charge = EventFinance.chargeType.value;
+                    if (!charge) {
+                        alert("费用类型不能为空");
+                        return false;
+                    }
+                    
+                    var tr = document.createElement("tr");
+                    tr.setAttribute("height", "30");
+                    var rownumber = EventFinance.tableBody.rows.length;
+                    tr.id = 'chargeType' + rownumber;
+                    tr.setAttribute("bgcolor", rownumber % 2 !== 0 ? "#F2F2F2" : "");
+                    var tds = EventFinance._createTd(charge);
+                    tr.appendChild(tds);
+                    EventFinance.tableBody.appendChild(tr);
+                    
+                    //隐藏添加域
+                    EventFinance.addField.style.display = "none";
+                },
+                _createTd: function(charge){
+                    var df = document.createDocumentFragment();
+                    var td1 = new Element("td", {
+                        width: "120"
+                    });
+					td1.addClassName("t01");
+                    td1.innerHTML = '<span class="fee_name">'+charge+'</span>';
+                    var td2 = new Element("td", {
+                        width: "80"
+                    });
+					td2.addClassName("t01");
+                    td2.innerHTML = '<input value="" type="text" class="plancharge" onblur="EventFinance.calAll();" onkeypress="if(EventFinance.validateNum(event))return false;"  onkeyup="EventFinance.keyUpValidate(this);"/>';
+                    var td3 = new Element("td", {
+                        width: "80"
+                    });
+					td3.addClassName("t01");
+                    td3.innerHTML = '<input value="" type="text" class="actualcharge" onblur="EventFinance.calAll();" onkeypress="if(EventFinance.validateNum(event))return false;" onkeyup="EventFinance.keyUpValidate(this);"/>';
+                    var td4 = new Element("td", {
+                        width: "80"
+                    });
+					td4.addClassName("t01");
+                    td4.innerHTML = '<a href="javascript:void(0);" onclick="EventFinance.edit(this);">修改名称</a> <a href="javascript:void(0);" class="del" onclick="EventFinance.del(this);">删除</a>';
+                    df.appendChild(td1);
+                    df.appendChild(td2);
+                    df.appendChild(td3);
+                    df.appendChild(td4);
+                    return df;
+                },
+                validateNum: function(e){
+                    //if((/[^\d\.]/g).test(obj.value))return false;
+                    e = e || window.event;
+                    var c = e.charCode || e.keyCode;
+                    return /[^\d\.\b]/.test(String.fromCharCode(c));
+                    //if()return false;
+                    //obj.value=obj.value.replace(/[^\d\.]/g,'');
+                    //if()
+                },
+                keyUpValidate: function(obj){
+                    obj.value = obj.value.replace(/[^\d\.]/g, '');
+                },
+                vfocusCharType: function(){
+                },
+                editSave: function(obj){
+                    var ec = EventFinance.chargeType;
+                    if (!ec.value) {
+                        alert("费用类型不能为空");
+                        return false;
+                    };
+                    var id = 'chargeType' + obj.id.slice(8);
+                    var etr = document.getElementById(id);
+                    etr.firstChild.firstChild.nodeValue = '<span class="fee_name">'+EventFinance.chargeType.value+'</span>';
+                    
+                    EventFinance.addField.style.display = "none";
+                },
+                edit: function(obj){//修改按钮
+                    var ctr = obj.parentNode.parentNode, ef = EventFinance;
+                    ef.addField.style.display = "";
+                    ef.chargeType.value = ctr.firstChild.firstChild.firstChild.nodeValue;
+
+                    ef.okButton.id = "okbutton" + ctr.id.slice(10);
+                },
+                del: function(obj){//删除按钮
+                    var ctr = obj.parentNode.parentNode;
+                    ctr.parentNode.removeChild(ctr);
+                    //计算总量和盈余额
+                    EventFinance.calAll();
+                },
+                add: function(){//点击新增按钮
+                    //增加时，确定按钮没有id
+                    EventFinance.okButton.id = "";
+                    EventFinance.addField.style.display = "";
+                },
+                bindUI: function(){
+                    var ef = EventFinance;
+                    //为确定按钮绑定事件
+                    try {
+                        ef.okButton.onclick = function(e){
+                            if (this.id) 
+                                ef.editSave(this);
+                            else 
+                                ef.save();
+                            ef.chargeType.value = "";
+                        };
+                        document.getElementById('financeAddId').onclick = function(){
+                        
+                            ef.add();
+                        }
+                    } 
+                    catch (e) {
+                    }
+                },
+                calAll: function(){
+                
+                    var selectinput = EventFinance.tableBody.getElementsByTagName("input"), allplan = document.getElementById("allPlanChargeId"), allActual = document.getElementById("allActualchargeId"), leftcharge = document.getElementById("leftAchargeId"), plancharge = 0, actualcharge = 0;
+                    for (var i = 0, l = selectinput.length; i < l; i++) {
+                        var si = selectinput[i];
+                        if (si.className == 'plancharge') {
+                            plancharge += (isNaN(parseFloat(si.value, 10)) ? 0 : parseFloat(si.value, 10));
+                        }
+                        if (si.className == 'actualcharge') {
+                            actualcharge += (isNaN(parseFloat(si.value, 10)) ? 0 : parseFloat(si.value, 10));
+                        }
+                    }
+                    //plancharge=plancharge;
+                    //actualcharge=actualcharge;
+                    allplan.innerHTML = plancharge;
+                    allActual.innerHTML = actualcharge;
+                    leftcharge.innerHTML = (plancharge - actualcharge).toFixed(2);
+                },
+                init: function(){
+                    EventFinance.bindUI();
+                }
+            }
+            window.onload = function(){
+            
+                EventFinance.init();
+            }
+        </script>
+    </body>
+</html>
+<%=render :partial=>'/layouts/trace' %>

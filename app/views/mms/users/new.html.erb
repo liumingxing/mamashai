@@ -1,0 +1,31 @@
+    <div id="middle">
+        <div id="css_mainbody">
+            <h1 class="title">新建管理员</h1>
+            <table class="grid">
+            	<% form_for @user do |f| %>
+                    <tr>
+                        <td>用户名</td>
+                        <td><input type="text" name="mms_user[username]" value=""/></td>
+                    </tr>
+                    <tr>
+                        <td>密码</td>
+                        <td><input type="password" name="mms_user[password]" value=""/></td>
+                    </tr>
+                    <tr>
+                        <td>权限</td>
+                        <td>
+                        	<select name="mms_user[power]">
+                        		<% for key in @keys %>
+                        		<option value="<%= key %>"><%= key %></option>
+								<% end %>
+                        	</select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2"><input type="submit" name="submit" value="提交"></td>
+                    </tr>
+				<% end %>
+            </table>
+        </div>
+        <div class="clear"></div>
+    </div>

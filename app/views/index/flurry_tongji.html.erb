@@ -1,0 +1,54 @@
+<style>
+	h1 {margin: 20px 0px;}
+</style>
+<h1>客户代码：<%= params[:id] %></h1><hr/>
+<h1>数据统计——限手机(美国时区，比北京时间晚12小时)</h1>
+<table class="list" border="1">
+	<tr>
+		<th>日期</th>
+		<th>进店次数(PV)</th>
+		<th>进店人数(UV)</th>
+		<!--
+		<th>展示次数(PV)</th>
+		<th>覆盖用户数(UV)</th>
+	-->
+	</tr>
+	<% for date in @result.keys.sort %>
+		<tr>
+			<td><%= date %></td>
+			
+			<td style="text-align:right"><%= @result[date][0] %></td>
+			<td style="text-align:right"><%= @result[date][1] %></td>
+			<!--
+			<td style="text-align:right"><%= @result[date][2] %></td>
+			<td style="text-align:right"><%= @result[date][3] %></td>
+		-->
+		</tr>
+	<% end %>
+</table>
+
+<h1>入口位置——限手机</h1>
+<table class="list" border="1">
+	<tr>
+		<th>图片</th>
+		<th>位置</th>
+		<th>日期</th>
+	</tr>
+<% for adv in @advs %>
+	<tr>
+		<td>
+	<% if adv['logo'] %>
+		<img src='<%=h adv.logo(:thumb280) %>' style="width: 200px"/> <br/>
+	<% else %>
+		<img src='<%=h adv.logo_iphone.try(:thumb) %>' style="width: 200px"/>
+	<% end %>
+		</td>
+		<td>
+			<%= adv['logo'] ? '半屏广告' : '横栏广告'%>
+		</td>
+		<td>
+			<%= adv.created_at.to_date %> —— 
+			<%= adv.status == "offline" ? adv.updated_at.to_date : Time.new.to_date %>
+		</td>
+	</tr>
+<% end %>

@@ -1,0 +1,12 @@
+      <ul class="topic">
+        <% @hot_topics.each do |topic|%>
+        <li><a href="/topic/<%= topic.tag.name%>?age_id=<%= topic.age_id%>"><%= topic.tag.name%> (<%= topic.week_count%>)</a></li>
+            <% unless topic.description.blank?%>
+            <div class="focus_topic_arr_txt">
+            <div class="focus_topic_arr_txt_head"></div>
+            <div class="focus_topic_arr_txt_mid"><%= topic.summary%></div>
+            <div class="focus_topic_arr_txt_foot"></div>
+            </div>
+            <% end %>
+        <% end %>
+      </ul>

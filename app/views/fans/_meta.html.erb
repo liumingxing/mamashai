@@ -1,0 +1,19 @@
+<% if @post and params[:action]=='post'  %>
+
+<% if @post.spot  %>
+<META NAME="keywords" CONTENT="<%=h(@post.title) %> 地点，地图，出行，亲子游。微博客，即时网络，未准，怀孕，1岁，2岁，3岁，4岁，5岁，6岁，幼儿园，小学生，初中生，高中生，育儿，育儿信息，育儿话题，育儿活动，育儿商品，育儿经，育儿分享，育儿网，育儿社区，育儿平台">
+<% else %>
+<META NAME="keywords" CONTENT="<%=h(@post.title) if @post and @post.title.present? %> <%=@space_user.name%>，个人空间，<%=@space_user.job_title_str %>。育儿，育儿信息，育儿话题，育儿活动，育儿商品，育儿经，育儿分享，育儿网，育儿社区，育儿平台">
+<% end %>
+
+<META NAME="description" CONTENT="<%=pure_text(@post.content)%>"> 
+
+
+<% elsif @space_user  %>
+<META NAME="keywords" CONTENT="<%=@space_user.name%>，个人空间，<%=@space_user.job_title_str %>。育儿，育儿信息，育儿话题，育儿活动，育儿商品，育儿经，育儿分享，育儿网，育儿社区，育儿平台">
+<META NAME="description" CONTENT="这里是<%=@space_user.name%>在妈妈晒的空间。<%=pure_text(@user_profile.content) if @user_profile%><%=pure_text(@org_profile.goal) if @org_profile%> 妈妈晒是一个以微博客为形式的新型育儿网站。其核心价值是解决妈妈爸爸的信息分享问题，搭建一个育儿类即时分享平台和基于分享的导购平台，一起分享一起成长！妈妈爸爸可以：晒宝贝、晒经验、晒问题、晒地点、晒活动、晒商品，同时结交感兴趣的人，关注感兴趣的话题，收藏有价值的信息，并通过口碑来购买信任的商品。">
+<% else %>
+<META NAME="keywords" CONTENT="微博客，即时网络，未准，怀孕，1岁，2岁，3岁，4岁，5岁，6岁，幼儿园，小学生，初中生，高中生，育儿，育儿信息，育儿话题，育儿活动，育儿商品，育儿经，育儿分享，育儿网，育儿社区，育儿平台，健康，教育，导购，积分">
+<META NAME="description" CONTENT="妈妈晒是一个以微博客为形式的新型育儿网站。其核心价值是解决妈妈爸爸的信息分享问题，搭建一个育儿类即时分享平台和基于分享的导购平台，一起分享一起成长！妈妈爸爸可以：晒宝贝、晒经验、晒问题、晒地点、晒活动、晒商品，同时结交感兴趣的人，关注感兴趣的话题，收藏有价值的信息，并通过口碑来购买信任的商品。">
+<% end %>
+<link rel="shortcut icon" href="http://www.mamashai.com/favicon.ico?1010" type="image/x-icon" />

@@ -1,0 +1,30 @@
+<h1>direct_messages/new 发送一条私信，请求必须使用POST方式提交。</h1><%= link_to "返回到列表", "/api/test" %>
+<pre>
+  [路径]: direct_messages/new
+  [HTTP请求方式]: POST
+  [URL]: http://your.api.domain/direct_messages/new.json
+  [是否需要登录]： true
+
+参数
+
+    * source 申请应用时分配的AppKey，调用接口时候代表应用的唯一身份。
+    * name 私信接收方昵称。(必选)
+    * text 要发送的消息内容。(必选)
+
+示例
+
+  curl -u "username:password" -d "username=琳琳妈&text=今天天气不错"
+  "http://your.api.domain/direct_messages/new.json?source=appkey"
+
+注意事项
+
+  发送成功将返回ok，失败返回error
+</pre>
+<hr/>
+<%= form_tag "/api/direct_messages/new.json" ,{:method=>:post} do %>
+  <%= render :partial => '/api/test/login' %>
+  source: <%= text_field_tag "source" %><br/>
+  name: <%= text_field_tag "name" %><br/>
+  text: <%= text_field_tag "text" %><br/>
+  <%= submit_tag "提交"%>
+<% end -%>

@@ -1,0 +1,27 @@
+<h1>apps/download 通过id下载单个推荐应用。 </h1><%= link_to "返回到列表", "/api/test" %>
+<pre>
+  [路径]: apps/download
+  [HTTP请求方式]: GET
+  [URL]: http://your.api.domain/apps/download/:id.json
+  [是否需要登录]： true
+
+参数
+
+    * source 申请应用时分配的AppKey，调用接口时候代表应用的唯一身份。
+    * id 推荐应用id
+
+示例
+
+  curl "http://your.api.domain/apps/download/12.json?source=appkey"
+
+注意事项
+
+    * 推荐应用支持积分功能，后台对相应的应用下载所需积分进行设置，如果当前用户积分小于应用下载所需积分，则返回error
+</pre>
+<hr/>
+<%= form_tag "/api/apps/download.json" ,{:method=>:get} do %>
+  <%= render :partial => '/api/test/login' %>
+  source: <%= text_field_tag "source" %><br/>
+  id: <%= text_field_tag "id" %><br/>
+  <%= submit_tag "提交"%>
+<% end -%>

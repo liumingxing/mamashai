@@ -1,0 +1,237 @@
+
+<div class="sharp mt5">
+	<div class="content">
+		<div class="box1_left">
+			<div id="slider">
+				<%= adv_link("a", 3) %>
+			</div>
+			<%= javascript_include_tag 'jquery.slider.min.js' %>
+			<script type="text/javascript">
+				$(function() {
+					$('#slider').slider({
+						width : 720,
+						height : 220
+					});
+				});
+			</script>
+		</div>
+		<div class="box1_right">
+			<h3>- 全新育儿记录工具 -</h3>
+			<a href="https://itunes.apple.com/cn/app/bao-bao-ri-li-huai-yun-yu/id499828643?ls=1&mt=8" target="_blank"><img src="/images/index_mobile_1.png" /></a>
+			<a href="http://www.mamashai.com/downloads/babycalendar.apk"><img src="/images/index_mobile_2.png" /></a>
+			<a href="https://itunes.apple.com/cn/app/la-ma-ri-bao-ma-ma-bao-bao/id464568504?ls=1&mt=8" target="_blank"><img src="/images/index_mobile_3.png" /></a>
+		</div>
+	</div>
+	<div><img src="/images/sharp_bottom.jpg" />
+	</div>
+</div>
+
+<!--box1-->
+<div class="box2 mt20">
+	<ul>
+		<li>
+			<img src="/images/jl.png" />
+		</li>
+		<li>
+			<img src="/images/fxye.png" />
+		</li>
+		<li>
+			<img src="/images/mmbbbz.png" />
+		</li>
+		<li>
+			<img src="/images/mms.png" />
+		</li>
+	</ul>
+</div>
+
+<div class="box_qh mt20">
+	<ul class="box_qh_title" id="box_qh_title">
+		<li id="j1" class="cc">
+			&nbsp;
+		</li>
+		<li id="j2">
+			&nbsp;
+		</li>
+		<li id="j3">
+			&nbsp;
+		</li>
+		<li id="j4">
+			&nbsp;
+		</li>
+	</ul>
+	<ul class="box_qh_content">
+		<% BbrlVip.find(:all, :limit=>4).each_with_index{|vip, index| %>
+		<% posts = Post.not_hide.find(:all, :conditions=>"logo is not null and user_id = #{vip.user_id} and forward_post_id is null", :limit=>4, :order=>"created_at desc")%>
+		<li class="j<%= index + 1%>">
+			<div class="bbrl">
+	          <div class="bbrl_left">
+	          	<a href="<%= user_url(vip.user) %>"><img src="<%= vip.user.logo.thumb140 %>" style=""/></a>
+	          	<h4>
+	          		<%= vip.user.name %>
+	          		<% if @user %>
+	          		<%= render :partial=>'/share/follow_icon', :locals=>{:user=>vip.user}%>
+	          		<% end %>
+	          	</h4>
+	          	<div class="clear"></div>
+	          	<% if vip.user.first_kid %>
+	         		<%= {'m'=>'儿子', 'w'=>'女儿'}[vip.user.first_kid.gender]%> <%= detail_age_for_birthday(vip.user.first_kid.birthday) %>
+	         	<% end %>
+	         </div>
+	          <div class=" bbrl_right">
+	          	<% for post in posts %>
+	          		<div class="bbrl_right_li">
+		          		<div style="height: 285px; overflow: hidden;">
+		          		<a href="/post/<%= post.id %>"><img src="<%= post.logo.thumb400 %>" style="width: 163px;"/></a>
+		          		<P><%= post_content(post.content) %></P>
+		          		</div>
+		          		<div class="bbrl_right_li_b">
+			          		<% if vip.user.first_kid %>
+			          			<b><%= vip.user.first_kid.name %></b><%= detail_age_for_birthday(vip.user.first_kid.birthday, post.created_at)%>
+			          		<% end %>
+		          		</div>
+				</div>
+	          	<% end %>
+	          </div>
+	          <div class=" bbrl_right"></div>
+	        </div>
+		</li>
+		<% } %>
+	</ul>
+</div>
+
+
+<div class="sharp mt20">
+	<div class="content">
+		<div class="box5_left">
+			<h3>推荐专栏</h3>
+      <% 
+        ids = [-1]
+        @authors.each do |author|
+          ids << author.user_id
+        end 
+      %>
+			<ul class="box5_left_ul">
+        <% for user in User.find(:all, :conditions=>"id in (#{ids.join(',')})")%>
+				<li>
+					<a style="float:left;" href="/column/space/<%= user.id %>"><img src="<%= user.logo.thumb48 %>" /></a>
+					<div class="chapters">
+						<% for column in ColumnChapter.find(:all, :limit=>3, :order=>"id desc", :conditions=>"user_id = #{user.id}")%>
+						<h5><a href="/column/show/<%= column.id %>"><%= column.title %></a></h5>
+						<% end %>
+					</div>
+					<div class="clear"></div>
+					<p>
+						<a href="/column/space/<%= user.id %>"><%= user.name %></a>
+					</p>
+				</li>
+				<% end %>
+			</ul>
+			<div class="qt_zlfl">
+				<h3>专栏分类</h3>
+			</div>
+			<ul class="qt_fl">
+				<li>
+					<a href="/column?c=1"><img src="/images/zl_mj.jpg"/></a>
+				</li>
+				<li>
+					<a href="/column?c=2"><img src="/images/zl_hw.jpg"/></a>
+				</li>
+				<li>
+					<a href="/column?c=3"><img src="/images/zl_zc.jpg"/></a>
+				</li>
+				<li>
+					<a href="/column?c=4"><img src="/images/zl_nb.jpg"/></a>
+				</li>
+				<li>
+					<a href="/column?c=5"><img src="/images/zl_ys.jpg"/></a>
+				</li>
+				<li>
+					<a href="/column?c=6"><img src="/images/zl_jy.jpg"/></a>
+				</li>
+				<li>
+					<a href="/column?c=7"><img src="/images/zl_yh.jpg"/></a>
+				</li>
+			</ul>
+		</div>
+		<div class="qt_ht_right">
+			<% age_tag = WeekTag.find(:first, :conditions=>"current = 1") %>
+			<h3>本周热点话题</h3>
+			<h4>#<%= age_tag.short_tag_name %>#</h4>
+			<a href="/hot_topic"><img src="<%= age_tag.logo.thumb90 %>" /></a>
+			<%= truncate age_tag.description, :length=>70%>
+			<a href="/hot_topic">详情>></a>
+		</div>
+	</div>
+	<div><img src="/images/sharp_bottom.jpg" />
+	</div>
+</div>
+
+<div class="clear"></div>
+<%= render :partial=>"/share/taobao_adv_top" %>
+
+<div class="sharp mt20">
+	<div class="content box6">
+		<h3>孕产<font>商品清单</font><a href="/tao/yun"><img src="/images/lmrb_all.jpg"/></a></h3>
+		<div class="box6_li">
+			<%= render :partial=>"/index/tao_products", :locals=>{:category_id=>1317, :name=>"营养"}%>
+		</div>
+		<div class="box6_li">
+			<%= render :partial=>"/index/tao_products", :locals=>{:category_id=>1311, :name=>"服饰"}%>
+		</div>
+		<div class="box6_li">
+			<%= render :partial=>"/index/tao_products", :locals=>{:category_id=>1315, :name=>"护肤"}%>
+		</div>
+		<div class="box6_li">
+			<%= render :partial=>"/index/tao_products", :locals=>{:category_id=>1313, :name=>"用品"}%>
+		</div>
+	</div>
+	<div><img src="/images/sharp_bottom.jpg" />
+	</div>
+</div>
+
+<div class="sharp mt20">
+	<div class="content box6">
+		<h3>宝宝<font>商品清单</font><a href="/tao/baby"><img src="/images/lmrb_all.jpg"/></a></h3>
+		<div class="box6_li">
+			<%= render :partial=>"/index/tao_products", :locals=>{:category_id=>11, :name=>"营养"}%>
+		</div>
+		<div class="box6_li">
+			<%= render :partial=>"/index/tao_products", :locals=>{:category_id=>13, :name=>"扮靓"}%>
+		</div>
+		<div class="box6_li">
+			<%= render :partial=>"/index/tao_products", :locals=>{:category_id=>15, :name=>"用品"}%>
+		</div>
+		<div class="box6_li">
+			<%= render :partial=>"/index/tao_products", :locals=>{:category_id=>17, :name=>"益智"}%>
+		</div>
+	</div>
+	<div><img src="/images/sharp_bottom.jpg" />
+	</div>
+</div>
+
+<script type="text/javascript">
+	$(document).ready(function() {
+		var o = 0;
+		var timeInterval = 5000;
+		var $cont = $(".box_qh_content li");
+		var $title = $("#box_qh_title li");
+
+		$cont.hide();
+		$($cont[0]).show();
+		function auto() {
+			o < $cont.length - 1 ? o++ : o = 0;
+			$cont.eq(o).show().siblings().hide();
+			$title.eq(o).addClass("cc").siblings().removeClass("cc");
+		}
+
+		set = window.setInterval(auto, timeInterval);
+		$title.mouseover(function() {
+			window.clearInterval(set);
+			o = $(this).index();
+			$cont.eq(o).show().siblings().hide();
+			$title.eq(o).addClass("ccc").siblings().removeClass("ccc");
+			set = window.setInterval(auto, timeInterval);
+		});
+	})
+
+</script>

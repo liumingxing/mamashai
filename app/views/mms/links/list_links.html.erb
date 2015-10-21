@@ -1,0 +1,65 @@
+<div id="middle">
+    <div id="css_mainbody">
+        <h1 class="title">链接管理
+			<span style="float:right;margin-right:10px;">
+		        <a href="/mms/links/new_link" title="新建链接">新建链接</a>
+		    </span>
+		</h1>
+		<div style="text-align:right;margin-right:20px;">
+	        <select onchange="if(this.options[this.selectedIndex].value != '') {  window.location='/mms/links/list_links/' + this.options[this.selectedIndex].value; }">
+	        	<% LinkTag.find(:all).each do |link_tag| %>
+	            <option value="<%=link_tag.id%>"<%=' selected="selected"' if @link_tag.id==link_tag.id %>>[<%=link_tag.link_category.name%>]<%=link_tag.name%></option> 
+				<% end %>
+	        </select>
+	    </div>		
+		<table class="grid">
+	        <tbody>
+	            <tr>
+	                <th>
+	                    链接名称
+	                </th>
+	                <th>
+	                    类型
+	                </th>
+	                <th>
+	                    标签
+	                </th>
+	                <th>
+	                    排序
+	                </th>
+	                <th>
+	                    修改
+	                </th>
+	                <th>
+	                    删除
+	                </th>
+	            </tr>
+	            <% for link in @links %>
+	            <tr height="35">
+	                <td>
+	                    <a href="<%=link.url %>" target="_blank"><%=link.name %></a>
+	                </td>
+	                <td>
+	                    <%=link.link_category.name %>
+	                </td>
+	                <td>
+	                    <%=link.link_tag.name if link.link_tag %>
+	                </td>
+	                <td>
+	                    <a href="/mms/links/set_link_order_up/<%=link.id%>">向上</a>
+	                    <a href="/mms/links/set_link_order_down/<%=link.id%>">向下</a>
+	                </td>
+	                <td>
+	                    <a href="/mms/links/edit_link/<%=link.id%>" target="_blank">修改</a>
+	                </td>
+	                <td>
+	                    <a href="/mms/links/delete_link/<%=link.id%>">删除</a>
+	                </td>
+	            </tr>
+	            <% end %>
+	        </tbody>
+	    </table>
+	    <%=will_paginate @links %>
+    </div>
+    <div class="clear"></div>
+</div>

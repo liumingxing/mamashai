@@ -1,0 +1,6 @@
+<% if FavoriteTag.find_by_tag_id_and_user_id(@tag.id,@user.id) %>
+<span class="c1 c2">已关注 <%= link_to_remote("取消", :update => "favotire_tag_#{@tag.id}", :url => {:action =>:delete_favorite_tag,:controller=>:ajax,:id=>@tag.id}) %>
+  </span><% else %>
+<%= link_to_remote("关注此话题", :update => "favotire_tag_#{@tag.id}", :url => {:action =>:create_favorite_tag,:controller=>:ajax,:id=>@tag.id},:html=>{:class=>'button_link_big'}) %>
+<% end %>
+

@@ -1,0 +1,23 @@
+<div class="sharp">
+	<div class="content2">
+		<h1>设置</h1>
+		<div class="navigate_tab" id="n">
+			<%= render :partial=>'nav' %>
+			<% if params[:success] == "true" %>
+			<div class="success">
+				操作成功
+			</div>
+			<% end %>
+			<div class="class2">
+				<%= form_tag :action=>:update_notify,:id=>params[:id] do %>
+				<%= render :partial=>'form_notify' %>
+				<div style="margin: 20px 0px 0px 50px;">
+					<%= submit_tag :确定, :class=>"button2"%>
+				</div>
+				<% end %>
+			</div>
+		</div>
+	</div>
+	<div><img src="/images/sharp_bottom.jpg" /></div>
+</div>
+<div class="clear"></div>

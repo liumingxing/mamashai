@@ -1,0 +1,11 @@
+
+<script>
+$(document).ready(function(){
+	var tip = "操作成功"
+	<% if params[:score] and params[:score].to_i > 0 %>
+		tip += "，您获得了<%=params[:score]%>个积分！"
+	<% end %>
+	dialog = $.dialog({fixed: true, title: "操作成功", content: tip}).hideTitle().time(3000);
+})
+	
+</script>

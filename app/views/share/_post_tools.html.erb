@@ -1,0 +1,51 @@
+<div class="user_tools">
+    <span class="tools">
+    	<% if @user and @user.tp == 4 %>
+			
+		  	<% if  post.score %>
+				<%= mms_recommand('ask', post.id) %> 
+			<% elsif post.from == 'column' %>
+				<%= mms_recommand('column', post.id) %> 
+			<% end %>
+			<%= link_to("私有", {:controller=>"ajax", :action=>"set_private", :id=>post, :remote=>true}, {:updater=>"_post_#{post.id}_private", :id=>"_post_#{post.id}_private"}) %>
+			<%= link_to_if(post.post_rates_count != 20, "+20", {:controller=>"ajax", :action=>"add_post_rates", :id=>post, :count=>20, :remote=>true}, {:updater=>"_post_#{post.id}_20", :id=>"_post_#{post.id}_20"}) %>
+			<%= link_to_if(post.post_rates_count != 40, "+40", {:controller=>"ajax", :action=>"add_post_rates", :id=>post, :count=>40, :remote=>true}, {:updater=>"_post_#{post.id}_40", :id=>"_post_#{post.id}_40"}) %>
+			<%= link_to_if(post.post_rates_count != 60, "+60", {:controller=>"ajax", :action=>"add_post_rates", :id=>post, :count=>60, :remote=>true}, {:updater=>"_post_#{post.id}_60", :id=>"_post_#{post.id}_60"}) %>
+			<%= link_to_if(post.post_rates_count != 120, "+120",{:controller=>"ajax", :action=>"add_post_rates",:id=>post, :count=>120, :remote=>true}, {:updater=>"_post_#{post.id}_120", :id=>"_post_#{post.id}_120"}) %>
+			<%= link_to_if(post.post_rates_count != 20, "+200", {:controller=>"ajax", :action=>"add_post_rates", :id=>post, :count=>200, :remote=>true}, {:updater=>"_post_#{post.id}_200", :id=>"_post_#{post.id}_200"}) %>
+		<% end %> 
+		
+		<% if post.from == "column" && post.column_chapter && post.column_chapter.visited_times > 0%>
+			<span>浏览 <span class="number">(<%= post.column_chapter.visited_times||0 if post.column_chapter %>)</span></span> 
+		<% end %>
+		<%= post_clap(post)%> 
+		<% if @user and  post.user_id == @user.id %>
+            <span ><a href="javascript:void(0);" onclick="forwardshine('<%=post.id%>', this);"><img src="/images/icon_11.jpg"></a></span >
+            <%if post.forward_posts_count>0 %><span class="number">(<%=post.forward_posts_count %>)</span><%end %> 
+		<% else %>
+        	<% if @user%>
+        		<a href="javascript:void(0);" onclick="forwardshine('<%=post.id%>', this);"><img src="/images/icon_11.jpg"></a>
+        	<% else %>
+        		<a href="/account/signup/<%= post.user.id %>?origin_url=<%= @current_uri %>"><img src="/images/icon_11.jpg"></a>
+        	<% end %>
+			<% if post.forward_posts_count && post.forward_posts_count>0 %><span class="number">(<%=post.forward_posts_count %>)</span><%end %> 
+		<% end %>
+		
+		<% if @user%>
+			<a href="javascript:void(0);" onclick="show_post_expand('list_comments','<%=post.id%>');"><img src="/images/icon_12.jpg"></a>
+		<% else %>
+			<a href="javascript:void(0)" onclick="show_post_expand('list_comments','<%=post.id%>');"><img src="/images/icon_12.jpg"></a>
+		<% end %>
+		<%if post.comments_count>0 %><span class="number">(<%=post.comments_count %>)</span><%end %>
+ 	</span>
+    <div class="clear">
+    </div>
+</div>
+
+<div id="post_expand_<%=post.id%>" style="display:none;">
+</div>
+
+<% begin %>
+	<% if init=="open"%> <script>show_post_expand('list_comments','<%=post.id%>');</script> <% end %>
+<% rescue%>
+<% end %>

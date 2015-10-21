@@ -1,0 +1,85 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>活动财务</title>
+        <META NAME="keywords" CONTENT="">
+        <META NAME="description" CONTENT="">
+        <link rel="shortcut icon" href="http://www.mamashai.com/favicon.ico?1010" type="image/x-icon" />
+        <link href="/stylesheets/all.css" media="screen" rel="stylesheet" type="text/css" />
+        <link href="/stylesheets/lightbox.css" media="screen" rel="stylesheet" type="text/css" />
+		<style type="text/css">
+
+		</style>
+		<script src="http://union.mapbar.com/apis/maps/free?f=mapi&v=31.2&k=aCW9cItqL7..." type="text/javascript"></script>
+                <script type="text/javascript">
+		var maplet = null,marker=null,lon=0,lat=0;
+				function initMap(){
+					maplet = new Maplet("mapbar");
+					maplet.centerAndZoom(new MPoint(116.38672,39.90805), 8);
+					maplet.addControl(new MStandardControl());
+					maplet.setCursorStyle('default', 'http://union.mapbar.com/apidoc/images/tb1.gif');
+/*					 var marker = new MMarker(  
+					     new MPoint(116.38672,39.90805)//,  
+					    // new MIcon("../../images/tb1.gif",32,32)  
+					 );  
+					 
+					 maplet.addOverlay(marker);  */
+					
+					 MEvent.addListener(maplet,'click',function(e,point){
+					 	if (marker) 
+								maplet.removeOverlay(marker);
+					 	if (window.confirm("是否保存该位置")) {
+							//如果存在先删除						
+							lon = point.lon;
+							lat = point.lat;
+							//设置文本框的值
+							document.getElementById("lon_id").value = lon;
+							document.getElementById('lat_id').value = lat;
+							marker = new MMarker(new MPoint(lon, lat), new MIcon("http://union.mapbar.com/apidoc/images/tb1.gif", 32, 32));
+							maplet.addOverlay(marker);
+						}else{
+							return;
+						}  
+					 });
+					
+				}
+				function buttonOnclick(){
+					var p=parent.getParentEle();
+					if(lon || lat){
+						p.lon.value=lon;
+						p.lat.value=lat;
+						p.hasmarkup.style.display="";
+					}
+					parent.hide_box();
+				}
+        </script>
+  
+    </head>
+    <body onload="initMap()">
+        <div id="layer_event" class="layer" style="width:498px;">
+            <div class="layer_title">
+                <span class="title">标注地图</span>
+                <span class="more"><a onclick="parent.hide_box();" href="javascript:void(0);"><img src="/images/layer/del_06.gif"></a></span>
+            </div>
+			<input type="hidden" name="longitude" value="" id="lon_id"/>
+			<input type="hidden" name="latitude" value="" id="lat_id"/>
+			<div id="mapbar" style="width:500px;height:300px"></div>
+            <div class="layer_content">
+                <div class="finance_content">
+                    <ul class="layer_botton">
+                        <li>
+                            <button onclick="buttonOnclick();" type="button" onmouseout="this.className='button_submit_s';" onmouseover="this.className='button_submit_s button_submit_s_hover';" class="button_submit_s">
+                                确定 
+                            </button>
+                        </li>
+                        <div class="clear">
+                        </div>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+    </body>
+</html>
+<%=render :partial=>'/layouts/trace' %>

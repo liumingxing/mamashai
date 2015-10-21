@@ -1,0 +1,15 @@
+<%= javascript_include_tag "mztree/jsframework" %>
+<script>
+  Using("System.Web.UI.WebControls.MzTreeView");
+  var trade = new MzTreeView();
+  trade.dataSource = data
+  trade.autoSort = false;
+  trade.useCheckbox = <%= usecheckbox%>
+  trade.canOperate = true;
+  document.write(trade.render());
+  trade.expandLevel(<%= expandlevel%>);
+  window.onload = function(){
+    LoadCheckBox(trade,[<%= array.join(',')%>]);
+  }
+</script>
+<%= hidden_field_tag "checked_values" %>

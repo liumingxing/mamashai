@@ -1,0 +1,25 @@
+<h1>public_timeline 获取最新的公共微博消息(默认10条)</h1><%= link_to "返回到列表", "/api/test" %>
+<pre>
+  [路径]: statuses/public_timeline
+  [HTTP请求方式]: GET
+  [URL]: http://your.api.domain/statuses/public_timeline.json
+  [是否需要登录]： false
+
+参数
+
+    * source 申请应用时分配的AppKey，调用接口时候代表应用的唯一身份。
+    * count 每次返回的记录数, 缺省值为10
+
+示例
+
+  curl -u "username:password"
+  "http://your.api.domain/statuses/public_timeline.json?source=appkey&count=5"
+
+</pre>
+<hr/>
+<%= form_tag "/api/statuses/public_timeline.json" ,{:method=>:get} do %>
+  <%= render :partial => '/api/test/login' %>
+  source: <%= text_field_tag "source" %><br/>
+  count: <%= text_field_tag "count" %><br/>
+  <%= submit_tag "提交"%>
+<% end -%>

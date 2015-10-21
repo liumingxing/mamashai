@@ -1,0 +1,2 @@
+module FocusUsersHelper
+end

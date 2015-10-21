@@ -1,0 +1,5 @@
+<span class="picture"><img src="/images/index_nav/icons_07.gif"></span>
+<span id="link_tool_<%=@sys_link.id%>"></span>
+<script>
+	new Ajax.Updater('link_<%=@link_category.id%>_1', '/ajax/get_category_user_links/<%=@link_category.id%>', {asynchronous:true, evalScripts:true});
+</script>

@@ -1,0 +1,54 @@
+
+    <tr>
+        <td>
+            名称
+        </td>
+        <td>
+            <%= text_field "resource", "name"%>
+            <%= error_message_on :resource, :name %>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            网页url
+        </td>
+        <td>
+            <%= text_field "resource", "page_url"%>
+            <%= error_message_on :resource, :page_url %>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            logo
+        </td>
+        <td>
+            <%= upload_column_field :resource, :logo %>
+            <%= error_message_on :resource, :logo %>
+        </td>
+    </tr>
+
+    <tr>
+        <td>
+            排序
+        </td>
+        <td>
+            <%= text_field "resource", "position"%>
+        </td>
+    </tr>
+
+<% if controller.action_name == 'edit_resource' %>
+    <tr>
+        <td>
+            类别
+        </td>
+        <td>
+            <%= select :resource, :video_category_id, VideoCategory.all.collect{|p| [p.name, p.id]} %>
+        </td>
+    </tr>
+<% end %>
+
+    <tr>
+        <td colspan="2">
+            <input type="submit" name="submit" value="提交">
+        </td>
+    </tr>

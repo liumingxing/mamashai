@@ -1,0 +1,2 @@
+module DdhsHelper
+end

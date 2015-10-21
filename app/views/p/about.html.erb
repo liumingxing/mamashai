@@ -1,0 +1,95 @@
+<style>
+#slider li {
+	float: left;
+	width: 602px;
+	height: 452px;
+}
+#slider li img {
+	width: 602px;
+	height: 452px;
+}
+</style>
+<div class="sharp">
+	<h1>共享妈妈晒</h1>
+	<table cellpadding="0" cellspacing="0">
+      <tr>
+        <td align="center" valign="middle" width="13">
+          <img src="/images/jiantou_left.png" id="go-prev" border="0"/>
+        </td>
+        <td>
+          <ul id="slider" style="">
+              <li>
+                <img id="photo_container" src='/images/share_1.gif' border="0"/>
+              </li>
+              <li>
+                <img id="photo_container" src='/images/share_2.gif' border="0"/>
+              </li>
+              <li>
+                <img id="photo_container" src='/images/share_3.gif' border="0"/>
+              </li>
+              <li>
+                <img id="photo_container" src='/images/share_4.gif' border="0"/>
+              </li>
+              <li>
+                <img id="photo_container" src='/images/share_5.gif' border="0"/>
+              </li>
+              <li>
+                <img id="photo_container" src='/images/share_6.gif' border="0"/>
+              </li>
+              <li>
+                <img id="photo_container" src='/images/share_7.gif' border="0"/>
+              </li>
+              <li>
+                <img id="photo_container" src='/images/share_8.gif' border="0"/>
+              </li>
+              <li>
+                <img id="photo_container" src='/images/share_9.gif' border="0"/>
+              </li>
+              <li>
+                <img id="photo_container" src='/images/share_10.gif' border="0"/>
+              </li>
+              <li>
+                <img id="photo_container" src='/images/share_11.gif' border="0"/>
+              </li>
+          </ul>
+        </td>
+        <td align="center" valign="middle" width="13">
+          <img src="/images/jiantou_right.png" id="go-next" border="0"/>
+        </td>
+      </tr>
+    </table>
+    <%= javascript_include_tag "jquery-1.7.1.min.js"%>
+    	
+    <script src="/javascripts/../jquery.bxSlider/jquery.bxSlider/jquery.bxSlider.min.js?1387296166" type="text/javascript"></script>
+    <script type="text/javascript">
+      $(function(){
+        var slider = $('#slider').bxSlider({
+          controls: false
+        });
+
+        $('#go-prev').click(function(){
+          slider.goToPreviousSlide();
+          return false;
+        });
+
+        $('#go-next').click(function(){
+          slider.goToNextSlide();
+          return false;
+        });
+      }); 
+
+    </script>
+    <br/>
+    <br/>
+    <br/>
+
+    <h2>我们相信：</h2>
+    <p class="contract">
+			最好的科技创想，体现于是否能造福后代。
+    </p>
+
+    <h2>我们的使命：</h2>
+    <p class="contract">
+			用我们的心灵，辅之以科技的力量，为妈妈爸爸搭建一个平台，一起成长，一起发光！
+    </p>
+</div>
