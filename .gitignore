@@ -1,4 +1,5 @@
 .svn
+database.yml
 /tmp
 /log
 /public/upload
