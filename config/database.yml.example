@@ -1,0 +1,40 @@
+development:
+  adapter: mysql2
+  encoding: utf8
+  database: mamashai
+  username: root
+  password: 
+  host: localhost
+  pool: 60
+
+development2:
+  adapter: mysql2
+  encoding: utf8
+  database: mamashai
+  username: root
+  password: 
+  host: localhost
+  pool: 60
+
+test:
+  adapter: mysql
+  encoding: utf8
+  database: mamashai
+  username: root
+  password: 
+  host: localhost
+
+production:
+  adapter: mysql2
+  encoding: utf8
+  database: mamashai
+  host: localhost
+  username: root
+  password: 
+  pool: 60
+
+cal_end:
+  adapter: sqlite3
+  database: db/data.sqlite3
+  pool: 10
+  timeout: 5000
