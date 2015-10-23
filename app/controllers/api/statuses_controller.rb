@@ -1939,7 +1939,7 @@ class Api::StatusesController < Api::ApplicationController
   #获得半屏广告
   def calendar_advs
     if request.env['HTTP_USER_AGENT'] && (request.env['HTTP_USER_AGENT'].downcase.include?('iphone') || request.env['HTTP_USER_AGENT'].downcase.include?('ipad'))
-      if params[:tp] == "test"
+      if params[:tp] == "development"
         advs = CalendarAdv.all(:order=>"position, id desc", :conditions=>"(only = '' or only = 'iphone') and (status='test' or status='online')")
         render :json=>advs
         return
@@ -1947,16 +1947,10 @@ class Api::StatusesController < Api::ApplicationController
       advs = CalendarAdv.normal.all(:conditions=>"only = '' or only is null or only = 'iphone'")
       render :json=>advs
     else
-      if params[:tp] == "test"
+      if params[:tp] == "development"
         advs = CalendarAdv.all(:order=>"position, id desc", :conditions=>"(only = '' or only = 'android') and (status='test' or status='online')")
         render :json=>advs
         return
-      end
-
-      if params[:tp] == "samsung"
-        advs = CalendarAdv.normal.all(:conditions=>"(only = '' or only is null or only = 'android') and id = 25")
-      else
-        advs = CalendarAdv.normal.all(:conditions=>"only = '' or only is null or only = 'android'")
       end
       render :json=>advs
     end
