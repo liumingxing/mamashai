@@ -5,3 +5,4 @@ database.yml
 /public/upload
 database.yml
 schema.rb
+.DS_Store
