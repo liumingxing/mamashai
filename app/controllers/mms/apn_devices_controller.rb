@@ -87,9 +87,9 @@ class Mms::ApnDevicesController < Mms::MmsBackEndController
       jpush_keys = %w(b789c8ed387ca31a1569c932:78ab7b77f32b35deccf4b847 9c75b77425cb280bc1c975fe:e2917386120a007763cb468e 8ea7cf97ac67608ba65c2db7:75c7d17c756279565ceb2b6f)
       
       if index >= 4
-        result = MamashaiTools::ToolUtil.fork_command %Q!curl -X POST -v https://api.jpush.cn/v3/push -H "Content-Type: application/json" -u "#{jpush_keys[index-4]}" -d '{"platform":"android","audience":"all","notification":{"alert":"#{params[:text]}"}}'!
+        result = MamashaiTools::ToolUtil.fork_command %Q!curl -X POST -v https://api.jpush.cn/v3/push -H "Content-Type: application/json" -u "#{jpush_keys[index-4]}" -d '{"platform":"android","audience":"all","notification":{"alert":"#{params[:text]}", "extras": #{extras.to_json} }}'!
       else
-        ApnDevice.broadcast_apn(index, params[:text])
+        ApnDevice.broadcast_apn(index, params[:text], extras)
       end
 
     end
