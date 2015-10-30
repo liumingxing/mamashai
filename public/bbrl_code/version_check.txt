@@ -93,23 +93,12 @@ function update_dailog(title, text, url){
 
 if (Ti.App.is_android){		//安卓
 	if (Ti.App.id == "com.mamashai.babycalendar"){
-		update_dailog("3.4.5", "1：完善记录多个宝宝的功能\n2：细节改进", "market://details?id=com.mamashai.babycalendar")
+		update_dailog("3.5", "1：完善记录多个宝宝的功能\n2：细节改进", "market://details?id=com.mamashai.babycalendar")
 	}
 	else if (Ti.App.id == "com.mamashai.yunfree"){
-		update_dailog("3.5.5", "1：完善记录多个宝宝的功能\n2：细节改进", "market://details?id=com.mamashai.yunfree")
+		update_dailog("4.0", "1：完善记录多个宝宝的功能\n2：细节改进", "market://details?id=com.mamashai.yunfree")
 	}
 	else if (Ti.App.id == "com.mamashai.yufree"){
-		update_dailog("4.9.5", "1：完善记录多个宝宝的功能\n2：细节改进", "market://details?id=com.mamashai.yufree")
-	}
-}
-else{			//苹果
-	if (Ti.App.id == "com.mamashai.babycalendar"){
-		update_dailog("3.4.5", "1：完善记录多个宝宝的功能\n2：细节改进", "http://itunes.apple.com/cn/app/bao-bao-ri-li/id499828643?ls=1&mt=8")
-	}
-	else if (Ti.App.id == "com.mamashai.yunfree"){
-		update_dailog("3.5.5", "1：完善记录多个宝宝的功能\n2：细节改进", "https://itunes.apple.com/cn/app/yun-qi-quan-cheng-jian-ce/id479480717?l=zh&ls=1&mt=8")
-	}
-	else if (Ti.App.id == "com.mamashai.yufree"){
-		update_dailog("4.9.5", "1：完善记录多个宝宝的功能\n2：细节改进", "https://itunes.apple.com/us/app/0-3sui-bao-bao-cheng-zhang/id485234591?l=zh&ls=1&mt=8")
+		update_dailog("5.5.1", "1：完善记录多个宝宝的功能\n2：细节改进", "market://details?id=com.mamashai.yufree")
 	}
 }
