@@ -219,7 +219,7 @@ class Api::EventController < Api::ApplicationController
 
 	#分享了微信朋友圈，该给豆了
 	def share_weixin
-		if Time.new.to_s(:db) > "2015-10-25 00:00:00"
+		if Time.new.to_s(:db) > Pk.latest_end_time[params[:huodong_id].to_i].to_s(:db) #"2015-10-25 00:00:00"
 			render :text=>"finished" and return
 		end
 
@@ -257,7 +257,7 @@ class Api::EventController < Api::ApplicationController
 	end
 
 	def light
-		if Time.new.to_s(:db) > "2015-10-25 00:00:00"
+		if Time.new.to_s(:db) > Pk.latest_end_time[params[:huodong_id].to_i].to_s(:db)
 			render :text=>"活动已结束" and return
 		end
 
