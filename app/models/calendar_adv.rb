@@ -4,7 +4,7 @@ class CalendarAdv < ActiveRecord::Base
 	upload_column :logo, :versions=>{:thumb280=>"c640x280"}
 
 	named_scope :normal,:conditions=>"status = 'online'",:order=>'status desc, position, id desc'
-
+	has_one :pk
 	after_save :upload_to_aliyun
 
 	def upload_to_aliyun
@@ -21,6 +21,10 @@ class CalendarAdv < ActiveRecord::Base
 	def logo_thumb280
 		#logo.try(:thumb280).try(:url)
 		logo.url
+	end
+
+	def logo_ali_url
+		"http://img.mamashai.com/upload/calendaradv/#{self.id}/logo/#{self.logo.filename}"
 	end
 		
 	def self.json_attrs

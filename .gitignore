@@ -6,3 +6,7 @@ database.yml
 database.yml
 schema.rb
 .DS_Store
+.idea
+.ruby-version
+nohup.out
+db/schema.rb

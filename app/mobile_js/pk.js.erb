@@ -1,0 +1,1236 @@
+(function() {
+  var TabBar = require("lib/tab_bar")
+  var CheckBox = require("lib/checkbox").CheckBox
+
+  var win = Ti.UI.createWindow({
+    title: '<%= @pk.title %>',
+    backButtonTitle : '返回',
+    backgroundColor : '#fff',
+    textAlign: 'center'
+  })
+  pre(win)
+  if (!Ti.App.is_android) {
+    win.hideTabBar();
+  }
+
+  var tab_title = null;
+  if (Ti.App.is_android){
+    if (Ti.Platform.Android.API_LEVEL >= 11){
+      add_tab_to_actionbar(win, win.title, [{
+        title: '活动介绍',
+        selected: true,
+        click: function(){
+          scroll_wrapper.scrollToView(0);
+        }
+      },
+        {
+          title: '展厅',
+          click: function(){
+            scroll_wrapper.scrollToView(1);
+          }
+        },
+        {
+          title: '往期活动',
+          click: function(){
+            scroll_wrapper.scrollToView(2);
+          }
+        }
+      ]);
+    }
+    else{
+      var ActionBarView = require('ActionBarView');
+      var tab_title = new ActionBarView({
+        tabs : [{
+          text : '  返回',
+          id : 'back',
+          isBack : true,
+          __width: __l(70),
+          no_sep : true,
+          align : 'center'
+        },
+          {
+            text : '活动介绍',
+            id : "0",
+            selected: true
+          },
+          {
+            text : '展厅',
+            id : "1"
+          },
+          {
+            text : '往期活动',
+            id : "2"
+          }
+        ]
+      });
+
+      tab_title.addEventListener(
+        'ActionBar.NavigationTab:Click',
+        function(e){
+          if (e.tabId == "back"){
+            win.close()
+          }
+          else
+            scroll_wrapper.scrollToView(parseInt(e.tabId))
+        }
+      );
+
+      add_action_bar(win, tab_title)
+    }
+  }
+  else{
+    var tab_title = Titanium.UI.iOS.createTabbedBar({
+      labels : ['活动介绍', '展厅', '往期活动'],
+      index : 0,
+      style : Titanium.UI.iPhone.SystemButtonStyle.BAR,
+      backgroundColor : Ti.App.bar_color,
+      width : __l(190),
+      height : 30
+    });
+
+    tab_title.addEventListener("click", function(e) {
+      scroll_wrapper.scrollToView(e.index)
+    })
+
+    win.setTitleControl(tab_title)
+  }
+
+
+  function yellow_label(text){
+    return Ti.UI.createLabel({
+      text: text,
+      width: __l(46),
+      top: __l(2),
+      left: __l(6),
+      right: __l(0),
+      height: __l(16),
+      textAlign: 'center',
+      borderRadius: __l(2),
+      font: {fontSize: __l(10)},
+      backgroundColor: "#B16533",
+      color: 'white'
+    })
+  }
+
+  var wrapper1 = Ti.UI.createScrollView({
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    contentHeight: 'auto',
+    backgroundColor : "white" //'#E6CF81',
+  })
+
+  var picture = Ti.UI.createImageView({
+    left: 0,
+    right: 0,
+    top: 0,
+    width: Ti.App.platform_width,
+    height: __l(280)*Ti.App.platform_width/__l(640),
+    image: "<%= @calendar_adv.logo_ali_url %>"
+  });
+  wrapper1.add(picture)
+
+  var wrapper_main = Ti.UI.createView({
+    top: __l(280)*Ti.App.platform_width/__l(640),
+    left: __l(6),
+    right: __l(6),
+    bottom: __l(0),
+    height: Ti.UI.SIZE,
+    backgroundColor: "white",  //"#E6CF81",
+    layout: 'vertical'
+  })
+  wrapper1.add(wrapper_main)
+
+
+  ////////////pk/////////////
+  var pk_wrapper = Ti.UI.createView({
+    top: __l(2),
+    left: 0,
+    right: 0,
+    width: Ti.UI.FILL,
+    height: __l(220)
+  })
+
+  wrapper_main.add(pk_wrapper)
+
+  function light_click(e){
+    if (!check_login()){
+      to_login();
+      return
+    }
+    var xhr = Ti.Network.createHTTPClient()
+    xhr.onerror = function() {
+      show_timeout_dlg(xhr, url);
+    }
+    xhr.onload = function() {
+      hide_loading();
+      show_alert("提示", this.responseText);
+      generate_pk();
+    };
+    var url = Ti.App.mamashai + "/api/event/light?huodong_id=<%= @pk.id %>&tp=light&baba_id=" + e.source.id + "&"+ account_str();
+    xhr.open('GET', url);
+    xhr.send();
+  }
+
+  function generate_pk(){
+    var xhr = Ti.Network.createHTTPClient()
+    xhr.timeout = Ti.App.timeout
+    xhr.onerror = function() {
+      show_notice("网络连接失败")
+    }
+    xhr.onload = function() {
+      var json = JSON.parse(this.responseText)
+      if (json.error){
+        if (pk_wrapper.children){
+          for(var i=pk_wrapper.children.length-1; i>=0; i--){
+            var t = pk_wrapper.children[i]
+            if (t)
+              pk_wrapper.remove(t)
+          }
+        }
+        pk_wrapper.add(Ti.UI.createLabel({
+          top: __l(10),
+          font: {fontSize: __l(14)},
+          color: "#333",
+          textAlign: 'center',
+          left: 0,
+          right: 0,
+          text: json.error
+        }))
+        pk_wrapper.height = __l(30)
+        return;
+      }
+      if (pk_wrapper.c)
+        pk_wrapper.remove(pk_wrapper.c)
+      var pk_wrapper2 = Ti.UI.createView({
+        top: __l(0),
+        left: 0,
+        right: 0,
+        width: Ti.UI.FILL,
+        height: __l(210)
+      })
+      var container1 = Ti.UI.createView({
+        top: __l(10),
+        bottom: __l(0),
+        left: (Ti.App.platform_width - __l(280) - 50)/2,
+        width: __l(140),
+        height: Ti.UI.SIZE
+      })
+      var logo1 = Ti.UI.createImageView({
+        top: __l(0),
+        //left: __l(0),
+        //right: __l(0),
+        height: __l(140),
+        json: json[0].post,
+        image: "http://www.mamashai.com" + json[0].post.logo_url_thumb400
+      })
+      logo1.addEventListener("click", function(e){
+        Ti.App.fireEvent("showPicture", {
+          src : "http://www.mamashai.com" + encodeURI(e.source.json.logo_url),
+          thumb_src : "http://www.mamashai.com" + encodeURI(e.source.json.logo_url_thumb400)
+        });
+      })
+      container1.add(logo1)
+
+      var user1 = Ti.UI.createLabel({
+        text: json[0].user.name,
+        font: {fontSize: __l(13)},
+        top: __l(146),
+        left: __l(4),
+        right: __l(4),
+        height: __l(20),
+        textAlign: "center",
+        color: Ti.App.bar_color,
+        selectedColor : "#FA70AE",
+        backgroundColor: 'transparent',
+        backgroundSelectedImage: "/images/bj2.png",
+        id: json[0].user.id
+      })
+      user1.addEventListener("touchstart", function(e){
+        e.source.backgroundColor = "#E5E7DF"
+      })
+      user1.addEventListener("touchend", function(e){
+        e.source.backgroundColor = "transparent"
+      })
+      user1.addEventListener("click", function(e) {
+        show_window("user", {
+          title: e.source.text,
+          id: e.source.id
+        })
+      })
+      container1.add(user1);
+
+      var light = Ti.UI.createImageView({
+        left: __l(60),
+        top: __l(172),
+        image: "http://www.mamashai.com/images/bbrl/liang.png",
+        hirs: true,
+        height: __l(30),
+        width: __l(20),
+        id: json[0].id
+      });
+      light.addEventListener("click", light_click)
+      container1.add(light);
+
+      var container2 = Ti.UI.createView({
+        top: __l(10),
+        bottom: __l(0),
+        right: (Ti.App.platform_width - __l(280) - 50)/2,
+        width: __l(140),
+        height: Ti.UI.SIZE
+      })
+
+      var logo2 = Ti.UI.createImageView({
+        top: __l(0),
+        //left: __l(0),
+        //right: __l(0),
+        height: __l(140),
+        json: json[1].post,
+        image: "http://www.mamashai.com" + json[1].post.logo_url_thumb400
+      })
+      logo2.addEventListener("click", function(e){
+        Ti.App.fireEvent("showPicture", {
+          src : "http://www.mamashai.com" + encodeURI(e.source.json.logo_url),
+          thumb_src : "http://www.mamashai.com" + encodeURI(e.source.json.logo_url_thumb400)
+        });
+      })
+      container2.add(logo2)
+
+      var user2 = Ti.UI.createLabel({
+        text: json[1].user.name,
+        font: {fontSize: __l(13)},
+        top: __l(146),
+        left: __l(4),
+        right: __l(4),
+        height: __l(20),
+        textAlign: "center",
+        color: Ti.App.bar_color,
+        selectedColor : "#FA70AE",
+        backgroundColor: 'transparent',
+        backgroundSelectedImage: "/images/bj2.png",
+        id: json[1].user.id
+      })
+      user2.addEventListener("touchstart", function(e){
+        e.source.backgroundColor = "#E5E7DF"
+      })
+      user2.addEventListener("touchend", function(e){
+        e.source.backgroundColor = "transparent"
+      })
+      user2.addEventListener("click", function(e) {
+        show_window("user", {
+          title: e.source.text,
+          id: e.source.id
+        })
+      })
+      container2.add(user2);
+
+      var light = Ti.UI.createImageView({
+        left: __l(60),
+        top: __l(172),
+        image: "http://www.mamashai.com/images/bbrl/liang.png",
+        hirs: true,
+        height: __l(30),
+        width: __l(20),
+        id: json[1].id
+      });
+      light.addEventListener("click", light_click)
+      container2.add(light);
+
+      pk_wrapper2.add(container1)
+      pk_wrapper2.add(container2)
+      pk_wrapper2.add(Ti.UI.createLabel({
+        text: "PK",
+        left: Ti.App.platform_width/2 - __l(25),
+        width: __l(50),
+        top: __l(70),
+        font: {fontSize: __l(24), fontWeight: 'bold'},
+        color: "red",
+        textAlign: "center",
+        height: Ti.UI.SIZE
+      }))
+
+      var change = Ti.UI.createButton({
+        title: "换换",
+        left: Ti.App.platform_width/2 - __l(30),
+        right: Ti.App.platform_width/2 - __l(30),
+        top: __l(184),
+        font: {fontSize: __l(12)},
+        height: __l(30)
+      })
+      pre_btn(change)
+      change.addEventListener("click", function(e){
+        generate_pk()
+      })
+      pk_wrapper2.add(change)
+      pk_wrapper.c = pk_wrapper2
+      pk_wrapper.add(pk_wrapper2)
+    };
+    var url = Ti.App.mamashai + "/api/event/rand_pk?huodong_id=<%=  @pk.num %>&user_id=" + user_id();
+    xhr.open('POST', url);
+    xhr.send();
+  }
+
+  generate_pk()
+
+  /////////////////////////
+
+  wrapper_main.add(Ti.UI.createLabel({
+    text: "<%= @pk.bold_desc %>",
+    left: __l(6),
+    right: __l(6),
+    top: __l(10),
+    font: {fontSize: __l(16)},
+    color: "black",
+    height: Ti.UI.SIZE,
+    bottom: __l(10)
+  }))
+
+  var w = Ti.UI.createView({
+    left: 0,
+    top: 0,
+    right: 0,
+    height: Ti.UI.SIZE,
+    layout: 'horizontal'
+  })
+  w.add(yellow_label("活动时间"))
+  w.add(Ti.UI.createLabel({
+    color: '#333',
+    left: __l(6),
+    height: __l(18),
+    font: {fontSize: __l(13)},
+    text: "<%= "#{@pk.start_date.to_s(:only_date)}-#{@pk.end_date.to_s(:only_date)}"  %>"
+  }))
+  wrapper_main.add(w)
+
+  var w = Ti.UI.createView({
+    left: 0,
+    top: __l(10),
+    right: 0,
+    height: Ti.UI.SIZE,
+    layout: 'horizontal'
+  })
+  w.add(yellow_label("揭奖日期"))
+  w.add(Ti.UI.createLabel({
+    color: '#333',
+    left: __l(6),
+    height: __l(18),
+    font: {fontSize: __l(13)},
+    text: "<%= @pk.result_date.to_s(:only_date) %>"
+  }))
+  wrapper_main.add(w)
+
+  var w = Ti.UI.createView({
+    left: 0,
+    top: __l(10),
+    right: 0,
+    height: Ti.UI.SIZE,
+    layout: 'horizontal'
+  })
+  w.add(yellow_label("活动奖励"))
+  w.add(Ti.UI.createLabel({
+    color: '#333',
+    top: __l(2),
+    left: __l(6),
+    right: __l(6),
+    height: Ti.UI.SIZE,
+    width: Ti.UI.SIZE,
+    font: {fontSize: __l(13)},
+    text: "<%= @pk.reward.inspect.gsub(/^\"|\"$/, '') %>"
+  }))
+  wrapper_main.add(w)
+
+  //参与方式
+  var w = Ti.UI.createView({
+    left: 0,
+    top: __l(10),
+    right: 0,
+    height: Ti.UI.SIZE,
+    layout: 'horizontal'
+  })
+  w.add(yellow_label("参与方式"))
+
+  var w1 = Ti.UI.createView({
+    left: __l(0),
+    top: __l(0),
+    right: 0,
+    height: Ti.UI.SIZE,
+    layout: 'vertical'
+  });
+  w.add(w1);
+  w1.add(Ti.UI.createLabel({
+    color: '#333',
+    top: __l(2),
+    left: __l(6),
+    right: __l(6),
+    height: Ti.UI.SIZE,
+    width: Ti.UI.SIZE,
+    font: {fontSize: __l(13)},
+    text: "1、<%= @pk.participate_desc %>（最多<%= @pk.max_select %>项）"
+  }))
+  var w2 = Ti.UI.createView({
+    left: 0,
+    top: __l(10),
+    right: 0,
+    height: Ti.UI.SIZE,
+    layout: 'horizontal'
+  })
+
+  function set_textarea(target){
+    var str = "";
+    var count = 0;
+    for(var i=0; i<checks.length; i++){
+      if (checks[i].view.value && checks[i].view.value != 0){		//选中了
+        count += 1;
+        if (count > <%= @pk.max_select %>){
+          target.fireEvent('click');
+          show_alert("提示", "亲，最多只能选<%= @pk.max_select %>项哦！");
+          return;
+        }
+        if (str == ""){
+          str += checks[i].view.t
+        }
+        else{
+          str += "、" + checks[i].view.t
+        }
+      }
+    }
+    textarea.value = "<%= @pk.post_desc %>" + str + "！"
+  }
+
+  var types = <%= @pk.select_list.split('|').inspect.html_safe %>;
+  var checks = new Array();
+  for(var i=0; i<types.length; i++){
+    var wr = Ti.UI.createView({
+      layout: 'horizontal',
+      width: Ti.App.is_android ? __l(72) : __l(64),
+      height: Ti.UI.SIZE
+    });
+    var wrapper = Ti.UI.createView({
+      width: Ti.UI.SIZE,
+      height: __l(26)
+    })
+    var check = new CheckBox({
+      top : 0,
+      left: __l(2),
+      height :__l(26),
+      width : __l(26),
+      right : 0
+    })
+    check.view.t = types[i]
+    check.view.addEventListener("click", function(e){
+      set_textarea(e.source);
+    })
+    checks.push(check)
+    wrapper.add(check.view)
+    wrapper.add(Ti.UI.createLabel({
+      color: '#333',
+      left: __l(30),
+      height: __l(26),
+      width: Ti.UI.SIZE,
+      font: {fontSize: __l(12)},
+      text: types[i]
+    }))
+    w2.add(wrapper)
+  }
+
+  var textarea = Titanium.UI.createTextArea({
+    value : "#<%= @pk.title %>#",
+    height : __l(80),
+    editable : false,
+    left : __l(4),
+    right : __l(4),
+    top : __l(4),
+    bottom: __l(4),
+    textAlign : 'left',
+    borderRadius : __l(8),
+    backgroundColor : 'white',
+    returnKeyType: Titanium.UI.RETURNKEY_DONE,
+    font : {
+      fontSize : __l(15)
+    }
+  });
+  if (Ti.App.is_ipad){
+    textarea.width = __l(300)
+  }
+  w1.add(w2)
+
+  var w2 = Ti.UI.createView({
+    left: 0,
+    top: __l(10),
+    right: 0,
+    height: Ti.UI.SIZE,
+    layout: 'vertical'
+  })
+  w2.add(Ti.UI.createLabel({
+    color: '#333',
+    left: __l(6),
+    right: __l(6),
+    height: Ti.UI.SIZE,
+    width: Ti.UI.SIZE,
+    font: {fontSize: __l(13)},
+    text: "2、<%= @pk.photo_desc %>"
+  }))
+
+  var preview = Ti.UI.createImageView({
+    left: Ti.App.platform_width/2 - __l(70),
+    top: __l(6),
+    bottom: __l(6),
+    width: __l(140),
+    height: Ti.UI.SIZE
+  });
+  preview.addEventListener("click", function(e){
+    if (Ti.App.is_android){
+      Ti.App.fireEvent("showPicture", {
+        src : preview.image
+      });
+    }
+  })
+  preview.hide();
+  w2.add(preview);
+
+  var w3 = Ti.UI.createView({
+    top: 0,
+    left: 0,
+    right: 0,
+    height: Ti.UI.SIZE
+  })
+  w2.add(w3)
+
+  var btn = Ti.UI.createButton({
+    title : "选择照片",
+    top: __l(10),
+    left: __l(80),
+    height: __l(26),
+    width: __l(70),
+    font: {fontSize: __l(12)},
+    color: "white"
+  });
+  pre_btn(btn)
+  btn.addEventListener("click", function(e){
+    var count = 0;
+    for(var i=0; i<checks.length; i++){
+      if (checks[i].view.value && checks[i].view.value != 0){		//选中了
+        count += 1;
+      }
+    }
+
+    if (count == 0){
+      show_alert("提示", "亲，请先选择类型哦！");
+      return;
+    }
+
+    if (!check_login()){
+      to_login();
+      return;
+    }
+
+    select_photo(false, function(image, file){
+      preview.image = image;
+      preview.show();
+      preview.height = Ti.UI.SIZE;
+    })
+  })
+  w3.add(btn)
+
+  var btn2 = Ti.UI.createButton({
+    title : "提交",
+    top: __l(10),
+    left: __l(180),
+    height: __l(26),
+    width: __l(70),
+    font: {fontSize: __l(12)},
+    color: "white"
+  });
+  btn2.addEventListener("click", function(e){
+    if (!check_login()){
+      to_login();
+      return;
+    }
+
+    if (!preview.image){
+      show_alert("提示", "请选择照片");
+      return;
+    }
+
+    var count = 0;
+    for(var i=0; i<checks.length; i++){
+      if (checks[i].view.value && checks[i].view.value != 0){		//选中了
+        count += 1;
+      }
+    }
+
+    if (count == 0){
+      show_alert("提示", "亲，请先选择类型哦！");
+      return;
+    }
+
+    var xhr = Ti.Network.createHTTPClient()
+    xhr.timeout = Ti.App.timeout
+    xhr.onerror = function() {
+      show_alert("提示", "对不起，图片上传失败");
+    }
+    xhr.onload = function() {
+      hide_loading();
+      if (this.responseText[0] != "{"){
+        show_alert("提示", this.responseText);
+      }
+      else{
+        show_alert("提示", "亲，图片上传成功！");
+        win.json = JSON.parse(this.responseText)
+      }
+    };
+    var url = Ti.App.mamashai + "/api/event/upload_baba?huodong_id=<%= @pk.num %>&" + account_str();
+    xhr.open('POST', url);
+    xhr.send({
+      pic: preview.image,
+      status: textarea.value
+    });
+    show_loading("正在上传")
+  })
+  pre_btn(btn2)
+  w3.add(btn2)
+
+  w1.add(w2)
+
+
+  w1.add(Ti.UI.createLabel({
+    color: '#333',
+    top: __l(10),
+    left: __l(6),
+    right: __l(6),
+    height: Ti.UI.SIZE,
+    width: Ti.UI.SIZE,
+    font: {fontSize: __l(13)},
+    text: "3、发送到微信朋友圈"
+  }))
+
+  var w2 = Ti.UI.createView({
+    left: 0,
+    top: __l(10),
+    bottom: __l(10),
+    right: 0,
+    height: Ti.UI.SIZE,
+    layout: 'horizontal'
+  })
+
+  var btn = Ti.UI.createButton({
+    title : "发到微信 ",
+    left: __l(130),
+    height: __l(26),
+    width: __l(70),
+    font: {fontSize: __l(12)},
+    color: "white"
+  });
+  pre_btn(btn)
+  w2.add(btn)
+  btn.addEventListener("click", function(e){
+    if (!check_login()){
+      to_login();
+      return;
+    }
+
+    if (!win.json){
+      var xhr = Ti.Network.createHTTPClient()
+      xhr.timeout = Ti.App.timeout
+      xhr.onerror = function() {
+        show_alert("提示", "对不起，图片上传失败");
+      }
+      xhr.onload = function() {
+        var json = JSON.parse(this.responseText);
+        if (json.length == 0){
+          show_alert("提示", "对不起，您还没有上传图片");
+        }
+        else{
+          win.json = json[0];
+          var tiwechat = require('com.mamashai.tiwechat');
+          tiwechat.exampleProp = Ti.App.wechat_key;
+          tiwechat.shareTimeline(win.json.content, win.title, "http://www.mamashai.com/mobile/post/" + win.json.id, "http://www.mamashai.com" + win.json.user.logo_url_thumb48);
+        }
+      };
+      var url = Ti.App.mamashai + "/api/statuses/user_timeline?" + account_str();
+      xhr.open('POST', url);
+      xhr.send({
+        cond: "`from`='huodong' and from_id = <%= @pk.num %>"
+      })
+    }
+    else{
+      var tiwechat = require('com.mamashai.tiwechat');
+      tiwechat.exampleProp = Ti.App.wechat_key;
+      tiwechat.shareTimeline(win.json.content, win.title, "http://www.mamashai.com/mobile/post/" + win.json.id, "http://www.mamashai.com" + win.json.user.logo_url_thumb48);
+    }
+
+    var url = "http://www.mamashai.com/api/event/share_weixin?huodong_id=<%= @pk.id %>&" + account_str();
+    http_call(url, function(e){
+    })
+  })
+
+  w1.add(w2)
+
+  wrapper_main.add(w)
+
+  var wrapper2 = Ti.UI.createView({
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    backgroundColor : '#FFF'
+  })
+
+  var data = [{text: "亮灯最多", value: 0}, {text: "最新参与", value: 1}, {text: "同龄", value: 2}, {text: "关注", value : 3}, {text: "我的", value: 4}];
+  var tab_container = TabBar.create_tab_bar(data)
+  tab_container.addEventListener("tab_click", function(e){
+    var url = ""
+    if (e.value == 0){
+      url = Ti.App.mamashai + "/api/event/baba?huodong_id=<%= @pk.num %>&tp=order"
+    }
+    else if (e.value == 1){
+      url = Ti.App.mamashai + "/api/event/baba?huodong_id=<%= @pk.num %>&tp=new"
+    }
+    else if (e.value == 2){
+      if (!check_login()){
+        to_login();
+        return
+      }
+
+      url = Ti.App.mamashai + "/api/event/baba?huodong_id=<%= @pk.num %>&tp=sameage&" + account_str()
+    }
+    else if (e.value == 3){
+      if (!check_login()){
+        to_login();
+        return;
+      }
+
+      url = Ti.App.mamashai + "/api/event/baba?huodong_id=<%= @pk.num %>&tp=follow&" + account_str()
+    }
+    else if (e.value == 4){
+      if (!check_login()){
+        to_login();
+        return;
+      }
+
+      url = Ti.App.mamashai + "/api/event/baba?huodong_id=<%= @pk.num %>&tp=my&" + account_str()
+    }
+
+    more_button.url = url;
+    more_button.page = 1;
+
+    wrapper2.remove(content_wrapper)
+    content_wrapper = null;
+
+    content_wrapper = Ti.UI.createScrollView({
+      top: tab_container.height,
+      left: 0,
+      right: 0,
+      bottom: 0,
+      contentWidth: Ti.App.platform_width,
+      contentHeight: 'auto',
+      layout: 'horizontal'
+    })
+    wrapper2.add(content_wrapper)
+
+    content_wrapper.has_more_button = false
+
+    var page = 1
+
+    http_call(url, set_content)
+  })
+  wrapper2.add(tab_container)
+
+  var more_button = Titanium.UI.createButton({
+    top : __l(20),
+    bottom : __l(20),
+    left : __l(40),
+    width : Ti.App.platform_width - __l(80),
+    height : __l(40),
+    title : "更多",
+    font : {fontSize: __l(18)},
+    page : 1,
+    url: ""
+  });
+  pre_btn(more_button)
+  more_button.addEventListener("click", function(e){
+    e.source.page += 1
+    e.source.title = "正在获取..."
+    http_call(e.source.url + "&page=" + e.source.page, set_content)
+  })
+
+  function set_content(e){
+    var json = JSON.parse(e.responseText);
+    if (content_wrapper.has_more_button){
+      content_wrapper.remove(more_button);
+    }
+
+    for(var i=0; i<json.length; i++){
+      var container = Ti.UI.createView({
+        top: __l(10),
+        left: (Ti.App.platform_width - __l(280))/3,
+        width: __l(140),
+        //height: __l(170),
+        height: Ti.UI.SIZE,
+        borderWidth: 1,
+        user_json: json[i].user,
+        borderColor: "#ccc",
+        layout: 'vertical'
+      })
+
+      var logo = Ti.UI.createImageView({
+        top: __l(0),
+        //left: __l(0),
+        //right: __l(0),
+        height: __l(100),
+        json: json[i].post,
+        image: "http://www.mamashai.com" + json[i].post.logo_url_thumb400
+      })
+      logo.addEventListener("click", function(e){
+        Ti.App.fireEvent("showPicture", {
+          src : "http://www.mamashai.com" + encodeURI(e.source.json.logo_url),
+          thumb_src : "http://www.mamashai.com" + encodeURI(e.source.json.logo_url_thumb400)
+        });
+      })
+      container.add(logo)
+
+      var user = Ti.UI.createLabel({
+        text: json[i].user.name,
+        font: {fontSize: __l(13)},
+        top: __l(4),
+        left: __l(4),
+        right: __l(4),
+        height: __l(20),
+        textAlign: "center",
+        color: Ti.App.bar_color,
+        selectedColor : Ti.App.bar_color,
+        backgroundColor: 'transparent',
+        backgroundSelectedImage: "/images/bj2.png",
+        id: json[i].user.id
+      })
+      user.addEventListener("touchstart", function(e){
+        e.source.backgroundColor = "#E5E7DF"
+      })
+      user.addEventListener("touchend", function(e){
+        e.source.backgroundColor = "transparent"
+      })
+      user.addEventListener("click", function(e) {
+        show_window("user", {
+          title: e.source.text,
+          id: e.source.id
+        })
+      })
+      container.add(user);
+
+      var label = Ti.UI.createLabel({
+        text: json[i].post.content.substring(json[i].post.content.indexOf("<%= @pk.post_desc %>")+<%= @pk.post_desc.length %>, json[i].post.content.indexOf("！")),
+        top: __l(0),
+        font: {fontSize: __l(13)},
+        height: __l(30),
+        textAlign: "center",
+        left: __l(4),
+        right: __l(4),
+        color: "#333"
+      })
+      container.add(label);
+
+      var w = Ti.UI.createView({
+        top: 0,
+        left: 0,
+        bottom: __l(4),
+        right: 0,
+        height: Ti.UI.SIZE,
+        layout: "horizontal"
+      })
+      var light = Ti.UI.createImageView({
+        left: __l(56),
+        image: "http://www.mamashai.com/images/bbrl/liang.png",
+        hirs: true,
+        height: __l(30),
+        width: __l(20),
+        id: json[i].id
+      });
+      light.addEventListener("click", function(e){
+        if (!check_login()){
+          to_login();
+          return
+        }
+        var xhr = Ti.Network.createHTTPClient()
+        xhr.onerror = function() {
+          show_timeout_dlg(xhr, url);
+        }
+        xhr.onload = function() {
+          hide_loading();
+          show_alert("提示", this.responseText);
+        };
+        var url = Ti.App.mamashai + "/api/event/light?huodong_id=<%= @pk.id %>&tp=light&baba_id=" + e.source.id + "&"+ account_str();
+        xhr.open('GET', url);
+        xhr.send();
+        show_loading("正在提交")
+      })
+      //w.add(light);
+
+      var light_label = Ti.UI.createLabel({
+        text: json[i].light_count,
+        bottom: __l(4),
+        font: {fontSize: __l(13)},
+        height: __l(16),
+        textAlign: "center",
+        left: __l(50),
+        width: __l(40),
+        color: "#333"
+      })
+      w.add(light_label);
+
+      container.add(w);
+
+      if (json[i].user_id == parseInt(user_id()) || Ti.App.Properties.getString("is_mms_admin", "false") == "true"){
+        var delete_btn = Ti.UI.createButton({
+          title: "删除",
+          left: __l(8),
+          font: {fontSize: __l(11)},
+          height: __l(22),
+          width: __l(80),
+          left: __l(30),
+          bottom: __l(10),
+          id: json[i].id,
+          wrapper: container
+        })
+        pre_btn(delete_btn)
+        delete_btn.addEventListener("click", function(e){
+          var alert_dialog = Titanium.UI.createAlertDialog({
+            title : "提示",
+            message : "确定要删除这张活动照片吗",
+            buttonNames : ['取消', '确定'],
+            cancel : 0
+          });
+          alert_dialog.addEventListener("click", function(e2){
+            if (e2.index == 1){
+              http_call("http://www.mamashai.com/api/event/delete_baba/" + e.source.id + "?" + account_str(), function(e1){
+                content_wrapper.remove(e.source.wrapper)
+                show_alert("提示", e1.responseText)
+              })
+            }
+          })
+          alert_dialog.show()
+        })
+        container.add(delete_btn)
+      }
+
+      content_wrapper.add(container)
+    }
+
+    if (json.length == 10){
+      more_button.title = "更多"
+      content_wrapper.add(more_button);
+      content_wrapper.has_more_button = true;
+    }
+
+  }
+
+  var content_wrapper = Ti.UI.createScrollView({
+    top: __l(54),
+    left: 0,
+    right: 0,
+    bottom: 0,
+    contentWidth: Ti.App.platform_width,
+    contentHeight: 'auto',
+    layout: 'horizontal'
+  })
+  wrapper2.add(content_wrapper)
+  tab_container.fireEvent("click", {index: 0});
+
+  var wrapper3 = Ti.UI.createScrollView({
+    top: 0,
+    left: 0,
+    right: 0,
+    contentHeight: 'auto',
+    bottom: 0,
+    backgroundColor : '#FFF',
+    layout: 'vertical'
+  })
+
+  var latest = [[29, 'baobao.jpg'], [28, 'tongche.jpg'], [27, 'xsz.jpg'], [26, 'sgm.jpg'], [25, 'hd.jpg'], [24, 'ssh.jpg'], [23, 'bbx.jpg'], [22, 'dslxs.jpg'], [21, 'wawj.jpg'], [20, 'lmkp.jpg'], [19, 'spring.jpg'], [18, 'cx.jpg'], [17, 'yichu.jpg'], [16, 'xy.jpg'], [15, "chuyi.jpg"], [14, "xl.jpg"], [13, "smr.jpg"], [12, "kiss.jpg"], [11, "dadu.jpg"], [10, 'nnds.jpg'], [9, "zghll.jpg"], [8, 'jthhr.jpg'], [7, 'zqc.jpg'], [6, 'bbzz.jpg']]
+  latest = (<%= @pks.reverse.map{|i| [i.num, i.calendar_adv.logo.filename]}.inspect.html_safe %>).concat(latest)
+
+  for(var i=0; i<latest.length; i++){
+    wrapper3.add(Ti.UI.createImageView({
+      left: 0,
+      right: 0,
+      top: 0,
+      width: Ti.App.platform_width,
+      id: latest[i][0],
+      height: __l(280)*Ti.App.platform_width/__l(640),
+      image: "http://www.mamashai.com/images/bbrl/" + latest[i][1]
+    }))
+  }
+
+  wrapper3.addEventListener("click", function(e){
+    var win = Ti.UI.createWindow({
+      title: '往期活动',
+      backButtonTitle : '返回',
+      backgroundColor : '#fff',
+      textAlign: 'center'
+    })
+    pre(win)
+    if (!Ti.App.is_android) {
+      win.hideTabBar();
+    }
+
+    var url = Ti.App.mamashai + "/api/event/baba?huodong_id=" + e.source.id + "&tp=order"
+
+    var more_button = Titanium.UI.createButton({
+      top : __l(20),
+      bottom : __l(20),
+      left : __l(40),
+      width : Ti.App.platform_width - __l(80),
+      height : __l(40),
+      title : "更多",
+      font : {fontSize: __l(18)},
+      page : 1,
+      url: ""
+    });
+    pre_btn(more_button)
+    more_button.addEventListener("click", function(e){
+      e.source.page += 1
+      e.source.title = "正在获取..."
+      http_call(e.source.url + "&page=" + e.source.page, set_content2)
+    })
+
+    more_button.url = url;
+    more_button.page = 1;
+
+    content_wrapper = Ti.UI.createScrollView({
+      top: 0,
+      left: 0,
+      right: 0,
+      bottom: 0,
+      contentWidth: Ti.App.platform_width,
+      contentHeight: 'auto',
+      layout: 'horizontal'
+    })
+    win.add(content_wrapper)
+
+    content_wrapper.has_more_button = false
+
+    var page = 1
+
+    function set_content2(e){
+      var json = JSON.parse(e.responseText);
+      if (content_wrapper.has_more_button){
+        content_wrapper.remove(more_button);
+      }
+
+      for(var i=0; i<json.length; i++){
+        var container = Ti.UI.createView({
+          top: __l(10),
+          left: (Ti.App.platform_width - __l(280))/3,
+          width: __l(140),
+          //height: __l(170),
+          height: Ti.UI.SIZE,
+          borderWidth: 1,
+          user_json: json[i].user,
+          borderColor: "#ccc",
+          layout: 'vertical'
+        })
+
+        var logo = Ti.UI.createImageView({
+          top: __l(0),
+          //left: __l(0),
+          //right: __l(0),
+          height: __l(100),
+          json: json[i].post,
+          image: "http://www.mamashai.com" + json[i].post.logo_url_thumb400
+        })
+        logo.addEventListener("click", function(e){
+          Ti.App.fireEvent("showPicture", {
+            src : "http://www.mamashai.com" + encodeURI(e.source.json.logo_url),
+            thumb_src : "http://www.mamashai.com" + encodeURI(e.source.json.logo_url_thumb400)
+          });
+        })
+        container.add(logo)
+
+        var user = Ti.UI.createLabel({
+          text: json[i].user.name,
+          font: {fontSize: __l(13)},
+          top: __l(4),
+          left: __l(4),
+          right: __l(4),
+          height: __l(20),
+          textAlign: "center",
+          color: Ti.App.bar_color,
+          selectedColor : Ti.App.bar_color,
+          backgroundColor: 'transparent',
+          backgroundSelectedImage: "/images/bj2.png",
+          id: json[i].user.id
+        })
+        user.addEventListener("touchstart", function(e){
+          e.source.backgroundColor = "#E5E7DF"
+        })
+        user.addEventListener("touchend", function(e){
+          e.source.backgroundColor = "transparent"
+        })
+        user.addEventListener("click", function(e) {
+          show_window("user", {
+            title: e.source.text,
+            id: e.source.id
+          })
+        })
+        container.add(user);
+
+        var w = Ti.UI.createView({
+          top: 0,
+          left: 0,
+          bottom: __l(4),
+          right: 0,
+          height: Ti.UI.SIZE,
+          layout: "horizontal"
+        })
+
+        var light_label = Ti.UI.createLabel({
+          text: json[i].light_count,
+          bottom: __l(4),
+          font: {fontSize: __l(13)},
+          height: __l(16),
+          textAlign: "center",
+          left: __l(50),
+          width: __l(40),
+          color: "#333"
+        })
+        w.add(light_label);
+
+        container.add(w);
+
+        content_wrapper.add(container)
+      }
+
+      if (json.length == 10){
+        more_button.title = "更多"
+        content_wrapper.add(more_button);
+        content_wrapper.has_more_button = true;
+      }
+
+    }
+
+    http_call(url, set_content2)
+
+    add_default_action_bar(win, win.title, true)
+
+    Ti.App.currentTabGroup.activeTab.open(win, {
+      animated : true
+    });
+  })
+
+  var scroll_wrapper = Titanium.UI.createScrollableView({
+    showPagingControl : false,
+    currentPage :0,
+    top: 0,
+    bottom: 0,
+    left: 0,
+    right: 0,
+    scrollingEnabled: false,
+    views: [wrapper1, wrapper2, wrapper3]
+  });
+
+  win.add(scroll_wrapper)
+
+  Ti.App.currentTabGroup.activeTab.open(win, {
+    animated : true
+  });
+})()
