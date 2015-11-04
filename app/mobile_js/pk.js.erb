@@ -168,7 +168,7 @@
       show_alert("提示", this.responseText);
       generate_pk();
     };
-    var url = Ti.App.mamashai + "/api/event/light?huodong_id=<%= @pk.id %>&tp=light&baba_id=" + e.source.id + "&"+ account_str();
+    var url = Ti.App.mamashai + "/api/event/light?huodong_id=<%= @pk.num %>&tp=light&baba_id=" + e.source.id + "&"+ account_str();
     xhr.open('GET', url);
     xhr.send();
   }
@@ -760,7 +760,7 @@
       tiwechat.shareTimeline(win.json.content, win.title, "http://www.mamashai.com/mobile/post/" + win.json.id, "http://www.mamashai.com" + win.json.user.logo_url_thumb48);
     }
 
-    var url = "http://www.mamashai.com/api/event/share_weixin?huodong_id=<%= @pk.id %>&" + account_str();
+    var url = "http://www.mamashai.com/api/event/share_weixin?huodong_id=<%= @pk.num %>&" + account_str();
     http_call(url, function(e){
     })
   })
@@ -959,7 +959,7 @@
           hide_loading();
           show_alert("提示", this.responseText);
         };
-        var url = Ti.App.mamashai + "/api/event/light?huodong_id=<%= @pk.id %>&tp=light&baba_id=" + e.source.id + "&"+ account_str();
+        var url = Ti.App.mamashai + "/api/event/light?huodong_id=<%= @pk.num %>&tp=light&baba_id=" + e.source.id + "&"+ account_str();
         xhr.open('GET', url);
         xhr.send();
         show_loading("正在提交")

@@ -38,9 +38,11 @@ class Pk < ActiveRecord::Base
     block = proc do
       arr = self.includes(:calendar_adv).where(calendar_advs: {status: [:online, :test]}).last(5).map do |i|
         attr = i.attributes.merge(end_date: 1.seconds.ago(i.end_date))
-        [i.id, attr]
+        [i.num, OpenStruct.new(attr)]
       end
-      arr.to_h
+      arr.inject({}) do |sum, item|
+        sum.merge(item.first => item.last )
+      end
     end
 
     if Rails.env.production?
