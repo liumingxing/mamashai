@@ -1,6 +1,6 @@
 <h1>修改广告</h1>
 
-<%= form_tag({:action => 'update', :id => @calendar_advs}, {:multipart=>true}) do %>
+<%= form_tag(mms_calendar_adv_path(@calendar_advs), method: :put, multipart: true) do %>
   <%= error_messages_for 'calendar_advs' %>
 
   <table class="ft" border="1">
@@ -14,6 +14,9 @@
       <td>Logo</td>
       <td>
         <%=upload_column_field :calendar_advs, :logo %>
+        <% if @calendar_advs.logo %>
+          <span>已上传：<%= @calendar_advs.logo.filename %></span>
+        <% end %>
       </td>
     </tr>
 

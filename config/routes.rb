@@ -69,6 +69,10 @@ Mamashai::Application.routes.draw do
 
   namespace :mms do 
     match "/" => "login#main"
+    resources :calendar_advs, only: [] do
+      get :list, on: :collection
+    end
+
     resources :calendar_advs do
       resources :pks, only: [:new, :edit, :update, :create, :destroy]
     end

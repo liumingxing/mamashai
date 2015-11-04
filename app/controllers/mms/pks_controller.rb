@@ -28,7 +28,7 @@ class Mms::PksController < Mms::MmsBackEndController
     respond_to do |format|
       if @pk.save
         text = get_dynamic_js
-        @pk.calendar_adv.update_column(url, text)
+        @pk.calendar_adv.update_column(:url, text)
         format.html { redirect_to edit_mms_calendar_adv_path(@calendar_adv), notice: 'Pk was successfully created.' }
         format.json { render json: @pk, status: :created, location: @pk }
       else

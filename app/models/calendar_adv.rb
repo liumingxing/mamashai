@@ -1,5 +1,5 @@
 class CalendarAdv < ActiveRecord::Base
-	validates_presence_of :logo, :message=>"必须要上传logo"
+	validate :logo_presence
 	
 	upload_column :logo, :versions=>{:thumb280=>"c640x280"}
 
@@ -8,6 +8,7 @@ class CalendarAdv < ActiveRecord::Base
 	after_save :upload_to_aliyun
 
 	def upload_to_aliyun
+		return unless Rails.env.production?
 	  return if !self.logo
 	  return if !File.exist?(self.logo.path)
 	    
@@ -16,6 +17,10 @@ class CalendarAdv < ActiveRecord::Base
 	    $connection.put("upload/calendaradv/#{self.id}/logo/#{self.logo.thumb280.filename}", File.open(self.logo.thumb280.path), {:content_type => self.logo.thumb280.extension.downcase == 'png' ? "image/png" : "image/jpeg"})
 	  rescue
 	  end
+	end
+
+	def logo_presence
+		errors.add(:logo, "必须要上传logo") unless logo?
 	end
 
 	def logo_thumb280
