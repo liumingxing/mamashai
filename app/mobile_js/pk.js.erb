@@ -159,9 +159,11 @@
       to_login();
       return
     }
+    e.source.image = "http://www.mamashai.com/images/bbrl/d-liang.png"
     var xhr = Ti.Network.createHTTPClient()
     xhr.onerror = function() {
       show_timeout_dlg(xhr, url);
+      e.source.image = "http://www.mamashai.com/images/bbrl/liang.png"
     }
     xhr.onload = function() {
       hide_loading();
@@ -219,8 +221,6 @@
       })
       var logo1 = Ti.UI.createImageView({
         top: __l(0),
-        //left: __l(0),
-        //right: __l(0),
         height: __l(140),
         json: json[0].post,
         image: "http://www.mamashai.com" + json[0].post.logo_url_thumb400
