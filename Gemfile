@@ -20,12 +20,11 @@ gem 'yajl-ruby', :require => "yajl"
 gem 'rpush', '1.0.0'
 gem 'rest-client', '1.6.7'
 gem 'hanzi_to_pinyin'
-gem 'memcached'
-gem 'memcache-client'
 gem 'elasticsearch'
 gem 'elasticsearch-rails'
 gem 'elasticsearch-model'
-
+gem 'clockwork'
 gem 'test-unit'
+gem 'dalli'
 
 #gem 'exception_logger', :git => 'git://github.com/jchunky/exception_logger.git'

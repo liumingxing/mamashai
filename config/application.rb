@@ -65,7 +65,6 @@ module Mamashai
     config.middleware.delete 'Rack::ETag'    # HTTP客户端缓存才会使用
     config.middleware.delete 'ActionDispatch::BestStandardsSupport' 
 
-    $cache = Memcached.new("www.mamashai.com")
   end
 
   RAILS_ROOT = ::Rails.root.to_s

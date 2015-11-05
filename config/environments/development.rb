@@ -33,9 +33,7 @@ Mamashai::Application.configure do
 
 	#config.gem 'rack-rewrite', '~> 0.2.1'
 	#require 'rack-rewrite'
-
-	config.cache_store = :mem_cache_store, "127.0.0.1"
-
+  
 
 	#config.middleware.insert_before(::Rack::Lock, ::Rack::Rewrite) do
 	#  r302 %r{^#{WEB_ROOT}/images/(.*)}, "#{file_root}/images/$1"
