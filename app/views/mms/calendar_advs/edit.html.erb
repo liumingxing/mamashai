@@ -70,7 +70,22 @@
       </td>
     </tr>
     <% end %>
-    <!--[eoform:calendar_advs]-->
+
+    <tr>
+      <td>采用手动控制上下线的方式</td>
+      <td>
+        <%= check_box "calendar_advs", 'manually' %>
+      </td>
+    </tr>
+
+    <tr>
+      <td>自动上下线日期（手动控制上下线时无效）</td>
+      <td>
+        <%= date_select "calendar_advs", 'start_date',  {use_month_numbers: true} %>
+        至
+        <%= date_select "calendar_advs", 'end_date', {use_month_numbers: true, default: 7.days.from_now} %>
+      </td>
+    </tr>
 
   </table>
   <%= submit_tag '保存' %> | <%= link_to '返回', :action => 'list' %>

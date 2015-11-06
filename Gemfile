@@ -1,4 +1,8 @@
-source 'http://rubygems.org'
+if ENV['USE_OFFICIAL_GEM_SOURCE']
+  source 'http://rubygems.org'
+else
+  source 'https://ruby.taobao.org'
+end
 
 gem 'rails', '3.2.15'
 
@@ -26,5 +30,10 @@ gem 'elasticsearch-model'
 gem 'clockwork'
 gem 'test-unit'
 gem 'dalli'
+gem 'default_value_for'
+group :development do
+  gem 'thin'
+  gem 'byebug'
+end
 
 #gem 'exception_logger', :git => 'git://github.com/jchunky/exception_logger.git'

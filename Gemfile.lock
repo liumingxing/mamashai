@@ -1,5 +1,5 @@
 GEM
-  remote: http://rubygems.org/
+  remote: https://ruby.taobao.org/
   specs:
     actionmailer (3.2.15)
       actionpack (= 3.2.15)
@@ -31,6 +31,7 @@ GEM
     addressable (2.3.7)
     arel (3.0.3)
     builder (3.0.4)
+    byebug (6.0.2)
     climate_control (0.0.3)
       activesupport (>= 3.0)
     clockwork (1.2.0)
@@ -40,7 +41,10 @@ GEM
       climate_control (>= 0.0.3, < 1.0)
     crack (0.4.2)
       safe_yaml (~> 1.0.0)
+    daemons (1.2.3)
     dalli (2.7.4)
+    default_value_for (3.0.1)
+      activerecord (>= 3.2.0, < 5.0)
     descendants_tracker (0.0.4)
       thread_safe (~> 0.3, >= 0.3.1)
     dynamic_form (1.1.4)
@@ -58,6 +62,7 @@ GEM
       faraday
       multi_json
     erubis (2.7.0)
+    eventmachine (1.0.8)
     faraday (0.9.1)
       multipart-post (>= 1.2, < 3)
     ftools (0.0.0)
@@ -169,6 +174,10 @@ GEM
     state_machine (1.2.0)
     test-unit (3.0.8)
       power_assert
+    thin (1.6.4)
+      daemons (~> 1.0, >= 1.0.9)
+      eventmachine (~> 1.0, >= 1.0.4)
+      rack (~> 1.0)
     thor (0.19.1)
     thread_safe (0.3.5)
     tilt (1.4.1)
@@ -193,8 +202,10 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  byebug
   clockwork
   dalli
+  default_value_for
   dynamic_form
   elasticsearch
   elasticsearch-model
@@ -214,6 +225,7 @@ DEPENDENCIES
   sqlite3
   state_machine (= 1.2.0)
   test-unit
+  thin
   weibo
   will_paginate (~> 3.0.5)
   yajl-ruby
