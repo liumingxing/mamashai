@@ -17,7 +17,7 @@ class CalendarAdv < ActiveRecord::Base
 				adv.save if adv.changed?
 			end
 
-			if 1.seconds.ago(adv.end_date) <= Time.now
+			if 86399.seconds.since(adv.end_date) <= Time.now
 				adv.status = 'offline'
 				adv.save if adv.changed?
 			end

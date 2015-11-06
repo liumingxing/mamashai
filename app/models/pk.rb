@@ -37,7 +37,7 @@ class Pk < ActiveRecord::Base
 
     block = proc do
       arr = self.includes(:calendar_adv).where(calendar_advs: {status: [:online, :test]}).last(5).map do |i|
-        attr = i.attributes.merge(end_date: 1.seconds.ago(i.end_date))
+        attr = i.attributes.merge(end_date: 86399.seconds.since(i.end_date))
         [i.num, OpenStruct.new(attr)]
       end
       arr.inject({}) do |sum, item|
