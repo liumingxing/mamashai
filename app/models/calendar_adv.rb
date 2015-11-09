@@ -11,7 +11,6 @@ class CalendarAdv < ActiveRecord::Base
 
 	def self.synchronize_status
 		where(manually: false).where('status <> ?', 'test').each do |adv|
-			byebug
 			if (Time.now > adv.start_date) && (Time.now < adv.end_date)
 				adv.status = 'online'
 				adv.save if adv.changed?
