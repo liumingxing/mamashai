@@ -270,7 +270,8 @@ class Post < ActiveRecord::Base
         post.video_url = VideoUrl.create(:url=>post.video_link,:user_id=>user.id)
       end
       unless post.new_video_link.blank?
-        post.from_id = Video.connection.insert("INSERT INTO videos (path, url, user_id, created_at, updated_at) VALUES ('video.mp4', '#{post.new_video_link}', #{user.id}, NOW(), NOW())")
+        insert_sql = ActiveRecord::Base::sanitize(post.new_video_link).gsub(/^\'|^\"|\'$|\"$/, '')
+        post.from_id = Video.connection.insert("INSERT INTO videos (path, url, user_id, created_at, updated_at) VALUES ('video.mp4', '#{insert_sql}', #{user.id}, NOW(), NOW())")
         post.from = 'video'
       end
       post.content = MamashaiTools::TextUtil.gsub_dirty_words(post.content)
