@@ -1961,7 +1961,7 @@ class Api::StatusesController < Api::ApplicationController
     advs = nil
     topic = WeekTag.first(:conditions=>"current = 1")
     if request.env['HTTP_USER_AGENT'] && (request.env['HTTP_USER_AGENT'].downcase.include?('iphone') || request.env['HTTP_USER_AGENT'].downcase.include?('ipad'))
-      if params[:tp] == "test" && params[:app] != "com.mamashai.yunfree"
+      if params[:tp] == "test"
         advs = CalendarAdv.all(:order=>"position, id desc", :conditions=>"(only = '' or only = 'iphone') and (status='test' or status='online')")
         render :json => {:advs=>advs, :topic=>topic} and return
       else
@@ -1973,7 +1973,7 @@ class Api::StatusesController < Api::ApplicationController
         #advs = CalendarAdv.normal.all(:conditions=>"only = '' or only is null or only = 'iphone'")
       end
     else
-      if params[:tp] == "test"  && params[:app] != "com.mamashai.yunfree"
+      if params[:tp] == "test"
         advs = CalendarAdv.all(:order=>"position, id desc", :conditions=>"(only = '' or only = 'android') and (status='test' or status='online')")
         render :json => {:advs=>advs, :topic=>topic} and return
       else
