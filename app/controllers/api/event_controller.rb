@@ -208,6 +208,10 @@ class Api::EventController < Api::ApplicationController
 				babas = ZhantingBaba.all(:group=>"user_id", :conditions=>"huodong_id=#{params[:huodong_id]} and post_id not in (#{ids})", :limit=>2, :order=>"rand()")
 			end
 
+			if babas.size < 2
+				babas = ZhantingBaba.all(:group=>"user_id", :conditions=>"huodong_id=#{params[:huodong_id]} and post_id not in (#{ids})", :limit=>2, :order=>"rand()")
+			end
+
 			render :json=>{:error=>"参赛数量还不足，无法PK"} and return if babas.size < 2;
 			render :json=>babas
 		else
@@ -219,17 +223,18 @@ class Api::EventController < Api::ApplicationController
 
 	#分享了微信朋友圈，该给豆了
 	def share_weixin
-		if Time.new.to_s(:db) > "2015-10-25 00:00:00"
+		huodong = Pk.latest_end_time[params[:huodong_id].to_i]
+		if Time.new.to_s(:db) > huodong.end_date.to_s(:db) #"2015-10-25 00:00:00"
 			render :text=>"finished" and return
 		end
 
-		if ScoreEvent.find(:first, :conditions=>"user_id = #{@user.id} and event = 'join_byb'")
+		if ScoreEvent.find(:first, :conditions=>"user_id = #{@user.id} and event = 'join_pk_#{huodong.id}'")
 			render :text=>"repeat" and return;
 		end
 
 		code = CommandCode.new
-		code.code = %Q!if ScoreEvent.find(:first, :conditions=>"user_id = #{@user.id} and event = 'join_byb'") == nil
-				Mms::Score.trigger_event(:join_byb, '参与抱一抱活动', 15, 1, {:user => User.find(#{@user.id})});
+		code.code = %Q!if ScoreEvent.find(:first, :conditions=>"user_id = #{@user.id} and event = 'join_pk_#{huodong.id}'") == nil
+				Mms::Score.trigger_event(:join_pk_#{huodong.id}, '参与#{huodong.title}活动', 15, 1, {:user => User.find(#{@user.id})});
 			end
 		!
 		code.after = Time.now.since(10.minutes)
@@ -257,7 +262,8 @@ class Api::EventController < Api::ApplicationController
 	end
 
 	def light
-		if Time.new.to_s(:db) > "2015-10-25 00:00:00"
+		huodong = Pk.latest_end_time[params[:huodong_id].to_i]
+		if Time.new.to_s(:db) > huodong.end_date.to_s(:db)
 			render :text=>"活动已结束" and return
 		end
 
@@ -270,14 +276,14 @@ class Api::EventController < Api::ApplicationController
 		end
 		
 		ZhantingFlower.create(:post_id=>baba.post_id, :user_id=>@user.id, :tp=>params[:tp], :huodong_id=>baba.huodong_id)
-		MamashaiTools::ToolUtil.push_aps(baba.user_id, "亲，#{@user.name}给您的抱一抱照点了个亮灯！")
+		MamashaiTools::ToolUtil.push_aps(baba.user_id, "亲，#{@user.name}给您的#{huodong.title}照点了个亮灯！")
 		baba.light_count = ZhantingFlower.count(:conditions=>"post_id=#{baba.post_id} and tp='light'")
 		baba.save
 
 		count = ZhantingFlower.count(:conditions=>"user_id = #{@user.id} and created_at > '#{Time.new.beginning_of_day}'");
 		if count == 15 || count == 30 
-			if ScoreEvent.count(:conditions=>"event='byb_light' and user_id = #{@user.id} and created_day = '#{Time.new.to_date.to_s}'")<2
-				Mms::Score.trigger_event(:byb_light, '晒抱一抱活动点灯15次', 1, 1, {:user => @user});
+			if ScoreEvent.count(:conditions=>"event='pk_light_#{huodong.id}' and user_id = #{@user.id} and created_day = '#{Time.new.to_date.to_s}'")<2
+				Mms::Score.trigger_event("pk_light_#{huodong.id}".to_sym, "晒#{huodong.title}活动点灯15次", 1, 1, {:user => @user});
 			end
 		end
 

@@ -1,0 +1,69 @@
+<%= form_for ['mms', @calendar_adv, @pk] do |f| %>
+  <%= error_messages_for 'pks', :object => @pk%>
+
+  <table class="ft" border="1">
+    <tr>
+      <td>标题</td>
+      <td><%= f.text_field :title  %></td>
+    </tr>
+
+    <tr>
+      <td>期号</td>
+      <td><%= f.number_field :num  %></td>
+    </tr>
+
+    <tr>
+      <td>粗略描述</td>
+      <td><%= f.text_field :bold_desc  %></td>
+    </tr>
+
+    <tr>
+      <td>开始日期</td>
+      <td><%= f.date_select :start_date %></td>
+    </tr>
+
+    <tr>
+      <td>结束日期</td>
+      <td><%= f.date_select :end_date %></td>
+    </tr>
+
+    <tr>
+      <td>结果公布日期</td>
+      <td><%= f.date_select :result_date %></td>
+    </tr>
+
+    <tr>
+      <td>奖励办法</td>
+      <td><%= f.text_area :reward %></td>
+    </tr>
+
+    <tr>
+      <td>参与方式描述1</td>
+      <td><%= f.text_area :participate_desc %></td>
+    </tr>
+
+    <tr>
+      <td>最多选择多少项</td>
+      <td><%= f.number_field :max_select %></td>
+    </tr>
+
+    <tr>
+      <td>选项列表</td>
+      <td><%= f.text_area :select_list %></td>
+    </tr>
+
+    <tr>
+      <td>照片说明文字</td>
+      <td><%= f.text_area :photo_desc %></td>
+    </tr>
+
+    <tr>
+      <td>post文字</td>
+      <td><%= f.text_field :post_desc %></td>
+    </tr>
+  </table>
+  <div class="actions">
+    <%= f.submit '提交'%>
+    <%= link_to '返回', edit_mms_calendar_adv_path(@calendar_adv) %>
+  </div>
+<% end %>

@@ -673,6 +673,7 @@ class Api::StatusesController < Api::ApplicationController
     render :json=>posts
   end
 
+  # 用于获取用户发过的posts，可以传参筛选。
   def user_timeline
     params[:per_page] = params[:count]||10
     if params[:id]

@@ -82,7 +82,7 @@ class Post < ActiveRecord::Base
   
   upload_column :logo, :process => '1024x4000', :versions => {:thumb60 => "60x200", :thumb120 => "1200x240", :thumb400 => "1000x600"}, :store_dir=>proc{|post, file| "post/#{post.created_at.strftime("%Y-%m-%d")}/#{post.id}/logo" }
                            
-  attr_accessor :video_link,:long_content
+  attr_accessor :video_link,:long_content, :new_video_link
 
   attr_accessor :lon,:lat
   
@@ -268,6 +268,11 @@ class Post < ActiveRecord::Base
       post.user = user
       unless post.video_link.blank?
         post.video_url = VideoUrl.create(:url=>post.video_link,:user_id=>user.id)
+      end
+      unless post.new_video_link.blank?
+        insert_sql = ActiveRecord::Base::sanitize(post.new_video_link).gsub(/^\'|^\"|\'$|\"$/, '')
+        post.from_id = Video.connection.insert("INSERT INTO videos (path, url, user_id, created_at, updated_at) VALUES ('video.mp4', '#{insert_sql}', #{user.id}, NOW(), NOW())")
+        post.from = 'video'
       end
       post.content = MamashaiTools::TextUtil.gsub_dirty_words(post.content)
       post.save

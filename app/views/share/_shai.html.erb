@@ -73,6 +73,10 @@
                                           <%= upload_column_field :post, :logo, :style=>"opacity: 0; filter:alpha(opacity=0); cursor: pointer;margin-left:-5px;width:20px;", :hideFocus=>"true", :onchange=>"$('#upload_logo').attr('src', '/images/icon_04.png')" %>
 					</span>
 				</li>
+        <li id="li4">
+          <div id="hidden_video_link" style="display: none;"><textarea  cols="30" rows="10"l name="post[new_video_link]"></textarea></div>
+          <a href="javascript:void(0)" onclick="$.dialog({id: 'video_link', title: '视频外链', content: document.getElementById('hidden_video_link'), follow: document.getElementById('video_link'), width: 400, okVal: '确定', ok: true, cancelVal: '取消', cancel: function() {$('div#hidden_video_link textarea').val('')}})" id="video_link">video</a>
+        </li>
 				<li id="li5">
 					<a href="javascript:void(0)" onclick="insert_topic($('#post_content').get(0))"><img src="/images/icon_05.jpg"/></a>
 				</li>
@@ -100,6 +104,9 @@
 	</div>
 	<div class="clear"></div>
 	<% end %>
+</div>
+<div>
+
 </div>
 
 <div class="clear"></div>

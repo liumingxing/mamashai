@@ -1,7 +1,93 @@
 <h1>修改广告</h1>
 
-<%= form_tag({:action => 'update', :id => @calendar_advs}, {:multipart=>true}) do %>
-  <%= render :partial => 'form' %>
+<%= form_tag(mms_calendar_adv_path(@calendar_advs), method: :put, multipart: true) do %>
+  <%= error_messages_for 'calendar_advs' %>
+
+  <table class="ft" border="1">
+    <!--[form:calendar_advs]-->
+    <tr>
+      <td>名称</td>
+      <td><%= text_field 'calendar_advs', 'name'  %></td>
+    </tr>
+
+    <tr>
+      <td>Logo</td>
+      <td>
+        <%=upload_column_field :calendar_advs, :logo %>
+        <% if @calendar_advs.logo %>
+          <span>已上传：<%= @calendar_advs.logo.filename %></span>
+        <% end %>
+      </td>
+    </tr>
+
+    <tr>
+      <td>类别</td>
+      <td>
+        <%= select "calendar_advs", 'tp', [['应用内弹出',2], ['新弹出', 1], ['执行代码', 3], ['网页', 4], ] %>
+      </td>
+    </tr>
+
+    <tr>
+      <td>图片或网页url,点击事件代码</td>
+      <td><%= text_area 'calendar_advs', 'url', {:rows=>5}  %></td>
+    </tr>
+
+    <tr>
+      <td>执行代码</td>
+      <td><%= text_area 'calendar_advs', 'code', {:rows=>5}  %></td>
+    </tr>
+
+    <tr>
+      <td>排序</td>
+      <td><%= text_field 'calendar_advs', 'position'  %></td>
+    </tr>
+
+    <tr>
+      <td>平台</td>
+      <td><%= text_field 'calendar_advs', 'only'  %> (iphone / android / 不填则通用)</td>
+    </tr>
+
+    <tr>
+      <td>客户代码</td>
+      <td><%= text_field 'calendar_advs', 'client'  %></td>
+    </tr>
+
+    <tr>
+      <td>状态</td>
+      <td>
+        <%= select "calendar_advs", 'status', [['上线', 'online'], ['下线', 'offline'], ['测试', 'test']] %>
+      </td>
+    </tr>
+    <% if @calendar_advs.tp == 3 %>
+    <tr>
+      <td>设为pk活动</td>
+      <td>
+        <% if @calendar_advs.pk.present? %>
+          <%= link_to '设置pk参数', edit_mms_calendar_adv_pk_path(@calendar_advs, @calendar_advs.pk) %>
+        <% else %>
+          <%= link_to '设置pk参数', new_mms_calendar_adv_pk_path(@calendar_advs) %>
+        <% end %>
+      </td>
+    </tr>
+    <% end %>
+
+    <tr>
+      <td>采用手动控制上下线的方式</td>
+      <td>
+        <%= check_box "calendar_advs", 'manually' %>
+      </td>
+    </tr>
+
+    <tr>
+      <td>自动上下线日期（手动控制上下线时无效）</td>
+      <td>
+        <%= date_select "calendar_advs", 'start_date',  {use_month_numbers: true} %>
+        至
+        <%= date_select "calendar_advs", 'end_date', {use_month_numbers: true, default: 7.days.from_now} %>
+      </td>
+    </tr>
+
+  </table>
   <%= submit_tag '保存' %> | <%= link_to '返回', :action => 'list' %>
 <% end %>
 
