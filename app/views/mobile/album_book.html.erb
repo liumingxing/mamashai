@@ -143,7 +143,7 @@
 
   slider.setPhotos([
      <% 0.upto(@json['pages'].size-1) do |i|%>
-      { "src" : "http://mamashai-videos.oss-cn-qingdao.aliyuncs.com/upload/album_book/<%= @book.created_at.to_date.to_s %>/<%= @book.id %>/<%= i %>.jpg"},
+      { "src" : "http://mamashai-videos.oss-cn-qingdao.aliyuncs.com/upload/album_book/<%= @book.created_at.to_date.to_s(:db) %>/<%= @book.id %>/<%= i %>.jpg"},
     <% end %>
       { "src" : "/images/album_book/finished.jpg"}
   ]);
