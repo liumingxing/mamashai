@@ -1048,8 +1048,14 @@
 
   var latest = [[29, 'baobao.jpg'], [28, 'tongche.jpg'], [27, 'xsz.jpg'], [26, 'sgm.jpg'], [25, 'hd.jpg'], [24, 'ssh.jpg'], [23, 'bbx.jpg'], [22, 'dslxs.jpg'], [21, 'wawj.jpg'], [20, 'lmkp.jpg'], [19, 'spring.jpg'], [18, 'cx.jpg'], [17, 'yichu.jpg'], [16, 'xy.jpg'], [15, "chuyi.jpg"], [14, "xl.jpg"], [13, "smr.jpg"], [12, "kiss.jpg"], [11, "dadu.jpg"], [10, 'nnds.jpg'], [9, "zghll.jpg"], [8, 'jthhr.jpg'], [7, 'zqc.jpg'], [6, 'bbzz.jpg']]
   latest = (<%= @pks.reverse.map{|i| [i.num, i.calendar_adv.logo.filename]}.inspect.html_safe %>).concat(latest)
-
+  var new_pk_image_urls = <%= @pks.map{|i| {i.num => "http://www.mamashai.com/upload/calendaradv/#{i.calendar_adv_id}/logo/#{i.calendar_adv.logo.filename}"}}.inject({}) {|sum, i| sum.merge(i)}.to_json.html_safe %>
   for(var i=0; i<latest.length; i++){
+    var image_url
+    if (latest[i][0] > 29) {
+      image_url = new_pk_image_urls[latest[i][0].toString()]
+    } else {
+      image_url = "http://www.mamashai.com/images/bbrl/" + latest[i][1]
+    }
     wrapper3.add(Ti.UI.createImageView({
       left: 0,
       right: 0,
@@ -1057,7 +1063,7 @@
       width: Ti.App.platform_width,
       id: latest[i][0],
       height: __l(280)*Ti.App.platform_width/__l(640),
-      image: "http://www.mamashai.com/images/bbrl/" + latest[i][1]
+      image: image_url
     }))
   }
 
