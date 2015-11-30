@@ -49,16 +49,31 @@ function Ddh(attr){
 					showVerticalScrollIndicator : true
 				});
 				get_win.add(scrollView);
+
+				var footer = Ti.UI.createView({
+         height: __l(40)
+        })
+        footer.add(Ti.UI.createLabel({
+        	left : 10,
+        	height: 70,
+        	color: 'red',
+        	font : {
+						fontSize : __l(14)
+					},
+          text: "请确保以上信息完整准确，否则造成错投、退件等将不再补发、退豆。"
+        }))
+
 				var tableview = Titanium.UI.createTableView({
 					style : Titanium.UI.iPhone.TableViewStyle.GROUPED,
 					backgroundColor : 'transparent',
 					rowBackgroundColor : 'white',
 					top : __l(0),
-					height: __l(320),
+					height: __l(370),
 					scrollable: false,
-					left : 0
+					left : 0,
+					footerView : footer
 				});
-				
+
 				var name = Ti.UI.createTableViewRow({
 					height : 'auto',
 					selectedBackgroundColor : "#E8E8E8",
