@@ -1862,6 +1862,24 @@ class Api::StatusesController < Api::ApplicationController
     if @user.score < ddh.score
       render :text=>"对不起，您的晒豆数不够" and return;
     end
+
+    if 1307 == ddh.id
+      date_array = @user.posts.where(['created_at >= ? and created_at <= ?', '2015-12-5', '2016-12-4']).where(is_private: false).where(is_hide: false).where('logo is not null').reorder(:id).pluck(:created_at)
+      is_ok = false
+      date_array = date_array.map(&:to_date).uniq.reverse
+      hash = {}
+      date_array.each_with_index do |date, index|
+        if index == 0 || (date_array[index-1] - date).to_i != 1
+          hash[date] ||= 1
+        else
+          hash[hash.keys.last] += 1
+        end
+      end
+      is_ok = true if hash.values.any? {|num| num >= 199}
+      unless is_ok
+        render :text=>"对不起，您的连续活跃天数不足199天，目前还差#{199-(hash.values.first||0)}天" and return;
+      end
+    end
     
     ddh.reload
     if ddh.remain > 0
