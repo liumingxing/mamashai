@@ -262,11 +262,7 @@ function Ddh_rule(){
 			backgroundColor : '#fff',
 			backButtonTitle : !Ti.App.is_android && Ti.App.osversion < "7.0" ? '返回' : ''
 	});
-	var right = Ti.UI.createButton({title: "排行榜"})
-	right.addEventListener("click", function(e){
-		alert("100")
-	})
-	win.setRightNavButton(right);
+
 	
 	var tableview = Titanium.UI.createTableView({
 		style : Titanium.UI.iPhone.TableViewStyle.GROUPED,
@@ -693,10 +689,6 @@ function Ddh_rule(){
 	win.add(tableview)
 	
 	logEvent('ddh_rules');
-	
-	add_default_action_bar2(win, win.title, "排行榜", function(){
-		right.click();
-	})
 
 	pre(win)
 	
