@@ -55,7 +55,7 @@ function Ddh(attr){
         })
         footer.add(Ti.UI.createLabel({
         	left : 10,
-        	height: 70,
+        	height: 110,
         	color: 'red',
         	font : {
 						fontSize : __l(14)
