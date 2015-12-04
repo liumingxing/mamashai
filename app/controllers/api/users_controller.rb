@@ -56,10 +56,13 @@ class Api::UsersController < Api::ApplicationController
   end
 
   def high_score_users
-    render :json=>Rails.cache.fetch("high_score_users_#{params[:page]}", :expires_in=>1.day){
-      users = User.paginate(:order=>"score desc", :page=>params[:page], :per_page=>10, :total_entries=>1000)
-      users.as_json
+    json = Rails.cache.fetch("high_score_users_#{params[:page]}", :expires_in=>1.day){
+        users = User.paginate(:order=>"score desc", :page=>params[:page], :per_page=>10, :total_entries=>1000)
+
+        users = JSON.parse(users.to_json).each{|i| i['score'] = '***'}
+        users.as_json
     }
+    render :json=> json
   end
   
 end
