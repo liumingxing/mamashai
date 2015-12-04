@@ -1864,7 +1864,13 @@ class Api::StatusesController < Api::ApplicationController
     end
 
     if 1307 == ddh.id
-      date_array = @user.posts.where(['created_at >= ? and created_at <= ?', '2015-12-5', '2016-12-4']).where(is_private: false).where(is_hide: false).where('logo is not null').reorder(:id).pluck(:created_at)
+      start_date = '2016-1-1'
+      end_date = '2016-12-31'
+      consist_date = 199
+      if @user.score_events.exists?(['created_at >= ? and created_at <= ? and event = ?', start_date, end_date, 'delete_post'])
+        render :text=>"对不起，您在2016年度存在违规行为，不能兑换该项礼物" and return
+      end
+      date_array = @user.posts.where(['created_at >= ? and created_at <= ?', start_date, end_date]).where(is_private: false).where(is_hide: false).where('logo is not null').reorder(:id).pluck(:created_at)
       is_ok = false
       date_array = date_array.map(&:to_date).uniq.reverse
       hash = {}
@@ -1875,9 +1881,18 @@ class Api::StatusesController < Api::ApplicationController
           hash[hash.keys.last] += 1
         end
       end
-      is_ok = true if hash.values.any? {|num| num >= 199}
+      is_ok = true if hash.values.any? {|num| num >= consist_date}
       unless is_ok
-        render :text=>"对不起，您的连续活跃天数不足199天，目前还差#{199-(hash.values.first||0)}天" and return;
+        interval_date = if hash.values.first
+                          if date_array.first.in? [Time.now.to_date, 1.days.ago.to_date]
+                            consist_date-hash.values.first
+                          else
+                            consist_date
+                          end
+                        else
+                          consist_date
+                        end
+        render :text=>"对不起，您的连续活跃天数不足#{consist_date}天，目前还差#{interval_date}天" and return
       end
     end
     

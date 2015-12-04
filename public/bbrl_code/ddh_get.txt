@@ -178,48 +178,9 @@ function Ddh_get(attr){
 		value: Ti.App.Properties.getString("ddh_address"),
 		hintText : "精确到门牌号"
 	});
-	address_field.addEventListener("return", function(e){
-		remark_field.focus();
-	})
+
 	address.add(address_title)
 	address.add(address_field)
-	
-	
-	var remark = Ti.UI.createTableViewRow({
-		height : 'auto',
-		selectedBackgroundColor : "#E8E8E8"
-	});
-	
-	var remark_title = Ti.UI.createLabel({
-		left : __l(12),
-		top : __l(10),
-		bottom : __l(8),
-		width : __l(100),
-		height : 'auto',
-		font : {
-			fontSize : __l(18)
-		},
-		color : '#333',
-		text : "备注"
-	});
-	var remark_field = Titanium.UI.createTextField({
-		height : __l(40),
-		top : __l(2),
-		bottom : __l(2),
-		left : __l(95),
-		right : __l(10),
-		borderStyle : Titanium.UI.INPUT_BORDERSTYLE_NONE,
-		returnKeyType : Titanium.UI.RETURNKEY_DONE,
-		font : {
-			fontSize : __l(18)
-		},
-		hintText : "比如颜色型号等"
-	});
-	remark_field.addEventListener("return", function(e){
-		remark_field.blur();
-	})
-	remark.add(remark_title)
-	remark.add(remark_field)
 	
 	var get_row = Ti.UI.createButton({
 		title: '提交'
@@ -265,9 +226,10 @@ function Ddh_get(attr){
 					else{
 						show_alert("提示", "亲，您的兑换成功，请耐心等快递吧！")
 					}
-					
-					win.close()
-					Ti.App.fireEvent("ddh.refresh")
+					setTimeout(function() {
+						win.close()
+						Ti.App.fireEvent("ddh.refresh")
+					}, 3000)
 				}
 				else if (this.responseText == "repeat"){
 					show_alert("提示", "对不起，您已经申请过\"" + win.json.title + "\"。")
@@ -280,7 +242,7 @@ function Ddh_get(attr){
 				}
 		}
 		
-		var url = Ti.App.mamashai + "/api/statuses/ddh_get/" + win.json.id + "?name=" + name_field.value + "&mobile=" + mobile_field.value + "&code=" + code_field.value + "&address=" + address_field.value + "&remark=" + remark_field.value + "&" + account_str();
+		var url = Ti.App.mamashai + "/api/statuses/ddh_get/" + win.json.id + "?name=" + name_field.value + "&mobile=" + mobile_field.value + "&code=" + code_field.value + "&address=" + address_field.value + "&" + account_str();
 		url += "&osname=" + Ti.App.osname + "&version=" + Titanium.App.version + "&appid" + Ti.App.id
 		xhr.open('POST', url)
 		xhr.send();
@@ -294,7 +256,6 @@ function Ddh_get(attr){
 	tableview.appendRow(mobile)
 	tableview.appendRow(code)
 	tableview.appendRow(address)
-	tableview.appendRow(remark)
 	scrollView.add(tableview)
 
 	scrollView.add(Ti.UI.createLabel({
