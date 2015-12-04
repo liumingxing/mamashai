@@ -762,6 +762,10 @@ function Ddh_rule(){
 	logEvent('ddh_rules');
 
 	pre(win)
+
+	if (Ti.App.is_android) {
+   add_tab_to_actionbar(win, win.title, [])
+  }
 	
 	if (!Ti.App.is_android) {
 		win.hideTabBar();
