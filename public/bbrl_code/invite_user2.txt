@@ -399,7 +399,7 @@ function Invite(attr){
 	}
 
 	win.add(Ti.UI.createLabel({
-		text : '成功邀请1人获10个晒豆',
+		text : '成功邀请1人获30个晒豆',
 		color : '#666666',
 		font : {
 			fontSize : __l(16),

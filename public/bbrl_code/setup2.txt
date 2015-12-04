@@ -149,18 +149,18 @@ function Setup(attr){
 				logEvent('make_app_store_comment');
 			}
 	}))
-	
 	if (check_login()){
+
 		var record = require('/lib/mamashai_db').db.select_one_json("set_invite", 0);
 		
 		if (record.blank){
 			var json_record = require('/lib/mamashai_db').db.select_one_json("user_profile", user_id());
-			
+
 			if (!json_record.blank){
 				var json = JSON.parse(json_record.json)
 				if (json.mms_level < 2){
 					tableview.appendRow(add_a_row("设置邀请人", function(e){
-						show_window("invite", {title: "填写介绍人"});
+						show_window("invite", {title: "填写邀请人"});
 					}))
 				}
 			}	
@@ -194,20 +194,6 @@ function Setup(attr){
 	row.label = label;
 	row.add(label)
 	tableview.appendRow(row)
-	
-	tableview.appendRow(add_a_row("设置邀请人", function(e){
-		var Invite = require("invite")
-		var win1 = new Invite({
-			backgroundColor : "#B4D3D7",
-			title: "设置邀请人"
-		});
-						
-		pre(win1)
-		add_default_action_bar(win1, win1.title, true)
-		Ti.App.currentTabGroup.activeTab.open(win1, {
-			animated : true
-		});
-	}))
 
 	tableview.appendRow(add_a_row("关于", function(e){
 		cache_http_call(Ti.App.mamashai + "/bbrl_code/about.txt", 'code_about2', function(e){

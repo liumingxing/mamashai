@@ -598,7 +598,7 @@ function Ddh_rule(){
 	
 
 	var tip8 = Ti.UI.createLabel({
-		text : "成功邀请1人10个豆\n被邀请者须登录并写邀请人昵称",
+		text : "成功邀请1人30个豆\n被邀请者须登录并写邀请人昵称",
 		font : {
 			fontSize : __l(11)
 		},
