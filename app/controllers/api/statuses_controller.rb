@@ -2355,9 +2355,9 @@ class Api::StatusesController < Api::ApplicationController
       end
     end
 
-    Mms::Score.trigger_event(:invite_succeed, "成功邀请新用户", 10, 1, {:user => user})
+    Mms::Score.trigger_event(:invite_succeed, "成功邀请新用户", 30, 1, {:user => user})
     
-    render :text=>"10"
+    render :text=>"30"
   end
 
   #点评店铺
