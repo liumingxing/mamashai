@@ -1003,7 +1003,7 @@ class Api::StatusesController < Api::ApplicationController
     attr[:poi] = {:lon => params[:longitude], :lat=>params[:latitude], :title=>params[:location_title] }
     attr[:post][:logo] = nil if params[:pic] == "images/video@2x.png"
     attr[:post][:kid_id] = params[:kid_id] if params[:kid_id]
-
+    attr[:post][:extra1] = params[:extra1]
     post = Post.create_post(attr,@user)
     
     #检查多图(至少上传了2张图)

@@ -144,6 +144,7 @@ win.addEventListener("open", function(e){
 									text : '刚刚在视频课堂看到一个很棒的视频“' + json.name+ "”，地址：" +json.short_url,
 									kind : 'wenzi',
 									from : 'wenzi',
+									from_id: '&extra1=video_quick_share',
 									image : e1.responseData
 								});
 							})

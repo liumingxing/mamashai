@@ -82,7 +82,7 @@ class Post < ActiveRecord::Base
   
   upload_column :logo, :process => '1024x4000', :versions => {:thumb60 => "60x200", :thumb120 => "1200x240", :thumb400 => "1000x600"}, :store_dir=>proc{|post, file| "post/#{post.created_at.strftime("%Y-%m-%d")}/#{post.id}/logo" }
                            
-  attr_accessor :video_link,:long_content, :new_video_link
+  attr_accessor :video_link,:long_content, :new_video_link, :extra1
 
   attr_accessor :lon,:lat
   
@@ -191,6 +191,9 @@ class Post < ActiveRecord::Base
   
   #给晒豆
   def make_score
+    if self.extra1 == "video_quick_share"
+      return
+    end
     if !self.is_private && %w(shanguang fayu yingyang zaojiao caiyi biaoqing bbyulu shijian wenzi jiance video taotaole).include?(self.from.to_s)
       #Mms::Score.trigger_event(:mobile_post, "用手机应用进行记录", 1, 1, {:cond => :by_per_day, :user => self.user})
       
