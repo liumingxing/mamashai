@@ -89,10 +89,15 @@ class Api::AdminController < Api::ApplicationController
     render :text=>"对不起你没有权限" and return if @user.tp != 4
     user = User.find(params[:id])
     if user
-      block = Blockpublic.new
-      block.user_id = user.id
-      block.name = user.name
-      block.save
+      block = Blockpublic.where(user_id: user.id).try(:first)
+      if block.present?
+        block.touch
+      else
+        block = Blockpublic.new
+        block.user_id = user.id
+        block.name = user.name
+        block.save
+      end
     end
     render :text=>"进入私有黑名单成功"
   end
@@ -101,10 +106,15 @@ class Api::AdminController < Api::ApplicationController
   def black_write
     user = User.find(params[:id])
     if user
-      block = Blockname.new
-      block.user_id = user.id
-      block.name = user.name
-      block.save
+      block = Blockname.where(user_id: user.id).try(:first)
+      if block.present?
+        block.touch
+      else
+        block = Blockname.new
+        block.user_id = user.id
+        block.name = user.name
+        block.save
+      end
     end
     render :text=>"进入记录黑名单成功"
   end
@@ -113,10 +123,15 @@ class Api::AdminController < Api::ApplicationController
   def black_xxb
     user = ::User.find(params[:id])
     if user
-      block = Blockstar.new
-      block.user_id = user.id
-      block.name = user.name
-      block.save
+      block = Blockstar.where(user_id: user.id).try(:first)
+      if block.present?
+        block.touch
+      else
+        block = Blockstar.new
+        block.user_id = user.id
+        block.name = user.name
+        block.save
+      end
     end
     render :text=> "进入星星榜黑名单成功"
   end

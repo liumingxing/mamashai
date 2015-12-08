@@ -178,10 +178,15 @@ class Mms::UsersController < Mms::MmsBackEndController
   def block
     user = ::User.find(params[:id])
     if user
-      block = Blockname.new
-      block.user_id = user.id
-      block.name = user.name
-      block.save
+      block = Blockname.where(user_id: user.id).try(:first)
+      if block.present?
+        block.touch
+      else
+        block = Blockname.new
+        block.user_id = user.id
+        block.name = user.name
+        block.save
+      end
     end
     flash[:notice] = "进入黑名单成功"
     redirect_to :action=>"list_users"
@@ -190,10 +195,15 @@ class Mms::UsersController < Mms::MmsBackEndController
   def block_star
     user = ::User.find(params[:id])
     if user
-      block = Blockstar.new
-      block.user_id = user.id
-      block.name = user.name
-      block.save
+      block = Blockstar.where(user_id: user.id).try(:first)
+      if block.present?
+        block.touch
+      else
+        block = Blockstar.new
+        block.user_id = user.id
+        block.name = user.name
+        block.save
+      end
     end
     flash[:notice] = "进入黑名单成功"
     redirect_to :action=>"list_users"
@@ -202,10 +212,15 @@ class Mms::UsersController < Mms::MmsBackEndController
   def block_public
     user = ::User.find(params[:id])
     if user
-      block = Blockpublic.new
-      block.user_id = user.id
-      block.name = user.name
-      block.save
+      block = Blockpublic.where(user_id: user.id).try(:first)
+      if block.present?
+        block.touch
+      else
+        block = Blockpublic.new
+        block.user_id = user.id
+        block.name = user.name
+        block.save
+      end
     end
     flash[:notice] = "进入私有黑名单成功"
     redirect_to :action=>"list_users"

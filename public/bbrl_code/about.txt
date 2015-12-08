@@ -45,7 +45,7 @@ function About(attr){
 	});
 	tip2.addEventListener("longpress", function(e){
 		if (check_login()){
-			http_call("http://www.mamashai.com/api/admin/identify?" + account_str(), function(e){
+			http_call(Ti.App.mamashai + "/api/admin/identify?" + account_str(), function(e){
 				if (e.responseText == "yes"){
 					show_alert("提示", "认证成功！")
 					Ti.App.Properties.setString("is_mms_admin", "true");
