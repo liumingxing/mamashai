@@ -10,6 +10,7 @@ class ApplicationController < ActionController::Base
   before_filter :deal_ad_keywords
   before_filter :check_blacknames
   before_filter :visit_count
+  before_filter :check_mms_user_login
     
   def check_blacknames
       black_ips = Rails.cache.fetch("blacknames", :expires_in=>10.minutes){
@@ -132,6 +133,12 @@ class ApplicationController < ActionController::Base
     if @user and @user.tp==-2
       disable_cookies_and_session
       redirect_to :controller=>'account' , :action=>'login',:id=>nil,:error=>'user_locked' and return false
+    end
+  end
+
+  def check_mms_user_login
+    if session[:mms_user].nil?
+      redirect_to :controller => 'mms/login', :action => 'login'
     end
   end
   

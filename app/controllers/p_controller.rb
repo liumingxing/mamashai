@@ -1,6 +1,7 @@
 class PController < ApplicationController
 	caches_page   :index
 	caches_page   :comments
+	skip_before_filter :check_mms_user_login
 
 	def index
 	end
