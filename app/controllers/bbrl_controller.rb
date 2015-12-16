@@ -4,6 +4,7 @@ class BbrlController < ApplicationController
   caches_page :invite_rank
    
   layout "main"
+  skip_before_filter :check_mms_user_login
   
   def index
     conditions = ["1=1"]
