@@ -1,0 +1,29 @@
+<h1>伯克生物投票好评</h1>
+
+<table class="list" border="1">
+  <tr class="head">
+    <th>id</th>
+    <th>微信昵称</th>
+    <th>累计票数</th>
+    <th>用户id</th>
+    <th>申请时间</th>
+    <th>状态</th>
+    <th>操作</th>
+  </tr>
+
+  <% @bokergen_votes.each do |bokergen_vote| %>
+    <tr>
+      <td><%= bokergen_vote.id %></td>
+      <td><%= bokergen_vote.name %></td>
+      <td><%= bokergen_vote.vote_num %></td>
+      <td><%= bokergen_vote.user_id %></td>
+      <td><%= bokergen_vote.created_at %></td>
+      <td><%= bokergen_vote.status %></td>
+      <td>
+        <%= link_to '给豆', :action=>"give_score", :id=>bokergen_vote.id %>
+      </td>
+    </tr>
+  <% end %>
+</table>
+
+<%= will_paginate @bokergen_votes %>
