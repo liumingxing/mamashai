@@ -5,7 +5,8 @@
     <th>id</th>
     <th>微信昵称</th>
     <th>累计票数</th>
-    <th>用户id</th>
+    <th>宝宝日历用户名id</th>
+    <th>宝宝日历用户名</th>
     <th>申请时间</th>
     <th>状态</th>
     <th>操作</th>
@@ -14,13 +15,14 @@
   <% @bokergen_votes.each do |bokergen_vote| %>
     <tr>
       <td><%= bokergen_vote.id %></td>
-      <td><%= bokergen_vote.name %></td>
+      <td><%= raw bokergen_vote.name %></td>
       <td><%= bokergen_vote.vote_num %></td>
       <td><%= bokergen_vote.user_id %></td>
+      <td><%= raw bokergen_vote.user.name %></td>
       <td><%= bokergen_vote.created_at %></td>
       <td><%= bokergen_vote.status %></td>
       <td>
-        <%= link_to '给豆', :action=>"give_score", :id=>bokergen_vote.id %>
+        <%= (link_to '给豆', :action=>"give_score", :id=>bokergen_vote.id) if bokergen_vote.status == 'stash' %>
       </td>
     </tr>
   <% end %>
