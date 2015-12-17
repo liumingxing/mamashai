@@ -22,7 +22,7 @@
       <td><%= bokergen_vote.created_at %></td>
       <td><%= bokergen_vote.status %></td>
       <td>
-        <%= (link_to '给豆', :action=>"give_score", :id=>bokergen_vote.id) if bokergen_vote.status == 'stash' %>
+        <%= (link_to '给豆', :action=>"give_score", :id=>bokergen_vote.id, :back => request.fullpath) if bokergen_vote.status == 'stash' %>
       </td>
     </tr>
   <% end %>
