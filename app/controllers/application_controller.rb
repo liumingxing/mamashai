@@ -10,7 +10,7 @@ class ApplicationController < ActionController::Base
   before_filter :deal_ad_keywords
   before_filter :check_blacknames
   before_filter :visit_count
-  before_filter :check_mms_user_login
+  # before_filter :check_mms_user_login
     
   def check_blacknames
       black_ips = Rails.cache.fetch("blacknames", :expires_in=>10.minutes){
