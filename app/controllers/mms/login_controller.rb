@@ -1,6 +1,6 @@
 class Mms::LoginController < Mms::MmsBackEndController
 
-  skip_before_filter :check_mms_user_login, only: [:login, :chklogin]
+  # skip_before_filter :check_mms_user_login, only: [:login, :chklogin]
   
   def index
     redirect_to :action => 'login'

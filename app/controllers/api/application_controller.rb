@@ -4,7 +4,7 @@ class Api::ApplicationController < ApplicationController
     #before_filter :delete_nil_params
     after_filter :apicall_log, :except=>[:authenticate_app_source, :authenticate_app_source, :authenticate!, :public_timeline1, :public_timeline_count]
     before_filter :check_blacknames
-    skip_before_filter :check_mms_user_login
+    # skip_before_filter :check_mms_user_login
     
     def check_blacknames
       black_ips = Rails.cache.fetch("blacknames", :expires_in=>10.minutes){

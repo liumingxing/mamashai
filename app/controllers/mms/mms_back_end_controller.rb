@@ -2,7 +2,7 @@ class Mms::MmsBackEndController < ApplicationController
   
   layout 'mms_admin'
     
-  before_filter :check_mms_user_power, :except => ["login", "chklogin", "logout"]
+  before_filter :check_mms_user_login, :check_mms_user_power, :except => ["login", "chklogin", "logout"]
   
   def check_mms_user_login
     if session[:mms_user].nil?
