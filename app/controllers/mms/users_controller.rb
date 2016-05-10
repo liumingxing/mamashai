@@ -246,7 +246,7 @@ class Mms::UsersController < Mms::MmsBackEndController
     elsif params[:tp] == "write"
       Blockname.destroy(params[:id])
     end
-    redirect_to :action=>"list_block", :tp=>params[:tp]
+    redirect_to :action=>"list_block", :tp=>params[:tp], :page=>params[:page]
   end
 
   def comment_block
