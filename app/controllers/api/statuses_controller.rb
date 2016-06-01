@@ -1841,7 +1841,7 @@ class Api::StatusesController < Api::ApplicationController
       render :text=>"对不起，您需要评论其他用户#{ddh.require_comments_count}次才可以#{ddh.score > 0 ? '兑换' : '申请'}此礼物" and return;
     end
 
-    if Time.new.to_date.to_s < ddh.begin_at.to_s
+    if Time.now.to_s(:db) < ddh.begin_at.to_s
       render :text=>"对不起，还没到开抢时间呢！" and return;
     end
 

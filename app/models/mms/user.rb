@@ -1,7 +1,6 @@
 class Mms::User < ActiveRecord::Base
-  
-  set_table_name :mms_users
-  
+  self.table_name = 'mms_users'
+
   has_many :articles, :foreign_key => :mms_user_id, :dependent => :delete_all
   has_and_belongs_to_many :menus, :class_name=>"Mms::Menu"
   

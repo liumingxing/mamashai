@@ -53,7 +53,8 @@ class Mms::DdhsController < Mms::MmsBackEndController
 
   def update
     @ddh = Ddh.find(params[:id])
-    if @ddh.update_attributes(params[:ddh])
+    @ddh.assign_attributes(params[:ddh])
+    if @ddh.save
       flash[:notice] = 'Ddh was successfully updated.'
       redirect_to :action => 'list'
     else

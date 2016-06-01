@@ -3,7 +3,7 @@ class Ddh < ActiveRecord::Base
 
   #before_create :set_status
   before_save :set_status
-  validates_presence_of :logo, :message=>"必须要上传logo"
+  validates_presence_of :logo, :message=>"必须要上传logo", :if=> lambda {|i| i.new_record?}
   validates_presence_of :price, :message=>"笨蛋，必须填价格"
   validates_presence_of :score, :message=>"笨蛋，必须写上晒豆数"
 
@@ -11,9 +11,9 @@ class Ddh < ActiveRecord::Base
 
   #设置状态 1:正在进行， 2:还未开始, 3:已经结束
   def set_status
-    if self.end_at < Date.today   #已结束
+    if self.end_at.to_s < Time.now.to_s(:db)   #已结束
         self.status = 10
-    elsif self.begin_at > Date.today #未开始
+    elsif self.begin_at.to_s > Time.now.to_s(:db) #未开始
         self.status = 5
     else                              #正在进行
         if self.remain == 0
@@ -25,9 +25,9 @@ class Ddh < ActiveRecord::Base
   end
 
   def tp
-    if self.end_at < Date.today   #已结束
+    if self.end_at.to_s < Time.now.to_s(:db)   #已结束
         3
-    elsif self.begin_at > Date.today #未开始
+    elsif self.begin_at.to_s > Time.now.to_s(:db) #未开始
         2
     else 
         1
@@ -58,19 +58,19 @@ class Ddh < ActiveRecord::Base
   
   def as_json(options = {})
 
-    e = self.end_at
-    def e.to_json(*options)
-      "#{self.year}-#{self.month}-#{self.day}"
+    end_at = self.end_at
+    def end_at.to_json(*options)
+      self.to_s(:db)
     end
-    def e.as_json(*options)
-      "#{self.year}-#{self.month}-#{self.day}"
+    def end_at.as_json(*options)
+      self.to_s(:db)
     end
-    b = self.begin_at
-    def b.to_json(*options)
-      "#{self.year}-#{self.month}-#{self.day}"
+    begin_at = self.begin_at
+    def begin_at.to_json(*options)
+      self.to_s(:db)
     end
-    def b.as_json(*options)
-      "#{self.year}-#{self.month}-#{self.day}"
+    def begin_at.as_json(*options)
+      self.to_s(:db)
     end
 
     options[:only] ||= Ddh.json_attrs

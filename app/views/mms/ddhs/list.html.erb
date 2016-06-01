@@ -11,6 +11,7 @@
 
 <table class="list" border="1" style="width:98%">
   <tr class="head">
+    <th>id</th>
     <th>logo</th>
     <th>模式</th>
     <th>置换晒豆数</th>
@@ -26,6 +27,7 @@
   
 <% for ddh in @ddhs %>
   <tr>
+    <td><%= ddh.id %></td>
     <td><img src="<%=h ddh.logo.thumb50 %>" /></td>
     <td><%=h ddh.score<=5 ? '试用' : '兑换' %></td>
     <td><%=h ddh.score %></td>
