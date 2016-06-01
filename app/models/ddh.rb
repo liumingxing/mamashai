@@ -60,17 +60,17 @@ class Ddh < ActiveRecord::Base
 
     end_at = self.end_at
     def end_at.to_json(*options)
-      self.to_s(:db)
+      self.to_s(:db).first(16)
     end
     def end_at.as_json(*options)
-      self.to_s(:db)
+      self.to_s(:db).first(16)
     end
     begin_at = self.begin_at
     def begin_at.to_json(*options)
-      self.to_s(:db)
+      self.to_s(:db).first(16)
     end
     def begin_at.as_json(*options)
-      self.to_s(:db)
+      self.to_s(:db).first(16)
     end
 
     options[:only] ||= Ddh.json_attrs
