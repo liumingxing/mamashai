@@ -614,36 +614,24 @@ function Ddh(attr){
 			wrapper_1.add(count)
 			wrapper_1.add(label_remain)
 			wrapper_1.add(remain_count)
-			
-			var label_begin = Ti.UI.createLabel({
-				text : "开始时间：",
-				color : '#333',
-				font : {
-					fontSize : __l(12)
-				},
-				height : __l(20),
-				top : __l(112),
-				left : __l(150),
-				textAlign : 'left'
-			});
+
 			
 			var begin = Ti.UI.createLabel({
-				text : json[i].begin_at,
+				text : json[i].begin_at + ' 开始',
 				color : '#333',
 				font : {
 					fontSize : __l(12)
 				},
 				height : __l(20),
 				top : __l(112),
-				left : __l(212),
+				left : __l(150),
 				textAlign : 'left'
 			});
 			
-			wrapper_1.add(label_begin)
 			wrapper_1.add(begin)
-			
-			var label_time = Ti.UI.createLabel({
-				text : "结束时间：",
+
+			var label_time2 = Ti.UI.createLabel({
+				text : json[i].end_at + ' 结束',
 				color : '#333',
 				font : {
 					fontSize : __l(12)
@@ -654,19 +642,6 @@ function Ddh(attr){
 				textAlign : 'left'
 			});
 			
-			var label_time2 = Ti.UI.createLabel({
-				text : json[i].end_at,
-				color : '#333',
-				font : {
-					fontSize : __l(12)
-				},
-				height : __l(20),
-				top : __l(134),
-				left : __l(212),
-				textAlign : 'left'
-			});
-			
-			wrapper_1.add(label_time)
 			wrapper_1.add(label_time2)
 			container.add(wrapper_1)
 			container.wrapper_1 = wrapper_1
