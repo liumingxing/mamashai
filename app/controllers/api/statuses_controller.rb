@@ -3,18 +3,19 @@ class Api::StatusesController < Api::ApplicationController
   # before_filter :authenticate!,
   #   :only => [:friends_timeline, :user_timeline, :unread, :reset_count, :update, :upload, :destroy, :repost, :comment,:comment_destroy, :friends_timeline, :home_timeline]
   before_filter :authenticate!, :except=>[:public_timeline1, :public_timeline, :user_timeline, :location_timeline, :public_timeline_daren, :public_timeline_jh, :public_timeline_hot, :public_timeline_count, :search, :show, :article_category, :articles, :column_categories, :column_authors, :column_books, :column_chapters, :column_chapter, :comments, :lama_stars, :lama_advs, :hot_topic, :the_hot_topic, :lama_posts, :bbrl_version, :gifts, :ddh, :ddh_list, :ddh_list_v2, :ddh_list_v3, :ddh_users, :poi_get_offset_and_address, :poi, :calendar_advs, :half_screen_advs, :calendar_tip_adv, :calendar_tip_adv_list, :calendar_tip_adv_list2, :ddh_visit, :find_users, :find_posts, :find_products, :find_articles, :comments_and_like, :comments_and_like2, :ddh_rules, :ddh_rules2, :about, :version_check, :invite_user, :album_book_count, :tiantian_tejia, :ddh_code, :qinzi, :qinzi_detail, :gou_pinzhi, :get_city_from_gps, :subscribe, :get_bbrl_poi_comments, :tao_ages, :set_silent, :get_silent]
+
   before_filter :check_block, :only=>%w(update upload repost comment ddh_get send_gift clap)
 
   def children_day
-    obj = ChildrenDay.where(user_id: params[:user_id]).first
+    obj = ChildrenDay.where(user_id: @user.id).first
     if obj
       render text: 'duplicate'
     else
-      obj = ChildrenDay.create(user_id: params[:user_id])
+      obj = ChildrenDay.create(user_id: @user.id)
       code = CommandCode.new
       code.code = %Q!
-        if ScoreEvent.find(:first, :conditions=>"user_id = #{params[:user_id]} and event = 'children_day_616'") == nil
-          Mms::Score.trigger_event(:children_day_616, "成功分享616任性兑", 50, 1, {:user => User.find(#{params[:user_id]})});
+        if ScoreEvent.find(:first, :conditions=>"user_id = #{@user.id} and event = 'children_day_616'") == nil
+          Mms::Score.trigger_event(:children_day_616, "成功分享616任性兑", 50, 1, {:user => User.find(#{@user.id})});
         end
       !
       code.after = Time.now.since(10.minutes)
