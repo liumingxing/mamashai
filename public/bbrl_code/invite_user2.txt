@@ -515,7 +515,7 @@ function Invite(attr){
 
 	if (Ti.App.is_android){
 		var tip = Ti.UI.createLabel({
-			text : "亲，推荐下载宝宝日历：时下最火的怀孕育儿应用！还能赢取999元宝宝大礼包！下载地址：http://t.cn/zHIAP2N，别忘了邀请人写我昵称啊：" + decodeURI(Ti.App.Properties.getString("name")),
+			text : "亲，推荐下载宝宝日历：时下最火的怀孕育儿应用！下载地址：http://t.cn/zHIAP2N，别忘了邀请人写我昵称啊：" + decodeURI(Ti.App.Properties.getString("name")),
 			color : Ti.App.bar_color,
 			font : {
 				fontSize : __l(11),
@@ -527,14 +527,14 @@ function Invite(attr){
 			textAlign : 'left'
 		})
 		tip.addEventListener("touchstart", function(e){
-			Titanium.UI.Clipboard.setText("亲，推荐下载宝宝日历：时下最火的怀孕育儿应用！还能赢取999元宝宝大礼包！下载地址：http://t.cn/zHIAP2N，别忘了邀请人写我昵称啊：" + decodeURI(Ti.App.Properties.getString("name")));
+			Titanium.UI.Clipboard.setText("亲，推荐下载宝宝日历：时下最火的怀孕育儿应用！还能用晒豆免费兑换宝宝喜爱的礼物！下载地址：http://t.cn/zHIAP2N，别忘了邀请人写我昵称啊：" + decodeURI(Ti.App.Properties.getString("name")));
 			show_notice("文字已复制到剪贴板")
 		})
 		win.add(tip)	
 	}
 	else{
 		var tip = Ti.UI.createTextArea({
-			value : "亲，推荐下载宝宝日历：时下最火的怀孕育儿应用！还能赢取999元宝宝大礼包！下载地址：http://t.cn/zHIAP2N，别忘了邀请人写我昵称啊：" + decodeURI(Ti.App.Properties.getString("name")),
+			value : "亲，推荐下载宝宝日历：时下最火的怀孕育儿应用！还能用晒豆免费兑换宝宝喜爱的礼物！下载地址：http://t.cn/zHIAP2N，别忘了邀请人写我昵称啊：" + decodeURI(Ti.App.Properties.getString("name")),
 			color : Ti.App.bar_color,
 			editable: false,
 			borderWidth : 1,
