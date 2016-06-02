@@ -1,4 +1,8 @@
 class MobileController < ApplicationController
+
+	def children_day
+	end
+
 	def post
 		@post = Post.find_by_id(params[:id])
 		@title = "分享一篇育儿记录"

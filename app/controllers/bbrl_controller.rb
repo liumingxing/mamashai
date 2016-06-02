@@ -38,27 +38,28 @@ class BbrlController < ApplicationController
   end
 
   def download
-    if params.keys.include?("yunq") || params.keys.include?(:yunq)
-      if request.env['HTTP_USER_AGENT'].to_s.downcase.include?('iphone') || request.env['HTTP_USER_AGENT'].to_s.downcase.include?('ipad')
-        redirect_to "https://itunes.apple.com/cn/app/id479480717"
-      else
-        send_file "#{::Rails.root.to_s}/public/downloads/yun.apk"
-      end
-
-      return
-    end
-
-    if request.env['HTTP_USER_AGENT'].to_s.downcase.include?('micromessenger')  #微信的提示页面
-      render :layout=>false
-    else
-      if request.env['HTTP_USER_AGENT'].to_s.downcase.include?('iphone') || request.env['HTTP_USER_AGENT'].to_s.downcase.include?('ipad')
-          redirect_to "http://www.mamashai.com/index/ipa"
-      elsif request.env['HTTP_USER_AGENT'].to_s.downcase.include?('android')
-          redirect_to "http://www.mamashai.com/index/apk"
-      else
-          redirect_to "http://www.mamashai.com/bbrl/mobile"
-      end
-    end
+    redirect_to 'http://a.app.qq.com/o/simple.jsp?pkgname=com.mamashai.babycalendar'
+    # if params.keys.include?("yunq") || params.keys.include?(:yunq)
+    #   if request.env['HTTP_USER_AGENT'].to_s.downcase.include?('iphone') || request.env['HTTP_USER_AGENT'].to_s.downcase.include?('ipad')
+    #     redirect_to "https://itunes.apple.com/cn/app/id479480717"
+    #   else
+    #     send_file "#{::Rails.root.to_s}/public/downloads/yun.apk"
+    #   end
+    #
+    #   return
+    # end
+    #
+    # if request.env['HTTP_USER_AGENT'].to_s.downcase.include?('micromessenger')  #微信的提示页面
+    #   render :layout=>false
+    # else
+    #   if request.env['HTTP_USER_AGENT'].to_s.downcase.include?('iphone') || request.env['HTTP_USER_AGENT'].to_s.downcase.include?('ipad')
+    #       redirect_to "http://www.mamashai.com/index/ipa"
+    #   elsif request.env['HTTP_USER_AGENT'].to_s.downcase.include?('android')
+    #       redirect_to "http://www.mamashai.com/index/apk"
+    #   else
+    #       redirect_to "http://www.mamashai.com/bbrl/mobile"
+    #   end
+    # end
   end
 
   def select

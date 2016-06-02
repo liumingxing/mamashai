@@ -1,98 +1,103 @@
 <%= error_messages_for 'ddh' %>
 
 <table class="ft" border="1">
-<!--[form:ddh]-->
-<tr>
-	<td>图片</td>
-	<td><%= upload_column_field 'ddh', 'logo'  %></td>
-</tr>
+  <!--[form:ddh]-->
+  <tr>
+    <td>图片</td>
+    <td><%= upload_column_field 'ddh', 'logo' %></td>
+  </tr>
 
-<tr>
-	<td>置换晒豆数</td>
-	<td><%= text_field 'ddh', 'score'  %> 小于等于5为试用 </td>
-</tr>
+  <tr>
+    <td>置换晒豆数</td>
+    <td><%= text_field 'ddh', 'score' %> 小于等于5为试用</td>
+  </tr>
 
-<tr>
-	<td>价值</td>
-	<td><%= text_field 'ddh', 'price'  %></td>
-</tr>
+  <tr>
+    <td>价值</td>
+    <td><%= text_field 'ddh', 'price' %></td>
+  </tr>
 
-<tr>
-	<td>标题</td>
-	<td><%= text_field 'ddh', 'title', :style=>"width:330px;"  %> 22字以内</td>
-</tr>
+  <tr>
+    <td>标题</td>
+    <td><%= text_field 'ddh', 'title', :style => "width:330px;" %> 22字以内</td>
+  </tr>
 
-<tr>
-	<td>注解</td>
-	<td><%= text_area 'ddh', 'content', :rows=>10  %> 140字以内</td>
-</tr>
+  <tr>
+    <td>注解</td>
+    <td><%= text_area 'ddh', 'content', :rows => 10 %> 140字以内</td>
+  </tr>
 
-<tr>
-	<td>总数</td>
-	<td><%= text_field 'ddh', 'count'  %></td>
-</tr>
+  <tr>
+    <td>总数</td>
+    <td><%= text_field 'ddh', 'count' %></td>
+  </tr>
 
-<tr>
-	<td>剩余</td>
-	<td><%= text_field 'ddh', 'remain'  %></td>
-</tr>
+  <tr>
+    <td>剩余</td>
+    <td><%= text_field 'ddh', 'remain' %></td>
+  </tr>
 
-<tr>
-	<td>开始时间(含)</td>
-	<td><%= datetime_select 'ddh', 'begin_at', {:use_month_numbers => true}  %></td>
-</tr>
+  <tr>
+    <td>开始时间(含)</td>
+    <td><%= datetime_select 'ddh', 'begin_at', {:use_month_numbers => true} %></td>
+  </tr>
 
-<tr>
-	<td>结束时间(含)</td>
-	<td><%= datetime_select 'ddh', 'end_at', {:use_month_numbers => true}  %></td>
-</tr>
+  <tr>
+    <td>结束时间(含)</td>
+    <td><%= datetime_select 'ddh', 'end_at', {:use_month_numbers => true} %></td>
+  </tr>
 
-<tr>
-	<td>链接</td>
-	<td><%= text_field 'ddh', 'adv'  %></td>
-</tr>
+  <tr>
+    <td>排序</td>
+    <td><%= number_field 'ddh', 'order_num' %> 数字越大顺序越靠前</td>
+  </tr>
 
-<tr>
-	<td>要求用户等级</td>
-	<td><%= text_field 'ddh', 'require_level'  %></td>
-</tr>
+  <tr>
+    <td>链接</td>
+    <td><%= text_field 'ddh', 'adv' %></td>
+  </tr>
 
-<tr>
-	<td>要求记录数</td>
-	<td><%= text_field 'ddh', 'require_posts_count'  %></td>
-</tr>
+  <tr>
+    <td>要求用户等级</td>
+    <td><%= text_field 'ddh', 'require_level' %></td>
+  </tr>
 
-<tr>
-	<td>要求评论数</td>
-	<td><%= text_field 'ddh', 'require_comments_count'  %></td>
-</tr>
+  <tr>
+    <td>要求记录数</td>
+    <td><%= text_field 'ddh', 'require_posts_count' %></td>
+  </tr>
 
-<tr>
-	<td>显示</td>
-	<td>
-		<%= select "ddh", 'hide', [['显示', false], ['隐藏', true]] %>
-	</td>
-</tr>
-<!--[eoform:ddh]-->
+  <tr>
+    <td>要求评论数</td>
+    <td><%= text_field 'ddh', 'require_comments_count' %></td>
+  </tr>
+
+  <tr>
+    <td>显示</td>
+    <td>
+      <%= select "ddh", 'hide', [['显示', false], ['隐藏', true]] %>
+    </td>
+  </tr>
+  <!--[eoform:ddh]-->
 
 </table>
 
 
 <script>
-	function check_form(){
-		var title = $('#ddh_title').val();
-		var content = $('#ddh_content').val();
+  function check_form() {
+    var title = $('#ddh_title').val();
+    var content = $('#ddh_content').val();
 
-		if (getStringBytes(title)>22){
-			alert('标题超长了');
-			return false;
-		}
+    if (getStringBytes(title) > 22) {
+      alert('标题超长了');
+      return false;
+    }
 
-		if (getStringBytes(content)>250){
-			alert('注解超长了');
-			return false;
-		}
-			
-		return true;
-	}
+    if (getStringBytes(content) > 250) {
+      alert('注解超长了');
+      return false;
+    }
+
+    return true;
+  }
 </script>

@@ -26,7 +26,7 @@ class Mms::DdhsController < Mms::MmsBackEndController
   end
 
   def list
-    @ddhs = Ddh.paginate :page=>params[:page], :per_page => 10, :order=>"id desc"
+    @ddhs = Ddh.paginate :page=>params[:page], :per_page => 10, :order=>"order_num desc, status asc, id desc"
   end
 
   def show

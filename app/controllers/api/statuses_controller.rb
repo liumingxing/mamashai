@@ -5,6 +5,25 @@ class Api::StatusesController < Api::ApplicationController
   before_filter :authenticate!, :except=>[:public_timeline1, :public_timeline, :user_timeline, :location_timeline, :public_timeline_daren, :public_timeline_jh, :public_timeline_hot, :public_timeline_count, :search, :show, :article_category, :articles, :column_categories, :column_authors, :column_books, :column_chapters, :column_chapter, :comments, :lama_stars, :lama_advs, :hot_topic, :the_hot_topic, :lama_posts, :bbrl_version, :gifts, :ddh, :ddh_list, :ddh_list_v2, :ddh_list_v3, :ddh_users, :poi_get_offset_and_address, :poi, :calendar_advs, :half_screen_advs, :calendar_tip_adv, :calendar_tip_adv_list, :calendar_tip_adv_list2, :ddh_visit, :find_users, :find_posts, :find_products, :find_articles, :comments_and_like, :comments_and_like2, :ddh_rules, :ddh_rules2, :about, :version_check, :invite_user, :album_book_count, :tiantian_tejia, :ddh_code, :qinzi, :qinzi_detail, :gou_pinzhi, :get_city_from_gps, :subscribe, :get_bbrl_poi_comments, :tao_ages, :set_silent, :get_silent]
   before_filter :check_block, :only=>%w(update upload repost comment ddh_get send_gift clap)
 
+  def children_day
+    obj = ChildrenDay.where(user_id: params[:user_id]).first
+    if obj
+      render text: 'duplicate'
+    else
+      obj = ChildrenDay.create(user_id: params[:user_id])
+      code = CommandCode.new
+      code.code = %Q!
+        if ScoreEvent.find(:first, :conditions=>"user_id = #{params[:user_id]} and event = 'children_day_616'") == nil
+          Mms::Score.trigger_event(:children_day_616, "成功分享616任性兑", 50, 1, {:user => User.find(#{params[:user_id]})});
+        end
+      !
+      code.after = Time.now.since(10.minutes)
+      code.status = 'wait'
+      code.save
+      render text: 'ok'
+    end
+  end
+
   def bokergen_vote
     obj = BokergenVote.new(name: params[:name].strip, vote_num: params[:vote_num], user_id: params[:user_id])
     if obj.save
@@ -1744,14 +1763,14 @@ class Api::StatusesController < Api::ApplicationController
   def ddh
     conditions = ["(hide is null or hide=0) and  remain > 0 and end_at >= '#{Date.today.to_s()}' and begin_at<='#{Date.today.to_s()}'"]
     conditions << params[:cond] if params[:cond]
-    ddhs = Ddh.duihuan.paginate(:page=>params[:page], :per_page=>20, :conditions=>conditions.join(' and '), :order=>"status asc, id desc", :total_entries=>1000)
+    ddhs = Ddh.duihuan.paginate(:page=>params[:page], :per_page=>20, :conditions=>conditions.join(' and '), :order=>"order_num desc, status asc, id desc", :total_entries=>1000)
     render :json=>ddhs
   end
 
   #已开始的倒序排列
   def ddh_list
     page = params[:page] || 1
-    ddhs = Ddh.duihuan.paginate(:order=>"status asc, id desc", :conditions=>"tp = 1 and (hide is null or hide=0)", :page=>page, :per_page=>10, :total_entries=>1000)
+    ddhs = Ddh.duihuan.paginate(:order=>"order_num desc, status asc, id desc", :conditions=>"tp = 1 and (hide is null or hide=0)", :page=>page, :per_page=>10, :total_entries=>1000)
     
     render :json=>ddhs
   end
@@ -1763,9 +1782,9 @@ class Api::StatusesController < Api::ApplicationController
     page = params[:page] || 1
     if params[:user_id]
       cond << "ddh_orders.user_id = #{params[:user_id]}"
-      ddhs = Ddh.paginate(:order=>"status asc, id desc", :joins=>"left join ddh_orders on ddh_orders.ddh_id = ddhs.id", :conditions=>cond.join(" and "), :page=>page, :per_page=>10, :total_entries=>1000)  
+      ddhs = Ddh.paginate(:order=>"order_num desc, status asc, id desc", :joins=>"left join ddh_orders on ddh_orders.ddh_id = ddhs.id", :conditions=>cond.join(" and "), :page=>page, :per_page=>10, :total_entries=>1000)
     else
-      ddhs = Ddh.paginate(:order=>"status asc, id desc", :conditions=>cond.join(" and "), :page=>page, :per_page=>10, :total_entries=>1000)
+      ddhs = Ddh.paginate(:order=>"order_num desc, status asc, id desc", :conditions=>cond.join(" and "), :page=>page, :per_page=>10, :total_entries=>1000)
     end
     render :json=>ddhs
   end
@@ -1777,9 +1796,9 @@ class Api::StatusesController < Api::ApplicationController
     page = params[:page] || 1
     if params[:user_id]
       cond << "ddh_orders.user_id = #{params[:user_id]}"
-      ddhs = Ddh.paginate(:order=>"status asc, id desc", :joins=>"left join ddh_orders on ddh_orders.ddh_id = ddhs.id", :conditions=>cond.join(" and "), :page=>page, :per_page=>10, :total_entries=>1000)  
+      ddhs = Ddh.paginate(:order=>"order_num desc, status asc, id desc", :joins=>"left join ddh_orders on ddh_orders.ddh_id = ddhs.id", :conditions=>cond.join(" and "), :page=>page, :per_page=>10, :total_entries=>1000)
     else
-      ddhs = Ddh.paginate(:order=>"status asc, id desc", :conditions=>cond.join(" and "), :page=>page, :per_page=>10, :total_entries=>1000)
+      ddhs = Ddh.paginate(:order=>"order_num desc, status asc, id desc", :conditions=>cond.join(" and "), :page=>page, :per_page=>10, :total_entries=>1000)
     end
     render :json=>ddhs
   end
