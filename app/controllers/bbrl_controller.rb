@@ -1,5 +1,5 @@
 class BbrlController < ApplicationController
-  before_filter :get_login_user, :except=>[:mobile, :mbile3]
+  before_filter :get_login_user, :except=>[:mobile, :mbile3, :children_day_invite]
 
   caches_page :invite_rank
    
@@ -176,6 +176,13 @@ class BbrlController < ApplicationController
 
   def invite_rank
     @users = User.find_by_sql("select u.*, count(distinct(users.last_login_ip)) as c from users left join users u on u.id = users.invite_user_id where users.created_at > '2014-04-18' and users.created_at < '2014-05-19' and users.invite_user_id is not null and u.id <>93573 group by users.invite_user_id order by count(distinct(users.last_login_ip)) desc, u.posts_count desc limit 19")
+    render :layout=>false
+  end
+
+  def children_day_invite
+    @users = Rails.cache.fetch("children_day_invite", :expires_in=>30.minutes){
+      User.find_by_sql("select u.*, count(distinct(users.last_login_ip)) as c from users left join users u on u.id = users.invite_user_id where users.created_at > '2016-06-2 00:00' and users.created_at < '2016-06-15 23:59' and users.invite_user_id is not null group by users.invite_user_id  order by c desc, u.posts_count desc limit 300")
+    }
     render :layout=>false
   end
 end

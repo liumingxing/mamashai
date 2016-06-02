@@ -52,7 +52,7 @@ function weibo_invite(){
 
 	get_more_row_center.add(navActInd);
 	get_more_row.navActInd = navActInd;
-	
+
 	get_more_row_center.add(get_more_title)
 	get_more_row.add(get_more_row_center);
 	get_more_row.addEventListener("click", function(e){
@@ -123,7 +123,7 @@ function weibo_invite(){
 		onload : function() {
 			var json = JSON.parse(this.responseText)
 			uid = json.uid
-			
+
 			xhr = Ti.Network.createHTTPClient({
 				timeout: Ti.App.timeout,
 				onerror : function() {
@@ -132,14 +132,14 @@ function weibo_invite(){
 				},
 				onload : function() {
 					hide_loading();
-					
+
 					var pre_length = get_row_count(tableview);
-					
+
 					if (get_row_count(tableview) > 0)
 						tableview.deleteRow(get_row_count(tableview) - 1);
-						
+
 					var json = JSON.parse(this.responseText)
-						
+
 					var CheckBox = require("lib/checkbox").CheckBox
 
 					for(var i = 0; i < json.users.length; i++) {
@@ -148,7 +148,7 @@ function weibo_invite(){
 							//selectedBackgroundColor : "white",
 							filter : user.screen_name,
 							value : 0,
-							
+
 							height : Ti.UI.SIZE,
 							color: '#333',
 							selectedBackgroundColor: '#ccc'
@@ -177,35 +177,35 @@ function weibo_invite(){
 							height : 'auto',
 							width : __l(200)
 						});
-						
+
 						var check = new CheckBox({
 								top : 0,
 								height : 44,
 								width : 44,
 								right : 20,
 								row: row
-						})	
-						
+						})
+
 						check.view.addEventListener("click", function(e){
 							if (e.source.value == 1)
 								e.source.row.value = 1;
 							else
 								e.source.row.value = 0;
 						})
-						
+
 						row.add(user_logo)
 
 						row.add(label)
 
 						row.add(check.view)
 
-						tableview.appendRow(row)					
+						tableview.appendRow(row)
 					}
 
 					hide_loading();
 
 					navActInd.hide();
-					
+
 					if(json.total_number > get_row_count(tableview)) {
 						tableview.appendRow(get_more_row)
 						tableview.scrollToIndex(pre_length-1)
@@ -234,7 +234,7 @@ function weibo_invite(){
 	logEvent('weibo_invite');
 
 	pre(win)
-	
+
 	Ti.App.currentTabGroup.activeTab.open(win, {
 		animated : true
 	});
@@ -281,16 +281,16 @@ function Invite(attr){
 			})
 			tableview.addEventListener("click", function(e){
 				var UserWin = require('user')
-				var json = e.rowData.json 
+				var json = e.rowData.json
 				var win = new UserWin({
 					title : json.name,
 					backgroundColor : '#fff',
 					id : json.id
 				});
 				pre(win);
-				
+
 				win.backButtonTitle = ''
-		
+
 				Ti.App.currentTabGroup.activeTab.open(win, {
 					animated : true
 				});
@@ -325,7 +325,7 @@ function Invite(attr){
 					text: (i+1) + ""
 				}))
 				row.add(sub)
-				
+
 				var user_logo = Ti.UI.createImageView({
 					top : __l(8),
 					left : __l(48),
@@ -337,7 +337,7 @@ function Invite(attr){
 					borderRadius : __l(4),
 					touchEnabled: false
 				});
-			
+
 				var user_name = Ti.UI.createLabel({
 					top : __l(8),
 					left : __l(104),
@@ -350,7 +350,7 @@ function Invite(attr){
 					text : json.name,
 					touchEnabled: false
 				});
-			
+
 				var kid_json = json.user_kids[0]
 				if (json.kid_id && json.user.user_kids != "null"){
 					for(var i=0; i<json.user.user_kids.length; i++){
@@ -358,9 +358,9 @@ function Invite(attr){
 							kid_json = json.user.user_kids[i]
 							break;
 						}
-					}	
+					}
 				}
-				
+
 				var user_posts = Ti.UI.createLabel({
 					top : __l(34),
 					left : __l(104),
@@ -372,7 +372,7 @@ function Invite(attr){
 					text : kid_desc(kid_json, datetime_str(new Date)),
 					touchEnabled: false
 				});
-				
+
 				row.add(user_logo);
 				row.add(user_name);
 				row.add(user_posts);
@@ -424,7 +424,7 @@ function Invite(attr){
 		right : __l(10),
 		textAlign : 'left'
 	}));
-	
+
 	var tableview = Titanium.UI.createTableView({
 		style:Titanium.UI.iPhone.TableViewStyle.GROUPED,
 		separatorColor : "#ccc",
@@ -433,7 +433,7 @@ function Invite(attr){
 		top : Ti.App.is_android ? __l(66) : __l(40),
 		scrollable: false
 	});
-	
+
 	group_tableview(tableview)
 
 	function add_a_row(text, callback) {
@@ -443,7 +443,7 @@ function Invite(attr){
 				selectedBackgroundColor: "#E8E8E8",
 				callback: callback
 			});
-			
+
 			var label = Ti.UI.createLabel({
 				top : __l(10),
 				bottom : __l(10),
@@ -459,7 +459,7 @@ function Invite(attr){
 			});
 			row.label = label;
 			row.add(label)
-			
+
 			row.addEventListener("click", function(e){
 				e.source.callback(e)
 			})
@@ -477,7 +477,7 @@ function Invite(attr){
 		//判断有没有新浪授权关键字
 		var token = Ti.App.Properties.getString("token", "");
 		var expire_at = parseInt(Ti.App.Properties.getString("expire_at", ""));
-					
+
 		var now = new Date();
 		if(token == "" || expire_at * 1000 < now.getTime())//没有token或token已过期
 		{
@@ -488,7 +488,7 @@ function Invite(attr){
 				backButtonTitle: ''
 			});
 			pre(win)
-	
+
 			Ti.App.currentTabGroup.activeTab.open(win, {
 				animated : true
 			});
@@ -530,7 +530,7 @@ function Invite(attr){
 			Titanium.UI.Clipboard.setText("亲，推荐下载宝宝日历：时下最火的怀孕育儿应用！还能赢取999元宝宝大礼包！下载地址：http://t.cn/zHIAP2N，别忘了邀请人写我昵称啊：" + decodeURI(Ti.App.Properties.getString("name")));
 			show_notice("文字已复制到剪贴板")
 		})
-		win.add(tip)	
+		win.add(tip)
 	}
 	else{
 		var tip = Ti.UI.createTextArea({
@@ -550,12 +550,12 @@ function Invite(attr){
 			textAlign : 'left'
 		})
 		tip.setSelection(0, 200)
-		win.add(tip)		
+		win.add(tip)
 	}
 
-	
-	
-	
+
+
+
 	win.add(Ti.UI.createLabel({
 		text : '扫描二维码，和我一起妈妈晒吧：',
 		color : '#666666',
@@ -606,7 +606,7 @@ function Invite(attr){
 	}));
 
 	logEvent('invite_user');
-	
+
 	pre(win)
 	Ti.App.currentTabGroup.activeTab.open(win, {
 		animated : true

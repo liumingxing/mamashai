@@ -1,0 +1,67 @@
+<html>
+<head>
+  <meta name="viewport" content="user-scalable=yes,width=640px" />
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>616邀请用户排行榜</title>
+  <style>
+    * {margin: 0px; padding: 0px;}
+    body {text-align: center;}
+    table#rank_table {margin: 10 auto; width: 560px; border-collapse: collapse;}
+    table#rank_table th {padding: 18px; background-color: #ccc; font-size: 26px;}
+    div.rank {font-size: 16px; font-weight: bold; text-align: center; padding-top: 25px; width: 56px; height: 30px;}
+    div.ranka {background-image: url('/images/advs/invite_user/a.png'); background-repeat:no-repeat; color: #FF3300;}
+    div.rankb {background-image: url('/images/advs/invite_user/b.png');background-repeat:no-repeat; color: #FFCC00;}
+    div.rankc {background-image: url('/images/advs/invite_user/c.png');background-repeat:no-repeat;color: #cccccc;}
+    div.logo {margin: 4px; border: 1px solid #ccc; padding: 1px; width: 80px;}
+    div.logo img {width: 80px; height: 80px;}
+    div.name {font-size: 18px; margin: 4px;}
+    div.num {font-size: 26px;}
+
+    div.tip {text-align: left; font-size: 20px; color: #333; padding: 8px 16px; line-height: 130%;}
+    div.tip p {margin: 8px 0px;}
+    div.tip img {height: 26px;}
+    div.tip h2 {font-size: 22px;}
+
+    span.red {color: #EA609E;}
+  </style>
+</head>
+<body>
+
+<div class="tip">
+  <p>备注：<br/>
+    1.感谢亲的参与和支持，本排行榜在揭奖之前会随着邀请人数的变化而变化，最终结果将于6月16日揭晓，届时请获奖者将自己的姓名、快递地址、手机号等统一提交给客服（QQ：1170979903），奖金获得者请向客服提交姓名、银行账号、开户行、身份证号及手机号。<br/>
+    2.如有反复注册或虚假邀请等行为，将取缔获奖资格。
+    <br/>
+    3.排名每半小时更新一次。
+  </p>
+  <br/>
+</div>
+
+<table id='rank_table' border=1 bordercolor="#ccc">
+  <tr>
+    <th>排行</th>
+    <th>上榜人</th>
+    <th>邀请人数</th>
+  </tr>
+  <% if @users.blank? %>
+    <tr>
+      <td colspan ="3" align="center"><div class="name">暂时无人上榜</div></td>
+    </tr>
+  <% end %>
+  <% @users.each_with_index do |user, index| %>
+  <tr>
+    <td align="center"><div class="rank ranka %>"><%= index + 1 %></div></td>
+    <td align="center">
+      <div class='logo'><img src="http://www.mamashai.com<%= user.logo.thumb140 %>"/></div>
+      <div class="name"><%= user.name %></div>
+    </td>
+    <td align="center">
+      <div class="name"><%= user.c||0 %> 人</div>
+    </td>
+  </tr>
+  <% end %>
+</table>
+<br/>
+<br/>
+</body>
+</html>
