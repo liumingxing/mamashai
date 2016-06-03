@@ -2355,15 +2355,15 @@ class Api::StatusesController < Api::ApplicationController
     user = User.find(params[:id])
     if @user.invite_user_id
       u = User.find(@user.invite_user_id)
-      render :text=>"error:已经设置 #{u.name} 为介绍人了" and return;
+      render :text=>"error:亲，您已经设置过 #{u.name} 为介绍人了" and return;
     end
 
     if @user.id == user.id
-      render :text=>"error:不能设置自己为介绍人" and return;
+      render :text=>"error:亲，不能设置自己为介绍人" and return;
     end
 
     if params[:sid] && User.find(:first, :conditions=>"id <> #{@user.id} and sid = '#{params[:sid]}'", :order=>"id desc")
-      render :text=>"error:反复注册行为不给豆" and return;
+      render :text=>"error:亲，反复注册的行为是不给豆的哦" and return;
     end
 
     @user.invite_user_id = user.id
