@@ -2362,6 +2362,10 @@ class Api::StatusesController < Api::ApplicationController
       render :text=>"error:不能设置自己为介绍人" and return;
     end
 
+    if params[:sid] && User.find(:first, :conditions=>"id <> #{@user.id} and sid = '#{params[:sid]}'", :order=>"id desc")
+      render :text=>"error:反复注册行为不给豆" and return;
+    end
+
     @user.invite_user_id = user.id
     @user.save(:validate=>false)
 
@@ -2371,18 +2375,15 @@ class Api::StatusesController < Api::ApplicationController
     FollowUser.create_follow_user(@user, user)
     CommentAtRemind.create(:tp=>"follow", :user_id=>@user.id, :author_id=>user.id, :comment_id=>user.id) rescue nil
 
-    if params[:sid] && User.find(:first, :conditions=>"id <> #{@user.id} and sid = '#{params[:sid]}'", :order=>"id desc")
-      render :text=>"error:反复注册行为不给豆" and return;
-    end
 
-    if params[:sid] && params[:sid].to_s.size < 30
-      #安卓就不用刚检查了
-    else
-      users = User.find(:all, :limit=>3, :conditions=>"invite_user_id = #{user.id} and last_login_ip = '#{request.env["HTTP_X_REAL_IP"]||request.remote_ip}' and created_at > '#{Time.new.ago(10.days).to_s(:db)}'")
-      if users.size == 3
-        render :text=>"error:设置成功" and return;
-      end
-    end
+    # if params[:sid] && params[:sid].to_s.size < 30
+    #   #安卓就不用刚检查了
+    # else
+    #   users = User.find(:all, :limit=>3, :conditions=>"invite_user_id = #{user.id} and last_login_ip = '#{request.env["HTTP_X_REAL_IP"]||request.remote_ip}' and created_at > '#{Time.new.ago(10.days).to_s(:db)}'")
+    #   if users.size == 3
+    #     render :text=>"error:设置成功" and return;
+    #   end
+    # end
 
     Mms::Score.trigger_event(:invite_succeed, "成功邀请新用户", 30, 1, {:user => user})
     
