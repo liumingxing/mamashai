@@ -78,3 +78,15 @@
 			</div>
 			<div class="clear"></div>
 </div>
+
+<script>
+  window.onload=function() {
+    setTimeout(function() {
+      document.title = "<%= @article.title %>"
+    }, 500)
+  }
+</script>
+
+<% content_for :head_image do %>
+  <img src="http://mamashai-videos.img-cn-qingdao.aliyuncs.com<%= @article.logo_url %>@!thumb410" alt="" style="height: 0; width: 0; overflow: hidden;"/>
+<% end %>
