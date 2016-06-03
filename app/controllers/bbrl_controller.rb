@@ -182,7 +182,7 @@ class BbrlController < ApplicationController
   def children_day_invite
     @users =
       Rails.cache.fetch("children_day_invite", :expires_in=>30.minutes){
-      User.find_by_sql("select u.*, count(distinct(users.last_login_ip)) as c from users left join users u on u.id = users.invite_user_id where users.created_at > '2016-06-2 00:00' and users.created_at < '2016-06-15 23:59' and users.invite_user_id is not null group by users.invite_user_id having c >= 3 order by c desc, u.posts_count desc limit 300")
+      User.find_by_sql("select u.*, count(*) as c from users left join users u on u.id = users.invite_user_id where users.created_at > '2016-06-2 00:00' and users.created_at < '2016-06-15 23:59' and users.invite_user_id is not null group by users.invite_user_id having c >= 3 order by c desc, u.posts_count desc limit 300")
     }
     render :layout=>false
   end
