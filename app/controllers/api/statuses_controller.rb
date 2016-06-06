@@ -1875,14 +1875,14 @@ class Api::StatusesController < Api::ApplicationController
       end
     end
 
-    #兑换
-    if ddh.score > 5   
-      ddh_orders = DdhOrder.find(:all, :joins=>"left join ddhs on ddhs.id = ddh_orders.ddh_id", :conditions=>"(hide is null or hide = 0) and user_id = #{@user.id} and ddhs.score > 5 and ddh_orders.created_at > '#{Time.new.ago(48.hours).to_s(:db)}'")
-      if ddh_orders.size > 0
-        render :text=>"亲，您已经兑换了#{ddh_orders[0].ddh.title}每周只能兑换一次哦"
-        return
-      end
-    end
+    # #兑换
+    # if ddh.score > 5
+    #   ddh_orders = DdhOrder.find(:all, :joins=>"left join ddhs on ddhs.id = ddh_orders.ddh_id", :conditions=>"(hide is null or hide = 0) and user_id = #{@user.id} and ddhs.score > 5 and ddh_orders.created_at > '#{Time.new.ago(48.hours).to_s(:db)}'")
+    #   if ddh_orders.size > 0
+    #     render :text=>"亲，您已经兑换了#{ddh_orders[0].ddh.title}每周只能兑换一次哦"
+    #     return
+    #   end
+    # end
 
     if DdhOrder.find(:first, :conditions=>"user_id = #{@user.id} and ddh_id = #{ddh.id}")
         render :text=>"repeat" and return
