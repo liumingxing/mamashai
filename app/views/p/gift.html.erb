@@ -12,9 +12,9 @@
 				<div class="logo">
 					<a id='ddhlogo_<%= ddh.id %>' href="javascript:show_download('ddhlogo_<%= ddh.id %>')"><img src="http://www.mamashai.com<%= ddh.logo.thumb260 %>" class="ddh_logo"/></a>
 					<div class="status">
-						<% if Date.today < ddh.begin_at %>
+						<% if Time.now.to_s(:db) < ddh.begin_at.to_s(:db) %>
 							<img src="/images/p/ddh_2.png"/>
-						<% elsif Date.today > ddh.end_at%>
+						<% elsif Time.now.to_s(:db) > ddh.end_at.to_s(:db) %>
 							<img src="/images/p/ddh_3.png"/>
 						<% else %>
 							<img src="/images/p/ddh_1.png"/>
