@@ -9,9 +9,10 @@
     table#rank_table {margin: 10 auto; width: 560px; border-collapse: collapse;}
     table#rank_table th {padding: 18px; background-color: #ccc; font-size: 26px;}
     div.rank {font-size: 16px; font-weight: bold; text-align: center; padding-top: 25px; width: 56px; height: 30px;}
-    div.ranka {background-image: url('/images/advs/invite_user/a.png'); background-repeat:no-repeat; color: #FF3300;}
-    div.rankb {background-image: url('/images/advs/invite_user/b.png');background-repeat:no-repeat; color: #FFCC00;}
-    div.rankc {background-image: url('/images/advs/invite_user/c.png');background-repeat:no-repeat;color: #cccccc;}
+    .rank1 {background-image: url('/images/advs/invite_user/1.png'); background-repeat:no-repeat; color: #FF3300;}
+    .rank2 {background-image: url('/images/advs/invite_user/2.png');background-repeat:no-repeat; color: #FFCC00;}
+    .rank3 {background-image: url('/images/advs/invite_user/3.png');background-repeat:no-repeat;color: #cccccc;}
+    .rank4 {background-image: url('/images/advs/invite_user/4.png');background-repeat:no-repeat;color: #cccccc;}
     div.logo {margin: 4px; border: 1px solid #ccc; padding: 1px; width: 80px;}
     div.logo img {width: 80px; height: 80px;}
     div.name {font-size: 18px; margin: 4px;}
@@ -29,10 +30,8 @@
 
 <div class="tip">
   <p>备注：<br/>
-    1.感谢亲的参与和支持，本排行榜在揭奖之前会随着邀请人数的变化而变化，最终结果将于6月16日揭晓，届时请获奖者将自己的姓名、快递地址、手机号等统一提交给客服（QQ：1170979903），奖金获得者请向客服提交姓名、银行账号、开户行、身份证号及手机号。<br/>
+    1.感谢亲的参与和支持，邀好友,送豪礼活动结果将于揭晓了，请以下获奖者将自己的昵称、姓名、快递地址、手机号等统一提交给客服（QQ：1170979903），奖金获得者请向客服提交姓名、支付宝账号、手机号。<br/>
     2.如有反复注册或虚假邀请等行为，将取缔获奖资格。
-    <br/>
-    3.排名每半小时更新一次。
     <br/>
   </p>
   <br/>
@@ -44,14 +43,21 @@
     <th>上榜人</th>
     <th>邀请人数</th>
   </tr>
-  <% if @users.blank? %>
-    <tr>
-      <td colspan ="3" align="center"><div class="name">暂时无人上榜</div></td>
-    </tr>
-  <% end %>
   <% @users.each_with_index do |user, index| %>
+    <%
+      clazz_name= case index
+                    when 0
+                      '1'
+                    when 1..2
+                      '2'
+                    when 3..39
+                      '3'
+                    when 40..299
+                      '4'
+                  end
+    %>
   <tr>
-    <td align="center"><div class="rank ranka %>"><%= index + 1 %></div></td>
+    <td align="center"><img src="/images/advs/invite_user/<%= clazz_name %>.png" alt="" style="height: 60px"/></td>
     <td align="center">
       <div class='logo'><img src="http://www.mamashai.com<%= user.logo.thumb140 %>"/></div>
       <div class="name"><%= user.name %></div>
