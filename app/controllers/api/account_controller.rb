@@ -3,7 +3,7 @@ require 'net/http'
 require 'uri'
 #require 'weibo2'
 class Api::AccountController < Api::ApplicationController
-  before_filter :authenticate!, :except=>[:get_location, :signup, :login, :callback, :sina, :tencent, :tencent_callback, :sina_mobile, :sina_mobile_callback, :tencent_mobile, :tencent_mobile_callback, :baby_calendar_mobile, :baby_calendar_mobile_callback, :taobao_mobile, :taobao_mobile_callback, :qzone_mobile, :qzone_mobile_callback, :taobao_bind, :login_by_weixin]
+  before_filter :authenticate!, :except=>[:get_location, :signup, :login, :callback, :sina, :tencent, :tencent_callback, :sina_mobile, :sina_mobile_callback, :tencent_mobile, :tencent_mobile_callback, :baby_calendar_mobile, :baby_calendar_mobile_callback, :taobao_mobile, :taobao_mobile_callback, :qzone_mobile, :qzone_mobile_callback, :taobao_bind, :login_by_weixin, :get_mobile_validate_message, :mobile_login]
   
   #用户上传地址
   def upload_location
@@ -954,6 +954,7 @@ logger.info(json)
     @user.save(:validate=>false)
     render :text=>"ok"
   end
+
 
   #用微信登陆
   def login_by_weixin

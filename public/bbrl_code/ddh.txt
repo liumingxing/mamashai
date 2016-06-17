@@ -422,6 +422,26 @@ function Ddh(attr){
 	
 	var order_json = []
 	if (check_login()){
+		http_call(Ti.App.mamashai+"/api/statuses/binded_mobile?"+account_str(), function(e){
+			var json = JSON.parse(e.responseText)
+			if (json.code==-1) {
+				show_notice(json.text)
+			} else if (json.code==0) {
+				var alert_dialog = Titanium.UI.createAlertDialog({
+        						message:'您的登录账号还未绑定手机号,绑定后将获得更好服务,并获得50个晒豆哦!',
+        						buttonNames: ['确定', '下次']
+        					});
+        					alert_dialog.addEventListener("click", function(e1){
+        						if (e1.index == 0){
+        							cache_http_call(Ti.App.mamashai+'/bbrl_code/bind_mobile.js', 'bind_mobile', function(e){
+                      				eval(e.responseText);
+                      			});
+        						}
+        					});
+        					alert_dialog.show();
+			} else if (json.code==1) {
+			}
+		})
 		http_call(Ti.App.mamashai + "/api/statuses/ddh_order?" + account_str(), function(e){
 			order_json = JSON.parse(e.responseText);
 			http_call(Ti.App.mamashai + '/api/statuses/ddh_list_v2?page=' + page, function(e){
@@ -444,7 +464,7 @@ function Ddh(attr){
 				hide_loading();
 		});
 	}
-	
+
 	function make_ddh(json) {
 		var row_count = 0
 		if (tableview.data.length > 0)

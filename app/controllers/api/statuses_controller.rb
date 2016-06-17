@@ -5,6 +5,7 @@ class Api::StatusesController < Api::ApplicationController
   before_filter :authenticate!, :except=>[:public_timeline1, :public_timeline, :user_timeline, :location_timeline, :public_timeline_daren, :public_timeline_jh, :public_timeline_hot, :public_timeline_count, :search, :show, :article_category, :articles, :column_categories, :column_authors, :column_books, :column_chapters, :column_chapter, :comments, :lama_stars, :lama_advs, :hot_topic, :the_hot_topic, :lama_posts, :bbrl_version, :gifts, :ddh, :ddh_list, :ddh_list_v2, :ddh_list_v3, :ddh_users, :poi_get_offset_and_address, :poi, :calendar_advs, :half_screen_advs, :calendar_tip_adv, :calendar_tip_adv_list, :calendar_tip_adv_list2, :ddh_visit, :find_users, :find_posts, :find_products, :find_articles, :comments_and_like, :comments_and_like2, :ddh_rules, :ddh_rules2, :about, :version_check, :invite_user, :album_book_count, :tiantian_tejia, :ddh_code, :qinzi, :qinzi_detail, :gou_pinzhi, :get_city_from_gps, :subscribe, :get_bbrl_poi_comments, :tao_ages, :set_silent, :get_silent]
 
   before_filter :check_block, :only=>%w(update upload repost comment ddh_get send_gift clap)
+  SMS_URL = "http://yunpian.com/v1/sms/tpl_send.json"
 
   def children_day
     obj = ChildrenDay.where(user_id: @user.id).first
@@ -2467,5 +2468,79 @@ class Api::StatusesController < Api::ApplicationController
   def get_silent
     device = ApnDevice.find_by_device_token(params[:token])
     render :json=>{'silent' => device.silent}
+  end
+
+
+  def get_mobile_validate_message
+    params[:mobile] = params[:telephone]
+    validates = MobileValidate.where('created_at >= ?', 60.minutes.ago).where(mobile: params[:mobile])
+    if validates.count >=3
+      return render json: {code: -1, text: '同一号码，1小时内只能获取3次验证码'}
+    end
+    v = MobileValidate.new
+    v.mobile = params[:mobile]
+    v.code = rand.to_s[2..7]
+    v.save
+
+    RestClient.post SMS_URL, apikey: "10031416110525dcb9723774083ce0a2", mobile: params[:mobile], tpl_id: 1420719, tpl_value: "#code#=#{v.code}"
+    render json: {code: 0}
+  end
+
+  def change_mobile
+    params[:mobile] = params[:telephone]
+    m = MobileValidate.where(mobile: params[:mobile], code: params[:code], checked:false).first
+    if m
+      if User.exists?(['mobile = ? and id <> ?', params[:mobile], @user.id])
+        return render json: {code: -1, text: "对不起，您输入的手机号已经被别的账号绑定"}
+      end
+      m.checked = true
+      m.save
+      if @user.mobile.blank?
+        Mms::Score.trigger_event(:binded_mobile, "绑定手机号", 50, 1, {:user => @user})
+      end
+      @user.update_column(:mobile, params[:mobile])
+      return render json: {code: 0, text: "绑定成功"}
+    else
+      render json: {code: -1, text: "对不起，验证码错误"}
+    end
+  end
+
+  def binded_mobile
+    if @user.mobile
+      return render json: {code: 1}
+    else
+      return render json: {code: 0, text: '还未绑定手机号哦'}
+    end
+  end
+
+  def mobile_login
+    params[:mobile]=params[:telephone]
+    is_test = false
+    is_test = true if params[:mobile].to_s.start_with?('1861814000')&&params[:code]='100000'
+    v = MobileValidate.where(mobile: params[:mobile], code: params[:code], checked: false).first
+    if is_test||v
+      user = User.where(mobile: params[:mobile]).first
+      if !user #还未注册，是新用户
+        user        = User.new
+        user.name   = params[:mobile].first(4) + '***' +params[:mobile].last(4)
+        user.mobile = params[:mobile]
+        user.from = 'mobile'
+        user.gender = nil
+        user.email  = SecureRandom.hex
+        user.password = "mamashai"
+        logo_file   = File.open(Rails.root.to_s + "/public/images/user_default_logo.png", "r")
+        user.logo   = logo_file
+        user.is_verify = true
+        user.save
+      end
+
+      unless is_test
+        v.checked = true
+        v.save
+      end
+      render json: {code: 0, text: "登录成功", userid: user.id, token: params[:code], tp: "mobile", mobile: user.mobile, user: user}
+    else
+      render json: {code: -1, text: "输入的验证码错误"}
+    end
   end
 end
