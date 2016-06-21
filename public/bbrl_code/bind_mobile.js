@@ -122,6 +122,7 @@ submit.addEventListener("click", function (e) {
       if (json.code == -1) {
         show_alert(json.text)
       } else {
+        logEvent('bind_mobile_success');
         require('lib/mamashai_db').db.insert_json("user_bind_mobile", user_id(), mobile.value);
         win.close()
         show_notice(json.text);
