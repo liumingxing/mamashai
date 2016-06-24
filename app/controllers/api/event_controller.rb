@@ -194,7 +194,7 @@ class Api::EventController < Api::ApplicationController
 			
 			if rand(30) < 2
 				babas = ZhantingBaba.all(:group=>"user_id", :conditions=>"created_at > '#{Time.new.ago(2.days).to_s(:db)}' and huodong_id=#{params[:huodong_id]} and post_id not in (#{ids})", :limit=>2, :order=>"rand()")
-			elsif rand(30) < 10
+			elsif rand(30) < 15
 				block_ids = Rails.cache.fetch("light_block_ids", :expires_in => 2.hours){ 
 					block_ids = Blockname.all.collect{|b| b.user_id}
 					block_ids += Blockpublic.all.collect{|b| b.user_id}
