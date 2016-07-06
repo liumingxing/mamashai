@@ -26,6 +26,25 @@ class Api::StatusesController < Api::ApplicationController
     end
   end
 
+  def join_qingyin_activity
+    obj = ScoreActivity.where(user_id: @user.id, name: '分享青音游轮嘉年华活动').first
+    if obj
+      render text: 'duplicate'
+    else
+      obj = ScoreActivity.create(user_id: @user.id, name: '分享青音游轮嘉年华活动')
+      code = CommandCode.new
+      code.code = %Q!
+        if ScoreEvent.find(:first, :conditions=>"user_id = #{@user.id} and event = 'share_qingyin'") == nil
+          Mms::Score.trigger_event(:share_qingyin, "分享青音游轮嘉年华活动", 20, 1, {:user => User.find(#{@user.id})});
+        end
+      !
+      code.after = Time.now.since(10.minutes)
+      code.status = 'wait'
+      code.save
+      render text: 'ok'
+    end
+  end
+
   def bokergen_vote
     obj = BokergenVote.new(name: params[:name].strip, vote_num: params[:vote_num], user_id: params[:user_id])
     if obj.save
