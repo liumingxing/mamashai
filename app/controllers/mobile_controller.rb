@@ -16,6 +16,7 @@ class MobileController < ApplicationController
 	def article
 		@article = Article.find_by_id(params[:id])
 		@title = @article ? @article.title : "宝宝日历"
+		@no_download = params[:no_download].present?
 		render :action=>"no_article" and return if !@article 
 	end
 

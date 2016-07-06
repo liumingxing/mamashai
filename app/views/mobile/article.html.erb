@@ -31,6 +31,7 @@
 		div#head div#downloads a img {width: 70px; margin-top: 15px;}
 </style>
 </style>
+<% unless @no_download %>
 <div id="head">
 			<div id='logo'>
 				<img src='/images/advs/mobile/logo.png'/>
@@ -47,6 +48,7 @@
 			</div>
 			<div class="clear"></div>
 </div>
+<% end %>
 <div id='article'>
 	<h2 class="title"><%= @article.title %></h2>
 	<p class="refer">
@@ -55,13 +57,17 @@
 	<div class="article_content">
 		<%= @article.article_content.content.html_safe %>
 	</div>
+<% unless @no_download %>
+
 	<div id="download">
 		<p class="desc">
 				====关于宝宝日历==== <br/>
 				宝宝日历是时下最受欢迎的明星育儿应用：最真实的记录+最真诚的分享=最棒的育儿社区！
 		</p>
 	</div>
+<% end %>
 </div>
+<% unless @no_download %>
 <div id="head">
 			<div id='logo'>
 				<img src='/images/advs/mobile/logo.png'/>
@@ -78,6 +84,7 @@
 			</div>
 			<div class="clear"></div>
 </div>
+<% end %>
 
 <script>
   window.onload=function() {
