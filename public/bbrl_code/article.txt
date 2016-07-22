@@ -160,6 +160,29 @@ function ArticleWindow(attr){
 			set_webview_content(json);
 		})
 	}
+
+	if (check_login()){
+		http_call(Ti.App.mamashai+"/api/statuses/binded_mobile?"+account_str(), function(e){
+			var json = JSON.parse(e.responseText)
+			if (json.code==-1) {
+				show_notice(json.text)
+			} else if (json.code==0) {
+				var alert_dialog = Titanium.UI.createAlertDialog({
+										message:'近期app将进行重磅升级, 为去掉重复注册骗晒豆的汾蛋, 我们需要您绑定手机号, 每一个用户都是妈妈晒最珍贵的宝宝, 我们不会给您发垃圾短信, 也不会泄露您的手机号, 绑定只会获得更好的服务, 并且还能白捡50个晒豆哦!',
+										buttonNames: ['确定']
+									});
+									alert_dialog.addEventListener("click", function(e1){
+										if (e1.index == 0){
+											cache_http_call(Ti.App.mamashai+'/bbrl_code/bind_mobile.js', 'bind_mobile', function(e){
+															eval(e.responseText);
+														});
+										}
+									});
+									alert_dialog.show();
+			} else if (json.code==1) {
+			}
+		})
+	}
 	
 	logEvent('article');
 	
