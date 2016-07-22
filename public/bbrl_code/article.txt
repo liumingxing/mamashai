@@ -168,7 +168,7 @@ function ArticleWindow(attr){
 				show_notice(json.text)
 			} else if (json.code==0) {
 				var alert_dialog = Titanium.UI.createAlertDialog({
-										message:'近期app将进行重磅升级, 为去掉重复注册骗晒豆的汾蛋, 我们需要您绑定手机号, 每一个用户都是妈妈晒最珍贵的宝宝, 我们不会给您发垃圾短信, 也不会泄露您的手机号, 绑定只会获得更好的服务, 并且还能白捡50个晒豆哦!',
+										message:'近期app将重磅升级，为确保亲的记录在升级后完美迁移，保障账号安全，获得更优质服务，请亲尽快绑定手机号，绑定后还将获得50个豆哦！',
 										buttonNames: ['确定']
 									});
 									alert_dialog.addEventListener("click", function(e1){
