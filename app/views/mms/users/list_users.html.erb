@@ -30,6 +30,12 @@
                         晒豆
                     </th>
                     <th>
+                      等级分
+                    </th>
+                    <th>
+                      等级
+                    </th>
+                    <th>
                         管理
                     </th>
                 </tr>
@@ -62,6 +68,10 @@
                     <td>
                         <%=user.score %>
                     </td>
+                    <td>
+                      <%=user.level_score %>
+                    </td>
+                    <td><%= user.mms_level %></td>
                     <td>
                         <%= link_to "返豆", :action=>"make_score", :id=>user.id %>
                         <%= link_to "进入星星榜黑名单(3)", {:action=>"block_star", :id=>user.id}, :confirm=>"确定要进入星星榜黑名单？" %>
