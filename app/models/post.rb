@@ -86,7 +86,7 @@ class Post < ActiveRecord::Base
 
   attr_accessor :lon,:lat
   
-  validates_length_of :content, :within => 1..210,:too_long=>APP_CONFIG['error_post_content_length'],:too_short=>APP_CONFIG['error_post_content_length']
+  #validates_length_of :content, :within => 1..210,:too_long=>APP_CONFIG['error_post_content_length'],:too_short=>APP_CONFIG['error_post_content_length']
 
   after_create :push_aps
   def push_aps
